@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>SGTech-Multi Tools | 20+ Free Premium Futuristic Web Tools</title>
-    <meta name="description" content="Access SGTech-Multi Tools: A premium, futuristic collection of 20+ free online tools. No login required.">
+    <title>SGTech-Multi Tools | Premium Futuristic Web Tools</title>
+    <meta name="description" content="Access SGTech-Multi Tools: A premium collection of 20+ free online tools.">
     
     <style>
         /* CSS VARIABLES */
@@ -83,6 +83,7 @@
             transition: var(--transition);
             text-transform: uppercase;
             font-weight: bold;
+            margin-top: 10px;
         }
         .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px var(--accent-glow); }
 
@@ -97,13 +98,15 @@
             max-width: 600px;
             border-radius: 15px;
             position: relative;
+            box-shadow: 0 0 30px var(--accent-glow);
         }
         .close-modal { position: absolute; right: 25px; top: 15px; color: var(--accent); font-size: 35px; cursor: pointer; }
 
         /* TOOL UI COMPONENTS */
-        .tool-ui-container { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 20px; }
-        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 5px; width: 100%; }
-        .result-area { margin-top: 20px; padding: 20px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; word-break: break-all; }
+        .tool-ui-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 20px; }
+        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 5px; width: 100%; font-size: 1rem; }
+        label { color: var(--accent); font-size: 0.9rem; font-weight: bold; }
+        .result-area { margin-top: 20px; padding: 20px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; word-break: break-all; min-height: 60px; color: var(--text-secondary); }
         
         footer { padding: 4rem 5%; background: var(--bg-nav); text-align: center; border-top: 1px solid var(--accent-glow); }
     </style>
@@ -120,8 +123,8 @@
 
     <header id="home" class="hero">
         <h1>SGTech-Multi Tools</h1>
-        <p>Over 20+ lightning-fast, frontend-only tools built for the future.</p>
-        <a href="#tools" class="btn-glow" style="text-decoration:none; margin-top:20px;">Access Dashboard</a>
+        <p>Premium, high-performance web utilities designed for the modern era.</p>
+        <a href="#tools" class="btn-glow" style="text-decoration:none;">Access Dashboard</a>
     </header>
 
     <main id="tools" class="container">
@@ -137,7 +140,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 SGTech-Multi Tools. Privacy-First | 100% Frontend</p>
+        <p>&copy; 2024 SGTech-Multi Tools. Built with Speed & Privacy.</p>
     </footer>
 
     <script>
@@ -175,97 +178,154 @@
             renderUI(id);
         }
 
-        closeBtn.onclick = () => {
+        closeBtn.onclick = closeModal;
+        window.onclick = (event) => { if (event.target == modal) closeModal(); };
+
+        function closeModal() {
             modal.style.display = "none";
             document.body.style.overflow = "auto";
-        };
+        }
 
         function renderUI(id) {
             const tool = toolList.find(x => x.id === id);
             let html = `<h3>${tool.title}</h3><div class="tool-ui-container">`;
 
             if(id === 'pass-gen') {
-                html += `<input type="number" id="plen" value="16"><button class="btn-glow" onclick="genPass()">Generate</button><div class="result-area" id="pres"></div>`;
+                html += `<label>Password Length</label><input type="number" id="plen" value="16"><button class="btn-glow" onclick="genPass()">Generate</button><div class="result-area" id="pres"></div>`;
             } else if(id === 'word-count') {
-                html += `<textarea id="winput" rows="5" oninput="doWords()"></textarea><div class="result-area" id="wres">Words: 0 | Chars: 0</div>`;
+                html += `<textarea id="winput" rows="5" placeholder="Paste your text here..." oninput="doWords()"></textarea><div class="result-area" id="wres">Words: 0 | Chars: 0</div>`;
             } else if(id === 'qr-gen') {
-                html += `<input type="text" id="qrinput" placeholder="Enter URL..."><button class="btn-glow" onclick="genQR()">Create QR</button><div id="qrres" style="text-align:center;"></div>`;
+                html += `<input type="text" id="qrinput" placeholder="Enter URL or Text..."><button class="btn-glow" onclick="genQR()">Create QR</button><div id="qrres" style="text-align:center;"></div>`;
             } else if(id === 'bmi-calc') {
-                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate</button><div class="result-area" id="bres"></div>`;
+                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate BMI</button><div class="result-area" id="bres">Result will appear here...</div>`;
             } else if(id === 'age-calc') {
-                html += `<label>Birth Date:</label><input type="date" id="birthdate"><button class="btn-glow" onclick="doAge()">Calculate Age</button><div class="result-area" id="ageres"></div>`;
+                html += `<label>Select Date of Birth:</label><input type="date" id="birthdate"><button class="btn-glow" onclick="doAge()">Calculate Age</button><div class="result-area" id="ageres">Select a date to begin.</div>`;
             } else if(id === 'unit-conv') {
-                html += `<input type="number" id="unitInput" placeholder="Value"><select id="unitType">
-                            <option value="km-m">KM to Meters</option>
-                            <option value="kg-g">KG to Grams</option>
+                html += `<input type="number" id="unitInput" placeholder="Enter Value">
+                         <select id="unitType">
+                            <option value="km-m">Kilometers to Meters</option>
+                            <option value="m-cm">Meters to Centimeters</option>
+                            <option value="kg-g">Kilograms to Grams</option>
                             <option value="c-f">Celsius to Fahrenheit</option>
-                         </select><button class="btn-glow" onclick="doUnit()">Convert</button><div class="result-area" id="unitres"></div>`;
+                            <option value="f-c">Fahrenheit to Celsius</option>
+                         </select>
+                         <button class="btn-glow" onclick="doUnit()">Convert Now</button><div class="result-area" id="unitres">Result...</div>`;
             } else if(id === 'json-fmt') {
-                html += `<textarea id="jinput" rows="5"></textarea><button class="btn-glow" onclick="doJSON()">Prettify</button><div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
+                html += `<textarea id="jinput" rows="5" placeholder="Paste JSON here..."></textarea><button class="btn-glow" onclick="doJSON()">Format JSON</button><div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
             } else if(id === 'tts') {
-                html += `<textarea id="tinput" rows="3">Hello World</textarea><button class="btn-glow" onclick="doSpeak()">Speak</button>`;
+                html += `<textarea id="tinput" rows="3">Hello, welcome to SGTech tools.</textarea><button class="btn-glow" onclick="doSpeak()">Speak Text</button>`;
             }
 
             html += `</div>`;
             modalBody.innerHTML = html;
         }
 
-        // LOGIC FUNCTIONS
+        // --- LOGIC FUNCTIONS ---
+
         function genPass() {
             const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
             let p = "";
-            let len = document.getElementById('plen').value;
+            let len = document.getElementById('plen').value || 16;
             for(let i=0; i<len; i++) p += char.charAt(Math.floor(Math.random()*char.length));
             document.getElementById('pres').innerText = p;
         }
 
         function doWords() {
             const t = document.getElementById('winput').value.trim();
-            document.getElementById('wres').innerText = `Words: ${t ? t.split(/\s+/).length : 0} | Chars: ${t.length}`;
+            const words = t ? t.split(/\s+/).length : 0;
+            document.getElementById('wres').innerText = `Words: ${words} | Characters: ${t.length}`;
         }
 
         function genQR() {
             const v = document.getElementById('qrinput').value;
-            if(v) document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${v}" style="margin-top:10px; border:5px solid white;">`;
+            if(v) {
+                document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(v)}" style="margin-top:15px; border:5px solid white; border-radius:10px;">`;
+            }
         }
 
         function doBMI() {
             const h = document.getElementById('bh').value / 100;
             const w = document.getElementById('bw').value;
-            if(h && w) document.getElementById('bres').innerText = `Your BMI is ${(w / (h*h)).toFixed(2)}`;
+            if(h > 0 && w > 0) {
+                const bmi = (w / (h*h)).toFixed(2);
+                let status = "";
+                if(bmi < 18.5) status = "(Underweight)";
+                else if(bmi < 25) status = "(Normal)";
+                else status = "(Overweight)";
+                document.getElementById('bres').innerText = `Your BMI: ${bmi} ${status}`;
+            } else {
+                document.getElementById('bres').innerText = "Please enter valid height and weight.";
+            }
         }
 
         function doAge() {
-            const birth = document.getElementById('birthdate').value;
-            if(!birth) return;
-            const bDate = new Date(birth);
+            const birthValue = document.getElementById('birthdate').value;
+            if(!birthValue) return;
+            
+            const birthDate = new Date(birthValue);
             const today = new Date();
-            let age = today.getFullYear() - bDate.getFullYear();
-            const m = today.getMonth() - bDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < bDate.getDate())) age--;
-            document.getElementById('ageres').innerText = `You are ${age} years old.`;
+            
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            if (years < 0) {
+                document.getElementById('ageres').innerText = "Date cannot be in the future!";
+            } else {
+                document.getElementById('ageres').innerText = `${years} Years, ${months} Months, and ${days} Days old.`;
+            }
         }
 
         function doUnit() {
             const val = parseFloat(document.getElementById('unitInput').value);
             const type = document.getElementById('unitType').value;
-            let res = 0;
-            if(isNaN(val)) return;
-            if(type === 'km-m') res = val * 1000 + " Meters";
-            else if(type === 'kg-g') res = val * 1000 + " Grams";
-            else if(type === 'c-f') res = ((val * 9/5) + 32).toFixed(2) + " °F";
+            let res = "";
+            
+            if(isNaN(val)) {
+                document.getElementById('unitres').innerText = "Please enter a number.";
+                return;
+            }
+
+            switch(type) {
+                case 'km-m': res = (val * 1000) + " Meters"; break;
+                case 'm-cm': res = (val * 100) + " Centimeters"; break;
+                case 'kg-g': res = (val * 1000) + " Grams"; break;
+                case 'c-f': res = ((val * 9/5) + 32).toFixed(2) + " °F"; break;
+                case 'f-c': res = ((val - 32) * 5/9).toFixed(2) + " °C"; break;
+            }
             document.getElementById('unitres').innerText = "Result: " + res;
         }
 
         function doJSON() {
+            const input = document.getElementById('jinput').value;
             try {
-                const obj = JSON.parse(document.getElementById('jinput').value);
+                const obj = JSON.parse(input);
                 document.getElementById('jres').innerText = JSON.stringify(obj, null, 4);
-            } catch(e) { document.getElementById('jres').innerText = "Invalid JSON"; }
+                document.getElementById('jres').style.color = "var(--accent)";
+            } catch(e) {
+                document.getElementById('jres').innerText = "Error: Invalid JSON format.";
+                document.getElementById('jres').style.color = "#ff4444";
+            }
         }
 
         function doSpeak() {
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('tinput').value));
+            const text = document.getElementById('tinput').value;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current speech
+                const msg = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(msg);
+            } else {
+                alert("Sorry, your browser does not support text to speech.");
+            }
         }
     </script>
 </body>
