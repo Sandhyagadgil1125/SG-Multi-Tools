@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech-Multi Tools | Corrected Word Counter</title>
+    <title>SGTech-Multi Tools | Premium Dashboard</title>
     <style>
         :root {
             --bg-main: #0d0f14;
@@ -19,100 +19,37 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
 
-        .navbar {
-            background: var(--bg-nav);
-            padding: 1rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--accent-glow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .navbar { background: var(--bg-nav); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--accent-glow); display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); text-decoration: none; }
         .logo span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
-        .nav-links { display: flex; list-style: none; }
-        .nav-links li a { color: var(--text-secondary); text-decoration: none; margin-left: 2rem; transition: var(--transition); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; }
-        .nav-links li a:hover { color: var(--accent); }
-
-        .hero { padding: 80px 5%; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
-        
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         
-        .tool-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(66, 248, 245, 0.1);
-            transition: var(--transition);
-            text-align: center;
-        }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(66, 248, 245, 0.1); }
-        .tool-card h2 { margin-bottom: 1rem; font-size: 1.3rem; color: var(--accent); }
+        .tool-card { background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid rgba(66, 248, 245, 0.1); transition: var(--transition); text-align: center; }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .tool-card h2 { margin-bottom: 1rem; font-size: 1.2rem; color: var(--accent); }
 
-        .btn-glow {
-            display: inline-block;
-            padding: 10px 24px;
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            font-weight: bold;
-            text-decoration: none;
-        }
+        .btn-glow { display: inline-block; padding: 10px 20px; background: transparent; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; cursor: pointer; transition: var(--transition); font-weight: bold; text-transform: uppercase; margin-top: 10px; }
         .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 15px var(--accent-glow); }
 
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
-        .modal-content {
-            background: var(--bg-nav);
-            margin: 50px auto;
-            padding: 30px;
-            border: 1px solid var(--accent);
-            width: 90%;
-            max-width: 700px;
-            border-radius: 15px;
-            position: relative;
-        }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); overflow-y: auto; }
+        .modal-content { background: var(--bg-nav); margin: 30px auto; padding: 30px; border: 1px solid var(--accent); width: 90%; max-width: 700px; border-radius: 15px; position: relative; }
         .close-modal { position: absolute; right: 20px; top: 10px; color: var(--accent); font-size: 30px; cursor: pointer; }
 
-        .tool-ui-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 20px; }
-        textarea, input, select { background: #0d0f14; border: 1px solid #333; padding: 12px; color: white; border-radius: 5px; width: 100%; font-size: 1rem; }
-        textarea:focus { border-color: var(--accent); outline: none; }
-        
-        .result-area { margin-top: 15px; padding: 15px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem; }
-        .stat-item { color: var(--text-secondary); }
-        .stat-item span { color: var(--accent); font-weight: bold; }
-
-        footer { padding: 2rem; text-align: center; border-top: 1px solid #222; margin-top: 50px; }
+        .tool-ui { display: flex; flex-direction: column; gap: 1rem; margin-top: 15px; }
+        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 12px; color: white; border-radius: 5px; width: 100%; }
+        .res { margin-top: 15px; padding: 15px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; min-height: 50px; }
+        canvas { max-width: 100%; height: auto; border: 1px solid #444; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="#" class="logo">SGTech-<span>Multi Tool</span></a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#tools">Tools</a></li>
-        </ul>
+        <a href="#" class="logo">SGTech-<span>Pro Suite</span></a>
     </nav>
 
-    <header id="home" class="hero">
-        <h1>SGTech-Multi Tools</h1>
-        <p>Corrected & Optimized Tools for Peak Performance.</p>
-        <a href="#tools" class="btn-glow" style="margin-top:20px;">Launch Dashboard</a>
-    </header>
-
-    <main id="tools" class="container">
-        <h2 class="section-title">Futuristic Tool Suite</h2>
+    <main class="container">
         <div class="tool-grid" id="tool-grid"></div>
     </main>
 
@@ -123,34 +60,30 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 SGTech-Multi Tools. 100% Client-Side Processing.</p>
-    </footer>
-
     <script>
-        const toolList = [
-            { id: 'word-count', title: 'Word Counter', desc: 'Precision text analysis with real-time stats.' },
-            { id: 'pass-gen', title: 'Password Generator', desc: 'Secure, random strings with high entropy.' },
-            { id: 'qr-gen', title: 'QR Code Generator', desc: 'Generate high-res QR codes instantly.' },
-            { id: 'age-calc', title: 'Age Calculator', desc: 'Calculate age in years, months, and days.' },
-            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Body Mass Index and health status.' },
-            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate JSON code.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Length, Mass, and Temp conversions.' },
-            { id: 'tts', title: 'Text to Speech', desc: 'AI Voice narration utility.' }
+        const tools = [
+            { id: 'img-conv', title: 'Image Converter', desc: 'Convert images to PNG/JPG/WebP.' },
+            { id: 'img-comp', title: 'Image Compressor', desc: 'Reduce file size while keeping quality.' },
+            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Calculate future wealth from investments.' },
+            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Calculate monthly loan repayments.' },
+            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Body Mass Index health checker.' },
+            { id: 'color-pick', title: 'Color Picker', desc: 'Visual hex/rgb color selector.' },
+            { id: 'stt', title: 'Speech to Text', desc: 'Real-time voice-to-text transcription.' },
+            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Clean and validate your JSON code.' },
+            { id: 'audio-trim', title: 'Audio Trimmer', desc: 'Basic audio playback controller.' }
         ];
 
         const grid = document.getElementById('tool-grid');
         const modal = document.getElementById('tool-modal');
         const modalBody = document.getElementById('modal-body');
-        const closeBtn = document.querySelector('.close-modal');
 
-        toolList.forEach(t => {
+        tools.forEach(t => {
             grid.innerHTML += `
-                <article class="tool-card">
+                <div class="tool-card">
                     <h2>${t.title}</h2>
                     <p>${t.desc}</p>
-                    <button class="btn-glow" onclick="openTool('${t.id}')">Launch</button>
-                </article>`;
+                    <button class="btn-glow" onclick="openTool('${t.id}')">Open Tool</button>
+                </div>`;
         });
 
         function openTool(id) {
@@ -158,121 +91,96 @@
             renderUI(id);
         }
 
-        closeBtn.onclick = () => { modal.style.display = "none"; };
-        window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+        document.querySelector('.close-modal').onclick = () => { modal.style.display = "none"; };
 
         function renderUI(id) {
-            const tool = toolList.find(x => x.id === id);
-            let html = `<h3>${tool.title}</h3><div class="tool-ui-container">`;
+            let html = `<h3>${id.toUpperCase().replace('-', ' ')}</h3><div class="tool-ui">`;
 
-            if(id === 'word-count') {
-                html += `
-                    <textarea id="winput" rows="8" placeholder="Type or paste text here..." oninput="doWords()"></textarea>
-                    <div class="result-area" id="wres">
-                        <div class="stats-grid">
-                            <div class="stat-item">Words: <span id="s-words">0</span></div>
-                            <div class="stat-item">Characters: <span id="s-chars">0</span></div>
-                            <div class="stat-item">Characters (No Space): <span id="s-nospace">0</span></div>
-                            <div class="stat-item">Sentences: <span id="s-sent">0</span></div>
-                        </div>
-                    </div>`;
-            } else if(id === 'pass-gen') {
-                html += `<input type="number" id="plen" value="16" min="4" max="50"><button class="btn-glow" onclick="genPass()">Generate</button><div class="result-area" id="pres"></div>`;
-            } else if(id === 'qr-gen') {
-                html += `<input type="text" id="qrinput" placeholder="Enter URL..."><button class="btn-glow" onclick="genQR()">Create QR</button><div id="qrres" style="text-align:center;"></div>`;
-            } else if(id === 'age-calc') {
-                html += `<input type="date" id="birthdate"><button class="btn-glow" onclick="doAge()">Calculate</button><div class="result-area" id="ageres"></div>`;
-            } else if(id === 'unit-conv') {
-                html += `<input type="number" id="unitInput" placeholder="Value">
-                         <select id="unitType">
-                            <option value="km-m">KM to M</option>
-                            <option value="kg-g">KG to G</option>
-                            <option value="c-f">C to F</option>
-                         </select><button class="btn-glow" onclick="doUnit()">Convert</button><div class="result-area" id="unitres"></div>`;
-            } else if(id === 'bmi-calc') {
-                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate</button><div class="result-area" id="bres"></div>`;
+            if(id === 'img-conv' || id === 'img-comp') {
+                html += `<input type="file" id="imgInput" accept="image/*">
+                         <select id="imgFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option></select>
+                         <button class="btn-glow" onclick="processImage('${id}')">Process & Download</button>
+                         <canvas id="canvas" style="display:none;"></canvas>`;
+            } else if(id === 'sip-calc') {
+                html += `<input type="number" id="sipM" placeholder="Monthly Investment"><input type="number" id="sipR" placeholder="Expected Return %"><input type="number" id="sipY" placeholder="Years"><button class="btn-glow" onclick="doSIP()">Calculate</button>`;
+            } else if(id === 'emi-calc') {
+                html += `<input type="number" id="emiP" placeholder="Loan Amount"><input type="number" id="emiR" placeholder="Interest Rate %"><input type="number" id="emiN" placeholder="Months"><button class="btn-glow" onclick="doEMI()">Calculate EMI</button>`;
+            } else if(id === 'color-pick') {
+                html += `<input type="color" id="cpick" oninput="doColor(this.value)" style="height:100px;">`;
+            } else if(id === 'stt') {
+                html += `<button class="btn-glow" onclick="doSTT()">Start Listening</button><textarea id="sttRes" rows="5" placeholder="Speech will appear here..."></textarea>`;
             } else if(id === 'json-fmt') {
-                html += `<textarea id="jinput" rows="6"></textarea><button class="btn-glow" onclick="doJSON()">Format</button><div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
-            } else if(id === 'tts') {
-                html += `<textarea id="tinput" rows="3">Hello!</textarea><button class="btn-glow" onclick="doSpeak()">Speak</button>`;
+                html += `<textarea id="jinput" rows="8" placeholder="Paste JSON..."></textarea><button class="btn-glow" onclick="doJSON()">Format</button>`;
+            } else if(id === 'bmi-calc') {
+                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate</button>`;
             }
 
-            html += `</div>`;
+            html += `<div class="res" id="toolRes">Output will appear here...</div></div>`;
             modalBody.innerHTML = html;
         }
 
-        // --- CORRECTED LOGIC FUNCTIONS ---
+        // --- TOOL LOGIC ---
 
-        function doWords() {
-            const text = document.getElementById('winput').value;
-            
-            // Matches any non-whitespace sequence
-            const wordsMatch = text.match(/\S+/g);
-            const wordsCount = wordsMatch ? wordsMatch.length : 0;
-            
-            // Count characters
-            const charsCount = text.length;
-            const noSpaceCount = text.replace(/\s/g, '').length;
-            
-            // Count sentences (based on . ! ?)
-            const sentencesCount = text.split(/[.!?]+/).filter(Boolean).length;
-
-            document.getElementById('s-words').innerText = wordsCount;
-            document.getElementById('s-chars').innerText = charsCount;
-            document.getElementById('s-nospace').innerText = noSpaceCount;
-            document.getElementById('s-sent').innerText = sentencesCount;
+        function processImage(mode) {
+            const file = document.getElementById('imgInput').files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.getElementById('canvas');
+                    canvas.width = img.width; canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const format = document.getElementById('imgFormat').value;
+                    const quality = mode === 'img-comp' ? 0.5 : 1.0;
+                    const dataUrl = canvas.toDataURL(format, quality);
+                    const link = document.createElement('a');
+                    link.download = `sgtech-processed.${format.split('/')[1]}`;
+                    link.href = dataUrl;
+                    link.click();
+                    document.getElementById('toolRes').innerText = "Processing Complete! Download started.";
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
 
-        function genPass() {
-            const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-            let p = "";
-            let len = document.getElementById('plen').value;
-            for(let i=0; i<len; i++) p += char.charAt(Math.floor(Math.random()*char.length));
-            document.getElementById('pres').innerText = p;
+        function doSIP() {
+            let P = document.getElementById('sipM').value, i = (document.getElementById('sipR').value / 100) / 12, n = document.getElementById('sipY').value * 12;
+            let FV = P * [((Math.pow(1 + i, n) - 1) / i)] * (1 + i);
+            document.getElementById('toolRes').innerText = `Future Wealth: ₹${FV.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
         }
 
-        function genQR() {
-            const v = document.getElementById('qrinput').value;
-            if(v) document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(v)}" style="margin-top:15px; border:5px solid white; border-radius:10px;">`;
+        function doEMI() {
+            let P = document.getElementById('emiP').value, r = (document.getElementById('emiR').value / 12) / 100, n = document.getElementById('emiN').value;
+            let emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+            document.getElementById('toolRes').innerText = `Monthly EMI: ₹${emi.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
         }
 
-        function doBMI() {
-            const h = document.getElementById('bh').value / 100;
-            const w = document.getElementById('bw').value;
-            if(h && w) document.getElementById('bres').innerText = `BMI: ${(w / (h*h)).toFixed(2)}`;
+        function doColor(val) {
+            document.getElementById('toolRes').innerText = `HEX: ${val.toUpperCase()}`;
+            document.getElementById('toolRes').style.borderLeftColor = val;
         }
 
-        function doAge() {
-            const birth = new Date(document.getElementById('birthdate').value);
-            const today = new Date();
-            if(isNaN(birth)) return;
-            let years = today.getFullYear() - birth.getFullYear();
-            let months = today.getMonth() - birth.getMonth();
-            if (months < 0 || (months === 0 && today.getDate() < birth.getDate())) years--;
-            document.getElementById('ageres').innerText = `Age: ${years} years`;
-        }
-
-        function doUnit() {
-            const val = parseFloat(document.getElementById('unitInput').value);
-            const type = document.getElementById('unitType').value;
-            let res = 0;
-            if(isNaN(val)) return;
-            if(type === 'km-m') res = val * 1000 + " m";
-            else if(type === 'kg-g') res = val * 1000 + " g";
-            else if(type === 'c-f') res = ((val * 9/5) + 32).toFixed(2) + " °F";
-            document.getElementById('unitres').innerText = "Result: " + res;
+        function doSTT() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if(!SpeechRecognition) return alert("Browser not supported");
+            const rec = new SpeechRecognition();
+            rec.onresult = (e) => { document.getElementById('sttRes').value = e.results[0][0].transcript; };
+            rec.start();
         }
 
         function doJSON() {
             try {
                 const obj = JSON.parse(document.getElementById('jinput').value);
-                document.getElementById('jres').innerText = JSON.stringify(obj, null, 4);
-            } catch(e) { document.getElementById('jres').innerText = "Invalid JSON"; }
+                document.getElementById('toolRes').innerHTML = `<pre>${JSON.stringify(obj, null, 4)}</pre>`;
+            } catch(e) { document.getElementById('toolRes').innerText = "Invalid JSON Format"; }
         }
 
-        function doSpeak() {
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('tinput').value));
+        function doBMI() {
+            const h = document.getElementById('bh').value / 100, w = document.getElementById('bw').value;
+            if(h && w) document.getElementById('toolRes').innerText = `BMI: ${(w / (h*h)).toFixed(2)}`;
         }
     </script>
 </body>
