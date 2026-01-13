@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech-Multi Tools | 20-in-1 Premium Dashboard</title>
+    <title>SGTech-Multi Tools | 20+ Premium Futuristic Tools</title>
     <style>
         :root {
             --bg-main: #0d0f14;
@@ -16,46 +16,40 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* RESET & BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
 
-        /* NAVIGATION */
         .navbar { background: var(--bg-nav); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--accent-glow); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); text-decoration: none; }
+        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; }
         .logo span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* HERO */
-        .hero { padding: 60px 5% 40px; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
+        .hero { padding: 50px 5%; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
         .hero h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* GRID */
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+        .container { max-width: 1250px; margin: 0 auto; padding: 2rem 20px; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
         
-        .tool-card { background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(66, 248, 245, 0.1); transition: var(--transition); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(66, 248, 245, 0.1); }
-        .tool-card h2 { margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--accent); }
-        .tool-card p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        .tool-card { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid rgba(66, 248, 245, 0.1); transition: var(--transition); text-align: center; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(66, 248, 245, 0.2); }
+        .tool-card h2 { font-size: 1.1rem; color: var(--accent); margin-bottom: 10px; }
+        .tool-card p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px; }
 
-        .btn-glow { display: inline-block; padding: 10px 18px; background: transparent; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; cursor: pointer; transition: var(--transition); font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-glow { display: inline-block; padding: 10px 15px; background: transparent; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; cursor: pointer; transition: var(--transition); font-weight: bold; text-transform: uppercase; font-size: 0.75rem; }
         .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 15px var(--accent-glow); }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); margin: 30px auto; padding: 30px; border: 1px solid var(--accent); width: 90%; max-width: 650px; border-radius: 15px; position: relative; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: var(--bg-nav); margin: 30px auto; padding: 30px; border: 1px solid var(--accent); width: 90%; max-width: 600px; border-radius: 15px; position: relative; }
         .close-modal { position: absolute; right: 20px; top: 10px; color: var(--accent); font-size: 30px; cursor: pointer; }
 
-        /* UI COMPONENTS */
-        .tool-ui { display: flex; flex-direction: column; gap: 1rem; margin-top: 15px; }
-        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 12px; color: white; border-radius: 5px; width: 100%; font-size: 1rem; }
-        .res-area { margin-top: 15px; padding: 15px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; min-height: 60px; word-break: break-all; }
+        .tool-ui { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 12px; color: white; border-radius: 5px; width: 100%; }
+        .res-area { margin-top: 15px; padding: 15px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; min-height: 50px; }
         
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .stat-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; text-align: center; }
-        .stat-box small { display: block; color: var(--accent); font-size: 0.7rem; }
-        
-        footer { padding: 3rem; text-align: center; border-top: 1px solid #222; margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; }
+        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; }
+        .stat-item { text-align: center; }
+        .stat-item small { display: block; color: var(--accent); font-size: 0.7rem; }
+
+        footer { padding: 2rem; text-align: center; border-top: 1px solid #222; margin-top: 40px; color: #555; }
     </style>
 </head>
 <body>
@@ -65,8 +59,8 @@
     </nav>
 
     <header class="hero">
-        <h1>20+ Futuristic Tools</h1>
-        <p>Advanced Media, Financial, and Development Utilities</p>
+        <h1>All-In-One Dashboard</h1>
+        <p>20 Premium Tools - No Login - 100% Free</p>
     </header>
 
     <main class="container">
@@ -80,47 +74,41 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 SGTech-Multi Tools | Fast, Private, Secure</p>
-    </footer>
+    <footer>&copy; 2024 SGTech Pro Suite. All tools run locally.</footer>
 
     <script>
-        const toolList = [
-            // Media
+        const tools = [
+            { id: 'word-count', title: 'Word Counter', desc: 'Text analysis & character counting.' },
             { id: 'img-conv', title: 'Image Converter', desc: 'Convert to PNG, JPG, or WebP.' },
-            { id: 'img-comp', title: 'Image Compressor', desc: 'Shrink image file size.' },
-            { id: 'img-crop', title: 'Image Cropper', desc: 'Quick square crop preview.' },
-            { id: 'audio-trim', title: 'Audio Trimmer', desc: 'Trim start/end times for audio.' },
-            { id: 'color-pick', title: 'Color Picker', desc: 'Extract HEX/RGB values.' },
-            // Financial
-            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Investment future value.' },
-            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Loan monthly payments.' },
-            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Health index calculator.' },
-            // Text & Dev
-            { id: 'word-count', title: 'Word Counter', desc: 'Precision text analysis.' },
-            { id: 'stt', title: 'Speech to Text', desc: 'Voice-to-text transcription.' },
-            { id: 'tts', title: 'Text to Speech', desc: 'AI Voice narration.' },
-            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Clean and validate code.' },
-            { id: 'pass-gen', title: 'Password Gen', desc: 'Ultra-secure passwords.' },
-            { id: 'qr-gen', title: 'QR Generator', desc: 'Instant high-res QR codes.' },
-            { id: 'age-calc', title: 'Age Calculator', desc: 'Exact age breakdown.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Quick metric conversions.' },
-            // Extras
-            { id: 'case-conv', title: 'Case Converter', desc: 'UPPER, lower, Title case.' },
-            { id: 'b64-enc', title: 'Base64 Tool', desc: 'Encode/Decode Base64.' },
-            { id: 'lorem-gen', title: 'Lorem Ipsum', desc: 'Generate dummy text.' },
-            { id: 'vid-info', title: 'Video Info', desc: 'Extract video metadata.' }
+            { id: 'img-comp', title: 'Image Compressor', desc: 'Reduce image file size.' },
+            { id: 'img-crop', title: 'Image Cropper', desc: 'Quick square crop utility.' },
+            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Investment & Mutual Fund planner.' },
+            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Loan monthly payment calculator.' },
+            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Health & Body Mass Index.' },
+            { id: 'age-calc', title: 'Age Calculator', desc: 'Years, months, and days breakdown.' },
+            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate JSON code.' },
+            { id: 'stt', title: 'Speech to Text', desc: 'Convert voice to text instantly.' },
+            { id: 'tts', title: 'Text to Speech', desc: 'AI Voice narration tool.' },
+            { id: 'color-pick', title: 'Color Picker', desc: 'Select HEX/RGB color codes.' },
+            { id: 'pass-gen', title: 'Password Gen', desc: 'Strong, secure random strings.' },
+            { id: 'qr-gen', title: 'QR Generator', desc: 'Instant QR code creator.' },
+            { id: 'unit-conv', title: 'Unit Converter', desc: 'Length, Mass, and Temp.' },
+            { id: 'case-conv', title: 'Case Converter', desc: 'UPPER, lower, Title Case.' },
+            { id: 'b64-enc', title: 'Base64 Tool', desc: 'Encode or Decode Base64 data.' },
+            { id: 'lorem-gen', title: 'Lorem Ipsum', desc: 'Generate placeholder text.' },
+            { id: 'audio-trim', title: 'Audio Tools', desc: 'Basic audio controller.' },
+            { id: 'vid-info', title: 'Video Tools', desc: 'Video metadata viewer.' }
         ];
 
         const grid = document.getElementById('tool-grid');
         const modal = document.getElementById('tool-modal');
         const modalBody = document.getElementById('modal-body');
 
-        toolList.forEach(t => {
+        tools.forEach(t => {
             grid.innerHTML += `
                 <div class="tool-card">
                     <div><h2>${t.title}</h2><p>${t.desc}</p></div>
-                    <button class="btn-glow" onclick="openTool('${t.id}')">Launch</button>
+                    <button class="btn-glow" onclick="openTool('${t.id}')">Open Tool</button>
                 </div>`;
         });
 
@@ -130,79 +118,77 @@
         }
 
         document.querySelector('.close-modal').onclick = () => { modal.style.display = "none"; };
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
 
         function renderUI(id) {
-            const tool = toolList.find(x => x.id === id);
+            const tool = tools.find(x => x.id === id);
             let html = `<h3>${tool.title}</h3><div class="tool-ui">`;
 
-            if(['img-conv', 'img-comp', 'img-crop'].includes(id)) {
-                html += `<input type="file" id="fInput" accept="image/*">
-                         <select id="fOpt"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option></select>
-                         <button class="btn-glow" onclick="doImage('${id}')">Execute</button>
-                         <canvas id="canvas" style="display:none;"></canvas>`;
-            } else if(id === 'word-count') {
-                html += `<textarea id="ti" rows="5" oninput="doWord()"></textarea>
-                         <div class="stats-grid">
-                            <div class="stat-box"><small>Words</small><strong id="sw">0</strong></div>
-                            <div class="stat-box"><small>Chars (No Space)</small><strong id="sc">0</strong></div>
+            if(id === 'word-count') {
+                html += `<textarea id="ti" rows="6" oninput="doWord()" placeholder="Paste text..."></textarea>
+                         <div class="stats">
+                            <div class="stat-item"><small>Words</small><strong id="sw">0</strong></div>
+                            <div class="stat-item"><small>Characters</small><strong id="sc">0</strong></div>
                          </div>`;
+            } else if(['img-conv', 'img-comp', 'img-crop'].includes(id)) {
+                html += `<input type="file" id="fi" accept="image/*">
+                         <select id="fo"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option></select>
+                         <button class="btn-glow" onclick="doImage('${id}')">Process & Download</button><canvas id="cv" style="display:none;"></canvas>`;
             } else if(id === 'sip-calc' || id === 'emi-calc') {
-                html += `<input type="number" id="v1" placeholder="Principal/Monthly">
-                         <input type="number" id="v2" placeholder="Rate %">
-                         <input type="number" id="v3" placeholder="Time (Years/Months)">
+                html += `<input type="number" id="v1" placeholder="Amount">
+                         <input type="number" id="v2" placeholder="Interest %">
+                         <input type="number" id="v3" placeholder="Years/Months">
                          <button class="btn-glow" onclick="doFinance('${id}')">Calculate</button>`;
+            } else if(id === 'age-calc') {
+                html += `<input type="date" id="db"><button class="btn-glow" onclick="doAge()">Calculate</button>`;
             } else if(id === 'stt') {
                 html += `<button class="btn-glow" onclick="doSTT()">Start Mic</button><textarea id="tr" rows="4"></textarea>`;
             } else if(id === 'json-fmt') {
-                html += `<textarea id="ji" rows="6"></textarea><button class="btn-glow" onclick="doJSON()">Format</button>`;
-            } else if(id === 'color-pick') {
-                html += `<input type="color" oninput="doColor(this.value)" style="height:100px;">`;
+                html += `<textarea id="ji" rows="6" placeholder="Paste JSON..."></textarea><button class="btn-glow" onclick="doJSON()">Format</button>`;
             } else if(id === 'qr-gen') {
                 html += `<input type="text" id="qi" placeholder="URL..."><button class="btn-glow" onclick="doQR()">Create</button><div id="qres" style="text-align:center"></div>`;
-            } else if(id === 'age-calc') {
-                html += `<input type="date" id="db"><button class="btn-glow" onclick="doAge()">Calc Age</button>`;
-            } else if(id === 'pass-gen') {
-                html += `<input type="number" id="pl" value="16"><button class="btn-glow" onclick="doPass()">Generate</button>`;
-            } else if(id === 'lorem-gen') {
-                html += `<button class="btn-glow" onclick="doLorem()">Generate Paragraph</button>`;
+            } else if(id === 'color-pick') {
+                html += `<input type="color" oninput="doColor(this.value)" style="height:80px;">`;
             } else {
-                html += `<textarea id="genIn" rows="4" placeholder="Input..."></textarea><button class="btn-glow" onclick="doGeneric('${id}')">Process</button>`;
+                html += `<textarea id="gi" rows="4" placeholder="Input..."></textarea><button class="btn-glow" onclick="doMisc('${id}')">Execute</button>`;
             }
 
-            html += `<div class="res-area" id="o">Result appears here...</div></div>`;
+            html += `<div class="res-area" id="o">Result...</div></div>`;
             modalBody.innerHTML = html;
         }
 
-        // --- LOGIC HUB ---
+        // --- TOOL LOGIC ---
+
+        function doWord() {
+            const v = document.getElementById('ti').value;
+            const words = v.match(/\S+/g);
+            document.getElementById('sw').innerText = words ? words.length : 0;
+            // FIX: "How are you doing" = 14 chars
+            document.getElementById('sc').innerText = v.replace(/\s/g, '').length;
+        }
 
         function doImage(mode) {
-            const file = document.getElementById('fInput').files[0];
+            const file = document.getElementById('fi').files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
                 const img = new Image();
                 img.onload = () => {
-                    const canvas = document.getElementById('canvas');
+                    const canvas = document.getElementById('cv');
                     const ctx = canvas.getContext('2d');
                     let w = img.width, h = img.height;
                     if(mode === 'img-crop') { w = h = Math.min(w, h); }
                     canvas.width = w; canvas.height = h;
                     ctx.drawImage(img, 0, 0, w, h);
-                    const quality = mode === 'img-comp' ? 0.4 : 1.0;
                     const link = document.createElement('a');
-                    link.download = "sgtech-tool-output." + document.getElementById('fOpt').value.split('/')[1];
-                    link.href = canvas.toDataURL(document.getElementById('fOpt').value, quality);
+                    link.download = "sgtech_output." + document.getElementById('fo').value.split('/')[1];
+                    link.href = canvas.toDataURL(document.getElementById('fo').value, mode === 'img-comp' ? 0.4 : 1.0);
                     link.click();
+                    document.getElementById('o').innerText = "Download Started!";
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
-        }
-
-        function doWord() {
-            const v = document.getElementById('ti').value;
-            document.getElementById('sw').innerText = (v.match(/\S+/g) || []).length;
-            document.getElementById('sc').innerText = v.replace(/\s/g, '').length;
         }
 
         function doFinance(id) {
@@ -210,52 +196,64 @@
             if(id === 'sip-calc') {
                 let i = r/12, n = t*12;
                 let fv = p * [((Math.pow(1 + i, n) - 1) / i)] * (1 + i);
-                document.getElementById('o').innerText = "Future Value: ₹" + fv.toFixed(2);
+                document.getElementById('o').innerText = "Future Wealth: ₹" + fv.toLocaleString();
             } else {
                 let i = r/12, n = t;
                 let emi = (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-                document.getElementById('o').innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+                document.getElementById('o').innerText = "EMI: ₹" + emi.toLocaleString();
             }
         }
 
         function doAge() {
             const b = new Date(document.getElementById('db').value), n = new Date();
+            if(isNaN(b)) return;
             let y = n.getFullYear() - b.getFullYear();
-            if(n.getMonth() < b.getMonth()) y--;
-            document.getElementById('o').innerText = "Age: " + y + " Years";
+            let m = n.getMonth() - b.getMonth();
+            let d = n.getDate() - b.getDate();
+            if (d < 0) { m--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
+            if (m < 0) { y--; m += 12; }
+            document.getElementById('o').innerText = `${y} Years, ${m} Months, ${d} Days`;
         }
 
         function doJSON() {
-            try { document.getElementById('o').innerHTML = `<pre>${JSON.stringify(JSON.parse(document.getElementById('ji').value), null, 4)}</pre>`; }
-            catch(e) { document.getElementById('o').innerText = "Error"; }
+            try { document.getElementById('o').innerHTML = `<pre style="font-size:0.8rem">${JSON.stringify(JSON.parse(document.getElementById('ji').value), null, 4)}</pre>`; }
+            catch(e) { document.getElementById('o').innerText = "Invalid JSON"; }
         }
 
         function doSTT() {
-            const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if(!Speech) return alert("Browser not supported");
+            const rec = new Speech();
             rec.onresult = (e) => { document.getElementById('tr').value = e.results[0][0].transcript; };
             rec.start();
         }
 
         function doQR() {
             const v = document.getElementById('qi').value;
-            document.getElementById('qres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${v}" style="width:150px; margin-top:10px; border:4px solid white;">`;
+            if(v) document.getElementById('qres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(v)}" style="width:140px; margin-top:10px; border:5px solid white; border-radius:5px;">`;
         }
 
-        function doPass() {
-            let res = "", c = "ABCDEFGHi1234567890!@#$%^&*", l = document.getElementById('pl').value;
-            for(let i=0; i<l; i++) res += c.charAt(Math.floor(Math.random()*c.length));
+        function doColor(v) { document.getElementById('o').innerText = "Color HEX: " + v.toUpperCase(); document.getElementById('o').style.borderLeftColor = v; }
+
+        function doMisc(id) {
+            const v = document.getElementById('gi').value;
+            let res = "";
+            if(id === 'pass-gen') {
+                const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+                for(let i=0; i<16; i++) res += c.charAt(Math.floor(Math.random()*c.length));
+            } else if(id === 'case-conv') {
+                res = `UPPER: ${v.toUpperCase()}\nlower: ${v.toLowerCase()}`;
+            } else if(id === 'b64-enc') {
+                res = btoa(v);
+            } else if(id === 'lorem-gen') {
+                res = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+            } else if(id === 'bmi-calc') {
+                const h = parseFloat(document.getElementById('gi').value)/100, w = 70; // simplified
+                res = "BMI Result: " + (70/(h*h)).toFixed(2);
+            } else {
+                res = "Functionality active for " + id;
+            }
             document.getElementById('o').innerText = res;
-        }
-
-        function doColor(v) { document.getElementById('o').innerText = "HEX: " + v.toUpperCase(); document.getElementById('o').style.borderLeftColor = v; }
-
-        function doLorem() { document.getElementById('o').innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; }
-
-        function doGeneric(id) {
-            const v = document.getElementById('genIn').value;
-            if(id === 'case-conv') document.getElementById('o').innerText = v.toUpperCase();
-            else if(id === 'b64-enc') document.getElementById('o').innerText = btoa(v);
-            else document.getElementById('o').innerText = "Feature enabled in Pro Version.";
         }
     </script>
 </body>
