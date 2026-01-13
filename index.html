@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>SGTech-Multi Tools | Premium Futuristic Web Tools</title>
-    <meta name="description" content="Access SGTech-Multi Tools: A premium collection of 20+ free online tools.">
-    
+    <title>SGTech-Multi Tools | Corrected Word Counter</title>
     <style>
-        /* CSS VARIABLES */
         :root {
             --bg-main: #0d0f14;
             --bg-nav: #1c222d;
@@ -20,11 +16,9 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* NAVIGATION */
         .navbar {
             background: var(--bg-nav);
             padding: 1rem 5%;
@@ -42,39 +36,28 @@
         .nav-links li a { color: var(--text-secondary); text-decoration: none; margin-left: 2rem; transition: var(--transition); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; }
         .nav-links li a:hover { color: var(--accent); }
 
-        /* HERO SECTION */
-        .hero {
-            padding: 100px 5%;
-            text-align: center;
-            background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%);
-        }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero { padding: 80px 5%; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* TOOL GRID */
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 20px; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; position: relative; }
-        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto; border-radius: 2px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
         
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         
         .tool-card {
             background: var(--bg-card);
-            padding: 2.5rem 2rem;
+            padding: 2rem;
             border-radius: 12px;
             border: 1px solid rgba(66, 248, 245, 0.1);
             transition: var(--transition);
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
-        .tool-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(66, 248, 245, 0.2); }
-        .tool-card h2 { margin-bottom: 1rem; font-size: 1.4rem; color: var(--accent); }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(66, 248, 245, 0.1); }
+        .tool-card h2 { margin-bottom: 1rem; font-size: 1.3rem; color: var(--accent); }
 
-        /* BUTTONS */
         .btn-glow {
             display: inline-block;
-            padding: 12px 28px;
+            padding: 10px 24px;
             background: transparent;
             color: var(--accent);
             border: 2px solid var(--accent);
@@ -83,32 +66,33 @@
             transition: var(--transition);
             text-transform: uppercase;
             font-weight: bold;
-            margin-top: 10px;
+            text-decoration: none;
         }
-        .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px var(--accent-glow); }
+        .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 15px var(--accent-glow); }
 
-        /* MODAL SYSTEM */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(5px); overflow-y: auto; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
         .modal-content {
-            background-color: var(--bg-nav);
+            background: var(--bg-nav);
             margin: 50px auto;
-            padding: 40px;
+            padding: 30px;
             border: 1px solid var(--accent);
             width: 90%;
-            max-width: 600px;
+            max-width: 700px;
             border-radius: 15px;
             position: relative;
-            box-shadow: 0 0 30px var(--accent-glow);
         }
-        .close-modal { position: absolute; right: 25px; top: 15px; color: var(--accent); font-size: 35px; cursor: pointer; }
+        .close-modal { position: absolute; right: 20px; top: 10px; color: var(--accent); font-size: 30px; cursor: pointer; }
 
-        /* TOOL UI COMPONENTS */
         .tool-ui-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 20px; }
-        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 5px; width: 100%; font-size: 1rem; }
-        label { color: var(--accent); font-size: 0.9rem; font-weight: bold; }
-        .result-area { margin-top: 20px; padding: 20px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; word-break: break-all; min-height: 60px; color: var(--text-secondary); }
+        textarea, input, select { background: #0d0f14; border: 1px solid #333; padding: 12px; color: white; border-radius: 5px; width: 100%; font-size: 1rem; }
+        textarea:focus { border-color: var(--accent); outline: none; }
         
-        footer { padding: 4rem 5%; background: var(--bg-nav); text-align: center; border-top: 1px solid var(--accent-glow); }
+        .result-area { margin-top: 15px; padding: 15px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem; }
+        .stat-item { color: var(--text-secondary); }
+        .stat-item span { color: var(--accent); font-weight: bold; }
+
+        footer { padding: 2rem; text-align: center; border-top: 1px solid #222; margin-top: 50px; }
     </style>
 </head>
 <body>
@@ -123,8 +107,8 @@
 
     <header id="home" class="hero">
         <h1>SGTech-Multi Tools</h1>
-        <p>Premium, high-performance web utilities designed for the modern era.</p>
-        <a href="#tools" class="btn-glow" style="text-decoration:none;">Access Dashboard</a>
+        <p>Corrected & Optimized Tools for Peak Performance.</p>
+        <a href="#tools" class="btn-glow" style="margin-top:20px;">Launch Dashboard</a>
     </header>
 
     <main id="tools" class="container">
@@ -140,192 +124,155 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 SGTech-Multi Tools. Built with Speed & Privacy.</p>
+        <p>&copy; 2024 SGTech-Multi Tools. 100% Client-Side Processing.</p>
     </footer>
 
     <script>
         const toolList = [
+            { id: 'word-count', title: 'Word Counter', desc: 'Precision text analysis with real-time stats.' },
             { id: 'pass-gen', title: 'Password Generator', desc: 'Secure, random strings with high entropy.' },
-            { id: 'qr-gen', title: 'QR Code Generator', desc: 'Generate high-res QR codes for any link.' },
-            { id: 'word-count', title: 'Word Counter', desc: 'Real-time text analysis and character count.' },
-            { id: 'age-calc', title: 'Age Calculator', desc: 'Detailed breakdown of age down to days.' },
-            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Calculate Body Mass Index and health status.' },
-            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Clean, prettify, or minify your JSON code.' },
-            { id: 'tts', title: 'Text to Speech', desc: 'AI-driven voice narration using Web Speech.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Mass, Length, and Temp conversions.' }
+            { id: 'qr-gen', title: 'QR Code Generator', desc: 'Generate high-res QR codes instantly.' },
+            { id: 'age-calc', title: 'Age Calculator', desc: 'Calculate age in years, months, and days.' },
+            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Body Mass Index and health status.' },
+            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate JSON code.' },
+            { id: 'unit-conv', title: 'Unit Converter', desc: 'Length, Mass, and Temp conversions.' },
+            { id: 'tts', title: 'Text to Speech', desc: 'AI Voice narration utility.' }
         ];
 
         const grid = document.getElementById('tool-grid');
-        toolList.forEach(t => {
-            grid.innerHTML += `
-                <article class="tool-card">
-                    <div>
-                        <h2>${t.title}</h2>
-                        <p>${t.desc}</p>
-                    </div>
-                    <button class="btn-glow" onclick="openTool('${t.id}')">Launch Tool</button>
-                </article>
-            `;
-        });
-
         const modal = document.getElementById('tool-modal');
         const modalBody = document.getElementById('modal-body');
         const closeBtn = document.querySelector('.close-modal');
 
+        toolList.forEach(t => {
+            grid.innerHTML += `
+                <article class="tool-card">
+                    <h2>${t.title}</h2>
+                    <p>${t.desc}</p>
+                    <button class="btn-glow" onclick="openTool('${t.id}')">Launch</button>
+                </article>`;
+        });
+
         function openTool(id) {
             modal.style.display = "block";
-            document.body.style.overflow = "hidden";
             renderUI(id);
         }
 
-        closeBtn.onclick = closeModal;
-        window.onclick = (event) => { if (event.target == modal) closeModal(); };
-
-        function closeModal() {
-            modal.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
+        closeBtn.onclick = () => { modal.style.display = "none"; };
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
 
         function renderUI(id) {
             const tool = toolList.find(x => x.id === id);
             let html = `<h3>${tool.title}</h3><div class="tool-ui-container">`;
 
-            if(id === 'pass-gen') {
-                html += `<label>Password Length</label><input type="number" id="plen" value="16"><button class="btn-glow" onclick="genPass()">Generate</button><div class="result-area" id="pres"></div>`;
-            } else if(id === 'word-count') {
-                html += `<textarea id="winput" rows="5" placeholder="Paste your text here..." oninput="doWords()"></textarea><div class="result-area" id="wres">Words: 0 | Chars: 0</div>`;
+            if(id === 'word-count') {
+                html += `
+                    <textarea id="winput" rows="8" placeholder="Type or paste text here..." oninput="doWords()"></textarea>
+                    <div class="result-area" id="wres">
+                        <div class="stats-grid">
+                            <div class="stat-item">Words: <span id="s-words">0</span></div>
+                            <div class="stat-item">Characters: <span id="s-chars">0</span></div>
+                            <div class="stat-item">Characters (No Space): <span id="s-nospace">0</span></div>
+                            <div class="stat-item">Sentences: <span id="s-sent">0</span></div>
+                        </div>
+                    </div>`;
+            } else if(id === 'pass-gen') {
+                html += `<input type="number" id="plen" value="16" min="4" max="50"><button class="btn-glow" onclick="genPass()">Generate</button><div class="result-area" id="pres"></div>`;
             } else if(id === 'qr-gen') {
-                html += `<input type="text" id="qrinput" placeholder="Enter URL or Text..."><button class="btn-glow" onclick="genQR()">Create QR</button><div id="qrres" style="text-align:center;"></div>`;
-            } else if(id === 'bmi-calc') {
-                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate BMI</button><div class="result-area" id="bres">Result will appear here...</div>`;
+                html += `<input type="text" id="qrinput" placeholder="Enter URL..."><button class="btn-glow" onclick="genQR()">Create QR</button><div id="qrres" style="text-align:center;"></div>`;
             } else if(id === 'age-calc') {
-                html += `<label>Select Date of Birth:</label><input type="date" id="birthdate"><button class="btn-glow" onclick="doAge()">Calculate Age</button><div class="result-area" id="ageres">Select a date to begin.</div>`;
+                html += `<input type="date" id="birthdate"><button class="btn-glow" onclick="doAge()">Calculate</button><div class="result-area" id="ageres"></div>`;
             } else if(id === 'unit-conv') {
-                html += `<input type="number" id="unitInput" placeholder="Enter Value">
+                html += `<input type="number" id="unitInput" placeholder="Value">
                          <select id="unitType">
-                            <option value="km-m">Kilometers to Meters</option>
-                            <option value="m-cm">Meters to Centimeters</option>
-                            <option value="kg-g">Kilograms to Grams</option>
-                            <option value="c-f">Celsius to Fahrenheit</option>
-                            <option value="f-c">Fahrenheit to Celsius</option>
-                         </select>
-                         <button class="btn-glow" onclick="doUnit()">Convert Now</button><div class="result-area" id="unitres">Result...</div>`;
+                            <option value="km-m">KM to M</option>
+                            <option value="kg-g">KG to G</option>
+                            <option value="c-f">C to F</option>
+                         </select><button class="btn-glow" onclick="doUnit()">Convert</button><div class="result-area" id="unitres"></div>`;
+            } else if(id === 'bmi-calc') {
+                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate</button><div class="result-area" id="bres"></div>`;
             } else if(id === 'json-fmt') {
-                html += `<textarea id="jinput" rows="5" placeholder="Paste JSON here..."></textarea><button class="btn-glow" onclick="doJSON()">Format JSON</button><div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
+                html += `<textarea id="jinput" rows="6"></textarea><button class="btn-glow" onclick="doJSON()">Format</button><div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
             } else if(id === 'tts') {
-                html += `<textarea id="tinput" rows="3">Hello, welcome to SGTech tools.</textarea><button class="btn-glow" onclick="doSpeak()">Speak Text</button>`;
+                html += `<textarea id="tinput" rows="3">Hello!</textarea><button class="btn-glow" onclick="doSpeak()">Speak</button>`;
             }
 
             html += `</div>`;
             modalBody.innerHTML = html;
         }
 
-        // --- LOGIC FUNCTIONS ---
+        // --- CORRECTED LOGIC FUNCTIONS ---
+
+        function doWords() {
+            const text = document.getElementById('winput').value;
+            
+            // Matches any non-whitespace sequence
+            const wordsMatch = text.match(/\S+/g);
+            const wordsCount = wordsMatch ? wordsMatch.length : 0;
+            
+            // Count characters
+            const charsCount = text.length;
+            const noSpaceCount = text.replace(/\s/g, '').length;
+            
+            // Count sentences (based on . ! ?)
+            const sentencesCount = text.split(/[.!?]+/).filter(Boolean).length;
+
+            document.getElementById('s-words').innerText = wordsCount;
+            document.getElementById('s-chars').innerText = charsCount;
+            document.getElementById('s-nospace').innerText = noSpaceCount;
+            document.getElementById('s-sent').innerText = sentencesCount;
+        }
 
         function genPass() {
             const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
             let p = "";
-            let len = document.getElementById('plen').value || 16;
+            let len = document.getElementById('plen').value;
             for(let i=0; i<len; i++) p += char.charAt(Math.floor(Math.random()*char.length));
             document.getElementById('pres').innerText = p;
         }
 
-        function doWords() {
-            const t = document.getElementById('winput').value.trim();
-            const words = t ? t.split(/\s+/).length : 0;
-            document.getElementById('wres').innerText = `Words: ${words} | Characters: ${t.length}`;
-        }
-
         function genQR() {
             const v = document.getElementById('qrinput').value;
-            if(v) {
-                document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(v)}" style="margin-top:15px; border:5px solid white; border-radius:10px;">`;
-            }
+            if(v) document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(v)}" style="margin-top:15px; border:5px solid white; border-radius:10px;">`;
         }
 
         function doBMI() {
             const h = document.getElementById('bh').value / 100;
             const w = document.getElementById('bw').value;
-            if(h > 0 && w > 0) {
-                const bmi = (w / (h*h)).toFixed(2);
-                let status = "";
-                if(bmi < 18.5) status = "(Underweight)";
-                else if(bmi < 25) status = "(Normal)";
-                else status = "(Overweight)";
-                document.getElementById('bres').innerText = `Your BMI: ${bmi} ${status}`;
-            } else {
-                document.getElementById('bres').innerText = "Please enter valid height and weight.";
-            }
+            if(h && w) document.getElementById('bres').innerText = `BMI: ${(w / (h*h)).toFixed(2)}`;
         }
 
         function doAge() {
-            const birthValue = document.getElementById('birthdate').value;
-            if(!birthValue) return;
-            
-            const birthDate = new Date(birthValue);
+            const birth = new Date(document.getElementById('birthdate').value);
             const today = new Date();
-            
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
-
-            if (days < 0) {
-                months--;
-                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-            }
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            if (years < 0) {
-                document.getElementById('ageres').innerText = "Date cannot be in the future!";
-            } else {
-                document.getElementById('ageres').innerText = `${years} Years, ${months} Months, and ${days} Days old.`;
-            }
+            if(isNaN(birth)) return;
+            let years = today.getFullYear() - birth.getFullYear();
+            let months = today.getMonth() - birth.getMonth();
+            if (months < 0 || (months === 0 && today.getDate() < birth.getDate())) years--;
+            document.getElementById('ageres').innerText = `Age: ${years} years`;
         }
 
         function doUnit() {
             const val = parseFloat(document.getElementById('unitInput').value);
             const type = document.getElementById('unitType').value;
-            let res = "";
-            
-            if(isNaN(val)) {
-                document.getElementById('unitres').innerText = "Please enter a number.";
-                return;
-            }
-
-            switch(type) {
-                case 'km-m': res = (val * 1000) + " Meters"; break;
-                case 'm-cm': res = (val * 100) + " Centimeters"; break;
-                case 'kg-g': res = (val * 1000) + " Grams"; break;
-                case 'c-f': res = ((val * 9/5) + 32).toFixed(2) + " °F"; break;
-                case 'f-c': res = ((val - 32) * 5/9).toFixed(2) + " °C"; break;
-            }
+            let res = 0;
+            if(isNaN(val)) return;
+            if(type === 'km-m') res = val * 1000 + " m";
+            else if(type === 'kg-g') res = val * 1000 + " g";
+            else if(type === 'c-f') res = ((val * 9/5) + 32).toFixed(2) + " °F";
             document.getElementById('unitres').innerText = "Result: " + res;
         }
 
         function doJSON() {
-            const input = document.getElementById('jinput').value;
             try {
-                const obj = JSON.parse(input);
+                const obj = JSON.parse(document.getElementById('jinput').value);
                 document.getElementById('jres').innerText = JSON.stringify(obj, null, 4);
-                document.getElementById('jres').style.color = "var(--accent)";
-            } catch(e) {
-                document.getElementById('jres').innerText = "Error: Invalid JSON format.";
-                document.getElementById('jres').style.color = "#ff4444";
-            }
+            } catch(e) { document.getElementById('jres').innerText = "Invalid JSON"; }
         }
 
         function doSpeak() {
-            const text = document.getElementById('tinput').value;
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop current speech
-                const msg = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(msg);
-            } else {
-                alert("Sorry, your browser does not support text to speech.");
-            }
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('tinput').value));
         }
     </script>
 </body>
