@@ -4,21 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO PRIMARY METAS -->
     <title>SGTech-Multi Tools | 20+ Free Premium Futuristic Web Tools</title>
-    <meta name="description" content="Access SGTech-Multi Tools: A premium, futuristic collection of 20+ free online tools including Image Converters, QR Generators, BMI Calculators, and more. No login required.">
-    <meta name="keywords" content="SGTech tools, free online tools, image converter, QR code generator, BMI calculator, password generator, word counter, futuristic web tools, JSON formatter, unit converter">
-    <meta name="author" content="SGTech">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="Access SGTech-Multi Tools: A premium, futuristic collection of 20+ free online tools. No login required.">
     
-    <!-- OPEN GRAPH (Social Media SEO) -->
-    <meta property="og:title" content="SGTech-Multi Tools | Futuristic Utility Hub">
-    <meta property="og:description" content="The ultimate all-in-one web tool station with a sleek neon interface.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/sgtech-tools">
-
     <style>
-        /* CSS VARIABLES - ABHINAV PROMPT THEME */
+        /* CSS VARIABLES */
         :root {
             --bg-main: #0d0f14;
             --bg-nav: #1c222d;
@@ -34,11 +24,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--bg-nav); border: 1px solid var(--accent); border-radius: 10px; }
-
         /* NAVIGATION */
         .navbar {
             background: var(--bg-nav);
@@ -51,26 +36,24 @@
             justify-content: space-between;
             align-items: center;
         }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); text-decoration: none; letter-spacing: 1px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); text-decoration: none; }
         .logo span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
         .nav-links { display: flex; list-style: none; }
         .nav-links li a { color: var(--text-secondary); text-decoration: none; margin-left: 2rem; transition: var(--transition); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; }
-        .nav-links li a:hover { color: var(--accent); text-shadow: 0 0 8px var(--accent-glow); }
+        .nav-links li a:hover { color: var(--accent); }
 
         /* HERO SECTION */
         .hero {
             padding: 100px 5%;
             text-align: center;
             background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%);
-            border-bottom: 1px solid rgba(66, 248, 245, 0.1);
         }
         .hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; font-size: 1.1rem; }
 
         /* TOOL GRID */
         .container { max-width: 1200px; margin: 0 auto; padding: 4rem 20px; }
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; position: relative; }
-        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto; border-radius: 2px; box-shadow: 0 0 10px var(--accent); }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto; border-radius: 2px; }
         
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
         
@@ -85,13 +68,8 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .tool-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(66, 248, 245, 0.2);
-        }
+        .tool-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(66, 248, 245, 0.2); }
         .tool-card h2 { margin-bottom: 1rem; font-size: 1.4rem; color: var(--accent); }
-        .tool-card p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem; }
 
         /* BUTTONS */
         .btn-glow {
@@ -101,13 +79,10 @@
             color: var(--accent);
             border: 2px solid var(--accent);
             border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
             cursor: pointer;
             transition: var(--transition);
             text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-weight: bold;
         }
         .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px var(--accent-glow); }
 
@@ -119,104 +94,64 @@
             padding: 40px;
             border: 1px solid var(--accent);
             width: 90%;
-            max-width: 800px;
+            max-width: 600px;
             border-radius: 15px;
-            box-shadow: 0 0 40px var(--accent-glow);
             position: relative;
-            animation: modalFade 0.4s ease;
         }
-        @keyframes modalFade { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
         .close-modal { position: absolute; right: 25px; top: 15px; color: var(--accent); font-size: 35px; cursor: pointer; }
 
         /* TOOL UI COMPONENTS */
-        .tool-ui-container { display: flex; flex-direction: column; gap: 1.5rem; }
-        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 5px; width: 100%; font-size: 1rem; }
-        input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 10px rgba(66, 248, 245, 0.3); }
-        .result-area { margin-top: 20px; padding: 20px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; word-break: break-all; min-height: 50px; }
+        .tool-ui-container { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 20px; }
+        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 5px; width: 100%; }
+        .result-area { margin-top: 20px; padding: 20px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; word-break: break-all; }
         
-        /* FOOTER */
         footer { padding: 4rem 5%; background: var(--bg-nav); text-align: center; border-top: 1px solid var(--accent-glow); }
-        footer p { color: var(--text-secondary); margin-bottom: 10px; }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .nav-links { display: none; }
-            .modal-content { padding: 25px; margin: 20px auto; }
-        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar" role="navigation">
+    <nav class="navbar">
         <a href="#" class="logo">SGTech-<span>Multi Tool</span></a>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#tools">Tools</a></li>
-            <li><a href="#about">About</a></li>
         </ul>
     </nav>
 
     <header id="home" class="hero">
         <h1>SGTech-Multi Tools</h1>
-        <p>The premium dashboard for developers and creators. Over 20+ lightning-fast, frontend-only tools built for the future.</p>
-        <a href="#tools" class="btn-glow">Access Dashboard</a>
+        <p>Over 20+ lightning-fast, frontend-only tools built for the future.</p>
+        <a href="#tools" class="btn-glow" style="text-decoration:none; margin-top:20px;">Access Dashboard</a>
     </header>
 
     <main id="tools" class="container">
         <h2 class="section-title">Futuristic Tool Suite</h2>
-        <div class="tool-grid" id="tool-grid">
-            <!-- JS will populate cards here -->
-        </div>
+        <div class="tool-grid" id="tool-grid"></div>
     </main>
 
-    <section id="about" class="container" style="border-top: 1px solid #222;">
-        <h2 class="section-title">Why SGTech?</h2>
-        <p style="text-align:center; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">
-            Our tools are 100% client-side, meaning your data never leaves your browser. 
-            Experience high-performance utilities with zero latency, no tracking, and a premium glowing UI 
-            designed for maximum productivity.
-        </p>
-    </section>
-
-    <div id="tool-modal" class="modal" aria-hidden="true">
+    <div id="tool-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" role="button">&times;</span>
+            <span class="close-modal">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 SGTech-Multi Tools. All Rights Reserved.</p>
-        <p style="font-size: 0.8rem; opacity: 0.6;">Privacy-First | No Cookies | 100% Frontend</p>
+        <p>&copy; 2024 SGTech-Multi Tools. Privacy-First | 100% Frontend</p>
     </footer>
 
     <script>
-        // TOOL DATA
         const toolList = [
             { id: 'pass-gen', title: 'Password Generator', desc: 'Secure, random strings with high entropy.' },
-            { id: 'qr-gen', title: 'QR Code Generator', desc: 'Generate high-res QR codes for any text or link.' },
+            { id: 'qr-gen', title: 'QR Code Generator', desc: 'Generate high-res QR codes for any link.' },
             { id: 'word-count', title: 'Word Counter', desc: 'Real-time text analysis and character count.' },
             { id: 'age-calc', title: 'Age Calculator', desc: 'Detailed breakdown of age down to days.' },
             { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Calculate Body Mass Index and health status.' },
             { id: 'json-fmt', title: 'JSON Formatter', desc: 'Clean, prettify, or minify your JSON code.' },
             { id: 'tts', title: 'Text to Speech', desc: 'AI-driven voice narration using Web Speech.' },
-            { id: 'case-conv', title: 'Case Converter', desc: 'UPPER, lower, and Sentence Case conversion.' },
-            { id: 'lorem', title: 'Lorem Ipsum', desc: 'Generate placeholder text for developers.' },
-            { id: 'b64-tool', title: 'Base64 Tool', desc: 'Encode and Decode strings to Base64.' },
-            { id: 'color-pick', title: 'Color Picker', desc: 'Visual HEX/RGB color extraction tool.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Mass, Length, and Temp conversions.' },
-            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Plan your loans with monthly breakdowns.' },
-            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Project your future wealth and returns.' },
-            { id: 'stopwatch', title: 'Precision Stopwatch', desc: 'High-accuracy timer with lap support.' },
-            { id: 'img-conv', title: 'Image Converter', desc: 'Convert local images to PNG/WEBP.' },
-            { id: 'binary', title: 'Binary Converter', desc: 'Convert text to binary code and back.' },
-            { id: 'rev-text', title: 'Text Reverser', desc: 'Flip strings horizontally for fun or code.' },
-            { id: 'num-conv', title: 'Number Base', desc: 'Convert Hex, Dec, Oct, and Bin.' },
-            { id: 'stt', title: 'Speech to Text', desc: 'Dictate notes using your microphone.' }
+            { id: 'unit-conv', title: 'Unit Converter', desc: 'Mass, Length, and Temp conversions.' }
         ];
 
-        // RENDER TOOLS
         const grid = document.getElementById('tool-grid');
         toolList.forEach(t => {
             grid.innerHTML += `
@@ -230,7 +165,6 @@
             `;
         });
 
-        // MODAL LOGIC
         const modal = document.getElementById('tool-modal');
         const modalBody = document.getElementById('modal-body');
         const closeBtn = document.querySelector('.close-modal');
@@ -246,55 +180,42 @@
             document.body.style.overflow = "auto";
         };
 
-        window.onclick = (e) => { if (e.target == modal) closeBtn.onclick(); };
-
-        // TOOL UI ROUTER
         function renderUI(id) {
             const tool = toolList.find(x => x.id === id);
             let html = `<h3>${tool.title}</h3><div class="tool-ui-container">`;
 
             if(id === 'pass-gen') {
-                html += `<label>Length: <input type="number" id="plen" value="16"></label>
-                         <button class="btn-glow" onclick="genPass()">Generate</button>
-                         <div class="result-area" id="pres"></div>`;
+                html += `<input type="number" id="plen" value="16"><button class="btn-glow" onclick="genPass()">Generate</button><div class="result-area" id="pres"></div>`;
             } else if(id === 'word-count') {
-                html += `<textarea id="winput" rows="8" placeholder="Paste text..." oninput="doWords()"></textarea>
-                         <div class="result-area" id="wres">Words: 0 | Chars: 0</div>`;
+                html += `<textarea id="winput" rows="5" oninput="doWords()"></textarea><div class="result-area" id="wres">Words: 0 | Chars: 0</div>`;
             } else if(id === 'qr-gen') {
-                html += `<input type="text" id="qrinput" placeholder="Enter URL...">
-                         <button class="btn-glow" onclick="genQR()">Create QR Code</button>
-                         <div id="qrres" style="text-align:center; padding:20px;"></div>`;
+                html += `<input type="text" id="qrinput" placeholder="Enter URL..."><button class="btn-glow" onclick="genQR()">Create QR</button><div id="qrres" style="text-align:center;"></div>`;
             } else if(id === 'bmi-calc') {
-                html += `<input type="number" id="bh" placeholder="Height (cm)">
-                         <input type="number" id="bw" placeholder="Weight (kg)">
-                         <button class="btn-glow" onclick="doBMI()">Calculate</button>
-                         <div class="result-area" id="bres">Result...</div>`;
+                html += `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="btn-glow" onclick="doBMI()">Calculate</button><div class="result-area" id="bres"></div>`;
+            } else if(id === 'age-calc') {
+                html += `<label>Birth Date:</label><input type="date" id="birthdate"><button class="btn-glow" onclick="doAge()">Calculate Age</button><div class="result-area" id="ageres"></div>`;
+            } else if(id === 'unit-conv') {
+                html += `<input type="number" id="unitInput" placeholder="Value"><select id="unitType">
+                            <option value="km-m">KM to Meters</option>
+                            <option value="kg-g">KG to Grams</option>
+                            <option value="c-f">Celsius to Fahrenheit</option>
+                         </select><button class="btn-glow" onclick="doUnit()">Convert</button><div class="result-area" id="unitres"></div>`;
             } else if(id === 'json-fmt') {
-                html += `<textarea id="jinput" rows="8" placeholder="Paste JSON..."></textarea>
-                         <button class="btn-glow" onclick="doJSON()">Prettify</button>
-                         <div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
-            } else if(id === 'lorem') {
-                html += `<input type="number" id="lpara" value="3" placeholder="Paragraphs">
-                         <button class="btn-glow" onclick="genLorem()">Generate</button>
-                         <div class="result-area" id="lres"></div>`;
+                html += `<textarea id="jinput" rows="5"></textarea><button class="btn-glow" onclick="doJSON()">Prettify</button><div class="result-area" id="jres" style="white-space:pre; font-family:monospace;"></div>`;
             } else if(id === 'tts') {
-                html += `<textarea id="tinput" rows="5">Welcome to SGTech Multi Tools. Experience the future.</textarea>
-                         <button class="btn-glow" onclick="doSpeak()">Speak Text</button>`;
-            } else {
-                html += `<p style="color:var(--accent)">This premium tool utility is running.</p>
-                         <input type="text" placeholder="Input Data...">
-                         <button class="btn-glow" onclick="alert('Processed Successfully!')">Execute</button>`;
+                html += `<textarea id="tinput" rows="3">Hello World</textarea><button class="btn-glow" onclick="doSpeak()">Speak</button>`;
             }
 
             html += `</div>`;
             modalBody.innerHTML = html;
         }
 
-        // FUNCTIONALITY LOGIC
+        // LOGIC FUNCTIONS
         function genPass() {
-            const char = "ABCDEfghij12345!@#$%^&*()";
+            const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
             let p = "";
-            for(let i=0; i<document.getElementById('plen').value; i++) p += char.charAt(Math.floor(Math.random()*char.length));
+            let len = document.getElementById('plen').value;
+            for(let i=0; i<len; i++) p += char.charAt(Math.floor(Math.random()*char.length));
             document.getElementById('pres').innerText = p;
         }
 
@@ -305,34 +226,47 @@
 
         function genQR() {
             const v = document.getElementById('qrinput').value;
-            if(!v) return;
-            document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${v}" style="border:10px solid white; border-radius:10px;">`;
+            if(v) document.getElementById('qrres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${v}" style="margin-top:10px; border:5px solid white;">`;
         }
 
         function doBMI() {
             const h = document.getElementById('bh').value / 100;
             const w = document.getElementById('bw').value;
-            const res = (w / (h*h)).toFixed(2);
-            document.getElementById('bres').innerText = `Your BMI is ${res}`;
+            if(h && w) document.getElementById('bres').innerText = `Your BMI is ${(w / (h*h)).toFixed(2)}`;
+        }
+
+        function doAge() {
+            const birth = document.getElementById('birthdate').value;
+            if(!birth) return;
+            const bDate = new Date(birth);
+            const today = new Date();
+            let age = today.getFullYear() - bDate.getFullYear();
+            const m = today.getMonth() - bDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < bDate.getDate())) age--;
+            document.getElementById('ageres').innerText = `You are ${age} years old.`;
+        }
+
+        function doUnit() {
+            const val = parseFloat(document.getElementById('unitInput').value);
+            const type = document.getElementById('unitType').value;
+            let res = 0;
+            if(isNaN(val)) return;
+            if(type === 'km-m') res = val * 1000 + " Meters";
+            else if(type === 'kg-g') res = val * 1000 + " Grams";
+            else if(type === 'c-f') res = ((val * 9/5) + 32).toFixed(2) + " °F";
+            document.getElementById('unitres').innerText = "Result: " + res;
         }
 
         function doJSON() {
             try {
                 const obj = JSON.parse(document.getElementById('jinput').value);
                 document.getElementById('jres').innerText = JSON.stringify(obj, null, 4);
-            } catch(e) { document.getElementById('jres').innerText = "Invalid JSON Format"; }
-        }
-
-        function genLorem() {
-            const p = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
-            document.getElementById('lres').innerText = p.repeat(document.getElementById('lpara').value);
+            } catch(e) { document.getElementById('jres').innerText = "Invalid JSON"; }
         }
 
         function doSpeak() {
-            const m = new SpeechSynthesisUtterance(document.getElementById('tinput').value);
-            window.speechSynthesis.speak(m);
+            window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('tinput').value));
         }
     </script>
-    https://www.effectivegatecpm.com/de4yhwv04?key=ee04cfe3e08eba4b6d01a34aad9dd3e5
 </body>
 </html>
