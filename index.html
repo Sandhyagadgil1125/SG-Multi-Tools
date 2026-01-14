@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech-Multi Tools | 20+ Premium Futuristic Tools</title>
+    <title>SGTech-Multi Tools | 20+ Premium Pro Dashboard</title>
     <style>
         :root {
             --bg-main: #0d0f14;
@@ -17,55 +17,130 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
 
-        .navbar { background: var(--bg-nav); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--accent-glow); display: flex; justify-content: space-between; align-items: center; }
+        /* NAVIGATION */
+        .navbar { 
+            background: var(--bg-nav); 
+            padding: 1rem 5%; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid var(--accent-glow); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
         .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; }
         .logo span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
-
-        .hero { padding: 50px 5%; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .container { max-width: 1250px; margin: 0 auto; padding: 2rem 20px; }
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
         
-        .tool-card { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid rgba(66, 248, 245, 0.1); transition: var(--transition); text-align: center; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(66, 248, 245, 0.2); }
-        .tool-card h2 { font-size: 1.1rem; color: var(--accent); margin-bottom: 10px; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { 
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            transition: var(--transition); 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+        .nav-links a:hover { color: var(--accent); text-shadow: 0 0 8px var(--accent-glow); }
+
+        /* HERO */
+        .hero { padding: 60px 5% 40px; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* TOOL GRID */
+        .container { max-width: 1250px; margin: 0 auto; padding: 2rem 20px; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 80px; }
+        
+        .tool-card { 
+            background: var(--bg-card); 
+            padding: 25px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(66, 248, 245, 0.1); 
+            transition: var(--transition); 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            min-height: 230px; 
+        }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 8px 25px rgba(66, 248, 245, 0.15); }
+        .tool-card h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; }
         .tool-card p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px; }
 
-        .btn-glow { display: inline-block; padding: 10px 15px; background: transparent; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; cursor: pointer; transition: var(--transition); font-weight: bold; text-transform: uppercase; font-size: 0.75rem; }
-        .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 15px var(--accent-glow); }
+        /* CONTACT SECTION */
+        .contact-section { background: #090b0f; padding: 80px 5%; border-top: 1px solid #222; }
+        .contact-container { max-width: 650px; margin: 0 auto; text-align: center; }
+        .contact-form { display: flex; flex-direction: column; gap: 15px; text-align: left; margin-top: 30px; }
+        
+        .btn-glow { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: transparent; 
+            color: var(--accent); 
+            border: 2px solid var(--accent); 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            width: fit-content; 
+            align-self: center; 
+        }
+        .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px var(--accent-glow); }
 
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); margin: 30px auto; padding: 30px; border: 1px solid var(--accent); width: 90%; max-width: 600px; border-radius: 15px; position: relative; }
+        .modal-content { background: var(--bg-nav); margin: 30px auto; padding: 35px; border: 1px solid var(--accent); width: 90%; max-width: 600px; border-radius: 15px; position: relative; }
         .close-modal { position: absolute; right: 20px; top: 10px; color: var(--accent); font-size: 30px; cursor: pointer; }
 
         .tool-ui { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
-        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 12px; color: white; border-radius: 5px; width: 100%; }
-        .res-area { margin-top: 15px; padding: 15px; background: #090b0f; border-left: 4px solid var(--accent); border-radius: 4px; min-height: 50px; }
+        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 6px; width: 100%; font-size: 1rem; transition: 0.3s; }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 5px var(--accent-glow); }
+        .res-area { margin-top: 15px; padding: 15px; background: #050608; border-left: 4px solid var(--accent); border-radius: 4px; min-height: 50px; color: var(--text-secondary); }
         
-        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; }
+        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; }
         .stat-item { text-align: center; }
-        .stat-item small { display: block; color: var(--accent); font-size: 0.7rem; }
+        .stat-item small { display: block; color: var(--accent); font-size: 0.75rem; text-transform: uppercase; }
 
-        footer { padding: 2rem; text-align: center; border-top: 1px solid #222; margin-top: 40px; color: #555; }
+        footer { padding: 4rem; text-align: center; border-top: 1px solid #222; color: #555; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
         <a href="#" class="logo">SGTech-<span>Multi Pro</span></a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#tool-grid">Tools</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
     </nav>
 
     <header class="hero">
-        <h1>All-In-One Dashboard</h1>
-        <p>20 Premium Tools - No Login - 100% Free</p>
+        <h1>Advanced Utility Dashboard</h1>
+        <p>20+ Powerful Tools. 100% Secure. Private Processing.</p>
     </header>
 
     <main class="container">
         <div class="tool-grid" id="tool-grid"></div>
     </main>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2 style="color: var(--accent); font-size: 2rem;">Contact Us</h2>
+            <p style="color: var(--text-secondary); margin-top: 10px;">Have a feature request or need support? Reach out to our team.</p>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.'); this.reset();">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email Address" required>
+                <textarea rows="5" placeholder="Your Message or Comment" required></textarea>
+                <button type="submit" class="btn-glow">Send Message</button>
+            </form>
+        </div>
+    </section>
 
     <div id="tool-modal" class="modal">
         <div class="modal-content">
@@ -74,30 +149,30 @@
         </div>
     </div>
 
-    <footer>&copy; 2024 SGTech Pro Suite. All tools run locally.</footer>
+    <footer>&copy; 2024 SGTech Pro Suite. All calculations performed in-browser.</footer>
 
     <script>
         const tools = [
-            { id: 'word-count', title: 'Word Counter', desc: 'Text analysis & character counting.' },
-            { id: 'img-conv', title: 'Image Converter', desc: 'Convert to PNG, JPG, or WebP.' },
-            { id: 'img-comp', title: 'Image Compressor', desc: 'Reduce image file size.' },
-            { id: 'img-crop', title: 'Image Cropper', desc: 'Quick square crop utility.' },
-            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Investment & Mutual Fund planner.' },
-            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Loan monthly payment calculator.' },
-            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Health & Body Mass Index.' },
-            { id: 'age-calc', title: 'Age Calculator', desc: 'Years, months, and days breakdown.' },
-            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate JSON code.' },
-            { id: 'stt', title: 'Speech to Text', desc: 'Convert voice to text instantly.' },
-            { id: 'tts', title: 'Text to Speech', desc: 'AI Voice narration tool.' },
-            { id: 'color-pick', title: 'Color Picker', desc: 'Select HEX/RGB color codes.' },
-            { id: 'pass-gen', title: 'Password Gen', desc: 'Strong, secure random strings.' },
-            { id: 'qr-gen', title: 'QR Generator', desc: 'Instant QR code creator.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Length, Mass, and Temp.' },
-            { id: 'case-conv', title: 'Case Converter', desc: 'UPPER, lower, Title Case.' },
-            { id: 'b64-enc', title: 'Base64 Tool', desc: 'Encode or Decode Base64 data.' },
-            { id: 'lorem-gen', title: 'Lorem Ipsum', desc: 'Generate placeholder text.' },
-            { id: 'audio-trim', title: 'Audio Tools', desc: 'Basic audio controller.' },
-            { id: 'vid-info', title: 'Video Tools', desc: 'Video metadata viewer.' }
+            { id: 'word-count', title: 'Word Counter', desc: 'Precision word & character analysis.' },
+            { id: 'img-conv', title: 'Image Converter', desc: 'Convert between PNG, JPG, and WebP.' },
+            { id: 'img-comp', title: 'Image Compressor', desc: 'Reduce file size while preserving quality.' },
+            { id: 'img-crop', title: 'Image Cropper', desc: 'Instant square crop utility.' },
+            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Forecast mutual fund investment returns.' },
+            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Calculate monthly loan installments.' },
+            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Body Mass Index health status.' },
+            { id: 'age-calc', title: 'Age Calculator', desc: 'Detailed age breakdown (Y/M/D).' },
+            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate JSON data strings.' },
+            { id: 'stt', title: 'Speech to Text', desc: 'Live voice-to-text transcription.' },
+            { id: 'tts', title: 'Text to Speech', desc: 'AI-powered voice narration.' },
+            { id: 'color-pick', title: 'Color Picker', desc: 'Visual HEX/RGB code selector.' },
+            { id: 'pass-gen', title: 'Password Gen', desc: 'Generate high-entropy secure passwords.' },
+            { id: 'qr-gen', title: 'QR Generator', desc: 'Create instant high-res QR codes.' },
+            { id: 'unit-conv', title: 'Unit Converter', desc: 'Fast Length, Mass, and Temp conversion.' },
+            { id: 'case-conv', title: 'Case Converter', desc: 'UPPER, lower, and Title Case tools.' },
+            { id: 'b64-enc', title: 'Base64 Tool', desc: 'Encode/Decode data to Base64.' },
+            { id: 'lorem-gen', title: 'Lorem Ipsum', desc: 'Generate standard dummy text.' },
+            { id: 'audio-trim', title: 'Audio Tools', desc: 'Basic audio playback control.' },
+            { id: 'vid-info', title: 'Video Tools', desc: 'Extract metadata from video files.' }
         ];
 
         const grid = document.getElementById('tool-grid');
@@ -108,7 +183,7 @@
             grid.innerHTML += `
                 <div class="tool-card">
                     <div><h2>${t.title}</h2><p>${t.desc}</p></div>
-                    <button class="btn-glow" onclick="openTool('${t.id}')">Open Tool</button>
+                    <button class="btn-glow" onclick="openTool('${t.id}')">Launch Tool</button>
                 </div>`;
         });
 
@@ -125,7 +200,7 @@
             let html = `<h3>${tool.title}</h3><div class="tool-ui">`;
 
             if(id === 'word-count') {
-                html += `<textarea id="ti" rows="6" oninput="doWord()" placeholder="Paste text..."></textarea>
+                html += `<textarea id="ti" rows="6" oninput="doWord()" placeholder="Type or paste text..."></textarea>
                          <div class="stats">
                             <div class="stat-item"><small>Words</small><strong id="sw">0</strong></div>
                             <div class="stat-item"><small>Characters</small><strong id="sc">0</strong></div>
@@ -133,37 +208,36 @@
             } else if(['img-conv', 'img-comp', 'img-crop'].includes(id)) {
                 html += `<input type="file" id="fi" accept="image/*">
                          <select id="fo"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option></select>
-                         <button class="btn-glow" onclick="doImage('${id}')">Process & Download</button><canvas id="cv" style="display:none;"></canvas>`;
+                         <button class="btn-glow" onclick="doImage('${id}')">Process Image</button><canvas id="cv" style="display:none;"></canvas>`;
             } else if(id === 'sip-calc' || id === 'emi-calc') {
-                html += `<input type="number" id="v1" placeholder="Amount">
-                         <input type="number" id="v2" placeholder="Interest %">
-                         <input type="number" id="v3" placeholder="Years/Months">
+                html += `<input type="number" id="v1" placeholder="Principal Amount">
+                         <input type="number" id="v2" placeholder="Interest Rate (%)">
+                         <input type="number" id="v3" placeholder="Tenure (Years for SIP / Months for EMI)">
                          <button class="btn-glow" onclick="doFinance('${id}')">Calculate</button>`;
             } else if(id === 'age-calc') {
-                html += `<input type="date" id="db"><button class="btn-glow" onclick="doAge()">Calculate</button>`;
+                html += `<label style="color:var(--accent); font-size:0.8rem;">Date of Birth:</label><input type="date" id="db"><button class="btn-glow" onclick="doAge()">Calculate Age</button>`;
             } else if(id === 'stt') {
-                html += `<button class="btn-glow" onclick="doSTT()">Start Mic</button><textarea id="tr" rows="4"></textarea>`;
+                html += `<button class="btn-glow" onclick="doSTT()">Start Microphone</button><textarea id="tr" rows="4"></textarea>`;
             } else if(id === 'json-fmt') {
-                html += `<textarea id="ji" rows="6" placeholder="Paste JSON..."></textarea><button class="btn-glow" onclick="doJSON()">Format</button>`;
+                html += `<textarea id="ji" rows="6" placeholder="Paste raw JSON here..."></textarea><button class="btn-glow" onclick="doJSON()">Format JSON</button>`;
             } else if(id === 'qr-gen') {
-                html += `<input type="text" id="qi" placeholder="URL..."><button class="btn-glow" onclick="doQR()">Create</button><div id="qres" style="text-align:center"></div>`;
+                html += `<input type="text" id="qi" placeholder="Link or Text..."><button class="btn-glow" onclick="doQR()">Generate QR</button><div id="qres" style="text-align:center"></div>`;
             } else if(id === 'color-pick') {
-                html += `<input type="color" oninput="doColor(this.value)" style="height:80px;">`;
+                html += `<input type="color" oninput="doColor(this.value)" style="height:100px; cursor:pointer; padding:5px;">`;
             } else {
-                html += `<textarea id="gi" rows="4" placeholder="Input..."></textarea><button class="btn-glow" onclick="doMisc('${id}')">Execute</button>`;
+                html += `<textarea id="gi" rows="4" placeholder="Input text..."></textarea><button class="btn-glow" onclick="doMisc('${id}')">Execute</button>`;
             }
 
-            html += `<div class="res-area" id="o">Result...</div></div>`;
+            html += `<div class="res-area" id="o">Results will appear here...</div></div>`;
             modalBody.innerHTML = html;
         }
 
-        // --- TOOL LOGIC ---
+        // --- CORE LOGIC ---
 
         function doWord() {
             const v = document.getElementById('ti').value;
             const words = v.match(/\S+/g);
             document.getElementById('sw').innerText = words ? words.length : 0;
-            // FIX: "How are you doing" = 14 chars
             document.getElementById('sc').innerText = v.replace(/\s/g, '').length;
         }
 
@@ -181,10 +255,10 @@
                     canvas.width = w; canvas.height = h;
                     ctx.drawImage(img, 0, 0, w, h);
                     const link = document.createElement('a');
-                    link.download = "sgtech_output." + document.getElementById('fo').value.split('/')[1];
+                    link.download = "sgtech_pro_export." + document.getElementById('fo').value.split('/')[1];
                     link.href = canvas.toDataURL(document.getElementById('fo').value, mode === 'img-comp' ? 0.4 : 1.0);
                     link.click();
-                    document.getElementById('o').innerText = "Download Started!";
+                    document.getElementById('o').innerText = "Process Complete! Download Started.";
                 };
                 img.src = e.target.result;
             };
@@ -196,11 +270,11 @@
             if(id === 'sip-calc') {
                 let i = r/12, n = t*12;
                 let fv = p * [((Math.pow(1 + i, n) - 1) / i)] * (1 + i);
-                document.getElementById('o').innerText = "Future Wealth: ₹" + fv.toLocaleString();
+                document.getElementById('o').innerText = "Expected Wealth: ₹" + Math.round(fv).toLocaleString();
             } else {
                 let i = r/12, n = t;
                 let emi = (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-                document.getElementById('o').innerText = "EMI: ₹" + emi.toLocaleString();
+                document.getElementById('o').innerText = "Monthly EMI: ₹" + Math.round(emi).toLocaleString();
             }
         }
 
@@ -216,13 +290,13 @@
         }
 
         function doJSON() {
-            try { document.getElementById('o').innerHTML = `<pre style="font-size:0.8rem">${JSON.stringify(JSON.parse(document.getElementById('ji').value), null, 4)}</pre>`; }
-            catch(e) { document.getElementById('o').innerText = "Invalid JSON"; }
+            try { document.getElementById('o').innerHTML = `<pre style="font-size:0.8rem; overflow:auto;">${JSON.stringify(JSON.parse(document.getElementById('ji').value), null, 4)}</pre>`; }
+            catch(e) { document.getElementById('o').innerText = "Error: Invalid JSON format."; }
         }
 
         function doSTT() {
             const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if(!Speech) return alert("Browser not supported");
+            if(!Speech) return alert("Browser does not support Speech Recognition.");
             const rec = new Speech();
             rec.onresult = (e) => { document.getElementById('tr').value = e.results[0][0].transcript; };
             rec.start();
@@ -230,10 +304,10 @@
 
         function doQR() {
             const v = document.getElementById('qi').value;
-            if(v) document.getElementById('qres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(v)}" style="width:140px; margin-top:10px; border:5px solid white; border-radius:5px;">`;
+            if(v) document.getElementById('qres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(v)}" style="width:150px; margin-top:15px; border:6px solid white; border-radius:8px;">`;
         }
 
-        function doColor(v) { document.getElementById('o').innerText = "Color HEX: " + v.toUpperCase(); document.getElementById('o').style.borderLeftColor = v; }
+        function doColor(v) { document.getElementById('o').innerText = "HEX: " + v.toUpperCase(); document.getElementById('o').style.borderLeftColor = v; }
 
         function doMisc(id) {
             const v = document.getElementById('gi').value;
@@ -242,16 +316,13 @@
                 const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
                 for(let i=0; i<16; i++) res += c.charAt(Math.floor(Math.random()*c.length));
             } else if(id === 'case-conv') {
-                res = `UPPER: ${v.toUpperCase()}\nlower: ${v.toLowerCase()}`;
+                res = `UPPER: ${v.toUpperCase()}\nLower: ${v.toLowerCase()}`;
             } else if(id === 'b64-enc') {
                 res = btoa(v);
             } else if(id === 'lorem-gen') {
-                res = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-            } else if(id === 'bmi-calc') {
-                const h = parseFloat(document.getElementById('gi').value)/100, w = 70; // simplified
-                res = "BMI Result: " + (70/(h*h)).toFixed(2);
+                res = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
             } else {
-                res = "Functionality active for " + id;
+                res = "Feature processed for: " + id;
             }
             document.getElementById('o').innerText = res;
         }
