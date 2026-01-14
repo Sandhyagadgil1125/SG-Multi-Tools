@@ -19,34 +19,19 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* FIXED HEADER NAVIGATION */
+        /* FIXED HEADER */
         .navbar { 
-            background: var(--bg-nav); 
-            padding: 1rem 5%; 
-            position: fixed; /* Changed to fixed to ensure it stays visible */
-            top: 0; 
-            width: 100%;
-            z-index: 1000; 
-            border-bottom: 1px solid var(--accent-glow); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+            background: var(--bg-nav); padding: 1rem 5%; position: fixed; 
+            top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent-glow); 
+            display: flex; justify-content: space-between; align-items: center; 
         }
         .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; }
         .logo span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
-        
         .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { 
-            color: var(--text-secondary); 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.9rem; 
-            transition: var(--transition); 
-            text-transform: uppercase; 
-        }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition); text-transform: uppercase; }
         .nav-links a:hover { color: var(--accent); }
 
-        .hero { padding: 120px 5% 40px; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
+        .hero { padding: 140px 5% 40px; text-align: center; background: radial-gradient(circle at center, #1c222d 0%, #0d0f14 100%); }
         .hero h1 { font-size: 2.8rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .container { max-width: 1250px; margin: 0 auto; padding: 2rem 20px; }
@@ -67,240 +52,11 @@
         .btn-glow { 
             display: inline-block; padding: 12px 24px; background: transparent; color: var(--accent); border: 2px solid var(--accent); 
             border-radius: 5px; cursor: pointer; transition: var(--transition); font-weight: bold; text-transform: uppercase; 
-            font-size: 0.85rem; width: fit-content; align-self: center; text-decoration: none;
+            font-size: 0.85rem; width: fit-content; align-self: center; outline: none;
         }
         .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 20px var(--accent-glow); }
+        #form-status { margin-top: 15px; font-weight: bold; }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); margin: 30px auto; padding: 35px; border: 1px solid var(--accent); width: 90%; max-width: 600px; border-radius: 15px; position: relative; }
-        .close-modal { position: absolute; right: 20px; top: 10px; color: var(--accent); font-size: 30px; cursor: pointer; }
-
-        .tool-ui { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
-        input, textarea, select { background: #0d0f14; border: 1px solid #333; padding: 14px; color: white; border-radius: 6px; width: 100%; font-size: 1rem; }
-        .res-area { margin-top: 15px; padding: 15px; background: #050608; border-left: 4px solid var(--accent); border-radius: 4px; min-height: 50px; color: var(--text-secondary); }
-        
-        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; }
-        .stat-item { text-align: center; }
-        .stat-item small { display: block; color: var(--accent); font-size: 0.75rem; text-transform: uppercase; }
-
-        footer { padding: 4rem; text-align: center; border-top: 1px solid #222; color: #555; font-size: 0.9rem; }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar">
-        <a href="#" class="logo">SGTech-<span>Multi Pro</span></a>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#tool-grid">Tools</a></li>
-            <li><a href="#contact">Contact Us</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero">
-        <h1>Advanced Utility Dashboard</h1>
-        <p>20+ Powerful Tools. 100% Private. Integrated Contact Support.</p>
-    </header>
-
-    <main class="container">
-        <div class="tool-grid" id="tool-grid"></div>
-    </main>
-
-    <section id="contact" class="contact-section">
-        <div class="contact-container">
-            <h2 style="color: var(--accent); font-size: 2rem;">Contact Us</h2>
-            <p style="color: var(--text-secondary); margin-top: 10px;">Connect directly with the developers for feedback or support.</p>
-            
-            <form class="contact-form" action="https://formspree.io/f/https://formspree.io/f/xgoovejp" method="POST">
-                <input type="text" name="name" placeholder="Your Full Name" required>
-                <input type="email" name="email" placeholder="sgtechmultitools@gmail.com" required>
-                <textarea name="message" rows="5" placeholder="Your Message or Comment" required></textarea>
-                <button type="submit" class="btn-glow">Send to Inbox</button>
-            </form>
-        </div>
-    </section>
-
-    <div id="tool-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
-    <footer>&copy; 2024 SGTech Pro Suite. Built for the future of the web.</footer>
-
-    <script>
-        const tools = [
-            { id: 'word-count', title: 'Word Counter', desc: 'Precision word & character analysis.' },
-            { id: 'img-conv', title: 'Image Converter', desc: 'Convert between PNG, JPG, and WebP.' },
-            { id: 'img-comp', title: 'Image Compressor', desc: 'Reduce file size while preserving quality.' },
-            { id: 'img-crop', title: 'Image Cropper', desc: 'Instant square crop utility.' },
-            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Forecast mutual fund investment returns.' },
-            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Calculate monthly loan installments.' },
-            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Body Mass Index health status.' },
-            { id: 'age-calc', title: 'Age Calculator', desc: 'Detailed age breakdown (Y/M/D).' },
-            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate JSON data strings.' },
-            { id: 'stt', title: 'Speech to Text', desc: 'Live voice-to-text transcription.' },
-            { id: 'tts', title: 'Text to Speech', desc: 'AI-powered voice narration.' },
-            { id: 'color-pick', title: 'Color Picker', desc: 'Visual HEX/RGB code selector.' },
-            { id: 'pass-gen', title: 'Password Gen', desc: 'Generate high-entropy secure passwords.' },
-            { id: 'qr-gen', title: 'QR Generator', desc: 'Create instant high-res QR codes.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Fast Length, Mass, and Temp conversion.' },
-            { id: 'case-conv', title: 'Case Converter', desc: 'UPPER, lower, and Title Case tools.' },
-            { id: 'b64-enc', title: 'Base64 Tool', desc: 'Encode/Decode data to Base64.' },
-            { id: 'lorem-gen', title: 'Lorem Ipsum', desc: 'Generate standard dummy text.' },
-            { id: 'audio-trim', title: 'Audio Tools', desc: 'Basic audio playback control.' },
-            { id: 'vid-info', title: 'Video Tools', desc: 'Extract metadata from video files.' }
-        ];
-
-        const grid = document.getElementById('tool-grid');
-        const modal = document.getElementById('tool-modal');
-        const modalBody = document.getElementById('modal-body');
-
-        tools.forEach(t => {
-            grid.innerHTML += `
-                <div class="tool-card">
-                    <div><h2>${t.title}</h2><p>${t.desc}</p></div>
-                    <button class="btn-glow" onclick="openTool('${t.id}')">Launch Tool</button>
-                </div>`;
-        });
-
-        function openTool(id) {
-            modal.style.display = "block";
-            renderUI(id);
-        }
-
-        document.querySelector('.close-modal').onclick = () => { modal.style.display = "none"; };
-        window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
-
-        function renderUI(id) {
-            const tool = tools.find(x => x.id === id);
-            let html = `<h3>${tool.title}</h3><div class="tool-ui">`;
-
-            if(id === 'word-count') {
-                html += `<textarea id="ti" rows="6" oninput="doWord()" placeholder="Type text..."></textarea>
-                         <div class="stats">
-                            <div class="stat-item"><small>Words</small><strong id="sw">0</strong></div>
-                            <div class="stat-item"><small>Characters</small><strong id="sc">0</strong></div>
-                         </div>`;
-            } else if(['img-conv', 'img-comp', 'img-crop'].includes(id)) {
-                html += `<input type="file" id="fi" accept="image/*">
-                         <select id="fo"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option></select>
-                         <button class="btn-glow" onclick="doImage('${id}')">Execute</button><canvas id="cv" style="display:none;"></canvas>`;
-            } else if(id === 'sip-calc' || id === 'emi-calc') {
-                html += `<input type="number" id="v1" placeholder="Principal Amount">
-                         <input type="number" id="v2" placeholder="Interest Rate %">
-                         <input type="number" id="v3" placeholder="Tenure">
-                         <button class="btn-glow" onclick="doFinance('${id}')">Calculate</button>`;
-            } else if(id === 'age-calc') {
-                html += `<label style="color:var(--accent);">Select Birth Date:</label><input type="date" id="db"><button class="btn-glow" onclick="doAge()">Get Age</button>`;
-            } else if(id === 'stt') {
-                html += `<button class="btn-glow" onclick="doSTT()">Start Mic</button><textarea id="tr" rows="4"></textarea>`;
-            } else if(id === 'json-fmt') {
-                html += `<textarea id="ji" rows="6" placeholder="Paste JSON..."></textarea><button class="btn-glow" onclick="doJSON()">Format</button>`;
-            } else if(id === 'qr-gen') {
-                html += `<input type="text" id="qi" placeholder="Link/Text..."><button class="btn-glow" onclick="doQR()">Create QR</button><div id="qres" style="text-align:center"></div>`;
-            } else if(id === 'color-pick') {
-                html += `<input type="color" oninput="doColor(this.value)" style="height:100px;">`;
-            } else {
-                html += `<textarea id="gi" rows="4"></textarea><button class="btn-glow" onclick="doMisc('${id}')">Execute</button>`;
-            }
-
-            html += `<div class="res-area" id="o">Output...</div></div>`;
-            modalBody.innerHTML = html;
-        }
-
-        // --- TOOL LOGIC HUB ---
-
-        function doWord() {
-            const v = document.getElementById('ti').value;
-            const words = v.match(/\S+/g);
-            document.getElementById('sw').innerText = words ? words.length : 0;
-            // FIXED CHAR COUNT: "How are you doing" = 14
-            document.getElementById('sc').innerText = v.replace(/\s/g, '').length;
-        }
-
-        function doImage(mode) {
-            const file = document.getElementById('fi').files[0];
-            if(!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.getElementById('cv');
-                    const ctx = canvas.getContext('2d');
-                    let w = img.width, h = img.height;
-                    if(mode === 'img-crop') { w = h = Math.min(w, h); }
-                    canvas.width = w; canvas.height = h;
-                    ctx.drawImage(img, 0, 0, w, h);
-                    const link = document.createElement('a');
-                    link.download = "sgtech_export." + document.getElementById('fo').value.split('/')[1];
-                    link.href = canvas.toDataURL(document.getElementById('fo').value, mode === 'img-comp' ? 0.4 : 1.0);
-                    link.click();
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function doFinance(id) {
-            const p = parseFloat(document.getElementById('v1').value), r = parseFloat(document.getElementById('v2').value)/100, t = parseFloat(document.getElementById('v3').value);
-            if(id === 'sip-calc') {
-                let i = r/12, n = t*12;
-                let fv = p * [((Math.pow(1 + i, n) - 1) / i)] * (1 + i);
-                document.getElementById('o').innerText = "Future Wealth: ₹" + Math.round(fv).toLocaleString();
-            } else {
-                let i = r/12, n = t;
-                let emi = (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-                document.getElementById('o').innerText = "Monthly EMI: ₹" + Math.round(emi).toLocaleString();
-            }
-        }
-
-        function doAge() {
-            const b = new Date(document.getElementById('db').value), n = new Date();
-            if(isNaN(b)) return;
-            let y = n.getFullYear() - b.getFullYear();
-            let m = n.getMonth() - b.getMonth();
-            let d = n.getDate() - b.getDate();
-            if (d < 0) { m--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
-            if (m < 0) { y--; m += 12; }
-            document.getElementById('o').innerText = `${y} Years, ${m} Months, ${d} Days`;
-        }
-
-        function doJSON() {
-            try { document.getElementById('o').innerHTML = `<pre>${JSON.stringify(JSON.parse(document.getElementById('ji').value), null, 4)}</pre>`; }
-            catch(e) { document.getElementById('o').innerText = "Invalid JSON."; }
-        }
-
-        function doSTT() {
-            const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if(!Speech) return alert("Browser not supported.");
-            const rec = new Speech();
-            rec.onresult = (e) => { document.getElementById('tr').value = e.results[0][0].transcript; };
-            rec.start();
-        }
-
-        function doQR() {
-            const v = document.getElementById('qi').value;
-            if(v) document.getElementById('qres').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(v)}" style="width:140px; margin-top:15px; border:5px solid white;">`;
-        }
-
-        function doColor(v) { document.getElementById('o').innerText = "HEX: " + v.toUpperCase(); document.getElementById('o').style.borderLeftColor = v; }
-
-        function doMisc(id) {
-            const v = document.getElementById('gi').value;
-            let res = "";
-            if(id === 'pass-gen') {
-                const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-                for(let i=0; i<16; i++) res += c.charAt(Math.floor(Math.random()*c.length));
-            } else if(id === 'case-conv') {
-                res = `UPPER: ${v.toUpperCase()}\nlower: ${v.toLowerCase()}`;
-            } else if(id === 'b64-enc') {
-                res = btoa(v);
-            } else { res = "Processed " + id; }
-            document.getElementById('o').innerText = res;
-        }
-    </script>
-</body>
-</html>
+        .modal-content { background: var(--bg-nav);
