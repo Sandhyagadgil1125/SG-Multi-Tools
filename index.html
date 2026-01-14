@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech Multi Tools | Pro Utility Dashboard</title>
+    <title>SGTech Multi Tools | Professional Utility Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -22,67 +22,71 @@
 
         /* NAVIGATION */
         .navbar { 
-            background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; 
+            background: var(--bg-nav); padding: 1rem 5%; position: fixed; 
             top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent-glow); 
             display: flex; justify-content: space-between; align-items: center; 
         }
-        .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: white; }
-        .logo span { color: var(--accent); }
+        .logo { font-size: 1.6rem; font-weight: 800; text-decoration: none; color: white; }
+        .logo span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
         
-        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-right { display: flex; align-items: center; gap: 25px; }
         .nav-links { display: flex; list-style: none; gap: 20px; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.8rem; transition: var(--transition); text-transform: uppercase; }
-        
-        /* HEADER EMAIL DISPLAY */
-        .header-email {
-            background: rgba(66, 248, 245, 0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--accent);
-            font-size: 0.85rem;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); text-transform: uppercase; }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* LAYOUT SECTIONS */
+        .header-email {
+            background: rgba(66, 248, 245, 0.1); padding: 6px 15px; border-radius: 20px;
+            border: 1px solid var(--accent); font-size: 0.85rem; color: var(--accent);
+            display: flex; align-items: center; gap: 8px; text-decoration: none; transition: 0.3s;
+        }
+        .header-email:hover { background: var(--accent); color: var(--bg-main); }
+
+        /* HERO & TOOLS */
         .hero { padding: 160px 5% 60px; text-align: center; }
-        .container { max-width: 1300px; margin: 0 auto; padding: 2rem 20px; }
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding-bottom: 80px; }
         
         .tool-card { 
-            background: var(--bg-card); padding: 40px 30px; border-radius: 16px; border: 1px solid rgba(66, 248, 245, 0.05); 
-            text-align: center; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; 
+            background: var(--bg-card); padding: 30px; border-radius: 15px; border: 1px solid rgba(66, 248, 245, 0.05); 
+            text-align: center; transition: var(--transition);
         }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); }
 
-        /* ABOUT & CONTACT SECTION */
-        .about-section { background: #0b0d11; padding: 80px 5%; border-top: 1px solid #1c222d; text-align: center; }
-        .contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        
+        /* DETAILED ABOUT SECTION */
+        .about-section { background: #0b1016; padding: 100px 5%; border-top: 1px solid #1c222d; }
+        .about-header { text-align: center; margin-bottom: 60px; }
+        .about-header h2 { font-size: 2.8rem; color: var(--accent); margin-bottom: 15px; }
+        .about-header p { font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto; }
+
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 60px; }
+        .about-item { padding: 20px; }
+        .about-item h3 { color: white; margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 15px; }
+        .about-item p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
+
+        /* CONTACT & SOCIAL BOXES */
+        .footer-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
         .contact-box, .social-box { 
-            padding: 40px; background: var(--bg-nav); border-radius: 20px; border: 1px solid rgba(66, 248, 245, 0.2); 
+            background: var(--bg-nav); padding: 40px; border-radius: 20px; border: 1px solid rgba(66, 248, 245, 0.2); text-align: center;
         }
-
-        .display-email {
-            font-size: 1.2rem;
-            color: var(--accent);
-            font-weight: bold;
-            display: block;
-            margin: 15px 0;
-            word-break: break-all;
-        }
-
+        
+        .display-email { font-size: 1.3rem; color: var(--accent); font-weight: bold; display: block; margin: 15px 0; }
+        
         .btn-glow { 
-            display: inline-block; padding: 12px 25px; background: var(--accent); color: var(--bg-main); 
-            border-radius: 8px; cursor: pointer; font-weight: 700; text-transform: uppercase; text-decoration: none;
+            display: inline-block; padding: 12px 30px; background: var(--accent); color: var(--bg-main); 
+            border-radius: 8px; font-weight: 700; text-transform: uppercase; text-decoration: none; transition: 0.3s;
         }
+        .btn-glow:hover { box-shadow: 0 0 20px var(--accent-glow); }
 
-        .social-icons a { color: white; font-size: 1.5rem; margin: 0 10px; transition: 0.3s; }
-        .social-icons a:hover { color: var(--accent); }
+        .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+        .social-icons a { color: white; font-size: 1.8rem; transition: 0.3s; }
+        .social-icons a:hover { color: var(--accent); transform: scale(1.2); }
 
-        footer { padding: 3rem; text-align: center; color: #555; border-top: 1px solid #15181d; }
+        footer { padding: 4rem; text-align: center; color: #444; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .footer-cta { grid-template-columns: 1fr; }
+            .nav-right { display: none; } /* Mobile cleanup */
+        }
     </style>
 </head>
 <body>
@@ -91,6 +95,7 @@
         <a href="#" class="logo">SGTech <span>MultiTools</span></a>
         <div class="nav-right">
             <ul class="nav-links">
+                <li><a href="#">Home</a></li>
                 <li><a href="#tool-grid">Tools</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
@@ -101,8 +106,8 @@
     </nav>
 
     <header class="hero">
-        <h1 style="font-size: 3rem; color: white;">Smart Tools. Zero Friction.</h1>
-        <p style="color: var(--text-secondary);">Fast, Secure, and Free Utilities</p>
+        <h1 style="font-size: 3.5rem;">One Platform. <span style="color:var(--accent)">Unlimited</span> Power.</h1>
+        <p style="color: var(--text-secondary); margin-top: 15px;">Secure, browser-based utilities for daily digital tasks.</p>
     </header>
 
     <main class="container">
@@ -111,54 +116,68 @@
     </main>
 
     <section id="about" class="about-section">
-        <div class="about-content">
-            <h2 style="color:var(--accent); margin-bottom: 20px;">About SGTech Multi Tools</h2>
-            
-            <div class="contact-container">
+        <div class="container">
+            <div class="about-header">
+                <h2>About SGTech Multi Tools</h2>
+                <p>Empowering users with professional utilities while setting a new standard for web privacy.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-item">
+                    <h3>Our Mission</h3>
+                    <p>At SGTech Multi Tools, we believe that powerful digital tools should be accessible to everyone without compromising their personal data. We aim to replace slow, ad-heavy cloud converters with fast, local, and secure alternatives.</p>
+                </div>
+                <div class="about-item">
+                    <h3>The "Local-First" Edge</h3>
+                    <p>Unlike traditional websites that upload your files to their servers, SGTech uses <strong>Client-Side Processing</strong>. This means when you count words or convert images, the work happens entirely inside your own browser. Your data never touches our server.</p>
+                </div>
+                <div class="about-item">
+                    <h3>Why Choose Us?</h3>
+                    <p>We provide a curated suite of 20+ utilities—from developers' JSON formatters to daily-use BMI calculators. Our interface is designed for speed, removing the friction of registrations, subscriptions, or intrusive pop-up advertisements.</p>
+                </div>
+            </div>
+
+            <div class="footer-cta">
                 <div class="contact-box">
-                    <h3 style="color: white;">Contact Support</h3>
+                    <h3 style="color:white">Technical Support</h3>
+                    <p style="color:var(--text-secondary); font-size: 0.9rem;">Need help or have a feature request?</p>
                     <span class="display-email">sgmultitools@gmail.com</span>
-                    <a href="mailto:sgmultitools@gmail.com" class="btn-glow">Open Mail App</a>
-                    <button onclick="copyEmail()" style="margin-top:10px; background:none; border:none; color:var(--text-secondary); cursor:pointer; display:block; width:100%;">
-                        <i class="fas fa-copy"></i> Click to Copy Address
-                    </button>
+                    <a href="mailto:sgmultitools@gmail.com" class="btn-glow">Email Support</a>
                 </div>
 
                 <div class="social-box">
-                    <h3 style="color: white; margin-bottom: 20px;">Follow Us</h3>
+                    <h3 style="color:white">Connect With Us</h3>
+                    <p style="color:var(--text-secondary); font-size: 0.9rem;">Join our community on social media.</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>&copy; 2026 SGTech Multi Tools. All Rights Reserved.</footer>
+    <footer>&copy; 2026 SGTech Multi Tools. Built with Privacy and Speed.</footer>
 
     <script>
-        function copyEmail() {
-            navigator.clipboard.writeText('sgmultitools@gmail.com');
-            alert('Email address copied!');
-        }
-
         const tools = [
-            { title: 'Word Counter', desc: 'Precision word and character analysis.' },
-            { title: 'Image Converter', desc: 'Convert PNG, JPG, and WebP.' },
-            { title: 'Password Gen', desc: 'Create secure, random passwords.' },
-            { title: 'QR Generator', desc: 'Instant QR code creation.' }
-            // ... (Additional tools would follow this pattern)
+            { title: 'Word Counter', desc: 'Precision analysis of text metrics.' },
+            { title: 'Image Converter', desc: 'Local PNG, JPG, and WebP conversion.' },
+            { title: 'Password Gen', desc: 'Encrypted, high-entropy passwords.' },
+            { title: 'QR Generator', desc: 'Instant QR codes for links and text.' },
+            { title: 'EMI Calculator', desc: 'Project your loan repayments.' },
+            { title: 'JSON Formatter', desc: 'Clean and validate your code.' }
+            // More tools would be listed here...
         ];
 
         const grid = document.getElementById('tool-grid');
         tools.forEach(t => {
             grid.innerHTML += `
             <div class="tool-card">
-                <h2>${t.title}</h2>
-                <p style="color:var(--text-secondary); margin: 15px 0;">${t.desc}</p>
-                <button class="btn-glow" style="background:transparent; color:var(--accent); border:1px solid var(--accent);">Launch</button>
+                <h2 style="color:var(--accent); font-size: 1.3rem;">${t.title}</h2>
+                <p style="color:var(--text-secondary); font-size: 0.9rem; margin: 15px 0;">${t.desc}</p>
+                <button class="btn-glow" style="background:transparent; color:var(--accent); border:1px solid var(--accent); padding: 8px 20px;">Launch</button>
             </div>`;
         });
     </script>
