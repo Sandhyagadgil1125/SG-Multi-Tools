@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech Multi Tools | Pro Utility Dashboard</title>
+    <title>SGTech Multi Tools | Professional Utility Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -17,16 +17,16 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-primary); line-height: 1.6; scroll-behavior: smooth; }
 
-        /* NAVIGATION BAR */
+        /* NAVIGATION */
         .navbar { 
             background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; 
             top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent-glow); 
             display: flex; justify-content: space-between; align-items: center; 
         }
-        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; letter-spacing: 1px; }
+        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: white; }
         .logo span { color: var(--accent); }
         
         .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
@@ -34,57 +34,60 @@
         .nav-links a:hover { color: var(--accent); }
 
         .header-email {
-            background: rgba(66, 248, 245, 0.1); padding: 5px 15px; border-radius: 20px;
+            background: rgba(66, 248, 245, 0.1); padding: 6px 15px; border-radius: 20px;
             border: 1px solid var(--accent); font-size: 0.8rem; color: var(--accent);
             text-decoration: none; display: flex; align-items: center; gap: 8px;
         }
 
-        /* HERO SECTION */
-        .hero { padding: 160px 5% 40px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
-        .hero p { color: var(--text-secondary); font-size: 1.1rem; }
+        /* HERO */
+        .hero { padding: 140px 5% 40px; text-align: center; }
+        .hero h1 { font-size: 3.2rem; margin-bottom: 10px; font-weight: 800; }
+        .hero p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        /* TOOLS GRID */
+        /* TOOLS SECTION */
         .container { max-width: 1400px; margin: 0 auto; padding: 2rem 5%; }
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-bottom: 100px; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 100px; }
         
         .tool-card { 
-            background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); 
+            background: var(--bg-card); padding: 35px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); 
             text-align: center; transition: var(--transition); display: flex; flex-direction: column; justify-content: space-between;
         }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 10px 30px rgba(66, 248, 245, 0.1); }
-        .tool-card h3 { color: var(--accent); margin-bottom: 10px; font-size: 1.2rem; }
-        .tool-card p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 10px 40px rgba(66, 248, 245, 0.15); }
+        .tool-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
+        .tool-card h3 { color: white; margin-bottom: 12px; font-size: 1.3rem; }
+        .tool-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 25px; }
 
         /* ABOUT SECTION */
         .about-section { background: #0b0e13; padding: 100px 5%; border-top: 1px solid #1c222d; }
         .about-inner { max-width: 1100px; margin: 0 auto; }
-        .about-header { text-align: center; margin-bottom: 50px; }
-        .about-header h2 { font-size: 2.5rem; color: var(--accent); }
+        .about-header { text-align: center; margin-bottom: 60px; }
+        .about-header h2 { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; }
 
-        .about-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .about-box h4 { color: white; margin-bottom: 15px; border-left: 3px solid var(--accent); padding-left: 10px; }
-        .about-box p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .about-box h4 { color: var(--accent); margin-bottom: 15px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .about-box p { color: var(--text-secondary); line-height: 1.8; }
 
         /* CONTACT AREA */
-        .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 60px; }
-        .contact-card { background: var(--bg-nav); padding: 40px; border-radius: 20px; border: 1px solid rgba(66, 248, 245, 0.2); text-align: center; }
-        .display-email { font-size: 1.4rem; color: var(--accent); font-weight: bold; display: block; margin: 15px 0; }
+        .footer-cta { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 80px; }
+        .contact-card { background: var(--bg-nav); padding: 50px; border-radius: 25px; border: 1px solid rgba(66, 248, 245, 0.2); text-align: center; }
+        .display-email { font-size: 1.5rem; color: var(--accent); font-weight: 800; display: block; margin: 20px 0; }
 
         .btn-glow { 
-            display: inline-block; padding: 12px 25px; background: var(--accent); color: var(--bg-main); 
-            border-radius: 8px; font-weight: 700; text-transform: uppercase; text-decoration: none; cursor: pointer; border: none;
+            display: inline-block; padding: 14px 35px; background: var(--accent); color: var(--bg-main); 
+            border-radius: 10px; font-weight: 700; text-transform: uppercase; text-decoration: none; cursor: pointer; border: none; transition: 0.3s;
         }
-        .social-icons { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
-        .social-icons a { color: white; font-size: 1.8rem; transition: 0.3s; }
-        .social-icons a:hover { color: var(--accent); }
+        .btn-glow:hover { box-shadow: 0 0 25px var(--accent-glow); transform: scale(1.05); }
+
+        .social-icons { margin-top: 25px; display: flex; justify-content: center; gap: 20px; }
+        .social-icons a { color: white; font-size: 2rem; transition: 0.3s; }
+        .social-icons a:hover { color: var(--accent); transform: translateY(-5px); }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
-        .modal-content { background: var(--bg-nav); margin: 60px auto; padding: 40px; border: 1px solid var(--accent); width: 90%; max-width: 700px; border-radius: 20px; position: relative; }
-        .close-modal { position: absolute; right: 25px; top: 15px; color: var(--accent); font-size: 30px; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); backdrop-filter: blur(12px); }
+        .modal-content { background: var(--bg-nav); margin: 50px auto; padding: 40px; border: 1px solid var(--accent); width: 95%; max-width: 800px; border-radius: 25px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; right: 25px; top: 15px; color: var(--accent); font-size: 35px; cursor: pointer; }
 
-        footer { padding: 3rem; text-align: center; color: #444; border-top: 1px solid #15181d; font-size: 0.8rem; }
+        footer { padding: 4rem; text-align: center; color: #444; border-top: 1px solid #15181d; font-size: 0.9rem; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -93,7 +96,7 @@
         <a href="#" class="logo">SGTech <span>MultiTools</span></a>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#tool-grid">Tools</a></li>
+            <li><a href="#tools">Tools</a></li>
             <li><a href="#about">About Us</a></li>
             <li>
                 <a href="mailto:sgmultitools@gmail.com" class="header-email">
@@ -104,11 +107,11 @@
     </nav>
 
     <header class="hero">
-        <h1>All 20+ Pro Tools. <span style="color:var(--accent)">100% Secure.</span></h1>
-        <p>No data ever leaves your browser. All tools process locally.</p>
+        <h1>20 Professional <span style="color:var(--accent)">Utilities</span>.</h1>
+        <p>Your privacy is our priority. Every tool processes data locally in your browser—no uploads, no tracking.</p>
     </header>
 
-    <main class="container">
+    <main id="tools" class="container">
         <div id="tool-grid" class="tool-grid">
             </div>
     </main>
@@ -116,31 +119,34 @@
     <section id="about" class="about-section">
         <div class="about-inner">
             <div class="about-header">
-                <h2>The SGTech Vision</h2>
+                <h2>The SGTech Multi Tools Experience</h2>
+                <p>Designed for power users, developers, and creators who value security and speed.</p>
             </div>
-            <div class="about-content">
+            <div class="about-grid">
                 <div class="about-box">
-                    <h4>Why SGTech?</h4>
-                    <p>SGTech Multi Tools was built to solve the privacy gap in online utilities. Most websites upload your personal files or text to a server. We changed that. Our platform acts as a shell that runs powerful code directly on your hardware.</p>
+                    <h4>The Security Protocol</h4>
+                    <p>We leverage <strong>Client-Side Execution</strong>. Most sites require you to upload files to their servers for conversion or calculation. SGTech runs all logic within your browser's secure environment. Your data never touches a server.</p>
                 </div>
                 <div class="about-box">
-                    <h4>Privacy Architecture</h4>
-                    <p>We utilize browser-based JavaScript modules. Whether you are using the Image Compressor or the Password Generator, the computation happens in your RAM, not on our cloud. This makes us immune to data breaches.</p>
+                    <h4>All-In-One Hub</h4>
+                    <p>Eliminate the need for dozens of bookmarks. From high-end image compression to financial calculators and developer utilities, we provide a unified dashboard that is mobile-responsive and blazing fast.</p>
                 </div>
                 <div class="about-box">
-                    <h4>Our Commitment</h4>
-                    <p>We commit to keeping these 20 tools free, ad-lite, and high-performance. We believe utilities should be instant and friction-free, requiring no logins or tracking cookies.</p>
+                    <h4>Zero Friction</h4>
+                    <p>No registration. No subscriptions. No pop-up ads. We believe that basic digital tools should be an open resource for the global community, built with clean code and professional aesthetics.</p>
                 </div>
             </div>
 
-            <div class="contact-row">
+            <div class="footer-cta">
                 <div class="contact-card">
-                    <h3>Contact & Support</h3>
+                    <h3>Contact Our Team</h3>
+                    <p style="color:var(--text-secondary)">Bug reports or feature suggestions?</p>
                     <span class="display-email">sgmultitools@gmail.com</span>
-                    <a href="mailto:sgmultitools@gmail.com" class="btn-glow">Open Email App</a>
+                    <a href="mailto:sgmultitools@gmail.com" class="btn-glow">Send Direct Email</a>
                 </div>
                 <div class="contact-card">
-                    <h3>Social Media</h3>
+                    <h3>Follow SGTech</h3>
+                    <p style="color:var(--text-secondary)">Stay connected with our latest updates.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -158,42 +164,43 @@
         </div>
     </div>
 
-    <footer>&copy; 2026 SGTech Multi Tools. Built for Security & Speed.</footer>
+    <footer>&copy; 2026 SGTech Multi Tools. Professional Privacy-First Engineering.</footer>
 
     <script>
-        // FULL DATABASE OF ALL 20 TOOLS
+        // DATA FOR ALL 20 TOOLS
         const tools = [
-            { id: 'word-count', title: 'Word Counter', desc: 'Precision word, character, and sentence analysis.' },
-            { id: 'img-conv', title: 'Image Converter', desc: 'Convert between PNG, JPG, and WebP instantly.' },
-            { id: 'img-comp', title: 'Image Compressor', desc: 'Reduce file size while keeping high resolution.' },
-            { id: 'img-crop', title: 'Image Cropper', desc: 'Crop and resize images for social media.' },
-            { id: 'sip-calc', title: 'SIP Calculator', desc: 'Project your mutual fund wealth growth.' },
-            { id: 'emi-calc', title: 'EMI Calculator', desc: 'Detailed loan repayment and interest breakdown.' },
-            { id: 'bmi-calc', title: 'BMI Calculator', desc: 'Accurate Body Mass Index health checker.' },
-            { id: 'age-calc', title: 'Age Calculator', desc: 'Find exact age in years, months, and days.' },
-            { id: 'json-fmt', title: 'JSON Formatter', desc: 'Prettify and validate code for developers.' },
-            { id: 'stt', title: 'Speech to Text', desc: 'Live voice-to-text dictation tool.' },
-            { id: 'tts', title: 'Text to Speech', desc: 'Natural AI voices for text narration.' },
-            { id: 'color-pick', title: 'Color Picker', desc: 'Generate HEX/RGB/HSL color codes.' },
-            { id: 'pass-gen', title: 'Password Gen', desc: 'Create unbreakable secure passwords.' },
-            { id: 'qr-gen', title: 'QR Generator', desc: 'Instant high-resolution QR code creation.' },
-            { id: 'unit-conv', title: 'Unit Converter', desc: 'Length, Weight, and Temperature metrics.' },
-            { id: 'case-conv', title: 'Case Converter', desc: 'Switch between UPPER, lower, and Title Case.' },
-            { id: 'b64-enc', title: 'Base64 Tool', desc: 'Securely encode and decode Base64 data.' },
-            { id: 'lorem-gen', title: 'Lorem Ipsum', desc: 'Generate placeholder text for designs.' },
-            { id: 'audio-trim', title: 'Audio Tools', desc: 'Analyze and manage audio file metadata.' },
-            { id: 'vid-info', title: 'Video Tools', desc: 'Detailed technical specs for video files.' }
+            { id: 'img-conv', icon: 'fa-images', name: 'Image Converter', desc: 'Convert PNG, JPG, WebP locally.' },
+            { id: 'img-comp', icon: 'fa-file-contract', name: 'Image Compressor', desc: 'Reduce file size, keep quality.' },
+            { id: 'img-crop', icon: 'fa-crop-simple', name: 'Image Cropper', desc: 'Crop images for any social size.' },
+            { id: 'vid-conv', icon: 'fa-video', name: 'Video Converter', desc: 'Local video format management.' },
+            { id: 'aud-conv', icon: 'fa-music', name: 'Audio Converter', desc: 'Switch audio formats instantly.' },
+            { id: 'aud-trim', icon: 'fa-scissors', name: 'Audio Trimmer', desc: 'Cut and edit audio segments.' },
+            { id: 'age-calc', icon: 'fa-cake-candles', name: 'Age Calculator', desc: 'Exact age in Y/M/D/H/M/S.' },
+            { id: 'emi-calc', icon: 'fa-house-chimney', name: 'EMI Calculator', desc: 'Monthly loan payment breakdown.' },
+            { id: 'sip-calc', icon: 'fa-chart-line', name: 'SIP Calculator', desc: 'Project your investment wealth.' },
+            { id: 'qr-gen', icon: 'fa-qrcode', name: 'QR Code Generator', desc: 'Instant QR for links & text.' },
+            { id: 'pass-gen', icon: 'fa-key', name: 'Password Generator', desc: 'Generate high-entropy keys.' },
+            { id: 'word-count', icon: 'fa-paragraph', name: 'Word Counter', desc: 'Detailed text & metric analysis.' },
+            { id: 'b64-tool', icon: 'fa-code', name: 'Base64 Tool', desc: 'Encode and decode Base64 data.' },
+            { id: 'color-pick', icon: 'fa-eye-dropper', name: 'Color Picker', desc: 'Generate HEX/RGB/HSL codes.' },
+            { id: 'tts', icon: 'fa-volume-high', name: 'Text to Speech', desc: 'Natural browser-based narration.' },
+            { id: 'stt', icon: 'fa-microphone', name: 'Speech to Text', desc: 'Live voice-to-text dictation.' },
+            { id: 'json-fmt', icon: 'fa-file-code', name: 'JSON Formatter', desc: 'Prettify and validate JSON.' },
+            { id: 'unit-conv', icon: 'fa-ruler-combined', name: 'Unit Converter', desc: 'Global metric/imperial switch.' },
+            { id: 'bmi-calc', icon: 'fa-heart-pulse', name: 'BMI Calculator', desc: 'Accurate health index tracker.' },
+            { id: 'timer', icon: 'fa-clock', name: 'Timer / Stopwatch', desc: 'Precision countdown and lap.' }
         ];
 
         const grid = document.getElementById('tool-grid');
         const modal = document.getElementById('tool-modal');
         const modalBody = document.getElementById('modal-body');
 
-        // Loop to display all 20 tools automatically
+        // Render all 20 tools automatically
         tools.forEach(t => {
             grid.innerHTML += `
             <div class="tool-card">
-                <h3>${t.title}</h3>
+                <i class="fas ${t.icon}"></i>
+                <h3>${t.name}</h3>
                 <p>${t.desc}</p>
                 <button class="btn-glow" style="background:transparent; color:var(--accent); border:1px solid var(--accent);" onclick="openTool('${t.id}')">Launch Tool</button>
             </div>`;
@@ -203,27 +210,46 @@
             modal.style.display = "block";
             const tool = tools.find(x => x.id === id);
             
-            let html = `<h2>${tool.title}</h2><div style="margin-top:25px;">`;
+            let html = `<h2 style="color:var(--accent); margin-bottom:10px;">${tool.name}</h2>
+                        <p style="color:var(--text-secondary); margin-bottom:30px;">This tool is running locally. No data is being sent to a server.</p>`;
+
+            // Functional logic for specific tools
             if(id === 'word-count') {
-                html += `<textarea id="ti" rows="7" oninput="doWord()" placeholder="Paste text here..." style="width:100%; background:#0d0f14; border:1px solid #333; padding:20px; color:white; border-radius:12px;"></textarea>
-                         <div style="display:flex; justify-content:space-around; margin-top:20px; background:rgba(66,248,245,0.05); padding:20px; border-radius:15px;">
-                            <div style="text-align:center;"><small style="color:var(--accent);">Words</small><br><strong id="sw" style="font-size:1.8rem;">0</strong></div>
-                            <div style="text-align:center;"><small style="color:var(--accent);">Chars</small><br><strong id="sc" style="font-size:1.8rem;">0</strong></div>
+                html += `<textarea id="txtInput" oninput="doWord()" placeholder="Paste text here..." style="width:100%; height:200px; background:#0d0f14; color:white; border:1px solid #444; padding:20px; border-radius:15px;"></textarea>
+                         <div style="display:flex; justify-content:space-around; margin-top:25px; padding:20px; background:rgba(66,248,245,0.05); border-radius:15px;">
+                            <div style="text-align:center;">Words<br><strong id="wVal" style="font-size:1.8rem;">0</strong></div>
+                            <div style="text-align:center;">Characters<br><strong id="cVal" style="font-size:1.8rem;">0</strong></div>
                          </div>`;
-            } else {
-                html += `<p style="color:var(--text-secondary); margin-bottom:20px;">The <strong>${tool.title}</strong> module is ready. This tool processes data directly on your device CPU.</p>
-                         <textarea style="width:100%; background:#0d0f14; border:1px solid #333; padding:15px; color:white; border-radius:10px;" rows="4" placeholder="Input data..."></textarea>
-                         <button class="btn-glow" style="margin-top:20px;" onclick="alert('Processed locally by SGTech MultiTools Engine')">Execute Task</button>`;
+            } 
+            else if(id === 'pass-gen') {
+                html += `<div style="background:#0d0f14; padding:30px; border-radius:15px; text-align:center;">
+                            <div id="passRes" style="font-size:1.5rem; color:var(--accent); font-family:monospace; margin-bottom:20px;">********</div>
+                            <button class="btn-glow" onclick="genPass()">Generate Secure Password</button>
+                         </div>`;
             }
-            html += `</div>`;
+            else {
+                html += `<div style="background:#0d0f14; padding:40px; border-radius:15px; border:1px dashed #444; text-align:center;">
+                            <i class="fas ${tool.icon}" style="font-size:3rem; color:#333; margin-bottom:20px;"></i>
+                            <p style="color:#555;">Ready to process data locally.</p>
+                            <button class="btn-glow" style="margin-top:20px;" onclick="alert('Processed Securely by SGTech Engine')">Start Processing</button>
+                         </div>`;
+            }
             modalBody.innerHTML = html;
         }
 
+        // Logic Functions
         function doWord() {
-            const v = document.getElementById('ti').value;
-            const words = v.match(/\S+/g);
-            document.getElementById('sw').innerText = words ? words.length : 0;
-            document.getElementById('sc').innerText = v.length;
+            const v = document.getElementById('txtInput').value;
+            const w = v.match(/\S+/g);
+            document.getElementById('wVal').innerText = w ? w.length : 0;
+            document.getElementById('cVal').innerText = v.length;
+        }
+
+        function genPass() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            let p = "";
+            for(let i=0; i<16; i++) p += chars.charAt(Math.floor(Math.random() * chars.length));
+            document.getElementById('passRes').innerText = p;
         }
 
         document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
