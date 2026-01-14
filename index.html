@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGTech Multi Tools | Pro Utility Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --bg-main: #0d0f14;
@@ -47,20 +48,31 @@
         .tool-card:hover { border-color: var(--accent); transform: translateY(-12px); box-shadow: 0 15px 45px rgba(66, 248, 245, 0.15); }
         .tool-card h2 { font-size: 1.4rem; color: var(--accent); margin-bottom: 12px; }
 
-        /* ABOUT SECTION */
+        /* ABOUT & CONTACT SECTION */
         .about-section { background: #0b0d11; padding: 100px 5%; border-top: 1px solid #1c222d; margin-top: 60px; text-align: center; }
         .about-content { max-width: 1000px; margin: 0 auto; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin: 40px 0; }
-        .feature-box { padding: 30px; background: var(--bg-card); border-radius: 12px; border: 1px solid #1c222d; }
-        .feature-box h3 { color: var(--accent); margin-bottom: 15px; }
+        
+        /* CONTACT & SOCIAL GRID */
+        .contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        .contact-box, .social-box { padding: 40px; background: var(--bg-nav); border-radius: 20px; border: 1px solid rgba(66, 248, 245, 0.3); }
 
-        /* BUTTONS & MODAL */
+        .social-icons { display: flex; justify-content: center; gap: 20px; margin-top: 25px; }
+        .social-icons a { 
+            color: var(--text-primary); font-size: 1.8rem; transition: var(--transition); 
+            width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            border: 1px solid #333; border-radius: 50%; text-decoration: none;
+        }
+        .social-icons a:hover { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-5px); }
+
         .btn-glow { 
-            display: inline-block; padding: 12px 30px; background: transparent; color: var(--accent); border: 2px solid var(--accent); 
+            display: inline-block; padding: 14px 30px; background: transparent; color: var(--accent); border: 2px solid var(--accent); 
             border-radius: 8px; cursor: pointer; transition: var(--transition); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; text-decoration: none;
         }
         .btn-glow:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 0 25px var(--accent-glow); }
 
+        .copy-btn { background: #1c222d; border: 1px solid #333; color: var(--accent); padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.7rem; margin-left: 10px; }
+
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); }
         .modal-content { background: var(--bg-nav); margin: 80px auto; padding: 45px; border: 1px solid var(--accent); width: 90%; max-width: 650px; border-radius: 24px; position: relative; }
         .close-modal { position: absolute; right: 25px; top: 15px; color: var(--accent); font-size: 40px; cursor: pointer; }
@@ -76,13 +88,13 @@
             <li><a href="#">Home</a></li>
             <li><a href="#tool-grid">Tools</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="mailto:sgmultitools@gmail.com?subject=Support Inquiry">Contact</a></li>
+            <li><a href="mailto:sgmultitools@gmail.com">Contact Us</a></li>
         </ul>
     </nav>
 
     <header class="hero">
         <h1>Smart Tools. Zero Friction.</h1>
-        <p>Your all-in-one destination for secure, fast, and free web utilities.</p>
+        <p>A professional suite of 20+ web utilities running 100% on your device for total privacy.</p>
     </header>
 
     <main class="container">
@@ -92,18 +104,27 @@
     <section id="about" class="about-section">
         <div class="about-content">
             <h2 style="color:var(--accent); font-size: 2.5rem; margin-bottom: 20px;">About SGTech Multi Tools</h2>
-            <p>Our tools are designed to run entirely in your browser. This means your data is never sent to a server, keeping your information 100% private and secure.</p>
+            <p>Our tools process data locally. Your private information never touches our servers.</p>
             
-            <div class="feature-grid">
-                <div class="feature-box"><h3>No Tracking</h3><p>We don't use cookies or store your inputs.</p></div>
-                <div class="feature-box"><h3>High Speed</h3><p>Instant processing with modern JavaScript.</p></div>
-                <div class="feature-box"><h3>Always Free</h3><p>Professional tools at no cost to you.</p></div>
-            </div>
+            <div class="contact-container">
+                <div class="contact-box">
+                    <h3 style="color: white; margin-bottom: 10px;">Need Assistance?</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                        sgmultitools@gmail.com 
+                        <button class="copy-btn" onclick="copyEmail()">COPY</button>
+                    </p>
+                    <a href="mailto:sgmultitools@gmail.com?subject=SGTech Support Request" class="btn-glow">Send Email Now</a>
+                </div>
 
-            <div style="margin-top: 60px; padding: 30px; border-top: 1px solid #1c222d;">
-                <h3 style="color: white; margin-bottom: 10px;">Still have questions?</h3>
-                <p style="margin-bottom: 25px; color: var(--text-secondary);">Reach out to us directly for support or suggestions.</p>
-                <a href="mailto:sgmultitools@gmail.com?subject=Direct Inquiry from SGTech" class="btn-glow">Email Support Directly</a>
+                <div class="social-box">
+                    <h3 style="color: white; margin-bottom: 10px;">Follow Us</h3>
+                    <p style="color: var(--text-secondary);">Stay updated with new tools and features.</p>
+                    <div class="social-icons">
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -118,6 +139,12 @@
     <footer>&copy; 2026 SGTech Multi Tools. Designed for Privacy.</footer>
 
     <script>
+        // Copy Email Logic
+        function copyEmail() {
+            navigator.clipboard.writeText('sgmultitools@gmail.com');
+            alert('Email copied to clipboard!');
+        }
+
         const tools = [
             { id: 'word-count', title: 'Word Counter', desc: 'Precision word, character, and sentence analysis.' },
             { id: 'img-conv', title: 'Image Converter', desc: 'Convert between PNG, JPG, and WebP instantly.' },
