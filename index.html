@@ -3,48 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech Multi Tools | Media Master</title>
+    <title>SGTech Multi Tools | Official Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --bg-main: #080a0e; --bg-nav: #12161f; --bg-card: #161b22;
-            --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.3);
-            --card-border: rgba(66, 248, 245, 0.1);
+            --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.4);
+            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         [data-theme="light"] {
             --bg-main: #f0f2f5; --bg-nav: #ffffff; --bg-card: #ffffff;
             --accent: #0062ff; --accent-glow: rgba(0, 98, 255, 0.2);
+            --card-border: rgba(0, 98, 255, 0.1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; color: var(--accent) !important; }
-        body { background-color: var(--bg-main); transition: 0.4s; padding-top: 80px; }
-        .navbar { background: var(--bg-nav); padding: 1rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
+        body { background-color: var(--bg-main); transition: background 0.4s; padding-top: 80px; }
+        
+        /* Logo & Navbar */
+        .navbar { background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .sg-box { 
+            border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; 
+            display: flex; align-items: center; justify-content: center; border-radius: 8px; 
+            box-shadow: 0 0 10px var(--accent-glow); font-size: 1.2rem;
+        }
+        .brand-name { font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; }
+
+        /* Tool Cards with Hover */
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 30px 5%; }
-        .tool-card { background: var(--bg-card); padding: 25px; border-radius: 15px; border: 1px solid var(--card-border); text-align: center; cursor: pointer; transition: 0.3s; }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 5px 15px var(--accent-glow); }
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 30px; border: 2px solid var(--accent); width: 90%; max-width: 600px; border-radius: 20px; text-align: center; }
+        .tool-card { 
+            background: var(--bg-card); padding: 25px; border-radius: 15px; border: 1px solid var(--card-border); 
+            text-align: center; cursor: pointer; transition: var(--transition);
+        }
+        .tool-card:hover { 
+            border-color: var(--accent); transform: translateY(-8px); 
+            box-shadow: 0 10px 25px var(--accent-glow); background: rgba(66, 248, 245, 0.03);
+        }
+        .tool-card i { transition: var(--transition); font-size: 2.5rem; }
+        .tool-card:hover i { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--accent)); }
+
+        /* Buttons & UI */
+        .btn { 
+            background: transparent; border: 2px solid var(--accent); padding: 10px 20px; border-radius: 8px; 
+            cursor: pointer; font-weight: bold; text-transform: uppercase; width: 100%; margin-top: 10px; 
+            transition: var(--transition); text-decoration: none; display: inline-block;
+        }
+        .btn:hover { background: var(--accent); color: #000 !important; box-shadow: 0 0 15px var(--accent); }
+        
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); }
+        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 35px; border: 2px solid var(--accent); width: 90%; max-width: 600px; border-radius: 20px; text-align: center; position: relative;}
         input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); padding: 12px; border-radius: 8px; width: 100%; margin-bottom: 15px; }
-        .btn { background: transparent; border: 2px solid var(--accent); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; width: 100%; margin-top: 10px; text-decoration: none; display: inline-block; }
-        .btn:hover { background: var(--accent); color: #000 !important; }
-        .res-box { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; min-height: 50px; overflow: hidden; }
-        .preview-img { max-width: 100%; max-height: 250px; margin-top: 10px; border-radius: 8px; border: 1px solid var(--accent); }
+        .res-box { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; min-height: 50px; background: rgba(0,0,0,0.2); }
     </style>
 </head>
 <body data-theme="dark">
 
 <nav class="navbar">
-    <div style="font-weight: 900; font-size: 1.5rem;">SGTech Multi Tools</div>
-    <button class="btn" style="width: auto; margin: 0;" onclick="toggleTheme()">Theme Toggle</button>
+    <a href="#" class="logo">
+        <div class="sg-box">SG</div>
+        <div class="brand-name">Tech Multi Tools</div>
+    </a>
+    <button class="btn" style="width: auto; margin: 0; padding: 6px 15px;" onclick="toggleTheme()">Theme</button>
 </nav>
 
 <div id="grid" class="tool-grid"></div>
 
 <div id="modal" class="modal">
     <div class="modal-content">
-        <span style="float:right; cursor:pointer; font-size: 2rem;" onclick="closeM()">&times;</span>
+        <span style="position:absolute; right:20px; top:10px; cursor:pointer; font-size: 2.5rem;" onclick="closeM()">&times;</span>
         <h2 id="mTitle"></h2><br>
         <div id="mBody"></div>
-        <div class="res-box" id="mRes">Upload a file to begin...</div>
+        <div class="res-box" id="mRes">Ready...</div>
         <div id="dlArea"></div>
     </div>
 </div>
@@ -75,7 +104,7 @@ const tools = [
 
 const grid = document.getElementById('grid');
 tools.forEach(t => {
-    grid.innerHTML += `<div class="tool-card" onclick="openT('${t.id}')"><i class="fas ${t.icon} fa-2xl"></i><p style="margin-top:10px">${t.name}</p></div>`;
+    grid.innerHTML += `<div class="tool-card" onclick="openT('${t.id}')"><i class="fas ${t.icon}"></i><p style="margin-top:15px; font-weight:700;">${t.name}</p></div>`;
 });
 
 function openT(id) {
@@ -83,24 +112,22 @@ function openT(id) {
     document.getElementById('mTitle').innerText = t.name;
     let body = "";
     
-    if(id === '1') { // Converter
-        body = `<input type="file" id="fIn" accept="image/*">
-                <select id="fmt"><option value="image/png">To PNG</option><option value="image/jpeg">To JPEG</option><option value="image/webp">To WebP</option></select>`;
-    } else if(id === '2') { // Compressor
-        body = `<input type="file" id="fIn" accept="image/jpeg, image/webp">
-                <p>Compression Level</p><input type="range" id="q" min="0.1" max="0.9" step="0.1" value="0.5">`;
-    } else if(['3','4','5','6'].includes(id)) {
-        body = `<input type="file" id="fIn" accept="${id === '3' ? 'image/*' : id === '4' ? 'video/*' : 'audio/*'}">`;
-    } else if(id==='7') body = `<input type="date" id="v1">`;
-    else if(id==='8' || id==='9') body = `<input type="number" id="v1" placeholder="Principal"><input type="number" id="v2" placeholder="Rate %"><input type="number" id="v3" placeholder="Time (Yrs)">`;
+    if(['1','2','3'].includes(id)) {
+        body = `<input type="file" id="fIn" accept="image/*">`;
+        if(id === '1') body += `<select id="fmt"><option value="image/png">To PNG</option><option value="image/jpeg">To JPEG</option></select>`;
+        if(id === '2') body += `<p>Quality</p><input type="range" id="q" min="0.1" max="0.9" step="0.1" value="0.5">`;
+    } 
+    else if(['4','5','6'].includes(id)) body = `<input type="file" id="fIn" accept="${id==='4'?'video/*':'audio/*'}">`;
+    else if(id==='7') body = `<input type="date" id="v1">`;
+    else if(id==='8' || id==='9') body = `<input type="number" id="v1" placeholder="Principal"><input type="number" id="v2" placeholder="Rate %"><input type="number" id="v3" placeholder="Time (Years)">`;
     else if(id==='10' || id==='11' || id==='13') body = `<input type="text" id="v1" placeholder="Input Value">`;
     else if(id==='12' || id==='15' || id==='17') body = `<textarea id="v1" rows="4" placeholder="Enter text..."></textarea>`;
-    else if(id==='18') body = `<input type="number" id="v1" placeholder="KM"><p>Converts to Miles</p>`;
+    else if(id==='18') body = `<input type="number" id="v1" placeholder="KM"><p>Convert to Miles</p>`;
     else if(id==='19') body = `<input type="number" id="v1" placeholder="Height cm"><input type="number" id="v2" placeholder="Weight kg">`;
-    else if(id==='20') body = `<div id="swDisp" style="font-size:2.5rem">00:00:00</div><button class="btn" onclick="toggleSW()">Start/Stop</button>`;
+    else if(id==='20') body = `<div id="swDisp" style="font-size:2.5rem; margin:15px 0;">00:00:00</div><button class="btn" onclick="toggleSW()">Start/Stop</button>`;
     else if(id==='14') body = `<input type="color" id="v1" style="height:80px">`;
 
-    if(!['16','20'].includes(id)) body += `<button class="btn" onclick="run('${id}')">Process Result</button>`;
+    if(!['16','20'].includes(id)) body += `<button class="btn" onclick="run('${id}')">Process & Download</button>`;
     if(id==='16') body += `<button class="btn" onclick="runSTT()">Start Listening</button>`;
     
     document.getElementById('mBody').innerHTML = body;
@@ -110,9 +137,7 @@ function openT(id) {
 }
 
 function run(id) {
-    const res = document.getElementById('mRes');
-    const dl = document.getElementById('dlArea');
-    const f = document.getElementById('fIn')?.files[0];
+    const res = document.getElementById('mRes'), dl = document.getElementById('dlArea'), f = document.getElementById('fIn')?.files[0];
 
     if(['1','2','3'].includes(id) && f) {
         const reader = new FileReader();
@@ -123,43 +148,31 @@ function run(id) {
                 const ctx = canvas.getContext('2d');
                 canvas.width = img.width; canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
-                
                 const format = id === '1' ? document.getElementById('fmt').value : 'image/jpeg';
                 const quality = id === '2' ? parseFloat(document.getElementById('q').value) : 1.0;
-                
                 const data = canvas.toDataURL(format, quality);
-                res.innerHTML = `<p>Preview:</p><img src="${data}" class="preview-img">`;
-                dl.innerHTML = `<a href="${data}" download="sgtech_processed.${format.split('/')[1]}" class="btn">Download Result</a>`;
+                res.innerHTML = `<img src="${data}" style="max-width:100%; border-radius:10px;">`;
+                dl.innerHTML = `<a href="${data}" download="sgtech_export" class="btn">Download File</a>`;
             };
             img.src = e.target.result;
         };
         reader.readAsDataURL(f);
     } else if(['4','5','6'].includes(id) && f) {
         const url = URL.createObjectURL(f);
-        res.innerText = "File ready for export.";
+        res.innerText = "Media ready for download.";
         dl.innerHTML = `<a href="${url}" download="sgtech_media" class="btn">Download Media</a>`;
-    } else if(id === '10') {
-        const val = document.getElementById('v1').value;
-        const url = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(val)}`;
-        res.innerHTML = `<img src="${url}">`;
-        dl.innerHTML = `<a href="${url}" target="_blank" class="btn">Save QR</a>`;
     } else {
-        // Logic for math/text tools...
-        const v1 = document.getElementById('v1')?.value;
-        const v2 = document.getElementById('v2')?.value;
-        const v3 = document.getElementById('v3')?.value;
-        if(id==='8') res.innerText = "Monthly EMI: " + Math.round((v1 * (v2/1200)) / (1 - Math.pow(1 + (v2/1200), -v3*12)));
+        const v1 = document.getElementById('v1')?.value, v2 = document.getElementById('v2')?.value, v3 = document.getElementById('v3')?.value;
+        if(id==='8') res.innerText = "EMI: " + Math.round((v1 * (v2/1200)) / (1 - Math.pow(1 + (v2/1200), -v3*12)));
+        if(id==='10') { let url = `https://api.qrserver.com/v1/create-qr-code/?data=${v1}`; res.innerHTML = `<img src="${url}">`; dl.innerHTML = `<a href="${url}" target="_blank" class="btn">Save QR</a>`; }
+        if(id==='12') res.innerText = v1.trim().split(/\s+/).length + " Words";
         if(id==='19') res.innerText = "BMI: " + (v2 / ((v1/100)**2)).toFixed(2);
-        if(id==='12') res.innerText = (v1.trim().split(/\s+/).length) + " Words";
-        if(id==='11') res.innerText = Math.random().toString(36).slice(-10).toUpperCase() + "!";
-        if(id==='13') res.innerText = btoa(v1);
-        if(id==='15') { const u = new SpeechSynthesisUtterance(v1); window.speechSynthesis.speak(u); }
+        if(id==='15') window.speechSynthesis.speak(new SpeechSynthesisUtterance(v1));
     }
 }
 
 function runSTT() {
     const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!Speech) return alert("Speech API not supported in this browser.");
     const rec = new Speech();
     rec.onresult = (e) => { document.getElementById('mRes').innerText = e.results[0][0].transcript; };
     rec.start();
