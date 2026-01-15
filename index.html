@@ -9,7 +9,7 @@
         :root {
             --bg-main: #080a0e; --bg-nav: #12161f; --bg-card: #161b22;
             --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.5);
-            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.2s ease-in-out;
+            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s ease;
         }
         [data-theme="light"] {
             --bg-main: #f0f2f5; --bg-nav: #ffffff; --bg-card: #ffffff;
@@ -17,198 +17,203 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--accent); padding-top: 70px; transition: background 0.4s; }
+        body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; transition: background 0.4s; }
 
-        /* NAVBAR */
+        /* NAVIGATION */
         .navbar { 
-            background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; 
-            top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); 
+            background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; 
+            top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); 
             display: flex; justify-content: space-between; align-items: center; 
         }
         .nav-left { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .sg-box { 
-            border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; 
-            display: flex; align-items: center; justify-content: center; border-radius: 8px; 
-            box-shadow: 0 0 10px var(--accent-glow); color: var(--accent); 
+        .sg-logo { 
+            border: 2.5px solid var(--accent); font-weight: 900; width: 45px; height: 45px; 
+            display: flex; align-items: center; justify-content: center; border-radius: 10px; 
+            box-shadow: 0 0 12px var(--accent-glow); color: var(--accent); 
         }
-        .brand-name { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--accent); }
+        .brand-name { font-weight: 800; font-size: 1.3rem; letter-spacing: 1px; color: var(--accent); }
 
-        .nav-right { display: flex; align-items: center; gap: 30px; }
-        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
+        .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
         .nav-links a { 
             text-decoration: none; color: var(--accent); font-weight: 600; 
-            font-size: 0.85rem; text-transform: uppercase; opacity: 0.7; transition: 0.3s; cursor: pointer; 
+            text-transform: uppercase; font-size: 0.85rem; cursor: pointer; opacity: 0.7;
         }
-        .nav-links a:hover { opacity: 1; text-shadow: 0 0 8px var(--accent); }
+        .nav-links a:hover { opacity: 1; text-shadow: 0 0 10px var(--accent); }
 
         /* HERO */
-        .hero-section { text-align: center; padding: 60px 20px 20px; }
-        .hero-title { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; text-shadow: 0 0 15px var(--accent-glow); }
-        
-        .search-container { max-width: 500px; margin: 25px auto; position: relative; }
-        .search-bar { 
-            width: 100%; padding: 15px 20px 15px 50px; border-radius: 30px; 
-            background: var(--bg-card); border: 2px solid var(--card-border); 
-            color: var(--accent); font-size: 1rem; outline: none; transition: 0.3s;
+        .hero { text-align: center; padding: 40px 20px; }
+        .search-box { 
+            max-width: 600px; margin: 20px auto; position: relative; 
         }
-        .search-bar:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
-        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); opacity: 0.6; }
+        .search-box input { 
+            width: 100%; padding: 15px 50px; border-radius: 50px; 
+            background: var(--bg-card); border: 2px solid var(--card-border); 
+            color: var(--accent); font-size: 1rem; outline: none;
+        }
+        .search-box i { position: absolute; left: 20px; top: 18px; opacity: 0.5; }
 
         /* GRID */
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; padding: 20px 5%; }
-        .tool-card { 
-            background: var(--bg-card); padding: 30px; border-radius: 18px; border: 1px solid var(--card-border); 
-            text-align: center; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center;
+        .grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 20px; padding: 20px 5%; 
         }
-        .tool-card.hidden { display: none; }
-        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; }
-        
-        .btn { 
-            display: inline-block; width: 100%; padding: 12px 15px; background: transparent; 
-            border: 2px solid var(--accent); color: var(--accent); border-radius: 10px; 
-            font-weight: 800; text-transform: uppercase; cursor: pointer; 
-            transition: all 0.25s ease; outline: none; text-align: center;
+        .card { 
+            background: var(--bg-card); border: 1px solid var(--card-border); 
+            padding: 30px 20px; border-radius: 20px; text-align: center; 
+            cursor: pointer; transition: var(--transition);
         }
-        .btn:hover { background-color: var(--accent) !important; color: #000 !important; }
+        .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 10px 25px var(--accent-glow); }
+        .card i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .card h3 { font-size: 0.95rem; text-transform: uppercase; font-weight: 800; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
-        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 2px solid var(--accent); width: 90%; max-width: 550px; border-radius: 20px; text-align: center; position: relative; }
-        .close-btn { position: absolute; right: 20px; top: 10px; font-size: 2rem; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+        .modal-content { 
+            background: var(--bg-nav); max-width: 550px; margin: 10vh auto; padding: 40px; 
+            border-radius: 30px; border: 2px solid var(--accent); position: relative; text-align: center;
+        }
+        .close { position: absolute; right: 25px; top: 15px; font-size: 2rem; cursor: pointer; }
         
-        input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); color: var(--accent); padding: 12px; border-radius: 8px; width: 100%; margin-bottom: 10px; font-size: 1rem; }
-        .res-box { margin-top: 15px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; font-weight: bold; background: rgba(66, 248, 245, 0.05); }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
+        .btn-main { background: var(--accent); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
+        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); font-weight: bold; }
 
         /* ABOUT DESIGN */
-        .about-header { margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
-        .feature-item { display: flex; align-items: center; gap: 15px; text-align: left; margin-bottom: 12px; font-size: 0.95rem; }
-        .feature-item i { color: var(--accent); font-size: 1.2rem; width: 25px; }
+        .about-info { text-align: left; line-height: 1.6; }
+        .v-tag { background: var(--accent); color: #000; padding: 2px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; margin-left: 10px; }
     </style>
 </head>
 <body data-theme="dark">
 
 <nav class="navbar">
     <a href="#" class="nav-left">
-        <div class="sg-box">SG</div>
-        <span class="brand-name">SG-Multi-Tools</span>
+        <div class="sg-logo">SG</div>
+        <span class="brand-name">SG-MULTI-TOOLS</span>
     </a>
-    <div class="nav-right">
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a onclick="handleAboutClick()">About</a></li>
-            <li><a onclick="handleContactClick()">Contact</a></li>
-        </ul>
-        <button class="btn" style="width: auto; padding: 5px 15px;" onclick="toggleTheme()">Theme</button>
-    </div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a onclick="openAbout()">About</a></li>
+        <li><a onclick="openContact()">Contact</a></li>
+        <li><i class="fas fa-adjust" onclick="toggleTheme()" style="cursor:pointer;"></i></li>
+    </ul>
 </nav>
 
-<header class="hero-section">
-    <h1 class="hero-title">SG-Multi-Tools For Daily Use</h1>
-    <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" id="toolSearch" class="search-bar" placeholder="Search for a tool..." onkeyup="filterTools()">
+<div class="hero">
+    <h1>All-In-One Digital Workspace</h1>
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="toolSearch" placeholder="Search from 20 pro tools..." onkeyup="search()">
     </div>
-</header>
+</div>
 
-<div id="grid" class="tool-grid"></div>
+<div class="grid" id="toolGrid"></div>
 
-<div id="mainModal" class="modal">
+<div id="uiModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <span class="close" onclick="closeModal()">&times;</span>
         <h2 id="modalTitle" style="margin-bottom: 20px;"></h2>
         <div id="modalBody"></div>
-        <div class="res-box" id="modalResult">System Ready</div>
+        <div id="modalFooter" class="res-display">Status: Ready</div>
     </div>
 </div>
 
 <script>
-// TOOL DATA
-const toolList = [
-    { id: '1', name: 'Image Converter', icon: 'fa-image' },
-    { id: '18', name: 'Unit Converter', icon: 'fa-ruler' },
-    { id: '10', name: 'QR Generator', icon: 'fa-qrcode' },
-    { id: '11', name: 'Password Gen', icon: 'fa-key' },
-    { id: '12', name: 'Word Counter', icon: 'fa-font' },
-    { id: '19', name: 'BMI Calculator', icon: 'fa-weight-scale' },
-    { id: '7', name: 'Age Calculator', icon: 'fa-cake-candles' }
+const toolset = [
+    { name: "Image Converter", icon: "fa-image" },
+    { name: "Image Compressor", icon: "fa-file-contract" },
+    { name: "Image Cropper", icon: "fa-crop-simple" },
+    { name: "Video Converter", icon: "fa-video" },
+    { name: "Audio Converter", icon: "fa-file-audio" },
+    { name: "Audio Trimmer", icon: "fa-scissors" },
+    { name: "Age Calculator", icon: "fa-cake-candles" },
+    { name: "EMI Calculator", icon: "fa-calculator" },
+    { name: "SIP Calculator", icon: "fa-chart-line" },
+    { name: "QR Code Generator", icon: "fa-qrcode" },
+    { name: "Password Generator", icon: "fa-key" },
+    { name: "Word Counter", icon: "fa-font" },
+    { name: "Base64 Tool", icon: "fa-code" },
+    { name: "Color Picker Tool", icon: "fa-palette" },
+    { name: "Text to Speech", icon: "fa-volume-high" },
+    { name: "Speech to Text", icon: "fa-microphone" },
+    { name: "JSON Formatter", icon: "fa-brackets-curly" },
+    { name: "Unit Converter", icon: "fa-ruler-combined" },
+    { name: "BMI Calculator", icon: "fa-weight-scale" },
+    { name: "Timer / Stopwatch", icon: "fa-stopwatch" }
 ];
 
-// INITIALIZE GRID
-const grid = document.getElementById('grid');
-function initGrid() {
-    grid.innerHTML = toolList.map(t => `
-        <div class="tool-card" data-name="${t.name.toLowerCase()}" onclick="openTool('${t.id}')">
+function loadTools() {
+    const grid = document.getElementById('toolGrid');
+    grid.innerHTML = toolset.map(t => `
+        <div class="card" onclick="openTool('${t.name}')">
             <i class="fas ${t.icon}"></i>
-            <button class="btn">${t.name}</button>
+            <h3>${t.name}</h3>
         </div>
     `).join('');
 }
 
-// SEARCH
-function filterTools() {
-    const q = document.getElementById('toolSearch').value.toLowerCase();
-    document.querySelectorAll('.tool-card').forEach(c => {
-        c.classList.toggle('hidden', !c.getAttribute('data-name').includes(q));
-    });
-}
-
-// NEW ABOUT HANDLER (REPLACES OLD ALERT)
-function handleAboutClick() {
-    const title = document.getElementById('modalTitle');
-    const body = document.getElementById('modalBody');
-    const res = document.getElementById('modalResult');
-    
-    title.innerText = "About SG-Multi-Tools";
-    body.innerHTML = `
-        <div class="about-header">
-            <p style="font-weight: 900; color: var(--accent);">PLATINUM EDITION V2.5</p>
-            <p style="font-size: 0.85rem; opacity: 0.6;">The complete private utility suite.</p>
-        </div>
-        <div class="feature-item"><i class="fas fa-user-shield"></i> <span><strong>Privacy Focused:</strong> All conversions happen locally in your browser. No data is sent to any server.</span></div>
-        <div class="feature-item"><i class="fas fa-bolt"></i> <span><strong>Lightning Fast:</strong> Optimized for instant results without page reloads.</span></div>
-        <div class="feature-item"><i class="fas fa-check-circle"></i> <span><strong>Free to Use:</strong> No subscriptions, no ads, just helpful tools.</span></div>
-        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.4;">© 2026 SGTech Solutions. All rights reserved.</p>
-    `;
-    res.innerText = "System Integrity: Optimal";
-    document.getElementById('mainModal').style.display = "block";
-}
-
-// CONTACT HANDLER
-function handleContactClick() {
-    document.getElementById('modalTitle').innerText = "Contact Us";
-    document.getElementById('modalBody').innerHTML = `
-        <input type="text" id="nameIn" placeholder="Your Full Name">
-        <input type="email" id="emailIn" placeholder="Your Email Address">
-        <textarea id="msgIn" rows="4" placeholder="How can we help you?"></textarea>
-        <button class="btn" onclick="submitContact()">Send Inquiry</button>
-    `;
-    document.getElementById('modalResult').innerText = "Email: sgmultitools@gmail.com";
-    document.getElementById('mainModal').style.display = "block";
-}
-
-function submitContact() {
-    const n = document.getElementById('nameIn').value;
-    const e = document.getElementById('emailIn').value;
-    if(n && e) {
-        document.getElementById('modalResult').innerText = "Success! Thank you, " + n + ". We will reach out soon.";
-        setTimeout(closeModal, 2500);
-    } else {
-        document.getElementById('modalResult').innerText = "Error: Please fill in both Name and Email.";
+function search() {
+    let filter = document.getElementById('toolSearch').value.toUpperCase();
+    let cards = document.getElementsByClassName('card');
+    for (let i = 0; i < cards.length; i++) {
+        let txt = cards[i].innerText;
+        cards[i].style.display = txt.toUpperCase().indexOf(filter) > -1 ? "" : "none";
     }
 }
 
-// TOOL OPENER
-function openTool(id) {
-    const t = toolList.find(x => x.id === id);
-    document.getElementById('modalTitle').innerText = t.name;
-    document.getElementById('modalBody').innerHTML = `<p>Interface for ${t.name} is initializing...</p><button class="btn" style="margin-top:15px">Launch Engine</button>`;
-    document.getElementById('mainModal').style.display = "block";
+// THE NEW ABOUT (Replaces Alert)
+function openAbout() {
+    document.getElementById('modalTitle').innerText = "About SG-Multi-Tools";
+    document.getElementById('modalBody').innerHTML = `
+        <div class="about-info">
+            <p><strong>Version:</strong> 2.7 Platinum <span class="v-tag">LATEST</span></p>
+            <p style="margin-top:15px">A professional-grade web utility suite designed for speed and security. All tools run 100% in your browser, meaning your data never touches a server.</p>
+            <ul style="margin: 15px 20px;">
+                <li>No Data Collection</li>
+                <li>Offline Capability</li>
+                <li>Zero Cost, Zero Ads</li>
+            </ul>
+            <p style="font-size:0.8rem; opacity:0.6; margin-top:20px;">© 2026 Sandhya Gadgil Tech.</p>
+        </div>
+    `;
+    document.getElementById('modalFooter').innerText = "System Status: Optimized";
+    document.getElementById('uiModal').style.display = "block";
 }
 
-function closeModal() { document.getElementById('mainModal').style.display = "none"; }
-function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark'?'light':'dark'); }
+// CONTACT FORM WITH EMAIL BOX
+function openContact() {
+    document.getElementById('modalTitle').innerText = "Contact Support";
+    document.getElementById('modalBody').innerHTML = `
+        <input type="text" id="userName" placeholder="Your Full Name">
+        <input type="email" id="userEmail" placeholder="Your Email Address">
+        <textarea id="userMsg" rows="4" placeholder="How can we help you today?"></textarea>
+        <button class="btn-main" onclick="sendMsg()">Send Message</button>
+    `;
+    document.getElementById('modalFooter').innerText = "Direct: sandhyagadgil1125@github.io";
+    document.getElementById('uiModal').style.display = "block";
+}
 
-initGrid();
+function sendMsg() {
+    const name = document.getElementById('userName').value;
+    const email = document.getElementById('userEmail').value;
+    if(name && email) {
+        document.getElementById('modalFooter').innerText = "Success! Message recorded for " + name;
+        setTimeout(closeModal, 2000);
+    } else {
+        alert("Please enter both Name and Email.");
+    }
+}
+
+function openTool(name) {
+    document.getElementById('modalTitle').innerText = name;
+    document.getElementById('modalBody').innerHTML = `<p>Loading the ${name} engine...</p><button class="btn-main">Start Now</button>`;
+    document.getElementById('modalFooter').innerText = "Ready to process";
+    document.getElementById('uiModal').style.display = "block";
+}
+
+function closeModal() { document.getElementById('uiModal').style.display = "none"; }
+function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+
+window.onload = loadTools;
 </script>
 </body>
 </html>
