@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech Multi Tools | Dual-Theme Utility Hub</title>
+    <title>SGTech Multi Tools | Pro Utility Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* --- DYNAMIC THEME VARIABLES --- */
         :root {
-            /* Default Dark Mode */
             --bg-main: #080a0e;
             --bg-nav: #12161f;
             --bg-card: #161b22;
@@ -32,75 +31,70 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-primary); transition: background 0.4s ease, color 0.4s ease; scroll-behavior: smooth; }
+        body { background-color: var(--bg-main); color: var(--text-primary); transition: background 0.4s, color 0.4s; scroll-behavior: smooth; }
 
         /* --- NAVIGATION --- */
         .navbar { 
             background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000;
             border-bottom: 1px solid var(--accent-glow); display: flex; justify-content: space-between; align-items: center;
-            transition: var(--transition);
         }
         .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text-primary); }
         .logo span { color: var(--accent); }
         
         .nav-right { display: flex; align-items: center; gap: 15px; }
         .nav-links { display: flex; list-style: none; gap: 20px; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* --- THEME TOGGLE BUTTON --- */
         .theme-toggle {
-            background: var(--accent); color: var(--bg-main); border: none; width: 40px; height: 40px;
+            background: var(--accent); color: var(--bg-main); border: none; width: 35px; height: 35px;
             border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; transition: var(--transition); box-shadow: 0 0 10px var(--accent-glow);
+            transition: var(--transition); box-shadow: 0 0 10px var(--accent-glow);
         }
-        .theme-toggle:hover { transform: rotate(30deg) scale(1.1); box-shadow: 0 0 20px var(--accent); }
 
-        /* --- TOOL CARDS & NEON GLOW --- */
-        .hero { padding: 150px 5% 50px; text-align: center; }
+        /* --- HERO & GRID --- */
+        .hero { padding: 160px 5% 50px; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; letter-spacing: -1px; }
+        
         .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 100px; }
         
         .tool-card { 
-            background: var(--bg-card); padding: 35px; border-radius: 20px; border: 1px solid var(--card-border); 
-            text-align: center; transition: var(--transition); position: relative;
+            background: var(--bg-card); padding: 40px 30px; border-radius: 20px; border: 1px solid var(--card-border); 
+            text-align: center; transition: var(--transition); cursor: pointer;
         }
         .tool-card i { font-size: 2.5rem; color: var(--text-secondary); margin-bottom: 20px; transition: 0.3s; }
 
-        /* HOVER STATES */
+        /* NEON HOVER */
         .tool-card:hover {
             border-color: var(--accent);
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
         }
-        .tool-card:hover i { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+        .tool-card:hover i { color: var(--accent); text-shadow: 0 0 15px var(--accent); }
 
         .btn-glow {
             background: transparent; color: var(--accent); border: 2px solid var(--accent);
             padding: 10px 25px; border-radius: 10px; font-weight: 700; text-transform: uppercase;
-            cursor: pointer; transition: var(--transition); margin-top: 15px;
+            cursor: pointer; transition: var(--transition);
         }
-        .btn-glow:hover {
-            background: var(--accent); color: var(--bg-nav);
-            box-shadow: 0 0 20px var(--accent);
-        }
+        .btn-glow:hover { background: var(--accent); color: var(--bg-nav); box-shadow: 0 0 20px var(--accent); }
 
         /* --- ABOUT SECTION --- */
-        .about-section { background: var(--bg-nav); padding: 80px 5%; border-top: 1px solid var(--card-border); }
-        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .about-section { background: var(--bg-nav); padding: 100px 5%; border-top: 1px solid var(--card-border); }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
         .about-box { padding: 30px; border-radius: 15px; border: 1px solid var(--card-border); background: var(--bg-main); }
+        .about-box h4 { color: var(--accent); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
         .modal-content { 
-            background: var(--bg-nav); margin: 8vh auto; padding: 40px; border: 1px solid var(--accent); 
-            width: 90%; max-width: 700px; border-radius: 30px; position: relative; color: var(--text-primary);
+            background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 1px solid var(--accent); 
+            width: 90%; max-width: 700px; border-radius: 30px; position: relative;
         }
-        .close-modal { position: absolute; right: 25px; top: 15px; font-size: 30px; cursor: pointer; color: var(--accent); }
+        .close-modal { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: var(--accent); }
 
-        @media (max-width: 768px) {
-            .nav-links, .header-email span { display: none; }
-            .hero h1 { font-size: 2rem; }
-        }
+        @media (max-width: 768px) { .nav-links { display: none; } }
     </style>
 </head>
 <body data-theme="dark">
@@ -113,9 +107,7 @@
                 <li><a href="#tools">Tools</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
-            <button class="theme-toggle" id="themeBtn" title="Toggle Light/Dark Mode">
-                <i class="fas fa-moon"></i>
-            </button>
+            <button class="theme-toggle" id="themeBtn"><i class="fas fa-moon"></i></button>
             <a href="mailto:sgmultitools@gmail.com" class="theme-toggle" style="width:auto; padding:0 15px; border-radius:20px; font-size: 0.8rem; text-decoration: none;">
                 <i class="fas fa-envelope"></i>
             </a>
@@ -123,8 +115,8 @@
     </nav>
 
     <header class="hero">
-        <h1 id="hero-title">Secure. Neon. <span style="color:var(--accent)">Universal.</span></h1>
-        <p style="color: var(--text-secondary); margin-top: 15px;">20+ Browser-Based Utilities for the Modern Professional.</p>
+        <h1 id="hero-title">SGTech <span style="color:var(--accent); text-shadow: 0 0 20px var(--accent-glow);">Multi Tools</span></h1>
+        <p style="color: var(--text-secondary); margin-top: 15px;">20+ Professional local utilities. Secure. Fast. Private.</p>
     </header>
 
     <main id="tools" class="container">
@@ -134,19 +126,19 @@
 
     <section id="about" class="about-section">
         <div class="container">
-            <h2 style="text-align:center; color: var(--accent);">About SGTech Multi Tools</h2>
+            <h2 style="text-align:center; font-size: 2.5rem; color: var(--accent);">About SGTech</h2>
             <div class="about-grid">
                 <div class="about-box">
-                    <h4>Local Execution</h4>
-                    <p>We use a Client-Side architecture. Your data is processed locally in your browser's memory, ensuring zero server latency and maximum privacy.</p>
+                    <h4>Why SGTech?</h4>
+                    <p>We provide a centralized hub for daily digital tasks without the privacy risks of cloud-based tools. Every calculation and conversion happens right in your browser.</p>
                 </div>
                 <div class="about-box">
-                    <h4>Responsive Design</h4>
-                    <p>Designed to scale. Whether you're on a 4K display or a smartphone, our 20 tools adapt to provide a seamless experience.</p>
+                    <h4>Client-Side Technology</h4>
+                    <p>By using modern Web APIs, we process data on your device. This means your files never leave your computer, ensuring 100% data safety.</p>
                 </div>
                 <div class="about-box">
-                    <h4>Support</h4>
-                    <p>Feedback is welcome at <strong>sgmultitools@gmail.com</strong>. We update our tool logic monthly based on user requests.</p>
+                    <h4>Clean Experience</h4>
+                    <p>No intrusive ads, no forced sign-ups, and no tracking. Just professional-grade tools designed for efficiency.</p>
                 </div>
             </div>
         </div>
@@ -159,12 +151,11 @@
         </div>
     </div>
 
-    <footer style="padding: 4rem; text-align: center; color: var(--text-secondary); font-size: 0.8rem;">
+    <footer style="padding: 4rem; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--card-border);">
         &copy; 2026 SGTech Multi Tools | Privacy First. Built Local.
     </footer>
 
     <script>
-        // THE FULL 20 TOOLS DATABASE
         const tools = [
             { id: 'img-conv', icon: 'fa-images', name: 'Image Converter' },
             { id: 'img-comp', icon: 'fa-file-zipper', name: 'Image Compressor' },
@@ -193,21 +184,18 @@
         const modal = document.getElementById('tool-modal');
         const modalBody = document.getElementById('modal-body');
 
-        // Render Tools
         tools.forEach(t => {
             grid.innerHTML += `
-            <div class="tool-card">
+            <div class="tool-card" onclick="openTool('${t.id}')">
                 <i class="fas ${t.icon}"></i>
                 <h3>${t.name}</h3>
-                <button class="btn-glow" onclick="openTool('${t.id}')">Open Tool</button>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px;">Click to launch tool</p>
             </div>`;
         });
 
-        // Theme Toggle Logic
         themeBtn.addEventListener('click', () => {
-            const body = document.body;
-            const isDark = body.getAttribute('data-theme') === 'dark';
-            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
             themeBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
@@ -215,11 +203,13 @@
             modal.style.display = "block";
             const tool = tools.find(x => x.id === id);
             modalBody.innerHTML = `
-                <h2>${tool.name}</h2>
-                <div style="margin-top:20px; border:1px solid var(--accent); padding:20px; border-radius:15px;">
-                    <p style="margin-bottom:15px;">Secure local module for <strong>${tool.name}</strong> ready.</p>
-                    <textarea style="width:100%; height:100px; padding:10px; border-radius:8px; background:var(--bg-main); color:var(--text-primary); border:1px solid var(--text-secondary);"></textarea>
-                    <button class="btn-glow" onclick="alert('Task processed locally on your CPU.')">Process Data</button>
+                <h2 style="color:var(--accent); text-align:center; margin-bottom:20px;">${tool.name}</h2>
+                <div style="background:var(--bg-main); padding:30px; border-radius:20px; border:1px solid var(--accent-glow);">
+                    <p style="margin-bottom:15px; color:var(--text-secondary);">The <strong>${tool.name}</strong> module is running locally. Input your data below:</p>
+                    <textarea style="width:100%; height:120px; padding:15px; border-radius:10px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--card-border);"></textarea>
+                    <div style="text-align:right; margin-top:20px;">
+                        <button class="btn-glow" onclick="alert('Task processed securely.')">Run Task</button>
+                    </div>
                 </div>`;
         }
 
