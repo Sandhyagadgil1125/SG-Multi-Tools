@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech Multi Tools | Pro Utility Dashboard</title>
+    <title>SGTech Multi Tools | Unified Pro Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- THEME VARIABLES --- */
+        /* --- UNIFIED THEME VARIABLES --- */
         :root {
             --bg-main: #080a0e;
             --bg-nav: #12161f;
             --bg-card: #161b22;
-            --accent: #42f8f5;
-            --accent-glow: rgba(66, 248, 245, 0.4);
-            --text-primary: #ffffff;
-            --text-secondary: #c5d1de;
-            --card-border: rgba(255, 255, 255, 0.05);
+            --accent: #42f8f5; /* All text will use this */
+            --accent-glow: rgba(66, 248, 245, 0.3);
+            --card-border: rgba(66, 248, 245, 0.1);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -23,116 +21,117 @@
             --bg-main: #f0f2f5;
             --bg-nav: #ffffff;
             --bg-card: #ffffff;
-            --accent: #007bff;
-            --accent-glow: rgba(0, 123, 255, 0.2);
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a4a4a;
-            --card-border: rgba(0, 0, 0, 0.1);
+            --accent: #0062ff; /* All text will use this */
+            --accent-glow: rgba(0, 98, 255, 0.2);
+            --card-border: rgba(0, 98, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-primary); transition: background 0.4s, color 0.4s; scroll-behavior: smooth; }
-
-        /* --- LOGO: THE "SG" BRAND --- */
-        .logo { 
-            display: flex; align-items: center; gap: 10px;
-            text-decoration: none; color: var(--text-primary); 
+        
+        /* Force all text to use the accent color */
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--accent); 
+            transition: background 0.4s, color 0.4s; 
+            scroll-behavior: smooth; 
         }
 
-        .sg-brand {
-            background: linear-gradient(135deg, var(--bg-nav), #1c222d);
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            font-weight: 900;
-            font-size: 1.4rem;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            box-shadow: 0 0 15px var(--accent-glow);
-            text-shadow: 0 0 8px var(--accent);
-            transition: var(--transition);
+        h1, h2, h3, h4, p, a, span, div, li, i, textarea {
+            color: var(--accent) !important;
         }
 
-        .logo:hover .sg-brand {
-            transform: scale(1.1) rotate(-5deg);
-            box-shadow: 0 0 25px var(--accent);
-            background: var(--accent);
-            color: var(--bg-nav);
-            text-shadow: none;
-        }
-
-        .logo-text { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
-        .logo-text span { color: var(--accent); }
-
-        /* --- NAVIGATION --- */
+        /* --- LOGO: SG BRANDING --- */
         .navbar { 
             background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000;
-            border-bottom: 1px solid var(--accent-glow); display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--accent); display: flex; justify-content: space-between; align-items: center;
         }
-        
+
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+        .sg-box {
+            border: 2px solid var(--accent);
+            font-weight: 900;
+            font-size: 1.2rem;
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 0 12px var(--accent-glow);
+            flex-shrink: 0;
+        }
+
+        .brand-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        /* --- NAVIGATION --- */
         .nav-right { display: flex; align-items: center; gap: 15px; }
         .nav-links { display: flex; list-style: none; gap: 20px; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+        .nav-links a { text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
+        .nav-links a:hover { text-shadow: 0 0 10px var(--accent); }
 
         .theme-toggle {
-            background: var(--accent); color: var(--bg-main); border: none; width: 35px; height: 35px;
-            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: var(--transition); box-shadow: 0 0 10px var(--accent-glow);
+            background: transparent; border: 1px solid var(--accent); color: var(--accent); 
+            width: 35px; height: 35px; border-radius: 50%; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
         }
+        .theme-toggle:hover { background: var(--accent); color: var(--bg-nav) !important; }
+        .theme-toggle:hover i { color: var(--bg-nav) !important; }
 
         /* --- HERO & GRID --- */
         .hero { padding: 160px 5% 50px; text-align: center; }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; text-shadow: 0 0 15px var(--accent-glow); }
         
         .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 100px; }
         
         .tool-card { 
-            background: var(--bg-card); padding: 40px 30px; border-radius: 20px; border: 1px solid var(--card-border); 
-            text-align: center; transition: var(--transition); cursor: pointer;
+            background: var(--bg-card); padding: 40px 30px; border-radius: 20px; 
+            border: 1px solid var(--card-border); text-align: center; transition: var(--transition); cursor: pointer;
         }
-        .tool-card i { font-size: 2.5rem; color: var(--text-secondary); margin-bottom: 20px; transition: 0.3s; }
+        .tool-card i { font-size: 2.5rem; margin-bottom: 20px; }
 
         .tool-card:hover {
             border-color: var(--accent); transform: translateY(-10px);
-            box-shadow: 0 0 25px var(--accent-glow);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
-        .tool-card:hover i { color: var(--accent); text-shadow: 0 0 15px var(--accent); }
+        .tool-card:hover i { text-shadow: 0 0 15px var(--accent); }
 
         .btn-glow {
-            background: transparent; color: var(--accent); border: 2px solid var(--accent);
+            background: transparent; border: 2px solid var(--accent);
             padding: 10px 25px; border-radius: 10px; font-weight: 700; text-transform: uppercase;
             cursor: pointer; transition: var(--transition);
         }
-        .btn-glow:hover { background: var(--accent); color: var(--bg-nav); box-shadow: 0 0 20px var(--accent); }
+        .btn-glow:hover { background: var(--accent); color: var(--bg-nav) !important; }
 
         /* --- ABOUT --- */
-        .about-section { background: var(--bg-nav); padding: 100px 5%; border-top: 1px solid var(--card-border); }
+        .about-section { background: var(--bg-nav); padding: 100px 5%; border-top: 1px solid var(--accent); }
         .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
         .about-box { padding: 30px; border-radius: 15px; border: 1px solid var(--card-border); background: var(--bg-main); }
-        .about-box h4 { color: var(--accent); margin-bottom: 15px; text-transform: uppercase; }
+        .about-box h4 { margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid var(--card-border); padding-bottom: 5px; }
 
         /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
         .modal-content { 
             background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 1px solid var(--accent); 
             width: 90%; max-width: 700px; border-radius: 30px; position: relative;
         }
-        .close-modal { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: var(--accent); }
+        .close-modal { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; }
 
-        @media (max-width: 768px) { .nav-links { display: none; } }
+        textarea { background: var(--bg-main); border: 1px solid var(--accent); padding: 10px; border-radius: 10px; width: 100%; }
+
+        @media (max-width: 768px) { .nav-links { display: none; } .brand-name { font-size: 1.1rem; } }
     </style>
 </head>
 <body data-theme="dark">
 
     <nav class="navbar">
         <a href="#" class="logo">
-            <div class="sg-brand">SG</div>
-            <div class="logo-text">Tech <span>MultiTools</span></div>
+            <div class="sg-box">SG</div>
+            <div class="brand-name">SGTech Multi Tools</div>
         </a>
         <div class="nav-right">
             <ul class="nav-links">
@@ -141,15 +140,12 @@
                 <li><a href="#about">About</a></li>
             </ul>
             <button class="theme-toggle" id="themeBtn"><i class="fas fa-moon"></i></button>
-            <a href="mailto:sgmultitools@gmail.com" class="theme-toggle" style="width:auto; padding:0 15px; border-radius:20px; font-size: 0.8rem; text-decoration: none;">
-                <i class="fas fa-envelope"></i>
-            </a>
         </div>
     </nav>
 
     <header class="hero">
-        <h1 id="hero-title">SGTech <span style="color:var(--accent); text-shadow: 0 0 20px var(--accent-glow);">Multi Tools</span></h1>
-        <p style="color: var(--text-secondary); margin-top: 15px;">20+ Professional local utilities. Secure. Fast. Private.</p>
+        <h1>SGTech Multi Tools</h1>
+        <p>Your Private, Local-First Professional Utility Hub.</p>
     </header>
 
     <main id="tools" class="container">
@@ -158,19 +154,19 @@
 
     <section id="about" class="about-section">
         <div class="container">
-            <h2 style="text-align:center; font-size: 2.5rem; color: var(--accent);">About SGTech</h2>
+            <h2 style="text-align:center; font-size: 2.5rem; margin-bottom: 20px;">About The Dashboard</h2>
             <div class="about-grid">
                 <div class="about-box">
-                    <h4>Local Processing</h4>
-                    <p>Modern Web APIs allow us to process files and data on your device, ensuring 100% data safety.</p>
+                    <h4>No Server Logs</h4>
+                    <p>Unlike other converters, we process everything on your RAM. Your data stays on your machine.</p>
                 </div>
                 <div class="about-box">
-                    <h4>High-Speed Hub</h4>
-                    <p>Access all 20 tools from a single mobile-optimized dashboard without annoying pop-ups.</p>
+                    <h4>High-Speed Design</h4>
+                    <p>Optimized for rapid workflow with zero tracking and zero latency.</p>
                 </div>
                 <div class="about-box">
-                    <h4>Support</h4>
-                    <p>Contact the developer team directly at <strong>sgmultitools@gmail.com</strong> for custom tool requests.</p>
+                    <h4>Free Access</h4>
+                    <p>A unified suite of tools built for engineers and creatives. No subscriptions required.</p>
                 </div>
             </div>
         </div>
@@ -183,8 +179,8 @@
         </div>
     </div>
 
-    <footer style="padding: 4rem; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--card-border);">
-        &copy; 2026 SGTech Multi Tools | Professional Engineering.
+    <footer style="padding: 4rem; text-align: center; border-top: 1px solid var(--accent); opacity: 0.8;">
+        &copy; 2026 SGTech Multi Tools | Monochromatic Pro Dashboard.
     </footer>
 
     <script>
@@ -221,7 +217,7 @@
             <div class="tool-card" onclick="openTool('${t.id}')">
                 <i class="fas ${t.icon}"></i>
                 <h3>${t.name}</h3>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px;">Click to Launch</p>
+                <p style="font-size: 0.75rem; margin-top: 10px;">Launch Tool</p>
             </div>`;
         });
 
@@ -235,12 +231,12 @@
             modal.style.display = "block";
             const tool = tools.find(x => x.id === id);
             modalBody.innerHTML = `
-                <h2 style="color:var(--accent); text-align:center; margin-bottom:20px;">${tool.name}</h2>
-                <div style="background:var(--bg-main); padding:30px; border-radius:20px; border:1px solid var(--accent-glow);">
-                    <p style="margin-bottom:15px; color:var(--text-secondary);">Input your data for local processing:</p>
-                    <textarea style="width:100%; height:120px; padding:15px; border-radius:10px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--card-border);"></textarea>
+                <h2 style="text-align:center; margin-bottom:20px;">${tool.name}</h2>
+                <div>
+                    <p style="margin-bottom:15px;">Enter data for local processing:</p>
+                    <textarea rows="5" placeholder="Paste or type here..."></textarea>
                     <div style="text-align:right; margin-top:20px;">
-                        <button class="btn-glow" onclick="alert('Task processed securely.')">Run Task</button>
+                        <button class="btn-glow" onclick="alert('Task Executed Locally')">Process</button>
                     </div>
                 </div>`;
         }
