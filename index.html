@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | Fixed Edition</title>
+    <title>SG-Multi-Tools | Official Pro Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -19,32 +19,46 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--accent); padding-top: 100px; transition: background 0.4s; }
 
-        .navbar { background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { display: flex; align-items: center; gap: 25px; }
-        .sg-box { border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); color: var(--accent); cursor: pointer; transition: 0.3s; }
-        
+        /* HEADER LAYOUT */
+        .navbar { 
+            background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; 
+            top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .nav-left { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .sg-box { 
+            border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; 
+            display: flex; align-items: center; justify-content: center; border-radius: 8px; 
+            box-shadow: 0 0 10px var(--accent-glow); color: var(--accent); 
+        }
+        .brand-name { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--accent); }
+
+        /* LINKS ON THE RIGHT */
+        .nav-right { display: flex; align-items: center; gap: 30px; }
         .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; opacity: 0.7; transition: 0.3s; cursor: pointer; }
+        .nav-links a { 
+            text-decoration: none; color: var(--accent); font-weight: 600; 
+            font-size: 0.85rem; text-transform: uppercase; opacity: 0.7; transition: 0.3s; cursor: pointer; 
+        }
         .nav-links a:hover { opacity: 1; text-shadow: 0 0 8px var(--accent); }
 
-        /* TOOL GRID & IMPROVED BUTTON HOVER */
+        /* GRID & BUTTONS */
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; padding: 20px 5%; }
         .tool-card { 
             background: var(--bg-card); padding: 30px; border-radius: 18px; border: 1px solid var(--card-border); 
             text-align: center; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center;
         }
         .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 8px 20px var(--accent-glow); }
-        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; display: block; transition: 0.3s; }
+        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; display: block; }
         
-        /* THE BUTTON ENHANCEMENT */
         .btn { 
             display: inline-block; width: 100%; padding: 12px 15px; background: transparent; 
             border: 2px solid var(--accent); color: var(--accent); border-radius: 10px; 
             font-weight: 800; text-transform: uppercase; cursor: pointer; 
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); outline: none; text-align: center; font-size: 0.9rem;
+            transition: all 0.25s ease; outline: none; text-align: center; font-size: 0.9rem;
         }
 
-        /* Specific Hover for Tool Buttons */
+        /* TOOL BUTTON HOVER */
         .tool-card:hover .btn, body .btn:hover { 
             background-color: var(--accent) !important; 
             color: #000000 !important; 
@@ -58,22 +72,25 @@
         
         input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); color: var(--accent); padding: 14px; border-radius: 10px; width: 100%; margin-bottom: 15px; }
         .res-box { margin-top: 20px; padding: 20px; border: 2px dashed var(--accent); border-radius: 12px; background: rgba(0,0,0,0.2); min-height: 50px; }
-        #emailDisplay { font-family: monospace; background: rgba(66, 248, 245, 0.1); padding: 5px 10px; border-radius: 6px; }
     </style>
 </head>
 <body data-theme="dark">
 
 <nav class="navbar">
-    <div class="nav-left">
-        <a href="#" class="logo"><div class="sg-box">SG</div></a>
+    <a href="#" class="nav-left">
+        <div class="sg-box">SG</div>
+        <span class="brand-name">SG-Multi-Tools</span>
+    </a>
+    
+    <div class="nav-right">
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#grid">Tools</a></li>
-            <li><a href="#" onclick="alert('SG-Multi-Tools v1.5')">About</a></li>
+            <li><a href="#" onclick="alert('SG-Multi-Tools v1.7')">About</a></li>
             <li><a id="emailDisplay" onclick="copyEmail()">Email</a></li>
         </ul>
+        <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="toggleTheme()">Theme</button>
     </div>
-    <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="toggleTheme()">Theme</button>
 </nav>
 
 <div id="grid" class="tool-grid"></div>
@@ -83,7 +100,7 @@
         <span class="close-btn" onclick="closeM()">&times;</span>
         <h2 id="mTitle" style="margin-bottom: 20px;"></h2>
         <div id="mBody"></div>
-        <div class="res-box" id="mRes">Waiting for input...</div>
+        <div class="res-box" id="mRes">Ready to process...</div>
         <div id="dlArea"></div>
     </div>
 </div>
@@ -114,7 +131,6 @@ const tools = [
 
 const grid = document.getElementById('grid');
 tools.forEach(t => {
-    // Tool name is now wrapped in a button class
     grid.innerHTML += `
         <div class="tool-card" onclick="openT('${t.id}')">
             <i class="fas ${t.icon}"></i>
@@ -127,7 +143,7 @@ function copyEmail() {
     navigator.clipboard.writeText(email).then(() => {
         const el = document.getElementById('emailDisplay');
         el.innerText = "Copied!";
-        setTimeout(() => { el.innerText = email; }, 2000);
+        setTimeout(() => { el.innerText = "Email"; }, 2000);
     });
 }
 
@@ -173,7 +189,7 @@ function run(id) {
                 const quality = id === '2' ? parseFloat(document.getElementById('q').value) : 1.0;
                 const data = canvas.toDataURL(format, quality);
                 res.innerHTML = `<img src="${data}" style="max-width:100%; border-radius:10px; margin-top:10px;">`;
-                dl.innerHTML = `<a href="${data}" download="sg_output" class="btn">Download File</a>`;
+                dl.innerHTML = `<a href="${data}" download="sg-multi-tools-output" class="btn">Download File</a>`;
             };
             img.src = e.target.result;
         };
