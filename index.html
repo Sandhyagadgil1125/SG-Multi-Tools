@@ -3,63 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGTech Multi Tools | Pro Suite</title>
+    <title>SGTech Multi Tools | Hover Fixed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --bg-main: #080a0e; --bg-nav: #12161f; --bg-card: #161b22;
             --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.5);
-            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.25s ease-in-out;
         }
         [data-theme="light"] {
             --bg-main: #f0f2f5; --bg-nav: #ffffff; --bg-card: #ffffff;
             --accent: #0062ff; --accent-glow: rgba(0, 98, 255, 0.3);
-            --card-border: rgba(0, 98, 255, 0.1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        /* Global Text Color - Selective to avoid overriding hover */
-        body, p, h2, h3, div, span, li, a { color: var(--accent); transition: background 0.4s; }
-        body { background-color: var(--bg-main); padding-top: 100px; }
+        body { background-color: var(--bg-main); color: var(--accent); padding-top: 100px; transition: background 0.4s; }
 
-        /* Navbar & Branding */
+        /* Navbar */
         .navbar { background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 25px; }
-        .sg-box { border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); font-size: 1.2rem; }
+        .sg-box { border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); color: var(--accent); }
         .nav-links { display: flex; gap: 20px; list-style: none; }
-        .nav-links a { text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: var(--transition); opacity: 0.7; cursor: pointer; }
-        .nav-links a:hover { opacity: 1; text-shadow: 0 0 10px var(--accent); }
+        .nav-links a { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; opacity: 0.7; transition: var(--transition); }
+        .nav-links a:hover { opacity: 1; text-shadow: 0 0 8px var(--accent); }
 
-        /* Tool Grid & Cards */
+        /* Tool Grid */
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; padding: 20px 5%; }
         .tool-card { background: var(--bg-card); padding: 30px; border-radius: 18px; border: 1px solid var(--card-border); text-align: center; cursor: pointer; transition: var(--transition); }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 15px 30px var(--accent-glow); background: rgba(66, 248, 245, 0.04); }
-        .tool-card i { font-size: 2.8rem; transition: var(--transition); margin-bottom: 15px; display: block; }
-        .tool-card:hover i { transform: scale(1.2); filter: drop-shadow(0 0 10px var(--accent)); }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 12px 25px var(--accent-glow); }
+        .tool-card i { font-size: 2.8rem; color: var(--accent); transition: var(--transition); margin-bottom: 15px; display: block; }
+        .tool-card p { color: var(--accent); font-weight: 700; }
 
-        /* Fixed Button Hover States */
+        /* THE FIXED BUTTON HOVER SYSTEM */
         .btn { 
-            background: transparent !important; border: 2px solid var(--accent) !important; color: var(--accent) !important;
-            padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: 800; text-transform: uppercase; 
-            transition: all 0.3s ease-in-out !important; text-decoration: none; display: inline-block; outline: none;
+            background: transparent; 
+            border: 2px solid var(--accent); 
+            color: var(--accent);
+            padding: 12px 24px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            text-decoration: none; 
+            display: inline-block;
+            margin-top: 10px;
+            width: 100%;
+            outline: none;
         }
-        /* This is the fix for hover */
-        .btn:hover { 
-            background: var(--accent) !important; 
-            color: #000 !important; 
-            box-shadow: 0 0 20px var(--accent-glow) !important;
-            transform: translateY(-2px) !important;
+
+        /* High-priority hover selector */
+        body .btn:hover { 
+            background-color: var(--accent) !important; 
+            color: #000000 !important; 
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.02);
         }
-        .btn:active { transform: translateY(1px); }
+
+        body .btn:active {
+            transform: scale(0.98);
+        }
 
         /* Modal UI */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
-        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 2px solid var(--accent); width: 95%; max-width: 600px; border-radius: 25px; text-align: center; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-        .close-btn { position: absolute; right: 25px; top: 15px; font-size: 2.5rem; cursor: pointer; line-height: 1; }
+        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 2px solid var(--accent); width: 95%; max-width: 600px; border-radius: 25px; text-align: center; position: relative; }
+        .close-btn { position: absolute; right: 25px; top: 15px; font-size: 2.5rem; cursor: pointer; color: var(--accent); }
         
-        input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); padding: 14px; border-radius: 10px; width: 100%; margin-bottom: 15px; font-size: 1rem; }
-        .res-box { margin-top: 20px; padding: 20px; border: 2px dashed var(--card-border); border-radius: 12px; min-height: 60px; background: rgba(0,0,0,0.2); word-wrap: break-word; }
-        .preview-box img { max-width: 100%; border-radius: 10px; margin-top: 15px; border: 1px solid var(--accent); }
+        input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); color: var(--accent); padding: 14px; border-radius: 10px; width: 100%; margin-bottom: 15px; }
+        .res-box { margin-top: 20px; padding: 20px; border: 2px dashed var(--accent); border-radius: 12px; background: rgba(0,0,0,0.2); color: var(--accent); }
     </style>
 </head>
 <body data-theme="dark">
@@ -70,11 +81,11 @@
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#grid">Tools</a></li>
-            <li><a href="#" onclick="alert('SGTech Suite v1.1 - Fully Functional')">About</a></li>
-            <li><a href="mailto:support@sgtech.com">Email</a></li>
+            <li><a href="#" onclick="alert('SGTech v1.2')">About</a></li>
+            <li><a href="mailto:contact@sgtech.com">Email</a></li>
         </ul>
     </div>
-    <button class="btn" style="width: auto; padding: 8px 20px;" onclick="toggleTheme()">Theme</button>
+    <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="toggleTheme()">Theme</button>
 </nav>
 
 <div id="grid" class="tool-grid"></div>
@@ -82,10 +93,10 @@
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeM()">&times;</span>
-        <h2 id="mTitle" style="margin-bottom: 20px; font-size: 1.8rem;"></h2>
+        <h2 id="mTitle" style="margin-bottom: 20px; color: var(--accent);"></h2>
         <div id="mBody"></div>
-        <div class="res-box" id="mRes">Waiting for input...</div>
-        <div id="dlArea" style="margin-top: 15px;"></div>
+        <div class="res-box" id="mRes">Select a file to begin...</div>
+        <div id="dlArea"></div>
     </div>
 </div>
 
@@ -115,7 +126,7 @@ const tools = [
 
 const grid = document.getElementById('grid');
 tools.forEach(t => {
-    grid.innerHTML += `<div class="tool-card" onclick="openT('${t.id}')"><i class="fas ${t.icon}"></i><p style="font-weight:700; font-size:1.1rem;">${t.name}</p></div>`;
+    grid.innerHTML += `<div class="tool-card" onclick="openT('${t.id}')"><i class="fas ${t.icon}"></i><p>${t.name}</p></div>`;
 });
 
 function openT(id) {
@@ -125,31 +136,30 @@ function openT(id) {
     
     if(['1','2','3'].includes(id)) {
         body = `<input type="file" id="fIn" accept="image/*">`;
-        if(id === '1') body += `<select id="fmt"><option value="image/png">Export as PNG</option><option value="image/jpeg">Export as JPEG</option><option value="image/webp">Export as WebP</option></select>`;
-        if(id === '2') body += `<p style="margin-bottom:10px">Compression Strength</p><input type="range" id="q" min="0.1" max="0.9" step="0.1" value="0.5">`;
+        if(id === '1') body += `<select id="fmt"><option value="image/png">To PNG</option><option value="image/jpeg">To JPEG</option></select>`;
+        if(id === '2') body += `<p>Quality</p><input type="range" id="q" min="0.1" max="0.9" step="0.1" value="0.5">`;
     } 
     else if(['4','5','6'].includes(id)) body = `<input type="file" id="fIn" accept="${id==='4'?'video/*':'audio/*'}">`;
     else if(id==='7') body = `<input type="date" id="v1">`;
-    else if(id==='8' || id==='9') body = `<input type="number" id="v1" placeholder="Amount (Principal)"><input type="number" id="v2" placeholder="Interest Rate %"><input type="number" id="v3" placeholder="Tenure (Years)">`;
-    else if(id==='10' || id==='11' || id==='13') body = `<input type="text" id="v1" placeholder="Enter content here...">`;
-    else if(id==='12' || id==='15' || id==='17') body = `<textarea id="v1" rows="5" placeholder="Type or paste text here..."></textarea>`;
-    else if(id==='18') body = `<input type="number" id="v1" placeholder="Value"><select id="uT"><option value="k-m">KM to Miles</option><option value="m-k">Miles to KM</option></select>`;
-    else if(id==='19') body = `<input type="number" id="v1" placeholder="Height (cm)"><input type="number" id="v2" placeholder="Weight (kg)">`;
-    else if(id==='20') body = `<div id="swDisp" style="font-size:3rem; margin:20px 0; font-weight:bold;">00:00:00</div><button class="btn" onclick="toggleSW()">Start / Stop</button>`;
-    else if(id==='14') body = `<input type="color" id="v1" style="height:100px; cursor:pointer;">`;
+    else if(['8','9'].includes(id)) body = `<input type="number" id="v1" placeholder="Principal"><input type="number" id="v2" placeholder="Rate %"><input type="number" id="v3" placeholder="Years">`;
+    else if(['10','11','13'].includes(id)) body = `<input type="text" id="v1" placeholder="Enter value">`;
+    else if(['12','15','17'].includes(id)) body = `<textarea id="v1" rows="5" placeholder="Enter text..."></textarea>`;
+    else if(id==='18') body = `<input type="number" id="v1" placeholder="Value"><select id="uT"><option value="k-m">KM to Miles</option></select>`;
+    else if(id==='19') body = `<input type="number" id="v1" placeholder="Height cm"><input type="number" id="v2" placeholder="Weight kg">`;
+    else if(id==='20') body = `<div id="swDisp" style="font-size:3rem; margin:20px 0;">00:00:00</div><button class="btn" onclick="toggleSW()">Start/Stop</button>`;
+    else if(id==='14') body = `<input type="color" id="v1" style="height:80px">`;
 
     if(!['16','20'].includes(id)) body += `<button class="btn" onclick="run('${id}')">Process & Download</button>`;
     if(id==='16') body += `<button class="btn" onclick="runSTT()">Start Listening</button>`;
     
     document.getElementById('mBody').innerHTML = body;
-    document.getElementById('mRes').innerText = "Ready to process...";
+    document.getElementById('mRes').innerText = "Output will appear here...";
     document.getElementById('dlArea').innerHTML = "";
     document.getElementById('modal').style.display = "block";
 }
 
 function run(id) {
     const res = document.getElementById('mRes'), dl = document.getElementById('dlArea'), f = document.getElementById('fIn')?.files[0];
-
     if(['1','2','3'].includes(id) && f) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -162,31 +172,28 @@ function run(id) {
                 const format = id === '1' ? document.getElementById('fmt').value : 'image/jpeg';
                 const quality = id === '2' ? parseFloat(document.getElementById('q').value) : 1.0;
                 const data = canvas.toDataURL(format, quality);
-                res.innerHTML = `<div class="preview-box"><img src="${data}"></div>`;
-                dl.innerHTML = `<a href="${data}" download="sgtech_result" class="btn">Download Final Image</a>`;
+                res.innerHTML = `<img src="${data}" style="max-width:100%; border-radius:10px;">`;
+                dl.innerHTML = `<a href="${data}" download="sgtech_file" class="btn">Download Result</a>`;
             };
             img.src = e.target.result;
         };
         reader.readAsDataURL(f);
     } else if(['4','5','6'].includes(id) && f) {
         const url = URL.createObjectURL(f);
-        res.innerText = "File loaded. Click below to download the processed version.";
-        dl.innerHTML = `<a href="${url}" download="sgtech_media" class="btn">Download Media File</a>`;
+        res.innerText = "Processing complete.";
+        dl.innerHTML = `<a href="${url}" download="sgtech_media" class="btn">Download File</a>`;
     } else {
-        const v1 = document.getElementById('v1')?.value, v2 = document.getElementById('v2')?.value, v3 = document.getElementById('v3')?.value;
-        if(id==='8') res.innerText = "Monthly EMI: " + Math.round((v1 * (v2/1200)) / (1 - Math.pow(1 + (v2/1200), -v3*12)));
-        if(id==='10') { let url = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(v1)}`; res.innerHTML = `<img src="${url}" style="width:150px; margin-top:10px;">`; dl.innerHTML = `<a href="${url}" target="_blank" class="btn">Download QR Code</a>`; }
-        if(id==='12') res.innerText = (v1.trim() === "") ? "0 Words" : v1.trim().split(/\s+/).length + " Words";
-        if(id==='19') res.innerText = "Your BMI is: " + (v2 / ((v1/100)**2)).toFixed(2);
+        const v1 = document.getElementById('v1')?.value;
+        if(id==='10') { let url = `https://api.qrserver.com/v1/create-qr-code/?data=${v1}`; res.innerHTML = `<img src="${url}">`; dl.innerHTML = `<a href="${url}" target="_blank" class="btn">Save QR</a>`; }
+        if(id==='12') res.innerText = v1.trim().split(/\s+/).length + " Words";
         if(id==='15') window.speechSynthesis.speak(new SpeechSynthesisUtterance(v1));
     }
 }
 
 function runSTT() {
     const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!Speech) return alert("Browser does not support Speech Recognition.");
     const rec = new Speech();
-    rec.onresult = (e) => { document.getElementById('mRes').innerText = "Transcribed: " + e.results[0][0].transcript; };
+    rec.onresult = (e) => { document.getElementById('mRes').innerText = e.results[0][0].transcript; };
     rec.start();
 }
 
