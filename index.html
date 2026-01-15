@@ -42,8 +42,10 @@
 
         /* HERO & SEARCH UI */
         .hero { text-align: center; padding: 40px 20px; }
+        .hero h1 { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px var(--accent-glow); }
+        
         .search-wrapper { 
-            max-width: 600px; margin: 25px auto; display: flex; gap: 10px; position: relative;
+            max-width: 600px; margin: 30px auto; display: flex; gap: 10px; position: relative;
         }
         .search-container { position: relative; flex: 1; }
         .search-container input { 
@@ -54,7 +56,6 @@
         .search-container i { position: absolute; left: 18px; top: 18px; opacity: 0.5; }
         .search-container input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
-        /* MOBILE SEARCH BUTTON */
         .btn-search {
             background: var(--accent); color: #000; border: none; padding: 0 25px; 
             border-radius: 50px; font-weight: 800; cursor: pointer; transition: 0.2s;
@@ -78,7 +79,7 @@
             text-transform: uppercase; font-size: 0.8rem; transition: var(--transition);
             margin-top: 10px; cursor: pointer;
         }
-        .card:hover .tool-btn { background: var(--accent); color: #000; }
+        .card:hover .tool-btn { background: var(--accent); color: #000; box-shadow: 0 0 10px var(--accent-glow); }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
@@ -116,7 +117,7 @@
             <i class="fas fa-search"></i>
             <input type="text" id="toolSearch" placeholder="Search tools..." onkeyup="search()">
         </div>
-        <button class="btn-search" onclick="search()"><i class="fas fa-arrow-right"></i></button>
+        <button class="btn-search" onclick="search()">Search</button>
     </div>
 </div>
 
@@ -178,38 +179,38 @@ function openAbout() {
     document.getElementById('modalTitle').innerText = "About SG-Multi-Tools";
     document.getElementById('modalBody').innerHTML = `
         <div style="text-align: left; line-height: 1.6;">
-            <p><strong>Version:</strong> 3.0 Platinum Pro</p>
-            <p style="margin-top:15px">Professional browser-based toolkit designed for maximum efficiency. Every tool is 100% private and runs locally.</p>
+            <p><strong>Version:</strong> 3.1 Platinum</p>
+            <p style="margin-top:15px">Professional suite of browser-based utilities for daily productivity. Privacy is built-in by design.</p>
             <p style="margin-top:10px; font-size:0.85rem; opacity:0.6;">© 2026 Sandhya Gadgil Tech Solutions.</p>
         </div>
     `;
-    document.getElementById('modalFooter').innerText = "Security: Fully Verified";
+    document.getElementById('modalFooter').innerText = "Status: Online & Optimized";
     document.getElementById('uiModal').style.display = "block";
 }
 
 function openContact() {
-    document.getElementById('modalTitle').innerText = "Contact Us";
+    document.getElementById('modalTitle').innerText = "Contact Support";
     document.getElementById('modalBody').innerHTML = `
-        <input type="text" id="userName" placeholder="Name">
+        <input type="text" id="userName" placeholder="Full Name">
         <input type="email" id="userEmail" placeholder="Email Address">
-        <textarea id="userMsg" rows="3" placeholder="Your Message"></textarea>
-        <button class="btn-submit" onclick="sendMsg()">Send Inquiry</button>
+        <textarea id="userMsg" rows="3" placeholder="Message"></textarea>
+        <button class="btn-submit" onclick="sendMsg()">Send</button>
     `;
-    document.getElementById('modalFooter').innerText = "Email: sgmultitools@gmail.com";
+    document.getElementById('modalFooter').innerText = "Reach us at: sgmultitools@gmail.com";
     document.getElementById('uiModal').style.display = "block";
 }
 
 function sendMsg() {
     if(document.getElementById('userName').value && document.getElementById('userEmail').value) {
-        document.getElementById('modalFooter').innerText = "Message sent successfully!";
+        document.getElementById('modalFooter').innerText = "Inquiry Sent Successfully!";
         setTimeout(closeModal, 1500);
     }
 }
 
 function openTool(name) {
     document.getElementById('modalTitle').innerText = name;
-    document.getElementById('modalBody').innerHTML = `<p>Interface for ${name} is ready for processing.</p><button class="btn-submit" style="margin-top:15px">Start Tool</button>`;
-    document.getElementById('modalFooter').innerText = "Engine Initialized";
+    document.getElementById('modalBody').innerHTML = `<p>Launching the local engine for ${name}.</p><button class="btn-submit" style="margin-top:15px">Enter Tool</button>`;
+    document.getElementById('modalFooter').innerText = "Ready to use";
     document.getElementById('uiModal').style.display = "block";
 }
 
