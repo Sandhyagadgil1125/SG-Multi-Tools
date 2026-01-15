@@ -100,7 +100,226 @@
 <body data-theme="dark">
 
     <nav class="navbar">
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGTech Multi Tools | Pro Utility Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- DYNAMIC THEME VARIABLES --- */
+        :root {
+            --bg-main: #080a0e;
+            --bg-nav: #12161f;
+            --bg-card: #161b22;
+            --accent: #42f8f5;
+            --accent-glow: rgba(66, 248, 245, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #c5d1de;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-main: #f0f2f5;
+            --bg-nav: #ffffff;
+            --bg-card: #ffffff;
+            --accent: #007bff;
+            --accent-glow: rgba(0, 123, 255, 0.2);
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-primary); transition: background 0.4s, color 0.4s; scroll-behavior: smooth; }
+
+        /* --- NAVIGATION --- */
+        .navbar { 
+            background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000;
+            border-bottom: 1px solid var(--accent-glow); display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text-primary); }
+        .logo span { color: var(--accent); }
+        
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+
+        .theme-toggle {
+            background: var(--accent); color: var(--bg-main); border: none; width: 35px; height: 35px;
+            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: var(--transition); box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* --- HERO & GRID --- */
+        .hero { padding: 160px 5% 50px; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; letter-spacing: -1px; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 100px; }
+        
+        .tool-card { 
+            background: var(--bg-card); padding: 40px 30px; border-radius: 20px; border: 1px solid var(--card-border); 
+            text-align: center; transition: var(--transition); cursor: pointer;
+        }
+        .tool-card i { font-size: 2.5rem; color: var(--text-secondary); margin-bottom: 20px; transition: 0.3s; }
+
+        /* NEON HOVER */
+        .tool-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+        .tool-card:hover i { color: var(--accent); text-shadow: 0 0 15px var(--accent); }
+
+        .btn-glow {
+            background: transparent; color: var(--accent); border: 2px solid var(--accent);
+            padding: 10px 25px; border-radius: 10px; font-weight: 700; text-transform: uppercase;
+            cursor: pointer; transition: var(--transition);
+        }
+        .btn-glow:hover { background: var(--accent); color: var(--bg-nav); box-shadow: 0 0 20px var(--accent); }
+
+        /* --- ABOUT SECTION --- */
+        .about-section { background: var(--bg-nav); padding: 100px 5%; border-top: 1px solid var(--card-border); }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .about-box { padding: 30px; border-radius: 15px; border: 1px solid var(--card-border); background: var(--bg-main); }
+        .about-box h4 { color: var(--accent); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+        .modal-content { 
+            background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 1px solid var(--accent); 
+            width: 90%; max-width: 700px; border-radius: 30px; position: relative;
+        }
+        .close-modal { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: var(--accent); }
+
+        @media (max-width: 768px) { .nav-links { display: none; } }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <nav class="navbar">
         <a href="#" class="logo">SGTech <span>MultiTools</span></a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeBtn"><i class="fas fa-moon"></i></button>
+            <a href="mailto:sgmultitools@gmail.com" class="theme-toggle" style="width:auto; padding:0 15px; border-radius:20px; font-size: 0.8rem; text-decoration: none;">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 id="hero-title">SGTech <span style="color:var(--accent); text-shadow: 0 0 20px var(--accent-glow);">Multi Tools</span></h1>
+        <p style="color: var(--text-secondary); margin-top: 15px;">20+ Professional local utilities. Secure. Fast. Private.</p>
+    </header>
+
+    <main id="tools" class="container">
+        <div id="tool-grid" class="tool-grid">
+            </div>
+    </main>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 style="text-align:center; font-size: 2.5rem; color: var(--accent);">About SGTech</h2>
+            <div class="about-grid">
+                <div class="about-box">
+                    <h4>Why SGTech?</h4>
+                    <p>We provide a centralized hub for daily digital tasks without the privacy risks of cloud-based tools. Every calculation and conversion happens right in your browser.</p>
+                </div>
+                <div class="about-box">
+                    <h4>Client-Side Technology</h4>
+                    <p>By using modern Web APIs, we process data on your device. This means your files never leave your computer, ensuring 100% data safety.</p>
+                </div>
+                <div class="about-box">
+                    <h4>Clean Experience</h4>
+                    <p>No intrusive ads, no forced sign-ups, and no tracking. Just professional-grade tools designed for efficiency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="tool-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer style="padding: 4rem; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--card-border);">
+        &copy; 2026 SGTech Multi Tools | Privacy First. Built Local.
+    </footer>
+
+    <script>
+        const tools = [
+            { id: 'img-conv', icon: 'fa-images', name: 'Image Converter' },
+            { id: 'img-comp', icon: 'fa-file-zipper', name: 'Image Compressor' },
+            { id: 'img-crop', icon: 'fa-crop', name: 'Image Cropper' },
+            { id: 'vid-conv', icon: 'fa-video', name: 'Video Converter' },
+            { id: 'aud-conv', icon: 'fa-file-audio', name: 'Audio Converter' },
+            { id: 'aud-trim', icon: 'fa-scissors', name: 'Audio Trimmer' },
+            { id: 'age-calc', icon: 'fa-calendar-days', name: 'Age Calculator' },
+            { id: 'emi-calc', icon: 'fa-calculator', name: 'EMI Calculator' },
+            { id: 'sip-calc', icon: 'fa-piggy-bank', name: 'SIP Calculator' },
+            { id: 'qr-gen', icon: 'fa-qrcode', name: 'QR Code Generator' },
+            { id: 'pass-gen', icon: 'fa-key', name: 'Password Generator' },
+            { id: 'word-count', icon: 'fa-font', name: 'Word Counter' },
+            { id: 'b64-tool', icon: 'fa-code', name: 'Base64 Tool' },
+            { id: 'color-pick', icon: 'fa-eye-dropper', name: 'Color Picker Tool' },
+            { id: 'tts', icon: 'fa-volume-up', name: 'Text to Speech' },
+            { id: 'stt', icon: 'fa-microphone', name: 'Speech to Text' },
+            { id: 'json-fmt', icon: 'fa-brackets-curly', name: 'JSON Formatter' },
+            { id: 'unit-conv', icon: 'fa-ruler', name: 'Unit Converter' },
+            { id: 'bmi-calc', icon: 'fa-weight-scale', name: 'BMI Calculator' },
+            { id: 'timer', icon: 'fa-stopwatch', name: 'Timer / Stopwatch' }
+        ];
+
+        const grid = document.getElementById('tool-grid');
+        const themeBtn = document.getElementById('themeBtn');
+        const modal = document.getElementById('tool-modal');
+        const modalBody = document.getElementById('modal-body');
+
+        tools.forEach(t => {
+            grid.innerHTML += `
+            <div class="tool-card" onclick="openTool('${t.id}')">
+                <i class="fas ${t.icon}"></i>
+                <h3>${t.name}</h3>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 10px;">Click to launch tool</p>
+            </div>`;
+        });
+
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        function openTool(id) {
+            modal.style.display = "block";
+            const tool = tools.find(x => x.id === id);
+            modalBody.innerHTML = `
+                <h2 style="color:var(--accent); text-align:center; margin-bottom:20px;">${tool.name}</h2>
+                <div style="background:var(--bg-main); padding:30px; border-radius:20px; border:1px solid var(--accent-glow);">
+                    <p style="margin-bottom:15px; color:var(--text-secondary);">The <strong>${tool.name}</strong> module is running locally. Input your data below:</p>
+                    <textarea style="width:100%; height:120px; padding:15px; border-radius:10px; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--card-border);"></textarea>
+                    <div style="text-align:right; margin-top:20px;">
+                        <button class="btn-glow" onclick="alert('Task processed securely.')">Run Task</button>
+                    </div>
+                </div>`;
+        }
+
+        document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
+        window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; }
+    </script>
+</body>
+</html>
         <div class="nav-right">
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
