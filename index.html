@@ -9,7 +9,7 @@
         :root {
             --bg-main: #080a0e; --bg-nav: #12161f; --bg-card: #161b22;
             --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.5);
-            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s ease;
+            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         [data-theme="light"] {
             --bg-main: #f0f2f5; --bg-nav: #ffffff; --bg-card: #ffffff;
@@ -40,11 +40,9 @@
         }
         .nav-links a:hover { opacity: 1; text-shadow: 0 0 10px var(--accent); }
 
-        /* HERO */
+        /* HERO & SEARCH */
         .hero { text-align: center; padding: 40px 20px; }
-        .search-box { 
-            max-width: 600px; margin: 20px auto; position: relative; 
-        }
+        .search-box { max-width: 600px; margin: 20px auto; position: relative; }
         .search-box input { 
             width: 100%; padding: 15px 50px; border-radius: 50px; 
             background: var(--bg-card); border: 2px solid var(--card-border); 
@@ -52,11 +50,8 @@
         }
         .search-box i { position: absolute; left: 20px; top: 18px; opacity: 0.5; }
 
-        /* GRID */
-        .grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-            gap: 20px; padding: 20px 5%; 
-        }
+        /* GRID & CARDS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px 5%; }
         .card { 
             background: var(--bg-card); border: 1px solid var(--card-border); 
             padding: 30px 20px; border-radius: 20px; text-align: center; 
@@ -64,7 +59,17 @@
         }
         .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 10px 25px var(--accent-glow); }
         .card i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
-        .card h3 { font-size: 0.95rem; text-transform: uppercase; font-weight: 800; }
+        
+        /* HOVER EFFECT FOR BUTTONS */
+        .tool-btn { 
+            background: transparent; border: 2px solid var(--accent); color: var(--accent); 
+            padding: 10px 15px; border-radius: 10px; font-weight: 800; width: 100%; 
+            text-transform: uppercase; font-size: 0.8rem; transition: var(--transition);
+            margin-top: 10px;
+        }
+        .card:hover .tool-btn { 
+            background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent-glow); 
+        }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
@@ -75,12 +80,9 @@
         .close { position: absolute; right: 25px; top: 15px; font-size: 2rem; cursor: pointer; }
         
         input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
-        .btn-main { background: var(--accent); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn-submit { background: var(--accent); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.2s; }
+        .btn-submit:hover { opacity: 0.8; transform: scale(0.98); }
         .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); font-weight: bold; }
-
-        /* ABOUT DESIGN */
-        .about-info { text-align: left; line-height: 1.6; }
-        .v-tag { background: var(--accent); color: #000; padding: 2px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; margin-left: 10px; }
     </style>
 </head>
 <body data-theme="dark">
@@ -146,7 +148,7 @@ function loadTools() {
     grid.innerHTML = toolset.map(t => `
         <div class="card" onclick="openTool('${t.name}')">
             <i class="fas ${t.icon}"></i>
-            <h3>${t.name}</h3>
+            <button class="tool-btn">${t.name}</button>
         </div>
     `).join('');
 }
@@ -160,53 +162,42 @@ function search() {
     }
 }
 
-// THE NEW ABOUT (Replaces Alert)
 function openAbout() {
     document.getElementById('modalTitle').innerText = "About SG-Multi-Tools";
     document.getElementById('modalBody').innerHTML = `
-        <div class="about-info">
-            <p><strong>Version:</strong> 2.7 Platinum <span class="v-tag">LATEST</span></p>
-            <p style="margin-top:15px">A professional-grade web utility suite designed for speed and security. All tools run 100% in your browser, meaning your data never touches a server.</p>
-            <ul style="margin: 15px 20px;">
-                <li>No Data Collection</li>
-                <li>Offline Capability</li>
-                <li>Zero Cost, Zero Ads</li>
-            </ul>
-            <p style="font-size:0.8rem; opacity:0.6; margin-top:20px;">© 2026 Sandhya Gadgil Tech.</p>
+        <div style="text-align: left;">
+            <p><strong>Version:</strong> 2.8 Platinum</p>
+            <p style="margin-top:15px">Professional web utility suite running 100% locally. Your data security is our priority.</p>
+            <p style="margin-top:10px; font-size:0.85rem; opacity:0.7;">© 2026 Sandhya Gadgil Tech.</p>
         </div>
     `;
-    document.getElementById('modalFooter').innerText = "System Status: Optimized";
+    document.getElementById('modalFooter').innerText = "Status: Verified";
     document.getElementById('uiModal').style.display = "block";
 }
 
-// CONTACT FORM WITH EMAIL BOX
 function openContact() {
-    document.getElementById('modalTitle').innerText = "Contact Support";
+    document.getElementById('modalTitle').innerText = "Contact Us";
     document.getElementById('modalBody').innerHTML = `
-        <input type="text" id="userName" placeholder="Your Full Name">
-        <input type="email" id="userEmail" placeholder="Your Email Address">
-        <textarea id="userMsg" rows="4" placeholder="How can we help you today?"></textarea>
-        <button class="btn-main" onclick="sendMsg()">Send Message</button>
+        <input type="text" id="userName" placeholder="Name">
+        <input type="email" id="userEmail" placeholder="Email Address">
+        <textarea id="userMsg" rows="3" placeholder="Message"></textarea>
+        <button class="btn-submit" onclick="sendMsg()">Submit Inquiry</button>
     `;
-    document.getElementById('modalFooter').innerText = "Direct: sandhyagadgil1125@github.io";
+    document.getElementById('modalFooter').innerText = "sgmultitools@gmail.com";
     document.getElementById('uiModal').style.display = "block";
 }
 
 function sendMsg() {
-    const name = document.getElementById('userName').value;
-    const email = document.getElementById('userEmail').value;
-    if(name && email) {
-        document.getElementById('modalFooter').innerText = "Success! Message recorded for " + name;
-        setTimeout(closeModal, 2000);
-    } else {
-        alert("Please enter both Name and Email.");
+    if(document.getElementById('userName').value && document.getElementById('userEmail').value) {
+        document.getElementById('modalFooter').innerText = "Sent Successfully!";
+        setTimeout(closeModal, 1500);
     }
 }
 
 function openTool(name) {
     document.getElementById('modalTitle').innerText = name;
-    document.getElementById('modalBody').innerHTML = `<p>Loading the ${name} engine...</p><button class="btn-main">Start Now</button>`;
-    document.getElementById('modalFooter').innerText = "Ready to process";
+    document.getElementById('modalBody').innerHTML = `<p>Engine for ${name} is ready.</p><button class="btn-submit" style="margin-top:10px">Run Tool</button>`;
+    document.getElementById('modalFooter').innerText = "Initialization Complete";
     document.getElementById('uiModal').style.display = "block";
 }
 
