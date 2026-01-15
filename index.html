@@ -93,8 +93,8 @@
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#grid">Tools</a></li>
-            <li><a href="#" onclick="alert('SG-Multi-Tools v2.0')">About</a></li>
-            <li><a id="emailDisplay" onclick="copyEmail()">Email</a></li>
+            <li><a onclick="showAbout()">About</a></li>
+            <li><a onclick="showContact()">Contact</a></li>
         </ul>
         <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="toggleTheme()">Theme</button>
     </div>
@@ -104,7 +104,7 @@
     <h1 class="hero-title">SG-Multi-Tools For Daily Use</h1>
     <div class="search-container">
         <i class="fas fa-search search-icon"></i>
-        <input type="text" id="toolSearch" class="search-bar" placeholder="Search for a tool (e.g., 'QR', 'Converter')..." onkeyup="filterTools()">
+        <input type="text" id="toolSearch" class="search-bar" placeholder="Search for a tool..." onkeyup="filterTools()">
     </div>
 </header>
 
@@ -155,26 +155,45 @@ function renderTools() {
 
 function filterTools() {
     const query = document.getElementById('toolSearch').value.toLowerCase();
-    const cards = document.querySelectorAll('.tool-card');
-    cards.forEach(card => {
-        const name = card.getAttribute('data-name');
-        card.classList.toggle('hidden', !name.includes(query));
+    document.querySelectorAll('.tool-card').forEach(card => {
+        card.classList.toggle('hidden', !card.getAttribute('data-name').includes(query));
     });
 }
 
-function copyEmail() {
-    const email = "sgmultitools@gmail.com";
-    navigator.clipboard.writeText(email).then(() => {
-        const el = document.getElementById('emailDisplay');
-        el.innerText = "Copied!";
-        setTimeout(() => { el.innerText = "Email"; }, 2000);
-    });
+// CONTACT FORM LOGIC
+function showContact() {
+    document.getElementById('mTitle').innerText = "Contact Support";
+    document.getElementById('mBody').innerHTML = `
+        <input type="text" id="cName" placeholder="Your Name">
+        <input type="email" id="cEmail" placeholder="Your Email">
+        <textarea id="cMsg" rows="4" placeholder="How can we help you?"></textarea>
+        <button class="btn" onclick="sendMsg()">Send Message</button>
+    `;
+    document.getElementById('mRes').innerText = "Direct Email: sgmultitools@gmail.com";
+    document.getElementById('modal').style.display = "block";
+}
+
+function sendMsg() {
+    const name = document.getElementById('cName').value;
+    if(name) {
+        document.getElementById('mRes').innerText = "Thank you, " + name + "! Your message has been sent simulated.";
+        setTimeout(closeM, 2000);
+    } else {
+        alert("Please enter your name.");
+    }
+}
+
+function showAbout() {
+    document.getElementById('mTitle').innerText = "About SG-Multi-Tools";
+    document.getElementById('mBody').innerHTML = `<p>Version 2.1 Platinum</p><p style="opacity:0.8;margin-top:10px;">Browser-based digital utility suite.</p>`;
+    document.getElementById('mRes').innerText = "All tools are free to use.";
+    document.getElementById('modal').style.display = "block";
 }
 
 function openT(id) {
     const t = tools.find(x => x.id === id);
     document.getElementById('mTitle').innerText = t.name;
-    document.getElementById('mBody').innerHTML = `<input type="text" placeholder="Testing ${t.name} interface..."> <button class="btn">Execute</button>`;
+    document.getElementById('mBody').innerHTML = `<p>Tool interface for ${t.name} is ready.</p><button class="btn" style="margin-top:15px">Launch</button>`;
     document.getElementById('modal').style.display = "block";
 }
 
