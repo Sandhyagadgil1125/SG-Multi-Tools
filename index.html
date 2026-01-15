@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | Official Pro Suite</title>
+    <title>SG-Multi-Tools | Pro Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -41,8 +41,8 @@
         }
         .nav-links a:hover { opacity: 1; text-shadow: 0 0 8px var(--accent); }
 
-        /* HERO & SEARCH */
-        .hero-section { text-align: center; padding: 60px 20px 20px; background: linear-gradient(to bottom, var(--bg-nav), transparent); }
+        /* HERO */
+        .hero-section { text-align: center; padding: 60px 20px 20px; }
         .hero-title { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; text-shadow: 0 0 15px var(--accent-glow); }
         
         .search-container { max-width: 500px; margin: 25px auto; position: relative; }
@@ -54,31 +54,35 @@
         .search-bar:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
         .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); opacity: 0.6; }
 
-        /* TOOL GRID */
+        /* GRID */
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; padding: 20px 5%; }
         .tool-card { 
             background: var(--bg-card); padding: 30px; border-radius: 18px; border: 1px solid var(--card-border); 
             text-align: center; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center;
         }
         .tool-card.hidden { display: none; }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 8px 20px var(--accent-glow); }
-        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; display: block; }
+        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; }
         
         .btn { 
             display: inline-block; width: 100%; padding: 12px 15px; background: transparent; 
             border: 2px solid var(--accent); color: var(--accent); border-radius: 10px; 
             font-weight: 800; text-transform: uppercase; cursor: pointer; 
-            transition: all 0.25s ease; outline: none; text-align: center; font-size: 0.9rem;
+            transition: all 0.25s ease; outline: none; text-align: center;
         }
-        .tool-card:hover .btn, body .btn:hover { background-color: var(--accent) !important; color: #000000 !important; box-shadow: 0 0 20px var(--accent-glow) !important; }
+        .btn:hover { background-color: var(--accent) !important; color: #000 !important; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
-        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 2px solid var(--accent); width: 95%; max-width: 600px; border-radius: 25px; text-align: center; position: relative; }
-        .close-btn { position: absolute; right: 25px; top: 15px; font-size: 2.5rem; cursor: pointer; color: var(--accent); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
+        .modal-content { background: var(--bg-nav); margin: 5vh auto; padding: 40px; border: 2px solid var(--accent); width: 90%; max-width: 550px; border-radius: 20px; text-align: center; position: relative; }
+        .close-btn { position: absolute; right: 20px; top: 10px; font-size: 2rem; cursor: pointer; }
         
-        input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); color: var(--accent); padding: 14px; border-radius: 10px; width: 100%; margin-bottom: 15px; }
-        .res-box { margin-top: 20px; padding: 20px; border: 2px dashed var(--accent); border-radius: 12px; background: rgba(0,0,0,0.2); min-height: 50px; font-weight: bold; }
+        input, select, textarea { background: var(--bg-main); border: 1px solid var(--accent); color: var(--accent); padding: 12px; border-radius: 8px; width: 100%; margin-bottom: 10px; font-size: 1rem; }
+        .res-box { margin-top: 15px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; font-weight: bold; background: rgba(66, 248, 245, 0.05); }
+
+        /* ABOUT DESIGN */
+        .about-header { margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 15px; }
+        .feature-item { display: flex; align-items: center; gap: 15px; text-align: left; margin-bottom: 12px; font-size: 0.95rem; }
+        .feature-item i { color: var(--accent); font-size: 1.2rem; width: 25px; }
     </style>
 </head>
 <body data-theme="dark">
@@ -88,15 +92,13 @@
         <div class="sg-box">SG</div>
         <span class="brand-name">SG-Multi-Tools</span>
     </a>
-    
     <div class="nav-right">
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#grid">Tools</a></li>
-            <li><a href="javascript:void(0)" onclick="showAbout()">About</a></li>
-            <li><a href="javascript:void(0)" onclick="showContact()">Contact</a></li>
+            <li><a onclick="handleAboutClick()">About</a></li>
+            <li><a onclick="handleContactClick()">Contact</a></li>
         </ul>
-        <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="toggleTheme()">Theme</button>
+        <button class="btn" style="width: auto; padding: 5px 15px;" onclick="toggleTheme()">Theme</button>
     </div>
 </nav>
 
@@ -110,99 +112,103 @@
 
 <div id="grid" class="tool-grid"></div>
 
-<div id="modal" class="modal">
+<div id="mainModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeM()">&times;</span>
-        <h2 id="mTitle" style="margin-bottom: 20px;"></h2>
-        <div id="mBody"></div>
-        <div class="res-box" id="mRes">Ready...</div>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle" style="margin-bottom: 20px;"></h2>
+        <div id="modalBody"></div>
+        <div class="res-box" id="modalResult">System Ready</div>
     </div>
 </div>
 
 <script>
-const tools = [
+// TOOL DATA
+const toolList = [
     { id: '1', name: 'Image Converter', icon: 'fa-image' },
-    { id: '2', name: 'Image Compressor', icon: 'fa-file-zipper' },
-    { id: '3', name: 'Image Cropper', icon: 'fa-crop' },
-    { id: '4', name: 'Video Converter', icon: 'fa-video' },
-    { id: '5', name: 'Audio Converter', icon: 'fa-file-audio' },
-    { id: '6', name: 'Audio Trimmer', icon: 'fa-scissors' },
-    { id: '7', name: 'Age Calculator', icon: 'fa-cake-candles' },
-    { id: '8', name: 'EMI Calculator', icon: 'fa-calculator' },
-    { id: '9', name: 'SIP Calculator', icon: 'fa-chart-line' },
+    { id: '18', name: 'Unit Converter', icon: 'fa-ruler' },
     { id: '10', name: 'QR Generator', icon: 'fa-qrcode' },
     { id: '11', name: 'Password Gen', icon: 'fa-key' },
     { id: '12', name: 'Word Counter', icon: 'fa-font' },
-    { id: '13', name: 'Base64 Tool', icon: 'fa-code' },
-    { id: '14', name: 'Color Picker', icon: 'fa-palette' },
-    { id: '15', name: 'Text to Speech', icon: 'fa-volume-up' },
-    { id: '16', name: 'Speech to Text', icon: 'fa-microphone' },
-    { id: '17', name: 'JSON Formatter', icon: 'fa-brackets-curly' },
-    { id: '18', name: 'Unit Converter', icon: 'fa-ruler' },
     { id: '19', name: 'BMI Calculator', icon: 'fa-weight-scale' },
-    { id: '20', name: 'Timer/Stopwatch', icon: 'fa-stopwatch' }
+    { id: '7', name: 'Age Calculator', icon: 'fa-cake-candles' }
 ];
 
+// INITIALIZE GRID
 const grid = document.getElementById('grid');
-function renderTools() {
-    grid.innerHTML = tools.map(t => `
-        <div class="tool-card" data-name="${t.name.toLowerCase()}" onclick="openT('${t.id}')">
+function initGrid() {
+    grid.innerHTML = toolList.map(t => `
+        <div class="tool-card" data-name="${t.name.toLowerCase()}" onclick="openTool('${t.id}')">
             <i class="fas ${t.icon}"></i>
             <button class="btn">${t.name}</button>
         </div>
     `).join('');
 }
 
+// SEARCH
 function filterTools() {
-    const query = document.getElementById('toolSearch').value.toLowerCase();
-    document.querySelectorAll('.tool-card').forEach(card => {
-        card.classList.toggle('hidden', !card.getAttribute('data-name').includes(query));
+    const q = document.getElementById('toolSearch').value.toLowerCase();
+    document.querySelectorAll('.tool-card').forEach(c => {
+        c.classList.toggle('hidden', !c.getAttribute('data-name').includes(q));
     });
 }
 
-function showAbout() {
-    document.getElementById('mTitle').innerText = "About SG-Multi-Tools";
-    document.getElementById('mBody').innerHTML = `
-        <div style="text-align: left; padding: 10px;">
-            <p><strong>Version:</strong> 2.2 Platinum</p>
-            <p style="margin-top:10px;">A lightweight, secure, and fully browser-based utility suite designed to handle your daily digital needs without uploading data to any server.</p>
-            <p style="margin-top:10px; font-size: 0.9rem; opacity: 0.7;">Developed by SGTech Solutions.</p>
+// NEW ABOUT HANDLER (REPLACES OLD ALERT)
+function handleAboutClick() {
+    const title = document.getElementById('modalTitle');
+    const body = document.getElementById('modalBody');
+    const res = document.getElementById('modalResult');
+    
+    title.innerText = "About SG-Multi-Tools";
+    body.innerHTML = `
+        <div class="about-header">
+            <p style="font-weight: 900; color: var(--accent);">PLATINUM EDITION V2.5</p>
+            <p style="font-size: 0.85rem; opacity: 0.6;">The complete private utility suite.</p>
         </div>
+        <div class="feature-item"><i class="fas fa-user-shield"></i> <span><strong>Privacy Focused:</strong> All conversions happen locally in your browser. No data is sent to any server.</span></div>
+        <div class="feature-item"><i class="fas fa-bolt"></i> <span><strong>Lightning Fast:</strong> Optimized for instant results without page reloads.</span></div>
+        <div class="feature-item"><i class="fas fa-check-circle"></i> <span><strong>Free to Use:</strong> No subscriptions, no ads, just helpful tools.</span></div>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.4;">© 2026 SGTech Solutions. All rights reserved.</p>
     `;
-    document.getElementById('mRes').innerText = "System Status: Online";
-    document.getElementById('modal').style.display = "block";
+    res.innerText = "System Integrity: Optimal";
+    document.getElementById('mainModal').style.display = "block";
 }
 
-function showContact() {
-    document.getElementById('mTitle').innerText = "Contact Us";
-    document.getElementById('mBody').innerHTML = `
-        <input type="text" id="cName" placeholder="Name">
-        <textarea id="cMsg" rows="3" placeholder="Message"></textarea>
-        <button class="btn" onclick="sendMsg()">Submit</button>
+// CONTACT HANDLER
+function handleContactClick() {
+    document.getElementById('modalTitle').innerText = "Contact Us";
+    document.getElementById('modalBody').innerHTML = `
+        <input type="text" id="nameIn" placeholder="Your Full Name">
+        <input type="email" id="emailIn" placeholder="Your Email Address">
+        <textarea id="msgIn" rows="4" placeholder="How can we help you?"></textarea>
+        <button class="btn" onclick="submitContact()">Send Inquiry</button>
     `;
-    document.getElementById('mRes').innerText = "Email: sgmultitools@gmail.com";
-    document.getElementById('modal').style.display = "block";
+    document.getElementById('modalResult').innerText = "Email: sgmultitools@gmail.com";
+    document.getElementById('mainModal').style.display = "block";
 }
 
-function sendMsg() {
-    const name = document.getElementById('cName').value;
-    if(name) {
-        document.getElementById('mRes').innerText = "Success! Message sent for " + name;
-        setTimeout(closeM, 1500);
+function submitContact() {
+    const n = document.getElementById('nameIn').value;
+    const e = document.getElementById('emailIn').value;
+    if(n && e) {
+        document.getElementById('modalResult').innerText = "Success! Thank you, " + n + ". We will reach out soon.";
+        setTimeout(closeModal, 2500);
+    } else {
+        document.getElementById('modalResult').innerText = "Error: Please fill in both Name and Email.";
     }
 }
 
-function openT(id) {
-    const t = tools.find(x => x.id === id);
-    document.getElementById('mTitle').innerText = t.name;
-    document.getElementById('mBody').innerHTML = `<p>Tool module initialized for ${t.name}.</p><button class="btn" style="margin-top:15px">Launch Tool</button>`;
-    document.getElementById('modal').style.display = "block";
+// TOOL OPENER
+function openTool(id) {
+    const t = toolList.find(x => x.id === id);
+    document.getElementById('modalTitle').innerText = t.name;
+    document.getElementById('modalBody').innerHTML = `<p>Interface for ${t.name} is initializing...</p><button class="btn" style="margin-top:15px">Launch Engine</button>`;
+    document.getElementById('mainModal').style.display = "block";
 }
 
-function closeM() { document.getElementById('modal').style.display="none"; }
+function closeModal() { document.getElementById('mainModal').style.display = "none"; }
 function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark'?'light':'dark'); }
 
-renderTools();
+initGrid();
 </script>
 </body>
 </html>
