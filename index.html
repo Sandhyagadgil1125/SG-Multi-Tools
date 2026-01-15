@@ -16,58 +16,40 @@
             --accent: #0062ff; --accent-glow: rgba(0, 98, 255, 0.3);
         }
 
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--accent); padding-top: 100px; transition: background 0.4s; }
 
-        /* NAVBAR & LOGO */
         .navbar { background: var(--bg-nav); padding: 0.7rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 25px; }
         .sg-box { border: 2px solid var(--accent); font-weight: 900; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); color: var(--accent); cursor: pointer; transition: 0.3s; }
-        .sg-box:hover { transform: rotate(10deg) scale(1.1); box-shadow: 0 0 20px var(--accent); }
         
         .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; opacity: 0.7; transition: 0.3s; cursor: pointer; }
         .nav-links a:hover { opacity: 1; text-shadow: 0 0 8px var(--accent); }
 
-        /* TOOL CARDS */
+        /* TOOL GRID & IMPROVED BUTTON HOVER */
         .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; padding: 20px 5%; }
-        .tool-card { background: var(--bg-card); padding: 30px; border-radius: 18px; border: 1px solid var(--card-border); text-align: center; cursor: pointer; transition: var(--transition); }
-        .tool-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 12px 25px var(--accent-glow); }
-        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 15px; display: block; transition: 0.3s; }
-        .tool-card:hover i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--accent)); }
-        .tool-card p { font-weight: bold; color: var(--accent); }
-
-        /* BUTTON SYSTEM - THE DEFINITIVE HOVER FIX */
+        .tool-card { 
+            background: var(--bg-card); padding: 30px; border-radius: 18px; border: 1px solid var(--card-border); 
+            text-align: center; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center;
+        }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 8px 20px var(--accent-glow); }
+        .tool-card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; display: block; transition: 0.3s; }
+        
+        /* THE BUTTON ENHANCEMENT */
         .btn { 
-            display: inline-block;
-            width: 100%;
-            padding: 14px 24px;
-            margin-top: 10px;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent); /* Default color */
-            border-radius: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            outline: none;
-            text-align: center;
-            text-decoration: none;
+            display: inline-block; width: 100%; padding: 12px 15px; background: transparent; 
+            border: 2px solid var(--accent); color: var(--accent); border-radius: 10px; 
+            font-weight: 800; text-transform: uppercase; cursor: pointer; 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); outline: none; text-align: center; font-size: 0.9rem;
         }
 
-        /* This selector is extremely specific to override any other rules.
-           It changes both the background and the text color.
-        */
-        body .btn:hover { 
+        /* Specific Hover for Tool Buttons */
+        .tool-card:hover .btn, body .btn:hover { 
             background-color: var(--accent) !important; 
             color: #000000 !important; 
-            box-shadow: 0 0 25px var(--accent-glow) !important;
-            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 0 20px var(--accent-glow) !important;
         }
-
-        .btn:active { transform: translateY(0); }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
@@ -132,7 +114,12 @@ const tools = [
 
 const grid = document.getElementById('grid');
 tools.forEach(t => {
-    grid.innerHTML += `<div class="tool-card" onclick="openT('${t.id}')"><i class="fas ${t.icon}"></i><p>${t.name}</p></div>`;
+    // Tool name is now wrapped in a button class
+    grid.innerHTML += `
+        <div class="tool-card" onclick="openT('${t.id}')">
+            <i class="fas ${t.icon}"></i>
+            <button class="btn">${t.name}</button>
+        </div>`;
 });
 
 function copyEmail() {
@@ -140,11 +127,7 @@ function copyEmail() {
     navigator.clipboard.writeText(email).then(() => {
         const el = document.getElementById('emailDisplay');
         el.innerText = "Copied!";
-        el.style.color = "#fff";
-        setTimeout(() => {
-            el.innerText = email;
-            el.style.color = "var(--accent)";
-        }, 2000);
+        setTimeout(() => { el.innerText = email; }, 2000);
     });
 }
 
@@ -152,20 +135,19 @@ function openT(id) {
     const t = tools.find(x => x.id === id);
     document.getElementById('mTitle').innerText = t.name;
     let body = "";
-    
     if(['1','2','3'].includes(id)) {
         body = `<input type="file" id="fIn" accept="image/*">`;
         if(id === '1') body += `<select id="fmt"><option value="image/png">To PNG</option><option value="image/jpeg">To JPEG</option></select>`;
-        if(id === '2') body += `<p style="margin:10px 0">Compression Strength</p><input type="range" id="q" min="0.1" max="0.9" step="0.1" value="0.5">`;
+        if(id === '2') body += `<p style="margin:10px 0">Quality</p><input type="range" id="q" min="0.1" max="0.9" step="0.1" value="0.5">`;
     } 
     else if(['4','5','6'].includes(id)) body = `<input type="file" id="fIn" accept="${id==='4'?'video/*':'audio/*'}">`;
     else if(id==='7') body = `<input type="date" id="v1">`;
     else if(['8','9'].includes(id)) body = `<input type="number" id="v1" placeholder="Principal"><input type="number" id="v2" placeholder="Rate %"><input type="number" id="v3" placeholder="Years">`;
     else if(['10','11','13'].includes(id)) body = `<input type="text" id="v1" placeholder="Type here...">`;
-    else if(['12','15','17'].includes(id)) body = `<textarea id="v1" rows="5" placeholder="Enter text content..."></textarea>`;
+    else if(['12','15','17'].includes(id)) body = `<textarea id="v1" rows="5" placeholder="Enter text..."></textarea>`;
     else if(id==='19') body = `<input type="number" id="v1" placeholder="Height cm"><input type="number" id="v2" placeholder="Weight kg">`;
-    else if(id==='20') body = `<div id="swDisp" style="font-size:3rem; margin:20px 0; font-weight:bold;">00:00:00</div><button class="btn" onclick="toggleSW()">Start / Stop</button>`;
-    else if(id==='14') body = `<input type="color" id="v1" style="height:80px; cursor:pointer">`;
+    else if(id==='20') body = `<div id="swDisp" style="font-size:3rem; margin:20px 0;">00:00:00</div><button class="btn" onclick="toggleSW()">Start / Stop</button>`;
+    else if(id==='14') body = `<input type="color" id="v1" style="height:80px">`;
 
     if(!['16','20'].includes(id)) body += `<button class="btn" onclick="run('${id}')">Process Task</button>`;
     if(id==='16') body += `<button class="btn" onclick="runSTT()">Start Recognition</button>`;
@@ -190,8 +172,8 @@ function run(id) {
                 const format = id === '1' ? document.getElementById('fmt').value : 'image/jpeg';
                 const quality = id === '2' ? parseFloat(document.getElementById('q').value) : 1.0;
                 const data = canvas.toDataURL(format, quality);
-                res.innerHTML = `<img src="${data}" style="max-width:100%; border-radius:10px; border:1px solid var(--accent); margin-top:10px;">`;
-                dl.innerHTML = `<a href="${data}" download="sg_output" class="btn">Download Finished File</a>`;
+                res.innerHTML = `<img src="${data}" style="max-width:100%; border-radius:10px; margin-top:10px;">`;
+                dl.innerHTML = `<a href="${data}" download="sg_output" class="btn">Download File</a>`;
             };
             img.src = e.target.result;
         };
@@ -206,7 +188,6 @@ function run(id) {
 
 function runSTT() {
     const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!Speech) return alert("Not supported in this browser");
     const rec = new Speech();
     rec.onresult = (e) => { document.getElementById('mRes').innerText = e.results[0][0].transcript; };
     rec.start();
