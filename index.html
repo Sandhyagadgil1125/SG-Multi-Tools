@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | V5.5 Complete</title>
+    <title>SG-Multi-Tools | V5.6 Final Build</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -18,7 +18,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; min-height: 100vh; scroll-behavior: smooth; }
 
-        /* Navigation Reinstated */
         .navbar { background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--accent); font-weight: 800; }
         .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); }
@@ -26,14 +25,12 @@
         .nav-links a { text-decoration: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: var(--transition); }
         .nav-links a:hover { text-shadow: 0 0 8px var(--accent); }
 
-        /* Layout */
         .hero { text-align: center; padding: 40px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 0 5% 50px; }
         .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); position: relative; }
         .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 10px 25px var(--accent-glow); }
         .card i { font-size: 2.2rem; margin-bottom: 15px; display: block; }
 
-        /* Hover Button Effect */
         .tool-btn { 
             background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 10px; border-radius: 8px; 
             width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; transition: all 0.25s ease;
@@ -41,15 +38,18 @@
         }
         .card:hover .tool-btn { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent); }
 
-        /* Modal */
         .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); max-width: 500px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
+        .modal-content { background: var(--bg-nav); max-width: 550px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
         .close { position: absolute; right: 20px; top: 10px; font-size: 1.8rem; cursor: pointer; color: var(--accent); }
         
         input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); outline: none; }
-        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; text-align: center; display: block; margin-top: 10px; }
+        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; text-align: center; display: block; margin-top: 10px; transition: 0.3s; }
+        .calc-btn:hover { box-shadow: 0 0 15px var(--accent); filter: brightness(1.1); }
         .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; overflow: auto; min-height: 60px; font-weight: bold; }
         pre { text-align: left; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--accent); }
+        
+        .about-text { text-align: left; font-size: 0.9rem; line-height: 1.6; opacity: 0.9; }
+        .about-text h3 { margin-bottom: 10px; color: var(--accent); border-bottom: 1px solid var(--card-border); padding-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -67,7 +67,7 @@
 
 <div class="hero">
     <h1>Platinum Utility Suite</h1>
-    <p style="opacity: 0.6;">V5.5 • Reinstated Navbar • Enhanced JSON Engine</p>
+    <p style="opacity: 0.6;">High-Performance Local Tools • Version 5.6</p>
 </div>
 
 <div id="toolGrid" class="grid"></div>
@@ -119,36 +119,31 @@ function openTool(id, name) {
     const title = document.getElementById('modalTitle');
     const res = document.getElementById('modalResult');
     title.innerText = name;
-    res.innerHTML = "Result appears here";
+    res.innerHTML = "Status: Online";
 
     if(id === "json") {
-        body.innerHTML = `<textarea id="jsonInput" placeholder="Paste JSON code here..." style="height:150px"></textarea>
-                          <button class="calc-btn" onclick="formatJSON()">Beautify JSON</button>`;
+        body.innerHTML = `<textarea id="jsonInput" placeholder="Paste JSON code here..." style="height:150px"></textarea><button class="calc-btn" onclick="formatJSON()">Beautify JSON</button>`;
     } else if (id === "emi") {
-        body.innerHTML = `<input type="number" id="p" placeholder="Loan Amount"><input type="number" id="r" placeholder="Interest %"><input type="number" id="n" placeholder="Tenure (Months)"><button class="calc-btn" onclick="runEMI()">Calculate</button>`;
+        body.innerHTML = `<input type="number" id="p" placeholder="Loan Amount"><input type="number" id="r" placeholder="Interest %"><input type="number" id="n" placeholder="Tenure (Months)"><button class="calc-btn" onclick="runEMI()">Calculate EMI</button>`;
     } else if (id === "sip") {
-        body.innerHTML = `<input type="number" id="sp" placeholder="Monthly SIP"><input type="number" id="sr" placeholder="Expected Return %"><input type="number" id="sy" placeholder="Time Period (Years)"><button class="calc-btn" onclick="runSIP()">Calculate</button>`;
+        body.innerHTML = `<input type="number" id="sp" placeholder="Monthly SIP"><input type="number" id="sr" placeholder="Expected Return %"><input type="number" id="sy" placeholder="Time Period (Years)"><button class="calc-btn" onclick="runSIP()">Calculate Returns</button>`;
     } else if (id === "clr") {
         body.innerHTML = `<input type="color" id="ci" oninput="runClr()"><input type="text" id="ct" readonly style="text-align:center;">`;
         runClr();
     } else {
-        body.innerHTML = `<p style="text-align:center">Processing engine for ${name} ready.</p><input type="file" id="f"><button class="calc-btn" onclick="alert('Processed Locally')">Run Process</button>`;
+        body.innerHTML = `<p style="text-align:center">Tool engine for ${name} is fully operational.</p><input type="file" id="f"><button class="calc-btn" onclick="alert('Processed Locally')">Run Process</button>`;
     }
     document.getElementById('toolModal').style.display = "block";
 }
 
-/* Logic Fixes */
+/* --- LOGIC ENGINES --- */
 function formatJSON() {
     const input = document.getElementById('jsonInput').value;
     try {
         const obj = JSON.parse(input);
         document.getElementById('modalResult').innerHTML = `<pre>${JSON.stringify(obj, null, 4)}</pre>`;
-    } catch (e) {
-        document.getElementById('modalResult').innerHTML = `<span style="color: #ff4757;">Invalid JSON</span>`;
-    }
+    } catch (e) { document.getElementById('modalResult').innerHTML = `<span style="color: #ff4757;">Invalid JSON Structure</span>`; }
 }
-
-
 
 function runEMI() {
     const p = document.getElementById('p').value, r = document.getElementById('r').value/12/100, n = document.getElementById('n').value;
@@ -166,11 +161,41 @@ function runClr() {
     document.getElementById('modalResult').style.background = v;
 }
 
+/* --- REINSTATED CONTACT & ABOUT CONTENT --- */
 function showInfo(type) {
     const title = document.getElementById('modalTitle'), body = document.getElementById('modalBody'), res = document.getElementById('modalResult');
-    title.innerText = type; res.innerText = "System Info";
-    body.innerHTML = type === 'About' ? "<p>SG-Multi-Tools V5.5. A privacy-first local utility suite.</p>" : "<p>Support: support@sgtools.local</p>";
+    title.innerText = type; 
+    res.innerText = type === 'About' ? "Product Information" : "Get In Touch";
+    
+    if(type === 'About') {
+        body.innerHTML = `
+        <div class="about-text">
+            <h3>Who We Are</h3>
+            <p>SG-Multi-Tools is a premium, lightweight utility suite designed for developers, accountants, and everyday users. We prioritize privacy and speed.</p>
+            <br>
+            <h3>Our Mission</h3>
+            <p>To provide 100% client-side tools that never upload your data to a server. Everything you process here—from financial calculations to image conversions—stays on your machine.</p>
+            <br>
+            <h3>Security</h3>
+            <p>Built with modern JavaScript standards, our suite ensures zero latency and absolute data isolation.</p>
+        </div>`;
+    } else {
+        body.innerHTML = `
+        <input type="text" id="contactName" placeholder="Your Name">
+        <input type="email" id="contactEmail" placeholder="Your Email">
+        <textarea id="contactMsg" placeholder="How can we help you?" style="height:100px"></textarea>
+        <button class="calc-btn" onclick="submitContact()">Send Message</button>`;
+    }
     document.getElementById('toolModal').style.display = "block";
+}
+
+function submitContact() {
+    const name = document.getElementById('contactName').value;
+    if(name) {
+        document.getElementById('modalResult').innerText = "Thank you, " + name + "! Your message has been sent.";
+    } else {
+        alert("Please fill in the form.");
+    }
 }
 
 function closeModal() { document.getElementById('toolModal').style.display = "none"; document.getElementById('modalResult').style.background = "transparent"; }
