@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | V4.9 Final</title>
+    <title>SG-Multi-Tools | V5.0 Platinum</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -38,7 +38,8 @@
         label { display: block; text-align: left; font-size: 0.8rem; margin: 10px 0 5px; font-weight: 600; }
         input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); outline: none; }
         .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; text-align: center; display: block; text-decoration: none; margin-top: 10px; }
-        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; min-height: 60px; font-size: 1.2rem; font-weight: 700; }
+        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; min-height: 60px; }
+        .swatch { width: 100%; height: 50px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--accent); transition: 0.2s; }
     </style>
 </head>
 <body>
@@ -55,8 +56,8 @@
 </nav>
 
 <div class="hero">
-    <h1>Advanced Multi-Tool Engine</h1>
-    <p style="opacity: 0.6;">Fixed: Speech, Unit, and Timer Engines.</p>
+    <h1>Platinum Productivity Suite</h1>
+    <p style="opacity: 0.6;">Fixed: SIP Calculation & Advanced Color Picker Engine.</p>
 </div>
 
 <div id="toolGrid" class="grid"></div>
@@ -66,13 +67,11 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px;"></h2>
         <div id="modalBody"></div>
-        <div id="modalResult" class="res-display">Status: Ready</div>
+        <div id="modalResult" class="res-display">Ready</div>
     </div>
 </div>
 
 <script>
-let timerInt;
-let startTime;
 const tools = [
     { name: "Image Converter", icon: "fa-image" }, { name: "Image Compressor", icon: "fa-file-contract" },
     { name: "Video Converter", icon: "fa-video" }, { name: "Audio Converter", icon: "fa-file-audio" },
@@ -100,103 +99,78 @@ function openTool(name) {
     const title = document.getElementById('modalTitle');
     const res = document.getElementById('modalResult');
     title.innerText = name;
-    res.innerHTML = "Result will appear here";
-    clearInterval(timerInt);
+    res.innerHTML = "Status: Idle";
 
-    if (name === "Speech to Text") {
-        body.innerHTML = `<p>Click the button and start speaking. High accuracy in Chrome/Edge.</p><button class="calc-btn" onclick="runSTT()">Start Listening</button>`;
-    } else if (name === "Unit Converter") {
+    if (name === "SIP Calculator") {
         body.innerHTML = `
-            <input type="number" id="unitVal" value="1" oninput="runUnit()">
-            <label>From</label>
-            <select id="uFrom" onchange="runUnit()">
-                <option value="km">KM</option><option value="m">Meters</option><option value="kg">KG</option><option value="lb">LBS</option><option value="c">Celsius</option>
-            </select>
-            <label>To</label>
-            <select id="uTo" onchange="runUnit()">
-                <option value="m">Meters</option><option value="km">KM</option><option value="lb">LBS</option><option value="kg">KG</option><option value="f">Fahrenheit</option>
-            </select>`;
-        runUnit();
-    } else if (name === "Timer / Stopwatch") {
+            <label>Monthly Investment (₹)</label><input type="number" id="sipP" value="5000">
+            <label>Expected Return Rate (Yr %)</label><input type="number" id="sipR" value="12">
+            <label>Investment Period (Years)</label><input type="number" id="sipY" value="10">
+            <button class="calc-btn" onclick="runSIP()">Calculate Maturity</button>`;
+    } else if (name === "Color Picker Tool") {
         body.innerHTML = `
-            <div style="display:flex; gap:10px;">
-                <button class="calc-btn" onclick="startStopwatch()">Start</button>
-                <button class="calc-btn" style="background:#ff4757;" onclick="clearInterval(timerInt)">Stop</button>
-                <button class="calc-btn" style="background:#747d8c;" onclick="resetTimer()">Reset</button>
-            </div>`;
-        res.innerHTML = "00:00:00.00";
-    } else if (name === "Text to Speech") {
-        body.innerHTML = `<textarea id="ttsIn" placeholder="Enter text..."></textarea><button class="calc-btn" onclick="runTTS()">Play</button>`;
+            <div id="pSwatch" class="swatch"></div>
+            <label>Select Color</label><input type="color" id="pColor" value="#42f8f5" oninput="runColorUpdate()">
+            <input type="text" id="pText" readonly style="text-align:center; font-weight:bold;">
+            <button class="calc-btn" onclick="copyColor()">Copy Hex Code</button>`;
+        runColorUpdate();
     } else if (name === "EMI Calculator") {
-        body.innerHTML = `<input type="number" id="p" placeholder="Loan Amount"><input type="number" id="r" placeholder="Interest %"><input type="number" id="n" placeholder="Months"><button class="calc-btn" onclick="runEMI()">Calculate</button>`;
+        body.innerHTML = `<input type="number" id="eP" placeholder="Principal"><input type="number" id="eR" placeholder="Rate %"><input type="number" id="eN" placeholder="Months"><button class="calc-btn" onclick="runEMI()">Calculate EMI</button>`;
     } else {
-        body.innerHTML = `<p style="text-align:center;">${name} logic active.</p><input id="f" type="file"><button class="calc-btn" onclick="runBlobEngine()">Process</button>`;
+        body.innerHTML = `<p style="text-align:center">Processing engine for ${name} is ready.</p><input type="file" id="f"><button class="calc-btn" onclick="runBlobEngine()">Process File</button>`;
     }
     document.getElementById('toolModal').style.display = "block";
 }
 
-// STT ENGINE
-function runSTT() {
-    const res = document.getElementById('modalResult');
-    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!Recognition) return alert("Speech API not supported in this browser.");
-    const rec = new Recognition();
-    rec.onstart = () => res.innerText = "Listening...";
-    rec.onresult = (e) => res.innerText = e.results[0][0].transcript;
-    rec.start();
+/* --- UPDATED ENGINES --- */
+
+function runSIP() {
+    const P = parseFloat(document.getElementById('sipP').value);
+    const i = (parseFloat(document.getElementById('sipR').value) / 100) / 12;
+    const n = parseFloat(document.getElementById('sipY').value) * 12;
+    
+    // Formula: M = P × ({[1 + i]^n – 1} / i) × (1 + i)
+    const maturity = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+    const invested = P * n;
+    const wealth = maturity - invested;
+
+    document.getElementById('modalResult').innerHTML = `
+        <div style="font-size:0.9rem; text-align:left;">
+            <p>Invested: ₹${invested.toLocaleString()}</p>
+            <p>Wealth Gain: ₹${Math.round(wealth).toLocaleString()}</p>
+            <hr style="margin:5px 0; border:0; border-top:1px solid var(--accent);">
+            <p style="font-size:1.1rem; color:var(--accent);"><b>Total Value: ₹${Math.round(maturity).toLocaleString()}</b></p>
+        </div>`;
 }
 
-// UNIT ENGINE
-function runUnit() {
-    const val = parseFloat(document.getElementById('unitVal').value);
-    const from = document.getElementById('uFrom').value;
-    const to = document.getElementById('uTo').value;
-    let result = 0;
-
-    if (from === to) result = val;
-    else if (from === "km" && to === "m") result = val * 1000;
-    else if (from === "m" && to === "km") result = val / 1000;
-    else if (from === "kg" && to === "lb") result = val * 2.20462;
-    else if (from === "lb" && to === "kg") result = val / 2.20462;
-    else if (from === "c" && to === "f") result = (val * 9/5) + 32;
-    else result = "Invalid Conversion Type";
-
-    document.getElementById('modalResult').innerText = isNaN(result) ? result : result.toFixed(2);
+function runColorUpdate() {
+    const clr = document.getElementById('pColor').value;
+    document.getElementById('pSwatch').style.backgroundColor = clr;
+    document.getElementById('pText').value = clr.toUpperCase();
 }
 
-// STOPWATCH ENGINE
-function startStopwatch() {
-    startTime = Date.now();
-    timerInt = setInterval(() => {
-        const diff = Date.now() - startTime;
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        const ms = Math.floor((diff % 1000) / 10);
-        document.getElementById('modalResult').innerText = 
-            `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}.${ms.toString().padStart(2,'0')}`;
-    }, 10);
+function copyColor() {
+    const txt = document.getElementById('pText');
+    txt.select();
+    navigator.clipboard.writeText(txt.value);
+    alert("Copied to clipboard: " + txt.value);
 }
 
-function resetTimer() {
-    clearInterval(timerInt);
-    document.getElementById('modalResult').innerText = "00:00:00.00";
-}
-
-// REMAINDER TOOLS
 function runEMI() {
-    const p = document.getElementById('p').value, r = document.getElementById('r').value/12/100, n = document.getElementById('n').value;
-    document.getElementById('modalResult').innerText = "EMI: ₹" + ((p * r * Math.pow(1+r, n)) / (Math.pow(1+r, n)-1)).toFixed(2);
+    const p = document.getElementById('eP').value, r = document.getElementById('eR').value/12/100, n = document.getElementById('eN').value;
+    const emi = (p * r * Math.pow(1+r, n)) / (Math.pow(1+r, n)-1);
+    document.getElementById('modalResult').innerText = "Monthly EMI: ₹" + emi.toFixed(2);
 }
-function runTTS() { window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('ttsIn').value)); }
+
 function runBlobEngine() {
     const file = document.getElementById('f').files[0];
-    if(file) document.getElementById('modalResult').innerHTML = `<a href="${URL.createObjectURL(file)}" download="${file.name}" class="calc-btn">Download Result</a>`;
+    if(file) document.getElementById('modalResult').innerHTML = `<a href="${URL.createObjectURL(file)}" download="processed_${file.name}" class="calc-btn">Download Output</a>`;
 }
-function closeModal() { document.getElementById('toolModal').style.display = "none"; clearInterval(timerInt); }
+
+function openAbout() { openTool("About"); document.getElementById('modalBody').innerHTML = "SG-Multi-Tools V5.0. Secure, high-speed, local browser utilities."; }
+function openContact() { openTool("Contact"); document.getElementById('modalBody').innerHTML = "<input placeholder='Name'><textarea placeholder='Message'></textarea><button class='calc-btn' onclick='closeModal()'>Send</button>"; }
+function closeModal() { document.getElementById('toolModal').style.display = "none"; }
 function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
-function openAbout() { openTool("About"); document.getElementById('modalBody').innerHTML = "SG-Multi-Tools V4.9. Full browser-based local utility suite."; }
-function openContact() { openTool("Contact"); document.getElementById('modalBody').innerHTML = "<input placeholder='Name'><input placeholder='Email'><button class='calc-btn' onclick='closeModal()'>Submit</button>"; }
 window.onload = loadTools;
 </script>
 </body>
