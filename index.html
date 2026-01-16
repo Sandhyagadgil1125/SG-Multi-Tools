@@ -1,181 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | Unified Media Engine</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-main: #080a0e; --bg-nav: #12161f; --bg-card: #161b22;
-            --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.5);
-            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s ease;
-        }
-        [data-theme="light"] {
-            --bg-main: #f0f2f5; --bg-nav: #ffffff; --bg-card: #ffffff;
-            --accent: #0062ff; --accent-glow: rgba(0, 98, 255, 0.3);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; min-height: 100vh; scroll-behavior: smooth; }
-        .navbar { background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--accent); font-weight: 800; }
-        .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-        .nav-links { display: flex; gap: 20px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
-        .hero { text-align: center; padding: 40px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 0 5% 50px; }
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 8px 20px var(--accent-glow); }
-        .card i { font-size: 2.2rem; margin-bottom: 15px; display: block; }
-        .tool-btn { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; cursor: pointer; }
-        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); max-width: 500px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
-        .close { position: absolute; right: 20px; top: 10px; font-size: 1.8rem; cursor: pointer; color: var(--accent); }
-        label { display: block; text-align: left; font-size: 0.8rem; margin: 10px 0 5px; font-weight: 600; }
-        input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); outline: none; }
-        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; transition: var(--transition); text-align: center; display: block; text-decoration: none; }
-        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; min-height: 50px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG-Multi-Tools</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+--bg:#0b0f19;--card:#141a2a;--accent:#3bf6ff;--border:rgba(59,246,255,.2)
+}
+body{margin:0;font-family:Segoe UI;background:var(--bg);color:var(--accent);padding-top:80px}
+.navbar{position:fixed;top:0;width:100%;background:#000;padding:12px 5%;display:flex;justify-content:space-between;border-bottom:2px solid var(--accent)}
+.nav-links{list-style:none;display:flex;gap:20px}
+.nav-links a{color:var(--accent);cursor:pointer;text-decoration:none;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;padding:30px 5%}
+.card{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:14px;text-align:center;cursor:pointer}
+.card i{font-size:26px;margin-bottom:12px}
+.tool-btn{margin-top:10px;width:100%;padding:8px;border:1px solid var(--accent);background:none;color:var(--accent);border-radius:8px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9)}
+.modal-content{max-width:520px;margin:6vh auto;background:#000;padding:25px;border-radius:18px;border:2px solid var(--accent)}
+.close{float:right;font-size:26px;cursor:pointer}
+input,textarea,select{width:100%;padding:10px;margin:8px 0;background:#111;color:var(--accent);border:1px solid var(--accent);border-radius:8px}
+.calc-btn{background:var(--accent);color:#000;border:none;padding:12px;width:100%;border-radius:8px;font-weight:700;margin-top:10px}
+.res{margin-top:15px;padding:12px;border:1px dashed var(--accent);border-radius:10px;text-align:center}
+</style>
 </head>
+
 <body>
 
 <nav class="navbar">
-    <a href="#" class="nav-left"><div class="sg-logo">SG</div><span>SG-MULTI-TOOLS</span></a>
-    <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#toolGrid">Tools</a></li>
-        <li><a onclick="openAbout()">About</a></li>
-        <li><a onclick="openContact()">Contact</a></li>
-        <li><i class="fas fa-adjust" onclick="toggleTheme()" style="cursor:pointer;"></i></li>
-    </ul>
+<b>SG-MULTI-TOOLS</b>
+<ul class="nav-links">
+<li><a onclick="closeModal()">Home</a></li>
+<li><a href="#tools">Tools</a></li>
+</ul>
 </nav>
 
-<div class="hero">
-    <h1>All-In-One Digital Workspace</h1>
-    <p style="opacity: 0.6;">Local Media Processing & Productivity</p>
+<div id="tools" class="grid"></div>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">×</span>
+<h3 id="title"></h3>
+<div id="body"></div>
+<div id="res" class="res">Ready</div>
 </div>
-
-<div id="toolGrid" class="grid"></div>
-
-<div id="toolModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px; text-transform: uppercase;"></h2>
-        <div id="modalBody"></div>
-        <div id="modalResult" class="res-display">Ready for Input</div>
-    </div>
 </div>
 
 <script>
-const tools = [
-    { name: "Image Converter", icon: "fa-image" }, { name: "Image Compressor", icon: "fa-file-contract" },
-    { name: "Video Converter", icon: "fa-video" }, { name: "Audio Converter", icon: "fa-file-audio" },
-    { name: "EMI Calculator", icon: "fa-calculator" }, { name: "SIP Calculator", icon: "fa-chart-line" },
-    { name: "Color Picker Tool", icon: "fa-palette" }, { name: "Age Calculator", icon: "fa-cake-candles" },
-    { name: "Word Counter", icon: "fa-font" }, { name: "Password Generator", icon: "fa-key" },
-    { name: "BMI Calculator", icon: "fa-weight-scale" }, { name: "Base64 Tool", icon: "fa-code" },
-    { name: "QR Code Generator", icon: "fa-qrcode" }, { name: "Text to Speech", icon: "fa-volume-high" },
-    { name: "Speech to Text", icon: "fa-microphone" }, { name: "JSON Formatter", icon: "fa-brackets-curly" },
-    { name: "Unit Converter", icon: "fa-ruler-combined" }, { name: "Timer / Stopwatch", icon: "fa-stopwatch" },
-    { name: "Image Cropper", icon: "fa-crop-simple" }, { name: "Audio Trimmer", icon: "fa-scissors" }
-];
-
-function loadTools() {
-    document.getElementById('toolGrid').innerHTML = tools.map(t => `
-        <div class="card" onclick="openTool('${t.name}')">
-            <i class="fas ${t.icon}"></i>
-            <button class="tool-btn">${t.name}</button>
-        </div>
-    `).join('');
-}
-
-function openTool(name) {
-    const body = document.getElementById('modalBody');
-    const title = document.getElementById('modalTitle');
-    const res = document.getElementById('modalResult');
-    title.innerText = name;
-    res.innerHTML = "Status: Awaiting Input";
-
-    if (name === "Image Converter") {
-        body.innerHTML = `<label>Image</label><input type="file" id="mediaF" accept="image/*"><label>Target</label><select id="imgT"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option></select><button class="calc-btn" onclick="runImageEngine()">Convert</button>`;
-    } else if (name === "Image Compressor") {
-        body.innerHTML = `<label>Image</label><input type="file" id="mediaF" accept="image/*"><label>Strength</label><select id="imgQ"><option value="0.5">Balanced</option><option value="0.2">High</option></select><button class="calc-btn" onclick="runImageEngine(true)">Compress</button>`;
-    } else if (name === "Image Cropper") {
-        body.innerHTML = `<label>Image</label><input type="file" id="mediaF" accept="image/*"><p>Auto-crops to 1:1 Center Square</p><button class="calc-btn" onclick="runImageEngine(false, true)">Crop Square</button>`;
-    } else if (name === "Audio Converter" || name === "Video Converter" || name === "Audio Trimmer") {
-        const accept = name.includes("Video") ? "video/*" : "audio/*";
-        body.innerHTML = `<label>Select ${name.split(' ')[0]}</label><input type="file" id="mediaF" accept="${accept}"><button class="calc-btn" onclick="runBlobEngine('${name}')">Process File</button>`;
-    } else if (name === "EMI Calculator") {
-        body.innerHTML = `<label>Loan</label><input type="number" id="p" value="100000"><button class="calc-btn" onclick="runEMI()">Calculate</button>`;
-    } else if (name === "Word Counter") {
-        body.innerHTML = `<textarea id="wIn" placeholder="Paste here..." oninput="runWord()"></textarea>`;
-    } else if (name === "Color Picker Tool") {
-        body.innerHTML = `<input type="color" id="cI" oninput="runCol()"><input type="text" id="cT" readonly>`;
-    } else {
-        body.innerHTML = `<p style="text-align:center">Utility Engine Ready.</p><input type="file" id="mediaF"><button class="calc-btn" onclick="runBlobEngine('${name}')">Process</button>`;
-    }
-    document.getElementById('toolModal').style.display = "block";
-}
-
-// Unified Media Logic
-function runImageEngine(isComp = false, isCrop = false) {
-    const file = document.getElementById('mediaF').files[0];
-    const res = document.getElementById('modalResult');
-    if(!file) return; res.innerText = "Processing...";
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-            const cv = document.createElement('canvas');
-            const ctx = cv.getContext('2d');
-            let w = img.width, h = img.height;
-            if(isCrop) { w = h = Math.min(img.width, img.height); }
-            cv.width = w; cv.height = h;
-            ctx.drawImage(img, isCrop ? (img.width-w)/2 : 0, isCrop ? (img.height-h)/2 : 0, w, h, 0, 0, w, h);
-            const format = isComp ? "image/jpeg" : (document.getElementById('imgT') ? document.getElementById('imgT').value : "image/png");
-            const data = cv.toDataURL(format, isComp ? parseFloat(document.getElementById('imgQ').value) : 1.0);
-            res.innerHTML = `<a href="${data}" download="sg_image" class="calc-btn">Download Processed Image</a>`;
-        };
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-}
-
-function runBlobEngine(name) {
-    const file = document.getElementById('mediaF').files[0];
-    const res = document.getElementById('modalResult');
-    if(!file) { res.innerText = "Error: No file selected."; return; }
-    res.innerText = `Processing ${name}... Generating Link.`;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        const blob = new Blob([e.target.result], { type: file.type });
-        const url = URL.createObjectURL(blob);
-        res.innerHTML = `<a href="${url}" download="sg_${file.name}" class="calc-btn">Download Result File</a>`;
-    };
-    setTimeout(() => reader.readAsArrayBuffer(file), 1000);
-}
-
-function runEMI() { document.getElementById('modalResult').innerText = "EMI Calculated Based on Input Principal."; }
-function runWord() { const v = document.getElementById('wIn').value.trim(); document.getElementById('modalResult').innerText = "Words: " + (v ? v.split(/\s+/).length : 0); }
-function runCol() { const v = document.getElementById('cI').value; document.getElementById('cT').value = v.toUpperCase(); document.getElementById('modalResult').style.background = v; }
-
-function openAbout() {
-    const body = document.getElementById('modalBody');
-    document.getElementById('modalTitle').innerText = "About SG Tools";
-    body.innerHTML = `<div style="font-size:0.9rem"><p><b>SG-Multi-Tools V4.6</b> is a zero-server processing suite. Your data never leaves your browser.</p></div>`;
-    document.getElementById('toolModal').style.display = "block";
-}
-
-function openContact() {
-    const body = document.getElementById('modalBody');
-    document.getElementById('modalTitle').innerText = "Contact";
-    body.innerHTML = `<input placeholder="Name"><input placeholder="Email"><textarea placeholder="Message"></textarea><button class="calc-btn" onclick="alert('Sent!')">Submit</button>`;
-    document.getElementById('toolModal').style.display = "block";
-}
-
-function closeModal() { document.getElementById('toolModal').style.display = "none"; document.getElementById('modalResult').style.background = "transparent"; }
-function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
-window.onload = loadTools;
-</script>
-</body>
-</html>
+const tools=[
+"Image Converter","Image Compressor","Image Cropper",
+"EMI Calculator"
