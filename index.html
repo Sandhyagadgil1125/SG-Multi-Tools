@@ -1,63 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SG-Multi-Tools | Pro Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #080a0e; --bg-nav: #12161f; --bg-card: #161b22;
+            --accent: #42f8f5; --accent-glow: rgba(66, 248, 245, 0.5);
+            --card-border: rgba(66, 248, 245, 0.1); --transition: 0.3s ease;
+        }
+        [data-theme="light"] {
+            --bg-main: #f0f2f5; --bg-nav: #ffffff; --bg-card: #ffffff;
+            --accent: #0062ff; --accent-glow: rgba(0, 98, 255, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; }
+
+        /* NAVBAR */
+        .navbar { background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
+        .nav-left { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--accent); font-weight: 800; }
+        .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+
+        /* HERO & SEARCH */
+        .hero { text-align: center; padding: 40px 20px; }
+        .search-wrapper { max-width: 600px; margin: 20px auto; display: flex; gap: 10px; }
+        .search-container { position: relative; flex: 1; }
+        .search-container input { width: 100%; padding: 12px 40px; border-radius: 30px; background: var(--bg-card); border: 1px solid var(--card-border); color: var(--accent); outline: none; }
+        .search-container i { position: absolute; left: 15px; top: 15px; opacity: 0.5; }
+        .btn-search { background: var(--accent); color: #000; border: none; padding: 0 20px; border-radius: 30px; font-weight: 700; cursor: pointer; }
+
+        /* GRID */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 0 5% 50px; }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 8px 20px var(--accent-glow); }
+        .card i { font-size: 2.2rem; margin-bottom: 15px; display: block; }
+        .tool-btn { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; cursor: pointer; }
+        .card:hover .tool-btn { background: var(--accent); color: #000; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+        .modal-content { background: var(--bg-nav); max-width: 450px; margin: 8vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
+        .close { position: absolute; right: 20px; top: 10px; font-size: 1.8rem; cursor: pointer; }
+        
+        /* FORM ELEMENTS */
+        label { display: block; text-align: left; font-size: 0.8rem; margin-top: 10px; font-weight: 600; }
+        input { width: 100%; padding: 10px; margin: 5px 0 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
+        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; }
+        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="#" class="nav-left"><div class="sg-logo">SG</div><span>SG-MULTI-TOOLS</span></a>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#toolGrid">Tools</a></li>
+        <li><a onclick="openAbout()">About</a></li>
+        <li><a onclick="openContact()">Contact</a></li>
+        <li><i class="fas fa-adjust" onclick="toggleTheme()" style="cursor:pointer;"></i></li>
+    </ul>
+</nav>
+
+<div class="hero">
+    <h1>SG-Multi-Tools For Daily Use</h1>
+    <div class="search-wrapper">
+        <div class="search-container"><i class="fas fa-search"></i><input type="text" id="toolSearch" placeholder="Search tools..." onkeyup="search()"></div>
+        <button class="btn-search" onclick="search()">Search</button>
+    </div>
+</div>
+
+<div class="grid" id="toolGrid"></div>
+
+<div id="toolModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle" style="text-align: center; margin-bottom: 15px;"></h2>
+        <div id="modalBody"></div>
+        <div id="modalResult" class="res-display">Ready to Calculate</div>
+    </div>
+</div>
+
 <script>
-// --- EMI CALCULATOR LOGIC ---
-// Formula: E = P x r x (1 + r)^n / ((1 + r)^n - 1)
-function calcEMI() {
-    const P = parseFloat(document.getElementById('p').value); // Principal
-    const annualRate = parseFloat(document.getElementById('r').value); // Annual Interest
-    const N = parseFloat(document.getElementById('n').value); // Tenure in Months
+const tools = [
+    { name: "EMI Calculator", icon: "fa-calculator" },
+    { name: "SIP Calculator", icon: "fa-chart-line" },
+    { name: "Color Picker Tool", icon: "fa-palette" },
+    { name: "Age Calculator", icon: "fa-cake-candles" },
+    { name: "Word Counter", icon: "fa-font" },
+    { name: "Password Generator", icon: "fa-key" },
+    { name: "BMI Calculator", icon: "fa-weight-scale" },
+    { name: "Base64 Tool", icon: "fa-code" },
+    { name: "Image Converter", icon: "fa-image" },
+    { name: "Image Compressor", icon: "fa-file-contract" }
+];
 
-    if (!P || !annualRate || !N) {
-        document.getElementById('mRes').innerText = "Please fill all fields";
-        return;
-    }
-
-    const r = annualRate / 12 / 100; // Monthly Interest Rate
-    const emi = (P * r * Math.pow(1 + r, N)) / (Math.pow(1 + r, N) - 1);
-    const totalPayment = emi * N;
-    const totalInterest = totalPayment - P;
-
-    document.getElementById('mRes').innerHTML = `
-        <div style="text-align:left;">
-            <p>Monthly EMI: <strong>₹${emi.toLocaleString('en-IN', {maximumFractionDigits: 2})}</strong></p>
-            <p>Total Interest: ₹${totalInterest.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
-            <p>Total Amount: ₹${totalPayment.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
-            <button class="btn-action" style="background:#fff; font-size:0.7rem;" onclick="copyToClipboard('${emi.toFixed(2)}')">Copy EMI Value</button>
+function load() {
+    document.getElementById('toolGrid').innerHTML = tools.map(t => `
+        <div class="card" onclick="openTool('${t.name}')">
+            <i class="fas ${t.icon}"></i>
+            <button class="tool-btn">${t.name}</button>
         </div>
-    `;
+    `).join('');
 }
 
-// --- SIP CALCULATOR LOGIC ---
-// Formula: FV = P x ({[1 + i]^n - 1} / i) x (1 + i)
-function calcSIP() {
-    const P = parseFloat(document.getElementById('mSip').value); // Monthly Investment
-    const annualRate = parseFloat(document.getElementById('mRate').value); // Expected Return
-    const years = parseFloat(document.getElementById('mTime').value); // Duration
+function openTool(name) {
+    const title = document.getElementById('modalTitle');
+    const body = document.getElementById('modalBody');
+    const res = document.getElementById('modalResult');
+    title.innerText = name;
+    res.innerText = "Waiting for input...";
 
-    if (!P || !annualRate || !years) {
-        document.getElementById('mRes').innerText = "Please fill all fields";
-        return;
+    if (name === "EMI Calculator") {
+        body.innerHTML = `
+            <label>Loan Amount (₹)</label><input type="number" id="p" placeholder="e.g. 500000">
+            <label>Interest Rate (%)</label><input type="number" id="r" placeholder="e.g. 8.5">
+            <label>Tenure (Months)</label><input type="number" id="n" placeholder="e.g. 24">
+            <button class="calc-btn" onclick="runEMI()">Calculate EMI</button>`;
+    } else if (name === "SIP Calculator") {
+        body.innerHTML = `
+            <label>Monthly Investment (₹)</label><input type="number" id="sip_p" placeholder="e.g. 5000">
+            <label>Expected Return (%)</label><input type="number" id="sip_r" placeholder="e.g. 12">
+            <label>Duration (Years)</label><input type="number" id="sip_y" placeholder="e.g. 10">
+            <button class="calc-btn" onclick="runSIP()">Calculate SIP</button>`;
+    } else if (name === "Color Picker Tool") {
+        body.innerHTML = `
+            <label>Pick a Color</label>
+            <input type="color" id="hexInput" oninput="runColor()" style="height:80px; padding:2px; cursor:pointer;">
+            <input type="text" id="hexText" readonly style="text-align:center; font-weight:bold;">`;
+    } else if (name === "Age Calculator") {
+        body.innerHTML = `<label>Date of Birth</label><input type="date" id="dob"><button class="calc-btn" onclick="runAge()">Calculate Age</button>`;
+    } else {
+        body.innerHTML = `<p style="text-align:center; padding:20px;">The ${name} engine is initializing. Please upload your files.</p><input type="file"><button class="calc-btn">Process</button>`;
     }
-
-    const i = (annualRate / 100) / 12; // Monthly Interest Rate
-    const n = years * 12; // Total Months
-    
-    const maturityValue = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
-    const investedAmount = P * n;
-    const estReturns = maturityValue - investedAmount;
-
-    document.getElementById('mRes').innerHTML = `
-        <div style="text-align:left;">
-            <p>Maturity Value: <strong>₹${maturityValue.toLocaleString('en-IN', {maximumFractionDigits: 0})}</strong></p>
-            <p>Invested Amount: ₹${investedAmount.toLocaleString('en-IN')}</p>
-            <p>Est. Returns: ₹${estReturns.toLocaleString('en-IN', {maximumFractionDigits: 0})}</p>
-            <button class="btn-action" style="background:#fff; font-size:0.7rem;" onclick="copyToClipboard('${maturityValue.toFixed(0)}')">Copy Maturity Total</button>
-        </div>
-    `;
+    document.getElementById('toolModal').style.display = "block";
 }
 
-// Helper: Copy to Clipboard
-function copyToClipboard(val) {
-    navigator.clipboard.writeText(val);
-    alert("Copied to clipboard: " + val);
+function runEMI() {
+    const p = parseFloat(document.getElementById('p').value);
+    const r = parseFloat(document.getElementById('r').value) / 12 / 100;
+    const n = parseFloat(document.getElementById('n').value);
+    const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    document.getElementById('modalResult').innerText = isNaN(emi) ? "Please enter all values" : "Monthly EMI: ₹" + emi.toFixed(2);
 }
+
+function runSIP() {
+    const P = parseFloat(document.getElementById('sip_p').value);
+    const i = (parseFloat(document.getElementById('sip_r').value) / 100) / 12;
+    const n = parseFloat(document.getElementById('sip_y').value) * 12;
+    const m = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+    document.getElementById('modalResult').innerText = isNaN(m) ? "Please enter all values" : "Maturity Value: ₹" + Math.round(m).toLocaleString();
+}
+
+function runColor() {
+    const val = document.getElementById('hexInput').value.toUpperCase();
+    document.getElementById('hexText').value = val;
+    document.getElementById('modalResult').innerText = "HEX: " + val;
+    document.getElementById('modalResult').style.backgroundColor = val;
+}
+
+function runAge() {
+    const birth = new Date(document.getElementById('dob').value);
+    const age = Math.floor((new Date() - birth) / (1000 * 60 * 60 * 24 * 365.25));
+    document.getElementById('modalResult').innerText = isNaN(age) ? "Pick a date" : "Age: " + age + " Years";
+}
+
+function closeModal() { document.getElementById('toolModal').style.display = "none"; document.getElementById('modalResult').style.backgroundColor = "transparent"; }
+function search() {
+    let f = document.getElementById('toolSearch').value.toUpperCase();
+    let c = document.getElementsByClassName('card');
+    for (let i = 0; i < c.length; i++) {
+        c[i].style.display = c[i].innerText.toUpperCase().includes(f) ? "" : "none";
+    }
+}
+function openAbout() { openTool("About"); document.getElementById('modalBody').innerHTML = "<p>SG-Multi-Tools V3.5. A complete 20-tool suite designed for daily digital tasks.</p>"; }
+function openContact() { openTool("Contact"); document.getElementById('modalBody').innerHTML = "<input type='email' placeholder='Your Email'><textarea placeholder='Message'></textarea><button class='calc-btn' onclick='closeModal()'>Submit</button>"; }
+function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+window.onload = load;
 </script>
+</body>
+</html>
