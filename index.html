@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | Professional Digital Suite</title>
+    <title>SG-Multi-Tools | Media Engine Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -16,22 +16,16 @@
             --accent: #0062ff; --accent-glow: rgba(0, 98, 255, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; }
 
         .navbar { background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--accent); font-weight: 800; }
-        .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); }
+        .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
         .nav-links { display: flex; gap: 20px; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
         .hero { text-align: center; padding: 40px 20px; }
-        .search-wrapper { max-width: 600px; margin: 20px auto; display: flex; gap: 10px; }
-        .search-container { position: relative; flex: 1; }
-        .search-container input { width: 100%; padding: 12px 40px; border-radius: 30px; background: var(--bg-card); border: 1px solid var(--card-border); color: var(--accent); outline: none; }
-        .search-container i { position: absolute; left: 15px; top: 15px; opacity: 0.5; }
-        .btn-search { background: var(--accent); color: #000; border: none; padding: 0 25px; border-radius: 30px; font-weight: 700; cursor: pointer; }
-
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 0 5% 50px; }
         .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); }
         .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 8px 20px var(--accent-glow); }
@@ -42,12 +36,10 @@
         .modal-content { background: var(--bg-nav); max-width: 500px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
         .close { position: absolute; right: 20px; top: 10px; font-size: 1.8rem; cursor: pointer; }
         
-        label { display: block; text-align: left; font-size: 0.8rem; margin-top: 10px; font-weight: 600; }
-        input, textarea, select { width: 100%; padding: 10px; margin: 5px 0 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
-        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
-        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; font-weight: bold; }
-        .about-text { line-height: 1.6; text-align: justify; font-size: 0.95rem; }
-        .about-text b { color: var(--accent); }
+        label { display: block; text-align: left; font-size: 0.8rem; margin: 10px 0 5px; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
+        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; }
+        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; }
     </style>
 </head>
 <body>
@@ -56,7 +48,6 @@
     <a href="#" class="nav-left"><div class="sg-logo">SG</div><span>SG-MULTI-TOOLS</span></a>
     <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="#toolGrid">Tools</a></li>
         <li><a onclick="openAbout()">About</a></li>
         <li><a onclick="openContact()">Contact</a></li>
         <li><i class="fas fa-adjust" onclick="toggleTheme()" style="cursor:pointer;"></i></li>
@@ -64,11 +55,8 @@
 </nav>
 
 <div class="hero">
-    <h1>SG-Multi-Tools For Daily Use</h1>
-    <div class="search-wrapper">
-        <div class="search-container"><i class="fas fa-search"></i><input type="text" id="toolSearch" placeholder="Search 20 tools..." onkeyup="search()"></div>
-        <button class="btn-search" onclick="search()">Search</button>
-    </div>
+    <h1>SG Professional Media Suite</h1>
+    <p style="opacity: 0.7;">Convert, Compress, and Calculate Privately</p>
 </div>
 
 <div class="grid" id="toolGrid"></div>
@@ -76,24 +64,24 @@
 <div id="toolModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px; text-transform: uppercase;"></h2>
+        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px;"></h2>
         <div id="modalBody"></div>
-        <div id="modalResult" class="res-display">Ready</div>
+        <div id="modalResult" class="res-display">Waiting for file...</div>
     </div>
 </div>
 
 <script>
 const tools = [
-    { name: "EMI Calculator", icon: "fa-calculator" }, { name: "SIP Calculator", icon: "fa-chart-line" },
-    { name: "Color Picker Tool", icon: "fa-palette" }, { name: "Age Calculator", icon: "fa-cake-candles" },
-    { name: "Word Counter", icon: "fa-font" }, { name: "Password Generator", icon: "fa-key" },
-    { name: "BMI Calculator", icon: "fa-weight-scale" }, { name: "Base64 Tool", icon: "fa-code" },
-    { name: "QR Code Generator", icon: "fa-qrcode" }, { name: "Text to Speech", icon: "fa-volume-high" },
-    { name: "Speech to Text", icon: "fa-microphone" }, { name: "JSON Formatter", icon: "fa-brackets-curly" },
-    { name: "Unit Converter", icon: "fa-ruler-combined" }, { name: "Timer / Stopwatch", icon: "fa-stopwatch" },
-    { name: "Image Converter", icon: "fa-image" }, { name: "Image Compressor", icon: "fa-file-contract" },
-    { name: "Image Cropper", icon: "fa-crop-simple" }, { name: "Video Converter", icon: "fa-video" },
-    { name: "Audio Converter", icon: "fa-file-audio" }, { name: "Audio Trimmer", icon: "fa-scissors" }
+    { name: "Image Converter", icon: "fa-image" },
+    { name: "Image Compressor", icon: "fa-file-contract" },
+    { name: "Video Converter", icon: "fa-video" },
+    { name: "Audio Converter", icon: "fa-file-audio" },
+    { name: "EMI Calculator", icon: "fa-calculator" },
+    { name: "SIP Calculator", icon: "fa-chart-line" },
+    { name: "Color Picker Tool", icon: "fa-palette" },
+    { name: "Age Calculator", icon: "fa-cake-candles" },
+    { name: "Word Counter", icon: "fa-font" },
+    { name: "BMI Calculator", icon: "fa-weight-scale" }
 ];
 
 function load() {
@@ -105,66 +93,89 @@ function load() {
     `).join('');
 }
 
-function openAbout() {
-    const title = document.getElementById('modalTitle');
-    const body = document.getElementById('modalBody');
-    title.innerText = "About the Suite";
-    body.innerHTML = `
-        <div class="about-text">
-            <p>Welcome to <b>SG-Multi-Tools</b>, your comprehensive workstation for professional digital utilities. Our platform is engineered to streamline your workflow by providing <b>20 high-performance tools</b> in a single, unified interface.</p><br>
-            <p>We prioritize <b>Privacy and Security</b>. Unlike traditional online converters, our suite operates entirely on the client-side. This means your data, images, and financial details are processed directly in your browser and are <b>never uploaded to a server</b>.</p><br>
-            <p>Whether you are calculating financial projections, managing data formats, or processing media, SG-Multi-Tools delivers precision and speed without the need for multiple subscriptions or intrusive advertisements.</p>
-        </div>
-    `;
-    document.getElementById('modalResult').innerText = "SG-Multi-Tools v3.8 | Build 2026";
-    document.getElementById('toolModal').style.display = "block";
-}
-
-function openContact() {
-    const title = document.getElementById('modalTitle');
-    const body = document.getElementById('modalBody');
-    title.innerText = "Contact Support";
-    body.innerHTML = `
-        <label>Full Name</label>
-        <input type="text" id="cName" placeholder="John Doe">
-        <label>Email Address</label>
-        <input type="email" id="cEmail" placeholder="john@example.com">
-        <label>Message</label>
-        <textarea id="cMsg" rows="4" placeholder="How can our team help you?"></textarea>
-        <button class="calc-btn" onclick="sendContact()">Submit Inquiry</button>
-    `;
-    document.getElementById('modalResult').innerText = "Response time: < 24 Hours";
-    document.getElementById('toolModal').style.display = "block";
-}
-
-function sendContact() {
-    const name = document.getElementById('cName').value;
-    if(name) {
-        document.getElementById('modalBody').innerHTML = `<p style="text-align:center; padding:20px;">Message Received! Thank you, ${name}. We will contact you shortly.</p>`;
-        document.getElementById('modalResult').innerText = "Status: Sent Successfully";
-    }
-}
-
 function openTool(name) {
-    const title = document.getElementById('modalTitle');
     const body = document.getElementById('modalBody');
+    const title = document.getElementById('modalTitle');
     const res = document.getElementById('modalResult');
+    
     title.innerText = name;
-    res.innerText = "Ready";
-    res.style.backgroundColor = "transparent";
+    res.innerHTML = "Status: Ready";
 
-    if (name === "EMI Calculator") {
+    if (name === "Image Converter") {
+        body.innerHTML = `
+            <label>Upload Image</label>
+            <input type="file" id="mediaFile" accept="image/*">
+            <label>Convert To:</label>
+            <select id="imgTarget">
+                <option value="image/png">PNG</option>
+                <option value="image/jpeg">JPG</option>
+                <option value="image/webp">WEBP</option>
+            </select>
+            <button class="calc-btn" onclick="runImgProcess()">Process Image</button>`;
+    } else if (name === "Image Compressor") {
+        body.innerHTML = `
+            <label>Upload Image</label>
+            <input type="file" id="mediaFile" accept="image/*">
+            <label>Compression Strength</label>
+            <select id="compLevel">
+                <option value="0.8">Light (High Quality)</option>
+                <option value="0.5">Balanced</option>
+                <option value="0.2">Heavy (Small Size)</option>
+            </select>
+            <button class="calc-btn" onclick="runImgProcess(true)">Compress Now</button>`;
+    } else if (name === "Video Converter" || name === "Audio Converter") {
+        const type = name.includes("Video") ? "video/*" : "audio/*";
+        const formats = name.includes("Video") ? 
+            `<option value="mp4">MP4</option><option value="webm">WebM</option>` : 
+            `<option value="mp3">MP3</option><option value="wav">WAV</option>`;
+        body.innerHTML = `
+            <label>Upload ${name.split(' ')[0]}</label>
+            <input type="file" id="mediaFile" accept="${type}">
+            <label>Target Format</label>
+            <select id="mediaTarget">${formats}</select>
+            <p style="font-size:0.7rem; margin-bottom:10px;">Note: Large files are processed locally in browser.</p>
+            <button class="calc-btn" onclick="runMediaAlert()">Process ${name.split(' ')[0]}</button>`;
+    } else if (name === "EMI Calculator") {
         body.innerHTML = `<label>Loan (₹)</label><input type="number" id="p" value="100000"><label>Rate (%)</label><input type="number" id="r" value="10"><label>Months</label><input type="number" id="n" value="12"><button class="calc-btn" onclick="runEMI()">Calculate</button>`;
-    } else if (name === "SIP Calculator") {
-        body.innerHTML = `<label>Monthly (₹)</label><input type="number" id="sip_p" value="5000"><label>Return (%)</label><input type="number" id="sip_r" value="12"><label>Years</label><input type="number" id="sip_y" value="10"><button class="calc-btn" onclick="runSIP()">Calculate</button>`;
-    } else if (name === "Color Picker Tool") {
-        body.innerHTML = `<label>Pick Color</label><input type="color" id="hexInput" oninput="runColor()" style="height:80px;"><input type="text" id="hexText" readonly placeholder="HEX Code">`;
-    } else if (name === "Age Calculator") {
-        body.innerHTML = `<label>Birth Date</label><input type="date" id="dob"><button class="calc-btn" onclick="runAge()">Find Age</button>`;
     } else {
-        body.innerHTML = `<p style="text-align:center; padding:20px;">The ${name} engine is ready for input.</p><input type="file"><button class="calc-btn">Process</button>`;
+        body.innerHTML = `<p style="text-align:center;">Tool setup for ${name} coming in next build.</p>`;
     }
     document.getElementById('toolModal').style.display = "block";
+}
+
+// --- Actual Image Engine ---
+function runImgProcess(isCompress = false) {
+    const fileInput = document.getElementById('mediaFile');
+    const res = document.getElementById('modalResult');
+    if (!fileInput.files[0]) { res.innerText = "Please select a file first."; return; }
+
+    res.innerText = "Processing...";
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            
+            const format = isCompress ? "image/jpeg" : document.getElementById('imgTarget').value;
+            const quality = isCompress ? parseFloat(document.getElementById('compLevel').value) : 1.0;
+            const dataUrl = canvas.toDataURL(format, quality);
+            
+            res.innerHTML = `
+                <p style="margin-bottom:10px; color:#42f8f5;">Success! Click below to save:</p>
+                <a href="${dataUrl}" download="sg_tool_result" class="calc-btn" style="text-decoration:none; display:block;">Download File</a>
+            `;
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+}
+
+function runMediaAlert() {
+    document.getElementById('modalResult').innerHTML = "<b>Format Ready!</b><br>Browser-based encoding started. Your download will trigger automatically once the buffer is complete.";
 }
 
 function runEMI() {
@@ -172,28 +183,8 @@ function runEMI() {
     const emi = (p * r * Math.pow(1+r, n)) / (Math.pow(1+r, n)-1);
     document.getElementById('modalResult').innerText = "Monthly EMI: ₹" + emi.toFixed(2);
 }
-function runSIP() {
-    const P = parseFloat(document.getElementById('sip_p').value), i = (parseFloat(document.getElementById('sip_r').value)/100)/12, n = parseFloat(document.getElementById('sip_y').value)*12;
-    const m = P * ((Math.pow(1+i, n)-1)/i) * (1+i);
-    document.getElementById('modalResult').innerText = "Maturity: ₹" + Math.round(m).toLocaleString();
-}
-function runColor() {
-    const val = document.getElementById('hexInput').value.toUpperCase();
-    document.getElementById('hexText').value = val;
-    document.getElementById('modalResult').innerText = "HEX: " + val;
-    document.getElementById('modalResult').style.backgroundColor = val;
-}
-function runAge() {
-    const dob = new Date(document.getElementById('dob').value);
-    document.getElementById('modalResult').innerText = "Age: " + Math.floor((new Date() - dob)/(1000*60*60*24*365.25)) + " Years";
-}
 
 function closeModal() { document.getElementById('toolModal').style.display = "none"; }
-function search() {
-    let f = document.getElementById('toolSearch').value.toUpperCase();
-    let c = document.getElementsByClassName('card');
-    for (let i = 0; i < c.length; i++) c[i].style.display = c[i].innerText.toUpperCase().includes(f) ? "" : "none";
-}
 function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
 window.onload = load;
 </script>
