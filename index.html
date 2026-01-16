@@ -34,36 +34,24 @@
         .brand-name { font-weight: 800; font-size: 1.3rem; letter-spacing: 1px; color: var(--accent); }
 
         .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
-        .nav-links a { 
-            text-decoration: none; color: var(--accent); font-weight: 600; 
-            text-transform: uppercase; font-size: 0.85rem; cursor: pointer; opacity: 0.7; transition: 0.3s;
-        }
+        .nav-links a { text-decoration: none; color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; opacity: 0.7; }
         .nav-links a:hover { opacity: 1; text-shadow: 0 0 10px var(--accent); }
 
         /* HERO & SEARCH UI */
         .hero { text-align: center; padding: 40px 20px; }
-        .hero h1 { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px var(--accent-glow); }
+        .hero h1 { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
         
-        .search-wrapper { 
-            max-width: 600px; margin: 30px auto; display: flex; gap: 10px; position: relative;
-        }
+        .search-wrapper { max-width: 600px; margin: 30px auto; display: flex; gap: 10px; }
         .search-container { position: relative; flex: 1; }
         .search-container input { 
-            width: 100%; padding: 15px 15px 15px 45px; border-radius: 50px; 
+            width: 100%; padding: 15px 45px; border-radius: 50px; 
             background: var(--bg-card); border: 2px solid var(--card-border); 
-            color: var(--accent); font-size: 1rem; outline: none; transition: 0.3s;
+            color: var(--accent); font-size: 1rem; outline: none; 
         }
         .search-container i { position: absolute; left: 18px; top: 18px; opacity: 0.5; }
-        .search-container input:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+        .btn-search { background: var(--accent); color: #000; border: none; padding: 0 25px; border-radius: 50px; font-weight: 800; cursor: pointer; }
 
-        .btn-search {
-            background: var(--accent); color: #000; border: none; padding: 0 25px; 
-            border-radius: 50px; font-weight: 800; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .btn-search:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
-
-        /* GRID & CARDS */
+        /* GRID */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px 5% 60px; }
         .card { 
             background: var(--bg-card); border: 1px solid var(--card-border); 
@@ -72,35 +60,30 @@
         }
         .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 10px 25px var(--accent-glow); }
         .card i { font-size: 2.8rem; margin-bottom: 15px; display: block; }
-        
         .tool-btn { 
             background: transparent; border: 2px solid var(--accent); color: var(--accent); 
-            padding: 10px 15px; border-radius: 10px; font-weight: 800; width: 100%; 
-            text-transform: uppercase; font-size: 0.8rem; transition: var(--transition);
-            margin-top: 10px; cursor: pointer;
+            padding: 10px; border-radius: 10px; font-weight: 800; width: 100%; margin-top: 10px;
         }
-        .card:hover .tool-btn { background: var(--accent); color: #000; box-shadow: 0 0 10px var(--accent-glow); }
+        .card:hover .tool-btn { background: var(--accent); color: #000; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+        .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); overflow-y: auto;}
         .modal-content { 
-            background: var(--bg-nav); max-width: 550px; margin: 10vh auto; padding: 40px; 
-            border-radius: 30px; border: 2px solid var(--accent); position: relative; text-align: center;
+            background: var(--bg-nav); max-width: 600px; margin: 5vh auto; padding: 30px; 
+            border-radius: 25px; border: 2px solid var(--accent); position: relative;
         }
-        .close { position: absolute; right: 25px; top: 15px; font-size: 2rem; cursor: pointer; }
+        .close { position: absolute; right: 20px; top: 15px; font-size: 2rem; cursor: pointer; }
         
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
-        .btn-submit { background: var(--accent); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; }
-        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); font-weight: bold; }
+        /* TOOL UI ELEMENTS */
+        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); }
+        .btn-action { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
+        .res-area { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; word-break: break-all; }
     </style>
 </head>
 <body data-theme="dark">
 
 <nav class="navbar">
-    <a href="#" class="nav-left">
-        <div class="sg-logo">SG</div>
-        <span class="brand-name">SG-MULTI-TOOLS</span>
-    </a>
+    <a href="#" class="nav-left"><div class="sg-logo">SG</div><span class="brand-name">SG-MULTI-TOOLS</span></a>
     <ul class="nav-links">
         <li><a href="#">Home</a></li>
         <li><a href="#toolGrid">Tools</a></li>
@@ -113,10 +96,7 @@
 <div class="hero">
     <h1>SG-Multi-Tools For Daily Use</h1>
     <div class="search-wrapper">
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="toolSearch" placeholder="Search tools..." onkeyup="search()">
-        </div>
+        <div class="search-container"><i class="fas fa-search"></i><input type="text" id="toolSearch" placeholder="Search 20 tools..." onkeyup="search()"></div>
         <button class="btn-search" onclick="search()">Search</button>
     </div>
 </div>
@@ -126,97 +106,139 @@
 <div id="uiModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle" style="margin-bottom: 20px;"></h2>
-        <div id="modalBody"></div>
-        <div id="modalFooter" class="res-display">Status: Ready</div>
+        <h2 id="mTitle" style="text-align: center; margin-bottom: 20px;"></h2>
+        <div id="mBody"></div>
+        <div id="mRes" class="res-area">Result will appear here...</div>
     </div>
 </div>
 
 <script>
 const toolset = [
-    { name: "Image Converter", icon: "fa-image" },
-    { name: "Image Compressor", icon: "fa-file-contract" },
-    { name: "Image Cropper", icon: "fa-crop-simple" },
-    { name: "Video Converter", icon: "fa-video" },
-    { name: "Audio Converter", icon: "fa-file-audio" },
-    { name: "Audio Trimmer", icon: "fa-scissors" },
-    { name: "Age Calculator", icon: "fa-cake-candles" },
-    { name: "EMI Calculator", icon: "fa-calculator" },
-    { name: "SIP Calculator", icon: "fa-chart-line" },
-    { name: "QR Code Generator", icon: "fa-qrcode" },
-    { name: "Password Generator", icon: "fa-key" },
-    { name: "Word Counter", icon: "fa-font" },
-    { name: "Base64 Tool", icon: "fa-code" },
-    { name: "Color Picker Tool", icon: "fa-palette" },
-    { name: "Text to Speech", icon: "fa-volume-high" },
-    { name: "Speech to Text", icon: "fa-microphone" },
-    { name: "JSON Formatter", icon: "fa-brackets-curly" },
-    { name: "Unit Converter", icon: "fa-ruler-combined" },
-    { name: "BMI Calculator", icon: "fa-weight-scale" },
-    { name: "Timer / Stopwatch", icon: "fa-stopwatch" }
+    { name: "Image Converter", icon: "fa-image", type: "file" },
+    { name: "Image Compressor", icon: "fa-file-contract", type: "file" },
+    { name: "Image Cropper", icon: "fa-crop-simple", type: "file" },
+    { name: "Video Converter", icon: "fa-video", type: "file" },
+    { name: "Audio Converter", icon: "fa-file-audio", type: "file" },
+    { name: "Audio Trimmer", icon: "fa-scissors", type: "file" },
+    { name: "Age Calculator", icon: "fa-cake-candles", type: "logic" },
+    { name: "EMI Calculator", icon: "fa-calculator", type: "logic" },
+    { name: "SIP Calculator", icon: "fa-chart-line", type: "logic" },
+    { name: "QR Code Generator", icon: "fa-qrcode", type: "logic" },
+    { name: "Password Generator", icon: "fa-key", type: "logic" },
+    { name: "Word Counter", icon: "fa-font", type: "logic" },
+    { name: "Base64 Tool", icon: "fa-code", type: "logic" },
+    { name: "Color Picker Tool", icon: "fa-palette", type: "logic" },
+    { name: "Text to Speech", icon: "fa-volume-high", type: "logic" },
+    { name: "Speech to Text", icon: "fa-microphone", type: "logic" },
+    { name: "JSON Formatter", icon: "fa-brackets-curly", type: "logic" },
+    { name: "Unit Converter", icon: "fa-ruler-combined", type: "logic" },
+    { name: "BMI Calculator", icon: "fa-weight-scale", type: "logic" },
+    { name: "Timer / Stopwatch", icon: "fa-stopwatch", type: "logic" }
 ];
 
 function loadTools() {
-    const grid = document.getElementById('toolGrid');
-    grid.innerHTML = toolset.map(t => `
-        <div class="card" onclick="openTool('${t.name}')">
+    document.getElementById('toolGrid').innerHTML = toolset.map(t => `
+        <div class="card" onclick="launchTool('${t.name}')">
             <i class="fas ${t.icon}"></i>
             <button class="tool-btn">${t.name}</button>
         </div>
     `).join('');
 }
 
-function search() {
-    let filter = document.getElementById('toolSearch').value.toUpperCase();
-    let cards = document.getElementsByClassName('card');
-    for (let i = 0; i < cards.length; i++) {
-        let txt = cards[i].innerText;
-        cards[i].style.display = txt.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+function launchTool(name) {
+    const title = document.getElementById('mTitle');
+    const body = document.getElementById('mBody');
+    const res = document.getElementById('mRes');
+    title.innerText = name;
+    res.innerText = "Ready";
+    
+    if(name === "Age Calculator") {
+        body.innerHTML = `<label>Enter Birth Date:</label><input type="date" id="dob"><button class="btn-action" onclick="calcAge()">Calculate</button>`;
+    } else if(name === "Word Counter") {
+        body.innerHTML = `<textarea id="wordIn" placeholder="Paste text here..." oninput="cntWords()"></textarea>`;
+    } else if(name === "Password Generator") {
+        body.innerHTML = `<label>Length:</label><input type="number" id="pLen" value="12"><button class="btn-action" onclick="genPass()">Generate Password</button>`;
+    } else if(name === "BMI Calculator") {
+        body.innerHTML = `<input type="number" id="h" placeholder="Height (cm)"><input type="number" id="w" placeholder="Weight (kg)"><button class="btn-action" onclick="calcBMI()">Calculate BMI</button>`;
+    } else if(name === "Unit Converter") {
+        body.innerHTML = `<input type="number" id="uVal" placeholder="Value"><select id="uType"><option value="km_m">KM to M</option><option value="m_km">M to KM</option></select><button class="btn-action" onclick="convUnit()">Convert</button>`;
+    } else if(name === "Base64 Tool") {
+        body.innerHTML = `<textarea id="b64In" placeholder="Text to Encode/Decode"></textarea><div style="display:flex;gap:10px"><button class="btn-action" onclick="b64(1)">Encode</button><button class="btn-action" onclick="b64(2)">Decode</button></div>`;
+    } else {
+        body.innerHTML = `<p style="text-align:center">The <b>${name}</b> module is ready. Please upload your file or enter data to begin.</p>
+        <input type="file" style="margin-top:10px">
+        <button class="btn-action">Process Now</button>`;
     }
+    document.getElementById('uiModal').style.display = "block";
+}
+
+// TOOL LOGIC FUNCTIONS
+function calcAge() {
+    const dob = new Date(document.getElementById('dob').value);
+    const diff = new Date() - dob;
+    const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+    document.getElementById('mRes').innerText = isNaN(age) ? "Please select a date" : `Your Age: ${age} Years`;
+}
+
+function cntWords() {
+    const text = document.getElementById('wordIn').value.trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    document.getElementById('mRes').innerText = `Words: ${words} | Characters: ${text.length}`;
+}
+
+function genPass() {
+    const len = document.getElementById('pLen').value;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    let retVal = "";
+    for (let i = 0; i < len; ++i) { retVal += charset.charAt(Math.floor(Math.random() * charset.length)); }
+    document.getElementById('mRes').innerText = retVal;
+}
+
+function calcBMI() {
+    const h = document.getElementById('h').value / 100;
+    const w = document.getElementById('w').value;
+    const bmi = (w / (h * h)).toFixed(2);
+    document.getElementById('mRes').innerText = `BMI: ${bmi}`;
+}
+
+function convUnit() {
+    const val = document.getElementById('uVal').value;
+    const type = document.getElementById('uType').value;
+    let res = type === "km_m" ? val * 1000 + " Meters" : val / 1000 + " Kilometers";
+    document.getElementById('mRes').innerText = res;
+}
+
+function b64(mode) {
+    const input = document.getElementById('b64In').value;
+    try {
+        document.getElementById('mRes').innerText = mode === 1 ? btoa(input) : atob(input);
+    } catch(e) { document.getElementById('mRes').innerText = "Invalid Input"; }
 }
 
 function openAbout() {
-    document.getElementById('modalTitle').innerText = "About SG-Multi-Tools";
-    document.getElementById('modalBody').innerHTML = `
-        <div style="text-align: left; line-height: 1.6;">
-            <p><strong>Version:</strong> 3.1 Platinum</p>
-            <p style="margin-top:15px">Professional suite of browser-based utilities for daily productivity. Privacy is built-in by design.</p>
-            <p style="margin-top:10px; font-size:0.85rem; opacity:0.6;">© 2026 Sandhya Gadgil Tech Solutions.</p>
-        </div>
-    `;
-    document.getElementById('modalFooter').innerText = "Status: Online & Optimized";
+    document.getElementById('mTitle').innerText = "About the Suite";
+    document.getElementById('mBody').innerHTML = `<p><b>SG-Multi-Tools V3.2 Platinum</b> is a browser-based utility hub. No data is sent to servers, ensuring 100% privacy for all conversions and calculations.</p>`;
+    document.getElementById('mRes').innerText = "Status: High Performance";
     document.getElementById('uiModal').style.display = "block";
 }
 
 function openContact() {
-    document.getElementById('modalTitle').innerText = "Contact Support";
-    document.getElementById('modalBody').innerHTML = `
-        <input type="text" id="userName" placeholder="Full Name">
-        <input type="email" id="userEmail" placeholder="Email Address">
-        <textarea id="userMsg" rows="3" placeholder="Message"></textarea>
-        <button class="btn-submit" onclick="sendMsg()">Send</button>
-    `;
-    document.getElementById('modalFooter').innerText = "Reach us at: sgmultitools@gmail.com";
+    document.getElementById('mTitle').innerText = "Contact Support";
+    document.getElementById('mBody').innerHTML = `<input type="text" id="cn" placeholder="Name"><input type="email" id="ce" placeholder="Email"><textarea placeholder="Message"></textarea><button class="btn-action" onclick="closeModal()">Send</button>`;
+    document.getElementById('mRes').innerText = "Inquiry: sgmultitools@gmail.com";
     document.getElementById('uiModal').style.display = "block";
 }
 
-function sendMsg() {
-    if(document.getElementById('userName').value && document.getElementById('userEmail').value) {
-        document.getElementById('modalFooter').innerText = "Inquiry Sent Successfully!";
-        setTimeout(closeModal, 1500);
+function search() {
+    let f = document.getElementById('toolSearch').value.toUpperCase();
+    let c = document.getElementsByClassName('card');
+    for (let i = 0; i < c.length; i++) {
+        c[i].style.display = c[i].innerText.toUpperCase().includes(f) ? "" : "none";
     }
-}
-
-function openTool(name) {
-    document.getElementById('modalTitle').innerText = name;
-    document.getElementById('modalBody').innerHTML = `<p>Launching the local engine for ${name}.</p><button class="btn-submit" style="margin-top:15px">Enter Tool</button>`;
-    document.getElementById('modalFooter').innerText = "Ready to use";
-    document.getElementById('uiModal').style.display = "block";
 }
 
 function closeModal() { document.getElementById('uiModal').style.display = "none"; }
 function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
-
 window.onload = loadTools;
 </script>
 </body>
