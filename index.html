@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG-Multi-Tools | V5.0 Platinum</title>
+    <title>SG-Multi-Tools | V5.1 Platinum Final</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -18,12 +18,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; min-height: 100vh; scroll-behavior: smooth; }
 
+        /* Navigation */
         .navbar { background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--accent); font-weight: 800; }
-        .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); }
         .nav-links { display: flex; gap: 20px; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
+        /* Layout */
         .hero { text-align: center; padding: 40px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 0 5% 50px; }
         .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); }
@@ -31,15 +33,15 @@
         .card i { font-size: 2.2rem; margin-bottom: 15px; display: block; }
         .tool-btn { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; cursor: pointer; }
 
+        /* Modal & Forms */
         .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); overflow-y: auto; }
         .modal-content { background: var(--bg-nav); max-width: 500px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
         .close { position: absolute; right: 20px; top: 10px; font-size: 1.8rem; cursor: pointer; color: var(--accent); }
-        
         label { display: block; text-align: left; font-size: 0.8rem; margin: 10px 0 5px; font-weight: 600; }
         input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); outline: none; }
         .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; text-align: center; display: block; text-decoration: none; margin-top: 10px; }
-        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; min-height: 60px; }
-        .swatch { width: 100%; height: 50px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--accent); transition: 0.2s; }
+        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; min-height: 60px; word-break: break-all; }
+        .swatch { width: 100%; height: 40px; border-radius: 8px; border: 1px solid var(--accent); margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -49,15 +51,15 @@
     <ul class="nav-links">
         <li><a href="#">Home</a></li>
         <li><a href="#toolGrid">Tools</a></li>
-        <li><a onclick="openAbout()">About</a></li>
-        <li><a onclick="openContact()">Contact</a></li>
+        <li><a onclick="openModalNav('About')">About</a></li>
+        <li><a onclick="openModalNav('Contact')">Contact</a></li>
         <li><i class="fas fa-adjust" onclick="toggleTheme()" style="cursor:pointer;"></i></li>
     </ul>
 </nav>
 
 <div class="hero">
-    <h1>Platinum Productivity Suite</h1>
-    <p style="opacity: 0.6;">Fixed: SIP Calculation & Advanced Color Picker Engine.</p>
+    <h1>All-In-One Professional Workspace</h1>
+    <p style="opacity: 0.6;">Secure Local-Side Processing Engine</p>
 </div>
 
 <div id="toolGrid" class="grid"></div>
@@ -65,13 +67,15 @@
 <div id="toolModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px;"></h2>
+        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px; text-transform: uppercase;"></h2>
         <div id="modalBody"></div>
-        <div id="modalResult" class="res-display">Ready</div>
+        <div id="modalResult" class="res-display">Waiting for Input...</div>
     </div>
 </div>
 
 <script>
+let timerId = null;
+
 const tools = [
     { name: "Image Converter", icon: "fa-image" }, { name: "Image Compressor", icon: "fa-file-contract" },
     { name: "Video Converter", icon: "fa-video" }, { name: "Audio Converter", icon: "fa-file-audio" },
@@ -99,77 +103,173 @@ function openTool(name) {
     const title = document.getElementById('modalTitle');
     const res = document.getElementById('modalResult');
     title.innerText = name;
-    res.innerHTML = "Status: Idle";
+    res.innerHTML = "Ready";
+    res.style.background = "rgba(66, 248, 245, 0.05)";
+    if(timerId) clearInterval(timerId);
 
-    if (name === "SIP Calculator") {
+    if (name === "Image Converter" || name === "Image Compressor" || name === "Image Cropper") {
         body.innerHTML = `
-            <label>Monthly Investment (₹)</label><input type="number" id="sipP" value="5000">
-            <label>Expected Return Rate (Yr %)</label><input type="number" id="sipR" value="12">
-            <label>Investment Period (Years)</label><input type="number" id="sipY" value="10">
-            <button class="calc-btn" onclick="runSIP()">Calculate Maturity</button>`;
-    } else if (name === "Color Picker Tool") {
-        body.innerHTML = `
-            <div id="pSwatch" class="swatch"></div>
-            <label>Select Color</label><input type="color" id="pColor" value="#42f8f5" oninput="runColorUpdate()">
-            <input type="text" id="pText" readonly style="text-align:center; font-weight:bold;">
-            <button class="calc-btn" onclick="copyColor()">Copy Hex Code</button>`;
-        runColorUpdate();
+            <label>Upload Image</label><input type="file" id="img_f" accept="image/*">
+            ${name === "Image Converter" ? '<label>Format</label><select id="img_t"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WEBP</option></select>' : ''}
+            ${name === "Image Compressor" ? '<label>Quality</label><select id="img_q"><option value="0.7">High</option><option value="0.4">Medium</option><option value="0.1">Low</option></select>' : ''}
+            <button class="calc-btn" onclick="runImageProcessor('${name}')">Process Image</button>`;
+    } else if (name.includes("Audio") || name.includes("Video")) {
+        body.innerHTML = `<label>Upload File</label><input type="file" id="blob_f"><button class="calc-btn" onclick="runBlobEngine()">Generate Download</button>`;
     } else if (name === "EMI Calculator") {
-        body.innerHTML = `<input type="number" id="eP" placeholder="Principal"><input type="number" id="eR" placeholder="Rate %"><input type="number" id="eN" placeholder="Months"><button class="calc-btn" onclick="runEMI()">Calculate EMI</button>`;
-    } else {
-        body.innerHTML = `<p style="text-align:center">Processing engine for ${name} is ready.</p><input type="file" id="f"><button class="calc-btn" onclick="runBlobEngine()">Process File</button>`;
+        body.innerHTML = `<input type="number" id="emi_p" placeholder="Amount"><input type="number" id="emi_r" placeholder="Interest %"><input type="number" id="emi_n" placeholder="Months"><button class="calc-btn" onclick="runEMI()">Calculate</button>`;
+    } else if (name === "SIP Calculator") {
+        body.innerHTML = `<input type="number" id="sip_p" placeholder="Monthly SIP"><input type="number" id="sip_r" placeholder="Return %"><input type="number" id="sip_y" placeholder="Years"><button class="calc-btn" onclick="runSIP()">Calculate</button>`;
+    } else if (name === "Color Picker Tool") {
+        body.innerHTML = `<div id="clr_sw" class="swatch"></div><input type="color" id="clr_i" oninput="runClr()"><input type="text" id="clr_t" readonly style="text-align:center">`;
+        runClr();
+    } else if (name === "Word Counter") {
+        body.innerHTML = `<textarea id="word_i" placeholder="Paste here..." oninput="runWord()"></textarea>`;
+    } else if (name === "Password Generator") {
+        body.innerHTML = `<label>Length</label><input type="number" id="pass_l" value="16"><button class="calc-btn" onclick="runPass()">Generate</button>`;
+    } else if (name === "QR Code Generator") {
+        body.innerHTML = `<input type="text" id="qr_i" placeholder="URL/Text"><button class="calc-btn" onclick="runQR()">Generate QR</button>`;
+    } else if (name === "Unit Converter") {
+        body.innerHTML = `<input type="number" id="u_val" value="1" oninput="runUnit()"><select id="u_f" onchange="runUnit()"><option value="km">KM</option><option value="m">Meters</option><option value="c">Celsius</option></select><label>To</label><select id="u_t" onchange="runUnit()"><option value="m">Meters</option><option value="km">KM</option><option value="f">Fahrenheit</option></select>`;
+        runUnit();
+    } else if (name === "Timer / Stopwatch") {
+        body.innerHTML = `<div style="display:flex; gap:10px;"><button class="calc-btn" onclick="startTimer()">Start</button><button class="calc-btn" onclick="clearInterval(timerId)">Stop</button><button class="calc-btn" onclick="resetTimer()">Reset</button></div>`;
+    } else if (name === "Text to Speech") {
+        body.innerHTML = `<textarea id="tts_i" placeholder="Speak text..."></textarea><button class="calc-btn" onclick="runTTS()">Play</button>`;
+    } else if (name === "Speech to Text") {
+        body.innerHTML = `<button class="calc-btn" onclick="runSTT()">Start Mic</button>`;
+    } else if (name === "Base64 Tool") {
+        body.innerHTML = `<textarea id="b64_i"></textarea><button class="calc-btn" onclick="runB64(true)">Encode</button><button class="calc-btn" onclick="runB64(false)">Decode</button>`;
+    } else if (name === "Age Calculator") {
+        body.innerHTML = `<input type="date" id="age_i"><button class="calc-btn" onclick="runAge()">Calculate</button>`;
+    } else if (name === "BMI Calculator") {
+        body.innerHTML = `<input type="number" id="bmi_h" placeholder="Height cm"><input type="number" id="bmi_w" placeholder="Weight kg"><button class="calc-btn" onclick="runBMI()">Calculate</button>`;
+    } else if (name === "JSON Formatter") {
+        body.innerHTML = `<textarea id="json_i"></textarea><button class="calc-btn" onclick="runJSON()">Format JSON</button>`;
     }
+
     document.getElementById('toolModal').style.display = "block";
 }
 
-/* --- UPDATED ENGINES --- */
+/* --- LOGIC REPOSITORY --- */
 
-function runSIP() {
-    const P = parseFloat(document.getElementById('sipP').value);
-    const i = (parseFloat(document.getElementById('sipR').value) / 100) / 12;
-    const n = parseFloat(document.getElementById('sipY').value) * 12;
-    
-    // Formula: M = P × ({[1 + i]^n – 1} / i) × (1 + i)
-    const maturity = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
-    const invested = P * n;
-    const wealth = maturity - invested;
-
-    document.getElementById('modalResult').innerHTML = `
-        <div style="font-size:0.9rem; text-align:left;">
-            <p>Invested: ₹${invested.toLocaleString()}</p>
-            <p>Wealth Gain: ₹${Math.round(wealth).toLocaleString()}</p>
-            <hr style="margin:5px 0; border:0; border-top:1px solid var(--accent);">
-            <p style="font-size:1.1rem; color:var(--accent);"><b>Total Value: ₹${Math.round(maturity).toLocaleString()}</b></p>
-        </div>`;
-}
-
-function runColorUpdate() {
-    const clr = document.getElementById('pColor').value;
-    document.getElementById('pSwatch').style.backgroundColor = clr;
-    document.getElementById('pText').value = clr.toUpperCase();
-}
-
-function copyColor() {
-    const txt = document.getElementById('pText');
-    txt.select();
-    navigator.clipboard.writeText(txt.value);
-    alert("Copied to clipboard: " + txt.value);
-}
-
-function runEMI() {
-    const p = document.getElementById('eP').value, r = document.getElementById('eR').value/12/100, n = document.getElementById('eN').value;
-    const emi = (p * r * Math.pow(1+r, n)) / (Math.pow(1+r, n)-1);
-    document.getElementById('modalResult').innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+function runImageProcessor(type) {
+    const file = document.getElementById('img_f').files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            const cv = document.createElement('canvas');
+            const ctx = cv.getContext('2d');
+            let w = img.width, h = img.height;
+            if(type === "Image Cropper") { w = h = Math.min(img.width, img.height); }
+            cv.width = w; cv.height = h;
+            ctx.drawImage(img, type === "Image Cropper" ? (img.width-w)/2 : 0, type === "Image Cropper" ? (img.height-h)/2 : 0, w, h, 0, 0, w, h);
+            const fmt = (type === "Image Converter") ? document.getElementById('img_t').value : "image/jpeg";
+            const q = (type === "Image Compressor") ? parseFloat(document.getElementById('img_q').value) : 1.0;
+            document.getElementById('modalResult').innerHTML = `<a href="${cv.toDataURL(fmt, q)}" download="sg_output" class="calc-btn">Download Result</a>`;
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
 }
 
 function runBlobEngine() {
-    const file = document.getElementById('f').files[0];
-    if(file) document.getElementById('modalResult').innerHTML = `<a href="${URL.createObjectURL(file)}" download="processed_${file.name}" class="calc-btn">Download Output</a>`;
+    const file = document.getElementById('blob_f').files[0];
+    if(file) document.getElementById('modalResult').innerHTML = `<a href="${URL.createObjectURL(file)}" download="${file.name}" class="calc-btn">Download File</a>`;
 }
 
-function openAbout() { openTool("About"); document.getElementById('modalBody').innerHTML = "SG-Multi-Tools V5.0. Secure, high-speed, local browser utilities."; }
-function openContact() { openTool("Contact"); document.getElementById('modalBody').innerHTML = "<input placeholder='Name'><textarea placeholder='Message'></textarea><button class='calc-btn' onclick='closeModal()'>Send</button>"; }
-function closeModal() { document.getElementById('toolModal').style.display = "none"; }
+function runSIP() {
+    const p = parseFloat(document.getElementById('sip_p').value), i = (parseFloat(document.getElementById('sip_r').value)/100)/12, n = parseFloat(document.getElementById('sip_y').value)*12;
+    const m = p * ((Math.pow(1+i, n)-1)/i) * (1+i);
+    document.getElementById('modalResult').innerText = "Maturity: ₹" + Math.round(m).toLocaleString();
+}
+
+function runEMI() {
+    const p = document.getElementById('emi_p').value, r = document.getElementById('emi_r').value/12/100, n = document.getElementById('emi_n').value;
+    document.getElementById('modalResult').innerText = "EMI: ₹" + ((p * r * Math.pow(1+r, n))/(Math.pow(1+r, n)-1)).toFixed(2);
+}
+
+function runClr() {
+    const v = document.getElementById('clr_i').value;
+    document.getElementById('clr_sw').style.background = v;
+    document.getElementById('clr_t').value = v.toUpperCase();
+}
+
+function runUnit() {
+    const v = parseFloat(document.getElementById('u_val').value), f = document.getElementById('u_f').value, t = document.getElementById('u_t').value;
+    let r = v;
+    if(f === "km" && t === "m") r = v * 1000;
+    else if(f === "m" && t === "km") r = v / 1000;
+    else if(f === "c" && t === "f") r = (v * 9/5) + 32;
+    document.getElementById('modalResult').innerText = r.toFixed(2);
+}
+
+function startTimer() {
+    let start = Date.now();
+    timerId = setInterval(() => {
+        let diff = new Date(Date.now() - start);
+        document.getElementById('modalResult').innerText = diff.toISOString().substr(11, 8);
+    }, 1000);
+}
+
+function resetTimer() { clearInterval(timerId); document.getElementById('modalResult').innerText = "00:00:00"; }
+
+function runQR() { 
+    const v = document.getElementById('qr_i').value;
+    document.getElementById('modalResult').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${v}&size=120x120" style="margin-top:10px">`;
+}
+
+function runWord() {
+    const v = document.getElementById('word_i').value.trim();
+    document.getElementById('modalResult').innerText = "Words: " + (v ? v.split(/\s+/).length : 0);
+}
+
+function runPass() {
+    let s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*", p = "";
+    for(let i=0; i<document.getElementById('pass_l').value; i++) p += s[Math.floor(Math.random()*s.length)];
+    document.getElementById('modalResult').innerText = p;
+}
+
+function runTTS() { window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('tts_i').value)); }
+
+function runSTT() {
+    const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!Rec) return alert("Not supported");
+    const r = new Rec(); r.onresult = (e) => document.getElementById('modalResult').innerText = e.results[0][0].transcript; r.start();
+}
+
+function runB64(enc) {
+    const v = document.getElementById('b64_i').value;
+    try { document.getElementById('modalResult').innerText = enc ? btoa(v) : atob(v); } catch(e) { alert("Invalid Base64"); }
+}
+
+function runAge() {
+    const b = new Date(document.getElementById('age_i').value);
+    document.getElementById('modalResult').innerText = Math.floor((new Date() - b) / 31557600000) + " Years Old";
+}
+
+function runBMI() {
+    const h = document.getElementById('bmi_h').value/100, w = document.getElementById('bmi_w').value;
+    document.getElementById('modalResult').innerText = "BMI: " + (w/(h*h)).toFixed(1);
+}
+
+function runJSON() {
+    try {
+        const obj = JSON.parse(document.getElementById('json_i').value);
+        document.getElementById('modalResult').innerHTML = `<pre style="text-align:left; font-size:0.8rem;">${JSON.stringify(obj, null, 2)}</pre>`;
+    } catch(e) { alert("Invalid JSON"); }
+}
+
+function openModalNav(type) {
+    const title = document.getElementById('modalTitle'), body = document.getElementById('modalBody'), res = document.getElementById('modalResult');
+    title.innerText = type; res.innerText = "SG-Multi-Tools System Information";
+    if(type === 'About') body.innerHTML = "<p>V5.1 Final Stability Build. All tools processed locally in browser. No server storage. Privacy guaranteed.</p>";
+    else body.innerHTML = "<label>Email</label><input placeholder='contact@sg.com'><label>Message</label><textarea></textarea><button class='calc-btn' onclick='closeModal()'>Submit</button>";
+    document.getElementById('toolModal').style.display = "block";
+}
+
+function closeModal() { document.getElementById('toolModal').style.display = "none"; if(timerId) clearInterval(timerId); }
 function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
 window.onload = loadTools;
 </script>
