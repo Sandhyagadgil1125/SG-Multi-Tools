@@ -18,14 +18,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--bg-main); color: var(--accent); padding-top: 80px; min-height: 100vh; scroll-behavior: smooth; }
 
-        /* Navbar */
         .navbar { background: var(--bg-nav); padding: 0.8rem 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--accent); font-weight: 800; }
         .sg-logo { border: 2px solid var(--accent); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 0 10px var(--accent-glow); }
         .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
 
-        /* Grid & Cards */
         .hero { text-align: center; padding: 40px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; padding: 0 5% 50px; }
         .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); }
@@ -34,23 +32,21 @@
         .tool-btn { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 6px; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; pointer-events: none; }
         .card:hover .tool-btn { background: var(--accent); color: #000; }
 
-        /* Modal */
         .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); overflow-y: auto; }
-        .modal-content { background: var(--bg-nav); max-width: 500px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
+        .modal-content { background: var(--bg-nav); max-width: 550px; margin: 5vh auto; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); position: relative; }
         .close { position: absolute; right: 20px; top: 10px; font-size: 1.8rem; cursor: pointer; color: var(--accent); }
         
         input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--accent); background: var(--bg-main); color: var(--accent); outline: none; }
-        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
-        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; font-weight: bold; min-height: 50px; overflow-wrap: break-word; }
-        
+        .calc-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 5px; }
+        .res-display { margin-top: 20px; padding: 15px; border: 1px dashed var(--accent); border-radius: 10px; background: rgba(66, 248, 245, 0.05); text-align: center; font-weight: bold; overflow: auto; max-height: 250px; }
         .legal-text { text-align: left; font-size: 0.85rem; line-height: 1.5; }
-        .legal-text h3 { margin: 15px 0 5px; color: var(--accent); text-transform: uppercase; font-size: 0.9rem; border-bottom: 1px solid var(--card-border); }
+        pre { text-align: left; font-size: 12px; white-space: pre-wrap; word-break: break-all; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <a href="#" class="nav-left" onclick="window.scrollTo(0,0)"><div class="sg-logo">SG</div><span>SG-MULTI-TOOLS</span></a>
+    <a href="#" class="nav-left"><div class="sg-logo">SG</div><span>SG-MULTI-TOOLS</span></a>
     <ul class="nav-links">
         <li><a href="#" onclick="window.scrollTo(0,0)">Home</a></li>
         <li><a href="#toolGrid">Tools</a></li>
@@ -62,7 +58,7 @@
 
 <div class="hero">
     <h1>SG-Multi-Tools For Daily Use</h1>
-    <p style="opacity: 0.6;">Privacy-First • 20 Tools Available • v6.3</p>
+    <p style="opacity: 0.6;">Local-First Architecture • v7.0 All-Access</p>
 </div>
 
 <div id="toolGrid" class="grid"></div>
@@ -70,10 +66,10 @@
 <div id="toolModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px;"></h2>
+        <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px; text-transform: uppercase;"></h2>
         <div id="modalBody"></div>
-        <div id="modalResult" class="res-display">Status: Ready</div>
-        <button id="copyBtn" class="calc-btn" style="display:none; background: #444; color: white; margin-top: 10px;" onclick="copyRes()">Copy to Clipboard</button>
+        <div id="modalResult" class="res-display">Ready</div>
+        <button id="copyBtn" class="calc-btn" style="display:none; background: #555; color: #fff;" onclick="copyResult()">Copy Result</button>
     </div>
 </div>
 
@@ -81,24 +77,24 @@
 const tools = [
     { id: "emi", name: "EMI Calculator", icon: "fa-calculator" },
     { id: "sip", name: "SIP Calculator", icon: "fa-chart-line" },
-    { id: "word", name: "Word Counter", icon: "fa-font" },
-    { id: "age", name: "Age Calculator", icon: "fa-cake-candles" },
     { id: "bmi", name: "BMI Calculator", icon: "fa-weight-scale" },
-    { id: "json", name: "JSON Formatter", icon: "fa-brackets-curly" }, 
+    { id: "age", name: "Age Calculator", icon: "fa-cake-candles" },
+    { id: "word", name: "Word Counter", icon: "fa-font" },
+    { id: "json", name: "JSON Formatter", icon: "fa-brackets-curly" },
     { id: "pass", name: "Password Generator", icon: "fa-key" },
+    { id: "b64", name: "Base64 Encoder", icon: "fa-code" },
     { id: "clr", name: "Color Picker", icon: "fa-palette" },
-    { id: "b64", name: "Base64 Tool", icon: "fa-code" },
-    { id: "qr", name: "QR Generator", icon: "fa-qrcode" },
     { id: "unit", name: "Unit Converter", icon: "fa-ruler-combined" },
-    { id: "timer", name: "Stopwatch", icon: "fa-stopwatch" },
-    { id: "imgConv", name: "Image Converter", icon: "fa-image" },
-    { id: "imgComp", name: "Image Compressor", icon: "fa-file-contract" },
-    { id: "vidConv", name: "Video Converter", icon: "fa-video" },
-    { id: "audConv", name: "Audio Converter", icon: "fa-file-audio" },
     { id: "tts", name: "Text to Speech", icon: "fa-volume-high" },
-    { id: "stt", name: "Speech to Text", icon: "fa-microphone" },
-    { id: "crop", name: "Image Cropper", icon: "fa-crop-simple" },
-    { id: "trim", name: "Audio Trimmer", icon: "fa-scissors" }
+    { id: "timer", name: "Stopwatch", icon: "fa-stopwatch" },
+    { id: "case", name: "Text Case Changer", icon: "fa-italic" },
+    { id: "lorem", name: "Lorem Ipsum Gen", icon: "fa-paragraph" },
+    { id: "sort", name: "List Sorter", icon: "fa-arrow-down-a-z" },
+    { id: "find", name: "Find & Replace", icon: "fa-magnifying-glass" },
+    { id: "binary", name: "Binary Converter", icon: "fa-microchip" },
+    { id: "perc", name: "Percentage Calc", icon: "fa-percent" },
+    { id: "hex", name: "Hex to RGB", icon: "fa-fill-drip" },
+    { id: "qr", name: "QR Creator Link", icon: "fa-qrcode" }
 ];
 
 function loadTools() {
@@ -111,104 +107,71 @@ function loadTools() {
 }
 
 function openTool(id, name) {
-    const body = document.getElementById('modalBody'), title = document.getElementById('modalTitle'), 
-          res = document.getElementById('modalResult'), copy = document.getElementById('copyBtn');
-    title.innerText = name;
-    res.innerText = "Waiting for input...";
-    copy.style.display = "none";
+    const body = document.getElementById('modalBody'), res = document.getElementById('modalResult');
+    document.getElementById('modalTitle').innerText = name;
+    document.getElementById('copyBtn').style.display = "none";
+    res.innerHTML = "Status: Ready";
+    res.style.background = "transparent";
 
-    if(id === "word") {
-        body.innerHTML = `<textarea id="tIn" placeholder="Paste text here..." style="height:150px" oninput="runWord()"></textarea>`;
-    } else if (id === "bmi") {
-        body.innerHTML = `<input type="number" id="h" placeholder="Height (CM)"><input type="number" id="w" placeholder="Weight (KG)"><button class="calc-btn" onclick="runBMI()">Calculate</button>`;
-    } else if (id === "age") {
-        body.innerHTML = `<input type="date" id="dIn"><button class="calc-btn" onclick="runAge()">Find Age</button>`;
-    } else if (id === "emi") {
-        body.innerHTML = `<input type="number" id="p" placeholder="Amount"><input type="number" id="r" placeholder="Rate %"><input type="number" id="n" placeholder="Months"><button class="calc-btn" onclick="runEMI()">Calculate</button>`;
-    } else if (id === "sip") {
-        body.innerHTML = `<input type="number" id="sp" placeholder="Monthly SIP"><input type="number" id="sr" placeholder="Return %"><input type="number" id="sy" placeholder="Years"><button class="calc-btn" onclick="runSIP()">Calculate</button>`;
-    } else if (id === "pass") {
-        body.innerHTML = `<input type="number" id="pl" value="12" placeholder="Length"><button class="calc-btn" onclick="runPass()">Generate</button>`;
-    } else if (id === "json") {
-        body.innerHTML = `<textarea id="ji" style="height:100px" placeholder="Paste JSON"></textarea><button class="calc-btn" onclick="runJSON()">Format</button>`;
-    } else if (id === "clr") {
-        body.innerHTML = `<input type="color" id="ci" oninput="runClr()"><input type="text" id="ct" readonly style="text-align:center">`;
-        runClr();
-    } else {
-        body.innerHTML = `<p style="text-align:center">Client-side ${name} is ready.</p><input type="file"><button class="calc-btn" onclick="alert('Processed locally.')">Run Tool</button>`;
+    let html = "";
+    switch(id) {
+        case 'emi': html = `<input type="number" id="p" placeholder="Principal"><input type="number" id="r" placeholder="Interest %"><input type="number" id="n" placeholder="Months"><button class="calc-btn" onclick="runEMI()">Calculate</button>`; break;
+        case 'sip': html = `<input type="number" id="sp" placeholder="Monthly SIP"><input type="number" id="sr" placeholder="Return %"><input type="number" id="sy" placeholder="Years"><button class="calc-btn" onclick="runSIP()">Calculate</button>`; break;
+        case 'bmi': html = `<input type="number" id="bh" placeholder="Height (cm)"><input type="number" id="bw" placeholder="Weight (kg)"><button class="calc-btn" onclick="runBMI()">Calculate</button>`; break;
+        case 'age': html = `<input type="date" id="adob"><button class="calc-btn" onclick="runAge()">Find Age</button>`; break;
+        case 'word': html = `<textarea id="wt" placeholder="Type..." style="height:100px" oninput="runWord()"></textarea>`; break;
+        case 'json': html = `<textarea id="jt" placeholder="Paste JSON..." style="height:100px"></textarea><button class="calc-btn" onclick="runJSON()">Format</button>`; break;
+        case 'pass': html = `<input type="number" id="pl" value="16"><button class="calc-btn" onclick="runPass()">Generate</button>`; break;
+        case 'b64': html = `<textarea id="bt" placeholder="Text to Base64"></textarea><button class="calc-btn" onclick="runB64(1)">Encode</button><button class="calc-btn" onclick="runB64(2)">Decode</button>`; break;
+        case 'clr': html = `<input type="color" id="ci" oninput="runClr()"><input type="text" id="ct" readonly>`; runClr(); break;
+        case 'unit': html = `<input type="number" id="uv" placeholder="Value"><select id="ut"><option value="mk">Miles to KM</option><option value="km">KM to Miles</option></select><button class="calc-btn" onclick="runUnit()">Convert</button>`; break;
+        case 'tts': html = `<textarea id="ttst" placeholder="Text to Speak"></textarea><button class="calc-btn" onclick="runTTS()">Speak</button>`; break;
+        case 'timer': html = `<h1 id="td" style="font-size:3rem">00:00</h1><button class="calc-btn" onclick="runTimer(1)">Start</button><button class="calc-btn" onclick="runTimer(0)">Reset</button>`; break;
+        case 'case': html = `<textarea id="ctt"></textarea><button class="calc-btn" onclick="runCase(1)">UPPER</button><button class="calc-btn" onclick="runCase(0)">lower</button>`; break;
+        case 'lorem': html = `<input type="number" id="lp" value="3"><button class="calc-btn" onclick="runLorem()">Generate</button>`; break;
+        case 'sort': html = `<textarea id="st" placeholder="Items (line by line)"></textarea><button class="calc-btn" onclick="runSort()">Sort A-Z</button>`; break;
+        case 'find': html = `<textarea id="ft" placeholder="Original Text"></textarea><input id="f1" placeholder="Find"><input id="f2" placeholder="Replace"><button class="calc-btn" onclick="runFind()">Process</button>`; break;
+        case 'binary': html = `<input id="binv" placeholder="Text or Binary"><button class="calc-btn" onclick="runBin(1)">To Binary</button><button class="calc-btn" onclick="runBin(0)">From Binary</button>`; break;
+        case 'perc': html = `<input id="pv1" placeholder="Value"><input id="pv2" placeholder="Total %"><button class="calc-btn" onclick="runPerc()">Calculate</button>`; break;
+        case 'hex': html = `<input id="hv" placeholder="#FFFFFF"><button class="calc-btn" onclick="runHex()">To RGB</button>`; break;
+        case 'qr': html = `<input id="qv" placeholder="Link/Text"><button class="calc-btn" onclick="runQR()">Show Link</button>`; break;
     }
+    body.innerHTML = html;
     document.getElementById('toolModal').style.display = "block";
 }
 
-/* Tool Logic */
-function runWord() {
-    const t = document.getElementById('tIn').value.trim();
-    document.getElementById('modalResult').innerText = `Words: ${t ? t.split(/\s+/).length : 0} | Chars: ${t.length}`;
-}
-function runBMI() {
-    const h = document.getElementById('h').value/100, w = document.getElementById('w').value;
-    const bmi = (w/(h*h)).toFixed(1);
-    document.getElementById('modalResult').innerText = isNaN(bmi) ? "Enter values" : `BMI: ${bmi}`;
-}
-function runAge() {
-    const b = new Date(document.getElementById('dIn').value), today = new Date();
-    if(isNaN(b)) return;
-    let age = today.getFullYear() - b.getFullYear();
-    if(today.getMonth() < b.getMonth() || (today.getMonth() == b.getMonth() && today.getDate() < b.getDate())) age--;
-    document.getElementById('modalResult').innerText = `Age: ${age} Years`;
-}
-function runEMI() {
-    const p = document.getElementById('p').value, r = document.getElementById('r').value/12/100, n = document.getElementById('n').value;
-    const emi = (p * r * Math.pow(1+r, n))/(Math.pow(1+r, n)-1);
-    document.getElementById('modalResult').innerText = `EMI: ₹${emi.toFixed(2)}`;
-}
-function runSIP() {
-    const p = parseFloat(document.getElementById('sp').value), i = (parseFloat(document.getElementById('sr').value)/100)/12, n = parseFloat(document.getElementById('sy').value)*12;
-    const m = p * ((Math.pow(1+i, n)-1)/i) * (1+i);
-    document.getElementById('modalResult').innerText = `Maturity: ₹${Math.round(m).toLocaleString()}`;
-}
-function runPass() {
-    const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*", l = document.getElementById('pl').value;
-    let p = ""; for(let i=0; i<l; i++) p += c.charAt(Math.floor(Math.random()*c.length));
-    document.getElementById('modalResult').innerText = p;
-    document.getElementById('copyBtn').style.display = "block";
-}
-function runJSON() {
-    try {
-        const o = JSON.parse(document.getElementById('ji').value);
-        document.getElementById('modalResult').innerHTML = `<pre style="text-align:left;font-size:12px">${JSON.stringify(o, null, 4)}</pre>`;
-        document.getElementById('copyBtn').style.display = "block";
-    } catch(e) { document.getElementById('modalResult').innerText = "Invalid JSON"; }
-}
-function runClr() {
-    const v = document.getElementById('ci').value.toUpperCase();
-    document.getElementById('ct').value = v;
-    document.getElementById('modalResult').innerText = v;
-    document.getElementById('modalResult').style.background = v;
-}
+// Logic Functions
+function runEMI() { const p = document.getElementById('p').value, r = document.getElementById('r').value/12/100, n = document.getElementById('n').value; document.getElementById('modalResult').innerText = "EMI: ₹" + ((p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)).toFixed(2); }
+function runSIP() { const p = document.getElementById('sp').value, i = (document.getElementById('sr').value/100)/12, n = document.getElementById('sy').value*12; document.getElementById('modalResult').innerText = "Maturity: ₹" + Math.round(p * ((Math.pow(1+i, n)-1)/i) * (1+i)).toLocaleString(); }
+function runBMI() { const h = document.getElementById('bh').value/100, w = document.getElementById('bw').value; document.getElementById('modalResult').innerText = "BMI: " + (w/(h*h)).toFixed(1); }
+function runAge() { const b = new Date(document.getElementById('adob').value), t = new Date(); let a = t.getFullYear()-b.getFullYear(); document.getElementById('modalResult').innerText = "Age: " + a + " Years"; }
+function runWord() { const t = document.getElementById('wt').value.trim(); document.getElementById('modalResult').innerText = "Words: " + (t?t.split(/\s+/).length:0) + " | Chars: " + t.length; }
+function runJSON() { try { const o = JSON.parse(document.getElementById('jt').value); document.getElementById('modalResult').innerHTML = `<pre>${JSON.stringify(o,null,4)}</pre>`; document.getElementById('copyBtn').style.display = "block"; } catch(e) { alert("Invalid JSON"); } }
+function runPass() { const c = "abcdefghijklmnopqrstuvwxyzABCDEF1234567890!@#$%", l = document.getElementById('pl').value; let p = ""; for(let i=0;i<l;i++) p += c.charAt(Math.floor(Math.random()*c.length)); document.getElementById('modalResult').innerText = p; document.getElementById('copyBtn').style.display = "block"; }
+function runB64(m) { const t = document.getElementById('bt').value; document.getElementById('modalResult').innerText = m === 1 ? btoa(t) : atob(t); document.getElementById('copyBtn').style.display = "block"; }
+function runClr() { const v = document.getElementById('ci').value; document.getElementById('ct').value = v.toUpperCase(); document.getElementById('modalResult').innerText = v.toUpperCase(); document.getElementById('modalResult').style.background = v; }
+function runUnit() { const v = document.getElementById('uv').value, t = document.getElementById('ut').value; document.getElementById('modalResult').innerText = t === 'mk' ? (v*1.609).toFixed(2)+" KM" : (v/1.609).toFixed(2)+" Miles"; }
+function runTTS() { const s = window.speechSynthesis, u = new SpeechSynthesisUtterance(document.getElementById('ttst').value); s.speak(u); }
+let tInt; function runTimer(s) { if(s) { let c = 0; tInt = setInterval(()=> { c++; document.getElementById('td').innerText = new Date(c*1000).toISOString().substr(14,5); }, 1000); } else { clearInterval(tInt); document.getElementById('td').innerText = "00:00"; } }
+function runCase(m) { const t = document.getElementById('ctt').value; document.getElementById('modalResult').innerText = m ? t.toUpperCase() : t.toLowerCase(); }
+function runLorem() { document.getElementById('modalResult').innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ".repeat(document.getElementById('lp').value); }
+function runSort() { const t = document.getElementById('st').value.split('\n').sort().join('\n'); document.getElementById('modalResult').innerHTML = `<pre>${t}</pre>`; }
+function runFind() { const t = document.getElementById('ft').value, f = document.getElementById('f1').value, r = document.getElementById('f2').value; document.getElementById('modalResult').innerText = t.split(f).join(r); }
+function runBin(m) { const v = document.getElementById('binv').value; document.getElementById('modalResult').innerText = m ? v.split('').map(c => c.charCodeAt(0).toString(2)).join(' ') : v.split(' ').map(b => String.fromCharCode(parseInt(b, 2))).join(''); }
+function runPerc() { document.getElementById('modalResult').innerText = (document.getElementById('pv1').value * (document.getElementById('pv2').value/100)).toFixed(2); }
+function runHex() { const h = document.getElementById('hv').value; const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16); document.getElementById('modalResult').innerText = `rgb(${r}, ${g}, ${b})`; }
+function runQR() { document.getElementById('modalResult').innerText = "Scan Link: https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(document.getElementById('qv').value); }
 
-function copyRes() {
-    navigator.clipboard.writeText(document.getElementById('modalResult').innerText);
-    alert("Copied!");
-}
-
+function copyResult() { navigator.clipboard.writeText(document.getElementById('modalResult').innerText); alert("Copied!"); }
 function showInfo(type) {
     const body = document.getElementById('modalBody'), title = document.getElementById('modalTitle'), res = document.getElementById('modalResult');
-    title.innerText = type;
-    res.innerText = "Info";
+    title.innerText = type; res.innerText = "v7.0 Stable";
     if(type === 'About') {
-        body.innerHTML = `<div class="legal-text">
-            <h3>Privacy Policy</h3><p>Processed 100% locally. Zero data storage.</p>
-            <h3>Terms and Conditions</h3><p>Tools provided as-is. Verify results before use.</p>
-            <h3>Who We Are</h3><p>SG-Multi-Tools is your privacy-first digital toolbox.</p>
-        </div>`;
-    } else {
-        body.innerHTML = `<input type="text" placeholder="Name"><textarea placeholder="Message"></textarea><button class="calc-btn" onclick="alert('Sent!')">Send</button>`;
-    }
+        body.innerHTML = `<div class="legal-text"><h3>Privacy Policy</h3><p>Your data never leaves your device. All tools run on client-side JS.</p><h3>Terms and Conditions</h3><p>Tools provided as-is for productivity.</p><h3>Who We Are</h3><p>SG-Multi-Tools: High-performance browser utilities.</p></div>`;
+    } else { body.innerHTML = `<input placeholder="Name"><textarea placeholder="Message"></textarea><button class="calc-btn" onclick="alert('Sent!')">Submit</button>`; }
     document.getElementById('toolModal').style.display = "block";
 }
-
-function closeModal() { document.getElementById('toolModal').style.display = "none"; document.getElementById('modalResult').style.background = "transparent"; }
+function closeModal() { document.getElementById('toolModal').style.display = "none"; clearInterval(tInt); }
 function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
 window.onload = loadTools;
 </script>
