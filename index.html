@@ -31,7 +31,7 @@
         .card { background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: var(--transition); }
         .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 10px 25px var(--accent-glow); }
         .card i { font-size: 2.2rem; margin-bottom: 15px; display: block; }
-        .tool-btn { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 6px; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; pointer-events: none; }
+        .tool-btn { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px; border-radius: 6px; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; pointer-events: none; }
         .card:hover .tool-btn { background: var(--accent); color: #000; }
 
         .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow-y: auto; }
@@ -57,7 +57,7 @@
 </nav>
 
 <div class="hero">
-    <h1>All-In-One Productivity Suite</h1>
+    <h1>SG-Multi-Tools For Daily Use</h1>
     <p style="opacity: 0.6;">v8.1 Verified • Enhanced Unit Converters • Privacy Locked</p>
 </div>
 
@@ -144,6 +144,7 @@ function openTool(id, name) {
     document.getElementById('toolModal').style.display = "block";
 }
 
+// --- (All tool functions like runEMI, runSIP, runBMI, runAge, etc.) ---
 function runImg(t) {
     const f = document.getElementById('f').files[0]; if(!f) return;
     const r = new FileReader(); r.onload = (e) => {
@@ -191,9 +192,16 @@ function showInfo(type) {
     const body = document.getElementById('modalBody');
     document.getElementById('modalTitle').innerText = type;
     if(type === 'About') {
-        body.innerHTML = `<div style="text-align:left"><h3>Privacy Policy</h3><p>We use zero cookies and zero trackers. All tool data is processed in your device RAM.</p><h3>Terms</h3><p>Provided for professional use without warranties.</p></div>`;
+        body.innerHTML = `
+        <div style="text-align:left; line-height:1.6">
+            <h3>About SG-Multi-Tools</h3>
+            <p>SG-Multi-Tools is a professional, all-in-one suite designed to make your daily digital tasks simple and fast. Our tools include Image, Document, Calculator, Text, Web Development, Color, SEO Marketing, and Utility tools.</p>
+            <h3>Privacy</h3>
+            <p>We use zero cookies and zero trackers. All data is processed locally on your device for maximum privacy and security.</p>
+            <h3>Terms</h3>
+            <p>Provided for professional use without warranties. Use responsibly.</p>
+        </div>`;
     } else { 
-        // Updated Contact Section with Name, Email, and Message
         body.innerHTML = `
             <input type="text" placeholder="Full Name">
             <input type="email" placeholder="Email Address">
