@@ -42,7 +42,6 @@
     </style>
 </head>
 <body>
-<!-- force pr -->
 
 <nav class="navbar">
     <a href="#" class="nav-left"><div class="sg-logo">SG</div><span>SG-MULTI-TOOLS</span></a>
@@ -143,7 +142,6 @@ function openTool(id, name) {
     document.getElementById('toolModal').style.display = "block";
 }
 
-// Logic Functions
 function runImg(t) {
     const f = document.getElementById('f').files[0]; if(!f) return;
     const r = new FileReader(); r.onload = (e) => {
@@ -165,7 +163,7 @@ function runJSON() { try { const o = JSON.parse(document.getElementById('jt').va
 function runB64(e) { const t = document.getElementById('bt').value; document.getElementById('modalResult').innerText = e ? btoa(t) : atob(t); }
 function runQR() { const v = encodeURIComponent(document.getElementById('qv').value); document.getElementById('modalResult').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${v}">`; }
 function runTTS() { window.speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('ttst').value)); }
-function runSTT() { const r = new (window.SpeechRecognition || window.webkitSpeechRecognition)(); r.onresult = (e) => document.getElementById('modalResult').innerText = e.results[0][0].transcript; r.start(); }
+function runSTT() { const r = new (window.speechRecognition || window.webkitSpeechRecognition)(); r.onresult = (e) => document.getElementById('modalResult').innerText = e.results[0][0].transcript; r.start(); }
 
 function runUnit() { 
     const v = parseFloat(document.getElementById('uv').value), t = document.getElementById('ut').value;
@@ -192,7 +190,15 @@ function showInfo(type) {
     document.getElementById('modalTitle').innerText = type;
     if(type === 'About') {
         body.innerHTML = `<div style="text-align:left"><h3>Privacy Policy</h3><p>We use zero cookies and zero trackers. All tool data is processed in your device RAM.</p><h3>Terms</h3><p>Provided for professional use without warranties.</p></div>`;
-    } else { body.innerHTML = `<input placeholder="Name"><textarea placeholder="Message"></textarea><button class="calc-btn" onclick="alert('Sent')">Submit</button>`; }
+    } else { 
+        // Updated Contact Section with Name, Email, and Message
+        body.innerHTML = `
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email Address">
+            <textarea placeholder="Your Message" style="height:120px"></textarea>
+            <button class="calc-btn" onclick="alert('Sent Successfully')">Submit</button>
+        `; 
+    }
     document.getElementById('toolModal').style.display = "block";
 }
 function closeModal() { document.getElementById('toolModal').style.display = "none"; clearInterval(tI); }
@@ -201,4 +207,3 @@ window.onload = loadTools;
 </script>
 </body>
 </html>
-
