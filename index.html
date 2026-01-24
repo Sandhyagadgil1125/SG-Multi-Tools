@@ -1,180 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SG Tools – PDF & Utility Tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SG Tools offers free online PDF, image, text, and utility tools. Fast, secure, and easy to use." />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SG Multi Tools Apps</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1A1D24;
-      color: #F0F0F0;
+    /* ===========================
+       VARIABLES & GLOBAL STYLES
+       =========================== */
+    :root {
+      --main-bg: #0d0f14;
+      --navbar-bg: #1c222d;
+      --button-bg: #12151a;
+      --button-hover: #42f8f5;
+      --text-primary: #ffffff;
+      --text-secondary: #c5d1de;
+      --glow-shadow: rgba(66, 248, 245, 0.6);
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Inter", sans-serif; background-color: var(--main-bg); color: var(--text-primary); }
+    a { color: inherit; text-decoration: none; }
 
+    /* ===========================
+       HEADER / NAVBAR
+       =========================== */
     header {
-      background: #222831;
+      position: sticky;
+      top: 0;
+      background: var(--navbar-bg);
       padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 1000;
     }
-
-    header h1 {
-      color: #00F5D4;
-      margin: 0;
+    header .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: var(--button-hover);
+      text-shadow: 0 0 10px var(--glow-shadow);
     }
-
     nav a {
-      color: #F0F0F0;
       margin-left: 20px;
+      color: var(--text-primary);
       text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
     }
-
     nav a:hover {
-      color: #00F5D4;
+      color: var(--button-hover);
+      text-shadow: 0 0 8px var(--glow-shadow);
     }
 
-    main {
-      padding: 40px 20px;
-      max-width: 1100px;
-      margin: auto;
+    /* ===========================
+       HERO
+       =========================== */
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      color: var(--button-hover);
+      text-shadow: 0 0 10px var(--glow-shadow);
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
     }
 
-    section {
-      margin-bottom: 60px;
-    }
+    /* ===========================
+       SECTIONS
+       =========================== */
+    section { padding: 40px 20px; }
+    section h2 { text-align: center; color: var(--button-hover); margin-bottom: 30px; }
+    section p { text-align: center; color: var(--text-secondary); }
 
-    h2 {
-      color: #00F5D4;
-      margin-bottom: 15px;
-    }
-
+    /* ===========================
+       TOOLS GRID
+       =========================== */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
-
     .tool-card {
-      background: #252A34;
+      background: var(--navbar-bg);
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,245,212,0.2);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(66,248,245,0.2);
+      transition: 0.3s;
     }
-
+    .tool-card:hover { box-shadow: 0 0 20px var(--glow-shadow); }
+    .tool-card h3 { color: var(--button-hover); margin-bottom: 10px; }
+    .tool-card p { color: var(--text-secondary); margin-bottom: 15px; }
     .tool-card button {
-      margin-top: 10px;
+      background: var(--button-bg);
+      border: 1px solid var(--button-hover);
+      color: var(--text-primary);
       padding: 10px 15px;
-      background: #2A2F3A;
-      color: #F0F0F0;
-      border: 1px solid #00F5D4;
-      cursor: pointer;
       border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
     }
-
     .tool-card button:hover {
-      background: #00F5D4;
+      background: var(--button-hover);
       color: #000;
+      box-shadow: 0 0 10px var(--glow-shadow);
     }
 
+    /* ===========================
+       CONTACT
+       =========================== */
+    #contact a { color: var(--button-hover); }
+
+    /* ===========================
+       FOOTER
+       =========================== */
     footer {
-      background: #1F232B;
+      background: var(--navbar-bg);
       padding: 25px;
       text-align: center;
-      border-top: 2px solid #00F5D4;
+      border-top: 2px solid var(--button-hover);
+    }
+    footer a { color: var(--button-hover); margin: 0 8px; text-decoration: none; }
+
+    /* ===========================
+       MODAL
+       =========================== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      background-color: var(--main-bg);
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 700px;
+      color: var(--text-primary);
+      box-shadow: 0 0 15px var(--glow-shadow);
+    }
+    .modal-content .close {
+      color: var(--button-hover);
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
-    footer a {
-      color: #00F5D4;
-      text-decoration: none;
-      margin: 0 8px;
+    /* ===========================
+       RESPONSIVE
+       =========================== */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
     }
-
-    footer a:hover {
-      text-decoration: underline;
+    @media (max-width: 480px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      nav a { margin-left: 10px; font-size: 0.9rem; }
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <h1>SG Tools</h1>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#tools">Tools</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">SG Multi Tools</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<main>
-
-  <!-- HOME -->
-  <section id="home">
-    <h2>Welcome to SG Tools</h2>
-    <p>
-      SG Tools provides fast, secure, and easy-to-use online tools including PDF tools,
-      image tools, text utilities, and more — all directly in your browser.
-    </p>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <h1>Welcome to SG Multi Tools</h1>
+    <p>20+ free frontend tools. Fast, futuristic, fully responsive!</p>
   </section>
 
-  <!-- TOOLS -->
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About SG Multi Tools</h2>
+    <p>A complete hub of tools including Image, Video, Audio, Text, and Utility tools.</p>
+  </section>
+
+  <!-- TOOLS GRID -->
   <section id="tools">
-    <h2>Popular Tools</h2>
-
+    <h2>Our Tools</h2>
     <div class="tools-grid">
-      <div class="tool-card">
-        <h3>Merge PDF</h3>
-        <p>Combine multiple PDF files into one.</p>
-        <button>Open Tool</button>
-      </div>
 
-      <div class="tool-card">
-        <h3>PDF to JPG</h3>
-        <p>Convert PDF pages into images.</p>
-        <button>Open Tool</button>
-      </div>
+      <!-- Loop for all 20 tools -->
+      <div class="tool-card"><h3>Image Converter</h3><p>Convert images easily.</p><button onclick="openTool('Image Converter')">Open Tool</button></div>
+      <div class="tool-card"><h3>Image Compressor</h3><p>Compress images without quality loss.</p><button onclick="openTool('Image Compressor')">Open Tool</button></div>
+      <div class="tool-card"><h3>Image Cropper</h3><p>Crop images quickly.</p><button onclick="openTool('Image Cropper')">Open Tool</button></div>
+      <div class="tool-card"><h3>Video Converter</h3><p>Convert videos in browser.</p><button onclick="openTool('Video Converter')">Open Tool</button></div>
+      <div class="tool-card"><h3>Audio Converter</h3><p>Convert audio files.</p><button onclick="openTool('Audio Converter')">Open Tool</button></div>
+      <div class="tool-card"><h3>Audio Trimmer</h3><p>Trim audio files easily.</p><button onclick="openTool('Audio Trimmer')">Open Tool</button></div>
+      <div class="tool-card"><h3>Age Calculator</h3><p>Calculate your age quickly.</p><button onclick="openTool('Age Calculator')">Open Tool</button></div>
+      <div class="tool-card"><h3>EMI Calculator</h3><p>Calculate loan EMIs fast.</p><button onclick="openTool('EMI Calculator')">Open Tool</button></div>
+      <div class="tool-card"><h3>SIP Calculator</h3><p>Plan your investments easily.</p><button onclick="openTool('SIP Calculator')">Open Tool</button></div>
+      <div class="tool-card"><h3>QR Code Generator</h3><p>Generate QR codes instantly.</p><button onclick="openTool('QR Code Generator')">Open Tool</button></div>
+      <div class="tool-card"><h3>Password Generator</h3><p>Generate secure passwords.</p><button onclick="openTool('Password Generator')">Open Tool</button></div>
+      <div class="tool-card"><h3>Word Counter</h3><p>Count words & characters.</p><button onclick="openTool('Word Counter')">Open Tool</button></div>
+      <div class="tool-card"><h3>Base64 Encoder/Decoder</h3><p>Encode or decode text easily.</p><button onclick="openTool('Base64 Tool')">Open Tool</button></div>
+      <div class="tool-card"><h3>Color Picker</h3><p>Pick and copy color codes.</p><button onclick="openTool('Color Picker')">Open Tool</button></div>
+      <div class="tool-card"><h3>Text to Speech</h3><p>Convert text to spoken words.</p><button onclick="openTool('Text to Speech')">Open Tool</button></div>
+      <div class="tool-card"><h3>Speech to Text</h3><p>Convert voice to text.</p><button onclick="openTool('Speech to Text')">Open Tool</button></div>
+      <div class="tool-card"><h3>JSON Formatter</h3><p>Beautify JSON quickly.</p><button onclick="openTool('JSON Formatter')">Open Tool</button></div>
+      <div class="tool-card"><h3>Unit Converter</h3><p>Convert units easily.</p><button onclick="openTool('Unit Converter')">Open Tool</button></div>
+      <div class="tool-card"><h3>BMI Calculator</h3><p>Check your BMI fast.</p><button onclick="openTool('BMI Calculator')">Open Tool</button></div>
+      <div class="tool-card"><h3>Timer / Stopwatch</h3><p>Track time efficiently.</p><button onclick="openTool('Timer / Stopwatch')">Open Tool</button></div>
 
-      <div class="tool-card">
-        <h3>Compress PDF</h3>
-        <p>Reduce PDF file size without quality loss.</p>
-        <button>Open Tool</button>
-      </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
     <h2>Contact Us</h2>
-    <p>
-      If you have questions, feedback, or business inquiries, feel free to reach out.
-    </p>
-
-    <p>
-      📧 Email:
-      <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-    </p>
+    <p>Email us at: <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></p>
   </section>
 
-</main>
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 SG Multi Tools Apps. All Rights Reserved.</p>
+    <p>Contact: <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></p>
+    <p>
+      <a href="/privacy.html">Privacy Policy</a> |
+      <a href="/terms.html">Terms & Conditions</a> |
+      <a href="/disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
 
-<footer>
-  <p>© 2025 SG Tools. All Rights Reserved.</p>
+  <!-- MODAL -->
+  <div id="toolModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeTool()">&times;</span>
+      <div id="modalBody"></div>
+    </div>
+  </div>
 
-  <p>
-    Contact:
-    <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-  </p>
+  <script>
+    // MODAL LOGIC
+    const modal = document.getElementById("toolModal");
+    const modalBody = document.getElementById("modalBody");
 
-  <p>
-    <a href="/privacy.html">Privacy Policy</a> |
-    <a href="/terms.html">Terms & Conditions</a> |
-    <a href="/disclaimer.html">Disclaimer</a>
-  </p>
-</footer>
+    function openTool(name) {
+      modal.style.display = "block";
+      modalBody.innerHTML = "<h2>" + name + "</h2><p>Tool interface will appear here.</p>";
+    }
 
+    function closeTool() {
+      modal.style.display = "none";
+      modalBody.innerHTML = "";
+    }
+
+    window.onclick = function(event) {
+      if(event.target == modal) closeTool();
+    }
+
+    // TODO: Add JS logic for each tool here
+  </script>
 </body>
 </html>
