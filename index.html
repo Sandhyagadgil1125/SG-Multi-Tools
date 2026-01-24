@@ -2,167 +2,141 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SG-Multi-Tools For Daily Use</title>
-
-<meta name="description" content="SG-Multi-Tools For Daily Use – 20+ free frontend tools including converters, calculators, QR generator, text tools and utilities.">
-<meta name="keywords" content="multi tools, image converter, calculator, qr generator, unit converter">
-<meta name="author" content="SG-Multi-Tools">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root{
-  --bg:#0d0f14;
-  --nav:#1c222d;
-  --card:#12151a;
+  --bg:#0f172a;
+  --card:#1e293b;
   --text:#ffffff;
-  --text2:#c5d1de;
-  --accent:#42f8f5;
-  --glow:rgba(66,248,245,.6);
-  --btn:#1c222d;
+  --accent:#38bdf8;
 }
 .light{
-  --bg:#f4f6fb;
-  --nav:#ffffff;
+  --bg:#f8fafc;
   --card:#ffffff;
-  --text:#000;
-  --text2:#333;
+  --text:#0f172a;
+  --accent:#0284c7;
 }
-
-*{box-sizing:border-box;font-family:Inter,Arial}
 body{
-  margin:0;background:var(--bg);color:var(--text);
+  margin:0;
+  font-family:Segoe UI,Arial;
+  background:var(--bg);
+  color:var(--text);
 }
-
-/* HEADER */
 header{
-  position:sticky;top:0;z-index:100;
-  background:var(--nav);
-  display:flex;align-items:center;
+  display:flex;
   justify-content:space-between;
-  padding:12px 20px;
-  box-shadow:0 0 15px var(--glow);
+  align-items:center;
+  padding:14px 20px;
+  background:var(--card);
 }
 .logo{
-  display:flex;align-items:center;gap:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 .logo-box{
-  width:40px;height:40px;
-  background:linear-gradient(135deg,#42f8f5,#1fd3cf);
-  color:#000;
-  font-weight:900;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:6px;
-  box-shadow:0 0 15px var(--glow);
+  width:42px;
+  height:42px;
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+  color:#fff;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
 }
 nav a{
-  color:var(--text);
   margin:0 10px;
+  color:var(--text);
   text-decoration:none;
-  font-weight:600;
+  font-weight:500;
 }
-nav a:hover{color:var(--accent)}
+nav a:hover{color:var(--accent);}
 .toggle{
   cursor:pointer;
-  border:1px solid var(--accent);
-  padding:6px 12px;border-radius:20px;
+  padding:6px 12px;
+  border-radius:20px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
 }
 
-/* HERO */
-.hero{
-  text-align:center;padding:40px 20px;
-}
-.hero h1{
-  font-size:2.4rem;
-  text-shadow:0 0 15px var(--glow);
-}
-
-/* TOOLS GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
+main{
   padding:30px;
+  text-align:center;
+}
+.tools{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-top:30px;
 }
 .tool{
   background:var(--card);
-  border-radius:12px;
-  padding:25px;
-  text-align:center;
-  box-shadow:0 0 15px rgba(0,0,0,.4);
+  padding:20px;
+  border-radius:14px;
+  cursor:pointer;
   transition:.3s;
+  font-weight:600;
 }
 .tool:hover{
-  box-shadow:0 0 25px var(--glow);
-}
-.tool button{
-  width:100%;
-  padding:14px;
-  font-weight:700;
-  margin-top:15px;
-  background:var(--btn);
-  border:1px solid var(--accent);
-  color:var(--text);
-  border-radius:8px;
-  cursor:pointer;
-}
-.tool button:hover{
+  transform:scale(1.05);
   background:var(--accent);
-  color:#000;
+  color:#fff;
 }
 
 /* MODAL */
 .modal{
-  position:fixed;top:0;left:0;
-  width:100%;height:100%;
+  position:fixed;
+  inset:0;
   background:rgba(0,0,0,.6);
   display:none;
-  align-items:center;justify-content:center;
+  align-items:center;
+  justify-content:center;
 }
 .modal-content{
   background:var(--card);
-  width:95%;max-width:520px;
+  width:92%;
+  max-width:420px;
   padding:25px;
-  border-radius:12px;
+  border-radius:16px;
   text-align:center;
 }
-.close{
-  float:right;font-size:22px;cursor:pointer;
-}
 .modal input,select,textarea{
-  width:90%;
-  padding:14px;
-  margin:10px auto;
-  display:block;
-  font-size:1.05rem;
-  border-radius:8px;
-  border:1px solid var(--accent);
-  background:var(--nav);
-  color:var(--text);
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
   text-align:center;
 }
 .modal button{
-  width:80%;
-  padding:14px;
-  margin:15px auto;
-  font-size:1.05rem;
-  font-weight:700;
+  width:100%;
+  padding:12px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
+.close{
+  margin-top:10px;
+  background:#ef4444;
+}
+
 .result{
   margin-top:15px;
-  font-size:1.2rem;
-  color:var(--accent);
+  font-size:18px;
+  font-weight:bold;
 }
-
-/* FOOTER */
 footer{
   text-align:center;
-  padding:20px;
-  background:var(--nav);
-  border-top:2px solid var(--accent);
+  padding:15px;
+  background:var(--card);
+  margin-top:40px;
 }
-footer a{color:var(--accent);text-decoration:none;margin:0 5px}
-
 </style>
 </head>
 
@@ -174,137 +148,157 @@ footer a{color:var(--accent);text-decoration:none;margin:0 5px}
     <strong>SG-Multi-Tools</strong>
   </div>
   <nav>
-    <a href="#home">Home</a>
+    <a href="#">Home</a>
     <a href="#tools">Tools</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
   </nav>
-  <div class="toggle" onclick="toggleTheme()">🌗</div>
+  <button class="toggle" onclick="toggleTheme()">🌙</button>
 </header>
 
-<section class="hero" id="home">
-  <h1>SG-Multi-Tools For Daily Use</h1>
-  <p>Fast • Free • Frontend-Only • Secure</p>
-</section>
+<main>
+<h1>SG-Multi-Tools For Daily Use</h1>
+<p>Fast • Secure • Free Online Tools</p>
 
-<section id="tools" class="grid">
-  <div class="tool"><h3>Age Calculator</h3><button onclick="open('age')">Open Tool</button></div>
-  <div class="tool"><h3>EMI Calculator</h3><button onclick="open('emi')">Open Tool</button></div>
-  <div class="tool"><h3>SIP Calculator</h3><button onclick="open('sip')">Open Tool</button></div>
-  <div class="tool"><h3>Unit Converter</h3><button onclick="open('unit')">Open Tool</button></div>
-  <div class="tool"><h3>Password Generator</h3><button onclick="open('pass')">Open Tool</button></div>
-  <div class="tool"><h3>Word Counter</h3><button onclick="open('word')">Open Tool</button></div>
-  <div class="tool"><h3>QR Generator</h3><button onclick="open('qr')">Open Tool</button></div>
-  <div class="tool"><h3>BMI Calculator</h3><button onclick="open('bmi')">Open Tool</button></div>
-</section>
+<div class="tools" id="tools">
+  <div class="tool" onclick="openTool('age')">Age Calculator</div>
+  <div class="tool" onclick="openTool('emi')">EMI Calculator</div>
+  <div class="tool" onclick="openTool('sip')">SIP Calculator</div>
+  <div class="tool" onclick="openTool('bmi')">BMI Calculator</div>
+  <div class="tool" onclick="openTool('unit')">Unit Converter</div>
+  <div class="tool" onclick="openTool('pass')">Password Generator</div>
+  <div class="tool" onclick="openTool('word')">Word Counter</div>
+  <div class="tool" onclick="openTool('qr')">QR Generator</div>
+</div>
+</main>
 
-<!-- MODALS -->
-<div id="modal" class="modal">
+<footer>
+© 2026 SG Multi Tools. All Rights Reserved.
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">×</span>
     <div id="modalBody"></div>
+    <button class="close" onclick="closeModal()">Close</button>
   </div>
 </div>
 
-<section id="about" class="hero">
-<h2>About SG-Multi-Tools</h2>
-<p>SG-Multi-Tools is a modern frontend-only tools hub offering calculators, converters, generators and utilities built using pure HTML, CSS and JavaScript.</p>
-</section>
-
-<section id="contact" class="hero">
-<h2>Contact</h2>
-<p>Email: <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></p>
-</section>
-
-<footer>
-<p>© 2026 SG Multi Tools. All Rights Reserved.</p>
-<a href="#">Privacy</a>|
-<a href="#">Terms</a>|
-<a href="#">Disclaimer</a>|
-<a href="#">Sitemap</a>
-</footer>
-
 <script>
-function toggleTheme(){document.body.classList.toggle("light")}
-function open(t){
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
+
+function toggleTheme(){
+  document.body.classList.toggle("light");
+}
+
+function openTool(t){
   modal.style.display="flex";
-  if(t==="age")modalBody.innerHTML=`
-  <h2>Age Calculator</h2>
-  <input type=date id=dob>
-  <button onclick="age()">Calculate</button>
-  <div class=result id=out></div>`;
-  if(t==="emi")modalBody.innerHTML=`
-  <h2>EMI Calculator</h2>
-  <input placeholder="Loan Amount" id=a>
-  <input placeholder="Interest %" id=r>
-  <input placeholder="Years" id=y>
-  <button onclick="emi()">Calculate</button>
-  <div class=result id=out></div>`;
-  if(t==="sip")modalBody.innerHTML=`
-  <h2>SIP Calculator</h2>
-  <input placeholder="Monthly Investment" id=a>
-  <input placeholder="Rate %" id=r>
-  <input placeholder="Years" id=y>
-  <button onclick="sip()">Calculate</button>
-  <div class=result id=out></div>`;
-  if(t==="unit")unitUI();
-  if(t==="pass")modalBody.innerHTML=`
-  <h2>Password Generator</h2>
-  <input type=number id=l placeholder="Length">
-  <button onclick="pass()">Generate</button>
-  <div class=result id=out></div>`;
-  if(t==="word")modalBody.innerHTML=`
-  <h2>Word Counter</h2>
-  <textarea id=t></textarea>
-  <button onclick="word()">Count</button>
-  <div class=result id=out></div>`;
-  if(t==="qr")modalBody.innerHTML=`
-  <h2>QR Generator</h2>
-  <input id=q placeholder="Text or URL">
-  <button onclick="qr()">Generate</button>
-  <img id=img>`;
-  if(t==="bmi")modalBody.innerHTML=`
-  <h2>BMI Calculator</h2>
-  <input placeholder="Weight kg" id=w>
-  <input placeholder="Height cm" id=h>
-  <button onclick="bmi()">Calculate</button>
-  <div class=result id=out></div>`;
+  if(t==="age"){
+    modalBody.innerHTML=`
+    <h2>Age Calculator</h2>
+    <input type="date" id="dob">
+    <button onclick="calcAge()">Calculate</button>
+    <div class="result" id="out"></div>`;
+  }
+  if(t==="emi"){
+    modalBody.innerHTML=`
+    <h2>EMI Calculator</h2>
+    <input id="loan" placeholder="Loan Amount">
+    <input id="rate" placeholder="Interest %">
+    <input id="years" placeholder="Years">
+    <button onclick="calcEMI()">Calculate</button>
+    <div class="result" id="out"></div>`;
+  }
+  if(t==="sip"){
+    modalBody.innerHTML=`
+    <h2>SIP Calculator</h2>
+    <input id="monthly" placeholder="Monthly Investment">
+    <input id="rate" placeholder="Rate %">
+    <input id="years" placeholder="Years">
+    <button onclick="calcSIP()">Calculate</button>
+    <div class="result" id="out"></div>`;
+  }
+  if(t==="bmi"){
+    modalBody.innerHTML=`
+    <h2>BMI Calculator</h2>
+    <input id="weight" placeholder="Weight (kg)">
+    <input id="height" placeholder="Height (cm)">
+    <button onclick="calcBMI()">Calculate</button>
+    <div class="result" id="out"></div>`;
+  }
+  if(t==="pass"){
+    modalBody.innerHTML=`
+    <h2>Password Generator</h2>
+    <input id="plen" placeholder="Length">
+    <button onclick="genPass()">Generate</button>
+    <div class="result" id="out"></div>`;
+  }
+  if(t==="word"){
+    modalBody.innerHTML=`
+    <h2>Word Counter</h2>
+    <textarea id="text" rows="4"></textarea>
+    <button onclick="countWords()">Count</button>
+    <div class="result" id="out"></div>`;
+  }
+  if(t==="qr"){
+    modalBody.innerHTML=`
+    <h2>QR Generator</h2>
+    <input id="qrtext" placeholder="Text or URL">
+    <button onclick="genQR()">Generate</button>
+    <img id="qrimg" style="margin-top:10px">`;
+  }
+  if(t==="unit"){
+    modalBody.innerHTML=`
+    <h2>Unit Converter</h2>
+    <input id="uval" placeholder="Value">
+    <select id="from">
+      <option value="m">Meter</option>
+      <option value="km">Kilometer</option>
+      <option value="cm">Centimeter</option>
+    </select>
+    <select id="to">
+      <option value="m">Meter</option>
+      <option value="km">Kilometer</option>
+      <option value="cm">Centimeter</option>
+    </select>
+    <button onclick="convertUnit()">Convert</button>
+    <div class="result" id="out"></div>`;
+  }
 }
-function closeModal(){modal.style.display="none"}
 
-function age(){let d=new Date(dob.value);out.innerText=Math.floor((Date.now()-d)/31557600000)+" Years"}
-function emi(){let P=a.value,r=r.value/1200,n=y.value*12;out.innerText=((P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)).toFixed(2)}
-function sip(){let m=a.value,r=r.value/1200,n=y.value*12;out.innerText=(m*((Math.pow(1+r,n)-1)/r)*(1+r)).toFixed(2)}
-function pass(){let s="";let c="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$";for(i=0;i<l.value;i++)s+=c[Math.random()*c.length|0];out.innerText=s}
-function word(){out.innerText=t.value.trim().split(/\s+/).length+" words"}
-function qr(){img.src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+q.value}
-function bmi(){let b=w.value/(h.value/100)**2;out.innerText=b.toFixed(2)}
+function closeModal(){modal.style.display="none";}
 
-function unitUI(){
-modalBody.innerHTML=`
-<h2>Unit Converter</h2>
-<select id=cat onchange="load()">
-<option value=length>Length</option>
-<option value=weight>Weight</option>
-<option value=temp>Temperature</option>
-</select>
-<input id=val placeholder="Value">
-<select id=f></select>
-<select id=t></select>
-<button onclick="conv()">Convert</button>
-<div class=result id=out></div>`;
-load()
+function calcAge(){
+  const d=new Date(dob.value);
+  out.innerText=Math.floor((Date.now()-d)/31557600000)+" Years";
 }
-const data={length:{m:1,km:1000,cm:.01,ft:.3048},weight:{kg:1,g:.001,lb:.4536}}
-function load(){
-f.innerHTML=t.innerHTML="";
-if(cat.value==="temp"){["C","F","K"].forEach(u=>f.innerHTML+=`<option>${u}</option>`);t.innerHTML=f.innerHTML;return}
-Object.keys(data[cat.value]).forEach(u=>{f.innerHTML+=`<option>${u}</option>`;t.innerHTML+=`<option>${u}</option>`})
+function calcEMI(){
+  let P=loan.value,r=rate.value/1200,n=years.value*12;
+  out.innerText=((P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)).toFixed(2);
 }
-function conv(){
-let v=+val.value;
-if(cat.value==="temp"){out.innerText=f.value==="C"&&t.value==="F"?v*9/5+32:v;return}
-out.innerText=(v*(data[cat.value][f.value]/data[cat.value][t.value])).toFixed(4)
+function calcSIP(){
+  let m=monthly.value,r=rate.value/1200,n=years.value*12;
+  out.innerText=(m*((Math.pow(1+r,n)-1)/r)*(1+r)).toFixed(2);
+}
+function calcBMI(){
+  out.innerText=(weight.value/(height.value/100)**2).toFixed(2);
+}
+function genPass(){
+  let c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let s="";
+  for(let i=0;i<plen.value;i++) s+=c[Math.random()*c.length|0];
+  out.innerText=s;
+}
+function countWords(){
+  out.innerText=text.value.trim().split(/\s+/).length+" words";
+}
+function genQR(){
+  qrimg.src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+encodeURIComponent(qrtext.value);
+}
+function convertUnit(){
+  const m={m:1,km:1000,cm:.01};
+  out.innerText=(uval.value*m[from.value]/m[to.value]).toFixed(4);
 }
 </script>
 
