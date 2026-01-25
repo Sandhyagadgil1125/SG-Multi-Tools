@@ -1,292 +1,794 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SG-PDF-Tools | Futuristic PDF Tool Hub</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SG-Multi-Tools | Premium Frontend Suite</title>
+    <style>
+        /* ===========================
+           1. VARIABLES & THEME
+           =========================== */
+        :root {
+            --bg-main: #0d0f14;
+            --bg-nav: #1c222d;
+            --bg-card: #12151a;
+            --accent-primary: #42f8f5;
+            --accent-secondary: #3ff7f3;
+            --text-primary: #ffffff;
+            --text-secondary: #c5d1de;
+            --glow-color: rgba(66, 248, 245, 0.6);
+            --border-radius: 8px;
+            --transition-speed: 0.3s;
+        }
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-<style>
-:root{
-  --bg:#0d0f14;
-  --nav:#1c222d;
-  --card:#12151a;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#c5d1de;
-  --glow:rgba(66,248,245,.6);
-}
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
 
-*{box-sizing:border-box;font-family:Inter,Arial}
-body{margin:0;background:var(--bg);color:var(--text)}
+        /* ===========================
+           2. LAYOUT COMPONENTS
+           =========================== */
+        
+        /* Navbar */
+        nav {
+            background-color: var(--bg-nav);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(66, 248, 245, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
 
-.navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 25px;
-  background:var(--nav);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
 
-.logo span{
-  color:var(--accent);
-  font-weight:800;
-  margin-left:5px;
-}
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 20px;
+            transition: var(--transition-speed);
+        }
 
-nav a{
-  margin:0 12px;
-  color:var(--text);
-  text-decoration:none;
-  font-weight:600;
-}
-nav a:hover{color:var(--accent)}
+        .nav-links a:hover {
+            color: var(--accent-primary);
+            text-shadow: 0 0 5px var(--glow-color);
+        }
 
-.hamburger{display:none;cursor:pointer}
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-.container{
-  display:flex;
-  max-width:1400px;
-  margin:auto;
-}
+        h1.section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
 
-.sidebar{
-  width:240px;
-  background:var(--nav);
-  padding:20px;
-}
-.sidebar h3{margin-top:0}
-.sidebar ul{list-style:none;padding:0}
-.sidebar li{
-  padding:10px;
-  cursor:pointer;
-  border-radius:6px;
-}
-.sidebar li:hover{
-  background:var(--card);
-  color:var(--accent);
-}
+        h1 span { color: var(--accent-primary); }
 
-.main{
-  flex:1;
-  padding:30px;
-}
+        /* Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
 
-.hero{
-  text-align:center;
-  margin-bottom:40px;
-}
-.hero h1{font-size:36px}
-.hero p{color:var(--muted)}
-.glow-btn{
-  padding:14px 30px;
-  border:none;
-  border-radius:8px;
-  background:var(--accent);
-  font-weight:700;
-  cursor:pointer;
-  box-shadow:0 0 20px var(--glow);
-}
+        @media (max-width: 900px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
 
-.tools-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
+        /* Cards */
+        .tool-card {
+            background-color: var(--bg-card);
+            border: 1px solid #2a303c;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-.tool-card{
-  background:var(--card);
-  padding:25px;
-  border-radius:14px;
-  text-align:center;
-  transition:.3s;
-}
-.tool-card:hover{
-  box-shadow:0 0 25px var(--glow);
-  transform:translateY(-4px);
-}
-.tool-card p{color:var(--muted)}
-.tool-card button{
-  width:100%;
-  margin-top:15px;
-  padding:12px;
-  border:none;
-  border-radius:6px;
-  font-weight:700;
-  background:var(--accent);
-  cursor:pointer;
-}
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
 
-.about,.contact{
-  margin-top:60px;
-  max-width:700px;
-}
-.contact input,.contact textarea{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:6px;
-  border:none;
-}
+        .tool-card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
 
-footer{
-  margin-top:60px;
-  padding:25px;
-  text-align:center;
-  background:var(--nav);
-}
-footer a{color:var(--accent);margin:0 8px;text-decoration:none}
+        .tool-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
 
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#000a;
-  justify-content:center;
-  align-items:center;
-}
-.modal-content{
-  background:var(--card);
-  padding:30px;
-  border-radius:14px;
-  width:95%;
-  max-width:420px;
-  text-align:center;
-  box-shadow:0 0 30px var(--glow);
-}
-.close{
-  float:right;
-  cursor:pointer;
-  font-size:22px;
-}
-.upload-box{
-  border:2px dashed var(--accent);
-  padding:30px;
-  margin:20px 0;
-}
-.status{margin:10px 0;color:var(--muted)}
+        /* Buttons */
+        .btn-neon {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--accent-primary);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
 
-@media(max-width:900px){
-  .container{flex-direction:column}
-  .sidebar{width:100%}
-}
-</style>
+        .btn-neon:hover {
+            background-color: var(--accent-primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-primary);
+        }
+
+        /* ===========================
+           3. MODAL UI
+           =========================== */
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid var(--accent-primary);
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 30px rgba(66, 248, 245, 0.2);
+            padding: 30px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .close-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .close-btn:hover { color: #fff; }
+
+        /* Dynamic Tool Styles inside Modal */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; color: var(--text-secondary); }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            background: #0d0f14;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .input-group input:focus { border-color: var(--accent-primary); outline: none; }
+        
+        .result-box {
+            margin-top: 20px;
+            background: #1c222d;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid var(--accent-primary);
+            word-wrap: break-word;
+            display: none; 
+        }
+
+        canvas { max-width: 100%; border: 1px solid #333; margin-top: 10px; }
+        .hidden { display: none; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
 </head>
-
 <body>
 
-<header class="navbar">
-  <div class="logo">⚡ <span>PDFMANIA</span></div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#tools">Tools</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+    <!-- Header -->
+    <nav>
+        <div class="logo">SG Multi Tools</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#tools">Tools</a>
+        </div>
+    </nav>
 
-<div class="container">
-
-<aside class="sidebar">
-  <h3>PDF Tools</h3>
-  <ul>
-    <li onclick="openTool('Merge PDF')">🔗 Merge PDF</li>
-    <li onclick="openTool('Compress PDF')">📉 Compress PDF</li>
-    <li onclick="openTool('PDF to Word')">📝 PDF to Word</li>
-    <li onclick="openTool('Word to PDF')">📄 Word to PDF</li>
-    <li onclick="openTool('PDF to JPG')">🖼️ PDF to JPG</li>
-    <li onclick="openTool('Split PDF')">✂️ Split PDF</li>
-  </ul>
-</aside>
-
-<main class="main" id="home">
-
-<section class="hero">
-  <h1>SG-PDF-Tools</h1>
-  <p>All-in-One Futuristic PDF Solution. Fast. Secure. Free.</p>
-  <button class="glow-btn">Explore Tools</button>
-</section>
-
-<section class="tools-grid" id="tools">
-  <div class="tool-card">
-    <h2>Merge PDF</h2>
-    <p>Combine multiple PDFs into one file.</p>
-    <button onclick="openTool('Merge PDF')">Open Tool</button>
-  </div>
-
-  <div class="tool-card">
-    <h2>Compress PDF</h2>
-    <p>Reduce PDF file size instantly.</p>
-    <button onclick="openTool('Compress PDF')">Open Tool</button>
-  </div>
-
-  <div class="tool-card">
-    <h2>PDF to Word</h2>
-    <p>Convert PDF to editable Word.</p>
-    <button onclick="openTool('PDF to Word')">Open Tool</button>
-  </div>
-
-  <div class="tool-card">
-    <h2>Word to PDF</h2>
-    <p>Convert DOCX to PDF.</p>
-    <button onclick="openTool('Word to PDF')">Open Tool</button>
-  </div>
-</section>
-
-<section class="about" id="about">
-  <h2>About SG-PDF-Tools</h2>
-  <p>
-    SG-PDF-Tools is a modern frontend-only PDF toolkit focused on privacy,
-    speed, and clean futuristic design. No server uploads.
-  </p>
-</section>
-
-<section class="contact" id="contact">
-  <h2>Contact Us</h2>
-  <input placeholder="Your Name">
-  <input placeholder="Email">
-  <textarea placeholder="Message"></textarea>
-  <button class="glow-btn">Send Message</button>
-</section>
-
-</main>
-</div>
-
-<div class="modal" id="toolModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeTool()">×</span>
-    <h2 id="toolTitle"></h2>
-    <div class="upload-box">
-      <p>Drag & Drop File</p>
-      <input type="file">
+    <!-- Main Section -->
+    <div class="container">
+        <h1 class="section-title">Futuristic <span>Toolkit</span></h1>
+        <div class="tools-grid" id="toolsGrid">
+            <!-- Tool Cards are generated by JS -->
+        </div>
     </div>
-    <div class="status">Frontend simulation only</div>
-    <button class="glow-btn">Process</button>
-  </div>
-</div>
 
-<footer>
-  <p>© 2025 Boxput. All Rights Reserved.</p>
-  <a href="#">Privacy</a> |
-  <a href="#">Terms</a> |
-  <a href="#">Contact</a>
-</footer>
+    <!-- Modal Container -->
+    <div id="modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Tool Name</h2>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modal-body">
+                <!-- Tool content renders here -->
+            </div>
+        </div>
+    </div>
 
-<script>
-function openTool(name){
-  document.getElementById("toolModal").style.display="flex";
-  document.getElementById("toolTitle").innerText=name;
-}
-function closeTool(){
-  document.getElementById("toolModal").style.display="none";
-}
-</script>
+    <script>
+        // ============================================
+        // 1. TOOL DEFINITIONS & LOGIC CONFIGURATION
+        // ============================================
 
+        const tools = [
+            // --- Media Tools ---
+            {
+                id: 1, name: "Image Converter", desc: "Convert PNG to JPG, WEBP etc.", type: 'image-tool',
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group">
+                            <label>Upload Image</label>
+                            <input type="file" id="imgInput" accept="image/*">
+                        </div>
+                        <div class="input-group">
+                            <label>Convert To</label>
+                            <select id="formatSelect">
+                                <option value="image/jpeg">JPEG</option>
+                                <option value="image/png">PNG</option>
+                                <option value="image/webp">WEBP</option>
+                            </select>
+                        </div>
+                        <button class="btn-neon" onclick="toolsLogic.convertImage()">Convert & Download</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+            {
+                id: 2, name: "Image Compressor", desc: "Reduce image file size instantly.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><input type="file" id="imgCompInput" accept="image/*"></div>
+                        <div class="input-group">
+                            <label>Quality (0.1 - 1.0)</label>
+                            <input type="range" id="qualityRange" min="0.1" max="1" step="0.1" value="0.6">
+                        </div>
+                        <button class="btn-neon" onclick="toolsLogic.compressImage()">Compress</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+            {
+                id: 3, name: "Base64 Encoder/Decoder", desc: "Text or Image to Base64 and back.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group">
+                            <select id="b64action"><option value="enc">Encode</option><option value="dec">Decode</option></select>
+                        </div>
+                        <div class="input-group"><textarea id="b64Input" placeholder="Enter Text..." rows="4"></textarea></div>
+                        <button class="btn-neon" onclick="toolsLogic.base64Func()">Process</button>
+                        <div class="result-box" id="resultArea" style="display:block;margin-top:10px;"></div>
+                    `;
+                }
+            },
+            
+            // --- Calculators ---
+            {
+                id: 4, name: "Age Calculator", desc: "Calculate exact age from DOB.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><label>Date of Birth</label><input type="date" id="dobInput"></div>
+                        <button class="btn-neon" onclick="toolsLogic.calcAge()">Calculate</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+            {
+                id: 5, name: "BMI Calculator", desc: "Body Mass Index Calculator.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><input type="number" id="weight" placeholder="Weight (kg)"></div>
+                        <div class="input-group"><input type="number" id="height" placeholder="Height (cm)"></div>
+                        <button class="btn-neon" onclick="toolsLogic.calcBMI()">Calculate</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+            {
+                id: 6, name: "EMI Calculator", desc: "Loan Interest Calculator.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><input type="number" id="p" placeholder="Principal Amount"></div>
+                        <div class="input-group"><input type="number" id="r" placeholder="Rate (%)"></div>
+                        <div class="input-group"><input type="number" id="n" placeholder="Tenure (Months)"></div>
+                        <button class="btn-neon" onclick="toolsLogic.calcEMI()">Calculate</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+            {
+                id: 7, name: "SIP Calculator", desc: "Calculate Investment returns.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><input type="number" id="monthly" placeholder="Monthly Investment"></div>
+                        <div class="input-group"><input type="number" id="rate" placeholder="Return Rate (%)"></div>
+                        <div class="input-group"><input type="number" id="years" placeholder="Time Period (Years)"></div>
+                        <button class="btn-neon" onclick="toolsLogic.calcSIP()">Calculate Returns</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+
+            // --- Dev & Util ---
+            {
+                id: 8, name: "QR Code Generator", desc: "Generate instant QR codes.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><input type="text" id="qrText" placeholder="Enter URL or Text"></div>
+                        <button class="btn-neon" onclick="toolsLogic.genQR()">Generate</button>
+                        <div class="result-box" id="resultArea" style="text-align:center;"></div>
+                    `;
+                }
+            },
+            {
+                id: 9, name: "Password Generator", desc: "Strong Random Passwords.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><label>Length</label><input type="number" id="pwdLen" value="12" min="4" max="32"></div>
+                        <button class="btn-neon" onclick="toolsLogic.genPass()">Generate</button>
+                        <div class="result-box" id="resultArea"></div>
+                    `;
+                }
+            },
+            {
+                id: 10, name: "Color Picker", desc: "Get HEX and RGB values.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><input type="color" id="colorInput" onchange="toolsLogic.pickColor()" style="height:50px;"></div>
+                        <div class="result-box" id="resultArea" style="display:block;">Select a color</div>
+                    `;
+                }
+            },
+            {
+                id: 11, name: "Word Counter", desc: "Count words and characters.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><textarea id="wordInput" rows="5" oninput="toolsLogic.countWord()" placeholder="Start typing..."></textarea></div>
+                        <div class="result-box" id="resultArea" style="display:block;">Words: 0 | Chars: 0</div>
+                    `;
+                }
+            },
+            {
+                id: 12, name: "Text to Speech", desc: "Listen to your text.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><textarea id="ttsInput" rows="3" placeholder="Enter text to speak..."></textarea></div>
+                        <button class="btn-neon" onclick="toolsLogic.speakText()">Speak</button>
+                    `;
+                }
+            },
+            {
+                id: 13, name: "Speech to Text", desc: "Convert voice to text.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="result-box" id="resultArea" style="display:block; min-height:50px;">Microphone is off...</div>
+                        <button class="btn-neon" id="micBtn" onclick="toolsLogic.toggleMic()">Start Listening</button>
+                    `;
+                }
+            },
+            {
+                id: 14, name: "JSON Formatter", desc: "Beautify ugly JSON.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <div class="input-group"><textarea id="jsonInput" rows="5" placeholder="Paste dirty JSON here..."></textarea></div>
+                        <button class="btn-neon" onclick="toolsLogic.formatJSON()">Beautify</button>
+                        <div class="input-group" style="margin-top:10px;"><textarea id="jsonOutput" rows="5" readonly></textarea></div>
+                    `;
+                }
+            },
+            {
+                id: 15, name: "Stopwatch", desc: "Precise timer tool.",
+                func: (box) => {
+                    box.innerHTML = `
+                        <h1 id="swDisplay" style="text-align:center; font-size:3rem; font-family:monospace; margin-bottom:20px;">00:00:00</h1>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn-neon" onclick="toolsLogic.startWatch()">Start</button>
+                            <button class="btn-neon" onclick="toolsLogic.stopWatch()">Stop</button>
+                            <button class="btn-neon" onclick="toolsLogic.resetWatch()">Reset</button>
+                        </div>
+                    `;
+                }
+            },
+            // Note: Heavy media processing usually requires Backend/WASM. Providing standard Canvas alternatives or JS limits.
+            {
+                id: 16, name: "Audio Trimmer (Preview)", desc: "Simple visualizer playback.",
+                func: (box) => { box.innerHTML = `<div class="input-group"><label>Load Audio</label><input type="file" id="audInput" accept="audio/*" onchange="toolsLogic.loadAudioPreview(this)"></div><audio id="audioPreview" controls style="width:100%"></audio><p style="margin-top:10px; color:#aaa; font-size:0.8rem;">* Frontend-only trimming requires Blob slicing logic, currently serves as a player.</p>`; }
+            },
+            { id: 17, name: "Unit Converter", desc: "Km to Miles, Kg to Lbs.", func: (box) => { box.innerHTML = toolsLogic.getUnitHTML(); } },
+            { id: 18, name: "Tip Calculator", desc: "Split bills easily.", func: (box) => { box.innerHTML = toolsLogic.getTipHTML(); } },
+            { id: 19, name: "Digital Clock", desc: "Current Time & Date.", func: (box) => { box.innerHTML = `<h2 id="liveClock" style="text-align:center; font-size:2rem; color:var(--accent-primary);"></h2>`; toolsLogic.startClock(); } },
+            { id: 20, name: "Case Converter", desc: "Upper, Lower, Capitalize.", func: (box) => { box.innerHTML = toolsLogic.getCaseHTML(); } },
+        ];
+
+        // ============================================
+        // 2. MAIN APP CONTROLLER
+        // ============================================
+
+        const grid = document.getElementById('toolsGrid');
+        const modal = document.getElementById('modal');
+        const modalBody = document.getElementById('modal-body');
+        const modalTitle = document.getElementById('modal-title');
+
+        // Render Cards
+        tools.forEach(tool => {
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.innerHTML = `
+                <h2>${tool.name}</h2>
+                <p>${tool.desc}</p>
+                <button class="btn-neon" onclick="openTool(${tool.id})">Open Tool</button>
+            `;
+            grid.appendChild(card);
+        });
+
+        function openTool(id) {
+            const tool = tools.find(t => t.id === id);
+            if(tool) {
+                modalTitle.textContent = tool.name;
+                modalBody.innerHTML = ''; // clear previous
+                tool.func(modalBody); // Render logic
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            // Stop things if running (Mic, Audio, Clock)
+            if(window.recognition) window.recognition.stop();
+            if(window.clockInterval) clearInterval(window.clockInterval);
+            if(window.stopwatchInt) clearInterval(window.stopwatchInt);
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) closeModal();
+        }
+
+        // ============================================
+        // 3. TOOL LOGIC IMPLEMENTATION
+        // ============================================
+
+        const toolsLogic = {
+            // Helper: Display result
+            showRes: (html) => {
+                const res = document.getElementById('resultArea');
+                res.innerHTML = html;
+                res.style.display = 'block';
+            },
+
+            // 1. Image Converter
+            convertImage: () => {
+                const input = document.getElementById('imgInput').files[0];
+                const format = document.getElementById('formatSelect').value;
+                if(!input) return alert('Please upload an image.');
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        const dataURL = canvas.toDataURL(format);
+                        toolsLogic.showRes(`<a href="${dataURL}" download="converted-image" class="btn-neon" style="display:inline-block;">Download Converted Image</a><br><img src="${dataURL}" style="max-width:200px; margin-top:10px;">`);
+                    }
+                    img.src = event.target.result;
+                }
+                reader.readAsDataURL(input);
+            },
+
+            // 2. Image Compressor
+            compressImage: () => {
+                const input = document.getElementById('imgCompInput').files[0];
+                const quality = parseFloat(document.getElementById('qualityRange').value);
+                if(!input) return alert('Select image first');
+                
+                const reader = new FileReader();
+                reader.readAsDataURL(input);
+                reader.onload = event => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        toolsLogic.showRes(`
+                            <p>Original: ${(input.size/1024).toFixed(2)} KB</p>
+                            <br>
+                            <a href="${dataUrl}" download="compressed.jpg" class="btn-neon" style="display:inline-block">Download Compressed</a>
+                        `);
+                    }
+                }
+            },
+
+            // 3. Base64
+            base64Func: () => {
+                const act = document.getElementById('b64action').value;
+                const txt = document.getElementById('b64Input').value;
+                try {
+                    const res = act === 'enc' ? btoa(txt) : atob(txt);
+                    document.getElementById('resultArea').innerText = res;
+                } catch(e) { document.getElementById('resultArea').innerText = "Invalid input for decoding."; }
+            },
+
+            // 4. Age Calc
+            calcAge: () => {
+                const dob = new Date(document.getElementById('dobInput').value);
+                const now = new Date();
+                if(isNaN(dob)) return;
+                let years = now.getFullYear() - dob.getFullYear();
+                let m = now.getMonth() - dob.getMonth();
+                if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) { years--; }
+                toolsLogic.showRes(`<h3>Age: ${years} Years</h3>`);
+            },
+
+            // 5. BMI
+            calcBMI: () => {
+                const w = parseFloat(document.getElementById('weight').value);
+                const h = parseFloat(document.getElementById('height').value) / 100; 
+                if(!w || !h) return;
+                const bmi = (w / (h*h)).toFixed(1);
+                let text = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Normal" : "Overweight";
+                toolsLogic.showRes(`<h3>BMI: ${bmi}</h3><p>Status: ${text}</p>`);
+            },
+
+            // 6. EMI
+            calcEMI: () => {
+                const P = document.getElementById('p').value;
+                const R = document.getElementById('r').value / 1200;
+                const N = document.getElementById('n').value;
+                const emi = (P * R * Math.pow(1+R,N)) / (Math.pow(1+R,N)-1);
+                toolsLogic.showRes(`<h3>EMI: ${emi.toFixed(2)}</h3>`);
+            },
+
+            // 7. SIP
+            calcSIP: () => {
+                const p = parseFloat(document.getElementById('monthly').value);
+                const r = parseFloat(document.getElementById('rate').value) / 100 / 12;
+                const t = parseFloat(document.getElementById('years').value) * 12;
+                const amount = p * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
+                toolsLogic.showRes(`<h3>Total Value: ${amount.toFixed(2)}</h3>`);
+            },
+
+            // 8. QR Gen (Using external simple API for pure frontend image source)
+            genQR: () => {
+                const txt = document.getElementById('qrText').value;
+                if(!txt) return;
+                const url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(txt)}`;
+                toolsLogic.showRes(`<img src="${url}" style="border:5px solid white">`);
+            },
+
+            // 9. Password
+            genPass: () => {
+                const len = document.getElementById('pwdLen').value;
+                const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+                let pass = "";
+                for(let i=0; i<len; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+                toolsLogic.showRes(`<h2 style="color:#42f8f5; user-select:all; cursor:pointer;">${pass}</h2><p style="font-size:12px">Click to copy not implemented (Just select text)</p>`);
+            },
+
+            // 10. Color
+            pickColor: () => {
+                const val = document.getElementById('colorInput').value;
+                const r = parseInt(val.substr(1,2),16);
+                const g = parseInt(val.substr(3,2),16);
+                const b = parseInt(val.substr(5,2),16);
+                document.getElementById('resultArea').innerHTML = `HEX: ${val}<br>RGB: rgb(${r}, ${g}, ${b})`;
+            },
+
+            // 11. Word Count
+            countWord: () => {
+                const val = document.getElementById('wordInput').value.trim();
+                const w = val ? val.split(/\s+/).length : 0;
+                document.getElementById('resultArea').innerText = `Words: ${w} | Chars: ${val.length}`;
+            },
+
+            // 12. Text to Speech
+            speakText: () => {
+                const txt = document.getElementById('ttsInput').value;
+                if('speechSynthesis' in window) {
+                    const u = new SpeechSynthesisUtterance(txt);
+                    window.speechSynthesis.speak(u);
+                } else alert('Not supported by browser');
+            },
+
+            // 13. Speech to Text (Chrome/Edge mostly)
+            toggleMic: () => {
+                const btn = document.getElementById('micBtn');
+                const res = document.getElementById('resultArea');
+                
+                if (!window.recognition) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    if(!SpeechRecognition) return alert("Browser does not support Speech API");
+                    window.recognition = new SpeechRecognition();
+                    window.recognition.continuous = true;
+                    window.recognition.interimResults = true;
+                    
+                    window.recognition.onstart = () => {
+                         btn.innerText = "Stop Listening";
+                         btn.style.backgroundColor = "red";
+                         btn.style.borderColor = "red";
+                    };
+                    
+                    window.recognition.onresult = (event) => {
+                        let txt = "";
+                        for (let i = event.resultIndex; i < event.results.length; ++i) {
+                            txt += event.results[i][0].transcript;
+                        }
+                        res.innerText = txt;
+                    };
+                    
+                    window.recognition.onend = () => {
+                        btn.innerText = "Start Listening";
+                        btn.style.backgroundColor = ""; 
+                        btn.style.borderColor = "var(--accent-primary)";
+                        window.recognition = null; 
+                    };
+
+                    window.recognition.start();
+                } else {
+                    window.recognition.stop();
+                }
+            },
+
+            // 14. JSON
+            formatJSON: () => {
+                const i = document.getElementById('jsonInput').value;
+                try {
+                    const o = JSON.stringify(JSON.parse(i), null, 4);
+                    document.getElementById('jsonOutput').value = o;
+                } catch(e) { alert("Invalid JSON"); }
+            },
+
+            // 15. Stopwatch
+            startWatch: () => {
+                if(window.stopwatchInt) return;
+                let start = Date.now() - (window.elapsed || 0);
+                window.stopwatchInt = setInterval(()=> {
+                    window.elapsed = Date.now() - start;
+                    let ms = Math.floor((window.elapsed % 1000) / 10);
+                    let s = Math.floor((window.elapsed / 1000) % 60);
+                    let m = Math.floor((window.elapsed / 60000) % 60);
+                    document.getElementById('swDisplay').innerText = 
+                        `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}:${ms.toString().padStart(2,'0')}`;
+                }, 100);
+            },
+            stopWatch: () => { clearInterval(window.stopwatchInt); window.stopwatchInt = null; },
+            resetWatch: () => { 
+                toolsLogic.stopWatch(); 
+                window.elapsed = 0; 
+                document.getElementById('swDisplay').innerText = "00:00:00"; 
+            },
+
+            // 16. Audio
+            loadAudioPreview: (input) => {
+                const file = input.files[0];
+                if(file) document.getElementById('audioPreview').src = URL.createObjectURL(file);
+            },
+
+            // 17. Units Helper
+            getUnitHTML: () => {
+                return `<div class="input-group">
+                    <input type="number" id="unitInput" oninput="toolsLogic.convertUnit()" placeholder="Enter value">
+                </div>
+                <div class="input-group">
+                    <select id="unitType" onchange="toolsLogic.convertUnit()">
+                        <option value="km2mi">Kilometers to Miles</option>
+                        <option value="mi2km">Miles to Kilometers</option>
+                        <option value="kg2lb">KG to Pounds</option>
+                        <option value="c2f">Celsius to Fahrenheit</option>
+                    </select>
+                </div>
+                <h3 id="unitRes" style="color:var(--accent-primary); text-align:center;">Result: 0</h3>
+                `;
+            },
+            convertUnit: () => {
+                const val = parseFloat(document.getElementById('unitInput').value);
+                const type = document.getElementById('unitType').value;
+                const display = document.getElementById('unitRes');
+                if(isNaN(val)) return;
+                let res = 0;
+                if(type=='km2mi') res = val * 0.621371;
+                else if(type=='mi2km') res = val / 0.621371;
+                else if(type=='kg2lb') res = val * 2.20462;
+                else if(type=='c2f') res = (val * 9/5) + 32;
+                display.innerText = "Result: " + res.toFixed(2);
+            },
+
+            // 18. Tip Helper
+            getTipHTML: () => `
+                <div class="input-group"><input type="number" id="billAmt" placeholder="Bill Amount"></div>
+                <div class="input-group"><input type="number" id="tipPer" placeholder="Tip % (e.g. 15)"></div>
+                <div class="input-group"><input type="number" id="people" placeholder="Number of People"></div>
+                <button class="btn-neon" onclick="toolsLogic.calcTip()">Calculate Split</button>
+                <div class="result-box" id="resultArea"></div>
+            `,
+            calcTip: () => {
+                const bill = parseFloat(document.getElementById('billAmt').value);
+                const tip = parseFloat(document.getElementById('tipPer').value);
+                const pp = parseFloat(document.getElementById('people').value);
+                const total = bill + (bill * tip/100);
+                const split = total / pp;
+                toolsLogic.showRes(`Total: $${total.toFixed(2)}<br>Per Person: $${split.toFixed(2)}`);
+            },
+
+            // 19. Live Clock
+            startClock: () => {
+                 window.clockInterval = setInterval(()=> {
+                     if(document.getElementById('liveClock'))
+                        document.getElementById('liveClock').innerText = new Date().toLocaleTimeString();
+                 }, 1000);
+            },
+
+            // 20. Case Converter Helper
+            getCaseHTML: () => `
+                <div class="input-group"><textarea id="caseInput" rows="4" placeholder="Enter text"></textarea></div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-neon" onclick="document.getElementById('caseInput').value = document.getElementById('caseInput').value.toUpperCase()">UPPER</button>
+                    <button class="btn-neon" onclick="document.getElementById('caseInput').value = document.getElementById('caseInput').value.toLowerCase()">lower</button>
+                </div>
+            `
+        };
+
+        console.log("SG Multi Tools Loaded Successfully");
+
+    </script>
 </body>
 </html>
