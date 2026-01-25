@@ -32,13 +32,13 @@
             background-color: var(--bg-main);
             color: var(--text-primary);
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         /* ===========================
-           2. LAYOUT COMPONENTS
+           2. HEADER & NAV
            =========================== */
         
-        /* Navbar */
         nav {
             background-color: var(--bg-nav);
             padding: 1rem 2rem;
@@ -52,11 +52,38 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+        /* Logo Styling */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sg-logo {
+            background: linear-gradient(135deg, var(--bg-nav), #000);
             color: var(--accent-primary);
-            text-shadow: 0 0 10px var(--glow-color);
+            border: 2px solid var(--accent-primary);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px var(--glow-color);
+            text-shadow: 0 0 5px var(--accent-primary);
+            letter-spacing: -1px;
+        }
+
+        .brand-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
         .nav-links a {
@@ -64,27 +91,43 @@
             text-decoration: none;
             margin-left: 20px;
             transition: var(--transition-speed);
+            cursor: pointer;
+            font-size: 1rem;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: var(--accent-primary);
-            text-shadow: 0 0 5px var(--glow-color);
+            text-shadow: 0 0 8px var(--glow-color);
         }
 
-        /* Main Container */
+        /* Mobile Menu adjustment */
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .brand-text { display: none; } /* Show only logo icon on small phones if needed, or reduce size */
+            .nav-links a { margin-left: 10px; font-size: 0.9rem; }
+        }
+
+        /* ===========================
+           3. MAIN LAYOUT
+           =========================== */
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
         h1.section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             font-size: 2.5rem;
         }
 
-        h1 span { color: var(--accent-primary); }
+        h1 span { 
+            color: var(--accent-primary); 
+            display: inline-block;
+            text-shadow: 0 0 20px rgba(66, 248, 245, 0.25);
+        }
 
         /* Grid */
         .tools-grid {
@@ -96,7 +139,7 @@
         @media (max-width: 900px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
 
-        /* Cards */
+        /* Tool Cards */
         .tool-card {
             background-color: var(--bg-card);
             border: 1px solid #2a303c;
@@ -105,7 +148,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
 
         .tool-card:hover {
@@ -127,7 +170,7 @@
             margin-bottom: 20px;
         }
 
-        /* Buttons */
+        /* Button Standard */
         .btn-neon {
             background: transparent;
             color: var(--accent-primary);
@@ -140,6 +183,10 @@
             transition: all 0.3s ease;
             width: 100%;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none; /* For download links */
+            display: inline-block;
         }
 
         .btn-neon:hover {
@@ -149,7 +196,7 @@
         }
 
         /* ===========================
-           3. MODAL UI
+           4. MODAL UI
            =========================== */
         
         .modal-overlay {
@@ -184,30 +231,44 @@
             align-items: center;
             margin-bottom: 20px;
             border-bottom: 1px solid #333;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
+
+        .modal-header h2 { color: var(--text-primary); }
 
         .close-btn {
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
             color: var(--text-secondary);
+            line-height: 0.8;
         }
 
-        .close-btn:hover { color: #fff; }
+        .close-btn:hover { color: var(--accent-primary); }
 
-        /* Dynamic Tool Styles inside Modal */
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; color: var(--text-secondary); }
-        .input-group input, .input-group select, .input-group textarea {
+        /* Input Styles inside Modal */
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem; }
+        
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
             width: 100%;
             background: #0d0f14;
             border: 1px solid #333;
             color: white;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             font-size: 1rem;
+            transition: border-color 0.3s;
         }
-        .input-group input:focus { border-color: var(--accent-primary); outline: none; }
+
+        .input-group input:focus,
+        .input-group select:focus, 
+        .input-group textarea:focus { 
+            border-color: var(--accent-primary); 
+            outline: none; 
+            box-shadow: 0 0 5px rgba(66,248,245,0.3);
+        }
         
         .result-box {
             margin-top: 20px;
@@ -217,12 +278,13 @@
             border-left: 3px solid var(--accent-primary);
             word-wrap: break-word;
             display: none; 
+            animation: slideDown 0.3s;
         }
 
         canvas { max-width: 100%; border: 1px solid #333; margin-top: 10px; }
-        .hidden { display: none; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     </style>
 </head>
@@ -230,94 +292,90 @@
 
     <!-- Header -->
     <nav>
-        <div class="logo">SG Multi Tools</div>
+        <div class="brand-container" onclick="location.reload()">
+            <div class="sg-logo">SG</div>
+            <div class="brand-text">SG Multi Tools</div>
+        </div>
         <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#tools">Tools</a>
+            <a href="#" onclick="closeModal()">Home</a>
+            <a href="#about" onclick="openAbout()">About</a>
+            <a href="#tools" onclick="closeModal()">Tools</a>
+            <a href="#contact" onclick="openContact()">Contact</a>
         </div>
     </nav>
 
     <!-- Main Section -->
-    <div class="container">
-        <h1 class="section-title">Futuristic <span>Toolkit</span></h1>
+    <div class="container" id="tools">
+        <h1 class="section-title">SG Multi Tools <span>For Daily Use</span></h1>
         <div class="tools-grid" id="toolsGrid">
             <!-- Tool Cards are generated by JS -->
         </div>
     </div>
 
-    <!-- Modal Container -->
+    <!-- Modal Container (Used for Tools, Contact, and About) -->
     <div id="modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modal-title">Tool Name</h2>
+                <h2 id="modal-title">Title</h2>
                 <span class="close-btn" onclick="closeModal()">&times;</span>
             </div>
             <div id="modal-body">
-                <!-- Tool content renders here -->
+                <!-- Content injected here -->
             </div>
         </div>
     </div>
 
     <script>
         // ============================================
-        // 1. TOOL DEFINITIONS & LOGIC CONFIGURATION
+        // 1. DATA: TOOLS & CONTENT
         // ============================================
 
+        const contactEmail = "contact@sgtools.in";
         const tools = [
             // --- Media Tools ---
             {
-                id: 1, name: "Image Converter", desc: "Convert PNG to JPG, WEBP etc.", type: 'image-tool',
+                id: 1, name: "Image Converter", desc: "Convert PNG to JPG, WEBP etc.", 
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group">
-                            <label>Upload Image</label>
-                            <input type="file" id="imgInput" accept="image/*">
-                        </div>
-                        <div class="input-group">
-                            <label>Convert To</label>
+                        <div class="input-group"><label>Upload Image</label><input type="file" id="imgInput" accept="image/*"></div>
+                        <div class="input-group"><label>Convert To</label>
                             <select id="formatSelect">
                                 <option value="image/jpeg">JPEG</option>
                                 <option value="image/png">PNG</option>
                                 <option value="image/webp">WEBP</option>
                             </select>
                         </div>
-                        <button class="btn-neon" onclick="toolsLogic.convertImage()">Convert & Download</button>
+                        <button class="btn-neon" onclick="toolsLogic.convertImage()">Convert</button>
                         <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
             {
-                id: 2, name: "Image Compressor", desc: "Reduce image file size instantly.",
+                id: 2, name: "Image Compressor", desc: "Reduce file size significantly.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><input type="file" id="imgCompInput" accept="image/*"></div>
-                        <div class="input-group">
-                            <label>Quality (0.1 - 1.0)</label>
-                            <input type="range" id="qualityRange" min="0.1" max="1" step="0.1" value="0.6">
-                        </div>
+                        <div class="input-group"><label>Upload Image</label><input type="file" id="imgCompInput" accept="image/*"></div>
+                        <div class="input-group"><label>Compression (Low to High Quality)</label><input type="range" id="qualityRange" min="0.1" max="1" step="0.1" value="0.6"></div>
                         <button class="btn-neon" onclick="toolsLogic.compressImage()">Compress</button>
                         <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
             {
-                id: 3, name: "Base64 Encoder/Decoder", desc: "Text or Image to Base64 and back.",
+                id: 3, name: "Base64 Helper", desc: "Encode/Decode Base64 strings.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group">
-                            <select id="b64action"><option value="enc">Encode</option><option value="dec">Decode</option></select>
-                        </div>
-                        <div class="input-group"><textarea id="b64Input" placeholder="Enter Text..." rows="4"></textarea></div>
+                        <div class="input-group"><select id="b64action"><option value="enc">Encode Text to Base64</option><option value="dec">Decode Base64 to Text</option></select></div>
+                        <div class="input-group"><textarea id="b64Input" placeholder="Enter string..." rows="4"></textarea></div>
                         <button class="btn-neon" onclick="toolsLogic.base64Func()">Process</button>
-                        <div class="result-box" id="resultArea" style="display:block;margin-top:10px;"></div>
+                        <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
             
             // --- Calculators ---
             {
-                id: 4, name: "Age Calculator", desc: "Calculate exact age from DOB.",
+                id: 4, name: "Age Calculator", desc: "Exact age in years, months, days.",
                 func: (box) => {
                     box.innerHTML = `
                         <div class="input-group"><label>Date of Birth</label><input type="date" id="dobInput"></div>
@@ -327,467 +385,490 @@
                 }
             },
             {
-                id: 5, name: "BMI Calculator", desc: "Body Mass Index Calculator.",
+                id: 5, name: "BMI Calculator", desc: "Body Mass Index & Health Status.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><input type="number" id="weight" placeholder="Weight (kg)"></div>
-                        <div class="input-group"><input type="number" id="height" placeholder="Height (cm)"></div>
+                        <div class="input-group"><label>Weight (kg)</label><input type="number" id="weight" placeholder="e.g. 70"></div>
+                        <div class="input-group"><label>Height (cm)</label><input type="number" id="height" placeholder="e.g. 175"></div>
                         <button class="btn-neon" onclick="toolsLogic.calcBMI()">Calculate</button>
                         <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
             {
-                id: 6, name: "EMI Calculator", desc: "Loan Interest Calculator.",
+                id: 6, name: "EMI Calculator", desc: "Monthly Loan Repayment Planner.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><input type="number" id="p" placeholder="Principal Amount"></div>
-                        <div class="input-group"><input type="number" id="r" placeholder="Rate (%)"></div>
-                        <div class="input-group"><input type="number" id="n" placeholder="Tenure (Months)"></div>
-                        <button class="btn-neon" onclick="toolsLogic.calcEMI()">Calculate</button>
+                        <div class="input-group"><label>Loan Amount</label><input type="number" id="p" placeholder="Total Amount"></div>
+                        <div class="input-group"><label>Interest Rate (%)</label><input type="number" id="r" placeholder="Yearly Rate"></div>
+                        <div class="input-group"><label>Tenure (Months)</label><input type="number" id="n" placeholder="Total Months"></div>
+                        <button class="btn-neon" onclick="toolsLogic.calcEMI()">Calculate EMI</button>
                         <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
             {
-                id: 7, name: "SIP Calculator", desc: "Calculate Investment returns.",
+                id: 7, name: "SIP Calculator", desc: "Wealth Growth Estimator.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><input type="number" id="monthly" placeholder="Monthly Investment"></div>
-                        <div class="input-group"><input type="number" id="rate" placeholder="Return Rate (%)"></div>
-                        <div class="input-group"><input type="number" id="years" placeholder="Time Period (Years)"></div>
-                        <button class="btn-neon" onclick="toolsLogic.calcSIP()">Calculate Returns</button>
+                        <div class="input-group"><label>Monthly Investment</label><input type="number" id="monthly" placeholder="Amount"></div>
+                        <div class="input-group"><label>Expected Return Rate (%)</label><input type="number" id="rate" placeholder="Yearly %"></div>
+                        <div class="input-group"><label>Time Period (Years)</label><input type="number" id="years" placeholder="Duration"></div>
+                        <button class="btn-neon" onclick="toolsLogic.calcSIP()">Forecast Wealth</button>
                         <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
 
-            // --- Dev & Util ---
+            // --- Dev & Utility ---
             {
-                id: 8, name: "QR Code Generator", desc: "Generate instant QR codes.",
+                id: 8, name: "QR Generator", desc: "Create QR codes for Links/Text.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><input type="text" id="qrText" placeholder="Enter URL or Text"></div>
-                        <button class="btn-neon" onclick="toolsLogic.genQR()">Generate</button>
+                        <div class="input-group"><label>Enter URL or Text</label><input type="text" id="qrText" placeholder="https://sgtools.in"></div>
+                        <button class="btn-neon" onclick="toolsLogic.genQR()">Generate QR</button>
                         <div class="result-box" id="resultArea" style="text-align:center;"></div>
                     `;
                 }
             },
             {
-                id: 9, name: "Password Generator", desc: "Strong Random Passwords.",
+                id: 9, name: "Secure Password", desc: "Generate strong passwords.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><label>Length</label><input type="number" id="pwdLen" value="12" min="4" max="32"></div>
+                        <div class="input-group"><label>Password Length</label><input type="number" id="pwdLen" value="16" min="6" max="50"></div>
                         <button class="btn-neon" onclick="toolsLogic.genPass()">Generate</button>
                         <div class="result-box" id="resultArea"></div>
                     `;
                 }
             },
             {
-                id: 10, name: "Color Picker", desc: "Get HEX and RGB values.",
+                id: 10, name: "Color Picker", desc: "Identify HEX, RGB, & Preview.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><input type="color" id="colorInput" onchange="toolsLogic.pickColor()" style="height:50px;"></div>
-                        <div class="result-box" id="resultArea" style="display:block;">Select a color</div>
+                        <div class="input-group"><label>Select Color</label><input type="color" id="colorInput" onchange="toolsLogic.pickColor()" style="height:60px; padding:0;"></div>
+                        <div class="result-box" id="resultArea" style="display:block;">Hex/RGB values will appear here.</div>
                     `;
                 }
             },
             {
-                id: 11, name: "Word Counter", desc: "Count words and characters.",
+                id: 11, name: "Word Counter", desc: "Real-time Text Analysis.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><textarea id="wordInput" rows="5" oninput="toolsLogic.countWord()" placeholder="Start typing..."></textarea></div>
-                        <div class="result-box" id="resultArea" style="display:block;">Words: 0 | Chars: 0</div>
+                        <div class="input-group"><label>Type Text Below</label><textarea id="wordInput" rows="6" oninput="toolsLogic.countWord()"></textarea></div>
+                        <div class="result-box" id="resultArea" style="display:block;">Words: 0 | Characters: 0</div>
                     `;
                 }
             },
             {
-                id: 12, name: "Text to Speech", desc: "Listen to your text.",
+                id: 12, name: "Text to Speech", desc: "Browser-based text reader.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><textarea id="ttsInput" rows="3" placeholder="Enter text to speak..."></textarea></div>
-                        <button class="btn-neon" onclick="toolsLogic.speakText()">Speak</button>
+                        <div class="input-group"><label>Text to Speak</label><textarea id="ttsInput" rows="4"></textarea></div>
+                        <button class="btn-neon" onclick="toolsLogic.speakText()">Play Audio</button>
                     `;
                 }
             },
             {
-                id: 13, name: "Speech to Text", desc: "Convert voice to text.",
+                id: 13, name: "Speech to Text", desc: "Dictate text using microphone.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="result-box" id="resultArea" style="display:block; min-height:50px;">Microphone is off...</div>
-                        <button class="btn-neon" id="micBtn" onclick="toolsLogic.toggleMic()">Start Listening</button>
+                        <div class="result-box" id="resultArea" style="display:block; min-height:80px;">Microphone Status: Idle</div>
+                        <button class="btn-neon" id="micBtn" onclick="toolsLogic.toggleMic()">Start Recording</button>
                     `;
                 }
             },
             {
-                id: 14, name: "JSON Formatter", desc: "Beautify ugly JSON.",
+                id: 14, name: "JSON Formatter", desc: "Prettify minified JSON.",
                 func: (box) => {
                     box.innerHTML = `
-                        <div class="input-group"><textarea id="jsonInput" rows="5" placeholder="Paste dirty JSON here..."></textarea></div>
-                        <button class="btn-neon" onclick="toolsLogic.formatJSON()">Beautify</button>
-                        <div class="input-group" style="margin-top:10px;"><textarea id="jsonOutput" rows="5" readonly></textarea></div>
+                        <div class="input-group"><label>Paste Raw JSON</label><textarea id="jsonInput" rows="5"></textarea></div>
+                        <button class="btn-neon" onclick="toolsLogic.formatJSON()">Format</button>
+                        <div class="input-group" style="margin-top:15px;"><label>Result</label><textarea id="jsonOutput" rows="8" readonly></textarea></div>
                     `;
                 }
             },
             {
-                id: 15, name: "Stopwatch", desc: "Precise timer tool.",
+                id: 15, name: "Stopwatch", desc: "Track time precisely.",
                 func: (box) => {
                     box.innerHTML = `
-                        <h1 id="swDisplay" style="text-align:center; font-size:3rem; font-family:monospace; margin-bottom:20px;">00:00:00</h1>
-                        <div style="display:flex; gap:10px;">
+                        <h1 id="swDisplay" style="text-align:center; font-size:3rem; font-family:monospace; margin:30px 0;">00:00:00</h1>
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
                             <button class="btn-neon" onclick="toolsLogic.startWatch()">Start</button>
-                            <button class="btn-neon" onclick="toolsLogic.stopWatch()">Stop</button>
-                            <button class="btn-neon" onclick="toolsLogic.resetWatch()">Reset</button>
+                            <button class="btn-neon" style="border-color:#ff4d4d; color:#ff4d4d;" onclick="toolsLogic.stopWatch()">Stop</button>
+                            <button class="btn-neon" style="border-color:#fff; color:#fff;" onclick="toolsLogic.resetWatch()">Reset</button>
                         </div>
                     `;
                 }
             },
-            // Note: Heavy media processing usually requires Backend/WASM. Providing standard Canvas alternatives or JS limits.
             {
-                id: 16, name: "Audio Trimmer (Preview)", desc: "Simple visualizer playback.",
-                func: (box) => { box.innerHTML = `<div class="input-group"><label>Load Audio</label><input type="file" id="audInput" accept="audio/*" onchange="toolsLogic.loadAudioPreview(this)"></div><audio id="audioPreview" controls style="width:100%"></audio><p style="margin-top:10px; color:#aaa; font-size:0.8rem;">* Frontend-only trimming requires Blob slicing logic, currently serves as a player.</p>`; }
+                id: 16, name: "Audio Player", desc: "Preview Local Audio Files.",
+                func: (box) => { box.innerHTML = `<div class="input-group"><label>Load Audio File</label><input type="file" id="audInput" accept="audio/*" onchange="toolsLogic.loadAudioPreview(this)"></div><audio id="audioPreview" controls style="width:100%; margin-top:15px;"></audio>`; }
             },
-            { id: 17, name: "Unit Converter", desc: "Km to Miles, Kg to Lbs.", func: (box) => { box.innerHTML = toolsLogic.getUnitHTML(); } },
-            { id: 18, name: "Tip Calculator", desc: "Split bills easily.", func: (box) => { box.innerHTML = toolsLogic.getTipHTML(); } },
-            { id: 19, name: "Digital Clock", desc: "Current Time & Date.", func: (box) => { box.innerHTML = `<h2 id="liveClock" style="text-align:center; font-size:2rem; color:var(--accent-primary);"></h2>`; toolsLogic.startClock(); } },
-            { id: 20, name: "Case Converter", desc: "Upper, Lower, Capitalize.", func: (box) => { box.innerHTML = toolsLogic.getCaseHTML(); } },
+            { id: 17, name: "Unit Converter", desc: "Miles, KGs, Celsius etc.", func: (box) => { box.innerHTML = toolsLogic.getUnitHTML(); } },
+            { id: 18, name: "Tip Splitter", desc: "Bill calculator for groups.", func: (box) => { box.innerHTML = toolsLogic.getTipHTML(); } },
+            { id: 19, name: "Digital Clock", desc: "Current Date and Time.", func: (box) => { box.innerHTML = `<h2 id="liveClock" style="text-align:center; font-size:2.5rem; margin-top:20px; color:var(--accent-primary);"></h2><p id="liveDate" style="text-align:center; color:var(--text-secondary);"></p>`; toolsLogic.startClock(); } },
+            { id: 20, name: "Case Converter", desc: "UPPER, lower, Capitalize.", func: (box) => { box.innerHTML = toolsLogic.getCaseHTML(); } },
         ];
 
         // ============================================
-        // 2. MAIN APP CONTROLLER
+        // 2. LOGIC HANDLERS
         // ============================================
 
-        const grid = document.getElementById('toolsGrid');
         const modal = document.getElementById('modal');
         const modalBody = document.getElementById('modal-body');
         const modalTitle = document.getElementById('modal-title');
+        
+        // --- 2.1 Navigation & Overlay Logic ---
 
-        // Render Cards
-        tools.forEach(tool => {
-            const card = document.createElement('div');
-            card.className = 'tool-card';
-            card.innerHTML = `
-                <h2>${tool.name}</h2>
-                <p>${tool.desc}</p>
-                <button class="btn-neon" onclick="openTool(${tool.id})">Open Tool</button>
-            `;
-            grid.appendChild(card);
-        });
-
-        function openTool(id) {
-            const tool = tools.find(t => t.id === id);
-            if(tool) {
-                modalTitle.textContent = tool.name;
-                modalBody.innerHTML = ''; // clear previous
-                tool.func(modalBody); // Render logic
-                modal.style.display = 'flex';
-            }
+        function openModalBase(title) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = '';
+            modal.style.display = 'flex';
         }
 
         function closeModal() {
             modal.style.display = 'none';
-            // Stop things if running (Mic, Audio, Clock)
+            // Stop background processes
             if(window.recognition) window.recognition.stop();
             if(window.clockInterval) clearInterval(window.clockInterval);
             if(window.stopwatchInt) clearInterval(window.stopwatchInt);
         }
 
-        window.onclick = function(event) {
-            if (event.target == modal) closeModal();
+        function openAbout() {
+            openModalBase("About SG Multi Tools");
+            modalBody.innerHTML = `
+                <div style="text-align:center;">
+                    <div style="display:inline-flex; align-items:center; justify-content:center; width:60px; height:60px; background:#1c222d; border-radius:50%; border:2px solid var(--accent-primary); margin-bottom:20px; font-weight:bold; font-size:1.5rem; color:var(--accent-primary);">SG</div>
+                    <p style="color:var(--text-secondary); font-size:1.1rem; margin-bottom:20px;">
+                        SG Multi Tools is your premium all-in-one frontend utility station. 
+                        We provide professional-grade tools running directly in your browser without any server-side delay.
+                    </p>
+                    <p style="color:#888; font-size:0.9rem;">
+                        <strong>Domain:</strong> sgtools.in <br>
+                        <strong>Version:</strong> 1.0.0 (Premium)
+                    </p>
+                </div>
+            `;
         }
 
-        // ============================================
-        // 3. TOOL LOGIC IMPLEMENTATION
-        // ============================================
+        function openContact() {
+            openModalBase("Contact Support");
+            modalBody.innerHTML = `
+                <p style="margin-bottom:20px; color:#aaa; font-size:0.9rem;">Please fill out the details below. This will open your default email client.</p>
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <input type="text" id="cName" placeholder="Enter your name">
+                </div>
+                <div class="input-group">
+                    <label>Your Email</label>
+                    <input type="email" id="cEmail" placeholder="you@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Message / Query</label>
+                    <textarea id="cMsg" rows="5" placeholder="How can we help you?"></textarea>
+                </div>
+                <button class="btn-neon" onclick="submitContact()">Send Message</button>
+            `;
+        }
+
+        function submitContact() {
+            const name = document.getElementById('cName').value;
+            const email = document.getElementById('cEmail').value;
+            const msg = document.getElementById('cMsg').value;
+            
+            if(!name || !msg) { alert("Please fill in Name and Message fields."); return; }
+
+            const subject = encodeURIComponent(`Inquiry from SG-Tools: ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+            
+            window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+        }
+
+        // --- 2.2 Tool Rendering ---
+
+        function renderTools() {
+            const grid = document.getElementById('toolsGrid');
+            tools.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.innerHTML = `
+                    <h2>${tool.name}</h2>
+                    <p>${tool.desc}</p>
+                    <button class="btn-neon" onclick="openTool(${tool.id})">Launch Tool</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openTool(id) {
+            const tool = tools.find(t => t.id === id);
+            if(tool) {
+                openModalBase(tool.name);
+                tool.func(modalBody);
+            }
+        }
+
+        // --- 2.3 Tool Calculations & Features ---
 
         const toolsLogic = {
-            // Helper: Display result
             showRes: (html) => {
                 const res = document.getElementById('resultArea');
                 res.innerHTML = html;
                 res.style.display = 'block';
             },
 
-            // 1. Image Converter
+            // Images
             convertImage: () => {
                 const input = document.getElementById('imgInput').files[0];
                 const format = document.getElementById('formatSelect').value;
                 if(!input) return alert('Please upload an image.');
-
+                
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0);
-                        const dataURL = canvas.toDataURL(format);
-                        toolsLogic.showRes(`<a href="${dataURL}" download="converted-image" class="btn-neon" style="display:inline-block;">Download Converted Image</a><br><img src="${dataURL}" style="max-width:200px; margin-top:10px;">`);
-                    }
-                    img.src = event.target.result;
-                }
                 reader.readAsDataURL(input);
+                reader.onload = e => {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width; canvas.height = img.height;
+                        canvas.getContext('2d').drawImage(img, 0, 0);
+                        const dataUrl = canvas.toDataURL(format);
+                        toolsLogic.showRes(`<p>Success!</p><br><a href="${dataUrl}" download="converted${format.replace('image/','.')}" class="btn-neon">Download Image</a><br><img src="${dataUrl}" style="max-width:150px; margin-top:10px; border:1px solid #444;">`);
+                    }
+                }
             },
-
-            // 2. Image Compressor
             compressImage: () => {
                 const input = document.getElementById('imgCompInput').files[0];
                 const quality = parseFloat(document.getElementById('qualityRange').value);
                 if(!input) return alert('Select image first');
-                
                 const reader = new FileReader();
                 reader.readAsDataURL(input);
-                reader.onload = event => {
+                reader.onload = e => {
                     const img = new Image();
-                    img.src = event.target.result;
+                    img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0);
+                        canvas.width = img.width; canvas.height = img.height;
+                        canvas.getContext('2d').drawImage(img, 0, 0);
                         const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        const oldSize = (input.size/1024).toFixed(1);
                         toolsLogic.showRes(`
-                            <p>Original: ${(input.size/1024).toFixed(2)} KB</p>
-                            <br>
-                            <a href="${dataUrl}" download="compressed.jpg" class="btn-neon" style="display:inline-block">Download Compressed</a>
+                            <p style="margin-bottom:10px;">Original: ${oldSize} KB <br> Quality: ${Math.round(quality*100)}%</p>
+                            <a href="${dataUrl}" download="sg-compressed.jpg" class="btn-neon">Download Compressed</a>
                         `);
                     }
                 }
             },
 
-            // 3. Base64
+            // Strings
             base64Func: () => {
                 const act = document.getElementById('b64action').value;
                 const txt = document.getElementById('b64Input').value;
                 try {
-                    const res = act === 'enc' ? btoa(txt) : atob(txt);
-                    document.getElementById('resultArea').innerText = res;
-                } catch(e) { document.getElementById('resultArea').innerText = "Invalid input for decoding."; }
+                    const r = act === 'enc' ? btoa(txt) : atob(txt);
+                    document.getElementById('resultArea').innerText = r;
+                    document.getElementById('resultArea').style.display = 'block';
+                } catch(e) { document.getElementById('resultArea').innerHTML = "<span style='color:red'>Invalid input for decoding</span>"; document.getElementById('resultArea').style.display='block'; }
             },
 
-            // 4. Age Calc
+            // Calculators
             calcAge: () => {
-                const dob = new Date(document.getElementById('dobInput').value);
+                const d = new Date(document.getElementById('dobInput').value);
                 const now = new Date();
-                if(isNaN(dob)) return;
-                let years = now.getFullYear() - dob.getFullYear();
-                let m = now.getMonth() - dob.getMonth();
-                if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) { years--; }
-                toolsLogic.showRes(`<h3>Age: ${years} Years</h3>`);
+                if(isNaN(d)) return;
+                let age = now.getFullYear() - d.getFullYear();
+                if(now < new Date(now.getFullYear(), d.getMonth(), d.getDate())) age--;
+                toolsLogic.showRes(`<h3>Age: ${age} Years</h3>`);
             },
-
-            // 5. BMI
             calcBMI: () => {
                 const w = parseFloat(document.getElementById('weight').value);
-                const h = parseFloat(document.getElementById('height').value) / 100; 
+                const h = parseFloat(document.getElementById('height').value) / 100;
                 if(!w || !h) return;
-                const bmi = (w / (h*h)).toFixed(1);
-                let text = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Normal" : "Overweight";
-                toolsLogic.showRes(`<h3>BMI: ${bmi}</h3><p>Status: ${text}</p>`);
+                const b = (w/(h*h)).toFixed(1);
+                let t = b < 18.5 ? "Underweight" : b < 25 ? "Normal" : "Overweight";
+                let c = b < 18.5 ? "yellow" : b < 25 ? "#42f8f5" : "orange";
+                toolsLogic.showRes(`<h3 style="color:${c}">BMI: ${b}</h3><p>Status: ${t}</p>`);
             },
-
-            // 6. EMI
             calcEMI: () => {
                 const P = document.getElementById('p').value;
                 const R = document.getElementById('r').value / 1200;
                 const N = document.getElementById('n').value;
                 const emi = (P * R * Math.pow(1+R,N)) / (Math.pow(1+R,N)-1);
-                toolsLogic.showRes(`<h3>EMI: ${emi.toFixed(2)}</h3>`);
+                toolsLogic.showRes(`<h3>EMI: ${parseFloat(emi).toFixed(2)}</h3>`);
             },
-
-            // 7. SIP
             calcSIP: () => {
                 const p = parseFloat(document.getElementById('monthly').value);
                 const r = parseFloat(document.getElementById('rate').value) / 100 / 12;
                 const t = parseFloat(document.getElementById('years').value) * 12;
-                const amount = p * ((Math.pow(1 + r, t) - 1) / r) * (1 + r);
-                toolsLogic.showRes(`<h3>Total Value: ${amount.toFixed(2)}</h3>`);
+                const val = p * ((Math.pow(1+r, t)-1)/r) * (1+r);
+                toolsLogic.showRes(`<h3>Maturity Amount: ${parseFloat(val).toFixed(2)}</h3>`);
             },
 
-            // 8. QR Gen (Using external simple API for pure frontend image source)
+            // Generators
             genQR: () => {
-                const txt = document.getElementById('qrText').value;
-                if(!txt) return;
-                const url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(txt)}`;
-                toolsLogic.showRes(`<img src="${url}" style="border:5px solid white">`);
+                const t = document.getElementById('qrText').value;
+                if(!t) return;
+                // Using standard chart API for frontend generation
+                toolsLogic.showRes(`<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(t)}" style="border:5px solid white; border-radius:5px;">`);
             },
-
-            // 9. Password
             genPass: () => {
                 const len = document.getElementById('pwdLen').value;
-                const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-                let pass = "";
-                for(let i=0; i<len; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
-                toolsLogic.showRes(`<h2 style="color:#42f8f5; user-select:all; cursor:pointer;">${pass}</h2><p style="font-size:12px">Click to copy not implemented (Just select text)</p>`);
+                const ch = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+                let ret = "";
+                for(let i=0; i<len; ++i) ret += ch.charAt(Math.floor(Math.random()*ch.length));
+                toolsLogic.showRes(`<div style="background:#000; padding:10px; color:var(--accent-primary); font-family:monospace; font-size:1.2rem; border-radius:4px; text-align:center;">${ret}</div>`);
             },
 
-            // 10. Color
+            // Utility
             pickColor: () => {
-                const val = document.getElementById('colorInput').value;
-                const r = parseInt(val.substr(1,2),16);
-                const g = parseInt(val.substr(3,2),16);
-                const b = parseInt(val.substr(5,2),16);
-                document.getElementById('resultArea').innerHTML = `HEX: ${val}<br>RGB: rgb(${r}, ${g}, ${b})`;
+                const v = document.getElementById('colorInput').value;
+                const r = parseInt(v.substr(1,2),16);
+                const g = parseInt(v.substr(3,2),16);
+                const b = parseInt(v.substr(5,2),16);
+                document.getElementById('resultArea').innerHTML = `HEX: <b>${v}</b><br>RGB: <b>rgb(${r}, ${g}, ${b})</b>`;
             },
-
-            // 11. Word Count
             countWord: () => {
-                const val = document.getElementById('wordInput').value.trim();
-                const w = val ? val.split(/\s+/).length : 0;
-                document.getElementById('resultArea').innerText = `Words: ${w} | Chars: ${val.length}`;
+                const t = document.getElementById('wordInput').value.trim();
+                const wc = t ? t.split(/\s+/).length : 0;
+                document.getElementById('resultArea').innerHTML = `Words: <b>${wc}</b> <span style="margin:0 10px;">|</span> Chars: <b>${t.length}</b>`;
             },
-
-            // 12. Text to Speech
             speakText: () => {
-                const txt = document.getElementById('ttsInput').value;
-                if('speechSynthesis' in window) {
-                    const u = new SpeechSynthesisUtterance(txt);
-                    window.speechSynthesis.speak(u);
-                } else alert('Not supported by browser');
+                const t = document.getElementById('ttsInput').value;
+                if(!window.speechSynthesis) return alert('Browser not compatible');
+                const u = new SpeechSynthesisUtterance(t);
+                window.speechSynthesis.speak(u);
             },
-
-            // 13. Speech to Text (Chrome/Edge mostly)
             toggleMic: () => {
                 const btn = document.getElementById('micBtn');
-                const res = document.getElementById('resultArea');
+                const box = document.getElementById('resultArea');
                 
-                if (!window.recognition) {
-                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    if(!SpeechRecognition) return alert("Browser does not support Speech API");
-                    window.recognition = new SpeechRecognition();
+                const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if(!SpeechRec) return alert('Browser not supported.');
+
+                if(!window.recognition) {
+                    window.recognition = new SpeechRec();
                     window.recognition.continuous = true;
                     window.recognition.interimResults = true;
                     
                     window.recognition.onstart = () => {
-                         btn.innerText = "Stop Listening";
-                         btn.style.backgroundColor = "red";
-                         btn.style.borderColor = "red";
-                    };
-                    
-                    window.recognition.onresult = (event) => {
-                        let txt = "";
-                        for (let i = event.resultIndex; i < event.results.length; ++i) {
-                            txt += event.results[i][0].transcript;
-                        }
-                        res.innerText = txt;
-                    };
-                    
+                        btn.innerHTML = "STOP RECORDING";
+                        btn.style.backgroundColor = "var(--accent-primary)";
+                        btn.style.color = "#000";
+                    }
                     window.recognition.onend = () => {
-                        btn.innerText = "Start Listening";
-                        btn.style.backgroundColor = ""; 
-                        btn.style.borderColor = "var(--accent-primary)";
-                        window.recognition = null; 
-                    };
-
+                        btn.innerHTML = "START RECORDING";
+                        btn.style.background = "transparent";
+                        btn.style.color = "var(--accent-primary)";
+                        window.recognition = null;
+                    }
+                    window.recognition.onresult = (e) => {
+                        let f = "";
+                        for(let i=e.resultIndex; i<e.results.length; ++i) f += e.results[i][0].transcript;
+                        box.innerText = f;
+                    }
                     window.recognition.start();
                 } else {
                     window.recognition.stop();
                 }
             },
-
-            // 14. JSON
             formatJSON: () => {
-                const i = document.getElementById('jsonInput').value;
+                const t = document.getElementById('jsonInput').value;
                 try {
-                    const o = JSON.stringify(JSON.parse(i), null, 4);
-                    document.getElementById('jsonOutput').value = o;
+                    document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(t), null, 4);
                 } catch(e) { alert("Invalid JSON"); }
             },
-
-            // 15. Stopwatch
+            
+            // Watch & Time
             startWatch: () => {
                 if(window.stopwatchInt) return;
-                let start = Date.now() - (window.elapsed || 0);
-                window.stopwatchInt = setInterval(()=> {
-                    window.elapsed = Date.now() - start;
-                    let ms = Math.floor((window.elapsed % 1000) / 10);
-                    let s = Math.floor((window.elapsed / 1000) % 60);
-                    let m = Math.floor((window.elapsed / 60000) % 60);
+                const startT = Date.now() - (window.swElapsed || 0);
+                window.stopwatchInt = setInterval(() => {
+                    window.swElapsed = Date.now() - startT;
+                    let ms = Math.floor((window.swElapsed % 1000) / 10);
+                    let s = Math.floor((window.swElapsed / 1000) % 60);
+                    let m = Math.floor((window.swElapsed / 60000) % 60);
                     document.getElementById('swDisplay').innerText = 
                         `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}:${ms.toString().padStart(2,'0')}`;
-                }, 100);
+                }, 50);
             },
             stopWatch: () => { clearInterval(window.stopwatchInt); window.stopwatchInt = null; },
             resetWatch: () => { 
                 toolsLogic.stopWatch(); 
-                window.elapsed = 0; 
+                window.swElapsed = 0; 
                 document.getElementById('swDisplay').innerText = "00:00:00"; 
             },
-
-            // 16. Audio
-            loadAudioPreview: (input) => {
-                const file = input.files[0];
-                if(file) document.getElementById('audioPreview').src = URL.createObjectURL(file);
+            startClock: () => {
+                const update = () => {
+                    if(document.getElementById('liveClock')) {
+                        const d = new Date();
+                        document.getElementById('liveClock').innerText = d.toLocaleTimeString();
+                        document.getElementById('liveDate').innerText = d.toDateString();
+                    }
+                };
+                update();
+                window.clockInterval = setInterval(update, 1000);
             },
 
-            // 17. Units Helper
-            getUnitHTML: () => {
-                return `<div class="input-group">
-                    <input type="number" id="unitInput" oninput="toolsLogic.convertUnit()" placeholder="Enter value">
-                </div>
-                <div class="input-group">
-                    <select id="unitType" onchange="toolsLogic.convertUnit()">
-                        <option value="km2mi">Kilometers to Miles</option>
-                        <option value="mi2km">Miles to Kilometers</option>
-                        <option value="kg2lb">KG to Pounds</option>
-                        <option value="c2f">Celsius to Fahrenheit</option>
-                    </select>
-                </div>
-                <h3 id="unitRes" style="color:var(--accent-primary); text-align:center;">Result: 0</h3>
-                `;
+            loadAudioPreview: (el) => {
+                const f = el.files[0];
+                if(f) document.getElementById('audioPreview').src = URL.createObjectURL(f);
             },
+
+            // HTML Getters for simple layouts
+            getUnitHTML: () => `
+                <div class="input-group"><label>Value</label><input type="number" id="unitVal" oninput="toolsLogic.convertUnit()"></div>
+                <div class="input-group"><label>Conversion Type</label>
+                <select id="unitType" onchange="toolsLogic.convertUnit()">
+                    <option value="km2mi">Kilometers -> Miles</option>
+                    <option value="mi2km">Miles -> Kilometers</option>
+                    <option value="kg2lb">Kilograms -> Pounds</option>
+                    <option value="lb2kg">Pounds -> Kilograms</option>
+                    <option value="c2f">Celsius -> Fahrenheit</option>
+                </select></div>
+                <div id="unitRes" style="margin-top:20px; font-size:1.5rem; text-align:center; color:var(--accent-primary);">0</div>
+            `,
             convertUnit: () => {
-                const val = parseFloat(document.getElementById('unitInput').value);
-                const type = document.getElementById('unitType').value;
-                const display = document.getElementById('unitRes');
-                if(isNaN(val)) return;
-                let res = 0;
-                if(type=='km2mi') res = val * 0.621371;
-                else if(type=='mi2km') res = val / 0.621371;
-                else if(type=='kg2lb') res = val * 2.20462;
-                else if(type=='c2f') res = (val * 9/5) + 32;
-                display.innerText = "Result: " + res.toFixed(2);
+                const v = parseFloat(document.getElementById('unitVal').value);
+                const t = document.getElementById('unitType').value;
+                const d = document.getElementById('unitRes');
+                if(isNaN(v)) { d.innerText = "0"; return; }
+                let r=0, u="";
+                if(t=='km2mi') { r=v*0.621371; u="miles"; }
+                if(t=='mi2km') { r=v/0.621371; u="km"; }
+                if(t=='kg2lb') { r=v*2.20462; u="lbs"; }
+                if(t=='lb2kg') { r=v/2.20462; u="kg"; }
+                if(t=='c2f')   { r=(v*9/5)+32; u="°F"; }
+                d.innerText = r.toFixed(2) + " " + u;
             },
 
-            // 18. Tip Helper
             getTipHTML: () => `
-                <div class="input-group"><input type="number" id="billAmt" placeholder="Bill Amount"></div>
-                <div class="input-group"><input type="number" id="tipPer" placeholder="Tip % (e.g. 15)"></div>
-                <div class="input-group"><input type="number" id="people" placeholder="Number of People"></div>
-                <button class="btn-neon" onclick="toolsLogic.calcTip()">Calculate Split</button>
+                <div class="input-group"><label>Bill Amount</label><input type="number" id="bill"></div>
+                <div class="input-group"><label>Tip Percentage (%)</label><input type="number" id="tip" placeholder="15"></div>
+                <div class="input-group"><label>Split Between (People)</label><input type="number" id="ppl" placeholder="1"></div>
+                <button class="btn-neon" onclick="toolsLogic.calcTip()">Calculate</button>
                 <div class="result-box" id="resultArea"></div>
             `,
             calcTip: () => {
-                const bill = parseFloat(document.getElementById('billAmt').value);
-                const tip = parseFloat(document.getElementById('tipPer').value);
-                const pp = parseFloat(document.getElementById('people').value);
-                const total = bill + (bill * tip/100);
-                const split = total / pp;
-                toolsLogic.showRes(`Total: $${total.toFixed(2)}<br>Per Person: $${split.toFixed(2)}`);
+                const b = parseFloat(document.getElementById('bill').value);
+                const t = parseFloat(document.getElementById('tip').value) || 0;
+                const p = parseFloat(document.getElementById('ppl').value) || 1;
+                const tot = b + (b * t/100);
+                toolsLogic.showRes(`Total Pay: <b>${tot.toFixed(2)}</b><br>Per Person: <b>${(tot/p).toFixed(2)}</b>`);
             },
-
-            // 19. Live Clock
-            startClock: () => {
-                 window.clockInterval = setInterval(()=> {
-                     if(document.getElementById('liveClock'))
-                        document.getElementById('liveClock').innerText = new Date().toLocaleTimeString();
-                 }, 1000);
-            },
-
-            // 20. Case Converter Helper
             getCaseHTML: () => `
-                <div class="input-group"><textarea id="caseInput" rows="4" placeholder="Enter text"></textarea></div>
+                <div class="input-group"><textarea id="caseTxt" rows="5" placeholder="Enter text..."></textarea></div>
                 <div style="display:flex; gap:10px;">
-                    <button class="btn-neon" onclick="document.getElementById('caseInput').value = document.getElementById('caseInput').value.toUpperCase()">UPPER</button>
-                    <button class="btn-neon" onclick="document.getElementById('caseInput').value = document.getElementById('caseInput').value.toLowerCase()">lower</button>
+                    <button class="btn-neon" onclick="document.getElementById('caseTxt').value = document.getElementById('caseTxt').value.toUpperCase()">UPPER</button>
+                    <button class="btn-neon" onclick="document.getElementById('caseTxt').value = document.getElementById('caseTxt').value.toLowerCase()">lower</button>
                 </div>
             `
         };
 
-        console.log("SG Multi Tools Loaded Successfully");
+        // Initialize Layout
+        renderTools();
+        
+        // Window close
+        window.onclick = e => { if(e.target == modal) closeModal(); }
 
     </script>
 </body>
