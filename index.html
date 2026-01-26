@@ -575,43 +575,6 @@
             if(window.stopwatchInt) clearInterval(window.stopwatchInt);
         }
 
-        function openAbout() {
-            openModalBase("About SG Multi Tools");
-            modalBody.innerHTML = `
-                <div style="text-align:center;">
-                    <div style="display:inline-flex; align-items:center; justify-content:center; width:60px; height:60px; background:#1c222d; border-radius:50%; border:2px solid var(--accent-primary); margin-bottom:20px; font-weight:bold; font-size:1.5rem; color:var(--accent-primary);">SG</div>
-                    <p style="color:var(--text-secondary); font-size:1.1rem; margin-bottom:20px;">
-                        SG Multi Tools is your premium all-in-one frontend utility station. 
-                        We provide professional-grade tools running directly in your browser without any server-side delay.
-                    </p>
-                    <p style="color:#888; font-size:0.9rem;">
-                        <strong>Domain:</strong> sgtools.in <br>
-                        <strong>Version:</strong> 1.0.0 (Premium)
-                    </p>
-                </div>
-            `;
-        }
-
-        function openContact() {
-            openModalBase("Contact Support");
-            modalBody.innerHTML = `
-                <p style="margin-bottom:20px; color:#aaa; font-size:0.9rem;">Please fill out the details below. This will open your default email client.</p>
-                <div class="input-group">
-                    <label>Your Name</label>
-                    <input type="text" id="cName" placeholder="Enter your name">
-                </div>
-                <div class="input-group">
-                    <label>Your Email</label>
-                    <input type="email" id="cEmail" placeholder="you@example.com">
-                </div>
-                <div class="input-group">
-                    <label>Message / Query</label>
-                    <textarea id="cMsg" rows="5" placeholder="How can we help you?"></textarea>
-                </div>
-                <button class="btn-neon" onclick="submitContact()">Send Message</button>
-            `;
-        }
-
         function submitContact() {
             const name = document.getElementById('cName').value;
             const email = document.getElementById('cEmail').value;
