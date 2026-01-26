@@ -1,236 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ===========================
-         SEO & METADATA
-         =========================== -->
-    <title>SG-Multi-Tools | Free Online Premium Tools for Daily Use</title>
-    <meta name="description" content="SG Multi Tools - A premium, free suite of 20+ online tools. Convert images, calculate EMI/BMI, generate passwords, and more. Fast, secure, and privacy-focused running directly in your browser.">
-    <meta name="keywords" content="SG Multi Tools, sgtools.in, Image Converter, Compress Image, Age Calculator, BMI Calculator, EMI Calculator, QR Generator, Online Tools">
-    <meta name="author" content="SG Multi Tools">
-    
-    <!-- Open Graph / Social Sharing -->
-    <meta property="og:title" content="SG Multi Tools - Premium Frontend Suite">
-    <meta property="og:description" content="20+ Modern tools including Image Converters, Calculators, and Developer Utilities. No backend, purely client-side.">
-    <meta property="og:url" content="https://sgtools.in">
-    <meta property="og:type" content="website">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG-Multi-Tools | Free Online Premium Tools for Daily Use</title>
+<meta name="description" content="SG Multi Tools - A premium, free suite of online tools. Convert images, calculate EMI/BMI, generate passwords, and more.">
+<meta name="keywords" content="SG Multi Tools, sgtools.in, Image Converter, Compress Image, Age Calculator, BMI Calculator, EMI Calculator, QR Generator, Online Tools">
+<meta name="author" content="SG Multi Tools">
 
-    <!-- ===========================
-         FAVICON (Auto-Generated SG Logo)
-         =========================== -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='0' y='0' width='64' height='64' rx='12' fill='%231c222d' stroke='%2342f8f5' stroke-width='4'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='32' fill='%2342f8f5'%3ESG%3C/text%3E%3C/svg%3E">
+<!-- Open Graph -->
+<meta property="og:title" content="SG Multi Tools">
+<meta property="og:description" content="20+ Modern tools including Image Converters, Calculators, and Developer Utilities.">
+<meta property="og:url" content="https://sgtools.in">
+<meta property="og:type" content="website">
 
-    <style>
-        /* ===========================
-           1. VARIABLES & THEME
-           =========================== */
-        :root {
-            --bg-main: #0d0f14;
-            --bg-nav: #1c222d;
-            --bg-card: #12151a;
-            --accent-primary: #42f8f5;
-            --accent-secondary: #3ff7f3;
-            --text-primary: #ffffff;
-            --text-secondary: #c5d1de;
-            --glow-color: rgba(66, 248, 245, 0.6);
-            --border-radius: 8px;
-            --transition-speed: 0.3s;
-        }
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><rect width='64' height='64' fill='%231c222d'/><text x='50%' y='55%' font-size='32' fill='%2342f8f5' text-anchor='middle'>SG</text></svg>">
 
-        /* Light Theme */
-        body.light {
-            --bg-main: #f4f6f9;
-            --bg-nav: #ffffff;
-            --bg-card: #ffffff;
-            --text-primary: #0d0f14;
-            --text-secondary: #444;
-            --glow-color: rgba(66, 248, 245, 0.4);
-        }
+<style>
+/* ===========================
+   VARIABLES & THEME
+   =========================== */
+:root {
+  --bg-main: #0d0f14;
+  --bg-nav: #1c222d;
+  --bg-card: #12151a;
+  --accent-primary: #42f8f5;
+  --text-primary: #ffffff;
+  --text-secondary: #c5d1de;
+  --border-radius: 8px;
+  --transition-speed: 0.3s;
+}
+body.light {
+  --bg-main: #f4f6f9;
+  --bg-nav: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #0d0f14;
+  --text-secondary: #444;
+}
+* {box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI', Roboto, sans-serif;}
+body {background-color:var(--bg-main); color:var(--text-primary); scroll-behavior:smooth; transition: background 0.4s, color 0.4s;}
+nav {background-color:var(--bg-nav); padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000;}
+.brand-container {display:flex;align-items:center;gap:12px;cursor:pointer;}
+.sg-logo {background:#1c222d;color:var(--accent-primary);width:45px;height:45px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.2rem;border-radius:8px;box-shadow:0 0 10px var(--accent-primary);}
+.brand-text {font-size:1.3rem;font-weight:bold;color:var(--text-primary);}
+.nav-links a {color:var(--text-secondary); text-decoration:none; margin-left:20px; transition:0.3s;}
+.nav-links a:hover {color:var(--accent-primary);}
+#themeToggle {background:transparent; border:2px solid var(--accent-primary); color:var(--accent-primary); cursor:pointer; padding:6px 10px; border-radius:6px; font-size:1.1rem; transition:0.3s;}
+#themeToggle:hover {background:var(--accent-primary); color:#000;}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+/* Tools Grid */
+.container {max-width:1200px; margin:0 auto; padding:50px 20px;}
+h1.section-title {text-align:center;margin-bottom:50px;font-size:2.5rem;}
+h1 span {color:var(--accent-primary);}
+.tools-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:25px;}
+@media (max-width:900px){.tools-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:600px){.tools-grid{grid-template-columns:1fr;}}
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
+.tool-card {background-color:var(--bg-card);border:1px solid #2a303c;border-radius:var(--border-radius);padding:25px;display:flex;flex-direction:column;align-items:flex-start;transition:transform 0.3s, box-shadow 0.3s;}
+.tool-card:hover {transform:translateY(-5px); box-shadow:0 0 20px var(--accent-primary);}
+.tool-card h2 {font-size:1.25rem;margin-bottom:10px;}
+.tool-card p {color:var(--text-secondary); font-size:0.9rem; flex-grow:1;margin-bottom:20px;}
+.btn-neon {background:transparent; color:var(--accent-primary); border:2px solid var(--accent-primary); padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; font-size:0.9rem; width:100%; text-align:center; text-decoration:none; transition:0.3s;}
+.btn-neon:hover {background-color:var(--accent-primary); color:#000; box-shadow:0 0 15px var(--accent-primary);}
 
-        /* ===========================
-           2. HEADER & NAV
-           =========================== */
-        
-        nav {
-            background-color: var(--bg-nav);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(66, 248, 245, 0.1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        /* Logo Styling */
-        .brand-container { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; cursor: pointer; }
-        .sg-logo { background: linear-gradient(135deg, var(--bg-nav), #000); color: var(--accent-primary); border: 2px solid var(--accent-primary); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; border-radius: 8px; box-shadow: 0 0 10px var(--glow-color); text-shadow: 0 0 5px var(--accent-primary); letter-spacing: -1px; }
-        .brand-text { font-size: 1.3rem; font-weight: bold; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
-
-        .nav-links a { color: var(--text-secondary); text-decoration: none; margin-left: 20px; transition: var(--transition-speed); cursor: pointer; font-size: 1rem; }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); text-shadow: 0 0 8px var(--glow-color); }
-
-        /* Light/Dark Toggle Button */
-        #themeToggle {
-            background: transparent;
-            border: 2px solid var(--accent-primary);
-            color: var(--accent-primary);
-            font-size: 1.1rem;
-            padding: 6px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-left: 15px;
-            transition: all 0.3s ease;
-        }
-
-        #themeToggle:hover {
-            background: var(--accent-primary);
-            color: #000;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        /* Mobile Menu adjustment */
-        @media (max-width: 768px) {
-            nav { padding: 1rem; }
-            .brand-text { display: none; } 
-            .nav-links a { margin-left: 10px; font-size: 0.9rem; }
-        }
-
-        /* ===========================
-           3. MAIN LAYOUT
-           =========================== */
-        .container { max-width: 1200px; margin: 0 auto; padding: 50px 20px; }
-        h1.section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
-        h1 span { color: var(--accent-primary); display: inline-block; text-shadow: 0 0 20px rgba(66, 248, 245, 0.25); }
-
-        .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        @media (max-width: 900px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
-
-        /* Tool Cards */
-        .tool-card { background-color: var(--bg-card); border: 1px solid #2a303c; border-radius: var(--border-radius); padding: 25px; display: flex; flex-direction: column; align-items: flex-start; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
-        .tool-card:hover { transform: translateY(-5px); border-color: var(--accent-primary); box-shadow: 0 0 20px var(--glow-color); }
-        .tool-card h2 { font-size: 1.25rem; margin-bottom: 10px; color: var(--text-primary); }
-        .tool-card p { color: var(--text-secondary); font-size: 0.9rem; flex-grow: 1; margin-bottom: 20px; }
-
-        .btn-neon { background: transparent; color: var(--accent-primary); border: 2px solid var(--accent-primary); padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.9rem; width: 100%; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
-        .btn-neon:hover { background-color: var(--accent-primary); color: #000; box-shadow: 0 0 15px var(--accent-primary); }
-
-        /* Modal & Inputs (unchanged) */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; animation: fadeIn 0.3s; }
-        .modal-content { background: var(--bg-card); width: 90%; max-width: 600px; border: 1px solid var(--accent-primary); border-radius: var(--border-radius); box-shadow: 0 0 30px rgba(66, 248, 245, 0.2); padding: 30px; max-height: 90vh; overflow-y: auto; position: relative; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
-        .modal-header h2 { color: var(--text-primary); }
-        .close-btn { font-size: 2rem; cursor: pointer; color: var(--text-secondary); line-height: 0.8; }
-        .close-btn:hover { color: var(--accent-primary); }
-
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .input-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem; }
-        .input-group input, .input-group select, .input-group textarea { width: 100%; background: #0d0f14; border: 1px solid #333; color: white; padding: 12px; border-radius: 5px; font-size: 1rem; transition: border-color 0.3s; }
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--accent-primary); outline: none; box-shadow: 0 0 5px rgba(66,248,245,0.3); }
-        .result-box { margin-top: 20px; background: #1c222d; padding: 15px; border-radius: 5px; border-left: 3px solid var(--accent-primary); word-wrap: break-word; display: none; animation: slideDown 0.3s; }
-        canvas { max-width: 100%; border: 1px solid #333; margin-top: 10px; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideDown { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        /* Footer */
-        .site-footer { background: var(--bg-nav); border-top: 1px solid rgba(66, 248, 245, 0.15); text-align: center; padding: 20px 10px; font-size: 0.85rem; color: var(--text-secondary); }
-        .site-footer a { color: var(--accent-primary); text-decoration: none; margin: 0 8px; }
-        .site-footer a:hover { text-shadow: 0 0 8px var(--glow-color); }
-
-    </style>
+/* Footer */
+.site-footer {background:var(--bg-nav); border-top:1px solid rgba(66,248,245,0.15); text-align:center; padding:20px 10px; color:var(--text-secondary);}
+.site-footer a {color:var(--accent-primary); text-decoration:none; margin:0 8px;}
+.site-footer a:hover {text-shadow:0 0 8px var(--accent-primary);}
+</style>
 </head>
 <body>
 
-    <!-- Header -->
-    <nav>
-        <div class="brand-container" onclick="location.reload()">
-            <div class="sg-logo">SG</div>
-            <div class="brand-text">SG Multi Tools</div>
-        </div>
+<!-- Header -->
+<nav>
+  <div class="brand-container" onclick="location.reload()">
+    <div class="sg-logo">SG</div>
+    <div class="brand-text">SG Multi Tools</div>
+  </div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about.html">About</a>
+    <a href="#tools">Tools</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+  <button id="themeToggle" aria-label="Toggle theme">🌙</button>
+</nav>
 
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/about.html">About</a>
-            <a href="#tools">Tools</a>
-            <a href="/contact.html">Contact</a>
-        </div>
+<!-- Tools Section -->
+<div class="container" id="tools">
+  <h1 class="section-title">SG Multi Tools <span>For Daily Use</span></h1>
+  <div class="tools-grid" id="toolsGrid">
+    <!-- Tool cards will render here -->
+  </div>
+</div>
 
-        <button id="themeToggle" aria-label="Toggle theme">🌙</button>
-    </nav>
+<!-- Footer -->
+<footer class="site-footer">
+<p>© 2026 SG Multi Tools. All rights reserved.</p>
+<p>
+<a href="/about.html">About Us</a> |
+<a href="/contact.html">Contact Us</a> |
+<a href="/privacy-policy.html">Privacy Policy</a> |
+<a href="/disclaimer.html">Disclaimer</a> |
+<a href="/terms-and-conditions.html">Terms & Conditions</a> |
+<a href="/sitemap.html">Sitemap</a>
+</p>
+</footer>
 
-    <!-- Main Section -->
-    <div class="container" id="tools">
-        <h1 class="section-title">SG Multi Tools <span>For Daily Use</span></h1>
-        <div class="tools-grid" id="toolsGrid">
-            <!-- Tool Cards generated by JS -->
-        </div>
-    </div>
+<script>
+// ==========================
+// TOOLS DATA (restore from your previous final code)
+// ==========================
+const tools = [
+  {name:"Image Converter",desc:"Convert images to different formats",link:"#"},
+  {name:"BMI Calculator",desc:"Calculate your BMI easily",link:"#"},
+  {name:"EMI Calculator",desc:"Compute EMI for loans",link:"#"},
+  {name:"Password Generator",desc:"Generate strong passwords",link:"#"},
+  {name:"QR Code Generator",desc:"Create QR codes for links",link:"#"},
+  {name:"Text Tools",desc:"Text formatter, counter, and more",link:"#"},
+  {name:"Color Picker",desc:"Pick hex colors easily",link:"#"},
+  {name:"SEO Analyzer",desc:"Analyze your website SEO",link:"#"}
+];
+// Render tool cards
+const toolsGrid=document.getElementById("toolsGrid");
+tools.forEach(tool=>{
+  const card=document.createElement("div");
+  card.className="tool-card";
+  card.innerHTML=`<h2>${tool.name}</h2><p>${tool.desc}</p><a href="${tool.link}" class="btn-neon">Open Tool</a>`;
+  toolsGrid.appendChild(card);
+});
 
-    <!-- Modal -->
-    <div id="modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">Title</h2>
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-            </div>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
-    <script>
-        // =========================================
-        // TOOLS & MODAL LOGIC (unchanged)
-        // =========================================
-        // Full JS from your original final code goes here (toolsLogic, renderTools, openTool, etc.)
-        // For brevity, not repeating here. Keep it intact from your final version.
-        
-        // =========================================
-        // THEME TOGGLE LOGIC
-        // =========================================
-        const toggleBtn = document.getElementById("themeToggle");
-        const savedTheme = localStorage.getItem("sg-theme");
-
-        if (savedTheme === "light") {
-            document.body.classList.add("light");
-            toggleBtn.textContent = "☀️";
-        }
-
-        toggleBtn.addEventListener("click", () => {
-            document.body.classList.toggle("light");
-            const isLight = document.body.classList.contains("light");
-            toggleBtn.textContent = isLight ? "☀️" : "🌙";
-            localStorage.setItem("sg-theme", isLight ? "light" : "dark");
-        });
-    </script>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <p>© 2026 SG Multi Tools. All rights reserved.</p>
-        <p>
-            <a href="/about.html">About Us</a> |
-            <a href="/contact.html">Contact Us</a> |
-            <a href="/privacy-policy.html">Privacy Policy</a> |
-            <a href="/disclaimer.html">Disclaimer</a> |
-            <a href="/terms-and-conditions.html">Terms & Conditions</a> |
-            <a href="/sitemap.html">Sitemap</a>
-        </p>
-    </footer>
+// ==========================
+// THEME TOGGLE
+// ==========================
+const toggleBtn = document.getElementById("themeToggle");
+const savedTheme = localStorage.getItem("sg-theme");
+if(savedTheme==="light"){document.body.classList.add("light"); toggleBtn.textContent="☀️";}
+toggleBtn.addEventListener("click",()=>{
+  document.body.classList.toggle("light");
+  const isLight=document.body.classList.contains("light");
+  toggleBtn.textContent=isLight?"☀️":"🌙";
+  localStorage.setItem("sg-theme",isLight?"light":"dark");
+});
+</script>
 
 </body>
 </html>
