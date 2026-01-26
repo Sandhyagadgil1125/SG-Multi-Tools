@@ -245,9 +245,129 @@
    ========================== */
 const contactEmail = "contact@sgtools.in";
 const tools = [
-    // ALL 20+ tools as in your final code
-    // IMAGE, CALCULATORS, DEV, UTILITY, etc.
-    // For brevity, you can reuse your previous tools array
+       id: 1,
+    name: "Image Converter",
+    desc: "Convert images to JPG, PNG, or WEBP",
+    func: box => {
+      box.innerHTML = `
+        <div class="input-group">
+          <label>Select Image</label>
+          <input type="file" id="imgInput" accept="image/*">
+        </div>
+        <div class="input-group">
+          <label>Convert To</label>
+          <select id="format">
+            <option value="image/jpeg">JPG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WEBP</option>
+          </select>
+        </div>
+        <button class="btn-neon" onclick="convertImage()">Convert</button>
+        <div class="result-box" id="result"></div>
+      `;
+    }
+  },
+  {
+    id: 2,
+    name: "BMI Calculator",
+    desc: "Calculate Body Mass Index",
+    func: box => {
+      box.innerHTML = `
+        <div class="input-group">
+          <label>Weight (kg)</label>
+          <input type="number" id="w">
+        </div>
+        <div class="input-group">
+          <label>Height (cm)</label>
+          <input type="number" id="h">
+        </div>
+        <button class="btn-neon" onclick="calcBMI()">Calculate</button>
+        <div class="result-box" id="result"></div>
+      `;
+    }
+  },
+  {
+    id: 3,
+    name: "EMI Calculator",
+    desc: "Monthly EMI calculation",
+    func: box => {
+      box.innerHTML = `
+        <div class="input-group"><input type="number" id="p" placeholder="Loan Amount"></div>
+        <div class="input-group"><input type="number" id="r" placeholder="Interest %"></div>
+        <div class="input-group"><input type="number" id="n" placeholder="Months"></div>
+        <button class="btn-neon" onclick="calcEMI()">Calculate</button>
+        <div class="result-box" id="result"></div>
+      `;
+    }
+  },
+  {
+    id: 4,
+    name: "Password Generator",
+    desc: "Generate secure passwords",
+    func: box => {
+      box.innerHTML = `
+        <div class="input-group">
+          <label>Password Length</label>
+          <input type="number" id="len" value="16">
+        </div>
+        <button class="btn-neon" onclick="genPass()">Generate</button>
+        <div class="result-box" id="result"></div>
+      `;
+    }
+  }
+];
+
+/* ==========================
+   TOOL FUNCTIONS
+   ========================== */
+
+function convertImage(){
+  const file = imgInput.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const c = document.createElement("canvas");
+      c.width = img.width;
+      c.height = img.height;
+      c.getContext("2d").drawImage(img,0,0);
+      const url = c.toDataURL(format.value);
+      result.style.display="block";
+      result.innerHTML = `<a href="${url}" download="converted">Download Image</a>`;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function calcBMI(){
+  const bmi = (w.value / ((h.value/100)**2)).toFixed(2);
+  result.style.display="block";
+  result.innerHTML = `BMI: <b>${bmi}</b>`;
+}
+
+function calcEMI(){
+  const P=p.value,R=r.value/1200,N=n.value;
+  const emi=(P*R*Math.pow(1+R,N))/(Math.pow(1+R,N)-1);
+  result.style.display="block";
+  result.innerHTML=`Monthly EMI: ₹${emi.toFixed(2)}`;
+}
+
+function genPass(){
+  const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$";
+  let pass="";
+  for(let i=0;i<len.value;i++) pass+=chars[Math.random()*chars.length|0];
+  result.style.display="block";
+  result.innerHTML=pass;
+}
+
+/* ==========================
+   RENDER
+   ========================== */
+
+renderTools();
+ </script>    
 ];
 const modal = document.getElementById('modal');
 const modalBody = document.getElementById('modal-body');
