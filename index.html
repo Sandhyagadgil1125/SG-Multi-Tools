@@ -354,7 +354,7 @@
         </div>
     </div>
 
-    <!-- Modal Container (Used for Tools, Contact, and About) -->
+    <!-- Modal Container (Used for Tools Only) -->
     <div id="modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -574,19 +574,6 @@
             if(window.recognition) window.recognition.stop();
             if(window.clockInterval) clearInterval(window.clockInterval);
             if(window.stopwatchInt) clearInterval(window.stopwatchInt);
-        }
-
-        function submitContact() {
-            const name = document.getElementById('cName').value;
-            const email = document.getElementById('cEmail').value;
-            const msg = document.getElementById('cMsg').value;
-            
-            if(!name || !msg) { alert("Please fill in Name and Message fields."); return; }
-
-            const subject = encodeURIComponent(`Inquiry from SG-Tools: ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
-            
-            window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
         }
 
         // --- 2.2 Tool Rendering ---
