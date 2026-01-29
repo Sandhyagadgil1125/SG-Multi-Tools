@@ -4,11 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SG Multi Tools | Free Daily Use Online Tools</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363592531000914" crossorigin="anonymous"></script>
-<meta name="google-site-verification" content="I1UwEjcLPpNnttxAbs3OjXEHcobPM0u6a1b-w5MsU7A" />
+<!-- Font Awesome for Social Media Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />     
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363592531000914"
+     crossorigin="anonymous"></script>
+<meta name="google-site-verification" content="I1UwEjcLPpNnttxAbs3OjXEHcobPM0u6a1b-w5MsU7A" />   
 <meta name="description" content="SG Multi Tools offers free online tools like image converter, EMI calculator, QR generator, password generator and more. Fast, secure & easy to use.">
 
+<!-- ===================== FAVICON ===================== -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231c222d' stroke='%2342f8f5' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='900' font-size='26' fill='%2342f8f5'%3ESG%3C/text%3E%3C/svg%3E">
 
 <style>
@@ -98,34 +102,58 @@ footer p a i:hover{color:#00F5D4;}
 </footer>
 
 <script>
+/* ================= IMAGE COMPRESSOR FUNCTION ================= */
+function compressImage() {
+  const input = document.getElementById("imgInput");
+  const quality = parseFloat(document.getElementById("quality").value);
+  if (!input || !input.files.length) { alert("Please select an image first"); return; }
+  const file = input.files[0];
+  const reader = new FileReader();
+  const img = new Image();
+  reader.onload = e => img.src = e.target.result;
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width; canvas.height = img.height;
+    canvas.getContext("2d").drawImage(img, 0, 0);
+    canvas.toBlob(blob => {
+      const link = document.getElementById("downloadLink");
+      link.href = URL.createObjectURL(blob);
+      link.download = "compressed-image.jpg";
+      link.style.display = "inline";
+    }, "image/jpeg", quality);
+  };
+  reader.readAsDataURL(file);
+}
+document.addEventListener("input", e => {
+  if(e.target.id==="quality") document.getElementById("qVal").innerText = e.target.value;
+});
+
+/* ================= TOOLS LIST ================= */
 const tools = [
   { name:"Image Converter", desc:"Convert images to JPG, PNG, WEBP.", html:"<p>Coming soon.</p>" },
-  { name:"Image Compressor", desc:"Reduce image file size.", html:`
-      <input type="file" id="imgInput" accept="image/*"><br><br>
-      <label>Quality (0.1 – 1.0):</label><br>
-      <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7">
-      <span id="qVal">0.7</span><br><br>
-      <button class="btn" onclick="compressImage()">Compress</button><br><br>
-      <a id="downloadLink" style="display:none;color:#42f8f5;">Download Compressed Image</a>
-  `},
-  { name:"Image Cropper", desc:"Crop images online.", html:"<p>Crop images easily.</p>" },
+  { name:"Image Compressor", desc:"Reduce image file size.", html:`<input type="file" id="imgInput" accept="image/*"><br><br>
+    <label>Quality (0.1 – 1.0)</label><br>
+    <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7"><span id="qVal">0.7</span><br><br>
+    <button class="btn" onclick="compressImage()">Compress</button><br><br>
+    <a id="downloadLink" style="display:none;color:#42f8f5;">Download Compressed Image</a>` },
+  { name:"Image Cropper", desc:"Crop images online.", html:"<p>Coming soon.</p>" },
   { name:"Video Converter", desc:"Convert video formats.", html:"<p>Coming soon.</p>" },
   { name:"Audio Converter", desc:"Convert audio formats.", html:"<p>Coming soon.</p>" },
   { name:"Audio Trimmer", desc:"Trim audio files.", html:"<p>Coming soon.</p>" },
-  { name:"Age Calculator", desc:"Calculate age.", html:"<p>Age calculator tool.</p>" },
-  { name:"EMI Calculator", desc:"Loan EMI calculation.", html:"<p>EMI calculator.</p>" },
-  { name:"SIP Calculator", desc:"Investment calculator.", html:"<p>SIP calculator.</p>" },
-  { name:"QR Code Generator", desc:"Generate QR codes.", html:"<p>QR generator.</p>" },
-  { name:"Password Generator", desc:"Generate passwords.", html:"<p>Password generator.</p>" },
-  { name:"Word Counter", desc:"Count words.", html:"<p>Word counter.</p>" },
-  { name:"Base64 Encoder/Decoder", desc:"Encode or decode.", html:"<p>Base64 tool.</p>" },
-  { name:"Color Picker Tool", desc:"Pick colors.", html:"<p>Color picker.</p>" },
-  { name:"Text to Speech", desc:"Convert text.", html:"<p>TTS tool.</p>" },
-  { name:"Speech to Text", desc:"Convert speech.", html:"<p>STT tool.</p>" },
-  { name:"JSON Formatter", desc:"Format JSON.", html:"<p>JSON formatter.</p>" },
-  { name:"Unit Converter", desc:"Convert units.", html:"<p>Unit converter.</p>" },
-  { name:"BMI Calculator", desc:"Calculate BMI.", html:"<p>BMI calculator.</p>" },
-  { name:"Timer / Stopwatch", desc:"Timer tool.", html:"<p>Timer & stopwatch.</p>" }
+  { name:"Age Calculator", desc:"Calculate age.", html:"<p>Coming soon.</p>" },
+  { name:"EMI Calculator", desc:"Loan EMI calculation.", html:"<p>Coming soon.</p>" },
+  { name:"SIP Calculator", desc:"Investment calculator.", html:"<p>Coming soon.</p>" },
+  { name:"QR Code Generator", desc:"Generate QR codes.", html:"<p>Coming soon.</p>" },
+  { name:"Password Generator", desc:"Generate passwords.", html:"<p>Coming soon.</p>" },
+  { name:"Word Counter", desc:"Count words.", html:"<p>Coming soon.</p>" },
+  { name:"Base64 Encoder/Decoder", desc:"Encode or decode.", html:"<p>Coming soon.</p>" },
+  { name:"Color Picker Tool", desc:"Pick colors.", html:"<p>Coming soon.</p>" },
+  { name:"Text to Speech", desc:"Convert text.", html:"<p>Coming soon.</p>" },
+  { name:"Speech to Text", desc:"Convert speech.", html:"<p>Coming soon.</p>" },
+  { name:"JSON Formatter", desc:"Format JSON.", html:"<p>Coming soon.</p>" },
+  { name:"Unit Converter", desc:"Convert units.", html:"<p>Coming soon.</p>" },
+  { name:"BMI Calculator", desc:"Calculate BMI.", html:"<p>Coming soon.</p>" },
+  { name:"Timer / Stopwatch", desc:"Timer tool.", html:"<p>Coming soon.</p>" }
 ];
 
 const grid = document.getElementById("toolsGrid");
@@ -149,36 +177,8 @@ tools.forEach(tool => {
   grid.appendChild(card);
 });
 
-function closeModal(){ modal.style.display = "none"; }
-
-/* IMAGE COMPRESSOR LOGIC */
-function compressImage(){
-  const input = document.getElementById("imgInput");
-  const quality = document.getElementById("quality").value;
-  if(!input||!input.files.length){ alert("Please select an image first"); return; }
-  const file = input.files[0];
-  const reader = new FileReader();
-  const img = new Image();
-  reader.onload=e=>img.src=e.target.result;
-  img.onload=()=>{
-    const canvas=document.createElement("canvas");
-    canvas.width=img.width;
-    canvas.height=img.height;
-    canvas.getContext("2d").drawImage(img,0,0);
-    canvas.toBlob(blob=>{
-      const link=document.getElementById("downloadLink");
-      link.href=URL.createObjectURL(blob);
-      link.download="compressed-image.jpg";
-      link.style.display="inline";
-    },"image/jpeg",quality);
-  };
-  reader.readAsDataURL(file);
-}
-
-/* QUALITY SLIDER */
-document.addEventListener("input",e=>{
-  if(e.target.id==="quality") document.getElementById("qVal").innerText=e.target.value;
-});
+function closeModal() { modal.style.display = "none"; }
 </script>
+
 </body>
 </html>
