@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Date Difference Calculator | SG Multi Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{background:#0d0f14;color:#fff;font-family:Segoe UI;text-align:center}
+.box{max-width:400px;margin:60px auto;background:#12151a;padding:25px;border-radius:12px}
+input{width:100%;padding:10px;margin:10px 0;background:#0b0e14;color:#fff;border:1px solid #2a303c}
+button{padding:10px;width:100%;background:#42f8f5;border:none;border-radius:6px;font-weight:700}
+</style>
+</head>
+<body>
+
+<h2>Date Difference Calculator</h2>
+
+<div class="box">
+<label>Start Date</label>
+<input type="date" id="d1">
+<label>End Date</label>
+<input type="date" id="d2">
+<button onclick="calc()">Calculate</button>
+<h3 id="res"></h3>
+</div>
+
+<script>
+function calc(){
+let a=new Date(d1.value);
+let b=new Date(d2.value);
+let diff=Math.abs(b-a)/(1000*60*60*24);
+res.innerText=diff+" days";
+}
+</script>
+
+</body>
+</html>
