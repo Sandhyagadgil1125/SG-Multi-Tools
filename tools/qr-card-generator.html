@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Card Generator | SG Multi Tools</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#1A1D24;
+  color:#F0F0F0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.container{
+  background:#252A34;
+  padding:25px;
+  border-radius:12px;
+  width:100%;
+  max-width:480px;
+  box-shadow:0 0 20px rgba(0,245,212,0.3);
+}
+
+h1{
+  text-align:center;
+  color:#00F5D4;
+  margin-bottom:20px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:6px;
+  border:none;
+  font-size:14px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  background:#00F5D4;
+  border:none;
+  font-size:16px;
+  font-weight:bold;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+#qr{
+  margin-top:20px;
+  text-align:center;
+}
+
+footer{
+  text-align:center;
+  margin-top:15px;
+  font-size:13px;
+  color:#A0A0B0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>QR Card Generator</h1>
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="text" id="phone" placeholder="Phone Number">
+  <input type="email" id="email" placeholder="Email Address">
+  <input type="text" id="company" placeholder="Company (optional)">
+  <input type="text" id="website" placeholder="Website URL">
+
+  <button onclick="generateQR()">Generate QR Card</button>
+
+  <div id="qr"></div>
+
+  <footer>SG Multi Tools</footer>
+</div>
+
+<script>
+function generateQR(){
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const company = document.getElementById("company").value.trim();
+  const website = document.getElementById("website").value.trim();
+
+  if(!name && !phone && !email && !website){
+    alert("Please enter at least one field");
+    return;
+  }
+
+  const vCard = 
+`BEGIN:VCARD
+VERSION:3.0
+N:${name}
+FN:${name}
+ORG:${company}
+TEL:${phone}
+EMAIL:${email}
+URL:${website}
+END:VCARD`;
+
+  const qrDiv = document.getElementById("qr");
+  qrDiv.innerHTML = "";
+
+  const img = document.createElement("img");
+  img.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" 
+            + encodeURIComponent(vCard);
+
+  qrDiv.appendChild(img);
+}
+</script>
+
+</body>
+</html>
