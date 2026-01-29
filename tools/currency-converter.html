@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Currency Converter | SG Multi Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{background:#0d0f14;color:#fff;font-family:Segoe UI;text-align:center}
+.box{max-width:400px;margin:60px auto;background:#12151a;padding:25px;border-radius:12px}
+input,select{width:100%;padding:10px;margin:10px 0;background:#0b0e14;color:#fff;border:1px solid #2a303c}
+button{padding:10px;width:100%;background:#42f8f5;border:none;border-radius:6px;font-weight:700}
+</style>
+</head>
+<body>
+
+<h2>Currency Converter (Offline)</h2>
+
+<div class="box">
+<input type="number" id="amt" placeholder="Amount">
+<select id="from">
+<option value="1">USD</option>
+<option value="83">INR</option>
+<option value="0.92">EUR</option>
+</select>
+<select id="to">
+<option value="1">USD</option>
+<option value="83">INR</option>
+<option value="0.92">EUR</option>
+</select>
+<button onclick="convert()">Convert</button>
+<h3 id="out"></h3>
+<p style="font-size:12px;color:#aaa">Rates are manual & offline</p>
+</div>
+
+<script>
+function convert(){
+let a=amt.value;
+out.innerText=(a*(to.value/from.value)).toFixed(2);
+}
+</script>
+
+</body>
+</html>
