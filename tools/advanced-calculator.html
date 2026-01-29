@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Calculator | SG Multi Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{background:#0d0f14;color:#fff;font-family:Segoe UI;text-align:center}
+.calc{max-width:320px;margin:60px auto;background:#12151a;padding:20px;border-radius:12px}
+input{width:100%;padding:12px;font-size:18px;margin-bottom:10px;background:#0b0e14;color:#fff;border:1px solid #2a303c}
+button{width:23%;margin:1%;padding:12px;font-size:16px;background:#42f8f5;border:none;border-radius:6px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<h2>Advanced Calculator</h2>
+
+<div class="calc">
+<input id="display" disabled>
+<div>
+<button onclick="add('7')">7</button><button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button><button onclick="add('/')">÷</button>
+<button onclick="add('4')">4</button><button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button><button onclick="add('*')">×</button>
+<button onclick="add('1')">1</button><button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button><button onclick="add('-')">−</button>
+<button onclick="add('0')">0</button><button onclick="add('.')">.</button>
+<button onclick="calc()">=</button><button onclick="add('+')">+</button>
+<button onclick="clearAll()" style="width:98%">Clear</button>
+</div>
+</div>
+
+<script>
+let d=document.getElementById("display");
+function add(v){d.value+=v}
+function clearAll(){d.value=""}
+function calc(){try{d.value=eval(d.value)}catch{d.value="Error"}}
+</script>
+
+</body>
+</html>
