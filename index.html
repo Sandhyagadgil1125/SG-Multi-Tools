@@ -14,12 +14,12 @@
 
 <style>
 :root{
---bg:#0d0f14;
---card:#12151a;
---accent:#42f8f5;
---text:#fff;
---muted:#b6c3d1;
---radius:12px;
+    --bg:#0d0f14;
+    --card:#12151a;
+    --accent:#42f8f5;
+    --text:#fff;
+    --muted:#b6c3d1;
+    --radius:12px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif}
@@ -59,74 +59,31 @@ border-radius:var(--radius);
 padding:26px;
 border:1px solid #2a303c;
 display:flex;
-flex-direction:column
+flex-direction:column;
+transition: all 0.3s;
 }
 .tool-card:hover{
 border-color:var(--accent);
 box-shadow:0 0 22px rgba(66,248,245,.25)
 }
 
-.tool-card h3{margin-bottom:10px}
-.tool-card p{color:var(--muted);flex:1;font-size:.9rem}
+.tool-card h2{margin-bottom:10px;font-size:1.3rem}
+.tool-card p{color:var(--muted);flex:1;font-size:.95rem;margin-bottom:14px}
 
 .btn{
-margin-top:18px;
+text-align:center;
+margin-top:auto;
 padding:12px;
 border-radius:8px;
 border:2px solid var(--accent);
 background:transparent;
 color:var(--accent);
 font-weight:700;
-cursor:pointer
+cursor:pointer;
+text-decoration:none;
+display:inline-block;
 }
 .btn:hover{background:var(--accent);color:#000}
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-align-items:center;
-justify-content:center;
-z-index:9999
-}
-
-.modal-box{
-background:var(--card);
-width:92%;
-max-width:640px;
-border-radius:var(--radius);
-padding:30px;
-border:1px solid var(--accent)
-}
-
-.modal-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px
-}
-
-.close{cursor:pointer;font-size:1.6rem}
-
-.tool-ui{
-background:#0f131a;
-padding:22px;
-border-radius:10px;
-border:1px solid #2a303c
-}
-
-.tool-ui label{display:block;margin:10px 0 6px}
-.tool-ui input,
-.tool-ui select,
-.tool-ui textarea{
-width:100%;
-padding:10px;
-border-radius:6px;
-border:1px solid #2a303c;
-background:#0b0e14;
-color:#fff
-}
 
 footer{
 background:#1c222d;
@@ -138,7 +95,6 @@ color:var(--muted)
 footer a{color:var(--accent);text-decoration:none;margin:0 6px}
 </style>
 </head>
-
 <body>
 
 <nav>
@@ -152,194 +108,139 @@ footer a{color:var(--accent);text-decoration:none;margin:0 6px}
 
 <div class="container" id="tools">
 <h1>SG Multi Tools <span>For Daily Use</span></h1>
-<div class="tools-grid">
 
+<div class="tools-grid">
   <div class="tool-card">
     <h2>Image Converter</h2>
     <p>Convert images to JPG, PNG, WEBP.</p>
-    <a class="btn" href="/tools/image-converter.html">Open Tool</a>
+    <a class="btn" href="tools/image-converter.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Image Compressor</h2>
     <p>Reduce image file size.</p>
-    <a class="btn" href="/tools/image-compressor.html">Open Tool</a>
+    <a class="btn" href="tools/image-compressor.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Image Cropper</h2>
     <p>Crop images online.</p>
-    <a class="btn" href="/tools/image-cropper.html">Open Tool</a>
+    <a class="btn" href="tools/image-cropper.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Video Converter</h2>
     <p>Convert video formats.</p>
-    <a class="btn" href="/tools/video-converter.html">Open Tool</a>
+    <a class="btn" href="tools/video-converter.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Audio Converter</h2>
     <p>Convert audio formats.</p>
-    <a class="btn" href="/tools/audio-converter.html">Open Tool</a>
+    <a class="btn" href="tools/audio-converter.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Audio Trimmer</h2>
     <p>Trim audio files.</p>
-    <a class="btn" href="/tools/audio-trimmer.html">Open Tool</a>
+    <a class="btn" href="tools/audio-trimmer.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Age Calculator</h2>
-    <p>Calculate your age instantly.</p>
-    <a class="btn" href="/tools/age-calculator.html">Open Tool</a>
+    <p>Calculate your age.</p>
+    <a class="btn" href="tools/age-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>EMI Calculator</h2>
     <p>Loan EMI calculation.</p>
-    <a class="btn" href="/tools/emi-calculator.html">Open Tool</a>
+    <a class="btn" href="tools/emi-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>SIP Calculator</h2>
     <p>Investment calculator.</p>
-    <a class="btn" href="/tools/sip-calculator.html">Open Tool</a>
+    <a class="btn" href="tools/sip-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>QR Code Generator</h2>
-    <p>Create QR codes instantly.</p>
-    <a class="btn" href="/tools/qr-generator.html">Open Tool</a>
+    <p>Generate QR codes.</p>
+    <a class="btn" href="tools/qr-code-generator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Password Generator</h2>
-    <p>Generate secure passwords.</p>
-    <a class="btn" href="/tools/password-generator.html">Open Tool</a>
+    <p>Create strong passwords.</p>
+    <a class="btn" href="tools/password-generator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Word Counter</h2>
-    <p>Count words and characters.</p>
-    <a class="btn" href="/tools/word-counter.html">Open Tool</a>
+    <p>Count words & characters.</p>
+    <a class="btn" href="tools/word-counter.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>Base64 Encoder / Decoder</h2>
+    <h2>Base64 Encoder/Decoder</h2>
     <p>Encode or decode text.</p>
-    <a class="btn" href="/tools/base64-tool.html">Open Tool</a>
+    <a class="btn" href="tools/base64-encoder-decoder.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>Color Picker</h2>
-    <p>Pick and copy colors.</p>
-    <a class="btn" href="/tools/color-picker.html">Open Tool</a>
+    <h2>Color Picker Tool</h2>
+    <p>Pick HEX / RGB colors.</p>
+    <a class="btn" href="tools/color-picker.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Text to Speech</h2>
-    <p>Convert text into voice.</p>
-    <a class="btn" href="/tools/text-to-speech.html">Open Tool</a>
+    <p>Convert text to voice.</p>
+    <a class="btn" href="tools/text-to-speech.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Speech to Text</h2>
     <p>Convert voice to text.</p>
-    <a class="btn" href="/tools/speech-to-text.html">Open Tool</a>
+    <a class="btn" href="tools/speech-to-text.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>JSON Formatter</h2>
-    <p>Format and validate JSON.</p>
-    <a class="btn" href="/tools/json-formatter.html">Open Tool</a>
+    <p>Beautify JSON data.</p>
+    <a class="btn" href="tools/json-formatter.html">Open Tool</a>
   </div>
-
-  <div class="tool-card">
-    <h2>Unit Converter</h2>
-    <p>Convert units easily.</p>
-    <a class="btn" href="/tools/unit-converter.html">Open Tool</a>
-  </div>
-
-  <div class="tools-grid">
 
   <div class="tool-card">
     <h2>Unit Converter</h2>
     <p>Convert length, weight, temperature & more.</p>
-    <a class="btn" href="/tools/unit-converter.html">Open Tool</a>
+    <a class="btn" href="tools/unit-converter.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>BMI Calculator</h2>
     <p>Calculate Body Mass Index.</p>
-    <a class="btn" href="/tools/bmi-calculator.html">Open Tool</a>
+    <a class="btn" href="tools/bmi-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
     <h2>Timer / Stopwatch</h2>
     <p>Countdown & stopwatch with sound.</p>
-    <a class="btn" href="/tools/timer-stopwatch.html">Open Tool</a>
+    <a class="btn" href="tools/timer-stopwatch.html">Open Tool</a>
   </div>
 
+</div>
 </div>
 
 <footer>
 <p>© 2026 SG Multi Tools. All rights reserved.</p>
 <p>
-<a href="/privacy-policy.html">Privacy</a> |
+<a href="/privacy-policy.html">Privacy Policy</a> |
 <a href="/disclaimer.html">Disclaimer</a> |
 <a href="/terms-and-conditions.html">Terms</a>
 </p>
 </footer>
-
-<script>
-const tools = [
-["Image Converter","Convert image formats"],
-["Image Compressor","Reduce image size"],
-["Image Cropper","Crop images online"],
-["Audio Trimmer","Trim audio files"],
-["Age Calculator","Calculate your age"],
-["EMI Calculator","Loan EMI calculator"],
-["SIP Calculator","Investment calculator"],
-["QR Code Generator","Generate QR codes"],
-["Password Generator","Create strong passwords"],
-["Word Counter","Count words & characters"],
-["Base64 Encoder/Decoder","Encode or decode text"],
-["Color Picker Tool","Pick HEX / RGB colors"],
-["Text to Speech","Convert text to voice"],
-["Speech to Text","Convert voice to text"],
-["JSON Formatter","Beautify JSON"],
-["Unit Converter","Length, weight, temp etc"],
-["BMI Calculator","Check BMI"],
-["Timer / Stopwatch","Timer with sound"],
-["Percentage Calculator","Calculate percentage"],
-["Case Converter","Change text case"]
-];
-
-const grid=document.getElementById("toolsGrid");
-const modal=document.getElementById("modal");
-const modalTitle=document.getElementById("modalTitle");
-const modalBody=document.getElementById("modalBody");
-
-tools.forEach(t=>{
-const card=document.createElement("div");
-card.className="tool-card";
-card.innerHTML=`<h3>${t[0]}</h3><p>${t[1]}</p>`;
-const btn=document.createElement("button");
-btn.className="btn";
-btn.textContent="Open Tool";
-btn.onclick=()=>{
-modalTitle.innerText=t[0];
-modalBody.innerHTML=`<div class="tool-ui"><p><strong>${t[0]}</strong></p><p>This tool will open in full professional mode.</p></div>`;
-modal.style.display="flex";
-};
-card.appendChild(btn);
-grid.appendChild(card);
-});
-
-function closeModal(){modal.style.display="none";}
-</script>
 
 </body>
 </html>
