@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Percentage Calculator | SG Multi Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{background:#0d0f14;color:#fff;font-family:Arial;padding:20px}
+.box{max-width:420px;margin:auto;background:#12151a;padding:25px;border-radius:12px}
+input,button{width:100%;padding:12px;margin-top:10px;border-radius:6px;border:none}
+input{background:#0b0e14;color:#fff}
+button{background:#42f8f5;color:#000;font-weight:bold;cursor:pointer}
+.result{margin-top:15px;color:#42f8f5;font-size:1.1rem}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>Percentage Calculator</h2>
+<input type="number" id="value" placeholder="Value">
+<input type="number" id="percent" placeholder="Percentage (%)">
+<button onclick="calc()">Calculate</button>
+<div class="result" id="result"></div>
+</div>
+
+<script>
+function calc(){
+const v=+value.value,p=+percent.value;
+if(!v||!p){result.innerText="Enter valid numbers";return;}
+result.innerText=`Result: ${(v*p/100).toFixed(2)}`;
+}
+</script>
+
+</body>
+</html>
