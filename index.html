@@ -254,67 +254,68 @@ footer p a i:hover {
 </footer>
 
 <script>
-/* ================= IMAGE COMPRESSOR LOGIC ================= */
-window.compressImage = function () {
-    const input = document.getElementById("imgInput");
-    const quality = document.getElementById("quality").value;
+const tools = [
+  {
+    name: "Image Converter",
+    desc: "Convert images to JPG, PNG, WEBP.",
+    html: `
+      <p>Convert images between formats.</p>
+    `
+  },
 
-    if (!input || !input.files || !input.files.length) {
-        alert("Please select an image first");
-        return;
-    }
+  {
+    name: "Image Compressor",
+    desc: "Reduce image file size.",
+    html: `
+      <input type="file" id="imgInput" accept="image/*"><br><br>
 
-    const file = input.files[0];
-    const reader = new FileReader();
-    const img = new Image();
+      <label>Quality (0.1 – 1.0):</label><br>
+      <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7">
+      <span id="qVal">0.7</span><br><br>
 
-    reader.onload = function (e) {
-        img.src = e.target.result;
-    };
+      <button class="btn" onclick="compressImage()">Compress</button><br><br>
 
-    img.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
+      <a id="downloadLink" style="display:none;color:#42f8f5;">
+        Download Compressed Image
+      </a>
+    `
+  },
 
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
+  {
+    name: "Image Cropper",
+    desc: "Crop images online.",
+    html: `
+      <p>Crop images easily.</p>
+    `
+  },
 
-        canvas.toBlob(function (blob) {
-            const link = document.getElementById("downloadLink");
-            link.href = URL.createObjectURL(blob);
-            link.download = "compressed-image.jpg";
-            link.style.display = "inline";
-            link.textContent = "Download Compressed Image";
-        }, "image/jpeg", quality);
-    };
+  {
+    name: "Video Converter",
+    desc: "Convert video formats.",
+    html: `
+      <p>Coming soon.</p>
+    `
+  },
 
-    reader.readAsDataURL(file);
-};
+  {
+    name: "Audio Converter",
+    desc: "Convert audio formats.",
+    html: `
+      <p>Coming soon.</p>
+    `
+  },
 
-/* ================= QUALITY SLIDER ================= */
-document.addEventListener("input", function (e) {
-    if (e.target && e.target.id === "quality") {
-        document.getElementById("qVal").innerText = e.target.value;
-    }
-});
+  {
+    name: "Audio Trimmer",
+    desc: "Trim audio files.",
+    html: `
+      <p>Coming soon.</p>
+    `
+  }
+];
 </script>
 
-    const tools = [
-        {name:"Image Converter",desc:"Convert images to JPG, PNG, WEBP.",html:"<p>Convert images between formats.</p>"},
-        {name:"Image Compressor",desc:{
-  name: "Image Compressor",
-  desc: "Reduce image file size.",
-  html: `
-    <input type="file" id="imgInput" accept="image/*"><br><br>
-    <label>Quality (0.1 – 1.0):</label>
-    <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7">
-    <span id="qVal">0.7</span><br><br>
-    <button class="btn" onclick="compressImage()">Compress</button>
-    <br><br>
-    <a id="downloadLink" style="display:none;color:#42f8f5;">Download Compressed Image</a>
-  `
-},
+  
 
         {name:"Image Cropper",desc:"Crop images online.",html:"<p>Crop images easily.</p>"},
         {name:"Video Converter",desc:"Convert video formats.",html:"<p>Coming soon.</p>"},
@@ -362,10 +363,114 @@ document.addEventListener("input", function (e) {
 
     window.closeModal = () => modal.style.display = "none";
 });
+<script>
+/* ================= IMAGE COMPRESSOR ================= */
+window.compressImage = function () {
+  const input = document.getElementById("imgInput");
+  const quality = document.getElementById("quality").value;
+
+  if (!input || !input.files.length) {
+    alert("Please select an image first");
+    return;
+  }
+
+  const file = input.files[0];
+  const reader = new FileReader();
+  const img = new Image();
+
+  reader.onload = e => img.src = e.target.result;
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    canvas.getContext("2d").drawImage(img, 0, 0);
+
+    canvas.toBlob(blob => {
+      const link = document.getElementById("downloadLink");
+      link.href = URL.createObjectURL(blob);
+      link.download = "compressed-image.jpg";
+      link.style.display = "inline";
+    }, "image/jpeg", quality);
+  };
+
+  reader.readAsDataURL(file);
+};
+
+document.addEventListener("input", e => {
+  if (e.target.id === "quality") {
+    document.getElementById("qVal").innerText = e.target.value;
+  }
+});
+
+/* ================= TOOLS LIST (ONLY ONE) ================= */
+const tools = [
+  {
+    name: "Image Converter",
+    desc: "Convert images to JPG, PNG, WEBP.",
+    html: "<p>Coming soon.</p>"
+  },
+  {
+    name: "Image Compressor",
+    desc: "Reduce image file size.",
+    html: `
+      <input type="file" id="imgInput" accept="image/*"><br><br>
+      <label>Quality (0.1 – 1.0)</label><br>
+      <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7">
+      <span id="qVal">0.7</span><br><br>
+      <button class="btn" onclick="compressImage()">Compress</button><br><br>
+      <a id="downloadLink" style="display:none;color:#42f8f5;">Download Compressed Image</a>
+    `
+  },
+  {
+    name: "Image Cropper",
+    desc: "Crop images online.",
+    html: "<p>Coming soon.</p>"
+  },
+  {
+    name: "Video Converter",
+    desc: "Convert video formats.",
+    html: "<p>Coming soon.</p>"
+  },
+  {
+    name: "Audio Converter",
+    desc: "Convert audio formats.",
+    html: "<p>Coming soon.</p>"
+  },
+  {
+    name: "Audio Trimmer",
+    desc: "Trim audio files.",
+    html: "<p>Coming soon.</p>"
+  }
+];
+
+/* ================= RENDER ================= */
+const grid = document.getElementById("toolsGrid");
+const modal = document.getElementById("modal");
+const modalTitle = document.getElementById("modalTitle");
+const modalBody = document.getElementById("modalBody");
+
+tools.forEach(tool => {
+  const card = document.createElement("div");
+  card.className = "tool-card";
+  card.innerHTML = `<h2>${tool.name}</h2><p>${tool.desc}</p>`;
+
+  const btn = document.createElement("button");
+  btn.className = "btn";
+  btn.textContent = "Open Tool";
+  btn.onclick = () => {
+    modalTitle.innerText = tool.name;
+    modalBody.innerHTML = tool.html;
+    modal.style.display = "flex";
+  };
+
+  card.appendChild(btn);
+  grid.appendChild(card);
+});
+
+window.closeModal = () => modal.style.display = "none";
 </script>
-
-
-
-
+     
 </body>
 </html>
