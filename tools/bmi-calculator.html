@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator | SG Multi Tools</title>
+<link rel="icon" href="../favicon.ico">
+<style>
+:root {
+    --bg:#0d0f14;
+    --card:#12151a;
+    --accent:#42f8f5;
+    --text:#ffffff;
+    --muted:#b6c3d1;
+    --radius:12px;
+}
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:Segoe UI,Arial,sans-serif;
+    margin:0;
+    padding:0;
+}
+.container{
+    max-width:600px;
+    margin:50px auto;
+    background:var(--card);
+    padding:30px;
+    border-radius:var(--radius);
+    border:1px solid var(--accent);
+    box-shadow:0 0 15px rgba(66,248,245,.3);
+}
+h1{text-align:center;color:var(--accent);}
+label{display:block;margin-top:20px;margin-bottom:6px;}
+input, select{width:100%;padding:10px;border-radius:6px;border:1px solid #2a303c;background:#0b0e14;color:#fff;}
+button{
+    margin-top:20px;
+    padding:12px;
+    width:100%;
+    background:var(--accent);
+    color:#000;
+    font-weight:700;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+button:hover{background:#00f5d4;}
+.result{
+    margin-top:25px;
+    padding:15px;
+    border-radius:8px;
+    background:#0f131a;
+    border:1px solid var(--accent);
+    text-align:center;
+    font-size:1.1rem;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>BMI Calculator</h1>
+
+<label for="weight">Weight (kg):</label>
+<input type="number" id="weight" placeholder="Enter your weight in kg">
+
+<label for="height">Height (cm):</label>
+<input type="number" id="height" placeholder="Enter your height in cm">
+
+<button onclick="calculateBMI()">Calculate BMI</button>
+
+<div class="result" id="result">Your BMI will appear here</div>
+</div>
+
+<script>
+function calculateBMI() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    const heightCm = parseFloat(document.getElementById('height').value);
+
+    if (!weight || !heightCm) {
+        alert('Please enter valid weight and height');
+        return;
+    }
+
+    const heightM = heightCm / 100;
+    const bmi = weight / (heightM * heightM);
+    let category = '';
+
+    if (bmi < 18.5) category = 'Underweight';
+    else if (bmi < 24.9) category = 'Normal weight';
+    else if (bmi < 29.9) category = 'Overweight';
+    else category = 'Obese';
+
+    document.getElementById('result').innerHTML = `BMI: ${bmi.toFixed(2)} <br> Category: ${category}`;
+}
+</script>
+
+</body>
+</html>
