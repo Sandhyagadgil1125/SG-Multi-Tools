@@ -258,31 +258,29 @@ footer p a i:hover {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* ===================== TOOLS LIST (ALL 20) ===================== */
     const tools = [
         {name:"Image Converter",desc:"Convert images to JPG, PNG, WEBP.",html:"<p>Convert images between formats.</p>"},
         {name:"Image Compressor",desc:"Reduce image file size.",html:"<p>Compress images without quality loss.</p>"},
-        {name:"Image Cropper",desc:"Crop images online.",html:"<p>Crop images easily (frontend crop placeholder).</p>"},
-        {name:"Video Converter",desc:"Convert video formats.",html:"<p>Video conversion requires server-side processing. Coming soon.</p>"},
-        {name:"Audio Converter",desc:"Convert audio formats.",html:"<p>Audio conversion feature coming soon.</p>"},
-        {name:"Audio Trimmer",desc:"Trim audio files.",html:"<p>Frontend audio trimming preview tool.</p>"},
-        {name:"Age Calculator",desc:"Calculate age from date of birth.",html:"<p>Enter DOB to calculate age.</p>"},
-        {name:"EMI Calculator",desc:"Loan EMI calculation.",html:"<p>Calculate monthly EMI accurately.</p>"},
-        {name:"SIP Calculator",desc:"Investment return calculator.",html:"<p>Calculate SIP maturity value.</p>"},
-        {name:"QR Code Generator",desc:"Generate QR codes.",html:"<p>Create QR codes instantly.</p>"},
-        {name:"Password Generator",desc:"Generate strong passwords.",html:"<p>Create secure random passwords.</p>"},
-        {name:"Word Counter",desc:"Count words and characters.",html:"<p>Live word & character counter.</p>"},
-        {name:"Base64 Encoder/Decoder",desc:"Encode or decode Base64.",html:"<p>Convert text to/from Base64.</p>"},
-        {name:"Color Picker Tool",desc:"Pick HEX & RGB colors.",html:"<p>Select and copy color codes.</p>"},
-        {name:"Text to Speech",desc:"Convert text into speech.",html:"<p>Listen to your text.</p>"},
-        {name:"Speech to Text",desc:"Convert voice to text.",html:"<p>Speech recognition tool.</p>"},
-        {name:"JSON Formatter",desc:"Beautify JSON code.",html:"<p>Format messy JSON.</p>"},
-        {name:"Unit Converter",desc:"Convert units.",html:"<p>Length, weight, temperature converter.</p>"},
-        {name:"BMI Calculator",desc:"Body Mass Index tool.",html:"<p>Calculate BMI easily.</p>"},
-        {name:"Timer / Stopwatch",desc:"Countdown & stopwatch.",html:"<p>Simple timer & stopwatch.</p>"}
+        {name:"Image Cropper",desc:"Crop images online.",html:"<p>Crop images easily.</p>"},
+        {name:"Video Converter",desc:"Convert video formats.",html:"<p>Coming soon.</p>"},
+        {name:"Audio Converter",desc:"Convert audio formats.",html:"<p>Coming soon.</p>"},
+        {name:"Audio Trimmer",desc:"Trim audio files.",html:"<p>Preview trimming.</p>"},
+        {name:"Age Calculator",desc:"Calculate age.",html:"<p>Age calculator tool.</p>"},
+        {name:"EMI Calculator",desc:"Loan EMI calculation.",html:"<p>EMI calculator.</p>"},
+        {name:"SIP Calculator",desc:"Investment calculator.",html:"<p>SIP calculator.</p>"},
+        {name:"QR Code Generator",desc:"Generate QR codes.",html:"<p>QR generator.</p>"},
+        {name:"Password Generator",desc:"Generate passwords.",html:"<p>Password generator.</p>"},
+        {name:"Word Counter",desc:"Count words.",html:"<p>Word counter.</p>"},
+        {name:"Base64 Encoder/Decoder",desc:"Encode or decode.",html:"<p>Base64 tool.</p>"},
+        {name:"Color Picker Tool",desc:"Pick colors.",html:"<p>Color picker.</p>"},
+        {name:"Text to Speech",desc:"Convert text.",html:"<p>TTS tool.</p>"},
+        {name:"Speech to Text",desc:"Convert speech.",html:"<p>STT tool.</p>"},
+        {name:"JSON Formatter",desc:"Format JSON.",html:"<p>JSON formatter.</p>"},
+        {name:"Unit Converter",desc:"Convert units.",html:"<p>Unit converter.</p>"},
+        {name:"BMI Calculator",desc:"Calculate BMI.",html:"<p>BMI calculator.</p>"},
+        {name:"Timer / Stopwatch",desc:"Timer tool.",html:"<p>Timer & stopwatch.</p>"}
     ];
 
-    /* ===================== RENDER TOOLS ===================== */
     const grid = document.getElementById("toolsGrid");
     if (!grid) return;
 
@@ -297,19 +295,20 @@ document.addEventListener("DOMContentLoaded", function () {
         grid.appendChild(card);
     });
 
-    /* ===================== MODAL CONTROL ===================== */
-    window.openTool = function(index){
+    // 🔥 MAKE FUNCTIONS GLOBAL (THIS FIXES EVERYTHING)
+    window.openTool = function(index) {
         document.getElementById("modalTitle").innerText = tools[index].name;
         document.getElementById("modalBody").innerHTML = tools[index].html;
         document.getElementById("modal").style.display = "flex";
     };
 
-    window.closeModal = function(){
+    window.closeModal = function() {
         document.getElementById("modal").style.display = "none";
     };
 
 });
 </script>
+
 
 
 
