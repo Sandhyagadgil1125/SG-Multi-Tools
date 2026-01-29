@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text to Speech | SG Multi Tools</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231c222d' stroke='%2342f8f5' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='900' font-size='26' fill='%2342f8f5'%3ESG%3C/text%3E%3C/svg%3E'>
 
+<style>
+:root{
+  --bg:#0d0f14;
+  --card:#12151a;
+  --accent:#42f8f5;
+  --text:#fff;
+  --muted:#b6c3d1;
+  --radius:12px;
+}
+
+body{background:var(--bg);color:var(--text);font-family:Segoe UI,Arial,sans-serif;margin:0;padding:0;}
+.container{max-width:700px;margin:50px auto;padding:25px;background:var(--card);border-radius:var(--radius);border:1px solid #2a303c;}
+h1{text-align:center;margin-bottom:25px;color:var(--accent);}
+label{display:block;margin:12px 0 6px;color:var(--muted);}
+textarea,input,select{width:100%;padding:10px;margin-bottom:12px;border-radius:6px;border:1px solid #2a303c;background:#0b0e14;color:#fff;font-size:1rem;}
+button{padding:12px 18px;background:var(--accent);border:none;color:#000;font-weight:700;border-radius:8px;cursor:pointer;}
+button:hover{background:#00F5D4;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Text to Speech</h1>
+
+<label for="text">Enter Text:</label>
+<textarea id="text" rows="6" placeholder="Type or paste text here..."></textarea>
+
+<label for="voice">Select Voice:</label>
+<select id="voice"></select>
+
+<label for="rate">Rate:</label>
+<input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
+<span id="rateVal">1</span>
+
+<label for="pitch">Pitch:</label>
+<input type="range" id="pitch" min="0" max="2" step="0.1" value="1">
+<span id="pitchVal">1</span>
+
+<button id="speakBtn">Speak</button>
+</div>
+
+<script>
+const synth = window.speechSynthesis;
+const textEl = document.getElementById("text");
+const voiceSelect = document.getElementById("voice");
+const rate = document.getElementById("rate");
+const rateVal = document.getElementById("rateVal");
+const pitch = document.getElementById("pitch");
+const pitchVal = document.getElementById("pitchVal");
+const speakBtn = document.getElementById("speakBtn");
+
+let voices = [];
+
+function populateVoices(){
+    voices = synth.getVoices();
+    voiceSelect.innerHTML = "";
+    voices.forEach((v,i)=>{
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = `${v.name} (${v.lang})${v.default?' - Default':''}`;
+        voiceSelect.appendChild(option);
+    });
+}
+
+populateVoices();
+if(speechSynthesis.onvoiceschanged !== undefined){
+    speechSynthesis.onvoiceschanged = populateVoices;
+}
+
+rate.addEventListener("input",()=>{rateVal.textContent = rate.value;});
+pitch.addEventListener("input",()=>{pitchVal.textContent = pitch.value;});
+
+speakBtn.addEventListener("click",()=>{
+    const text = textEl.value.trim();
+    if(text === ""){alert("Please enter text!"); return;}
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.voice = voices[voiceSelect.value];
+    utter.rate = rate.value;
+    utter.pitch = pitch.value;
+    synth.speak(utter);
+});
+</script>
+
+</body>
+</html>
