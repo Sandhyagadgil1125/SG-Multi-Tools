@@ -253,10 +253,8 @@ footer p a i:hover {
     </p>
 </footer>
 
-</footer>
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     const tools = [
         {name:"Image Converter",desc:"Convert images to JPG, PNG, WEBP.",html:"<p>Convert images between formats.</p>"},
@@ -282,30 +280,30 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     const grid = document.getElementById("toolsGrid");
-    if (!grid) return;
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
 
     tools.forEach((tool, index) => {
         const card = document.createElement("div");
         card.className = "tool-card";
-        card.innerHTML = `
-            <h2>${tool.name}</h2>
-            <p>${tool.desc}</p>
-            <button class="btn" onclick="openTool(${index})">Open Tool</button>
-        `;
+
+        const btn = document.createElement("button");
+        btn.className = "btn";
+        btn.textContent = "Open Tool";
+
+        btn.addEventListener("click", () => {
+            modalTitle.textContent = tool.name;
+            modalBody.innerHTML = tool.html;
+            modal.style.display = "flex";
+        });
+
+        card.innerHTML = `<h2>${tool.name}</h2><p>${tool.desc}</p>`;
+        card.appendChild(btn);
         grid.appendChild(card);
     });
 
-    // 🔥 MAKE FUNCTIONS GLOBAL (THIS FIXES EVERYTHING)
-    window.openTool = function(index) {
-        document.getElementById("modalTitle").innerText = tools[index].name;
-        document.getElementById("modalBody").innerHTML = tools[index].html;
-        document.getElementById("modal").style.display = "flex";
-    };
-
-    window.closeModal = function() {
-        document.getElementById("modal").style.display = "none";
-    };
-
+    window.closeModal = () => modal.style.display = "none";
 });
 </script>
 
