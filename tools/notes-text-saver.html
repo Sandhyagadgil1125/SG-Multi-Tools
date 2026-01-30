@@ -5,25 +5,22 @@
 <title>Notes Saver | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0d0f14;color:#fff;font-family:Arial;padding:20px}
-.box{max-width:600px;margin:auto;background:#12151a;padding:25px;border-radius:12px}
-textarea{width:100%;height:250px;padding:15px;border-radius:8px;border:none;background:#0b0e14;color:#fff}
-small{color:#42f8f5}
+body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
+.box{max-width:500px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
+textarea,button{width:100%;padding:10px;margin:8px 0}
+button{background:#22c55e;border:none;font-weight:bold}
 </style>
 </head>
 <body>
-
 <div class="box">
-<h2>Notes / Text Saver</h2>
-<textarea id="notes" placeholder="Write notes here..."></textarea>
-<small>Auto-saved in your browser</small>
+<h2>Notes Text Saver</h2>
+<textarea id="note" rows="6" placeholder="Write your notes here..."></textarea>
+<button onclick="saveNote()">Save</button>
+<button onclick="loadNote()">Load</button>
 </div>
-
 <script>
-const notes=document.getElementById("notes");
-notes.value=localStorage.getItem("sg_notes")||"";
-notes.oninput=()=>localStorage.setItem("sg_notes",notes.value);
+function saveNote(){localStorage.setItem('note',note.value)}
+function loadNote(){note.value=localStorage.getItem('note')||''}
 </script>
-
 </body>
 </html>
