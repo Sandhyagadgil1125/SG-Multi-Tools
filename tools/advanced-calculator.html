@@ -2,82 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <title>advanced Calculator | SG Multi Tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Calculator | SG Multi Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0d0f14;color:#fff;font-family:Segoe UI;text-align:center}
-.calc{max-width:320px;margin:60px auto;background:#12151a;padding:20px;border-radius:12px}
-input{width:100%;padding:12px;font-size:18px;margin-bottom:10px;background:#0b0e14;color:#fff;border:1px solid #2a303c}
-button{width:23%;margin:1%;padding:12px;font-size:16px;background:#42f8f5;border:none;border-radius:6px;cursor:pointer}
+body{background:#0f172a;color:#fff;font-family:Arial;text-align:center}
+.calc{width:260px;margin:40px auto;background:#1e293b;padding:15px;border-radius:10px}
+input{width:100%;height:50px;font-size:20px;text-align:right}
+button{width:23%;height:45px;margin:2px;font-size:18px}
 </style>
 </head>
 <body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Percentage Calculator | SG Multi Tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- COMMON TOOL STYLES -->
-  <link rel="stylesheet" href="../assets/tool-ui.css">
-</head>
-
-<body>
-
-  <!-- TOOL UI START -->
-  <div class="tool-wrapper">
-    <h1>advanced Calculator</h1>
-
-    <label>Value</label>
-    <input type="number" id="value">
-
-    <label>advanced (%)</label>
-    <input type="number" id="percent">
-
-    <button onclick="calculate()">Calculate</button>
-
-    <div class="result" id="output"></div>
-
-    <a class="back-link" href="../index.html">← Back to Home</a>
-  </div>
-  <!-- TOOL UI END -->
-
-  <script>
-    function calculate(){
-      const v = document.getElementById("value").value;
-      const p = document.getElementById("percent").value;
-      document.getElementById("output").innerText =
-        (v * p / 100).toFixed(2);
-    }
-  </script>
-
-</body>
-</html>
-
-<h2>Advanced Calculator</h2>
-
 <div class="calc">
 <input id="display" disabled>
-<div>
-<button onclick="add('7')">7</button><button onclick="add('8')">8</button>
-<button onclick="add('9')">9</button><button onclick="add('/')">÷</button>
-<button onclick="add('4')">4</button><button onclick="add('5')">5</button>
-<button onclick="add('6')">6</button><button onclick="add('*')">×</button>
-<button onclick="add('1')">1</button><button onclick="add('2')">2</button>
-<button onclick="add('3')">3</button><button onclick="add('-')">−</button>
-<button onclick="add('0')">0</button><button onclick="add('.')">.</button>
-<button onclick="calc()">=</button><button onclick="add('+')">+</button>
-<button onclick="clearAll()" style="width:98%">Clear</button>
+<br>
+<button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button onclick="add('/')">÷</button>
+<button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button onclick="add('*')">×</button>
+<button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button onclick="add('-')">−</button>
+<button onclick="add('0')">0</button><button onclick="add('.')">.</button><button onclick="calc()">=</button><button onclick="add('+')">+</button>
+<button onclick="clr()" style="width:100%">Clear</button>
 </div>
-</div>
-
 <script>
-let d=document.getElementById("display");
+let d=document.getElementById('display');
 function add(v){d.value+=v}
-function clearAll(){d.value=""}
-function calc(){try{d.value=eval(d.value)}catch{d.value="Error"}}
+function calc(){d.value=eval(d.value)}
+function clr(){d.value=''}
 </script>
-
 </body>
 </html>
