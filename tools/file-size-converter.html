@@ -5,37 +5,23 @@
 <title>File Size Converter | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0d0f14;color:#fff;font-family:Segoe UI;text-align:center}
-.box{max-width:400px;margin:60px auto;background:#12151a;padding:25px;border-radius:12px}
-input,select{width:100%;padding:10px;margin:10px 0;background:#0b0e14;color:#fff;border:1px solid #2a303c}
-button{padding:10px;width:100%;background:#42f8f5;border:none;border-radius:6px;font-weight:700}
+body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
+.box{max-width:420px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
+input,select,button{width:100%;padding:10px;margin:8px 0}
+button{background:#22d3ee;border:none;font-weight:bold}
 </style>
 </head>
 <body>
-
-<h2>File Size Converter</h2>
-
 <div class="box">
-<input type="number" id="value" placeholder="Enter value">
-<select id="from">
-<option>Bytes</option><option>KB</option><option>MB</option><option>GB</option>
-</select>
-<select id="to">
-<option>Bytes</option><option>KB</option><option>MB</option><option>GB</option>
-</select>
-<button onclick="convert()">Convert</button>
-<h3 id="result"></h3>
+<h2>File Size Converter</h2>
+<input id="size" placeholder="Size">
+<select id="from"><option value="1">Bytes</option><option value="1024">KB</option><option value="1048576">MB</option></select>
+<select id="to"><option value="1">Bytes</option><option value="1024">KB</option><option value="1048576">MB</option></select>
+<button onclick="fs()">Convert</button>
+<p id="r"></p>
 </div>
-
 <script>
-const m={Bytes:1,KB:1024,MB:1048576,GB:1073741824};
-function convert(){
-let v=document.getElementById("value").value;
-let f=document.getElementById("from").value;
-let t=document.getElementById("to").value;
-document.getElementById("result").innerText=(v*m[f]/m[t]).toFixed(4)+" "+t;
-}
+function fs(){r.innerText='Result: '+(size.value*from.value/to.value).toFixed(2)}
 </script>
-
 </body>
 </html>
