@@ -1,28 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Stopwatch | SG Multi Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
-.box{max-width:400px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
-button{padding:10px 20px;margin:5px;font-weight:bold}
+.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
+.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
+.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
+button{width:48%;padding:10px;margin:6px 1%;border:none;border-radius:6px;font-weight:bold;cursor:pointer}
+#start{background:#22c55e;color:#000}
+#stop{background:#f87171;color:#000}
+#reset{background:#38bdf8;color:#000}
+.display{font-size:32px;margin:20px 0}
 </style>
 </head>
 <body>
-<div class="box">
-<h2>Stopwatch</h2>
-<h1 id="time">0.0</h1>
-<button onclick="start()">Start</button>
-<button onclick="stop()">Stop</button>
-<button onclick="reset()">Reset</button>
+<header>
+<h2><a href="index.html">SG Multi Tools</a></h2>
+</header>
+
+
+<div class="container">
+<div class="card">
+<span class="close" onclick="location.href='index.html'">✕</span>
+<h3>Stopwatch</h3>
+<div class="display" id="disp">00:00:00</div>
+<button id="start" onclick="startStopwatch()">Start</button>
+<button id="stop" onclick="stopStopwatch()">Stop</button>
+<button id="reset" onclick="resetStopwatch()">Reset</button>
 </div>
+</div>
+
+
+<footer>
+© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+
 <script>
-let t=0,i;
-function start(){if(!i)i=setInterval(()=>{t+=0.1;time.innerText=t.toFixed(1)},100)}
-function stop(){clearInterval(i);i=null}
-function reset(){stop();t=0;time.innerText='0.0'}
+let h=0,m=0,s=0,interval;
+function updateDisplay(){
+let hh=h<10?'0'+h:h;
+let mm=m<10?'0'+m:m;
+let ss=s<10?'0'+s:s;
+disp.innerText=hh+':'+mm+':'+ss;
+}
+function startStopwatch(){
+clearInterval(interval);
+interval=setInterval(()=>{
+s++;
+if(s>59){s=0;m++;}
+if(m>59){m=0;h++;}
+updateDisplay();
+},1000);
+}
+function stopStopwatch(){clearInterval(interval);}
+function resetStopwatch(){clearInterval(interval);h=0;m=0;s=0;updateDisplay();}
 </script>
 </body>
 </html>
