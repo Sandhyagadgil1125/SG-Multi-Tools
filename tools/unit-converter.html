@@ -9,7 +9,7 @@ body{margin:0;background:#0f172a;color:#fff;font-family:Arial}
 header,footer{background:#020617;padding:12px;text-align:center}
 header a{color:#22c55e;text-decoration:none;font-weight:bold}
 .container{min-height:100vh;display:flex;justify-content:center;align-items:center}
-.card{background:#1e293b;padding:25px;border-radius:14px;width:340px;position:relative}
+.card{background:#1e293b;padding:25px;border-radius:14px;width:360px;position:relative}
 .card h2{text-align:center;margin-top:0}
 select,input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
 button{background:#38bdf8;font-weight:bold}
@@ -26,18 +26,21 @@ button{background:#38bdf8;font-weight:bold}
 <h2>Unit Converter</h2>
 
 
-<select id="type" onchange="setUnits()">
+<select id="category" onchange="loadUnits()">
 <option value="length">Length</option>
 <option value="weight">Weight</option>
 <option value="temperature">Temperature</option>
+<option value="area">Area</option>
+<option value="volume">Volume</option>
+<option value="time">Time</option>
 </select>
 
 
-<input id="value" placeholder="Enter value" type="number">
-<select id="from"></select>
-<select id="to"></select>
+<input id="inputValue" type="number" placeholder="Enter value">
+<select id="fromUnit"></select>
+<select id="toUnit"></select>
 <button onclick="convert()">Convert</button>
-<p id="res"></p>
+<p id="result"></p>
 </div>
 </div>
 
@@ -46,18 +49,49 @@ button{background:#38bdf8;font-weight:bold}
 
 
 <script>
-const units={
-length:{Meter:1,Kilometer:1000,Centimeter:0.01},
-weight:{Gram:1,Kilogram:1000,Pound:453.592},
+const data={
+length:{Meter:1,Kilometer:1000,Centimeter:0.01,Millimeter:0.001,Mile:1609.34,Foot:0.3048,Inch:0.0254},
+weight:{Gram:1,Kilogram:1000,Milligram:0.001,Pound:453.592,Ounce:28.3495},
+area:{"Sq Meter":1,"Sq Kilometer":1e6,"Sq Foot":0.092903,"Acre":4046.86},
+volume:{Liter:1,Milliliter:0.001,"Cubic Meter":1000,Gallon:3.78541},
+time:{Second:1,Minute:60,Hour:3600,Day:86400}
 };
 
 
-function setUnits(){
-from.innerHTML=to.innerHTML='';
-let t=type.value;
-if(t==='temperature'){
-['Celsius','Fahrenheit'].forEach(u=>{from.add(new Option(u,u));to.add(new Option(u,u));});
+function loadUnits(){
+fromUnit.innerHTML=toUnit.innerHTML='';
+let cat=category.value;
+if(cat==='temperature'){
+ ['Celsius','Fahrenheit','Kelvin'].forEach(u=>{
+fromUnit.add(new Option(u,u));
+toUnit.add(new Option(u,u));});
 return;
 }
-for(let u in units[t]){from.add(new Option(u,u));to.add(new Option(u,u));}
+for(let u in data[cat]){
+fromUnit.add(new Option(u,u));
+toUnit.add(new Option(u,u));}
+}
+
+
+function convert(){
+let v=parseFloat(inputValue.value);
+if(isNaN(v)) return;
+let cat=category.value;
+if(cat==='temperature'){
+let f=fromUnit.value,t=toUnit.value,r=v;
+if(f==='Celsius'&&t==='Fahrenheit')r=v*9/5+32;
+else if(f==='Fahrenheit'&&t==='Celsius')r=(v-32)*5/9; 
+  else if(f==='Fahrenheit'&&t==='Celsius')r=(v-32)*5/9;
+else if(f==='Celsius'&&t==='Kelvin')r=v+273.15;
+else if(f==='Kelvin'&&t==='Celsius')r=v-273.15;
+else if(f==='Fahrenheit'&&t==='Kelvin')r=(v-32)*5/9+273.15;
+else if(f==='Kelvin'&&t==='Fahrenheit')r=(v-273.15)*9/5+32;
+result.innerText=r.toFixed(3);
+return;
+}
+result.innerText=(v*data[cat][fromUnit.value]/data[cat][toUnit.value]).toFixed(4);
+}
+loadUnits();
+</script>
+</body>
 </html>
