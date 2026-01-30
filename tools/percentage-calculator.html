@@ -2,134 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Percentage Calculator | SG Multi Tools</title>
-
-<link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="../tools-style.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{
-  background:#0d0f14;
-  color:#fff;
-  font-family:Segoe UI, Arial, sans-serif;
-  margin:0;
-}
-
-/* Top bar */
-.tool-topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 22px;
-  background:#1c222d;
-  border-bottom:1px solid #2a303c;
-}
-
-.tool-topbar h2{
-  margin:0;
-  font-size:1.2rem;
-  color:#42f8f5;
-}
-
-.close-btn{
-  font-size:22px;
-  color:#fff;
-  text-decoration:none;
-  cursor:pointer;
-}
-
-/* Card */
-.tool-wrapper{
-  max-width:480px;
-  margin:60px auto;
-  background:#12151a;
-  padding:28px;
-  border-radius:14px;
-  border:1px solid #2a303c;
-  box-shadow:0 0 25px rgba(66,248,245,.15);
-}
-
-.tool-wrapper h1{
-  text-align:center;
-  margin-bottom:22px;
-}
-
-label{
-  display:block;
-  margin:12px 0 6px;
-  color:#b6c3d1;
-}
-
-input{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #2a303c;
-  background:#0b0e14;
-  color:#fff;
-}
-
-button{
-  width:100%;
-  margin-top:18px;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#42f8f5;
-  color:#000;
-  font-weight:700;
-  cursor:pointer;
-}
-
-button:hover{
-  opacity:.85;
-}
-
-.result{
-  margin-top:18px;
-  text-align:center;
-  font-size:1.2rem;
-  color:#42f8f5;
-}
+body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
+.box{max-width:420px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
+input,button{width:100%;padding:10px;margin:8px 0}
+button{background:#f97316;border:none;font-weight:bold}
 </style>
 </head>
-
 <body>
-
-<!-- Top bar -->
-<div class="tool-topbar">
-  <h2>Percentage Calculator</h2>
-  <a class="close-btn" href="../index.html">✕</a>
+<div class="box">
+<h2>Percentage Calculator</h2>
+<input id="a" placeholder="Value">
+<input id="b" placeholder="Percentage %">
+<button onclick="calc()">Calculate</button>
+<p id="r"></p>
 </div>
-
-<!-- Tool card -->
-<div class="tool-wrapper">
-  <h1>Percentage Calculator</h1>
-
-  <label>Value</label>
-  <input type="number" id="value">
-
-  <label>Percentage (%)</label>
-  <input type="number" id="percent">
-
-  <button onclick="calculate()">Calculate</button>
-
-  <div class="result" id="output"></div>
-</div>
-
 <script>
-function calculate(){
-  const v = document.getElementById("value").value;
-  const p = document.getElementById("percent").value;
-  if(!v || !p){
-    document.getElementById("output").innerText = "Please enter values";
-    return;
-  }
-  document.getElementById("output").innerText =
-    (v * p / 100).toFixed(2);
-}
+function calc(){r.innerText='Result: '+(a.value*b.value/100)}
 </script>
-
 </body>
 </html>
