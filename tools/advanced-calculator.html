@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Advanced Calculator | SG Multi Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>advanced Calculator | SG Multi Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{background:#0d0f14;color:#fff;font-family:Segoe UI;text-align:center}
 .calc{max-width:320px;margin:60px auto;background:#12151a;padding:20px;border-radius:12px}
@@ -12,6 +12,48 @@ button{width:23%;margin:1%;padding:12px;font-size:16px;background:#42f8f5;border
 </style>
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Percentage Calculator | SG Multi Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- COMMON TOOL STYLES -->
+  <link rel="stylesheet" href="../assets/tool-ui.css">
+</head>
+
+<body>
+
+  <!-- TOOL UI START -->
+  <div class="tool-wrapper">
+    <h1>advanced Calculator</h1>
+
+    <label>Value</label>
+    <input type="number" id="value">
+
+    <label>advanced (%)</label>
+    <input type="number" id="percent">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="output"></div>
+
+    <a class="back-link" href="../index.html">← Back to Home</a>
+  </div>
+  <!-- TOOL UI END -->
+
+  <script>
+    function calculate(){
+      const v = document.getElementById("value").value;
+      const p = document.getElementById("percent").value;
+      document.getElementById("output").innerText =
+        (v * p / 100).toFixed(2);
+    }
+  </script>
+
+</body>
+</html>
 
 <h2>Advanced Calculator</h2>
 
