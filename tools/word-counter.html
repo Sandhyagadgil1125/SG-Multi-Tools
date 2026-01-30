@@ -5,22 +5,49 @@
 <title>Word Counter | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
-.box{max-width:500px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
-textarea{width:100%;padding:10px}
+body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
+header,footer{background:#020617;padding:12px}
+header a{color:#22c55e;text-decoration:none}
+footer{color:#94a3b8;font-size:14px}
+footer a{color:#38bdf8;text-decoration:none}
+.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
+.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
+.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
+textarea,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
+button{background:#facc15;color:#000;font-weight:bold;cursor:pointer}
+.result{margin-top:10px;font-weight:bold}
 </style>
 </head>
 <body>
-<div class="box">
-<h2>Word Counter</h2>
-<textarea id="txt" rows="6" oninput="count()"></textarea>
-<p id="res">Words: 0 | Characters: 0</p>
+<header>
+<h2><a href="index.html">SG Multi Tools</a></h2>
+</header>
+
+
+<div class="container">
+<div class="card">
+<span class="close" onclick="location.href='index.html'">✕</span>
+<h3>Word Counter</h3>
+<textarea id="text" rows="6" placeholder="Paste your text here..."></textarea>
+<button onclick="countWords()">Count Words & Characters</button>
+<div class="result" id="out"></div>
 </div>
+</div>
+
+
+<footer>
+© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+
 <script>
-function count(){
-let t=txt.value.trim();
-let w=t?t.split(/\s+/).length:0;
-res.innerText=`Words: ${w} | Characters: ${txt.value.length}`;
+function countWords(){
+const t=document.getElementById('text').value.trim();
+const out=document.getElementById('out');
+if(!t){out.innerText='No text entered';return;}
+const words=t.split(/\s+/).filter(w=>w.length>0).length;
+const chars=t.length;
+out.innerText='Words: '+words+' | Characters: '+chars;
 }
 </script>
 </body>
