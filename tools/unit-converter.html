@@ -2,203 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
-
-<meta name="description" content="Free professional unit converter for length, weight, temperature, area and volume. Powered by SG Multi Tools.">
-
-<link rel="icon" href="/favicon.ico">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-:root{
---bg:#0d0f14;
---card:#12151a;
---accent:#42f8f5;
---text:#fff;
---muted:#b6c3d1;
---radius:12px;
-}
-
-*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text)}
-
-nav{
-background:#1c222d;
-padding:16px 28px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid rgba(66,248,245,.2)
-}
-
-nav a{color:var(--muted);text-decoration:none;margin-left:18px}
-nav a:hover{color:var(--accent)}
-
-.container{
-max-width:720px;
-margin:auto;
-padding:40px 20px
-}
-
-.card{
-background:var(--card);
-border-radius:var(--radius);
-padding:28px;
-border:1px solid #2a303c
-}
-
-h1{text-align:center;margin-bottom:25px}
-h1 span{color:var(--accent)}
-
-label{display:block;margin:14px 0 6px}
-
-input, select{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid #2a303c;
-background:#0b0e14;
-color:#fff
-}
-
-.result{
-margin-top:20px;
-font-size:1.2rem;
-color:var(--accent);
-text-align:center
-}
-
-footer{
-text-align:center;
-padding:20px;
-color:var(--muted);
-font-size:.85rem
-}
+body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
+.card{max-width:420px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
+input,select,button{width:100%;padding:10px;margin:8px 0}
+button{background:#38bdf8;border:none;font-weight:bold}
 </style>
 </head>
-
 <body>
-
-<nav>
-<div><strong style="color:var(--accent)">SG</strong> Multi Tools</div>
-<div>
-<a href="/">Home</a>
-<a href="/#tools">Tools</a>
-</div>
-</nav>
-
-<div class="container">
 <div class="card">
-<h1>Unit <span>Converter</span></h1>
-
-<label>Category</label>
-<select id="category" onchange="updateUnits()">
-<option value="length">Length</option>
-<option value="weight">Weight</option>
-<option value="temperature">Temperature</option>
-<option value="area">Area</option>
-<option value="volume">Volume</option>
-</select>
-
-<label>Value</label>
-<input type="number" id="value" placeholder="Enter value" oninput="convert()">
-
-<label>From</label>
-<select id="fromUnit" onchange="convert()"></select>
-
-<label>To</label>
-<select id="toUnit" onchange="convert()"></select>
-
-<div class="result" id="result">Result will appear here</div>
+<h2>Length Converter</h2>
+<input id="v" placeholder="Value">
+<select id="u1"><option value="1">Meters</option><option value="1000">Kilometers</option></select>
+<select id="u2"><option value="1">Meters</option><option value="1000">Kilometers</option></select>
+<button onclick="conv()">Convert</button>
+<p id="o"></p>
 </div>
-</div>
-
-<footer>
-© 2026 SG Multi Tools
-</footer>
-
 <script>
-const units={
-length:{
-meter:1,
-kilometer:1000,
-centimeter:0.01,
-millimeter:0.001,
-mile:1609.34,
-foot:0.3048,
-inch:0.0254
-},
-weight:{
-kilogram:1,
-gram:0.001,
-pound:0.453592,
-ounce:0.0283495
-},
-temperature:{
-celsius:"c",
-fahrenheit:"f",
-kelvin:"k"
-},
-area:{
-"square meter":1,
-"square kilometer":1e6,
-"square foot":0.092903,
-"acre":4046.86
-},
-volume:{
-liter:1,
-milliliter:0.001,
-"cubic meter":1000,
-gallon:3.78541
-}
-};
-
-function updateUnits(){
-const cat=document.getElementById("category").value;
-const from=document.getElementById("fromUnit");
-const to=document.getElementById("toUnit");
-
-from.innerHTML="";
-to.innerHTML="";
-
-Object.keys(units[cat]).forEach(u=>{
-from.innerHTML+=`<option value="${u}">${u}</option>`;
-to.innerHTML+=`<option value="${u}">${u}</option>`;
-});
-
-convert();
-}
-
-function convert(){
-const cat=document.getElementById("category").value;
-const val=parseFloat(document.getElementById("value").value);
-const from=document.getElementById("fromUnit").value;
-const to=document.getElementById("toUnit").value;
-
-if(isNaN(val)){
-document.getElementById("result").innerText="Result will appear here";
-return;
-}
-
-let res;
-
-if(cat==="temperature"){
-if(from==="c" && to==="f") res=val*9/5+32;
-else if(from==="c" && to==="k") res=val+273.15;
-else if(from==="f" && to==="c") res=(val-32)*5/9;
-else if(from==="f" && to==="k") res=(val-32)*5/9+273.15;
-else if(from==="k" && to==="c") res=val-273.15;
-else if(from==="k" && to==="f") res=(val-273.15)*9/5+32;
-else res=val;
-}else{
-res=val*units[cat][from]/units[cat][to];
-}
-
-document.getElementById("result").innerText=`Result: ${res.toFixed(4)}`;
-}
-
-updateUnits();
+function conv(){o.innerText='Result: '+(v.value*u1.value/u2.value)}
 </script>
-
 </body>
 </html>
