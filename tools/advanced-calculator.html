@@ -2,30 +2,67 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Advanced Calculator | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Calculator | SG Multi Tools</title>
+
+
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center}
-.calc{width:260px;margin:40px auto;background:#1e293b;padding:15px;border-radius:10px}
-input{width:100%;height:50px;font-size:20px;text-align:right}
-button{width:23%;height:45px;margin:2px;font-size:18px}
+body{background:#0f172a;color:#fff;font-family:Arial;margin:0}
+header,footer{background:#020617;padding:12px;text-align:center}
+header a{color:#22c55e;text-decoration:none}
+footer{color:#94a3b8;font-size:14px}
+footer a{color:#38bdf8;text-decoration:none}
+
+
+.tool-box{
+position:relative;
+max-width:300px;
+margin:40px auto;
+background:#1e293b;
+padding:16px;
+border-radius:12px;
+}
+.close{
+position:absolute;
+top:8px;
+right:12px;
+cursor:pointer;
+font-size:18px;
+color:#94a3b8;
+}
+input{
+width:100%;
+height:45px;
+font-size:20px;
+margin-bottom:10px;
+text-align:right;
+}
+button{
+width:23%;
+height:45px;
+margin:2px;
+font-size:18px;
+cursor:pointer;
+}
 </style>
 </head>
+
+
 <body>
-<div class="calc">
+
+
+<header>
+<h2><a href="index.html">SG Multi Tools</a></h2>
+</header>
+
+
+<div class="tool-box">
+<span class="close" onclick="location.href='index.html'">✕</span>
+
+
 <input id="display" disabled>
-<br>
-<button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button><button onclick="add('/')">÷</button>
-<button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button><button onclick="add('*')">×</button>
-<button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button><button onclick="add('-')">−</button>
-<button onclick="add('0')">0</button><button onclick="add('.')">.</button><button onclick="calc()">=</button><button onclick="add('+')">+</button>
-<button onclick="clr()" style="width:100%">Clear</button>
-</div>
-<script>
-let d=document.getElementById('display');
-function add(v){d.value+=v}
-function calc(){d.value=eval(d.value)}
-function clr(){d.value=''}
-</script>
-</body>
+
+
+<div>
+<button onclick="clr()">C</button>
 </html>
