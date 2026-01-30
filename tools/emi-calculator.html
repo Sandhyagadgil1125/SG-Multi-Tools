@@ -5,28 +5,51 @@
 <title>EMI Calculator | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
-.wrap{max-width:400px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
-input,button{width:100%;padding:10px;margin:8px 0}
-button{background:#facc15;border:none;font-weight:bold}
+body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
+header,footer{background:#020617;padding:12px}
+header a{color:#22c55e;text-decoration:none}
+footer{color:#94a3b8;font-size:14px}
+footer a{color:#38bdf8;text-decoration:none}
+.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
+.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
+.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
+input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
+button{background:#facc15;color:#000;font-weight:bold;cursor:pointer}
+.result{margin-top:10px;font-weight:bold}
 </style>
 </head>
 <body>
-<div class="wrap">
-<h2>EMI Calculator</h2>
-<input id="p" placeholder="Loan Amount">
-<input id="r" placeholder="Interest %">
-<input id="t" placeholder="Years">
-<button onclick="emi()">Calculate</button>
-<p id="ans"></p>
+<header>
+<h2><a href="index.html">SG Multi Tools</a></h2>
+</header>
+
+
+<div class="container">
+<div class="card">
+<span class="close" onclick="location.href='index.html'">✕</span>
+<h3>EMI Calculator</h3>
+<input type="number" id="loan" placeholder="Loan Amount (₹)">
+<input type="number" id="interest" placeholder="Annual Interest Rate (%)">
+<input type="number" id="tenure" placeholder="Loan Tenure (Years)">
+<button onclick="calcEMI()">Calculate EMI</button>
+<div class="result" id="out"></div>
 </div>
+</div>
+
+
+<footer>
+© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+
 <script>
-function emi(){
-let P=+p.value;
-let R=+r.value/12/100;
-let N=+t.value*12;
-let E=(P*R*Math.pow(1+R,N))/(Math.pow(1+R,N)-1);
-ans.innerText='Monthly EMI: ₹'+E.toFixed(0);
+function calcEMI(){
+if(loan.value===''||interest.value===''||tenure.value===''){out.innerText='Please fill all fields';return;}
+const P=+loan.value;
+const r=+interest.value/12/100;
+const n=+tenure.value*12;
+const emi=(P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+out.innerText='Monthly EMI: ₹'+emi.toFixed(0);
 }
 </script>
 </body>
