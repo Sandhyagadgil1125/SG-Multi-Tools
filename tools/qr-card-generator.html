@@ -2,24 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QR Card Generator | SG Multi Tools</title>
+<title>QR Code Generator | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
-.card{max-width:420px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
-input,button{width:100%;padding:10px;margin:8px 0}
-button{background:#a78bfa;border:none;font-weight:bold}
+body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
+header,footer{background:#020617;padding:12px}
+header a{color:#22c55e;text-decoration:none}
+footer{color:#94a3b8;font-size:14px}
+footer a{color:#38bdf8;text-decoration:none}
+.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
+.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
+.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
+input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
+button{background:#a78bfa;color:#000;font-weight:bold;cursor:pointer}
+img{margin-top:12px;max-width:200px}
 </style>
 </head>
 <body>
+<header>
+<h2><a href="index.html">SG Multi Tools</a></h2>
+</header>
+
+
+<div class="container">
 <div class="card">
-<h2>QR Code Generator</h2>
+<span class="close" onclick="location.href='index.html'">✕</span>
+<h3>QR Code Generator</h3>
 <input id="text" placeholder="Enter text or URL">
-<button onclick="genQR()">Generate</button>
-<img id="qr" style="margin-top:10px">
+<button onclick="genQR()">Generate QR Code</button>
+<img id="qr" alt="QR Code will appear here">
 </div>
+</div>
+
+
+<footer>
+© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+
 <script>
-function genQR(){qr.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(text.value)}
+function genQR(){
+if(text.value===''){alert('Enter text or URL');return;}
+qr.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(text.value);
+}
 </script>
 </body>
 </html>
