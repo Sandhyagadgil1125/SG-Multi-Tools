@@ -5,27 +5,55 @@
 <title>Speech to Text | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center;padding:40px}
-.box{max-width:500px;margin:auto;background:#1e293b;padding:20px;border-radius:10px}
-button,textarea{width:100%;padding:10px;margin:8px 0}
-button{background:#22c55e;border:none;font-weight:bold}
+body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
+header,footer{background:#020617;padding:12px}
+header a{color:#22c55e;text-decoration:none}
+footer{color:#94a3b8;font-size:14px}
+footer a{color:#38bdf8;text-decoration:none}
+.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
+.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
+.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
+button,textarea{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
+button{background:#22c55e;color:#000;font-weight:bold;cursor:pointer}
+.result{margin-top:10px;font-weight:bold;word-break:break-word}
 </style>
 </head>
 <body>
-<div class="box">
-<h2>Speech to Text</h2>
-<button onclick="startRec()">🎤 Start Listening</button>
-<textarea id="out" rows="5" placeholder="Spoken text will appear here..."></textarea>
+<header>
+<h2><a href="index.html">SG Multi Tools</a></h2>
+</header>
+
+
+<div class="container">
+<div class="card">
+<span class="close" onclick="location.href='index.html'">✕</span>
+<h3>Speech to Text</h3>
+<button onclick="startRec()">Start Recording</button>
+<textarea id="text" rows="6" placeholder="Speech will appear here..."></textarea>
 </div>
+</div>
+
+
+<footer>
+© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+
 <script>
-let rec;
-function startRec(){
-const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-rec=new SpeechRecognition();
-rec.lang='en-US';
-rec.start();
-rec.onresult=e=>out.value=e.results[0][0].transcript;
+let recognition;
+if('webkitSpeechRecognition' in window){
+recognition=new webkitSpeechRecognition();
+recognition.continuous=true;
+recognition.interimResults=true;
+recognition.onresult=function(e){
+let txt='';
+for(let i=e.resultIndex;i<e.results.length;i++){
+txt+=e.results[i][0].transcript;
 }
+document.getElementById('text').value=txt;
+};
+}else{alert('Speech recognition not supported');}
+function startRec(){recognition.start();}
 </script>
 </body>
 </html>
