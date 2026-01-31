@@ -2,58 +2,109 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>URL Encoder/Decoder | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Encoder / Decoder | SG Multi Tools</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
-header,footer{background:#020617;padding:12px}
-header a{color:#22c55e;text-decoration:none}
-footer{color:#94a3b8;font-size:14px}
-footer a{color:#38bdf8;text-decoration:none}
-.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
-.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
-.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
-textarea,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
-button{background:#22c55e;color:#000;font-weight:bold;cursor:pointer}
-.result{margin-top:10px;font-weight:bold;word-break:break-all}
+:root {
+    --bg-main: #0d0f14;
+    --bg-card: #12151a;
+    --accent: #42f8f5;
+    --text: #ffffff;
+    --text-muted: #b6c3d1;
+    --radius: 12px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    position: relative;
+    width: 380px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(66,248,245,0.3);
+    text-align: center;
+}
+
+.card textarea {
+    width: 100%;
+    height: 100px;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #1e293b;
+    color: var(--text);
+}
+
+.card button {
+    width: 48%;
+    padding: 12px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    margin: 4px 1%;
+    transition: all 0.3s ease;
+}
+.card button:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+.close:hover { color: var(--accent); }
 </style>
 </head>
 <body>
-<header>
-<h2><a href="index.html">SG Multi Tools</a></h2>
-</header>
 
-
-<div class="container">
 <div class="card">
-<span class="close" onclick="location.href='index.html'">✕</span>
-<h3>URL Encoder / Decoder</h3>
-<textarea id="text" rows="4" placeholder="Enter text or URL"></textarea>
-<button onclick="encodeURL()">Encode</button>
-<button onclick="decodeURL()">Decode</button>
-<div class="result" id="out"></div>
+  <span class="close" onclick="location.href='/index.html'">✕</span>
+  <h2>URL Encoder / Decoder</h2>
+  <textarea id="input" placeholder="Enter text or URL"></textarea>
+  <div>
+    <button onclick="encodeText()">Encode</button>
+    <button onclick="decodeText()">Decode</button>
+  </div>
+  <textarea id="output" placeholder="Result" readonly></textarea>
 </div>
-</div>
-
-
-<footer>
-© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
-</footer>
-
 
 <script>
-function encodeURL(){
-const t=document.getElementById('text').value;
-document.getElementById('out').innerText=t?encodeURIComponent(t):'Enter text to encode';
+function encodeText() {
+    const input = document.getElementById('input').value;
+    if (!input) return alert("Enter text to encode");
+    document.getElementById('output').value = encodeURIComponent(input);
 }
-function decodeURL(){
-const t=document.getElementById('text').value;
-try{
-document.getElementById('out').innerText=t?decodeURIComponent(t):'Enter text to decode';
-}catch(e){
-document.getElementById('out').innerText='Invalid encoded URL';
-}
+
+function decodeText() {
+    const input = document.getElementById('input').value;
+    if (!input) return alert("Enter text to decode");
+    try {
+        document.getElementById('output').value = decodeURIComponent(input);
+    } catch(e) {
+        alert("Invalid encoded string");
+    }
 }
 </script>
+
 </body>
 </html>
