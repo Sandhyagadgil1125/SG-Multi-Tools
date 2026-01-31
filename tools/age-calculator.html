@@ -7,54 +7,53 @@
 
 <style>
 :root{
-  --bg:#0d0f14;
-  --card:#12151a;
+  --bg-main:#0d0f14;
+  --bg-card:#12151a;
+  --bg-nav:#1c222d;
   --accent:#42f8f5;
   --text:#ffffff;
-  --muted:#b6c3d1;
-  --radius:14px;
+  --text-muted:#b6c3d1;
+  --radius:12px;
 }
 
 *{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
 
 body{
   margin:0;
-  background:var(--bg);
+  background:var(--bg-main);
   color:var(--text);
 }
 
 /* ===== HEADER ===== */
 header{
-  background:#1c222d;
-  padding:14px;
+  background:var(--bg-nav);
+  padding:14px 22px;
   text-align:center;
-  border-bottom:1px solid rgba(66,248,245,.25);
+  border-bottom:1px solid rgba(66,248,245,.2);
 }
 header a{
   color:var(--accent);
+  text-decoration:none;
   font-weight:900;
   font-size:20px;
-  text-decoration:none;
 }
 
-/* ===== TOOL CARD (NEON SQUARE) ===== */
-.tool-wrapper{
-  min-height:calc(100vh - 120px);
+/* ===== TOOL CARD ===== */
+.wrapper{
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:60px 20px;
 }
 
 .tool-card{
   position:relative;
-  background:var(--card);
   width:100%;
   max-width:420px;
-  padding:28px;
+  background:var(--bg-card);
+  border:1px solid #2a303c;
   border-radius:var(--radius);
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
+  padding:30px;
+  box-shadow:0 0 30px rgba(66,248,245,.25);
 }
 
 /* CLOSE BUTTON */
@@ -63,38 +62,35 @@ header a{
   top:12px;
   right:14px;
   font-size:20px;
+  color:var(--text-muted);
   cursor:pointer;
-  color:var(--muted);
 }
 .close:hover{color:var(--accent)}
 
-h1{
+h2{
   text-align:center;
   margin-bottom:20px;
-  font-size:1.6rem;
 }
 
-/* INPUTS */
-label{font-size:14px;color:var(--muted)}
-input{
+input,button{
   width:100%;
   padding:12px;
-  margin:8px 0 16px;
-  background:#0f172a;
+  margin-top:12px;
+  border-radius:8px;
+  border:none;
+  font-size:15px;
+}
+
+input{
+  background:#0d1117;
   color:#fff;
   border:1px solid #2a303c;
-  border-radius:8px;
-  font-size:16px;
 }
 
 button{
-  width:100%;
-  padding:12px;
   background:transparent;
   border:2px solid var(--accent);
   color:var(--accent);
-  border-radius:8px;
-  font-size:16px;
   font-weight:700;
   cursor:pointer;
 }
@@ -106,70 +102,59 @@ button:hover{
 .result{
   margin-top:18px;
   text-align:center;
-  font-size:16px;
+  font-weight:600;
   color:var(--accent);
 }
 
 /* ===== FOOTER ===== */
 footer{
-  background:#1c222d;
-  padding:12px;
+  background:var(--bg-nav);
+  padding:18px;
   text-align:center;
   font-size:13px;
-  color:var(--muted);
+  color:var(--text-muted);
 }
+footer a{color:var(--accent);text-decoration:none}
 </style>
 </head>
 
 <body>
 
 <header>
-  <a href="/index.html">SG Multi Tools</a>
+  <a href="/">SG Multi Tools</a>
 </header>
 
-<div class="tool-wrapper">
+<div class="wrapper">
   <div class="tool-card">
-    <span class="close" onclick="location.href='/index.html'">✕</span>
+    <span class="close" onclick="location.href='/'">✕</span>
 
-    <h1>Age Calculator</h1>
+    <h2>Age Calculator</h2>
 
-    <label>Select your Date of Birth</label>
     <input type="date" id="dob">
-
     <button onclick="calculateAge()">Calculate Age</button>
 
-    <div class="result" id="result"></div>
+    <div class="result" id="output"></div>
   </div>
 </div>
 
 <footer>
-  © 2026 SG Multi Tools
+  © 2026 SG Multi Tools · <a href="/privacy-policy.html">Privacy Policy</a>
 </footer>
 
 <script>
 function calculateAge(){
-  const dob = new Date(document.getElementById("dob").value);
-  if(!dob.getTime()){
-    document.getElementById("result").innerHTML="Please select a valid date";
-    return;
-  }
+  const dob=document.getElementById("dob").value;
+  if(!dob){output.innerText="Please select date";return;}
 
-  const today = new Date();
-  let years = today.getFullYear() - dob.getFullYear();
-  let months = today.getMonth() - dob.getMonth();
-  let days = today.getDate() - dob.getDate();
+  const birth=new Date(dob);
+  const today=new Date();
 
-  if(days < 0){
-    months--;
-    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-  }
-  if(months < 0){
-    years--;
-    months += 12;
-  }
+  let age=today.getFullYear()-birth.getFullYear();
+  const m=today.getMonth()-birth.getMonth();
 
-  document.getElementById("result").innerHTML =
-    `${years} Years, ${months} Months, ${days} Days`;
+  if(m<0 || (m===0 && today.getDate()<birth.getDate())) age--;
+
+  output.innerText="Your Age: "+age+" years";
 }
 </script>
 
