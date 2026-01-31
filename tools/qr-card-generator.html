@@ -6,96 +6,98 @@
 <title>QR Code Generator | SG Multi Tools</title>
 
 <style>
-:root {
-    --bg-main: #0d0f14;
-    --bg-card: #12151a;
-    --accent: #42f8f5;
-    --text: #ffffff;
-    --text-muted: #b6c3d1;
-    --radius: 12px;
+body{
+  background:#0f172a;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  padding:50px 20px;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg-main);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* 🔹 NEON TOOL BOX */
+.tool-box{
+  position:relative;
+  max-width:420px;
+  margin:auto;
+  background:#1e293b;
+  padding:25px;
+  border-radius:14px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 28px rgba(66,248,245,0.55);
 }
 
-.card {
-    position: relative; /* Required for close button */
-    width: 320px;
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 25px;
-    box-shadow: 0 0 25px rgba(66,248,245,0.3);
-    text-align: center;
+/* 🔹 CLOSE BUTTON */
+.close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:20px;
+  color:#94a3b8;
+  cursor:pointer;
 }
 
-.card input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: none;
+/* 🔹 INPUT */
+input{
+  width:100%;
+  padding:12px;
+  margin:15px 0;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
 }
 
-.card button {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    background: var(--accent);
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 5px;
-    transition: 0.2s;
+/* 🔹 BUTTON */
+button{
+  padding:12px 24px;
+  border:none;
+  border-radius:8px;
+  background:#42f8f5;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
 }
-.card button:hover { background: #00f5d4; }
 
-.close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 20px;
-    color: var(--text-muted);
-    cursor: pointer;
+button:hover{
+  background:#00f5d4;
 }
-.close:hover { color: var(--accent); }
 
-#qr {
-    margin-top: 15px;
-    width: 200px;
-    height: 200px;
-    border: 2px solid var(--accent);
-    border-radius: 8px;
+/* 🔹 QR IMAGE */
+#qr img{
+  margin-top:20px;
+  padding:10px;
+  background:#fff;
+  border-radius:10px;
 }
 </style>
 </head>
+
 <body>
 
-<div class="card">
-  <span class="close" onclick="location.href='/index.html'">✕</span>
+<div class="tool-box">
+  <span class="close" onclick="location.href='../index.html'">✕</span>
+
   <h2>QR Code Generator</h2>
-  <input id="text" placeholder="Enter text or URL">
-  <button onclick="genQR()">Generate QR Code</button>
-  <img id="qr" alt="QR Code">
+
+  <input type="text" id="text" placeholder="Enter text or URL">
+  <button onclick="generateQR()">Generate QR</button>
+
+  <div id="qr"></div>
 </div>
 
 <script>
-function genQR() {
-    let input = document.getElementById('text').value;
-    if(input.trim() === "") {
-        alert("Please enter text or URL");
-        return;
-    }
-    document.getElementById('qr').src = 
-        'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(input);
+function generateQR(){
+  const text = document.getElementById("text").value.trim();
+  if(!text){
+    alert("Please enter text or URL");
+    return;
+  }
+
+  const qrDiv = document.getElementById("qr");
+  qrDiv.innerHTML = "";
+
+  const img = document.createElement("img");
+  img.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(text);
+  qrDiv.appendChild(img);
 }
 </script>
 
