@@ -3,107 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>File Size Converter | SG Multi Tools</title>
+<title>File Size Converter – SG Multi Tools</title>
 
 <style>
-:root {
-    --bg-main: #0d0f14;
-    --bg-card: #12151a;
-    --accent: #42f8f5;
-    --text: #ffffff;
-    --text-muted: #b6c3d1;
-    --radius: 12px;
+:root{
+  --bg:#0d0f14;
+  --card:#12151a;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#b6c3d1;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg-main);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+*{box-sizing:border-box;font-family:Segoe UI,Arial}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.card {
-    position: relative;
-    width: 350px;
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 25px;
-    box-shadow: 0 0 25px rgba(66,248,245,0.3);
-    text-align: center;
+/* ===== NEON TOOL BOX ===== */
+.tool-box{
+  position:relative;
+  width:360px;
+  background:var(--card);
+  padding:28px;
+  border-radius:14px;
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.35);
 }
 
-.card input, .card select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 6px;
-    border: none;
-    background: #1e293b;
-    color: var(--text);
-    text-align: center;
+/* CLOSE BUTTON */
+.close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:18px;
+  color:var(--muted);
+  cursor:pointer;
+}
+.close:hover{color:var(--accent)}
+
+h1{
+  text-align:center;
+  font-size:1.4rem;
+  margin-bottom:20px;
 }
 
-.card button {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--accent);
-    border-radius: 8px;
-    background: transparent;
-    color: var(--accent);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.card button:hover {
-    background: var(--accent);
-    color: #000;
+/* INPUTS */
+input, select{
+  width:100%;
+  padding:10px;
+  margin-bottom:12px;
+  background:#0f172a;
+  color:white;
+  border:1px solid #334155;
+  border-radius:8px;
+  font-size:15px;
 }
 
-.close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 20px;
-    color: var(--text-muted);
-    cursor: pointer;
+button{
+  width:100%;
+  padding:11px;
+  background:transparent;
+  border:2px solid var(--accent);
+  color:var(--accent);
+  font-weight:700;
+  border-radius:8px;
+  cursor:pointer;
 }
-.close:hover { color: var(--accent); }
+button:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:600;
+  color:var(--accent);
+  text-align:center;
+}
 </style>
 </head>
+
 <body>
 
-<div class="card">
-  <span class="close" onclick="location.href='/index.html'">✕</span>
-  <h2>File Size Converter</h2>
-  <input type="number" id="size" placeholder="Enter size">
+<div class="tool-box">
+  <span class="close" onclick="location.href='/'">✕</span>
+
+  <h1>File Size Converter</h1>
+
+  <input type="number" id="value" placeholder="Enter value">
+
   <select id="from">
     <option value="1">Bytes</option>
     <option value="1024">KB</option>
     <option value="1048576">MB</option>
     <option value="1073741824">GB</option>
+    <option value="1099511627776">TB</option>
   </select>
+
   <select id="to">
     <option value="1">Bytes</option>
     <option value="1024">KB</option>
     <option value="1048576">MB</option>
     <option value="1073741824">GB</option>
+    <option value="1099511627776">TB</option>
   </select>
+
   <button onclick="convert()">Convert</button>
-  <input type="text" id="result" readonly placeholder="Result">
+
+  <div class="result" id="result"></div>
 </div>
 
 <script>
-function convert() {
-    const size = parseFloat(document.getElementById('size').value);
-    const from = parseFloat(document.getElementById('from').value);
-    const to = parseFloat(document.getElementById('to').value);
-    if(isNaN(size)) return alert("Enter a valid size");
-    const result = (size * from / to).toFixed(2);
-    document.getElementById('result').value = result;
+function convert(){
+  const val = document.getElementById("value").value;
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+
+  if(val === ""){
+    document.getElementById("result").innerText = "Enter a value";
+    return;
+  }
+
+  const bytes = val * from;
+  const output = bytes / to;
+
+  document.getElementById("result").innerText =
+    output.toLocaleString() + " " +
+    document.getElementById("to").selectedOptions[0].text;
 }
 </script>
 
