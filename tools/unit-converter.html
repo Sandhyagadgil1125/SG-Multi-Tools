@@ -2,21 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;margin:0}
+body{margin:0;font-family:Arial;background:#0f172a;color:#fff}
 header,footer{background:#020617;padding:12px;text-align:center}
 header a{color:#22c55e;text-decoration:none}
 footer{color:#94a3b8;font-size:14px}
 footer a{color:#38bdf8;text-decoration:none}
-
-
-.tool-box{position:relative;max-width:320px;margin:40px auto;background:#1e293b;padding:16px;border-radius:12px}
-.close{position:absolute;top:8px;right:12px;cursor:pointer;font-size:18px;color:#94a3b8}
-select,input,button{width:100%;margin:6px 0;padding:10px;font-size:16px}
+.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
+.card{position:relative;width:380px;background:#1e293b;padding:20px;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.4)}
+.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
+select,input,button{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
+button{background:#38bdf8;color:#000;font-weight:bold;cursor:pointer}
+.result{margin-top:10px;font-weight:bold}
 </style>
 </head>
 <body>
@@ -27,17 +26,39 @@ select,input,button{width:100%;margin:6px 0;padding:10px;font-size:16px}
 </header>
 
 
-<div class="tool-box">
+<div class="container">
+<div class="card">
 <span class="close" onclick="location.href='index.html'">✕</span>
+<h3>Unit Converter</h3>
 
 
-<select id="type" onchange="loadUnits()">
+<select id="category" onchange="loadUnits()">
+<option value="">Select Category</option>
 <option value="length">Length</option>
 <option value="weight">Weight</option>
 <option value="temperature">Temperature</option>
 </select>
 
 
+<input type="number" id="value" placeholder="Enter value">
+
+
 <select id="from"></select>
 <select id="to"></select>
+
+
+<button onclick="convert()">Convert</button>
+<div class="result" id="out"></div>
+</div>
+</div>
+
+
+<footer>
+© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+
+<script>
+const units={
+length:{
 </html>
