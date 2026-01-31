@@ -2,54 +2,142 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Age Calculator | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator | SG Multi Tools</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
-header,footer{background:#020617;padding:12px}
-header a{color:#22c55e;text-decoration:none}
-footer{color:#94a3b8;font-size:14px}
-footer a{color:#38bdf8;text-decoration:none}
-.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
-.card{position:relative;width:320px;background:#1e293b;padding:20px;border-radius:12px}
-.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
-input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
-button{background:#22c55e;color:#000;font-weight:bold;cursor:pointer}
+:root{
+  --bg:#0d0f14;
+  --card:#12151a;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#b6c3d1;
+  --radius:14px;
+}
+
+*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* 🔷 TOOL CARD */
+.tool-card{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:28px;
+  border:1px solid #2a303c;
+  box-shadow:0 0 30px rgba(66,248,245,0.25);
+}
+
+/* ❌ CLOSE */
+.close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:18px;
+  color:var(--muted);
+  cursor:pointer;
+}
+.close:hover{color:var(--accent)}
+
+/* TITLE */
+h1{
+  margin:0 0 20px;
+  text-align:center;
+  font-size:1.5rem;
+  color:var(--accent);
+}
+
+/* INPUT */
+label{
+  font-size:14px;
+  color:var(--muted);
+}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:8px;
+  border:1px solid #2a303c;
+  background:#0f172a;
+  color:#fff;
+  font-size:16px;
+}
+
+/* BUTTON */
+button{
+  margin-top:18px;
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+button:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+/* RESULT */
+.result{
+  margin-top:18px;
+  font-size:16px;
+  text-align:center;
+  color:var(--accent);
+}
 </style>
 </head>
+
 <body>
-<header>
-<h2><a href="index.html">SG Multi Tools</a></h2>
-</header>
 
+<div class="tool-card">
+  <span class="close" onclick="location.href='index.html'">✕</span>
 
-<div class="container">
-<div class="card">
-<span class="close" onclick="location.href='index.html'">✕</span>
-<h3>Age Calculator</h3>
-<input type="date" id="dob">
-<button onclick="calcAge()">Calculate Age</button>
-<p id="result"></p>
+  <h1>Age Calculator</h1>
+
+  <label>Date of Birth</label>
+  <input type="date" id="dob">
+
+  <button onclick="calculateAge()">Calculate Age</button>
+
+  <div class="result" id="result"></div>
 </div>
-</div>
-
-
-<footer>
-© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
-</footer>
-
 
 <script>
-function calcAge(){
-const dob=document.getElementById('dob').value;
-if(!dob){result.innerText='Please select date';return;}
-const birth=new Date(dob);
-const today=new Date();
-let age=today.getFullYear()-birth.getFullYear();
-const m=today.getMonth()-birth.getMonth();
-if(m<0 || (m===0 && today.getDate()<birth.getDate())) age--;
-result.innerText='Your Age: '+age+' years';
+function calculateAge(){
+  const dob=document.getElementById("dob").value;
+  if(!dob){
+    document.getElementById("result").innerText="Please select a date.";
+    return;
+  }
+
+  const birth=new Date(dob);
+  const today=new Date();
+
+  let age=today.getFullYear()-birth.getFullYear();
+  const m=today.getMonth()-birth.getMonth();
+  if(m<0 || (m===0 && today.getDate()<birth.getDate())){
+    age--;
+  }
+
+  document.getElementById("result").innerText=
+    "Your Age is " + age + " years";
 }
 </script>
+
 </body>
 </html>
