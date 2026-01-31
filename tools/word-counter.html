@@ -6,95 +6,77 @@
 <title>Word Counter | SG Multi Tools</title>
 
 <style>
-:root {
-    --bg-main: #0d0f14;
-    --bg-card: #12151a;
-    --accent: #42f8f5;
-    --text: #ffffff;
-    --text-muted: #b6c3d1;
-    --radius: 12px;
+body{
+  background:#0f172a;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  padding:50px 20px;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg-main);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* 🔹 NEON TOOL BOX */
+.tool-box{
+  position:relative;
+  max-width:500px;
+  margin:auto;
+  background:#1e293b;
+  padding:25px;
+  border-radius:14px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 28px rgba(66,248,245,0.55);
 }
 
-.card {
-    position: relative; /* for close button */
-    width: 350px;
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 25px;
-    box-shadow: 0 0 25px rgba(66,248,245,0.3);
-    text-align: center;
+/* 🔹 CLOSE BUTTON */
+.close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:20px;
+  color:#94a3b8;
+  cursor:pointer;
 }
 
-.card textarea {
-    width: 100%;
-    height: 120px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: none;
-    resize: none;
-    background: #1e293b;
-    color: var(--text);
+/* 🔹 TEXTAREA */
+textarea{
+  width:100%;
+  height:160px;
+  padding:12px;
+  margin-top:12px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  resize:none;
 }
 
-.card button {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    background: var(--accent);
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 5px;
-    transition: 0.2s;
+/* 🔹 STATS */
+.stats{
+  margin-top:16px;
+  font-size:18px;
 }
-.card button:hover { background: #00f5d4; }
-
-#output {
-    margin-top: 12px;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-}
-
-.close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 20px;
-    color: var(--text-muted);
-    cursor: pointer;
-}
-.close:hover { color: var(--accent); }
 </style>
 </head>
+
 <body>
 
-<div class="card">
-  <span class="close" onclick="location.href='/index.html'">✕</span>
+<div class="tool-box">
+  <span class="close" onclick="location.href='../index.html'">✕</span>
+
   <h2>Word Counter</h2>
-  <textarea id="text" placeholder="Type or paste text here..."></textarea>
-  <button onclick="countWords()">Count Words & Characters</button>
-  <p id="output">Words: 0 | Characters: 0</p>
+
+  <textarea id="text" placeholder="Type or paste your text here..." oninput="countText()"></textarea>
+
+  <div class="stats">
+    <p>Words: <strong id="words">0</strong></p>
+    <p>Characters: <strong id="chars">0</strong></p>
+  </div>
 </div>
 
 <script>
-function countWords() {
-    let text = document.getElementById('text').value.trim();
-    let words = text === "" ? 0 : text.split(/\s+/).length;
-    let chars = text.length;
-    document.getElementById('output').innerText = `Words: ${words} | Characters: ${chars}`;
+function countText(){
+  const text = document.getElementById("text").value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById("words").textContent = words;
+  document.getElementById("chars").textContent = text.length;
 }
 </script>
 
