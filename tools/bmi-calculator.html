@@ -6,144 +6,138 @@
 <title>BMI Calculator | SG Multi Tools</title>
 
 <style>
-:root{
-  --bg-main:#0d0f14;
-  --bg-card:#12151a;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#b6c3d1;
-  --radius:14px;
-}
-
-*{box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
-
+/* ===== GLOBAL THEME (SAME AS UNIT CONVERTER) ===== */
 body{
   margin:0;
-  background:var(--bg-main);
-  color:var(--text);
-}
-
-/* ===== CENTER PAGE ===== */
-.page{
   min-height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:30px;
+  align-items:center;
+  background:#0f172a;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#e5e7eb;
 }
 
 /* ===== NEON TOOL BOX ===== */
-.tool-box{
+.tool-wrapper{
   position:relative;
-  width:100%;
-  max-width:420px;
-  background:var(--bg-card);
-  border-radius:var(--radius);
-  padding:28px;
-
-  /* 🔥 PERMANENT NEON BORDER */
-  border:2px solid var(--accent);
+  width:320px;
+  background:#020617;
+  border-radius:12px;
+  padding:22px 20px 25px;
   box-shadow:
-    0 0 15px rgba(66,248,245,0.5),
-    0 0 35px rgba(66,248,245,0.35);
+    0 0 0 2px #22d3ee,
+    0 0 25px rgba(34,211,238,0.6);
 }
 
 /* ===== CLOSE BUTTON ===== */
-.close{
+.close-btn{
   position:absolute;
-  top:14px;
-  right:16px;
+  top:8px;
+  right:10px;
+  color:#22d3ee;
   font-size:20px;
-  color:var(--muted);
   cursor:pointer;
+  font-weight:bold;
 }
-.close:hover{color:var(--accent);}
+.close-btn:hover{
+  color:#67e8f9;
+}
 
 /* ===== TITLE ===== */
-h1{
-  margin:0 0 18px;
+.tool-wrapper h1{
   text-align:center;
-  color:var(--accent);
+  font-size:20px;
+  margin-bottom:18px;
+  color:#22d3ee;
 }
 
 /* ===== INPUTS ===== */
+label{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+  color:#cbd5f5;
+}
+
 input{
   width:100%;
-  padding:12px;
-  margin-bottom:14px;
-  border-radius:10px;
-  border:1px solid #2a303c;
-  background:#0f172a;
+  margin-top:5px;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #22d3ee;
+  background:#020617;
   color:#fff;
-  font-size:15px;
-}
-input:focus{
   outline:none;
-  border-color:var(--accent);
 }
 
 /* ===== BUTTON ===== */
 button{
   width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:16px;
-  font-weight:700;
+  margin-top:16px;
+  padding:10px;
+  background:#020617;
+  border:1px solid #22d3ee;
+  color:#22d3ee;
+  border-radius:6px;
   cursor:pointer;
+  font-size:15px;
 }
 button:hover{
-  background:var(--accent);
-  color:#000;
+  background:#22d3ee;
+  color:#020617;
 }
 
 /* ===== RESULT ===== */
 .result{
-  margin-top:18px;
+  margin-top:15px;
   text-align:center;
-  font-size:1.05rem;
+  font-size:15px;
+  color:#a5f3fc;
 }
 </style>
 </head>
 
 <body>
 
-<div class="page">
-  <div class="tool-box">
+<div class="tool-wrapper">
 
-    <div class="close" onclick="location.href='../index.html'">✕</div>
+  <!-- CLOSE -->
+  <div class="close-btn" onclick="window.location.href='../index.html'">✕</div>
 
-    <h1>BMI Calculator</h1>
+  <h1>BMI Calculator</h1>
 
-    <input type="number" id="weight" placeholder="Weight (kg)">
-    <input type="number" id="height" placeholder="Height (cm)">
+  <label>Height (cm)</label>
+  <input type="number" id="height" placeholder="Enter height">
 
-    <button onclick="calcBMI()">Calculate BMI</button>
+  <label>Weight (kg)</label>
+  <input type="number" id="weight" placeholder="Enter weight">
 
-    <div class="result" id="out"></div>
+  <button onclick="calculateBMI()">Calculate BMI</button>
 
-  </div>
+  <div class="result" id="result"></div>
 </div>
 
 <script>
-function calcBMI(){
-  const w = parseFloat(weight.value);
-  const h = parseFloat(height.value) / 100;
+function calculateBMI(){
+  const h = document.getElementById("height").value;
+  const w = document.getElementById("weight").value;
+  const result = document.getElementById("result");
 
-  if(!w || !h){
-    out.innerText = "Please enter valid values";
+  if(h === "" || w === "" || h <= 0 || w <= 0){
+    result.innerHTML = "Please enter valid values";
     return;
   }
 
-  const bmi = (w / (h*h)).toFixed(2);
-  let msg = bmi < 18.5 ? "Underweight"
-          : bmi < 25 ? "Normal"
-          : bmi < 30 ? "Overweight"
-          : "Obese";
+  const bmi = (w / ((h/100) ** 2)).toFixed(2);
 
-  out.innerText = `Your BMI: ${bmi} (${msg})`;
+  let category = "";
+  if(bmi < 18.5) category = "Underweight";
+  else if(bmi < 25) category = "Normal";
+  else if(bmi < 30) category = "Overweight";
+  else category = "Obese";
+
+  result.innerHTML = `BMI: <b>${bmi}</b><br>${category}`;
 }
 </script>
 
