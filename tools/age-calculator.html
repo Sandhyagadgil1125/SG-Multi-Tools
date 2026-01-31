@@ -4,157 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Age Calculator | SG Multi Tools</title>
-
 <style>
-:root{
-  --bg-main:#0d0f14;
-  --bg-card:#12151a;
-  --bg-nav:#1c222d;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --text-muted:#b6c3d1;
-  --radius:12px;
+body {
+  background: #0f172a;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 50px 20px;
 }
 
-*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-
-body{
-  margin:0;
-  background:var(--bg-main);
-  color:var(--text);
+.tool-box {
+  position: relative;
+  max-width: 400px;
+  margin: auto;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid #42f8f5;
+  box-shadow: 0 0 25px rgba(66, 248, 245, 0.5);
 }
 
-/* ===== HEADER ===== */
-header{
-  background:var(--bg-nav);
-  padding:14px 22px;
-  text-align:center;
-  border-bottom:1px solid rgba(66,248,245,.2);
-}
-header a{
-  color:var(--accent);
-  text-decoration:none;
-  font-weight:900;
-  font-size:20px;
+.tool-box:hover {
+  box-shadow: 0 0 35px rgba(66, 248, 245, 0.8);
+  border-color: #00f5d4;
 }
 
-/* ===== TOOL CARD ===== */
-.wrapper{
-  display:flex;
-  justify-content:center;
-  padding:60px 20px;
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
 }
 
-.tool-card{
-  position:relative;
-  width:100%;
-  max-width:420px;
-  background:var(--bg-card);
-  border:1px solid #2a303c;
-  border-radius:var(--radius);
-  padding:30px;
-  box-shadow:0 0 30px rgba(66,248,245,.25);
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
 }
 
-/* CLOSE BUTTON */
-.close{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:20px;
-  color:var(--text-muted);
-  cursor:pointer;
-}
-.close:hover{color:var(--accent)}
-
-h2{
-  text-align:center;
-  margin-bottom:20px;
+button {
+  padding: 12px 25px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-input,button{
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border-radius:8px;
-  border:none;
-  font-size:15px;
+button:hover {
+  background: #00f5d4;
 }
 
-input{
-  background:#0d1117;
-  color:#fff;
-  border:1px solid #2a303c;
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #00f5d4;
 }
-
-button{
-  background:transparent;
-  border:2px solid var(--accent);
-  color:var(--accent);
-  font-weight:700;
-  cursor:pointer;
-}
-button:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-.result{
-  margin-top:18px;
-  text-align:center;
-  font-weight:600;
-  color:var(--accent);
-}
-
-/* ===== FOOTER ===== */
-footer{
-  background:var(--bg-nav);
-  padding:18px;
-  text-align:center;
-  font-size:13px;
-  color:var(--text-muted);
-}
-footer a{color:var(--accent);text-decoration:none}
 </style>
 </head>
-
 <body>
 
-<header>
-  <a href="/">SG Multi Tools</a>
-</header>
-
-<div class="wrapper">
-  <div class="tool-card">
-    <span class="close" onclick="location.href='/'">✕</span>
-
-    <h2>Age Calculator</h2>
-
-    <input type="date" id="dob">
-    <button onclick="calculateAge()">Calculate Age</button>
-
-    <div class="result" id="output"></div>
-  </div>
+<div class="tool-box">
+  <span class="close" onclick="location.href='../index.html'">✕</span>
+  <h2>Age Calculator</h2>
+  <label for="dob">Enter your date of birth:</label>
+  <input type="date" id="dob">
+  <button onclick="calculateAge()">Calculate Age</button>
+  <div id="result"></div>
 </div>
 
-<footer>
-  © 2026 SG Multi Tools · <a href="/privacy-policy.html">Privacy Policy</a>
-</footer>
-
 <script>
-function calculateAge(){
-  const dob=document.getElementById("dob").value;
-  if(!dob){output.innerText="Please select date";return;}
-
-  const birth=new Date(dob);
-  const today=new Date();
-
-  let age=today.getFullYear()-birth.getFullYear();
-  const m=today.getMonth()-birth.getMonth();
-
-  if(m<0 || (m===0 && today.getDate()<birth.getDate())) age--;
-
-  output.innerText="Your Age: "+age+" years";
+function calculateAge() {
+  const dobInput = document.getElementById('dob').value;
+  if (!dobInput) {
+    alert("Please select your date of birth.");
+    return;
+  }
+  const dob = new Date(dobInput);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+    age--;
+  }
+  document.getElementById('result').textContent = "Your age is: " + age + " years";
 }
 </script>
 
