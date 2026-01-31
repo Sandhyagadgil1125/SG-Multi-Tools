@@ -3,176 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timer / Stopwatch | SG Multi Tools</title>
+<title>Timer & Stopwatch | SG Multi Tools</title>
 
 <style>
-:root{
-  --bg-main:#0d0f14;
-  --bg-card:#12151a;
-  --bg-nav:#1c222d;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --text-muted:#b6c3d1;
-  --radius:12px;
+:root {
+    --bg-main: #0d0f14;
+    --bg-card: #12151a;
+    --accent: #42f8f5;
+    --text: #ffffff;
+    --text-muted: #b6c3d1;
+    --radius: 12px;
 }
 
-*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-
-body{
-  margin:0;
-  background:var(--bg-main);
-  color:var(--text);
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-header{
-  background:var(--bg-nav);
-  padding:14px 22px;
-  text-align:center;
-  border-bottom:1px solid rgba(66,248,245,.2);
-}
-header a{
-  color:var(--accent);
-  text-decoration:none;
-  font-weight:900;
-  font-size:20px;
+.card {
+    position: relative;
+    width: 400px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(66,248,245,0.3);
+    text-align: center;
 }
 
-.wrapper{
-  display:flex;
-  justify-content:center;
-  padding:60px 20px;
+.card h2 {
+    margin-bottom: 20px;
 }
 
-.tool-card{
-  position:relative;
-  width:100%;
-  max-width:420px;
-  background:var(--bg-card);
-  border:1px solid #2a303c;
-  border-radius:var(--radius);
-  padding:30px;
-  box-shadow:0 0 30px rgba(66,248,245,.25);
+.timer-display {
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
-.close{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:20px;
-  color:var(--text-muted);
-  cursor:pointer;
+.card button {
+    width: 48%;
+    padding: 12px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    margin: 4px 1%;
+    transition: all 0.3s ease;
 }
-.close:hover{color:var(--accent)}
-
-h2{text-align:center;margin-bottom:20px}
-
-input,button{
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border-radius:8px;
-  border:none;
-  font-size:15px;
+.card button:hover {
+    background: var(--accent);
+    color: #000;
 }
 
-input{
-  background:#0d1117;
-  color:#fff;
-  border:1px solid #2a303c;
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 20px;
+    color: var(--text-muted);
+    cursor: pointer;
 }
-
-button{
-  background:transparent;
-  border:2px solid var(--accent);
-  color:var(--accent);
-  font-weight:700;
-  cursor:pointer;
-}
-button:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-.result{
-  margin-top:18px;
-  text-align:center;
-  font-weight:600;
-  color:var(--accent);
-}
-
-footer{
-  background:var(--bg-nav);
-  padding:18px;
-  text-align:center;
-  font-size:13px;
-  color:var(--text-muted);
-}
-footer a{color:var(--accent);text-decoration:none}
+.close:hover { color: var(--accent); }
 </style>
 </head>
-
 <body>
 
-<header>
-  <a href="/">SG Multi Tools</a>
-</header>
-
-<div class="wrapper">
-  <div class="tool-card">
-    <span class="close" onclick="location.href='/'">✕</span>
-
-    <h2>Timer / Stopwatch</h2>
-
-    <input type="number" id="timerMinutes" placeholder="Enter minutes for countdown">
-    <button onclick="startTimer()">Start Timer</button>
+<div class="card">
+  <span class="close" onclick="location.href='/index.html'">✕</span>
+  <h2>Timer / Stopwatch</h2>
+  <div class="timer-display" id="display">00:00:00</div>
+  <div>
+    <button id="startStop">Start</button>
     <button onclick="resetTimer()">Reset</button>
-
-    <div class="result" id="display">00:00:00</div>
-
-    <hr style="margin:20px 0; border:1px solid #2a303c">
-
-    <button onclick="startStopwatch()">Start Stopwatch</button>
-    <button onclick="stopStopwatch()">Stop</button>
-    <button onclick="resetStopwatch()">Reset</button>
-    <div class="result" id="stopwatchDisplay">00:00:00</div>
-
   </div>
 </div>
 
-<footer>
-  © 2026 SG Multi Tools · <a href="/privacy-policy.html">Privacy Policy</a>
-</footer>
-
 <script>
-let timerInterval;
-function startTimer(){
-  clearInterval(timerInterval);
-  let totalSeconds = parseInt(document.getElementById('timerMinutes').value)*60;
-  if(isNaN(totalSeconds) || totalSeconds<=0){display.innerText="Enter valid minutes"; return;}
-  timerInterval = setInterval(()=>{
-    let hrs = Math.floor(totalSeconds/3600);
-    let mins = Math.floor((totalSeconds%3600)/60);
-    let secs = totalSeconds%60;
-    display.innerText = `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-    if(totalSeconds-- <=0){clearInterval(timerInterval); display.innerText="Time's up!"}
-  },1000);
-}
-function resetTimer(){clearInterval(timerInterval); display.innerText="00:00:00"; document.getElementById('timerMinutes').value='';}
+let timer;
+let running = false;
+let seconds = 0;
 
-// Stopwatch
-let stopwatchInterval, stopwatchSeconds=0;
-function startStopwatch(){
-  clearInterval(stopwatchInterval);
-  stopwatchInterval = setInterval(()=>{
-    stopwatchSeconds++;
-    let hrs = Math.floor(stopwatchSeconds/3600);
-    let mins = Math.floor((stopwatchSeconds%3600)/60);
-    let secs = stopwatchSeconds%60;
-    stopwatchDisplay.innerText = `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-  },1000);
+const display = document.getElementById('display');
+const startStopBtn = document.getElementById('startStop');
+
+function updateDisplay() {
+    const hrs = String(Math.floor(seconds / 3600)).padStart(2,'0');
+    const mins = String(Math.floor((seconds % 3600)/60)).padStart(2,'0');
+    const secs = String(seconds % 60).padStart(2,'0');
+    display.textContent = `${hrs}:${mins}:${secs}`;
 }
-function stopStopwatch(){clearInterval(stopwatchInterval);}
-function resetStopwatch(){clearInterval(stopwatchInterval); stopwatchSeconds=0; stopwatchDisplay.innerText="00:00:00";}
+
+startStopBtn.onclick = () => {
+    if (!running) {
+        timer = setInterval(() => {
+            seconds++;
+            updateDisplay();
+        }, 1000);
+        startStopBtn.textContent = "Stop";
+        running = true;
+    } else {
+        clearInterval(timer);
+        startStopBtn.textContent = "Start";
+        running = false;
+    }
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    seconds = 0;
+    updateDisplay();
+    startStopBtn.textContent = "Start";
+    running = false;
+}
+
+updateDisplay();
 </script>
 
 </body>
