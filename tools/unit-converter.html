@@ -1,64 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Unit Converter | SG Multi Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff}
-header,footer{background:#020617;padding:12px;text-align:center}
-header a{color:#22c55e;text-decoration:none}
-footer{color:#94a3b8;font-size:14px}
-footer a{color:#38bdf8;text-decoration:none}
-.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
-.card{position:relative;width:380px;background:#1e293b;padding:20px;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.4)}
-.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
-select,input,button{width:100%;padding:10px;margin:8px 0;border:none;border-radius:6px}
-button{background:#38bdf8;color:#000;font-weight:bold;cursor:pointer}
-.result{margin-top:10px;font-weight:bold}
-</style>
-</head>
-<body>
-
-
-<header>
-<h2><a href="index.html">SG Multi Tools</a></h2>
-</header>
-
-
-<div class="container">
-<div class="card">
-<span class="close" onclick="location.href='index.html'">✕</span>
-<h3>Unit Converter</h3>
-
-
-<select id="category" onchange="loadUnits()">
-<option value="">Select Category</option>
-<option value="length">Length</option>
-<option value="weight">Weight</option>
-<option value="temperature">Temperature</option>
-</select>
-
-
-<input type="number" id="value" placeholder="Enter value">
-
-
-<select id="from"></select>
-<select id="to"></select>
-
-
-<button onclick="convert()">Convert</button>
-<div class="result" id="out"></div>
-</div>
-</div>
-
-
-<footer>
-© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
-</footer>
-
-
 <script>
 const units={
 length:{
+Meter:1,
+Kilometer:1000,
+Centimeter:0.01,
+Millimeter:0.001,
+Mile:1609.34,
+Foot:0.3048,
+Inch:0.0254
+},
+weight:{
+Kilogram:1,
+Gram:0.001,
+Milligram:0.000001,
+Pound:0.453592,
+Ounce:0.0283495
+},
+temperature:{
+Celsius:'C',
+Fahrenheit:'F',
+Kelvin:'K'
+}
+};
+
+
+function loadUnits(){
+from.innerHTML='';to.innerHTML='';
+const cat=category.value;
+if(!cat)return;
+for(let u in units[cat]){
+from.innerHTML+=`<option>${u}</option>`;
+to.innerHTML+=`<option>${u}</option>`;
+}
+}
+
+
+function convert(){
+const cat=category.value;
+const val=parseFloat(value.value);
+if(isNaN(val)){out.innerText='Enter a value';return;}
+let res;
+if(cat==='temperature'){
+const f=from.value,t=to.value;
+let c;
+if(f==='Celsius')c=val;
+if(f==='Fahrenheit')c=(val-32)*5/9;
+if(f==='Kelvin')c=val-273.15;
+if(t==='Celsius')res=c;
+if(t==='Fahrenheit')res=c*9/5+32;
+if(t==='Kelvin')res=c+273.15;
+}else{
+res=val*units[cat][from.value]/units[cat][to.value];
+}
+out.innerText='Result: '+res.toFixed(4);
+}
+</script>
+</body>
 </html>
