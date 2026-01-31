@@ -5,130 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Timer / Stopwatch | SG Multi Tools</title>
 <style>
-:root {
-    --bg-main: #0d0f14;
-    --bg-card: #12151a;
-    --accent: #42f8f5;
-    --accent-hover: #00f5d4;
-    --text: #ffffff;
-    --text-muted: #b6c3d1;
-    --radius: 12px;
-}
-
 body {
-    background: var(--bg-main);
-    color: var(--text);
-    font-family: 'Segoe UI', Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  background: #0f172a;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 50px 20px;
 }
 
-.card {
-    position: relative; /* required for close button */
-    background: var(--bg-card);
-    border: 2px solid var(--accent);
-    box-shadow: 0 0 25px rgba(66,248,245,0.5);
-    padding: 30px;
-    border-radius: var(--radius);
-    width: 350px;
-    text-align: center;
+.tool-box {
+  position: relative;
+  max-width: 420px;
+  margin: auto;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid #42f8f5;
+  box-shadow: 0 0 25px rgba(66, 248, 245, 0.5);
+}
+
+.tool-box:hover {
+  box-shadow: 0 0 35px rgba(66, 248, 245, 0.8);
+  border-color: #00f5d4;
 }
 
 .close {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    color: var(--text-muted);
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
 }
 
-.close:hover {
-    color: var(--accent-hover);
-}
-
-h2 {
-    margin-bottom: 20px;
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
 }
 
 button {
-    background: var(--accent);
-    border: none;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 button:hover {
-    background: var(--accent-hover);
-    color: #000;
+  background: #00f5d4;
 }
 
-#display {
-    font-size: 2rem;
-    margin: 15px 0;
+#timerDisplay {
+  font-size: 2rem;
+  margin: 15px 0;
+  font-weight: bold;
 }
-
 </style>
 </head>
 <body>
 
-<div class="card">
-    <span class="close" onclick="location.href='../index.html'">✕</span>
-    <h2>Timer / Stopwatch</h2>
-    <div id="display">00:00:00</div>
-    <button onclick="start()">Start</button>
-    <button onclick="pause()">Pause</button>
-    <button onclick="reset()">Reset</button>
+<div class="tool-box">
+  <span class="close" onclick="location.href='../index.html'">✕</span>
+  <h2>Timer / Stopwatch</h2>
+
+  <div id="timerDisplay">00:00:00</div>
+
+  <input type="number" id="minutes" placeholder="Minutes (for Timer)">
+  <button onclick="startTimer()">Start Timer</button>
+  <button onclick="startStopwatch()">Start Stopwatch</button>
+  <button onclick="stopTimer()">Stop</button>
+  <button onclick="resetTimer()">Reset</button>
 </div>
 
 <script>
-let timer;
-let seconds = 0;
-let running = false;
+let timerInterval;
+let totalSeconds = 0;
+let stopwatchRunning = false;
 
 function formatTime(sec) {
-    let h = Math.floor(sec / 3600);
-    let m = Math.floor((sec % 3600) / 60);
-    let s = sec % 60;
-    return [h,m,s].map(x=>x.toString().padStart(2,'0')).join(':');
+  const h = Math.floor(sec/3600).toString().padStart(2,'0');
+  const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+  const s = (sec%60).toString().padStart(2,'0');
+  return `${h}:${m}:${s}`;
 }
 
-function updateDisplay() {
-    document.getElementById('display').innerText = formatTime(seconds);
+function startTimer() {
+  clearInterval(timerInterval);
+  const minutes = parseInt(document.getElementById('minutes').value);
+  if(!minutes || minutes <=0) { alert("Enter valid minutes"); return; }
+  totalSeconds = minutes*60;
+  timerInterval = setInterval(() => {
+    if(totalSeconds<=0) { clearInterval(timerInterval); alert("Time's up!"); return; }
+    totalSeconds--;
+    document.getElementById('timerDisplay').innerText = formatTime(totalSeconds);
+  },1000);
 }
 
-function start() {
-    if (!running) {
-        running = true;
-        timer = setInterval(()=>{
-            seconds++;
-            updateDisplay();
-        }, 1000);
+function startStopwatch() {
+  clearInterval(timerInterval);
+  totalSeconds = 0;
+  stopwatchRunning = true;
+  timerInterval = setInterval(() => {
+    if(stopwatchRunning) {
+      totalSeconds++;
+      document.getElementById('timerDisplay').innerText = formatTime(totalSeconds);
     }
+  },1000);
 }
 
-function pause() {
-    running = false;
-    clearInterval(timer);
+function stopTimer() {
+  clearInterval(timerInterval);
+  stopwatchRunning = false;
 }
 
-function reset() {
-    running = false;
-    clearInterval(timer);
-    seconds = 0;
-    updateDisplay();
+function resetTimer() {
+  clearInterval(timerInterval);
+  stopwatchRunning = false;
+  totalSeconds = 0;
+  document.getElementById('timerDisplay').innerText = formatTime(totalSeconds);
 }
-
-updateDisplay();
 </script>
 
 </body>
