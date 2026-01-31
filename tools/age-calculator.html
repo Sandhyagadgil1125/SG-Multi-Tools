@@ -19,70 +19,81 @@
 
 body{
   margin:0;
-  min-height:100vh;
   background:var(--bg);
   color:var(--text);
+}
+
+/* ===== HEADER ===== */
+header{
+  background:#1c222d;
+  padding:14px;
+  text-align:center;
+  border-bottom:1px solid rgba(66,248,245,.25);
+}
+header a{
+  color:var(--accent);
+  font-weight:900;
+  font-size:20px;
+  text-decoration:none;
+}
+
+/* ===== TOOL CARD (NEON SQUARE) ===== */
+.tool-wrapper{
+  min-height:calc(100vh - 120px);
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:20px;
 }
 
-/* 🔷 TOOL CARD */
 .tool-card{
   position:relative;
+  background:var(--card);
   width:100%;
   max-width:420px;
-  background:var(--card);
-  border-radius:var(--radius);
   padding:28px;
-  border:1px solid #2a303c;
-  box-shadow:0 0 30px rgba(66,248,245,0.25);
+  border-radius:var(--radius);
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* ❌ CLOSE */
+/* CLOSE BUTTON */
 .close{
   position:absolute;
   top:12px;
   right:14px;
-  font-size:18px;
-  color:var(--muted);
+  font-size:20px;
   cursor:pointer;
+  color:var(--muted);
 }
 .close:hover{color:var(--accent)}
 
-/* TITLE */
 h1{
-  margin:0 0 20px;
   text-align:center;
-  font-size:1.5rem;
-  color:var(--accent);
+  margin-bottom:20px;
+  font-size:1.6rem;
 }
 
-/* INPUT */
-label{
-  font-size:14px;
-  color:var(--muted);
-}
+/* INPUTS */
+label{font-size:14px;color:var(--muted)}
 input{
   width:100%;
   padding:12px;
-  margin-top:6px;
-  border-radius:8px;
-  border:1px solid #2a303c;
+  margin:8px 0 16px;
   background:#0f172a;
   color:#fff;
+  border:1px solid #2a303c;
+  border-radius:8px;
   font-size:16px;
 }
 
-/* BUTTON */
 button{
-  margin-top:18px;
   width:100%;
   padding:12px;
-  border-radius:8px;
-  border:2px solid var(--accent);
   background:transparent;
+  border:2px solid var(--accent);
   color:var(--accent);
+  border-radius:8px;
   font-size:16px;
   font-weight:700;
   cursor:pointer;
@@ -92,50 +103,73 @@ button:hover{
   color:#000;
 }
 
-/* RESULT */
 .result{
   margin-top:18px;
-  font-size:16px;
   text-align:center;
+  font-size:16px;
   color:var(--accent);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:#1c222d;
+  padding:12px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
 }
 </style>
 </head>
 
 <body>
 
-<div class="tool-card">
-  <span class="close" onclick="location.href='index.html'">✕</span>
+<header>
+  <a href="/index.html">SG Multi Tools</a>
+</header>
 
-  <h1>Age Calculator</h1>
+<div class="tool-wrapper">
+  <div class="tool-card">
+    <span class="close" onclick="location.href='/index.html'">✕</span>
 
-  <label>Date of Birth</label>
-  <input type="date" id="dob">
+    <h1>Age Calculator</h1>
 
-  <button onclick="calculateAge()">Calculate Age</button>
+    <label>Select your Date of Birth</label>
+    <input type="date" id="dob">
 
-  <div class="result" id="result"></div>
+    <button onclick="calculateAge()">Calculate Age</button>
+
+    <div class="result" id="result"></div>
+  </div>
 </div>
+
+<footer>
+  © 2026 SG Multi Tools
+</footer>
 
 <script>
 function calculateAge(){
-  const dob=document.getElementById("dob").value;
-  if(!dob){
-    document.getElementById("result").innerText="Please select a date.";
+  const dob = new Date(document.getElementById("dob").value);
+  if(!dob.getTime()){
+    document.getElementById("result").innerHTML="Please select a valid date";
     return;
   }
 
-  const birth=new Date(dob);
-  const today=new Date();
+  const today = new Date();
+  let years = today.getFullYear() - dob.getFullYear();
+  let months = today.getMonth() - dob.getMonth();
+  let days = today.getDate() - dob.getDate();
 
-  let age=today.getFullYear()-birth.getFullYear();
-  const m=today.getMonth()-birth.getMonth();
-  if(m<0 || (m===0 && today.getDate()<birth.getDate())){
-    age--;
+  if(days < 0){
+    months--;
+    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  }
+  if(months < 0){
+    years--;
+    months += 12;
   }
 
-  document.getElementById("result").innerText=
-    "Your Age is " + age + " years";
+  document.getElementById("result").innerHTML =
+    `${years} Years, ${months} Months, ${days} Days`;
 }
 </script>
 
