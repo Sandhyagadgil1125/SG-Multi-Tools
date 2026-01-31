@@ -6,108 +6,124 @@
 <title>Currency Converter | SG Multi Tools</title>
 
 <style>
-:root {
-    --bg-main: #0d0f14;
-    --bg-card: #12151a;
-    --accent: #42f8f5;
-    --text: #ffffff;
-    --text-muted: #b6c3d1;
-    --radius: 12px;
+body{
+  margin:0;
+  min-height:100vh;
+  background:#0f172a;
+  font-family:Arial, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg-main);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* 🔷 Neon Box */
+.tool-box{
+  position:relative;
+  width:340px;
+  background:#1e293b;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 0 25px rgba(0,245,212,0.45);
 }
 
-.card {
-    position: relative;
-    width: 350px;
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 25px;
-    box-shadow: 0 0 25px rgba(66,248,245,0.3);
-    text-align: center;
+/* ❌ Close Button */
+.close{
+  position:absolute;
+  top:10px;
+  right:12px;
+  color:#94a3b8;
+  font-size:20px;
+  cursor:pointer;
 }
 
-.card input, .card select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 6px;
-    border: none;
-    background: #1e293b;
-    color: var(--text);
-    text-align: center;
+h2{
+  margin-top:0;
+  margin-bottom:15px;
+  color:#00f5d4;
+  text-align:center;
 }
 
-.card button {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--accent);
-    border-radius: 8px;
-    background: transparent;
-    color: var(--accent);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.card button:hover {
-    background: var(--accent);
-    color: #000;
+select, input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:6px;
+  border:none;
+  font-size:16px;
 }
 
-.close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 20px;
-    color: var(--text-muted);
-    cursor: pointer;
+button{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border:none;
+  border-radius:6px;
+  background:#00f5d4;
+  color:#000;
+  font-size:16px;
+  cursor:pointer;
+  font-weight:bold;
 }
-.close:hover { color: var(--accent); }
+
+.result{
+  margin-top:15px;
+  text-align:center;
+  font-size:18px;
+  color:#a7f3d0;
+}
 </style>
 </head>
+
 <body>
 
-<div class="card">
-  <span class="close" onclick="location.href='/index.html'">✕</span>
+<div class="tool-box">
+  <span class="close" onclick="location.href='/'">✕</span>
+
   <h2>Currency Converter</h2>
-  <input type="number" id="amount" placeholder="Amount">
+
+  <input type="number" id="amount" placeholder="Enter amount">
+
   <select id="from">
-    <option value="USD">USD</option>
-    <option value="INR">INR</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="JPY">JPY</option>
+    <option value="USD">USD – US Dollar</option>
+    <option value="INR">INR – Indian Rupee</option>
+    <option value="EUR">EUR – Euro</option>
+    <option value="GBP">GBP – British Pound</option>
   </select>
+
   <select id="to">
-    <option value="INR">INR</option>
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="JPY">JPY</option>
+    <option value="INR">INR – Indian Rupee</option>
+    <option value="USD">USD – US Dollar</option>
+    <option value="EUR">EUR – Euro</option>
+    <option value="GBP">GBP – British Pound</option>
   </select>
+
   <button onclick="convert()">Convert</button>
-  <input type="text" id="result" readonly placeholder="Converted Amount">
+
+  <div class="result" id="result"></div>
 </div>
 
 <script>
-const rates = { USD: 83, INR: 1, EUR: 90, GBP: 105, JPY: 0.62 };
+const rates = {
+  USD: { INR: 83, EUR: 0.92, GBP: 0.79, USD: 1 },
+  INR: { USD: 0.012, EUR: 0.011, GBP: 0.0095, INR: 1 },
+  EUR: { USD: 1.09, INR: 90, GBP: 0.86, EUR: 1 },
+  GBP: { USD: 1.26, INR: 105, EUR: 1.16, GBP: 1 }
+};
 
-function convert() {
-    const amt = parseFloat(document.getElementById('amount').value);
-    const from = document.getElementById('from').value;
-    const to = document.getElementById('to').value;
-    if(isNaN(amt)) return alert("Enter a valid amount");
-    const result = (amt * rates[from] / rates[to]).toFixed(2);
-    document.getElementById('result').value = result + " " + to;
+function convert(){
+  const amount = parseFloat(document.getElementById("amount").value);
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+
+  if(isNaN(amount)){
+    document.getElementById("result").innerText = "Enter a valid amount";
+    return;
+  }
+
+  const converted = amount * rates[from][to];
+  document.getElementById("result").innerText =
+    amount + " " + from + " = " + converted.toFixed(2) + " " + to;
 }
 </script>
 
