@@ -1,60 +1,158 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Converter | SG Multi Tools</title>
+
+<style>
+:root{
+  --bg:#0d0f14;
+  --card:#12151a;
+  --accent:#42f8f5;
+  --text:#fff;
+  --muted:#b6c3d1;
+}
+
+*{box-sizing:border-box;font-family:Segoe UI,Arial}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* CARD */
+.card{
+  position:relative;
+  max-width:420px;
+  margin:80px auto;
+  background:var(--card);
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #2a303c;
+  box-shadow:0 0 25px rgba(66,248,245,.15);
+}
+
+/* CLOSE BUTTON */
+.close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:18px;
+  cursor:pointer;
+  color:var(--muted);
+}
+.close:hover{color:var(--accent)}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:var(--accent);
+}
+
+select,input{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  background:#0f172a;
+  border:1px solid #2a303c;
+  border-radius:8px;
+  color:#fff;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:var(--accent);
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  color:#000;
+}
+button:hover{opacity:.9}
+
+.result{
+  margin-top:15px;
+  text-align:center;
+  font-size:18px;
+  color:var(--accent);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <!-- ❌ CLOSE -->
+  <span class="close" onclick="location.href='../index.html'">✕</span>
+
+  <h2>Unit Converter</h2>
+
+  <!-- CATEGORY -->
+  <select id="category" onchange="loadUnits()">
+    <option value="length">Length</option>
+    <option value="weight">Weight</option>
+    <option value="temperature">Temperature</option>
+  </select>
+
+  <!-- INPUT -->
+  <input type="number" id="value" placeholder="Enter value">
+
+  <!-- FROM / TO -->
+  <select id="from"></select>
+  <select id="to"></select>
+
+  <button onclick="convert()">Convert</button>
+
+  <div class="result" id="result"></div>
+</div>
+
 <script>
 const units={
-length:{
-Meter:1,
-Kilometer:1000,
-Centimeter:0.01,
-Millimeter:0.001,
-Mile:1609.34,
-Foot:0.3048,
-Inch:0.0254
-},
-weight:{
-Kilogram:1,
-Gram:0.001,
-Milligram:0.000001,
-Pound:0.453592,
-Ounce:0.0283495
-},
-temperature:{
-Celsius:'C',
-Fahrenheit:'F',
-Kelvin:'K'
-}
+  length:{Meter:1, Kilometer:1000, Centimeter:0.01, Mile:1609},
+  weight:{Gram:1, Kilogram:1000, Pound:453.6},
 };
 
-
 function loadUnits(){
-from.innerHTML='';to.innerHTML='';
-const cat=category.value;
-if(!cat)return;
-for(let u in units[cat]){
-from.innerHTML+=`<option>${u}</option>`;
-to.innerHTML+=`<option>${u}</option>`;
+  const cat=category.value;
+  from.innerHTML=to.innerHTML="";
+  if(cat==="temperature"){
+    ["Celsius","Fahrenheit","Kelvin"].forEach(u=>{
+      from.add(new Option(u,u));
+      to.add(new Option(u,u));
+    });
+  }else{
+    Object.keys(units[cat]).forEach(u=>{
+      from.add(new Option(u,u));
+      to.add(new Option(u,u));
+    });
+  }
 }
-}
-
+loadUnits();
 
 function convert(){
-const cat=category.value;
-const val=parseFloat(value.value);
-if(isNaN(val)){out.innerText='Enter a value';return;}
-let res;
-if(cat==='temperature'){
-const f=from.value,t=to.value;
-let c;
-if(f==='Celsius')c=val;
-if(f==='Fahrenheit')c=(val-32)*5/9;
-if(f==='Kelvin')c=val-273.15;
-if(t==='Celsius')res=c;
-if(t==='Fahrenheit')res=c*9/5+32;
-if(t==='Kelvin')res=c+273.15;
-}else{
-res=val*units[cat][from.value]/units[cat][to.value];
-}
-out.innerText='Result: '+res.toFixed(4);
+  const v=parseFloat(value.value);
+  if(isNaN(v)) return;
+
+  if(category.value==="temperature"){
+    let r;
+    if(from.value==="Celsius" && to.value==="Fahrenheit") r=v*9/5+32;
+    else if(from.value==="Fahrenheit" && to.value==="Celsius") r=(v-32)*5/9;
+    else if(from.value==="Celsius" && to.value==="Kelvin") r=v+273.15;
+    else if(from.value==="Kelvin" && to.value==="Celsius") r=v-273.15;
+    else r=v;
+    result.textContent=r.toFixed(2);
+  }else{
+    const base=v*units[category.value][from.value];
+    const r=base/units[category.value][to.value];
+    result.textContent=r.toFixed(4);
+  }
 }
 </script>
+
 </body>
 </html>
