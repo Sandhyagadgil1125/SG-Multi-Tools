@@ -6,32 +6,38 @@
 <title>Advanced Calculator | SG Multi Tools</title>
 
 <style>
-body{
-  background:#0f172a;
-  color:#fff;
+*{
+  box-sizing:border-box;
   font-family:Arial, sans-serif;
-  text-align:center;
-  padding:50px 20px;
 }
 
-/* 🔹 NEON TOOL BOX */
-.tool-box{
+body{
+  margin:0;
+  padding:0 10px;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
+}
+
+/* 🔹 NEON TOOL WRAPPER */
+.tool-wrapper{
   position:relative;
-  max-width:360px;
-  margin:auto;
+  width:100%;
+  max-width:520px;
+  margin:40px auto;
   background:#1e293b;
-  padding:20px;
+  padding:24px;
   border-radius:14px;
   border:2px solid #42f8f5;
   box-shadow:0 0 28px rgba(66,248,245,0.55);
 }
 
 /* 🔹 CLOSE BUTTON */
-.close{
+.close-btn{
   position:absolute;
   top:12px;
   right:14px;
-  font-size:20px;
+  font-size:22px;
   color:#94a3b8;
   cursor:pointer;
 }
@@ -48,11 +54,11 @@ body{
   margin-bottom:15px;
 }
 
-/* 🔹 BUTTONS */
+/* 🔹 BUTTON GRID */
 .btns{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:8px;
+  gap:10px;
 }
 
 button{
@@ -69,51 +75,19 @@ button{
 button:hover{
   background:#00f5d4;
 }
-  *{
-    box-sizing:border-box;
-}
 
-body{
-    margin:0;
-    padding:0 10px;
-}
-
-/* Neon tool box */
-.tool-wrapper{
-    width:100%;
-    max-width:520px;
-    margin:40px auto;
-}
-
-/* Inputs & buttons scale well */
-input, select, textarea, button{
-    width:100%;
-    max-width:100%;
-    font-size:16px;
-}
-
-/* Mobile fine-tuning */
+/* 🔹 MOBILE */
 @media (max-width:480px){
-    .tool-wrapper{
-        padding:18px;
-    }
-
-    h1{
-        font-size:20px;
-    }
-
-    .close-btn{
-        font-size:18px;
-    }
+  h2{ font-size:20px; }
+  .close-btn{ font-size:18px; }
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='../index.html'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
   <h2>Advanced Calculator</h2>
 
@@ -142,21 +116,20 @@ input, select, textarea, button{
 
     <button onclick="add('0')">0</button>
     <button onclick="add('.')">.</button>
-    <button onclick="calc()" style="grid-column: span 2">=</button>
+    <button onclick="calc()" style="grid-column:span 2">=</button>
   </div>
 </div>
 
 <script>
 function add(val){
-  document.getElementById('display').value += val;
+  display.value += val;
 }
 function clr(){
-  document.getElementById('display').value = '';
+  display.value = '';
 }
 function calc(){
   try{
-    document.getElementById('display').value =
-      eval(document.getElementById('display').value);
+    display.value = eval(display.value);
   }catch{
     alert('Invalid Expression');
   }
