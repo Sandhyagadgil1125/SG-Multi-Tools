@@ -2,51 +2,91 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Color Picker | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Picker | SG Multi Tools</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
-header,footer{background:#020617;padding:12px}
-header a{color:#22c55e;text-decoration:none}
-footer{color:#94a3b8;font-size:14px}
-footer a{color:#38bdf8;text-decoration:none}
-.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
-.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
-.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
-input,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
-button{background:#38bdf8;color:#000;font-weight:bold;cursor:pointer}
-.result{margin-top:10px;font-weight:bold;height:50px;line-height:50px;border-radius:6px}
+:root {
+    --bg-main: #0d0f14;
+    --bg-card: #12151a;
+    --accent: #42f8f5;
+    --text: #ffffff;
+    --text-muted: #b6c3d1;
+    --radius: 12px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    position: relative; /* for close button */
+    width: 350px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(66,248,245,0.3);
+    text-align: center;
+}
+
+.card input[type=color] {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+.card input[type=text] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #1e293b;
+    color: var(--text);
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+.close:hover { color: var(--accent); }
 </style>
 </head>
 <body>
-<header>
-<h2><a href="index.html">SG Multi Tools</a></h2>
-</header>
 
-
-<div class="container">
 <div class="card">
-<span class="close" onclick="location.href='index.html'">✕</span>
-<h3>Color Picker</h3>
-<input type="color" id="color">
-<button onclick="pickColor()">Pick Color</button>
-<div class="result" id="out">#FFFFFF</div>
+  <span class="close" onclick="location.href='/index.html'">✕</span>
+  <h2>Color Picker</h2>
+  <input type="color" id="colorPicker" value="#42f8f5">
+  <input type="text" id="hexCode" readonly>
 </div>
-</div>
-
-
-<footer>
-© 2026 SG Multi Tools | <a href="privacy-policy.html">Privacy Policy</a>
-</footer>
-
 
 <script>
-function pickColor(){
-const c=color.value;
-const out=document.getElementById('out');
-out.innerText=c;
-out.style.background=c;
+const colorPicker = document.getElementById('colorPicker');
+const hexCode = document.getElementById('hexCode');
+
+function updateHex() {
+    hexCode.value = colorPicker.value.toUpperCase();
 }
+
+colorPicker.addEventListener('input', updateHex);
+updateHex();
 </script>
+
 </body>
 </html>
