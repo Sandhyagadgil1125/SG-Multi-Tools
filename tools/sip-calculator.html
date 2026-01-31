@@ -4,148 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIP Calculator | SG Multi Tools</title>
-
 <style>
-:root{
-  --bg-main:#0d0f14;
-  --bg-card:#12151a;
-  --bg-nav:#1c222d;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --text-muted:#b6c3d1;
-  --radius:12px;
+body {
+  background: #0f172a;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 50px 20px;
 }
 
-*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-
-body{
-  margin:0;
-  background:var(--bg-main);
-  color:var(--text);
+.tool-box {
+  position: relative;
+  max-width: 420px;
+  margin: auto;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid #42f8f5;
+  box-shadow: 0 0 25px rgba(66, 248, 245, 0.5);
 }
 
-header{
-  background:var(--bg-nav);
-  padding:14px 22px;
-  text-align:center;
-  border-bottom:1px solid rgba(66,248,245,.2);
-}
-header a{
-  color:var(--accent);
-  text-decoration:none;
-  font-weight:900;
-  font-size:20px;
+.tool-box:hover {
+  box-shadow: 0 0 35px rgba(66, 248, 245, 0.8);
+  border-color: #00f5d4;
 }
 
-.wrapper{
-  display:flex;
-  justify-content:center;
-  padding:60px 20px;
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
 }
 
-.tool-card{
-  position:relative;
-  width:100%;
-  max-width:420px;
-  background:var(--bg-card);
-  border:1px solid #2a303c;
-  border-radius:var(--radius);
-  padding:30px;
-  box-shadow:0 0 30px rgba(66,248,245,.25);
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
 }
 
-.close{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:20px;
-  color:var(--text-muted);
-  cursor:pointer;
-}
-.close:hover{color:var(--accent)}
-
-h2{text-align:center;margin-bottom:20px}
-
-input,button{
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border-radius:8px;
-  border:none;
-  font-size:15px;
+button {
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-input{
-  background:#0d1117;
-  color:#fff;
-  border:1px solid #2a303c;
+button:hover {
+  background: #00f5d4;
 }
 
-button{
-  background:transparent;
-  border:2px solid var(--accent);
-  color:var(--accent);
-  font-weight:700;
-  cursor:pointer;
+#result {
+  margin-top: 15px;
+  font-weight: bold;
 }
-button:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-.result{
-  margin-top:18px;
-  text-align:center;
-  font-weight:600;
-  color:var(--accent);
-}
-
-footer{
-  background:var(--bg-nav);
-  padding:18px;
-  text-align:center;
-  font-size:13px;
-  color:var(--text-muted);
-}
-footer a{color:var(--accent);text-decoration:none}
 </style>
 </head>
-
 <body>
 
-<header>
-  <a href="/">SG Multi Tools</a>
-</header>
+<div class="tool-box">
+  <span class="close" onclick="location.href='../index.html'">✕</span>
+  <h2>SIP Calculator</h2>
 
-<div class="wrapper">
-  <div class="tool-card">
-    <span class="close" onclick="location.href='/'">✕</span>
-
-    <h2>SIP Calculator</h2>
-
-    <input type="number" id="monthly" placeholder="Monthly Investment (₹)">
-    <input type="number" id="rate" placeholder="Expected Annual Return (%)">
-    <input type="number" id="years" placeholder="Investment Duration (Years)">
-    <button onclick="calculateSIP()">Calculate Maturity</button>
-
-    <div class="result" id="output"></div>
-  </div>
+  <input type="number" id="sipAmount" placeholder="Monthly SIP Amount">
+  <input type="number" id="rate" placeholder="Expected Annual Return (%)">
+  <input type="number" id="time" placeholder="Investment Period (Years)">
+  <button onclick="calculateSIP()">Calculate SIP Value</button>
+  <p id="result"></p>
 </div>
 
-<footer>
-  © 2026 SG Multi Tools · <a href="/privacy-policy.html">Privacy Policy</a>
-</footer>
-
 <script>
-function calculateSIP(){
-  const M = parseFloat(document.getElementById('monthly').value);
-  const R = parseFloat(document.getElementById('rate').value)/100/12;
-  const Y = parseFloat(document.getElementById('years').value)*12;
+function calculateSIP() {
+  const P = parseFloat(document.getElementById('sipAmount').value);
+  const r = parseFloat(document.getElementById('rate').value)/100/12;
+  const n = parseFloat(document.getElementById('time').value)*12;
 
-  if(!M || !R || !Y){output.innerText="Please fill all fields"; return;}
+  if(!P || !r || !n) {
+    document.getElementById('result').innerText = "Please enter valid numbers.";
+    return;
+  }
 
-  const FV = M*((Math.pow(1+R,Y)-1)/R)*(1+R);
-  output.innerText = "Maturity Amount: ₹"+FV.toFixed(2);
+  // Future Value of SIP formula
+  const FV = P * ( (Math.pow(1 + r, n) - 1) / r ) * (1 + r);
+  document.getElementById('result').innerText = `Maturity Value: ₹${FV.toFixed(2)}`;
 }
 </script>
 
