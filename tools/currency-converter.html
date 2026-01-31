@@ -2,33 +2,114 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Currency Converter | SG Multi Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter | SG Multi Tools</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff;text-align:center}
-header,footer{background:#020617;padding:12px}
-header a{color:#22c55e;text-decoration:none}
-footer{color:#94a3b8;font-size:14px}
-footer a{color:#38bdf8;text-decoration:none}
-.container{display:flex;justify-content:center;align-items:center;min-height:80vh}
-.card{position:relative;width:360px;background:#1e293b;padding:20px;border-radius:12px}
-.close{position:absolute;top:10px;right:12px;cursor:pointer;color:#94a3b8;font-size:18px}
-input,select,button{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none}
-button{background:#22c55e;color:#000;font-weight:bold;cursor:pointer}
-.result{margin-top:10px;font-weight:bold}
+:root {
+    --bg-main: #0d0f14;
+    --bg-card: #12151a;
+    --accent: #42f8f5;
+    --text: #ffffff;
+    --text-muted: #b6c3d1;
+    --radius: 12px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    position: relative;
+    width: 350px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(66,248,245,0.3);
+    text-align: center;
+}
+
+.card input, .card select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: none;
+    background: #1e293b;
+    color: var(--text);
+    text-align: center;
+}
+
+.card button {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.card button:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+.close:hover { color: var(--accent); }
 </style>
 </head>
 <body>
-<header>
-<h2><a href="index.html">SG Multi Tools</a></h2>
-</header>
 
-
-<div class="container">
 <div class="card">
-<span class="close" onclick="location.href='index.html'">✕</span>
-<h3>Currency Converter</h3>
-<input type="number" id="amount" placeholder="Amount">
-<select id="from">
-<option value="USD">USD</option>
+  <span class="close" onclick="location.href='/index.html'">✕</span>
+  <h2>Currency Converter</h2>
+  <input type="number" id="amount" placeholder="Amount">
+  <select id="from">
+    <option value="USD">USD</option>
+    <option value="INR">INR</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="JPY">JPY</option>
+  </select>
+  <select id="to">
+    <option value="INR">INR</option>
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="JPY">JPY</option>
+  </select>
+  <button onclick="convert()">Convert</button>
+  <input type="text" id="result" readonly placeholder="Converted Amount">
+</div>
+
+<script>
+const rates = { USD: 83, INR: 1, EUR: 90, GBP: 105, JPY: 0.62 };
+
+function convert() {
+    const amt = parseFloat(document.getElementById('amount').value);
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    if(isNaN(amt)) return alert("Enter a valid amount");
+    const result = (amt * rates[from] / rates[to]).toFixed(2);
+    document.getElementById('result').value = result + " " + to;
+}
+</script>
+
+</body>
 </html>
