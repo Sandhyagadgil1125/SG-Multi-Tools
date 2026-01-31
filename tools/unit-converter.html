@@ -6,72 +6,97 @@
 <title>Unit Converter | SG Multi Tools</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0f172a;
-  color:#fff;
+:root{
+  --bg-main:#0d0f14;
+  --bg-card:#12151a;
+  --bg-nav:#1c222d;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --text-muted:#b6c3d1;
+  --radius:14px;
 }
 
+*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+
+body{
+  margin:0;
+  background:var(--bg-main);
+  color:var(--text);
+}
+
+/* HEADER */
 header{
-  background:#020617;
+  background:var(--bg-nav);
   padding:14px;
   text-align:center;
+  border-bottom:1px solid rgba(66,248,245,0.2);
 }
 header a{
-  color:#22c55e;
+  color:var(--accent);
+  font-weight:800;
   text-decoration:none;
-  font-weight:700;
-  font-size:20px;
+  font-size:18px;
+}
+
+/* TOOL CARD */
+.tool-wrapper{
+  min-height:calc(100vh - 120px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
 }
 
 .tool-card{
   position:relative;
-  max-width:360px;
-  margin:40px auto;
-  background:#1e293b;
-  padding:22px;
-  border-radius:12px;
-  box-shadow:0 0 25px rgba(34,197,94,0.25);
+  background:var(--bg-card);
+  border:1px solid #2a303c;
+  border-radius:var(--radius);
+  padding:28px;
+  width:100%;
+  max-width:460px;
+  box-shadow:0 0 30px rgba(66,248,245,0.25);
 }
 
-.close{
+/* CLOSE BUTTON */
+.close-btn{
   position:absolute;
-  top:10px;
-  right:12px;
+  top:12px;
+  right:14px;
   font-size:18px;
-  color:#94a3b8;
+  color:var(--text-muted);
   cursor:pointer;
 }
-.close:hover{color:#22c55e}
+.close-btn:hover{color:var(--accent)}
 
-h2{text-align:center;margin-bottom:18px}
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
 
-label{display:block;margin-top:12px;font-size:14px;color:#cbd5f5}
-
-select,input{
+/* FORM */
+select,input,button{
   width:100%;
   padding:10px;
-  margin-top:6px;
-  border-radius:6px;
+  margin:8px 0;
+  border-radius:8px;
   border:none;
-  font-size:15px;
+  font-size:14px;
 }
 
-.result{
-  margin-top:15px;
-  font-size:18px;
-  text-align:center;
-  color:#22c55e;
+button{
+  background:var(--accent);
+  font-weight:700;
+  cursor:pointer;
 }
 
+/* FOOTER */
 footer{
-  margin-top:60px;
-  background:#020617;
-  padding:12px;
+  background:var(--bg-nav);
   text-align:center;
+  padding:16px;
   font-size:13px;
-  color:#94a3b8;
+  color:var(--text-muted);
 }
 </style>
 </head>
@@ -79,98 +104,74 @@ footer{
 <body>
 
 <header>
-  <a href="../index.html">SG Multi Tools</a>
+  <a href="/">SG Multi Tools</a>
 </header>
 
-<div class="tool-card">
-  <span class="close" onclick="location.href='../index.html'">✕</span>
-  <h2>Unit Converter</h2>
+<div class="tool-wrapper">
+  <div class="tool-card">
 
-  <label>Category</label>
-  <select id="category" onchange="loadUnits()">
-    <option value="length">Length</option>
-    <option value="weight">Weight</option>
-    <option value="temperature">Temperature</option>
-  </select>
+    <span class="close-btn" onclick="location.href='/'">✕</span>
 
-  <label>From</label>
-  <select id="from"></select>
+    <h2>Unit Converter</h2>
 
-  <label>To</label>
-  <select id="to"></select>
+    <select id="category" onchange="loadUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
 
-  <label>Value</label>
-  <input type="number" id="value" oninput="convert()">
+    <input type="number" id="inputValue" placeholder="Enter value">
 
-  <div class="result" id="result">Result: —</div>
+    <select id="fromUnit"></select>
+    <select id="toUnit"></select>
+
+    <button onclick="convert()">Convert</button>
+
+    <p id="result"></p>
+
+  </div>
 </div>
 
 <footer>
-© 2026 SG Multi Tools
+  © 2026 SG Multi Tools
 </footer>
 
 <script>
-const units = {
-  length: {
-    Meter:1,
-    Kilometer:1000,
-    Centimeter:0.01,
-    Millimeter:0.001,
-    Mile:1609.34,
-    Foot:0.3048
-  },
-  weight: {
-    Kilogram:1,
-    Gram:0.001,
-    Pound:0.453592,
-    Ounce:0.0283495
-  },
-  temperature: {
-    Celsius:"c",
-    Fahrenheit:"f",
-    Kelvin:"k"
-  }
+const units={
+  length:{Meter:1, Kilometer:1000, Centimeter:0.01},
+  weight:{Gram:1, Kilogram:1000},
+  temperature:{Celsius:"c", Fahrenheit:"f"}
 };
 
 function loadUnits(){
-  const cat=document.getElementById("category").value;
-  const from=document.getElementById("from");
-  const to=document.getElementById("to");
-  from.innerHTML="";
-  to.innerHTML="";
-
+  const cat=category.value;
+  fromUnit.innerHTML="";
+  toUnit.innerHTML="";
   for(let u in units[cat]){
-    from.innerHTML+=`<option>${u}</option>`;
-    to.innerHTML+=`<option>${u}</option>`;
+    fromUnit.innerHTML+=`<option>${u}</option>`;
+    toUnit.innerHTML+=`<option>${u}</option>`;
   }
-  convert();
 }
+loadUnits();
 
 function convert(){
-  const cat=document.getElementById("category").value;
-  const val=parseFloat(document.getElementById("value").value);
-  if(isNaN(val)){document.getElementById("result").innerText="Result: —";return;}
-
-  let from=document.getElementById("from").value;
-  let to=document.getElementById("to").value;
-  let res=0;
+  const cat=category.value;
+  let v=parseFloat(inputValue.value);
+  if(isNaN(v)) return;
 
   if(cat==="temperature"){
-    if(from==="Celsius" && to==="Fahrenheit") res=val*9/5+32;
-    else if(from==="Celsius" && to==="Kelvin") res=val+273.15;
-    else if(from==="Fahrenheit" && to==="Celsius") res=(val-32)*5/9;
-    else if(from==="Fahrenheit" && to==="Kelvin") res=(val-32)*5/9+273.15;
-    else if(from==="Kelvin" && to==="Celsius") res=val-273.15;
-    else if(from==="Kelvin" && to==="Fahrenheit") res=(val-273.15)*9/5+32;
-    else res=val;
-  } else {
-    res = val * units[cat][from] / units[cat][to];
+    let res;
+    if(fromUnit.value==="Celsius" && toUnit.value==="Fahrenheit")
+      res=(v*9/5)+32;
+    else if(fromUnit.value==="Fahrenheit" && toUnit.value==="Celsius")
+      res=(v-32)*5/9;
+    else res=v;
+    result.innerText="Result: "+res.toFixed(2);
+  }else{
+    let res=v*units[cat][fromUnit.value]/units[cat][toUnit.value];
+    result.innerText="Result: "+res.toFixed(4);
   }
-
-  document.getElementById("result").innerText="Result: "+res.toFixed(4);
 }
-
-loadUnits();
 </script>
 
 </body>
