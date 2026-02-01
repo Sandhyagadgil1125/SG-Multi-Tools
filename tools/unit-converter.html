@@ -4,89 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
-
 <style>
-body {
-  background: #0d0f14;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  font-family: 'Segoe UI', Arial, sans-serif;
+:root {
+  --bg-main: #0d0f14;
+  --bg-card: #12151a;
+  --accent: #42f8f5;
+  --accent-hover: #00f5d4;
+  --text: #ffffff;
+  --text-muted: #b6c3d1;
+  --radius: 14px;
 }
 
-/* TOOL CARD / FLEXBOX */
+body {
+  background: var(--bg-main);
+  color: var(--text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
 .tool-wrapper {
-  background: #12151a;      /* same as index card bg */
-  border-radius: 16px;
-  padding: 24px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 15px;
   border: 1px solid #2a303c;
   box-shadow: 0 0 25px rgba(66,248,245,0.25);
-  color: #fff;               /* ensures text is white */
+  position: relative;
 }
 
 /* CLOSE BUTTON */
 .close-btn {
   position: absolute;
   top: 12px;
-  right: 14px;
+  right: 16px;
   font-size: 22px;
-  color: #fff;
   cursor: pointer;
+  color: #fff;
 }
-.close-btn:hover { color: #42f8f5; }
+.close-btn:hover { color: var(--accent); }
 
-/* HEADINGS */
-h2 { text-align: center; color: #42f8f5; margin-bottom: 8px; }
+h2 {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
 
-/* EACH INPUT FLEXBOX */
+/* FLEXBOX CARD */
 .flexbox {
-  background: #1c222d;       /* dark background for all flexboxes */
-  padding: 16px;
+  background: #1c222d;    /* colored background */
+  padding: 12px 16px;
   border-radius: 12px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-/* LABELS AND PLACEHOLDERS */
-label { color: #fff; font-weight: 600; }
+/* LABELS */
+label {
+  color: #fff;
+  font-weight: 600;
+  min-width: 60px;
+}
+
+/* INPUT AND SELECT */
 input, select {
-  height: 40px;
+  height: 36px;
   border-radius: 8px;
   border: 1px solid #2a303c;
   background: #0b0e13;
   color: #fff;
   padding: 0 10px;
+  font-size: 14px;
 }
-input::placeholder { color: #fff; }
 
 /* BUTTON */
 button {
-  height: 44px;
+  height: 40px;
   border-radius: 10px;
-  border: 2px solid #42f8f5;
+  border: 2px solid var(--accent);
   background: transparent;
-  color: #42f8f5;
+  color: var(--accent);
   font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover { background: #42f8f5; color: #000; }
+button:hover { background: var(--accent); color: #000; }
 
 /* RESULT */
 #conversionResult {
-  color: #00f5d4;
-  font-weight: 600;
-  min-height: 24px;
   text-align: center;
+  font-weight: 600;
+  color: var(--accent-hover);
+  min-height: 24px;
 }
 </style>
 </head>
@@ -99,7 +115,7 @@ button:hover { background: #42f8f5; color: #000; }
   <!-- LENGTH -->
   <div class="flexbox">
     <label>Length</label>
-    <input type="number" id="lengthValue" placeholder="Enter value">
+    <input type="number" id="lengthValue" placeholder="Value">
     <select id="lengthUnitFrom">
       <option value="m">Meter</option>
       <option value="cm">Centimeter</option>
@@ -119,7 +135,7 @@ button:hover { background: #42f8f5; color: #000; }
   <!-- WEIGHT -->
   <div class="flexbox">
     <label>Weight</label>
-    <input type="number" id="weightValue" placeholder="Enter value">
+    <input type="number" id="weightValue" placeholder="Value">
     <select id="weightUnitFrom">
       <option value="kg">Kilogram</option>
       <option value="g">Gram</option>
@@ -136,8 +152,8 @@ button:hover { background: #42f8f5; color: #000; }
 
   <!-- TEMPERATURE -->
   <div class="flexbox">
-    <label>Temperature</label>
-    <input type="number" id="tempValue" placeholder="Enter value">
+    <label>Temp</label>
+    <input type="number" id="tempValue" placeholder="Value">
     <select id="tempUnitFrom">
       <option value="C">Celsius</option>
       <option value="F">Fahrenheit</option>
@@ -151,7 +167,7 @@ button:hover { background: #42f8f5; color: #000; }
   </div>
 
   <!-- BUTTON -->
-  <div class="flexbox">
+  <div class="flexbox" style="justify-content:center;">
     <button onclick="convertUnits()">Convert</button>
   </div>
 
@@ -162,35 +178,33 @@ button:hover { background: #42f8f5; color: #000; }
 </div>
 
 <script>
-const lengthFactors = { m:1, cm:0.01, km:1000, ft:0.3048, in:0.0254 };
-const weightFactors = { kg:1, g:0.001, lb:0.453592, oz:0.0283495 };
+const lengthFactors={ m:1, cm:0.01, km:1000, ft:0.3048, in:0.0254 };
+const weightFactors={ kg:1, g:0.001, lb:0.453592, oz:0.0283495 };
 
-function convertUnits() {
-  let result = "";
-
+function convertUnits(){
+  let result="";
   // LENGTH
-  const lVal = parseFloat(document.getElementById("lengthValue").value);
-  const lFrom = document.getElementById("lengthUnitFrom").value;
-  const lTo = document.getElementById("lengthUnitTo").value;
-  if(!isNaN(lVal)) result += "Length: "+ (lVal*lengthFactors[lFrom]/lengthFactors[lTo]).toFixed(4) +" "+lTo+"\n";
+  const lVal=parseFloat(document.getElementById("lengthValue").value);
+  const lFrom=document.getElementById("lengthUnitFrom").value;
+  const lTo=document.getElementById("lengthUnitTo").value;
+  if(!isNaN(lVal)) result+="Length: "+(lVal*lengthFactors[lFrom]/lengthFactors[lTo]).toFixed(4)+" "+lTo+"\n";
 
   // WEIGHT
-  const wVal = parseFloat(document.getElementById("weightValue").value);
-  const wFrom = document.getElementById("weightUnitFrom").value;
-  const wTo = document.getElementById("weightUnitTo").value;
-  if(!isNaN(wVal)) result += "Weight: "+ (wVal*weightFactors[wFrom]/weightFactors[wTo]).toFixed(4) +" "+wTo+"\n";
+  const wVal=parseFloat(document.getElementById("weightValue").value);
+  const wFrom=document.getElementById("weightUnitFrom").value;
+  const wTo=document.getElementById("weightUnitTo").value;
+  if(!isNaN(wVal)) result+="Weight: "+(wVal*weightFactors[wFrom]/weightFactors[wTo]).toFixed(4)+" "+wTo+"\n";
 
   // TEMPERATURE
-  const tVal = parseFloat(document.getElementById("tempValue").value);
-  const tFrom = document.getElementById("tempUnitFrom").value;
-  const tTo = document.getElementById("tempUnitTo").value;
+  const tVal=parseFloat(document.getElementById("tempValue").value);
+  const tFrom=document.getElementById("tempUnitFrom").value;
+  const tTo=document.getElementById("tempUnitTo").value;
   if(!isNaN(tVal)){
-    let tC = tFrom==="C"?tVal:(tFrom==="F"? (tVal-32)/1.8 : tVal-273.15);
-    let tConverted = tTo==="C"?tC:(tTo==="F"? tC*1.8+32 : tC+273.15);
-    result += "Temperature: "+tConverted.toFixed(2)+" "+tTo;
+    let tC=(tFrom==="C"?tVal:(tFrom==="F"? (tVal-32)/1.8: tVal-273.15));
+    let tConv=(tTo==="C"?tC:(tTo==="F"? tC*1.8+32: tC+273.15));
+    result+="Temp: "+tConv.toFixed(2)+" "+tTo;
   }
-
-  document.getElementById("conversionResult").innerText = result || "Enter values to convert";
+  document.getElementById("conversionResult").innerText=result||"Enter values to convert";
 }
 </script>
 
