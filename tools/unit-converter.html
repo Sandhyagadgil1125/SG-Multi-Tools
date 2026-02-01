@@ -4,116 +4,176 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
+
 <style>
-body {
-  background: #0f172a;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 50px 20px;
+/* ===== GLOBAL RESET ===== */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Segoe UI, Arial, sans-serif;
 }
 
-.tool-box {
-  position: relative;
-  max-width: 420px;
-  margin: auto;
-  background: #1e293b;
-  padding: 25px;
-  border-radius: 12px;
-  border: 2px solid #42f8f5;
-  box-shadow: 0 0 25px rgba(66, 248, 245, 0.5);
+body{
+  background:#0d0f14;
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-.tool-box:hover {
-  box-shadow: 0 0 35px rgba(66, 248, 245, 0.8);
-  border-color: #00f5d4;
+/* ===== NEON TOOL WRAPPER (MASTER PROTOTYPE) ===== */
+.tool-wrapper{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  background:#12151a;
+  padding:26px;
+  border-radius:16px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 30px rgba(66,248,245,0.55);
 }
 
-.close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 18px;
-  color: #94a3b8;
-  cursor: pointer;
+/* ===== CLOSE BUTTON ===== */
+.close-btn{
+  position:absolute;
+  top:14px;
+  right:16px;
+  font-size:22px;
+  color:#9aa7b8;
+  cursor:pointer;
+}
+.close-btn:hover{
+  color:#42f8f5;
 }
 
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: none;
+/* ===== HEADING ===== */
+h1{
+  text-align:center;
+  margin-bottom:22px;
+  font-size:24px;
+  color:#42f8f5;
 }
 
-button {
-  background: #42f8f5;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
+/* ===== FORM LAYOUT ===== */
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
-button:hover {
-  background: #00f5d4;
+/* Equal width inputs & selects */
+input,
+select,
+button{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  border-radius:10px;
+  border:none;
+}
+
+/* Inputs & selects */
+input, select{
+  background:#1c222d;
+  color:#fff;
+  border:1px solid #2a303c;
+  text-align:center;
+}
+
+/* ===== CONVERT BUTTON ===== */
+button{
+  background:#42f8f5;
+  color:#000;
+  font-weight:700;
+  cursor:pointer;
+}
+button:hover{
+  background:#00f5d4;
+}
+
+/* ===== RESULT ===== */
+.result{
+  margin-top:16px;
+  text-align:center;
+  font-size:18px;
+  color:#00f5d4;
+  min-height:24px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:480px){
+  h1{ font-size:20px; }
+  .tool-wrapper{ padding:20px; }
+  .close-btn{ font-size:18px; }
 }
 </style>
 </head>
+
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='../index.html'">✕</span>
-  <h2>Unit Converter</h2>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
-  <select id="category" onchange="updateUnits()">
-    <option value="length">Length</option>
-    <option value="weight">Weight</option>
-    <option value="temperature">Temperature</option>
-  </select>
+  <h1>Unit Converter</h1>
 
-  <select id="fromUnit"></select>
-  <select id="toUnit"></select>
-  <input type="number" id="value" placeholder="Enter value">
-  <button onclick="convert()">Convert</button>
+  <div class="form-group">
+    <select id="category" onchange="updateUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
 
-  <p id="result"></p>
+    <input type="number" id="value" placeholder="Enter value">
+
+    <select id="from"></select>
+    <select id="to"></select>
+
+    <button onclick="convert()">Convert</button>
+  </div>
+
+  <div class="result" id="result"></div>
 </div>
 
 <script>
 const units = {
-  length: { m:1, km:1000, cm:0.01, mm:0.001 },
-  weight: { g:1, kg:1000, mg:0.001, lb:453.592 },
-  temperature: { C:'C', F:'F', K:'K' }
+  length: { Meter:1, Kilometer:1000, Centimeter:0.01 },
+  weight: { Gram:1, Kilogram:1000 },
+  temperature: { Celsius:"C", Fahrenheit:"F" }
 };
 
-function updateUnits() {
-  const cat = document.getElementById('category').value;
-  const from = document.getElementById('fromUnit');
-  const to = document.getElementById('toUnit');
+function updateUnits(){
+  const cat = category.value;
   from.innerHTML = '';
   to.innerHTML = '';
-  for (let u in units[cat]) {
-    from.innerHTML += `<option value="${u}">${u}</option>`;
-    to.innerHTML += `<option value="${u}">${u}</option>`;
+  for(let u in units[cat]){
+    from.innerHTML += `<option>${u}</option>`;
+    to.innerHTML += `<option>${u}</option>`;
   }
-}
-
-function convert() {
-  const cat = document.getElementById('category').value;
-  let val = parseFloat(document.getElementById('value').value);
-  const from = document.getElementById('fromUnit').value;
-  const to = document.getElementById('toUnit').value;
-  let res;
-  if(cat === 'temperature'){
-    if(from==='C') res = (to==='F')? val*9/5+32 : (to==='K')? val+273.15 : val;
-    if(from==='F') res = (to==='C')? (val-32)*5/9 : (to==='K')? (val-32)*5/9+273.15 : val;
-    if(from==='K') res = (to==='C')? val-273.15 : (to==='F')? (val-273.15)*9/5+32 : val;
-  } else {
-    res = val * units[cat][from] / units[cat][to];
-  }
-  document.getElementById('result').innerText = `${val} ${from} = ${res} ${to}`;
 }
 
 updateUnits();
+
+function convert(){
+  const cat = category.value;
+  let v = parseFloat(value.value);
+  if(isNaN(v)){ result.innerText=""; return; }
+
+  if(cat === "temperature"){
+    if(from.value==="Celsius" && to.value==="Fahrenheit")
+      result.innerText = (v*9/5+32).toFixed(2);
+    else if(from.value==="Fahrenheit" && to.value==="Celsius")
+      result.innerText = ((v-32)*5/9).toFixed(2);
+    else
+      result.innerText = v;
+  }else{
+    let base = v * units[cat][from.value];
+    let out = base / units[cat][to.value];
+    result.innerText = out.toFixed(4);
+  }
+}
 </script>
 
 </body>
