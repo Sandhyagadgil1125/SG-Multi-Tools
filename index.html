@@ -100,25 +100,33 @@ h1 span { color: var(--accent); }
     padding: 25px;
     display: flex;
     flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center;     /* horizontal centering */
     border: 1px solid #2a303c;
     transition: all 0.3s ease;
+    text-align: center;      /* center text inside card */
+    min-height: 220px;       /* ensures cards are uniform height */
 }
+
 .tool-card:hover {
     border-color: var(--accent);
     box-shadow: 0 0 25px rgba(66,248,245,0.3);
 }
+
 .tool-card h2 {
     font-size: 1.3rem;
     margin-bottom: 10px;
 }
+
 .tool-card p {
     color: var(--text-muted);
     font-size: 0.95rem;
-    flex: 1;
     margin-bottom: 15px;
 }
+
+/* Button stays at bottom if content grows */
 .tool-card .btn {
-    padding: 12px;
+    padding: 12px 18px;
     border-radius: 8px;
     border: 2px solid var(--accent);
     background: transparent;
@@ -129,10 +137,19 @@ h1 span { color: var(--accent); }
     text-decoration: none;
     transition: all 0.3s ease;
 }
+
 .tool-card .btn:hover {
     background: var(--accent);
     color: #000;
 }
+
+/* Responsive text sizing */
+@media(max-width:480px){
+    .tool-card h2 { font-size: 1.1rem; }
+    .tool-card p { font-size: 0.85rem; }
+    .tool-card .btn { font-size: 0.9rem; padding: 10px; }
+}
+
 
 /* ===== FOOTER ===== */
 footer {
