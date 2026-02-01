@@ -4,184 +4,153 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMI Calculator | SG Multi Tools</title>
-
 <style>
-:root{
-  --bg-main:#0d0f14;
-  --bg-card:#12151a;
-  --bg-input:#0b0e13;
-  --accent:#42f8f5;
-  --accent-hover:#00f5d4;
-  --text:#ffffff;
-  --text-muted:#b6c3d1;
-  --radius:14px;
+:root {
+  --bg-main: #0d0f14;
+  --bg-card: #12151a;
+  --bg-flex: #1c222d;        /* flexbox background */
+  --accent: #42f8f5;
+  --accent-hover: #00f5d4;
+  --text: #ffffff;
+  --radius: 14px;
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:'Segoe UI', Arial, sans-serif;
+body {
+  background: var(--bg-main);
+  color: var(--text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
-body{
-  background:var(--bg-main);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+.tool-wrapper {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid #2a303c;
+  box-shadow: 0 0 25px rgba(66,248,245,0.25);
+  position: relative;
 }
 
-/* MAIN CARD */
-.tool-wrapper{
-  width:100%;
-  max-width:520px;
-  background:var(--bg-card);
-  border-radius:18px;
-  padding:26px;
-  border:1px solid #2a303c;
-  box-shadow:0 0 30px rgba(66,248,245,0.25);
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  position:relative;
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #fff;
+}
+.close-btn:hover { color: var(--accent); }
+
+h2 {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 10px;
 }
 
-/* CLOSE */
-.close-btn{
-  position:absolute;
-  top:14px;
-  right:16px;
-  font-size:22px;
-  cursor:pointer;
-  color:var(--text-muted);
-}
-.close-btn:hover{color:var(--accent);}
-
-h2{
-  text-align:center;
-  color:var(--accent);
-  margin-bottom:4px;
+.flexbox {
+  background: var(--bg-flex);    /* colored background */
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-/* FLEX CARD */
-.flex-card{
-  background:var(--bg-input);
-  border-radius:var(--radius);
-  padding:16px;
-  border:1px solid #1f2530;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+label {
+  color: #fff;                   /* clear white letters */
+  font-weight: 600;
+  min-width: 80px;
 }
 
-/* LABEL */
-label{
-  color:var(--text-muted);
-  font-size:14px;
-  font-weight:600;
+input {
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #2a303c;
+  background: #0b0e13;
+  color: #fff;
+  padding: 0 10px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 100px;
 }
 
-/* INPUT */
-input{
-  height:46px;
-  border-radius:10px;
-  border:none;
-  padding:0 12px;
-  font-size:15px;
-  background:#000;
-  color:#fff;
+button {
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
 }
+button:hover { background: var(--accent); color: #000; }
 
-/* BUTTON */
-button{
-  height:48px;
-  border-radius:12px;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-/* RESULT */
-.result{
-  text-align:center;
-  font-size:18px;
-  font-weight:700;
-  color:var(--accent-hover);
-  min-height:24px;
-}
-
-.category{
-  text-align:center;
-  font-size:14px;
-  color:var(--text-muted);
+#bmiResult {
+  text-align: center;
+  font-weight: 600;
+  color: var(--accent-hover);
+  min-height: 24px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="tool-wrapper">
   <span class="close-btn" onclick="location.href='../index.html'">✕</span>
-
   <h2>BMI Calculator</h2>
 
-  <!-- INPUT FLEXBOX -->
-  <div class="flex-card">
-    <label for="weight">Weight (kg)</label>
+  <!-- WEIGHT -->
+  <div class="flexbox">
+    <label>Weight (kg)</label>
     <input type="number" id="weight" placeholder="Enter weight in kg">
+  </div>
 
-    <label for="height">Height (cm)</label>
+  <!-- HEIGHT -->
+  <div class="flexbox">
+    <label>Height (cm)</label>
     <input type="number" id="height" placeholder="Enter height in cm">
   </div>
 
-  <!-- BUTTON FLEXBOX -->
-  <div class="flex-card">
+  <!-- BUTTON -->
+  <div class="flexbox" style="justify-content:center;">
     <button onclick="calculateBMI()">Calculate BMI</button>
   </div>
 
-  <!-- RESULT FLEXBOX -->
-  <div class="flex-card">
-    <div class="result" id="bmiResult"></div>
-    <div class="category" id="bmiCategory"></div>
+  <!-- RESULT -->
+  <div class="flexbox">
+    <div id="bmiResult"></div>
   </div>
 </div>
 
 <script>
-function calculateBMI(){
+function calculateBMI() {
   const weight = parseFloat(document.getElementById("weight").value);
   const heightCm = parseFloat(document.getElementById("height").value);
 
-  if(isNaN(weight) || isNaN(heightCm) || weight <= 0 || heightCm <= 0){
-    document.getElementById("bmiResult").innerText = "Enter valid values";
-    document.getElementById("bmiCategory").innerText = "";
+  if(isNaN(weight) || isNaN(heightCm) || weight<=0 || heightCm<=0){
+    document.getElementById("bmiResult").innerText = "Enter valid weight and height";
     return;
   }
 
   const heightM = heightCm / 100;
   const bmi = weight / (heightM * heightM);
-
   let category = "";
+
   if(bmi < 18.5) category = "Underweight";
   else if(bmi < 25) category = "Normal weight";
   else if(bmi < 30) category = "Overweight";
   else category = "Obese";
 
-  document.getElementById("bmiResult").innerText =
-    `Your BMI is ${bmi.toFixed(2)}`;
-  document.getElementById("bmiCategory").innerText =
-    `Category: ${category}`;
+  document.getElementById("bmiResult").innerText = `BMI: ${bmi.toFixed(2)} (${category})`;
 }
 </script>
 
