@@ -6,109 +6,166 @@
 <title>Color Picker | SG Multi Tools</title>
 
 <style>
+/* ===== GLOBAL RESET ===== */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Segoe UI, Arial, sans-serif;
+}
+
 body{
-  background:#0f172a;
+  background:#0d0f14;
   color:#fff;
-  font-family:Arial, sans-serif;
-  text-align:center;
-  padding:50px 20px;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-/* 🔹 NEON TOOL BOX */
-.tool-box{
+/* ===== NEON TOOL WRAPPER ===== */
+.tool-wrapper{
   position:relative;
-  max-width:420px;
-  margin:auto;
-  background:#1e293b;
-  padding:25px;
-  border-radius:14px;
+  width:100%;
+  max-width:520px;
+  background:#12151a;
+  padding:26px;
+  border-radius:16px;
   border:2px solid #42f8f5;
-  box-shadow:0 0 28px rgba(66,248,245,0.55);
+  box-shadow:0 0 30px rgba(66,248,245,0.55);
 }
 
-/* 🔹 CLOSE BUTTON */
-.close{
+/* ===== CLOSE BUTTON ===== */
+.close-btn{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:20px;
-  color:#94a3b8;
+  top:14px;
+  right:16px;
+  font-size:22px;
+  color:#9aa7b8;
   cursor:pointer;
 }
+.close-btn:hover{
+  color:#42f8f5;
+}
 
-/* 🔹 COLOR INPUT */
-input[type="color"]{
-  width:120px;
+/* ===== TITLE ===== */
+h1{
+  text-align:center;
+  margin-bottom:18px;
+  font-size:24px;
+  color:#42f8f5;
+}
+
+/* ===== CONTENT ===== */
+.tool-content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+}
+
+/* ===== COLOR PREVIEW ===== */
+.color-preview{
+  width:100%;
+  max-width:420px;
   height:120px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  margin:15px 0;
+  border-radius:12px;
+  border:2px solid #2a303c;
 }
 
-/* 🔹 OUTPUT BOX */
-.output{
-  background:#020617;
-  padding:10px;
-  border-radius:6px;
-  margin:8px 0;
+/* ===== INPUT GROUP ===== */
+.input-group{
+  width:100%;
+  max-width:420px;
+  display:flex;
+  gap:10px;
+}
+
+input[type="color"]{
+  width:60px;
+  height:50px;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+input[type="text"]{
+  flex:1;
+  padding:12px;
   font-size:16px;
-}
-
-/* 🔹 BUTTON */
-button{
-  padding:8px 14px;
-  margin-top:10px;
-  font-size:14px;
+  border-radius:8px;
   border:none;
-  border-radius:6px;
-  cursor:pointer;
-  background:#334155;
+  background:#1c222d;
   color:#fff;
 }
-button:hover{
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  max-width:420px;
+  padding:12px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
   background:#42f8f5;
   color:#000;
+  font-weight:700;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#00f5d4;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:480px){
+  h1{ font-size:20px; }
+  .tool-wrapper{ padding:20px; }
+  .close-btn{ font-size:18px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='../index.html'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
-  <h2>Color Picker</h2>
+  <h1>Color Picker</h1>
 
-  <input type="color" id="colorPicker" value="#42f8f5">
+  <div class="tool-content">
 
-  <div class="output" id="hex">HEX: #42F8F5</div>
-  <div class="output" id="rgb">RGB: 66, 248, 245</div>
+    <div id="preview" class="color-preview"></div>
 
-  <button onclick="copyColor()">Copy HEX</button>
+    <div class="input-group">
+      <input type="color" id="colorInput" value="#42f8f5" onchange="updateColor()">
+      <input type="text" id="hexValue" value="#42f8f5" readonly>
+    </div>
+
+    <button onclick="copyColor()">Copy HEX Code</button>
+
+  </div>
 </div>
 
 <script>
-const picker = document.getElementById("colorPicker");
-const hexText = document.getElementById("hex");
-const rgbText = document.getElementById("rgb");
-
-picker.addEventListener("input", updateColor);
+const colorInput = document.getElementById("colorInput");
+const preview = document.getElementById("preview");
+const hexValue = document.getElementById("hexValue");
 
 function updateColor(){
-  const hex = picker.value.toUpperCase();
-  hexText.textContent = "HEX: " + hex;
-
-  const r = parseInt(hex.substr(1,2),16);
-  const g = parseInt(hex.substr(3,2),16);
-  const b = parseInt(hex.substr(5,2),16);
-  rgbText.textContent = `RGB: ${r}, ${g}, ${b}`;
+  const color = colorInput.value;
+  preview.style.background = color;
+  hexValue.value = color.toUpperCase();
 }
 
 function copyColor(){
-  navigator.clipboard.writeText(picker.value);
+  navigator.clipboard.writeText(hexValue.value);
   alert("HEX color copied!");
 }
+
+// Initialize
+updateColor();
 </script>
 
 </body>
