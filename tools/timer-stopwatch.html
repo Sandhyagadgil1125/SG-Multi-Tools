@@ -4,129 +4,178 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Timer / Stopwatch | SG Multi Tools</title>
+
 <style>
-body {
-  background: #0f172a;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 50px 20px;
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
 
-.tool-box {
-  position: relative;
-  max-width: 420px;
-  margin: auto;
-  background: #1e293b;
-  padding: 25px;
-  border-radius: 12px;
-  border: 2px solid #42f8f5;
-  box-shadow: 0 0 25px rgba(66, 248, 245, 0.5);
+body{
+  margin:0;
+  padding:0 10px;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
 }
 
-.tool-box:hover {
-  box-shadow: 0 0 35px rgba(66, 248, 245, 0.8);
-  border-color: #00f5d4;
+/* 🔹 NEON TOOL WRAPPER */
+.tool-wrapper{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  margin:40px auto;
+  background:#1e293b;
+  padding:24px;
+  border-radius:16px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 30px rgba(66,248,245,0.55);
 }
 
-.close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 18px;
-  color: #94a3b8;
-  cursor: pointer;
+/* 🔹 CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:22px;
+  color:#94a3b8;
+  cursor:pointer;
+}
+.close-btn:hover{ color:#42f8f5; }
+
+/* 🔹 TITLE */
+h2{
+  margin-bottom:20px;
 }
 
-input, button {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: none;
+/* 🔹 FLEX STACK */
+.tool-flex{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
-button {
-  background: #42f8f5;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
+/* 🔹 INPUTS */
+input{
+  width:100%;
+  height:48px;
+  font-size:16px;
+  padding:0 12px;
+  border-radius:8px;
+  border:none;
+  text-align:center;
 }
 
-button:hover {
-  background: #00f5d4;
+/* 🔹 BUTTON */
+button{
+  width:100%;
+  height:48px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  background:#42f8f5;
+  color:#000;
 }
 
-#timerDisplay {
-  font-size: 2rem;
-  margin: 15px 0;
-  font-weight: bold;
+button:hover{
+  background:#00f5d4;
+}
+
+/* 🔹 DISPLAY */
+#display{
+  font-size:28px;
+  font-weight:bold;
+  margin-top:10px;
+  min-height:30px;
+}
+
+/* 🔹 MOBILE */
+@media(max-width:480px){
+  h2{ font-size:20px; }
+  .close-btn{ font-size:18px; }
 }
 </style>
 </head>
+
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='../index.html'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+
   <h2>Timer / Stopwatch</h2>
 
-  <div id="timerDisplay">00:00:00</div>
+  <div class="tool-flex">
+    <input type="number" id="timerMinutes" placeholder="Enter minutes for Timer">
 
-  <input type="number" id="minutes" placeholder="Minutes (for Timer)">
-  <button onclick="startTimer()">Start Timer</button>
-  <button onclick="startStopwatch()">Start Stopwatch</button>
-  <button onclick="stopTimer()">Stop</button>
-  <button onclick="resetTimer()">Reset</button>
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="stopTimer()">Stop Timer</button>
+    <button onclick="resetTimer()">Reset</button>
+
+    <button onclick="startStopwatch()">Start Stopwatch</button>
+    <button onclick="stopStopwatch()">Stop Stopwatch</button>
+    <button onclick="resetStopwatch()">Reset Stopwatch</button>
+
+    <div id="display">00:00:00</div>
+  </div>
 </div>
 
 <script>
-let timerInterval;
-let totalSeconds = 0;
-let stopwatchRunning = false;
+let timerInterval, stopwatchInterval;
+let timerSeconds=0;
+let stopwatchSeconds=0;
 
-function formatTime(sec) {
-  const h = Math.floor(sec/3600).toString().padStart(2,'0');
-  const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
-  const s = (sec%60).toString().padStart(2,'0');
-  return `${h}:${m}:${s}`;
-}
-
-function startTimer() {
+// ===== TIMER =====
+function startTimer(){
+  const minutes = parseInt(document.getElementById("timerMinutes").value) || 0;
+  timerSeconds = minutes*60;
   clearInterval(timerInterval);
-  const minutes = parseInt(document.getElementById('minutes').value);
-  if(!minutes || minutes <=0) { alert("Enter valid minutes"); return; }
-  totalSeconds = minutes*60;
-  timerInterval = setInterval(() => {
-    if(totalSeconds<=0) { clearInterval(timerInterval); alert("Time's up!"); return; }
-    totalSeconds--;
-    document.getElementById('timerDisplay').innerText = formatTime(totalSeconds);
-  },1000);
-}
-
-function startStopwatch() {
-  clearInterval(timerInterval);
-  totalSeconds = 0;
-  stopwatchRunning = true;
-  timerInterval = setInterval(() => {
-    if(stopwatchRunning) {
-      totalSeconds++;
-      document.getElementById('timerDisplay').innerText = formatTime(totalSeconds);
+  timerInterval = setInterval(()=>{
+    if(timerSeconds<=0){
+      clearInterval(timerInterval);
+      alert("Timer finished!");
     }
+    const h = Math.floor(timerSeconds/3600);
+    const m = Math.floor((timerSeconds%3600)/60);
+    const s = timerSeconds%60;
+    document.getElementById("display").innerText=
+      `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    timerSeconds--;
   },1000);
 }
 
-function stopTimer() {
+function stopTimer(){
   clearInterval(timerInterval);
-  stopwatchRunning = false;
 }
 
-function resetTimer() {
+function resetTimer(){
   clearInterval(timerInterval);
-  stopwatchRunning = false;
-  totalSeconds = 0;
-  document.getElementById('timerDisplay').innerText = formatTime(totalSeconds);
+  document.getElementById("display").innerText="00:00:00";
+}
+
+// ===== STOPWATCH =====
+function startStopwatch(){
+  clearInterval(stopwatchInterval);
+  stopwatchInterval = setInterval(()=>{
+    stopwatchSeconds++;
+    const h = Math.floor(stopwatchSeconds/3600);
+    const m = Math.floor((stopwatchSeconds%3600)/60);
+    const s = stopwatchSeconds%60;
+    document.getElementById("display").innerText=
+      `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  },1000);
+}
+
+function stopStopwatch(){
+  clearInterval(stopwatchInterval);
+}
+
+function resetStopwatch(){
+  clearInterval(stopwatchInterval);
+  stopwatchSeconds=0;
+  document.getElementById("display").innerText="00:00:00";
 }
 </script>
-
 </body>
 </html>
