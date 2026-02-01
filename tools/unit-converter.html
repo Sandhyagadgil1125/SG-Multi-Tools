@@ -4,95 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
+
 <style>
-:root {
-  --bg-main: #0d0f14;
-  --bg-card: #12151a;
-  --accent: #42f8f5;
-  --accent-hover: #00f5d4;
-  --text: #ffffff;
-  --text-muted: #b6c3d1;
-  --radius: 14px;
+body {
+  background: #0d0f14;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;}
-
-body{
-  background: var(--bg-main);
-  color: var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+/* TOOL CARD / FLEXBOX */
+.tool-wrapper {
+  background: #12151a;      /* same as index card bg */
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #2a303c;
+  box-shadow: 0 0 25px rgba(66,248,245,0.25);
+  color: #fff;               /* ensures text is white */
 }
 
-.tool-wrapper{
-  width:100%;
-  max-width:540px;
-  background: var(--bg-card);
-  border-radius:18px;
-  padding:26px;
-  border:1px solid #2a303c;
-  box-shadow:0 0 30px rgba(66,248,245,0.25);
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  position:relative;
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+}
+.close-btn:hover { color: #42f8f5; }
+
+/* HEADINGS */
+h2 { text-align: center; color: #42f8f5; margin-bottom: 8px; }
+
+/* EACH INPUT FLEXBOX */
+.flexbox {
+  background: #1c222d;       /* dark background for all flexboxes */
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.close-btn{
-  position:absolute;
-  top:14px;
-  right:16px;
-  font-size:22px;
-  cursor:pointer;
-  color: var(--text-muted);
+/* LABELS AND PLACEHOLDERS */
+label { color: #fff; font-weight: 600; }
+input, select {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #2a303c;
+  background: #0b0e13;
+  color: #fff;
+  padding: 0 10px;
 }
-.close-btn:hover{color: var(--accent);}
+input::placeholder { color: #fff; }
 
-h2{text-align:center;color:var(--accent);margin-bottom:8px;}
-.flex-card{
-  background:#0f111a;
-  border-radius:var(--radius);
-  padding:16px;
-  border:1px solid #1f2530;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+/* BUTTON */
+button {
+  height: 44px;
+  border-radius: 10px;
+  border: 2px solid #42f8f5;
+  background: transparent;
+  color: #42f8f5;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
 }
+button:hover { background: #42f8f5; color: #000; }
 
-.flex-row{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
+/* RESULT */
+#conversionResult {
+  color: #00f5d4;
+  font-weight: 600;
+  min-height: 24px;
+  text-align: center;
 }
-
-label{color:#fff;font-weight:600;font-size:14px;width:100%;}
-input, select{
-  height:44px;
-  border-radius:10px;
-  border:none;
-  padding:0 10px;
-  font-size:15px;
-  background:#0b0e13;
-  color:#fff;
-  flex:1;
-}
-input::placeholder{color:#b0b6c3;}
-button{
-  height:48px;
-  border-radius:12px;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
-}
-button:hover{background:var(--accent);color:#000;}
-.result{text-align:center;font-size:18px;font-weight:700;color:var(--accent-hover);min-height:24px;}
 </style>
 </head>
 <body>
@@ -102,111 +97,100 @@ button:hover{background:var(--accent);color:#000;}
   <h2>Unit Converter</h2>
 
   <!-- LENGTH -->
-  <div class="flex-card">
+  <div class="flexbox">
     <label>Length</label>
-    <div class="flex-row">
-      <input type="number" id="lengthValue" placeholder="Enter value">
-      <select id="lengthUnitFrom">
-        <option value="m">Meter</option>
-        <option value="cm">Centimeter</option>
-        <option value="km">Kilometer</option>
-        <option value="ft">Feet</option>
-        <option value="in">Inch</option>
-      </select>
-      <select id="lengthUnitTo">
-        <option value="m">Meter</option>
-        <option value="cm">Centimeter</option>
-        <option value="km">Kilometer</option>
-        <option value="ft">Feet</option>
-        <option value="in">Inch</option>
-      </select>
-    </div>
+    <input type="number" id="lengthValue" placeholder="Enter value">
+    <select id="lengthUnitFrom">
+      <option value="m">Meter</option>
+      <option value="cm">Centimeter</option>
+      <option value="km">Kilometer</option>
+      <option value="ft">Feet</option>
+      <option value="in">Inch</option>
+    </select>
+    <select id="lengthUnitTo">
+      <option value="m">Meter</option>
+      <option value="cm">Centimeter</option>
+      <option value="km">Kilometer</option>
+      <option value="ft">Feet</option>
+      <option value="in">Inch</option>
+    </select>
   </div>
 
   <!-- WEIGHT -->
-  <div class="flex-card">
+  <div class="flexbox">
     <label>Weight</label>
-    <div class="flex-row">
-      <input type="number" id="weightValue" placeholder="Enter value">
-      <select id="weightUnitFrom">
-        <option value="kg">Kilogram</option>
-        <option value="g">Gram</option>
-        <option value="lb">Pound</option>
-        <option value="oz">Ounce</option>
-      </select>
-      <select id="weightUnitTo">
-        <option value="kg">Kilogram</option>
-        <option value="g">Gram</option>
-        <option value="lb">Pound</option>
-        <option value="oz">Ounce</option>
-      </select>
-    </div>
+    <input type="number" id="weightValue" placeholder="Enter value">
+    <select id="weightUnitFrom">
+      <option value="kg">Kilogram</option>
+      <option value="g">Gram</option>
+      <option value="lb">Pound</option>
+      <option value="oz">Ounce</option>
+    </select>
+    <select id="weightUnitTo">
+      <option value="kg">Kilogram</option>
+      <option value="g">Gram</option>
+      <option value="lb">Pound</option>
+      <option value="oz">Ounce</option>
+    </select>
   </div>
 
   <!-- TEMPERATURE -->
-  <div class="flex-card">
+  <div class="flexbox">
     <label>Temperature</label>
-    <div class="flex-row">
-      <input type="number" id="tempValue" placeholder="Enter value">
-      <select id="tempUnitFrom">
-        <option value="C">Celsius</option>
-        <option value="F">Fahrenheit</option>
-        <option value="K">Kelvin</option>
-      </select>
-      <select id="tempUnitTo">
-        <option value="C">Celsius</option>
-        <option value="F">Fahrenheit</option>
-        <option value="K">Kelvin</option>
-      </select>
-    </div>
+    <input type="number" id="tempValue" placeholder="Enter value">
+    <select id="tempUnitFrom">
+      <option value="C">Celsius</option>
+      <option value="F">Fahrenheit</option>
+      <option value="K">Kelvin</option>
+    </select>
+    <select id="tempUnitTo">
+      <option value="C">Celsius</option>
+      <option value="F">Fahrenheit</option>
+      <option value="K">Kelvin</option>
+    </select>
   </div>
 
   <!-- BUTTON -->
-  <div class="flex-card">
+  <div class="flexbox">
     <button onclick="convertUnits()">Convert</button>
   </div>
 
   <!-- RESULT -->
-  <div class="flex-card">
-    <div class="result" id="conversionResult"></div>
+  <div class="flexbox">
+    <div id="conversionResult"></div>
   </div>
 </div>
 
 <script>
-const lengthFactors={m:1,cm:0.01,km:1000,ft:0.3048,in:0.0254};
-const weightFactors={kg:1,g:0.001,lb:0.453592,oz:0.0283495};
+const lengthFactors = { m:1, cm:0.01, km:1000, ft:0.3048, in:0.0254 };
+const weightFactors = { kg:1, g:0.001, lb:0.453592, oz:0.0283495 };
 
-function convertUnits(){
-  let resultText="";
+function convertUnits() {
+  let result = "";
+
   // LENGTH
-  const lengthVal=parseFloat(document.getElementById("lengthValue").value);
-  const lengthFrom=document.getElementById("lengthUnitFrom").value;
-  const lengthTo=document.getElementById("lengthUnitTo").value;
-  if(!isNaN(lengthVal)){
-    const meters=lengthVal*lengthFactors[lengthFrom];
-    resultText+=`Length: ${(meters/lengthFactors[lengthTo]).toFixed(4)} ${lengthTo}\n`;
-  }
+  const lVal = parseFloat(document.getElementById("lengthValue").value);
+  const lFrom = document.getElementById("lengthUnitFrom").value;
+  const lTo = document.getElementById("lengthUnitTo").value;
+  if(!isNaN(lVal)) result += "Length: "+ (lVal*lengthFactors[lFrom]/lengthFactors[lTo]).toFixed(4) +" "+lTo+"\n";
 
   // WEIGHT
-  const weightVal=parseFloat(document.getElementById("weightValue").value);
-  const weightFrom=document.getElementById("weightUnitFrom").value;
-  const weightTo=document.getElementById("weightUnitTo").value;
-  if(!isNaN(weightVal)){
-    const kg=weightVal*weightFactors[weightFrom];
-    resultText+=`Weight: ${(kg/weightFactors[weightTo]).toFixed(4)} ${weightTo}\n`;
-  }
+  const wVal = parseFloat(document.getElementById("weightValue").value);
+  const wFrom = document.getElementById("weightUnitFrom").value;
+  const wTo = document.getElementById("weightUnitTo").value;
+  if(!isNaN(wVal)) result += "Weight: "+ (wVal*weightFactors[wFrom]/weightFactors[wTo]).toFixed(4) +" "+wTo+"\n";
 
   // TEMPERATURE
-  const tempVal=parseFloat(document.getElementById("tempValue").value);
-  const tempFrom=document.getElementById("tempUnitFrom").value;
-  const tempTo=document.getElementById("tempUnitTo").value;
-  if(!isNaN(tempVal)){
-    let tempC=(tempFrom==="C"?tempVal:(tempFrom==="F"? (tempVal-32)/1.8: tempVal-273.15));
-    let converted=(tempTo==="C"?tempC:(tempTo==="F"? tempC*1.8+32: tempC+273.15));
-    resultText+=`Temperature: ${converted.toFixed(2)} ${tempTo}`;
+  const tVal = parseFloat(document.getElementById("tempValue").value);
+  const tFrom = document.getElementById("tempUnitFrom").value;
+  const tTo = document.getElementById("tempUnitTo").value;
+  if(!isNaN(tVal)){
+    let tC = tFrom==="C"?tVal:(tFrom==="F"? (tVal-32)/1.8 : tVal-273.15);
+    let tConverted = tTo==="C"?tC:(tTo==="F"? tC*1.8+32 : tC+273.15);
+    result += "Temperature: "+tConverted.toFixed(2)+" "+tTo;
   }
 
-  document.getElementById("conversionResult").innerText=resultText||"Enter values to convert";
+  document.getElementById("conversionResult").innerText = result || "Enter values to convert";
 }
 </script>
 
