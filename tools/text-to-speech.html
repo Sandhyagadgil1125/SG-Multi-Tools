@@ -4,89 +4,152 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Text to Speech | SG Multi Tools</title>
+
 <style>
-body {
-  background: #0f172a;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 50px 20px;
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
 
-.tool-box {
-  position: relative;
-  max-width: 500px;
-  margin: auto;
-  background: #1e293b;
-  padding: 25px;
-  border-radius: 12px;
-  border: 2px solid #42f8f5;
-  box-shadow: 0 0 25px rgba(66, 248, 245, 0.5);
+body{
+  margin:0;
+  padding:0 10px;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
 }
 
-.tool-box:hover {
-  box-shadow: 0 0 35px rgba(66, 248, 245, 0.8);
-  border-color: #00f5d4;
+/* 🔹 NEON TOOL WRAPPER */
+.tool-wrapper{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  margin:40px auto;
+  background:#1e293b;
+  padding:24px;
+  border-radius:16px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 30px rgba(66,248,245,0.55);
 }
 
-.close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 18px;
-  color: #94a3b8;
-  cursor: pointer;
+/* 🔹 CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:22px;
+  color:#94a3b8;
+  cursor:pointer;
+}
+.close-btn:hover{ color:#42f8f5; }
+
+/* 🔹 TITLE */
+h2{
+  margin-bottom:20px;
 }
 
-textarea {
-  width: 100%;
-  height: 150px;
-  margin: 15px 0;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
+/* 🔹 FLEX STACK */
+.tool-flex{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
-button {
-  padding: 12px 25px;
-  margin: 5px;
-  border: none;
-  border-radius: 6px;
-  background: #42f8f5;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+/* 🔹 TEXTAREA */
+textarea{
+  width:100%;
+  min-height:140px;
+  font-size:16px;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  resize:vertical;
 }
 
-button:hover {
-  background: #00f5d4;
+/* 🔹 SELECT */
+select{
+  width:100%;
+  height:48px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  text-align:center;
+}
+
+/* 🔹 BUTTON */
+button{
+  width:100%;
+  height:48px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  background:#42f8f5;
+  color:#000;
+}
+
+button:hover{
+  background:#00f5d4;
+}
+
+/* 🔹 MOBILE */
+@media(max-width:480px){
+  h2{ font-size:20px; }
+  .close-btn{ font-size:18px; }
 }
 </style>
 </head>
+
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='../index.html'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+
   <h2>Text to Speech</h2>
-  <textarea id="textInput" placeholder="Enter text here..."></textarea><br>
-  <button onclick="speakText()">Convert to Speech</button>
-  <button onclick="stopSpeech()">Stop</button>
+
+  <div class="tool-flex">
+    <textarea id="text" placeholder="Enter text to convert into speech..."></textarea>
+
+    <select id="voiceSelect"></select>
+
+    <button onclick="speak()">Speak</button>
+    <button onclick="stopSpeech()">Stop</button>
+  </div>
 </div>
 
 <script>
-let synth = window.speechSynthesis;
-let utterance;
+const voiceSelect = document.getElementById("voiceSelect");
+const synth = window.speechSynthesis;
 
-function speakText() {
-  const text = document.getElementById('textInput').value;
-  if (!text) { alert("Please enter some text"); return; }
-  utterance = new SpeechSynthesisUtterance(text);
+function loadVoices(){
+  const voices = synth.getVoices();
+  voiceSelect.innerHTML = "";
+  voices.forEach((voice, i) => {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = voice.name + " (" + voice.lang + ")";
+    voiceSelect.appendChild(option);
+  });
+}
+
+loadVoices();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function speak(){
+  const text = document.getElementById("text").value;
+  if(text.trim() === "") return;
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  const voices = synth.getVoices();
+  utterance.voice = voices[voiceSelect.value];
+
   synth.speak(utterance);
 }
 
-function stopSpeech() {
+function stopSpeech(){
   synth.cancel();
 }
 </script>
