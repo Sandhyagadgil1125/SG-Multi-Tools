@@ -3,137 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notes / Text Saver – SG Multi Tools</title>
+<title>Notes Text Saver | SG Multi Tools</title>
 
 <style>
-:root{
-  --bg:#0d0f14;
-  --card:#12151a;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#b6c3d1;
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
-
-*{box-sizing:border-box;font-family:Segoe UI,Arial}
 
 body{
   margin:0;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  padding:0 10px;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
 }
 
-/* ===== NEON TOOL BOX ===== */
-.tool-box{
+/* 🔹 NEON TOOL WRAPPER */
+.tool-wrapper{
   position:relative;
-  width:440px;
-  background:var(--card);
-  padding:28px;
-  border-radius:14px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.35);
+  width:100%;
+  max-width:520px;
+  margin:40px auto;
+  background:#1e293b;
+  padding:24px;
+  border-radius:16px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 30px rgba(66,248,245,0.55);
 }
 
-/* CLOSE BUTTON */
-.close{
+/* 🔹 CLOSE BUTTON */
+.close-btn{
   position:absolute;
   top:12px;
   right:14px;
-  font-size:18px;
-  color:var(--muted);
+  font-size:22px;
+  color:#94a3b8;
   cursor:pointer;
 }
-.close:hover{color:var(--accent)}
+.close-btn:hover{ color:#42f8f5; }
 
-h1{
-  text-align:center;
-  font-size:1.4rem;
-  margin-bottom:14px;
+/* 🔹 TITLE */
+h2{
+  margin-bottom:20px;
 }
 
+/* 🔹 FLEX STACK */
+.tool-flex{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+/* 🔹 TEXTAREA */
 textarea{
   width:100%;
-  height:180px;
+  min-height:140px;
+  font-size:16px;
   padding:12px;
-  background:#0f172a;
-  color:white;
-  border:1px solid #334155;
   border-radius:8px;
-  font-size:14px;
-  resize:none;
-  margin-bottom:14px;
+  border:none;
+  resize:vertical;
 }
 
+/* 🔹 BUTTONS */
 button{
   width:100%;
-  padding:11px;
-  margin-bottom:8px;
-  background:transparent;
-  border:2px solid var(--accent);
-  color:var(--accent);
-  font-weight:700;
+  height:48px;
+  font-size:16px;
   border-radius:8px;
+  border:none;
   cursor:pointer;
+  font-weight:bold;
+  background:#42f8f5;
+  color:#000;
 }
+
 button:hover{
-  background:var(--accent);
-  color:#000;
+  background:#00f5d4;
 }
 
-.clear{
-  border-color:#ef4444;
-  color:#ef4444;
-}
-.clear:hover{
-  background:#ef4444;
-  color:#000;
+/* 🔹 STATUS */
+.result{
+  font-size:16px;
+  font-weight:bold;
+  min-height:20px;
 }
 
-.status{
-  margin-top:8px;
-  text-align:center;
-  font-weight:600;
-  color:var(--accent);
+/* 🔹 MOBILE */
+@media(max-width:480px){
+  h2{ font-size:20px; }
+  .close-btn{ font-size:18px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='/'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
-  <h1>Notes / Text Saver</h1>
+  <h2>Notes Text Saver</h2>
 
-  <textarea id="note" placeholder="Write your notes here..."></textarea>
+  <div class="tool-flex">
+    <textarea id="note" placeholder="Write your notes here..."></textarea>
 
-  <button onclick="saveNote()">Save Note</button>
-  <button class="clear" onclick="clearNote()">Clear Note</button>
+    <button onclick="saveNote()">Save Note</button>
+    <button onclick="clearNote()">Clear Note</button>
 
-  <div class="status" id="status"></div>
+    <div class="result" id="status"></div>
+  </div>
 </div>
 
 <script>
-const textarea = document.getElementById("note");
-const status = document.getElementById("status");
+const KEY = "sg_notes_text";
 
-// Load saved note
-textarea.value = localStorage.getItem("sg_note") || "";
+window.onload = function(){
+  const saved = localStorage.getItem(KEY);
+  if(saved){
+    note.value = saved;
+    status.innerText = "Saved note loaded";
+  }
+}
 
 function saveNote(){
-  localStorage.setItem("sg_note", textarea.value);
-  status.innerText = "Note saved successfully ✔";
+  localStorage.setItem(KEY, note.value);
+  status.innerText = "Note saved successfully";
 }
 
 function clearNote(){
-  if(confirm("Clear saved note?")){
-    textarea.value = "";
-    localStorage.removeItem("sg_note");
-    status.innerText = "Note cleared ✖";
-  }
+  localStorage.removeItem(KEY);
+  note.value = "";
+  status.innerText = "Note cleared";
 }
 </script>
 
