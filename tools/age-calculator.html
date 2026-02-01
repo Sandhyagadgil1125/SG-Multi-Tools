@@ -55,6 +55,16 @@ h2{
   gap:14px;
 }
 
+/* 🔹 DATE DISPLAY BOX */
+#selectedDate{
+  font-size:16px;
+  background:#0f172a;
+  color:#42f8f5;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #42f8f5;
+}
+
 /* 🔹 INPUT */
 input[type="date"]{
   width:100%;
@@ -106,7 +116,8 @@ button:hover{
   <h2>Age Calculator</h2>
 
   <div class="tool-flex">
-    <input type="date" id="dob">
+    <input type="date" id="dob" onchange="showSelectedDate()">
+    <div id="selectedDate">Selected Date: --/--/----</div>
 
     <button onclick="calculateAge()">Calculate Age</button>
 
@@ -115,14 +126,31 @@ button:hover{
 </div>
 
 <script>
+function showSelectedDate(){
+  const dob = document.getElementById('dob').value;
+  if(!dob) return;
+  const dateObj = new Date(dob);
+  const dd = String(dateObj.getDate()).padStart(2,'0');
+  const mm = String(dateObj.getMonth()+1).padStart(2,'0');
+  const yyyy = dateObj.getFullYear();
+  document.getElementById('selectedDate').innerText = `Selected Date: ${dd}/${mm}/${yyyy}`;
+}
+
 function calculateAge(){
-  const dob = new Date(document.getElementById('dob').value);
-  if(!dob.getTime()){
+  const dobInput = document.getElementById('dob').value;
+  if(!dobInput){
     document.getElementById('result').innerText = "Please select a valid date.";
     return;
   }
-  const diff = Date.now() - dob.getTime();
-  const age = new Date(diff).getUTCFullYear() - 1970;
+
+  const dob = new Date(dobInput);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if(m < 0 || (m === 0 && today.getDate() < dob.getDate())){
+    age--;
+  }
+
   document.getElementById('result').innerText = `Your Age: ${age} years`;
 }
 </script>
