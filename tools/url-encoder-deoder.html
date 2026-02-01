@@ -3,134 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URL Encoder / Decoder – SG Multi Tools</title>
+<title>URL Encoder / Decoder | SG Multi Tools</title>
 
 <style>
-:root{
-  --bg:#0d0f14;
-  --card:#12151a;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#b6c3d1;
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
-
-*{box-sizing:border-box;font-family:Segoe UI,Arial}
 
 body{
   margin:0;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  padding:0 10px;
+  background:#0f172a;
+  color:#fff;
+  text-align:center;
 }
 
-/* ===== NEON TOOL BOX ===== */
-.tool-box{
+/* 🔹 NEON TOOL WRAPPER */
+.tool-wrapper{
   position:relative;
-  width:420px;
-  background:var(--card);
-  padding:28px;
-  border-radius:14px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.35);
+  width:100%;
+  max-width:520px;
+  margin:40px auto;
+  background:#1e293b;
+  padding:24px;
+  border-radius:16px;
+  border:2px solid #42f8f5;
+  box-shadow:0 0 30px rgba(66,248,245,0.55);
 }
 
-/* CLOSE BUTTON */
-.close{
+/* 🔹 CLOSE BUTTON */
+.close-btn{
   position:absolute;
   top:12px;
   right:14px;
-  font-size:18px;
-  color:var(--muted);
+  font-size:22px;
+  color:#94a3b8;
   cursor:pointer;
 }
-.close:hover{color:var(--accent)}
+.close-btn:hover{ color:#42f8f5; }
 
-h1{
-  text-align:center;
-  font-size:1.4rem;
-  margin-bottom:16px;
+/* 🔹 TITLE */
+h2{
+  margin-bottom:20px;
 }
 
+/* 🔹 FLEX STACK */
+.tool-flex{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+/* 🔹 TEXTAREA */
 textarea{
   width:100%;
-  height:120px;
-  padding:10px;
-  background:#0f172a;
-  color:white;
-  border:1px solid #334155;
+  min-height:140px;
+  font-size:16px;
+  padding:12px;
   border-radius:8px;
-  font-size:14px;
-  resize:none;
-  margin-bottom:12px;
+  border:none;
+  resize:vertical;
 }
 
+/* 🔹 BUTTON */
 button{
   width:100%;
-  padding:11px;
-  margin-bottom:8px;
-  background:transparent;
-  border:2px solid var(--accent);
-  color:var(--accent);
-  font-weight:700;
+  height:48px;
+  font-size:16px;
   border-radius:8px;
+  border:none;
   cursor:pointer;
-}
-button:hover{
-  background:var(--accent);
+  font-weight:bold;
+  background:#42f8f5;
   color:#000;
 }
 
+button:hover{
+  background:#00f5d4;
+}
+
+/* 🔹 RESULT */
 .result{
-  margin-top:10px;
-  font-weight:600;
-  color:var(--accent);
-  text-align:center;
+  font-size:16px;
   word-break:break-all;
+  min-height:22px;
+}
+
+/* 🔹 MOBILE */
+@media(max-width:480px){
+  h2{ font-size:20px; }
+  .close-btn{ font-size:18px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='/'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
-  <h1>URL Encoder / Decoder</h1>
+  <h2>URL Encoder / Decoder</h2>
 
-  <textarea id="input" placeholder="Enter URL or text here..."></textarea>
+  <div class="tool-flex">
+    <textarea id="inputText" placeholder="Enter text or URL here..."></textarea>
 
-  <button onclick="encodeURL()">Encode URL</button>
-  <button onclick="decodeURL()">Decode URL</button>
+    <button onclick="encodeText()">Encode</button>
+    <button onclick="decodeText()">Decode</button>
 
-  <div class="result" id="result"></div>
+    <div class="result" id="result"></div>
+  </div>
 </div>
 
 <script>
-function encodeURL(){
-  const val = document.getElementById("input").value;
-  if(val === ""){
-    document.getElementById("result").innerText = "Enter text to encode";
-    return;
-  }
-  document.getElementById("result").innerText = encodeURIComponent(val);
+const inputText = document.getElementById("inputText");
+const result = document.getElementById("result");
+
+function encodeText(){
+  const text = inputText.value.trim();
+  if(text === ""){ result.innerText="Please enter text"; return; }
+  result.innerText = encodeURIComponent(text);
 }
 
-function decodeURL(){
-  const val = document.getElementById("input").value;
-  if(val === ""){
-    document.getElementById("result").innerText = "Enter text to decode";
-    return;
-  }
+function decodeText(){
+  const text = inputText.value.trim();
+  if(text === ""){ result.innerText="Please enter text"; return; }
   try{
-    document.getElementById("result").innerText = decodeURIComponent(val);
-  }catch{
-    document.getElementById("result").innerText = "Invalid encoded URL";
+    result.innerText = decodeURIComponent(text);
+  }catch(e){
+    result.innerText = "Invalid encoded text!";
   }
 }
 </script>
-
 </body>
 </html>
