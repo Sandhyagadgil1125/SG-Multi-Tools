@@ -9,13 +9,14 @@
 :root{
   --bg-main:#0d0f14;
   --bg-card:#12151a;
+  --bg-input:#0b0e13;
   --accent:#42f8f5;
   --accent-hover:#00f5d4;
   --text:#ffffff;
   --text-muted:#b6c3d1;
+  --radius:14px;
 }
 
-/* RESET */
 *{
   box-sizing:border-box;
   margin:0;
@@ -33,20 +34,22 @@ body{
   padding:20px;
 }
 
-/* TOOL CARD */
+/* MAIN CARD */
 .tool-wrapper{
-  position:relative;
   width:100%;
-  max-width:520px;
+  max-width:560px;
   background:var(--bg-card);
-  border-radius:16px;
-  padding:28px;
+  border-radius:18px;
+  padding:26px;
   border:1px solid #2a303c;
-  box-shadow:0 0 25px rgba(66,248,245,0.25);
-  text-align:center;
+  box-shadow:0 0 30px rgba(66,248,245,0.25);
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  position:relative;
 }
 
-/* CLOSE BUTTON */
+/* CLOSE */
 .close-btn{
   position:absolute;
   top:14px;
@@ -55,34 +58,36 @@ body{
   cursor:pointer;
   color:var(--text-muted);
 }
-.close-btn:hover{ color:var(--accent); }
+.close-btn:hover{color:var(--accent);}
 
 h2{
-  margin-bottom:18px;
+  text-align:center;
   color:var(--accent);
+  margin-bottom:6px;
 }
 
-/* FORM */
-.converter{
+/* FLEX CARD */
+.flex-card{
+  background:var(--bg-input);
+  border-radius:var(--radius);
+  padding:16px;
+  border:1px solid #1f2530;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:12px;
 }
 
-input, select{
-  height:48px;
-  border-radius:8px;
-  border:none;
-  padding:0 12px;
-  font-size:16px;
-  background:#0d0f14;
-  color:#fff;
+/* TOP MEASURE SELECTOR */
+.measure-select{
+  display:flex;
+  gap:10px;
 }
 
-button{
-  height:48px;
-  border-radius:8px;
-  border:2px solid var(--accent);
+.measure-select button{
+  flex:1;
+  height:42px;
+  border-radius:10px;
+  border:1px solid var(--accent);
   background:transparent;
   color:var(--accent);
   font-weight:700;
@@ -90,21 +95,59 @@ button{
   transition:0.3s;
 }
 
-button:hover{
+.measure-select button.active,
+.measure-select button:hover{
   background:var(--accent);
   color:#000;
 }
 
+/* INPUT ROW */
+.row{
+  display:flex;
+  gap:10px;
+}
+
+input, select{
+  flex:1;
+  height:46px;
+  border-radius:10px;
+  border:none;
+  padding:0 12px;
+  font-size:15px;
+  background:#000;
+  color:#fff;
+}
+
+/* CONVERT BUTTON */
+button.convert-btn{
+  height:48px;
+  border-radius:12px;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button.convert-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+/* RESULT */
 .result{
-  margin-top:14px;
+  text-align:center;
   font-size:18px;
-  font-weight:600;
+  font-weight:700;
   color:var(--accent-hover);
+  min-height:24px;
 }
 
 /* MOBILE */
 @media(max-width:480px){
-  h2{font-size:20px;}
+  .measure-select{flex-direction:column;}
 }
 </style>
 </head>
@@ -116,51 +159,102 @@ button:hover{
 
   <h2>Unit Converter</h2>
 
-  <div class="converter">
-    <input type="number" id="value" placeholder="Enter value">
+  <!-- TOP FLEXBOX -->
+  <div class="flex-card">
+    <div class="measure-select">
+      <button class="active" onclick="setType('length', this)">Length</button>
+      <button onclick="setType('weight', this)">Weight</button>
+      <button onclick="setType('temp', this)">Temperature</button>
+    </div>
+  </div>
 
-    <select id="fromUnit">
-      <option value="cm">Centimeter</option>
-      <option value="m">Meter</option>
-      <option value="km">Kilometer</option>
-    </select>
+  <!-- INPUT FLEXBOX -->
+  <div class="flex-card">
+    <div class="row">
+      <input type="number" id="value" placeholder="Enter value">
+    </div>
 
-    <select id="toUnit">
-      <option value="cm">Centimeter</option>
-      <option value="m">Meter</option>
-      <option value="km">Kilometer</option>
-    </select>
+    <div class="row">
+      <select id="from"></select>
+      <select id="to"></select>
+    </div>
 
-    <button onclick="convert()">Convert</button>
+    <button class="convert-btn" onclick="convert()">Convert</button>
+  </div>
 
+  <!-- RESULT FLEXBOX -->
+  <div class="flex-card">
     <div class="result" id="result"></div>
   </div>
 </div>
 
 <script>
-function convert(){
-  const value = parseFloat(document.getElementById("value").value);
-  const from = document.getElementById("fromUnit").value;
-  const to = document.getElementById("toUnit").value;
+const units = {
+  length:{
+    cm:1,
+    m:100,
+    km:100000
+  },
+  weight:{
+    g:1,
+    kg:1000
+  }
+};
 
-  if(isNaN(value)){
+let currentType = "length";
+
+function setType(type, btn){
+  currentType = type;
+
+  document.querySelectorAll(".measure-select button")
+    .forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+  from.innerHTML = "";
+  to.innerHTML = "";
+
+  if(type === "temp"){
+    ["Celsius","Fahrenheit"].forEach(u=>{
+      from.add(new Option(u,u));
+      to.add(new Option(u,u));
+    });
+  }else{
+    Object.keys(units[type]).forEach(u=>{
+      from.add(new Option(u,u));
+      to.add(new Option(u,u));
+    });
+  }
+
+  document.getElementById("result").innerText = "";
+}
+
+function convert(){
+  const val = parseFloat(document.getElementById("value").value);
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+
+  if(isNaN(val)){
     document.getElementById("result").innerText = "Enter a valid number";
     return;
   }
 
-  let meters;
-  if(from === "cm") meters = value / 100;
-  if(from === "m") meters = value;
-  if(from === "km") meters = value * 1000;
+  let res;
 
-  let result;
-  if(to === "cm") result = meters * 100;
-  if(to === "m") result = meters;
-  if(to === "km") result = meters / 1000;
+  if(currentType === "temp"){
+    if(from === to) res = val;
+    else if(from === "Celsius") res = (val * 9/5) + 32;
+    else res = (val - 32) * 5/9;
+  }else{
+    res = (val * units[currentType][from]) / units[currentType][to];
+  }
 
   document.getElementById("result").innerText =
-    `${value} ${from} = ${result} ${to}`;
+    `${val} ${from} = ${res.toFixed(4)} ${to}`;
 }
+
+setType("length", document.querySelector(".measure-select button"));
 </script>
 
 </body>
