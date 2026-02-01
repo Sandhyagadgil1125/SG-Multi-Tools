@@ -6,17 +6,27 @@
 <title>BMI Calculator | SG Multi Tools</title>
 
 <style>
-/* ===== GLOBAL RESET ===== */
+:root{
+  --bg-main:#0d0f14;
+  --bg-card:#12151a;
+  --bg-input:#0b0e13;
+  --accent:#42f8f5;
+  --accent-hover:#00f5d4;
+  --text:#ffffff;
+  --text-muted:#b6c3d1;
+  --radius:14px;
+}
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Segoe UI, Arial, sans-serif;
+  font-family:'Segoe UI', Arial, sans-serif;
 }
 
 body{
-  background:#0d0f14;
-  color:#fff;
+  background:var(--bg-main);
+  color:var(--text);
   min-height:100vh;
   display:flex;
   align-items:center;
@@ -24,89 +34,98 @@ body{
   padding:20px;
 }
 
-/* ===== NEON TOOL WRAPPER ===== */
+/* MAIN CARD */
 .tool-wrapper{
-  position:relative;
   width:100%;
   max-width:520px;
-  background:#12151a;
+  background:var(--bg-card);
+  border-radius:18px;
   padding:26px;
-  border-radius:16px;
-  border:2px solid #42f8f5;
-  box-shadow:0 0 30px rgba(66,248,245,0.55);
+  border:1px solid #2a303c;
+  box-shadow:0 0 30px rgba(66,248,245,0.25);
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  position:relative;
 }
 
-/* ===== CLOSE BUTTON ===== */
+/* CLOSE */
 .close-btn{
   position:absolute;
   top:14px;
   right:16px;
   font-size:22px;
-  color:#9aa7b8;
   cursor:pointer;
+  color:var(--text-muted);
 }
-.close-btn:hover{
-  color:#42f8f5;
-}
+.close-btn:hover{color:var(--accent);}
 
-/* ===== TITLE ===== */
-h1{
+h2{
   text-align:center;
-  margin-bottom:18px;
-  font-size:24px;
-  color:#42f8f5;
+  color:var(--accent);
+  margin-bottom:4px;
 }
 
-/* ===== TOOL CONTENT ===== */
-.tool-content{
+/* FLEX CARD */
+.flex-card{
+  background:var(--bg-input);
+  border-radius:var(--radius);
+  padding:16px;
+  border:1px solid #1f2530;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  gap:14px;
+  gap:12px;
 }
 
-/* ===== INPUTS ===== */
-input{
-  width:100%;
-  max-width:420px;
-  padding:12px;
-  font-size:16px;
-  border-radius:8px;
-  border:none;
-  background:#1c222d;
-  color:#fff;
-}
-
-/* ===== BUTTON ===== */
-button{
-  width:100%;
-  max-width:420px;
-  padding:12px;
-  font-size:16px;
-  border:none;
-  border-radius:8px;
-  background:#42f8f5;
-  color:#000;
-  font-weight:700;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#00f5d4;
-}
-
-/* ===== RESULT ===== */
-#result{
-  margin-top:10px;
-  font-size:18px;
+/* LABEL */
+label{
+  color:var(--text-muted);
+  font-size:14px;
   font-weight:600;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width:480px){
-  h1{ font-size:20px; }
-  .tool-wrapper{ padding:20px; }
-  .close-btn{ font-size:18px; }
+/* INPUT */
+input{
+  height:46px;
+  border-radius:10px;
+  border:none;
+  padding:0 12px;
+  font-size:15px;
+  background:#000;
+  color:#fff;
+}
+
+/* BUTTON */
+button{
+  height:48px;
+  border-radius:12px;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+/* RESULT */
+.result{
+  text-align:center;
+  font-size:18px;
+  font-weight:700;
+  color:var(--accent-hover);
+  min-height:24px;
+}
+
+.category{
+  text-align:center;
+  font-size:14px;
+  color:var(--text-muted);
 }
 </style>
 </head>
@@ -116,36 +135,53 @@ button:hover{
 <div class="tool-wrapper">
   <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
-  <h1>BMI Calculator</h1>
+  <h2>BMI Calculator</h2>
 
-  <div class="tool-content">
-    <input type="number" id="weight" placeholder="Weight (kg)">
-    <input type="number" id="height" placeholder="Height (cm)">
+  <!-- INPUT FLEXBOX -->
+  <div class="flex-card">
+    <label for="weight">Weight (kg)</label>
+    <input type="number" id="weight" placeholder="Enter weight in kg">
+
+    <label for="height">Height (cm)</label>
+    <input type="number" id="height" placeholder="Enter height in cm">
+  </div>
+
+  <!-- BUTTON FLEXBOX -->
+  <div class="flex-card">
     <button onclick="calculateBMI()">Calculate BMI</button>
-    <div id="result"></div>
+  </div>
+
+  <!-- RESULT FLEXBOX -->
+  <div class="flex-card">
+    <div class="result" id="bmiResult"></div>
+    <div class="category" id="bmiCategory"></div>
   </div>
 </div>
 
 <script>
 function calculateBMI(){
-  const w = parseFloat(document.getElementById("weight").value);
-  const h = parseFloat(document.getElementById("height").value) / 100;
+  const weight = parseFloat(document.getElementById("weight").value);
+  const heightCm = parseFloat(document.getElementById("height").value);
 
-  if(!w || !h){
-    document.getElementById("result").innerText = "Please enter valid values";
+  if(isNaN(weight) || isNaN(heightCm) || weight <= 0 || heightCm <= 0){
+    document.getElementById("bmiResult").innerText = "Enter valid values";
+    document.getElementById("bmiCategory").innerText = "";
     return;
   }
 
-  const bmi = (w / (h * h)).toFixed(2);
-  let status = "";
+  const heightM = heightCm / 100;
+  const bmi = weight / (heightM * heightM);
 
-  if(bmi < 18.5) status = "Underweight";
-  else if(bmi < 25) status = "Normal";
-  else if(bmi < 30) status = "Overweight";
-  else status = "Obese";
+  let category = "";
+  if(bmi < 18.5) category = "Underweight";
+  else if(bmi < 25) category = "Normal weight";
+  else if(bmi < 30) category = "Overweight";
+  else category = "Obese";
 
-  document.getElementById("result").innerText =
-    `BMI: ${bmi} (${status})`;
+  document.getElementById("bmiResult").innerText =
+    `Your BMI is ${bmi.toFixed(2)}`;
+  document.getElementById("bmiCategory").innerText =
+    `Category: ${category}`;
 }
 </script>
 
