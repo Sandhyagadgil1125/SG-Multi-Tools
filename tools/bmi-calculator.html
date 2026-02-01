@@ -8,7 +8,7 @@
 :root {
   --bg-main: #0d0f14;
   --bg-card: #12151a;
-  --bg-flex: #1c222d;        /* flexbox background */
+  --bg-flex: #1c222d;
   --accent: #42f8f5;
   --accent-hover: #00f5d4;
   --text: #ffffff;
@@ -16,20 +16,19 @@
 }
 
 body {
+  margin: 0;
   background: var(--bg-main);
   color: var(--text);
   font-family: 'Segoe UI', Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
 }
 
 .tool-wrapper {
   background: var(--bg-card);
   border-radius: var(--radius);
   padding: 20px;
-  width: 100%;
   max-width: 480px;
+  width: 90%;
+  margin: 40px auto;      /* center page */
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -54,23 +53,27 @@ h2 {
   margin-bottom: 10px;
 }
 
+/* FLEXBOX STYLING */
 .flexbox {
-  background: var(--bg-flex);    /* colored background */
+  background: var(--bg-flex);
   padding: 12px 16px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  width: 100%;            /* important for full colored background */
 }
 
 label {
-  color: #fff;                   /* clear white letters */
+  color: #fff;
   font-weight: 600;
   min-width: 80px;
 }
 
 input {
+  flex: 1;
+  min-width: 100px;
   height: 36px;
   border-radius: 8px;
   border: 1px solid #2a303c;
@@ -78,8 +81,6 @@ input {
   color: #fff;
   padding: 0 10px;
   font-size: 14px;
-  flex: 1;
-  min-width: 100px;
 }
 
 button {
