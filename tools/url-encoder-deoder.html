@@ -3,137 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URL Encoder / Decoder | SG Multi Tools</title>
+<title>URL Encoder Decoder | SG Multi Tools</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
 body{
-  margin:0;
-  padding:0 10px;
-  background:#0f172a;
+  background:#0d0f14;
   color:#fff;
-  text-align:center;
+  font-family:Segoe UI, Arial, sans-serif;
 }
-
-/* 🔹 NEON TOOL WRAPPER */
 .tool-wrapper{
-  position:relative;
-  width:100%;
   max-width:520px;
   margin:40px auto;
-  background:#1e293b;
-  padding:24px;
+  background:#12151a;
+  padding:20px;
   border-radius:16px;
-  border:2px solid #42f8f5;
-  box-shadow:0 0 30px rgba(66,248,245,0.55);
+  border:1px solid #2a303c;
 }
-
-/* 🔹 CLOSE BUTTON */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:#94a3b8;
-  cursor:pointer;
-}
-.close-btn:hover{ color:#42f8f5; }
-
-/* 🔹 TITLE */
-h2{
-  margin-bottom:20px;
-}
-
-/* 🔹 FLEX STACK */
-.tool-flex{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-/* 🔹 TEXTAREA */
 textarea{
   width:100%;
-  min-height:140px;
-  font-size:16px;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  resize:vertical;
+  min-height:100px;
+  background:#1c222d;
+  color:#fff;
+  border:1px solid #3a4150;
+  border-radius:10px;
+  padding:10px;
 }
-
-/* 🔹 BUTTON */
 button{
+  margin-top:10px;
   width:100%;
-  height:48px;
-  font-size:16px;
-  border-radius:8px;
-  border:none;
+  height:42px;
+  border-radius:10px;
+  border:2px solid #42f8f5;
+  background:transparent;
+  color:#42f8f5;
+  font-weight:700;
   cursor:pointer;
-  font-weight:bold;
-  background:#42f8f5;
-  color:#000;
 }
-
-button:hover{
-  background:#00f5d4;
-}
-
-/* 🔹 RESULT */
-.result{
-  font-size:16px;
-  word-break:break-all;
-  min-height:22px;
-}
-
-/* 🔹 MOBILE */
-@media(max-width:480px){
-  h2{ font-size:20px; }
-  .close-btn{ font-size:18px; }
-}
+button:hover{background:#42f8f5;color:#000;}
 </style>
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
-
   <h2>URL Encoder / Decoder</h2>
-
-  <div class="tool-flex">
-    <textarea id="inputText" placeholder="Enter text or URL here..."></textarea>
-
-    <button onclick="encodeText()">Encode</button>
-    <button onclick="decodeText()">Decode</button>
-
-    <div class="result" id="result"></div>
-  </div>
+  <textarea id="text" placeholder="Enter URL here"></textarea>
+  <button onclick="encode()">Encode</button>
+  <button onclick="decode()">Decode</button>
 </div>
 
 <script>
-const inputText = document.getElementById("inputText");
-const result = document.getElementById("result");
-
-function encodeText(){
-  const text = inputText.value.trim();
-  if(text === ""){ result.innerText="Please enter text"; return; }
-  result.innerText = encodeURIComponent(text);
+function encode(){
+  text.value = encodeURIComponent(text.value);
 }
-
-function decodeText(){
-  const text = inputText.value.trim();
-  if(text === ""){ result.innerText="Please enter text"; return; }
-  try{
-    result.innerText = decodeURIComponent(text);
-  }catch(e){
-    result.innerText = "Invalid encoded text!";
-  }
+function decode(){
+  text.value = decodeURIComponent(text.value);
 }
 </script>
+
 </body>
 </html>
