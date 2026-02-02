@@ -1,0 +1,127 @@
+/* ===========================
+   SG MULTI TOOLS – SHARED UI
+   =========================== */
+
+:root{
+  --bg-main:#0d0f14;
+  --bg-card:#12151a;
+  --bg-box:#1a1f27;
+  --border:#2a303c;
+  --accent:#00f5d4;
+  --text:#ffffff;
+  --muted:#cbd5e1;
+  --radius:16px;
+}
+
+/* ===== RESET ===== */
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg-main);
+  color:var(--text);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+/* ===== TOOL CONTAINER ===== */
+.tool-wrapper{
+  width:100%;
+  max-width:520px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+  box-shadow:0 0 30px rgba(0,245,212,0.25);
+}
+
+/* ===== TITLE ===== */
+.tool-wrapper h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:var(--text);
+}
+
+/* ===== FLEX BOXES (THIS FIXES YOUR BUG) ===== */
+.flex-box,
+.input-box,
+.select-box,
+.result-box{
+  background:var(--bg-box);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+}
+
+/* ===== LABELS ===== */
+label{
+  display:block;
+  margin-bottom:6px;
+  font-size:14px;
+  color:var(--text); /* FORCE WHITE */
+}
+
+/* ===== INPUTS & SELECTS ===== */
+input,
+select{
+  width:100%;
+  height:44px;
+  background:#0f172a;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:0 10px;
+  font-size:15px;
+}
+
+input::placeholder{
+  color:#94a3b8;
+}
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  height:44px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:var(--accent);
+  color:#000;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+/* ===== RESULT ===== */
+.result-box{
+  text-align:center;
+  font-size:16px;
+  font-weight:bold;
+  color:var(--text);
+}
+
+/* ===== CLOSE BUTTON ===== */
+.close-btn{
+  position:absolute;
+  top:14px;
+  right:16px;
+  font-size:20px;
+  color:#94a3b8;
+  cursor:pointer;
+}
+
+.close-btn:hover{
+  color:var(--accent);
+}
