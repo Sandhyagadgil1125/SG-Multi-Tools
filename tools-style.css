@@ -1,25 +1,27 @@
 :root{
-  --bg: #0d0f14;
-  --card: #12151a;
-  --accent: #42f8f5;
-  --text: #ffffff;
-  --muted: #b6c3d1;
-  --radius: 12px;
+  --bg: #0d0f14;           /* Page background */
+  --card: #12151a;         /* Tool card background */
+  --flex: #1c222d;         /* Flexbox background */
+  --accent: #42f8f5;       /* Accent color */
+  --text: #ffffff;         /* Primary text color */
+  --muted: #b6c3d1;        /* Secondary text color */
+  --radius: 12px;          /* Rounded corners */
 }
 
 /* RESET */
 *{
   box-sizing: border-box;
-  font-family: Segoe UI, Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* PAGE BODY */
+/* BODY */
 body{
   background: var(--bg);
   color: var(--text);
   margin: 0;
+  padding: 0;
 }
 
 /* TOOL CARD */
@@ -34,20 +36,20 @@ body{
   box-shadow: 0 0 30px rgba(66,248,245,0.25);
 }
 
-/* TITLE */
-.tool-wrapper h2,
-.tool-wrapper h1{
+/* TOOL TITLE */
+.tool-wrapper h1,
+.tool-wrapper h2{
   text-align: center;
   margin-bottom: 20px;
   color: var(--accent);
 }
 
-/* FLEXBOX ROWS */
+/* FLEXBOX ROWS — for inputs, selects, buttons, output areas */
 .flexbox{
-  background: #1c222d;           /* FLEXBOX BACKGROUND COLOR */
+  background: var(--flex);
   padding: 14px 16px;
   border-radius: var(--radius);
-  border:1px solid #2f3645;
+  border: 1px solid #2f3645;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -55,15 +57,14 @@ body{
   margin-top: 14px;
 }
 
-/* FLEXBOX LABEL */
+/* FLEXBOX LABELS */
 .flexbox label{
   min-width: 120px;
   font-size: 14px;
-  color: var(--text);           /* LABEL TEXT COLOR */
-  font-weight: 500;
+  color: var(--text);
 }
 
-/* INPUTS & SELECTS */
+/* INPUTS, SELECTS, TEXTAREAS */
 input, select, textarea{
   flex: 1;
   height: 36px;
@@ -81,39 +82,70 @@ textarea::placeholder{
   opacity: 1;
 }
 
-/* BUTTON */
+/* BUTTONS */
 button{
   width: 100%;
   height: 42px;
   border-radius: 10px;
-  border:2px solid var(--accent);
+  border: 2px solid var(--accent);
   background: transparent;
   color: var(--accent);
   font-weight: 700;
-  cursor: pointer;
   font-size: 15px;
+  cursor: pointer;
   margin-top: 10px;
 }
-
 button:hover{
   background: var(--accent);
   color: #000;
 }
 
-/* RESULT BOX */
+/* RESULT BOX — inherit flexbox background for consistency */
 .result{
   text-align: center;
   font-weight: 600;
   color: var(--accent);
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px dashed var(--accent);
-  background: #0f131a;
+  /* do NOT set background here, use .flexbox for background */
 }
 
-/* OPTIONAL: SMALL TEXT */
+/* OPTIONAL SMALL TEXT */
 small{
   font-size: 13px;
   color: var(--muted);
+}
+
+/* CLOSE BUTTON (for tools) */
+.close-btn{
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text);
+}
+.close-btn:hover{
+  color: var(--accent);
+}
+
+/* MEDIA QUERIES */
+@media(max-width:480px){
+  .tool-wrapper{
+    padding: 18px;
+  }
+  .flexbox{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: auto;
+  }
+  .flexbox label{
+    min-width: 100%;
+  }
+  button{
+    font-size: 14px;
+    height: 40px;
+  }
+  input, select, textarea{
+    height: 36px;
+  }
 }
