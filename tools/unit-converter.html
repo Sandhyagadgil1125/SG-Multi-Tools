@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unit Converter | SG Multi Tools</title>
 
-  <!-- SHARED UI (REQUIRED) -->
+  <!-- SHARED UI (DO NOT CHANGE PATH) -->
   <link rel="stylesheet" href="../tool-ui.css">
 </head>
 
 <body>
 
 <div class="tool-wrapper">
+
+  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
 
   <h2>Unit Converter</h2>
 
@@ -43,7 +45,7 @@
     <select id="to"></select>
   </div>
 
-  <!-- ACTION -->
+  <!-- BUTTON -->
   <div class="flexbox">
     <button onclick="convert()">Convert</button>
   </div>
@@ -79,7 +81,10 @@ const units = {
 };
 
 function updateUnits() {
-  const cat = category.value;
+  const cat = document.getElementById("category").value;
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+
   from.innerHTML = "";
   to.innerHTML = "";
 
