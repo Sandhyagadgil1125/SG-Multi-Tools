@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Unit Converter</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../tool-ui.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter | SG Multi Tools</title>
+
+  <!-- SHARED UI (REQUIRED) -->
+  <link rel="stylesheet" href="../tool-ui.css">
 </head>
 
 <body>
-<div class="tool-wrapper">
-  <div class="tool-card">
-    <h1>Unit Converter</h1>
 
+<div class="tool-wrapper">
+
+  <h2>Unit Converter</h2>
+
+  <!-- CATEGORY -->
+  <div class="flexbox">
+    <label>Category</label>
     <select id="category" onchange="updateUnits()">
       <option value="length">Length</option>
       <option value="weight">Weight</option>
       <option value="temperature">Temperature</option>
     </select>
-
-    <input type="number" id="value" placeholder="Enter value">
-
-    <select id="fromUnit"></select>
-    <select id="toUnit"></select>
-
-    <button onclick="convert()">Convert</button>
-
-    <div class="result" id="result">Result will appear here</div>
   </div>
+
+  <!-- VALUE -->
+  <div class="flexbox">
+    <label>Value</label>
+    <input type="number" id="value" placeholder="Enter value">
+  </div>
+
+  <!-- FROM -->
+  <div class="flexbox">
+    <label>From</label>
+    <select id="from"></select>
+  </div>
+
+  <!-- TO -->
+  <div class="flexbox">
+    <label>To</label>
+    <select id="to"></select>
+  </div>
+
+  <!-- ACTION -->
+  <div class="flexbox">
+    <button onclick="convert()">Convert</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="flexbox result" id="result">
+    Result will appear here
+  </div>
+
 </div>
 
 <script>
@@ -34,67 +60,73 @@ const units = {
   length: {
     meter: 1,
     kilometer: 1000,
+    centimeter: 0.01,
     mile: 1609.34,
     yard: 0.9144,
-    foot: 0.3048,
     inch: 0.0254
   },
   weight: {
     kilogram: 1,
     gram: 0.001,
-    pound: 0.453592
+    pound: 0.453592,
+    ounce: 0.0283495
+  },
+  temperature: {
+    celsius: "c",
+    fahrenheit: "f",
+    kelvin: "k"
   }
 };
 
 function updateUnits() {
   const cat = category.value;
-  fromUnit.innerHTML = "";
-  toUnit.innerHTML = "";
+  from.innerHTML = "";
+  to.innerHTML = "";
 
-  if (cat === "temperature") {
-    ["Celsius","Fahrenheit","Kelvin"].forEach(u=>{
-      fromUnit.add(new Option(u,u));
-      toUnit.add(new Option(u,u));
-    });
-    return;
-  }
-
-  for (let u in units[cat]) {
-    fromUnit.add(new Option(u,u));
-    toUnit.add(new Option(u,u));
+  for (let unit in units[cat]) {
+    from.innerHTML += `<option value="${unit}">${capitalize(unit)}</option>`;
+    to.innerHTML += `<option value="${unit}">${capitalize(unit)}</option>`;
   }
 }
 
 function convert() {
-  const val = parseFloat(value.value);
   const cat = category.value;
+  const val = parseFloat(value.value);
 
   if (isNaN(val)) {
-    result.innerText = "Enter a valid number";
+    result.textContent = "Please enter a valid number";
     return;
   }
+
+  let output;
 
   if (cat === "temperature") {
-    result.innerText = tempConvert(val, fromUnit.value, toUnit.value);
-    return;
+    output = convertTemp(val, from.value, to.value);
+  } else {
+    const base = val * units[cat][from.value];
+    output = base / units[cat][to.value];
   }
 
-  const base = val * units[cat][fromUnit.value];
-  const final = base / units[cat][toUnit.value];
-  result.innerText = final.toFixed(4);
+  result.textContent = output.toFixed(4);
 }
 
-function tempConvert(v,f,t){
-  if (f===t) return v;
-  if (f==="Celsius" && t==="Fahrenheit") return (v*9/5)+32;
-  if (f==="Fahrenheit" && t==="Celsius") return (v-32)*5/9;
-  if (f==="Celsius" && t==="Kelvin") return v+273.15;
-  if (f==="Kelvin" && t==="Celsius") return v-273.15;
-  if (f==="Fahrenheit" && t==="Kelvin") return (v-32)*5/9+273.15;
-  if (f==="Kelvin" && t==="Fahrenheit") return (v-273.15)*9/5+32;
+function convertTemp(v, from, to) {
+  let c;
+  if (from === "celsius") c = v;
+  if (from === "fahrenheit") c = (v - 32) * 5 / 9;
+  if (from === "kelvin") c = v - 273.15;
+
+  if (to === "celsius") return c;
+  if (to === "fahrenheit") return (c * 9 / 5) + 32;
+  if (to === "kelvin") return c + 273.15;
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 updateUnits();
 </script>
+
 </body>
 </html>
