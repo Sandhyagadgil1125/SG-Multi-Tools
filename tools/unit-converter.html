@@ -1,85 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit Converter | SG Multi Tools</title>
-
-  <!-- SHARED TOOL UI -->
-  <link rel="stylesheet" href="../tool-ui.css">
+<meta charset="UTF-8">
+<title>Unit Converter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../tool-ui.css">
 </head>
 
 <body>
-
 <div class="tool-wrapper">
   <div class="tool-card">
-
     <h1>Unit Converter</h1>
 
-    <!-- VALUE -->
-    <div class="flexbox">
-      <label>Value</label>
-      <input type="number" id="value" placeholder="Enter value">
-    </div>
+    <select id="category" onchange="updateUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
 
-    <!-- FROM -->
-    <div class="flexbox">
-      <label>From</label>
-      <select id="from">
-        <option value="m">Meter</option>
-        <option value="cm">Centimeter</option>
-        <option value="km">Kilometer</option>
-      </select>
-    </div>
+    <input type="number" id="value" placeholder="Enter value">
 
-    <!-- TO -->
-    <div class="flexbox">
-      <label>To</label>
-      <select id="to">
-        <option value="cm">Centimeter</option>
-        <option value="m">Meter</option>
-        <option value="km">Kilometer</option>
-      </select>
-    </div>
+    <select id="fromUnit"></select>
+    <select id="toUnit"></select>
 
-    <!-- ACTION -->
-    <div class="flexbox">
-      <button onclick="convert()">Convert</button>
-    </div>
+    <button onclick="convert()">Convert</button>
 
-    <!-- RESULT -->
-    <div class="flexbox result" id="result">
-      Result will appear here
-    </div>
-
+    <div class="result" id="result">Result will appear here</div>
   </div>
 </div>
 
 <script>
-function convert() {
-  const value = parseFloat(document.getElementById("value").value);
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
-  const resultBox = document.getElementById("result");
+const units = {
+  length: {
+    meter: 1,
+    kilometer: 1000,
+    mile: 1609.34,
+    yard: 0.9144,
+    foot: 0.3048,
+    inch: 0.0254
+  },
+  weight: {
+    kilogram: 1,
+    gram: 0.001,
+    pound: 0.453592
+  }
+};
 
-  if (isNaN(value)) {
-    resultBox.textContent = "Please enter a valid number";
+function updateUnits() {
+  const cat = category.value;
+  fromUnit.innerHTML = "";
+  toUnit.innerHTML = "";
+
+  if (cat === "temperature") {
+    ["Celsius","Fahrenheit","Kelvin"].forEach(u=>{
+      fromUnit.add(new Option(u,u));
+      toUnit.add(new Option(u,u));
+    });
     return;
   }
 
-  let meters;
-  if (from === "m") meters = value;
-  if (from === "cm") meters = value / 100;
-  if (from === "km") meters = value * 1000;
-
-  let output;
-  if (to === "m") output = meters;
-  if (to === "cm") output = meters * 100;
-  if (to === "km") output = meters / 1000;
-
-  resultBox.textContent = output.toFixed(4);
+  for (let u in units[cat]) {
+    fromUnit.add(new Option(u,u));
+    toUnit.add(new Option(u,u));
+  }
 }
-</script>
 
+function convert() {
+  const val = parseFloat(value.value);
+  const cat = category.value;
+
+  if (isNaN(val)) {
+    result.innerText = "Enter a valid number";
+    return;
+  }
+
+  if (cat === "temperature") {
+    result.innerText = tempConvert(val, fromUnit.value, toUnit.value);
+    return;
+  }
+
+  const base = val * units[cat][fromUnit.value];
+  const final = base / units[cat][toUnit.value];
+  result.innerText = final.toFixed(4);
+}
+
+function tempConvert(v,f,t){
+  if (f===t) return v;
+  if (f==="Celsius" && t==="Fahrenheit") return (v*9/5)+32;
+  if (f==="Fahrenheit" && t==="Celsius") return (v-32)*5/9;
+  if (f==="Celsius" && t==="Kelvin") return v+273.15;
+  if (f==="Kelvin" && t==="Celsius") return v-273.15;
+  if (f==="Fahrenheit" && t==="Kelvin") return (v-32)*5/9+273.15;
+  if (f==="Kelvin" && t==="Fahrenheit") return (v-273.15)*9/5+32;
+}
+
+updateUnits();
+</script>
 </body>
 </html>
