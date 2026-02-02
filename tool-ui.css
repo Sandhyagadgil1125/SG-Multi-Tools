@@ -6,6 +6,11 @@
   --text:#ffffff;
 }
 
+/* RESET */
+*{
+  box-sizing:border-box;
+}
+
 /* PAGE */
 body{
   margin:0;
@@ -30,7 +35,7 @@ body{
   position:relative;
 }
 
-/* CLOSE BUTTON */
+/* CLOSE BUTTON (optional future use) */
 .close-btn{
   position:absolute;
   top:12px;
@@ -39,7 +44,9 @@ body{
   cursor:pointer;
   color:#fff;
 }
-.close-btn:hover{ color:var(--accent); }
+.close-btn:hover{
+  color:var(--accent);
+}
 
 /* TITLE */
 h2{
@@ -48,9 +55,11 @@ h2{
   margin:5px 0 10px;
 }
 
-/* FLEXBOX — THIS FIXES EVERYTHING */
+/* =========================
+   FLEXBOX — FINAL FORCE FIX
+   ========================= */
 .flexbox{
-  background:var(--bg-flex);
+  background-color:var(--bg-flex) !important;
   padding:14px 16px;
   border-radius:12px;
   border:1px solid #2f3645;
@@ -67,8 +76,9 @@ h2{
   color:#ffffff;
 }
 
-/* INPUTS */
-input, select{
+/* INPUTS & SELECTS */
+input,
+select{
   flex:1;
   height:36px;
   border-radius:8px;
@@ -95,7 +105,7 @@ button:hover{
   color:#000;
 }
 
-/* RESULT */
+/* RESULT BOX */
 .result{
   text-align:center;
   font-weight:600;
