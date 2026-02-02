@@ -1,170 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit Converter | SG Multi Tools</title>
-<link rel="stylesheet" href="../tool-ui.css">
-<style>
-:root{
-  --bg-main:#0d0f14;
-  --bg-card:#12151a;
-  --bg-flex:#1c222d;   /* FLEXBOX COLOR */
-  --accent:#42f8f5;
-  --text:#ffffff;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter | SG Multi Tools</title>
 
-/* PAGE */
-body{
-  margin:0;
-  background:var(--bg-main);
-  color:var(--text);
-  font-family:Segoe UI, Arial, sans-serif;
-}
-
-/* CARD */
-.tool-wrapper{
-  background:var(--bg-card);
-  max-width:520px;
-  width:90%;
-  margin:40px auto;
-  padding:20px;
-  border-radius:16px;
-  border:1px solid #2a303c;
-  box-shadow:0 0 25px rgba(66,248,245,.25);
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  position:relative;
-}
-
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:16px;
-  font-size:22px;
-  cursor:pointer;
-  color:#fff;
-}
-.close-btn:hover{color:var(--accent);}
-
-h2{
-  text-align:center;
-  color:var(--accent);
-  margin:5px 0 10px;
-}
-
-/* FLEXBOX ROWS — IMPORTANT */
-.flexbox{
-  width:100%;
-  background:#1c222d;           /* FLEXBOX COLOR */
-  padding:14px 16px;
-  border-radius:12px;
-
-  /* 👇 THIS MAKES IT VISIBLE */
-  border:1px solid #2f3645;
-
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  /* 👇 PREVENT COLLAPSE */
-  min-height:56px;
-}
-
-input, select{
-  flex:1;
-  height:36px;
-  border-radius:8px;
-  border:1px solid #2a303c;
-  background:#0b0e13;
-  color:#fff;
-  padding:0 10px;
-  font-size:14px;
-}
-
-button{
-  height:40px;
-  width:100%;
-  border-radius:10px;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-weight:700;
-  cursor:pointer;
-}
-button:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-#result{
-  text-align:center;
-  font-weight:600;
-  color:var(--accent);
-}
-</style>
+  <!-- SHARED TOOL UI -->
+  <link rel="stylesheet" href="../tool-ui.css">
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
-  <h2>Unit Converter</h2>
+  <div class="tool-card">
 
-  <!-- VALUE -->
-  <div class="flexbox">
-    <label>Value</label>
-    <input type="number" id="value" placeholder="Enter value">
-  </div>
+    <h1>Unit Converter</h1>
 
-  <!-- FROM -->
-  <div class="flexbox">
-    <label>From</label>
-    <select id="from">
-      <option value="m">Meter</option>
-      <option value="cm">Centimeter</option>
-      <option value="km">Kilometer</option>
-    </select>
-  </div>
+    <!-- VALUE -->
+    <div class="flexbox">
+      <label>Value</label>
+      <input type="number" id="value" placeholder="Enter value">
+    </div>
 
-  <!-- TO -->
-  <div class="flexbox">
-    <label>To</label>
-    <select id="to">
-      <option value="cm">Centimeter</option>
-      <option value="m">Meter</option>
-      <option value="km">Kilometer</option>
-    </select>
-  </div>
+    <!-- FROM -->
+    <div class="flexbox">
+      <label>From</label>
+      <select id="from">
+        <option value="m">Meter</option>
+        <option value="cm">Centimeter</option>
+        <option value="km">Kilometer</option>
+      </select>
+    </div>
 
-  <!-- BUTTON -->
-  <div class="flexbox">
-    <button onclick="convert()">Convert</button>
-  </div>
+    <!-- TO -->
+    <div class="flexbox">
+      <label>To</label>
+      <select id="to">
+        <option value="cm">Centimeter</option>
+        <option value="m">Meter</option>
+        <option value="km">Kilometer</option>
+      </select>
+    </div>
 
-  <!-- RESULT -->
-  <div class="flexbox">
-    <div id="result">Result will appear here</div>
+    <!-- ACTION -->
+    <div class="flexbox">
+      <button onclick="convert()">Convert</button>
+    </div>
+
+    <!-- RESULT -->
+    <div class="flexbox result" id="result">
+      Result will appear here
+    </div>
+
   </div>
 </div>
 
 <script>
-function convert(){
-  const val = parseFloat(value.value);
-  if(isNaN(val)){ result.innerText="Enter a number"; return; }
+function convert() {
+  const value = parseFloat(document.getElementById("value").value);
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const resultBox = document.getElementById("result");
+
+  if (isNaN(value)) {
+    resultBox.textContent = "Please enter a valid number";
+    return;
+  }
 
   let meters;
-  if(from.value==="m") meters=val;
-  if(from.value==="cm") meters=val/100;
-  if(from.value==="km") meters=val*1000;
+  if (from === "m") meters = value;
+  if (from === "cm") meters = value / 100;
+  if (from === "km") meters = value * 1000;
 
   let output;
-  if(to.value==="m") output=meters;
-  if(to.value==="cm") output=meters*100;
-  if(to.value==="km") output=meters/1000;
+  if (to === "m") output = meters;
+  if (to === "cm") output = meters * 100;
+  if (to === "km") output = meters / 1000;
 
-  result.innerText = output.toFixed(4);
+  resultBox.textContent = output.toFixed(4);
 }
 </script>
 
