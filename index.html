@@ -3,259 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SG Multi Tools | Free Daily Use Online Tools</title>
 
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363592531000914" crossorigin="anonymous"></script>
-
-<meta name="description" content="SG Multi Tools offers 20 professional online tools like calculators, converters, QR generator, password generator and more.">
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231c222d' stroke='%2342f8f5' stroke-width='4'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='900' font-size='26' fill='%2342f8f5'%3ESG%3C/text%3E%3C/svg%3E">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <style>
-:root {
-    --bg-main: #0d0f14;
-    --bg-card: #12151a;
-    --bg-nav: #1c222d;
-    --accent: #42f8f5;
-    --accent-hover: #00f5d4;
-    --text: #ffffff;
-    --text-muted: #b6c3d1;
-    --radius: 12px;
+/* ===== ROOT COLORS ===== */
+:root{
+  --bg-main:#0d0f14;
+  --bg-card:#12151a;
+  --bg-box:#1a1f27;
+  --accent:#00f5d4;
+  --border:#2a303c;
+  --text:#ffffff;
+  --muted:#cccccc;
+  --radius:16px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-
-body {
-    background: var(--bg-main);
-    color: var(--text);
+/* ===== GLOBAL ===== */
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg-main);
+  color:var(--text);
 }
 
-/* ===== NAVBAR ===== */
-nav {
-    background: var(--bg-nav);
-    padding: 16px 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(66,248,245,0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+/* ===== CONTAINER ===== */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
 }
 
-nav .logo {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    font-weight: 900;
-    color: var(--accent);
-    cursor: pointer;
-}
-nav .logo span {
-    width: 38px;
-    height: 38px;
-    border: 2px solid var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-}
-nav a {
-    color: var(--text-muted);
-    margin-left: 18px;
-    text-decoration: none;
-    font-weight: 500;
-}
-nav a:hover { color: var(--accent); }
-
-/* ===== HEADER ===== */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 50px 20px;
+/* ===== TITLE ===== */
+h1{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:40px;
 }
 
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
+h1 span{
+  color:var(--accent);
+  font-size:18px;
+  display:block;
+  margin-top:6px;
 }
-h1 span { color: var(--accent); }
 
 /* ===== TOOLS GRID ===== */
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 28px;
+.tools-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
 }
 
 /* ===== TOOL CARD ===== */
-.tool-card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* vertical centering */
-    align-items: center;     /* horizontal centering */
-    border: 1px solid #2a303c;
-    transition: all 0.3s ease;
-    text-align: center;      /* center text inside card */
-    min-height: 220px;       /* ensures cards are uniform height */
+.tool-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+  min-height:220px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+
+  transition:0.3s ease;
 }
 
-.tool-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 25px rgba(66,248,245,0.3);
+.tool-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 25px rgba(0,245,212,0.3);
 }
 
-.tool-card h2 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+/* ===== CARD TEXT ===== */
+.tool-card h2{
+  margin:0 0 10px;
+  font-size:18px;
+  color:var(--text);
 }
 
-.tool-card p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 15px;
+.tool-card p{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:16px;
 }
 
-/* Button stays at bottom if content grows */
-.tool-card .btn {
-    padding: 12px 18px;
-    border-radius: 8px;
-    border: 2px solid var(--accent);
-    background: transparent;
-    color: var(--accent);
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
+/* ===== BUTTON ===== */
+.btn{
+  padding:10px 18px;
+  border-radius:8px;
+  border:2px solid var(--accent);
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.3s ease;
 }
 
-.tool-card .btn:hover {
-    background: var(--accent);
-    color: #000;
+.btn:hover{
+  background:var(--accent);
+  color:#000;
 }
-
-/* Responsive text sizing */
-@media(max-width:480px){
-    .tool-card h2 { font-size: 1.1rem; }
-    .tool-card p { font-size: 0.85rem; }
-    .tool-card .btn { font-size: 0.9rem; padding: 10px; }
-}
-
 
 /* ===== FOOTER ===== */
-footer {
-    background: var(--bg-nav);
-    padding: 25px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-footer a { color: var(--accent); text-decoration: none; margin: 0 6px; }
-footer a:hover { color: var(--accent-hover); }
-
-</style>
-</head>
-
-<body>
-
-<nav>
-    <div class="logo" onclick="location.href='/'"><span>SG</span> SG Multi Tools</div>
-    <div>
-        <a href="/">Home</a>
-        <a href="#tools">Tools</a>
-        <a href="/contact.html">Contact</a>
-    </div>
-</nav>
-
-<div class="container" id="tools">
-    <h1>SG Multi Tools <span>For Daily Use</span></h1>
-   <div class="tools-grid">
-
-  <div class="tool-card">
-    <h2>Unit Converter</h2>
-    <p>Convert length, weight, temperature & more.</p>
-    <a class="btn" href="tools/unit-converter.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>BMI Calculator</h2>
-    <p>Calculate your Body Mass Index.</p>
-    <a class="btn" href="tools/bmi-calculator.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>Timer / Stopwatch</h2>
-    <p>Countdown & stopwatch with sound.</p>
-    <a class="btn" href="tools/timer-stopwatch.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>Text to Speech</h2>
-    <p>Convert text into voice/audio.</p>
-    <a class="btn" href="tools/text-to-speech.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>Speech to Text</h2>
-    <p>Convert speech/audio into text.</p>
-    <a class="btn" href="tools/speech-to-text.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>Age Calculator</h2>
-    <p>Calculate your age quickly.</p>
-    <a class="btn" href="tools/age-calculator.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>EMI Calculator</h2>
-    <p>Loan EMI calculation made easy.</p>
-    <a class="btn" href="tools/emi-calculator.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>SIP Calculator</h2>
-    <p>Investment SIP calculator.</p>
-    <a class="btn" href="tools/sip-calculator.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>QR Code Generator</h2>
-    <p>Generate QR codes quickly.</p>
-    <a class="btn" href="tools/qr-code-generator.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>Password Generator</h2>
-    <p>Create strong passwords instantly.</p>
-    <a class="btn" href="tools/password-generator.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
-    <a class="btn" href="tools/url-encoder-decoder.html">Open Tool</a>
-</div>
-</div>
-
-<footer>
-  <p>© 2026 SG Multi Tools. All rights reserved.</p>
-</footer>
-
-<a href="/privacy-policy.html">Privacy Policy</a> |
-<a href="/disclaimer.html">Disclaimer</a> |
-<a href="/terms-and-conditions.html">Terms</a>
-</p>
-</footer>
-
-</body>
-</html>
+footer{
+  margin-top:60px;
+  padding:20px;
+  text-a
