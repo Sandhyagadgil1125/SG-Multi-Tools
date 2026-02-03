@@ -3,9 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Date Difference Calculator | SG Multi Tools</title>
+<title>Date Difference | SG Multi Tools</title>
 
 <style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
+}
+
 *{
   box-sizing:border-box;
   font-family:Arial, sans-serif;
@@ -13,87 +22,88 @@
 
 body{
   margin:0;
-  padding:0 10px;
-  background:#0f172a;
-  color:#fff;
-  text-align:center;
+  padding:10px;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* 🔹 NEON TOOL WRAPPER */
+/* TOOL CARD */
 .tool-wrapper{
   position:relative;
-  width:100%;
   max-width:520px;
   margin:40px auto;
-  background:#1e293b;
+  background:var(--card);
   padding:24px;
-  border-radius:16px;
-  border:2px solid #42f8f5;
-  box-shadow:0 0 30px rgba(66,248,245,0.55);
+  border-radius:18px;
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* 🔹 CLOSE BUTTON */
+/* CLOSE */
 .close-btn{
   position:absolute;
   top:12px;
   right:14px;
   font-size:22px;
-  color:#94a3b8;
+  color:var(--muted);
   cursor:pointer;
 }
+.close-btn:hover{ color:var(--accent); }
 
-/* 🔹 TITLE */
+/* TITLE */
 h2{
-  margin-bottom:20px;
+  text-align:center;
+  margin-bottom:18px;
 }
 
-/* 🔹 FLEX STACK */
-.tool-flex{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-/* 🔹 INPUTS */
-input{
-  width:100%;
-  height:48px;
-  font-size:16px;
-  padding:0 12px;
-  border-radius:8px;
-  border:none;
+/* FLEXBOX */
+.flexbox{
+  background:var(--flex);
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #334155;
+  margin-bottom:14px;
   text-align:center;
 }
 
-/* 🔹 BUTTON */
-button{
+/* INPUTS */
+input{
   width:100%;
-  height:48px;
-  font-size:16px;
+  padding:12px;
   border-radius:8px;
   border:none;
-  cursor:pointer;
-  font-weight:bold;
-  background:#42f8f5;
+  background:#020617;
+  color:#fff;
+  font-size:15px;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  height:44px;
+  border-radius:10px;
+  border:none;
+  background:var(--accent);
   color:#000;
-}
-
-button:hover{
-  background:#00f5d4;
-}
-
-/* 🔹 RESULT */
-.result{
-  font-size:18px;
   font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+  margin-top:8px;
+}
+button:hover{ opacity:.9; }
+
+/* RESULT */
+.result{
+  text-align:center;
+  font-size:16px;
   margin-top:10px;
-  min-height:22px;
 }
 
-/* 🔹 MOBILE */
-@media(max-width:480px){
-  h2{ font-size:20px; }
-  .close-btn{ font-size:18px; }
+/* INFO */
+.info{
+  text-align:center;
+  font-size:14px;
+  color:var(--muted);
 }
 </style>
 </head>
@@ -101,34 +111,61 @@ button:hover{
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <h2>Date Difference Calculator</h2>
 
-  <div class="tool-flex">
-    <input type="date" id="startDate">
-    <input type="date" id="endDate">
+  <div class="flexbox">
+    <input type="date" id="startDate" placeholder="Start Date">
+  </div>
 
-    <button onclick="calculate()">Calculate Difference</button>
+  <div class="flexbox">
+    <input type="date" id="endDate" placeholder="End Date">
+  </div>
 
-    <div class="result" id="result"></div>
+  <div class="flexbox">
+    <button onclick="calculateDifference()">Calculate Difference</button>
+  </div>
+
+  <div class="flexbox result" id="result">
+    Difference will appear here
+  </div>
+
+  <div class="info">
+    Calculates difference in days, months, and years
   </div>
 </div>
 
 <script>
-function calculate(){
-  const start = new Date(startDate.value);
-  const end = new Date(endDate.value);
+function calculateDifference(){
+  const start = new Date(document.getElementById("startDate").value);
+  const end = new Date(document.getElementById("endDate").value);
 
-  if(!startDate.value || !endDate.value){
-    result.innerText = "Please select both dates";
+  if(isNaN(start) || isNaN(end)){
+    alert("Please select both dates");
     return;
   }
 
-  const diffTime = Math.abs(end - start);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if(end < start){
+    alert("End date must be after start date");
+    return;
+  }
 
-  result.innerText = "Difference: " + diffDays + " days";
+  // Difference in milliseconds
+  const diffMs = end - start;
+
+  // Days
+  const days = Math.floor(diffMs / (1000*60*60*24));
+
+  // Approximate months and years
+  let months = (end.getFullYear() - start.getFullYear()) * 12;
+  months += end.getMonth() - start.getMonth();
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  document.getElementById("result").innerHTML = `
+    ${years} year(s), ${remainingMonths} month(s), ${days} day(s)
+  `;
 }
 </script>
 
