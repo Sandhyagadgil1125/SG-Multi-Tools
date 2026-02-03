@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SG Multi Tools</title>
 
-<!-- Favicon (SVG "SG") -->
+<!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%2342f8f5%22/><text x=%2250%%22 y=%2255%%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22000000%22 font-family=%22Arial%22 font-weight=%22bold%22>SG</text></svg>">
 
 <style>
@@ -17,7 +17,6 @@
   --muted:#94a3b8;
 }
 
-/* BODY */
 body{
   margin:0;
   padding:0;
@@ -35,13 +34,27 @@ header{
   background: var(--card);
   border-bottom: 2px solid var(--accent);
   flex-wrap: wrap;
-  position: relative;
+}
+.header-left{
+  display:flex;
+  align-items:center;
+}
+.header-logo-circle{
+  width:40px;
+  height:40px;
+  background: var(--accent);
+  color:#000;
+  font-weight:bold;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:50%;
+  font-size:18px;
+  margin-right:10px;
 }
 header h1{
   margin:0;
   font-size:24px;
-  z-index:1;
-  position: relative;
 }
 header nav a{
   margin-left:20px;
@@ -54,19 +67,7 @@ header nav a:hover{
   color: var(--accent);
 }
 
-/* HEADER LOGO "SG" */
-.header-logo{
-  position:absolute;
-  left:15px;
-  top:50%;
-  transform: translateY(-50%);
-  font-size:32px;
-  font-weight:bold;
-  color: rgba(66,248,245,0.15);
-  z-index:0;
-}
-
-/* HERO SECTION */
+/* HERO */
 .hero{
   text-align:center;
   margin:40px 0;
@@ -177,19 +178,10 @@ footer a:hover{
   header nav{
     margin-top:10px;
   }
-  .header-logo{
-    font-size:24px;
-  }
-  .hero h2{
-    font-size:24px;
-  }
-  .hero p{
-    font-size:16px;
-  }
 }
 </style>
 
-<!-- Font Awesome for social icons -->
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
@@ -197,8 +189,10 @@ footer a:hover{
 
 <!-- HEADER -->
 <header>
-  <div class="header-logo">SG</div>
-  <h1>SG Multi Tools</h1>
+  <div class="header-left">
+    <div class="header-logo-circle">SG</div>
+    <h1>SG Multi Tools</h1>
+  </div>
   <nav>
     <a href="index.html">Home</a>
     <a href="contact.html">Contact</a>
@@ -206,13 +200,13 @@ footer a:hover{
   </nav>
 </header>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
   <h2>SG Multi Tools For Daily Use</h2>
   <p>All your handy web tools in one place</p>
 </section>
 
-<!-- TOOL CARDS -->
+<!-- TOOLS GRID -->
 <div class="tool-grid">
   <div class="tool-card"><h3>Text to Speech</h3><p>Convert text into spoken audio.</p><a class="btn" href="text-to-speech.html">Open Tool</a></div>
   <div class="tool-card"><h3>Color Picker</h3><p>Select and copy colors easily.</p><a class="btn" href="color-picker.html">Open Tool</a></div>
@@ -231,6 +225,10 @@ footer a:hover{
   <div class="tool-card"><h3>File Size Converter</h3><p>Convert file sizes between units.</p><a class="btn" href="file-size-converter.html">Open Tool</a></div>
   <div class="tool-card"><h3>Note Text Changer</h3><p>Modify text in your notes quickly.</p><a class="btn" href="note-text-changer.html">Open Tool</a></div>
   <div class="tool-card"><h3>Note Text Saver</h3><p>Save text as files in your browser.</p><a class="btn" href="note-text-saver.html">Open Tool</a></div>
+  <div class="tool-card"><h3>SIP Report</h3><p>Generate SIP reports easily.</p><a class="btn" href="sip-report.html">Open Tool</a></div>
+  <div class="tool-card"><h3>Advanced QR</h3><p>Advanced QR code features.</p><a class="btn" href="advanced-qrcode.html">Open Tool</a></div>
+  <div class="tool-card"><h3>URL Shortener</h3><p>Shorten URLs instantly.</p><a class="btn" href="url-shortener.html">Open Tool</a></div>
+  <div class="tool-card"><h3>PDF Converter</h3><p>Convert documents to PDF.</p><a class="btn" href="pdf-converter.html">Open Tool</a></div>
 </div>
 
 <!-- FOOTER -->
