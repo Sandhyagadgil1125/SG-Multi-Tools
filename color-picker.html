@@ -77,7 +77,6 @@ input{
   text-align:center;
 }
 
-/* COLOR INPUT */
 input[type="color"]{
   height:50px;
   padding:4px;
@@ -127,11 +126,11 @@ button:hover{ opacity:.9; }
   </div>
 
   <div class="flexbox">
-    <button onclick="copyColor()">Copy HEX</button>
+    <button onclick="copyHex()">Copy HEX</button>
   </div>
 
   <div class="info">
-    Pick a color and copy its value
+    Pick a color and copy its HEX or RGB value
   </div>
 </div>
 
@@ -141,18 +140,19 @@ const hexInput = document.getElementById("hex");
 const rgbInput = document.getElementById("rgb");
 
 function updateColor(){
-  const hex = colorInput.value;
-  hexInput.value = hex.toUpperCase();
+  const hex = colorInput.value.toUpperCase();
+  hexInput.value = hex;
 
   const r = parseInt(hex.substr(1,2),16);
   const g = parseInt(hex.substr(3,2),16);
   const b = parseInt(hex.substr(5,2),16);
+
   rgbInput.value = `rgb(${r}, ${g}, ${b})`;
 }
 
-function copyColor(){
+function copyHex(){
   if(!hexInput.value){
-    alert("Pick a color first");
+    alert("Please pick a color first");
     return;
   }
   navigator.clipboard.writeText(hexInput.value);
