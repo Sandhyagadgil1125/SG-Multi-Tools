@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator | SG Multi Tools</title>
+
+<link rel="stylesheet" href="../tools-style.css">
+</head>
+
+<body>
+
+<div class="tool-wrapper">
+  <h2>Age Calculator</h2>
+
+  <!-- DOB -->
+  <div class="flexbox">
+    <label>Date of Birth</label>
+    <input type="date" id="dob">
+  </div>
+
+  <!-- BUTTON -->
+  <div class="flexbox">
+    <button onclick="calculateAge()">Calculate Age</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="flexbox result" id="result">
+    Your age will appear here
+  </div>
+</div>
+
+<script>
+function calculateAge(){
+  const dob = document.getElementById("dob").value;
+  const result = document.getElementById("result");
+
+  if(!dob){
+    result.innerText = "Please select your date of birth";
+    return;
+  }
+
+  const birthDate = new Date(dob);
+  const today = new Date();
+
+  let years = today.getFullYear() - birthDate.getFullYear();
+  let months = today.getMonth() - birthDate.getMonth();
+  let days = today.getDate() - birthDate.getDate();
+
+  if(days < 0){
+    months--;
+    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  }
+
+  if(months < 0){
+    years--;
+    months += 12;
+  }
+
+  result.innerText = `${years} Years, ${months} Months, ${days} Days`;
+}
+</script>
+
+</body>
+</html>
