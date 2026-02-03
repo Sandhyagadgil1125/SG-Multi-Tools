@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Age Calculator | SG Multi Tools</title>
+
 <link rel="stylesheet" href="tools-style.css">
 </head>
 
@@ -12,9 +13,9 @@
 <div class="tool-wrapper">
   <h2>Age Calculator</h2>
 
-  <!-- DOB -->
+  <!-- DATE INPUT -->
   <div class="flexbox">
-    <label>Date of Birth</label>
+    <label for="dob">Date of Birth</label>
     <input type="date" id="dob">
   </div>
 
@@ -35,7 +36,7 @@ function calculateAge(){
   const result = document.getElementById("result");
 
   if(!dob){
-    result.innerText = "Please select your date of birth";
+    result.textContent = "Please select your date of birth";
     return;
   }
 
@@ -56,7 +57,7 @@ function calculateAge(){
     months += 12;
   }
 
-  result.innerText = `${years} Years, ${months} Months, ${days} Days`;
+  result.textContent = `${years} Years, ${months} Months, ${days} Days`;
 }
 </script>
 
