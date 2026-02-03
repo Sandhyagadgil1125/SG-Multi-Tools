@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Converter | SG Multi Tools</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231c222d' stroke='%2342f8f5' stroke-width='4'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='900' font-size='26' fill='%2342f8f5'>SG</text></svg>">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Shared CSS -->
+<link rel="stylesheet" href="../tool-ui.css">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo" onclick="location.href='../index.html'"><span>SG</span> SG Multi Tools</div>
+    <div>
+        <a href="../index.html">Home</a>
+        <a href="../index.html#tools">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../about.html">About</a>
+        <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com/YOUR_FACEBOOK" target="_blank"><i class="fab fa-facebook"></i></a>
+    </div>
+</nav>
+
+<!-- TOOL WRAPPER -->
+<div class="tool-wrapper">
+
+  <h2>Unit Converter</h2>
+
+  <!-- CATEGORY -->
+  <div class="flexbox">
+    <label>Category</label>
+    <select id="category" onchange="updateUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
+  </div>
+
+  <!-- VALUE -->
+  <div class="flexbox">
+    <label>Value</label>
+    <input type="number" id="value" placeholder="Enter value">
+  </div>
+
+  <!-- FROM -->
+  <div class="flexbox">
+    <label>From</label>
+    <select id="from"></select>
+  </div>
+
+  <!-- TO -->
+  <div class="flexbox">
+    <label>To</label>
+    <select id="to"></select>
+  </div>
+
+  <!-- BUTTON -->
+  <div class="flexbox">
+    <button onclick="convert()">Convert</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="flexbox result" id="result">
+    Result will appear here
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+<p>© 2026 SG Multi Tools. All rights reserved.</p>
+<p>
+<a href="../privacy-policy.html">Privacy Policy</a> |
+<a href="../disclaimer.html">Disclaimer</a> |
+<a href="../terms-and-conditions.html">Terms</a> |
+<a href="../sitemap.xml">Sitemap</a>
+</p>
+<p>
+<a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://facebook.com/YOUR_FACEBOOK" target="_blank"><i class="fab fa-facebook"></i></a>
+</p>
+</footer>
+
+<script>
+// ====== Unit Converter JS ======
+const units = {
+  length: { meter:1, kilometer:1000, centimeter:0.01, mile:1609.34, yard:0.9144, inch:0.0254 },
+  weight: { kilogram:1, gram:0.001, pound:0.453592, ounce:0.0283495 },
+  temperature: { celsius:"c", fahrenheit:"f", kelvin:"k" }
+};
+
+function updateUnits() {
+  const cat = document.getElementById("category").value;
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+  from.innerHTML = ""; to.innerHTML = "";
+  for(let u in units[cat]){
+    from.innerHTML += `<option value="${u}">${capitalize(u)}</option>`;
+    to.innerHTML += `<option value="${u}">${capitalize(u)}</option>`;
+  }
+}
+function convert() {
+  const cat = document.getElementById("category").value;
+  const val = parseFloat(document.getElementById("value").value);
+  const result = document.getElementById("result");
+  if(isNaN(val)){ result.textContent="Please enter a number"; return; }
+  let output;
+  if(cat==="temperature"){ output=convertTemp(val,from.value,to.value); }
+  else{ output=val*units[cat][from.value]/units[cat][to.value]; }
+  result.textContent=output.toFixed(4);
+}
+function convertTemp(v, from, to){
+  let c;if(from==="celsius")c=v;if(from==="fahrenheit")c=(v-32)*5/9;if(from==="kelvin")c=v-273.15;
+  if(to==="celsius")return c;if(to==="fahrenheit")return c*9/5+32;if(to==="kelvin")return c+273.15;
+}
+function capitalize(str){return str.charAt(0).toUpperCase()+str.slice(1);}
+updateUnits();
+</script>
+
+</body>
+</html>
