@@ -1,85 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Text to Speech | SG Multi Tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text to Speech | SG Multi Tools</title>
 
-  <!-- SHARED TOOLS UI -->
-  <link rel="stylesheet" href="tools-style.css">
+<style>
+:root{
+  --bg:#0d0f14;
+  --card:#12151a;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#b6c3d1;
+  --radius:12px;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:Segoe UI, Arial, sans-serif;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+.tool-wrapper{
+  max-width:520px;
+  margin:60px auto;
+  background:var(--card);
+  padding:26px;
+  border-radius:var(--radius);
+  border:2px solid rgba(66,248,245,.35);
+  box-shadow:0 0 30px rgba(66,248,245,.25);
+}
+
+.tool-wrapper h2{
+  text-align:center;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+
+.flexbox{
+  background:#1c222d;
+  padding:14px 16px;
+  border-radius:var(--radius);
+  border:1px solid #2f3645;
+  margin-top:14px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+textarea, select{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #2a303c;
+  background:#0b0e13;
+  color:#fff;
+  font-size:14px;
+}
+
+button{
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+  border-radius:10px;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+.result{
+  margin-top:16px;
+  padding:14px;
+  border-radius:8px;
+  background:#0f131a;
+  border:1px dashed var(--accent);
+  text-align:center;
+  font-size:15px;
+}
+
+.back-link{
+  display:block;
+  margin-top:18px;
+  text-align:center;
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:600;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="tool-wrapper">
+<div class="tool-wrapper">
+  <h2>Text to Speech</h2>
 
-    <!-- CLOSE BUTTON -->
-    <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-    <h2>Text to Speech</h2>
-
-    <!-- TEXT INPUT -->
-    <div class="flexbox">
-      <label for="ttsText">Enter Text</label>
-      <textarea id="ttsText" rows="4" placeholder="Type text to convert into speech..."></textarea>
-    </div>
-
-    <!-- VOICE SELECT -->
-    <div class="flexbox">
-      <label for="voiceSelect">Voice</label>
-      <select id="voiceSelect"></select>
-    </div>
-
-    <!-- BUTTON -->
-    <div class="flexbox">
-      <button onclick="speakText()">Speak</button>
-    </div>
-
-    <!-- RESULT -->
-    <div class="flexbox result" id="result">
-      Audio will play using your browser voice
-    </div>
-
+  <div class="flexbox">
+    <label>Enter Text</label>
+    <textarea id="text" rows="4" placeholder="Type text to convert into speech..."></textarea>
   </div>
 
+  <div class="flexbox">
+    <label>Voice</label>
+    <select id="voice"></select>
+  </div>
+
+  <button onclick="speakText()">Speak</button>
+
+  <div class="result" id="status">
+    Audio will play using your browser voice
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Tools</a>
+</div>
+
 <script>
-let voices = [];
+const voiceSelect = document.getElementById("voice");
+const statusBox = document.getElementById("status");
 
 function loadVoices(){
-  voices = speechSynthesis.getVoices();
-  const select = document.getElementById("voiceSelect");
-  select.innerHTML = "";
-
-  voices.forEach((voice, i) => {
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = `${voice.name} (${voice.lang})`;
-    select.appendChild(option);
+  const voices = speechSynthesis.getVoices();
+  voiceSelect.innerHTML = "";
+  voices.forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = v.name;
+    opt.textContent = `${v.name} (${v.lang})`;
+    voiceSelect.appendChild(opt);
   });
 }
 
+loadVoices();
 speechSynthesis.onvoiceschanged = loadVoices;
 
 function speakText(){
-  const text = document.getElementById("ttsText").value.trim();
-  const result = document.getElementById("result");
-
+  const text = document.getElementById("text").value.trim();
   if(!text){
-    result.innerText = "Please enter some text first.";
+    statusBox.innerText = "Please enter text first";
     return;
   }
 
   const utterance = new SpeechSynthesisUtterance(text);
-  const selectedVoice = document.getElementById("voiceSelect").value;
-  utterance.voice = voices[selectedVoice];
+  const voices = speechSynthesis.getVoices();
+  utterance.voice = voices.find(v => v.name === voiceSelect.value);
 
   speechSynthesis.cancel();
   speechSynthesis.speak(utterance);
 
-  result.innerText = "Speaking...";
+  statusBox.innerText = "Speaking...";
 }
-
-loadVoices();
 </script>
 
 </body>
