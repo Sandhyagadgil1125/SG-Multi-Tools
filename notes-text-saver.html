@@ -3,9 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notes Text Saver | SG Multi Tools</title>
+<title>Note Text Saver | SG Multi Tools</title>
 
 <style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
+}
+
 *{
   box-sizing:border-box;
   font-family:Arial, sans-serif;
@@ -13,87 +22,101 @@
 
 body{
   margin:0;
-  padding:0 10px;
-  background:#0f172a;
-  color:#fff;
-  text-align:center;
+  padding:10px;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* 🔹 NEON TOOL WRAPPER */
+/* TOOL CARD */
 .tool-wrapper{
   position:relative;
-  width:100%;
   max-width:520px;
   margin:40px auto;
-  background:#1e293b;
+  background:var(--card);
   padding:24px;
-  border-radius:16px;
-  border:2px solid #42f8f5;
-  box-shadow:0 0 30px rgba(66,248,245,0.55);
+  border-radius:18px;
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* 🔹 CLOSE BUTTON */
+/* CLOSE */
 .close-btn{
   position:absolute;
   top:12px;
   right:14px;
   font-size:22px;
-  color:#94a3b8;
+  color:var(--muted);
   cursor:pointer;
 }
-.close-btn:hover{ color:#42f8f5; }
+.close-btn:hover{ color:var(--accent); }
 
-/* 🔹 TITLE */
+/* TITLE */
 h2{
-  margin-bottom:20px;
+  text-align:center;
+  margin-bottom:18px;
 }
 
-/* 🔹 FLEX STACK */
-.tool-flex{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+/* FLEXBOX */
+.flexbox{
+  background:var(--flex);
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #334155;
+  margin-bottom:14px;
 }
 
-/* 🔹 TEXTAREA */
+/* INPUT */
 textarea{
   width:100%;
-  min-height:140px;
-  font-size:16px;
   padding:12px;
   border-radius:8px;
   border:none;
-  resize:vertical;
+  background:#020617;
+  color:#fff;
+  font-size:15px;
+  resize:none;
 }
 
-/* 🔹 BUTTONS */
+/* BUTTON */
 button{
   width:100%;
-  height:48px;
-  font-size:16px;
-  border-radius:8px;
+  height:44px;
+  border-radius:10px;
   border:none;
-  cursor:pointer;
-  font-weight:bold;
-  background:#42f8f5;
+  background:var(--accent);
   color:#000;
-}
-
-button:hover{
-  background:#00f5d4;
-}
-
-/* 🔹 STATUS */
-.result{
-  font-size:16px;
   font-weight:bold;
-  min-height:20px;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{ opacity:.9; }
+
+/* NOTE ITEM */
+.note{
+  background:#020617;
+  padding:10px;
+  border-radius:8px;
+  font-size:14px;
+  margin-bottom:8px;
+  position:relative;
 }
 
-/* 🔹 MOBILE */
-@media(max-width:480px){
-  h2{ font-size:20px; }
-  .close-btn{ font-size:18px; }
+.note span{
+  position:absolute;
+  right:10px;
+  top:6px;
+  cursor:pointer;
+  color:var(--muted);
+}
+.note span:hover{
+  color:var(--accent);
+}
+
+/* INFO */
+.info{
+  text-align:center;
+  font-size:14px;
+  color:var(--muted);
 }
 </style>
 </head>
@@ -101,41 +124,68 @@ button:hover{
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
-  <h2>Notes Text Saver</h2>
+  <h2>Note Text Saver</h2>
 
-  <div class="tool-flex">
-    <textarea id="note" placeholder="Write your notes here..."></textarea>
+  <div class="flexbox">
+    <textarea id="noteInput" rows="4" placeholder="Write your note here..."></textarea>
+  </div>
 
+  <div class="flexbox">
     <button onclick="saveNote()">Save Note</button>
-    <button onclick="clearNote()">Clear Note</button>
+  </div>
 
-    <div class="result" id="status"></div>
+  <div class="flexbox" id="notes">
+    <!-- Saved notes appear here -->
+  </div>
+
+  <div class="info">
+    Notes are saved in your browser
   </div>
 </div>
 
 <script>
-const KEY = "sg_notes_text";
+const noteInput = document.getElementById("noteInput");
+const notesDiv = document.getElementById("notes");
 
-window.onload = function(){
-  const saved = localStorage.getItem(KEY);
-  if(saved){
-    note.value = saved;
-    status.innerText = "Saved note loaded";
-  }
+function loadNotes(){
+  notesDiv.innerHTML = "";
+  const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
+
+  notes.forEach((note, index) => {
+    const div = document.createElement("div");
+    div.className = "note";
+    div.innerHTML = `
+      ${note}
+      <span onclick="deleteNote(${index})">✕</span>
+    `;
+    notesDiv.appendChild(div);
+  });
 }
 
 function saveNote(){
-  localStorage.setItem(KEY, note.value);
-  status.innerText = "Note saved successfully";
+  const text = noteInput.value.trim();
+  if(!text){
+    alert("Please write a note");
+    return;
+  }
+
+  const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
+  notes.unshift(text);
+  localStorage.setItem("sg_notes", JSON.stringify(notes));
+  noteInput.value = "";
+  loadNotes();
 }
 
-function clearNote(){
-  localStorage.removeItem(KEY);
-  note.value = "";
-  status.innerText = "Note cleared";
+function deleteNote(index){
+  const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
+  notes.splice(index,1);
+  localStorage.setItem("sg_notes", JSON.stringify(notes));
+  loadNotes();
 }
+
+loadNotes();
 </script>
 
 </body>
