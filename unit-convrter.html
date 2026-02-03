@@ -1,134 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit Converter - SG Tools</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .tool-card {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Converter | SG Multi Tools</title>
+
+<style>
+/* ================================
+   GLOBAL RESET
+================================ */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body{
+  background:#0f172a;
+  color:#e5e7eb;
+  min-height:100vh;
+  padding:20px;
+}
+
+/* ================================
+   TOOL CARD
+================================ */
+.tool-wrapper{
+  max-width:520px;
+  margin:40px auto;
+  background:#020617;
+  border:2px solid #38bdf8;
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 0 30px rgba(56,189,248,0.25);
+  position:relative;
+}
+
+/* CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:12px;
+  right:14px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid #38bdf8;
+  background:transparent;
+  color:#38bdf8;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+}
+.close-btn:hover{
+  background:#38bdf8;
+  color:#020617;
+}
+
+/* TITLE */
+.tool-wrapper h2{
+  text-align:center;
+  margin-bottom:22px;
+  color:#38bdf8;
+  font-size:22px;
+}
+
+/* ================================
+   FLEXBOX BLOCKS
+================================ */
+.flexbox{
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+/* LABEL */
+.flexbox label{
+  font-size:14px;
+  color:#94a3b8;
+}
+
+/* INPUTS & SELECT */
+.flexbox input, .flexbox select{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #334155;
+  background:#020617;
+  color:#e5e7eb;
+  font-size:15px;
+}
+.flexbox input:focus, .flexbox select:focus{
+  outline:none;
+  border-color:#38bdf8;
+  box-shadow:0 0 0 1px rgba(56,189,248,0.6);
+}
+
+/* BUTTON */
+button.calculate-btn{
+  width:100%;
+  padding:12px;
+  font-size:15px;
+  border-radius:10px;
+  border:1px solid #38bdf8;
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
+  color:#020617;
+  font-weight:600;
+  cursor:pointer;
+}
+button.calculate-btn:hover{
+  opacity:0.9;
+}
+
+/* RESULT */
+.result{
+  background:#020617;
+  border:1px dashed #38bdf8;
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  color:#38bdf8;
+}
+</style>
 </head>
-<body class="bg-gray-50 min-h-screen p-4 md:p-10">
 
-    <div class="max-w-2xl mx-auto">
-        <div class="tool-card p-6 md:p-8">
-            <h1 class="text-2xl font-bold text-gray-800 mb-2">Unit Converter</h1>
-            <p class="text-gray-500 mb-8">Quickly convert between different units of measurement.</p>
+<body>
 
-            <div class="grid grid-cols-1 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Category</label>
-                    <select id="category" onchange="updateUnits()" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <option value="length">Length</option>
-                        <option value="weight">Weight</option>
-                        <option value="temperature">Temperature</option>
-                    </select>
-                </div>
+<div class="tool-wrapper">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">From</label>
-                        <input type="number" id="inputValue" placeholder="Enter value" oninput="convert()" class="w-full p-3 border border-gray-300 rounded-lg mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <select id="fromUnit" onchange="convert()" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none bg-gray-50"></select>
-                    </div>
+  <!-- CLOSE -->
+  <button class="close-btn" onclick="window.location.href='index.html'">×</button>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">To</label>
-                        <input type="number" id="outputValue" readonly placeholder="Result" class="w-full p-3 border border-gray-100 bg-gray-100 rounded-lg mb-2 focus:outline-none font-semibold text-blue-600">
-                        <select id="toUnit" onchange="convert()" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none bg-gray-50"></select>
-                    </div>
-                </div>
+  <h2>Unit Converter</h2>
 
-                <div class="mt-4 p-4 bg-blue-50 rounded-lg text-sm text-blue-700">
-                    <strong>Formula:</strong> <span id="formulaText">Select units to see formula</span>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="flexbox">
+    <label>Measurement Type</label>
+    <select id="measurement">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
+  </div>
 
-    <script>
-        const unitData = {
-            length: {
-                units: ["Meter", "Kilometer", "Centimeter", "Millimeter", "Mile", "Yard", "Foot", "Inch"],
-                ratios: {
-                    "Meter": 1, "Kilometer": 1000, "Centimeter": 0.01, "Millimeter": 0.001,
-                    "Mile": 1609.34, "Yard": 0.9144, "Foot": 0.3048, "Inch": 0.0254
-                }
-            },
-            weight: {
-                units: ["Kilogram", "Gram", "Milligram", "Pound", "Ounce", "Metric Ton"],
-                ratios: {
-                    "Kilogram": 1, "Gram": 0.001, "Milligram": 0.000001,
-                    "Pound": 0.453592, "Ounce": 0.0283495, "Metric Ton": 1000
-                }
-            },
-            temperature: {
-                units: ["Celsius", "Fahrenheit", "Kelvin"]
-            }
-        };
+  <div class="flexbox">
+    <label>From Unit</label>
+    <select id="fromUnit"></select>
+  </div>
 
-        function updateUnits() {
-            const category = document.getElementById('category').value;
-            const fromSelect = document.getElementById('fromUnit');
-            const toSelect = document.getElementById('toUnit');
-            
-            const units = unitData[category].units;
-            
-            fromSelect.innerHTML = units.map(u => `<option value="${u}">${u}</option>`).join('');
-            toSelect.innerHTML = units.map(u => `<option value="${u}">${u}</option>`).join('');
-            
-            // Set different default to-unit
-            if (toSelect.options.length > 1) toSelect.selectedIndex = 1;
-            
-            convert();
-        }
+  <div class="flexbox">
+    <label>To Unit</label>
+    <select id="toUnit"></select>
+  </div>
 
-        function convert() {
-            const category = document.getElementById('category').value;
-            const fromUnit = document.getElementById('fromUnit').value;
-            const toUnit = document.getElementById('toUnit').value;
-            const val = parseFloat(document.getElementById('inputValue').value);
-            const output = document.getElementById('outputValue');
-            const formulaDisplay = document.getElementById('formulaText');
+  <div class="flexbox">
+    <label>Value</label>
+    <input type="number" id="value" placeholder="Enter value">
+  </div>
 
-            if (isNaN(val)) {
-                output.value = "";
-                return;
-            }
+  <button class="calculate-btn" onclick="convert()">Convert</button>
 
-            let result;
+  <div class="result" id="result">
+    Conversion result will appear here
+  </div>
 
-            if (category === 'temperature') {
-                result = convertTemperature(val, fromUnit, toUnit);
-                formulaDisplay.innerText = `Standard conversion for ${fromUnit} to ${toUnit}`;
-            } else {
-                const baseValue = val * unitData[category].ratios[fromUnit];
-                result = baseValue / unitData[category].ratios[toUnit];
-                formulaDisplay.innerText = `1 ${fromUnit} = ${(unitData[category].ratios[fromUnit] / unitData[category].ratios[toUnit]).toFixed(4)} ${toUnit}`;
-            }
+</div>
 
-            output.value = Number(result.toFixed(6));
-        }
+<script>
+const units = {
+  length: ['Meter','Kilometer','Centimeter','Millimeter','Mile','Yard','Foot','Inch'],
+  weight: ['Kilogram','Gram','Milligram','Pound','Ounce'],
+  temperature: ['Celsius','Fahrenheit','Kelvin']
+};
 
-        function convertTemperature(value, from, to) {
-            let celsius;
-            if (from === "Celsius") celsius = value;
-            else if (from === "Fahrenheit") celsius = (value - 32) * 5/9;
-            else if (from === "Kelvin") celsius = value - 273.15;
+const measurementSelect = document.getElementById('measurement');
+const fromUnitSelect = document.getElementById('fromUnit');
+const toUnitSelect = document.getElementById('toUnit');
 
-            if (to === "Celsius") return celsius;
-            if (to === "Fahrenheit") return (celsius * 9/5) + 32;
-            if (to === "Kelvin") return celsius + 273.15;
-            return value;
-        }
+function populateUnits(type){
+  fromUnitSelect.innerHTML = '';
+  toUnitSelect.innerHTML = '';
+  units[type].forEach(unit=>{
+    const option1 = document.createElement('option');
+    option1.value = unit;
+    option1.textContent = unit;
+    fromUnitSelect.appendChild(option1);
 
-        // Initialize on load
-        updateUnits();
-    </script>
+    const option2 = document.createElement('option');
+    option2.value = unit;
+    option2.textContent = unit;
+    toUnitSelect.appendChild(option2);
+  });
+}
+
+// initialize
+populateUnits(measurementSelect.value);
+
+measurementSelect.addEventListener('change', ()=>{
+  populateUnits(measurementSelect.value);
+  document.getElementById('result').textContent = '';
+});
+
+function convert(){
+  const type = measurementSelect.value;
+  const from = fromUnitSelect.value;
+  const to = toUnitSelect.value;
+  let val = parseFloat(document.getElementById('value').value);
+  const result = document.getElementById('result');
+
+  if(isNaN(val)){
+    result.innerText = 'Please enter a valid number';
+    return;
+  }
+
+  let res;
+
+  if(type==='length'){
+    const toMeters = {
+      Meter:1,
+      Kilometer:1000,
+      Centimeter:0.01,
+      Millimeter:0.001,
+      Mile:1609.344,
+      Yard:0.9144,
+      Foot:0.3048,
+      Inch:0.0254
+    };
+    res = val * toMeters[from]/toMeters[to];
+
+  } else if(type==='weight'){
+    const toKg = {
+      Kilogram:1,
+      Gram:0.001,
+      Milligram:0.000001,
+      Pound:0.45359237,
+      Ounce:0.0283495231
+    };
+    res = val * toKg[from]/toKg[to];
+
+  } else if(type==='temperature'){
+    if(from==='Celsius'){
+      if(to==='Fahrenheit') res = val*9/5 + 32;
+      else if(to==='Kelvin') res = val + 273.15;
+      else res = val;
+    } else if(from==='Fahrenheit'){
+      if(to==='Celsius') res = (val-32)*5/9;
+      else if(to==='Kelvin') res = (val-32)*5/9 + 273.15;
+      else res = val;
+    } else if(from==='Kelvin'){
+      if(to==='Celsius') res = val - 273.15;
+      else if(to==='Fahrenheit') res = (val-273.15)*9/5 + 32;
+      else res = val;
+    }
+  }
+
+  result.innerText = `${val} ${from} = ${res} ${to}`;
+}
+</script>
+
 </body>
 </html>
