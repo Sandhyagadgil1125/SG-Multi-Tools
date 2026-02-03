@@ -4,79 +4,148 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIP Calculator | SG Multi Tools</title>
-
 <style>
-/* ===== CLOSE BUTTON FIX ===== */
-.close-btn{
-  position:absolute;
-  top:14px;
-  right:16px;
-  font-size:22px;
-  cursor:pointer;
-  color:#42f8f5;
-  font-weight:bold;
+/* ===============================
+   RESET & BASE
+=============================== */
+* {
+  box-sizing: border-box;
+  font-family: Segoe UI, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-.close-btn:hover{
-  opacity:0.8;
+
+body {
+  background: #0d0f14;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+/* ===============================
+   TOOL WRAPPER
+=============================== */
+.tool-wrapper {
+  max-width: 520px;
+  margin: 60px auto;
+  background: #12151a;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #1c222d;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #42f8f5;
+}
+
+/* Flexbox rows */
+.tool-flex {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  padding: 15px;
+  background: #1c222d;
+  border-radius: 10px;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+input, select, button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+input, select {
+  background: #0d0f14;
+  color: #ffffff;
+}
+
+button {
+  background: #42f8f5;
+  color: #0d0f14;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.result {
+  margin-top: 15px;
+  padding: 15px;
+  background: #1c222d;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
 }
 </style>
 </head>
-
 <body>
 
 <div class="tool-wrapper">
   <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
   <h2>SIP Calculator</h2>
 
-  <!-- MONTHLY INVESTMENT -->
-  <div class="flexbox">
+  <div class="tool-flex">
     <label>Monthly Investment (₹)</label>
-    <input type="number" id="amount" placeholder="Enter monthly amount">
+    <input type="number" id="investment" placeholder="Enter amount" min="0">
   </div>
 
-  <!-- EXPECTED RETURN -->
-  <div class="flexbox">
+  <div class="tool-flex">
     <label>Expected Annual Return (%)</label>
-    <input type="number" id="rate" placeholder="Enter expected return">
+    <input type="number" id="rate" placeholder="Enter rate" min="0" step="0.01">
   </div>
 
-  <!-- TIME PERIOD -->
-  <div class="flexbox">
+  <div class="tool-flex">
     <label>Investment Period (Years)</label>
-    <input type="number" id="years" placeholder="Enter number of years">
+    <input type="number" id="years" placeholder="Enter duration" min="0">
   </div>
 
-  <!-- BUTTON -->
-  <div class="flexbox">
+  <div class="tool-flex">
     <button onclick="calculateSIP()">Calculate SIP</button>
   </div>
 
-  <!-- RESULT -->
-  <div class="flexbox result" id="result">
-    Result will appear here
+  <div class="tool-flex">
+    <div class="result" id="result">Your total investment will appear here.</div>
   </div>
 </div>
 
 <script>
-function calculateSIP(){
-  const P = parseFloat(document.getElementById("amount").value);
-  const r = parseFloat(document.getElementById("rate").value) / 12 / 100;
-  const n = parseInt(document.getElementById("years").value) * 12;
-
-  if(isNaN(P) || isNaN(r) || isNaN(n)){
-    document.getElementById("result").innerText = "Please enter valid values";
+function calculateSIP() {
+  let P = parseFloat(document.getElementById('investment').value);
+  let R = parseFloat(document.getElementById('rate').value)/100;
+  let N = parseFloat(document.getElementById('years').value);
+  
+  if(isNaN(P) || isNaN(R) || isNaN(N)) {
+    document.getElementById('result').innerText = "Please enter valid numbers in all fields.";
     return;
   }
 
-  const futureValue = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-  const invested = P * n;
-  const gain = futureValue - invested;
+  let n = 12; // compounding monthly
+  let total = P * (((Math.pow(1 + R/n, n*N) - 1) / (R/n)) * (1 + R/n));
+  let invested = P * N * 12;
 
-  document.getElementById("result").innerHTML =
-    `Invested Amount: ₹${invested.toFixed(0)}<br>
-     Estimated Returns: ₹${gain.toFixed(0)}<br>
-     Total Value: ₹${futureValue.toFixed(0)}`;
+  document.getElementById('result').innerHTML =
+    `Total Investment: ₹${invested.toLocaleString()}<br>
+     Maturity Amount: ₹${total.toFixed(2).toLocaleString()}`;
 }
 </script>
 
