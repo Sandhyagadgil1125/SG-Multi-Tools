@@ -4,155 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Case Changer | SG Multi Tools</title>
+
 <link rel="stylesheet" href="tools-style.css">
+
 <style>
-/* ===== GLOBAL RESET ===== */
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Segoe UI, Arial, sans-serif;
-}
-
-body{
-  background:#0d0f14;
-  color:#fff;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-/* ===== NEON TOOL WRAPPER ===== */
-.tool-wrapper{
-  position:relative;
-  width:100%;
-  max-width:520px;
-  background:#12151a;
-  padding:26px;
-  border-radius:16px;
-  border:2px solid #42f8f5;
-  box-shadow:0 0 30px rgba(66,248,245,0.55);
-}
-
-/* ===== CLOSE BUTTON ===== */
+/* CLOSE BUTTON – NEON MATCH */
 .close-btn{
   position:absolute;
   top:14px;
   right:16px;
   font-size:22px;
-  color:#9aa7b8;
   cursor:pointer;
-}
-.close-btn:hover{
   color:#42f8f5;
-}
-
-/* ===== TITLE ===== */
-h1{
-  text-align:center;
-  margin-bottom:18px;
-  font-size:24px;
-  color:#42f8f5;
-}
-
-/* ===== CONTENT ===== */
-.tool-content{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-}
-
-/* ===== TEXTAREA ===== */
-textarea{
-  width:100%;
-  max-width:420px;
-  min-height:140px;
-  padding:12px;
-  font-size:16px;
-  border-radius:8px;
-  border:none;
-  background:#1c222d;
-  color:#fff;
-  resize:vertical;
-}
-
-/* ===== BUTTON GROUP ===== */
-.btn-group{
-  width:100%;
-  max-width:420px;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-button{
-  padding:12px;
-  font-size:15px;
-  border:none;
-  border-radius:8px;
-  background:#42f8f5;
-  color:#000;
   font-weight:700;
-  cursor:pointer;
 }
-
-button:hover{
-  background:#00f5d4;
-}
-
-/* ===== MOBILE ===== */
-@media (max-width:480px){
-  h1{ font-size:20px; }
-  .tool-wrapper{ padding:20px; }
-  .close-btn{ font-size:18px; }
-}
+.close-btn:hover{ opacity:.8; }
 </style>
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
-  <h1>Case Changer</h1>
+  <h2>Case Changer</h2>
 
-  <div class="tool-content">
-    <textarea id="text" placeholder="Enter your text here..."></textarea>
+  <!-- INPUT -->
+  <div class="flexbox">
+    <label>Enter Text</label>
+    <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+  </div>
 
-    <div class="btn-group">
-      <button onclick="toUpper()">UPPERCASE</button>
-      <button onclick="toLower()">lowercase</button>
-      <button onclick="toSentence()">Sentence case</button>
-      <button onclick="toTitle()">Title Case</button>
-    </div>
+  <!-- BUTTONS -->
+  <div class="flexbox">
+    <button onclick="toUpper()">UPPERCASE</button>
+  </div>
+
+  <div class="flexbox">
+    <button onclick="toLower()">lowercase</button>
+  </div>
+
+  <div class="flexbox">
+    <button onclick="toTitle()">Title Case</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="flexbox result" id="result">
+    Converted text will appear here
   </div>
 </div>
 
 <script>
-const textArea = document.getElementById("text");
-
 function toUpper(){
-  textArea.value = textArea.value.toUpperCase();
+  result.innerText = inputText.value.toUpperCase();
 }
 
 function toLower(){
-  textArea.value = textArea.value.toLowerCase();
-}
-
-function toSentence(){
-  const txt = textArea.value.toLowerCase();
-  textArea.value = txt.charAt(0).toUpperCase() + txt.slice(1);
+  result.innerText = inputText.value.toLowerCase();
 }
 
 function toTitle(){
-  textArea.value = textArea.value
+  result.innerText = inputText.value
     .toLowerCase()
-    .split(" ")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .replace(/\b\w/g, c => c.toUpperCase());
 }
 </script>
 
