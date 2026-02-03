@@ -4,97 +4,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EMI Calculator | SG Multi Tools</title>
-<link rel="stylesheet" href="tools-style.css">
+
 <style>
+/* ================================
+   GLOBAL RESET
+================================ */
 *{
   box-sizing:border-box;
-  font-family:Arial, sans-serif;
+  margin:0;
+  padding:0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body{
-  margin:0;
-  padding:0 10px;
   background:#0f172a;
-  color:#fff;
-  text-align:center;
+  color:#e5e7eb;
+  min-height:100vh;
+  padding:20px;
 }
 
-/* 🔹 NEON TOOL WRAPPER */
+/* ================================
+   TOOL CARD
+================================ */
 .tool-wrapper{
-  position:relative;
-  width:100%;
   max-width:520px;
   margin:40px auto;
-  background:#1e293b;
-  padding:24px;
+  background:#020617;
+  border:2px solid #38bdf8;
   border-radius:16px;
-  border:2px solid #42f8f5;
-  box-shadow:0 0 30px rgba(66,248,245,0.55);
+  padding:22px;
+  box-shadow:0 0 30px rgba(56,189,248,0.25);
+  position:relative;
 }
 
-/* 🔹 CLOSE BUTTON */
+/* CLOSE BUTTON */
 .close-btn{
   position:absolute;
   top:12px;
   right:14px;
-  font-size:22px;
-  color:#94a3b8;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid #38bdf8;
+  background:transparent;
+  color:#38bdf8;
+  font-size:18px;
+  font-weight:700;
   cursor:pointer;
 }
-.close-btn:hover{ color:#42f8f5; }
-
-/* 🔹 TITLE */
-h2{
-  margin-bottom:20px;
+.close-btn:hover{
+  background:#38bdf8;
+  color:#020617;
 }
 
-/* 🔹 FLEX STACK */
-.tool-flex{
+/* TITLE */
+.tool-wrapper h2{
+  text-align:center;
+  margin-bottom:22px;
+  color:#38bdf8;
+  font-size:22px;
+}
+
+/* ================================
+   FLEXBOX BLOCKS
+================================ */
+.flexbox{
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:8px;
 }
 
-/* 🔹 INPUTS */
-input{
-  width:100%;
-  height:48px;
-  font-size:16px;
-  padding:0 12px;
-  border-radius:8px;
-  border:none;
-  text-align:center;
+/* LABEL */
+.flexbox label{
+  font-size:14px;
+  color:#94a3b8;
 }
 
-/* 🔹 BUTTON */
-button{
+/* INPUTS */
+.flexbox input{
   width:100%;
-  height:48px;
-  font-size:16px;
+  padding:10px;
   border-radius:8px;
-  border:none;
+  border:1px solid #334155;
+  background:#020617;
+  color:#e5e7eb;
+  font-size:15px;
+}
+.flexbox input:focus{
+  outline:none;
+  border-color:#38bdf8;
+  box-shadow:0 0 0 1px rgba(56,189,248,0.6);
+}
+
+/* BUTTON */
+button.calculate-btn{
+  width:100%;
+  padding:12px;
+  font-size:15px;
+  border-radius:10px;
+  border:1px solid #38bdf8;
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
+  color:#020617;
+  font-weight:600;
   cursor:pointer;
-  font-weight:bold;
-  background:#42f8f5;
-  color:#000;
+}
+button.calculate-btn:hover{
+  opacity:0.9;
 }
 
-button:hover{
-  background:#00f5d4;
-}
-
-/* 🔹 RESULT */
+/* RESULT */
 .result{
-  font-size:18px;
-  font-weight:bold;
-  margin-top:10px;
-  min-height:22px;
-}
-
-/* 🔹 MOBILE */
-@media(max-width:480px){
-  h2{ font-size:20px; }
-  .close-btn{ font-size:18px; }
+  background:#020617;
+  border:1px dashed #38bdf8;
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  color:#38bdf8;
 }
 </style>
 </head>
@@ -102,36 +134,53 @@ button:hover{
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+
+  <!-- CLOSE -->
+  <button class="close-btn" onclick="window.location.href='index.html'">×</button>
 
   <h2>EMI Calculator</h2>
 
-  <div class="tool-flex">
-    <input type="number" id="loan" placeholder="Loan Amount">
-    <input type="number" id="rate" placeholder="Annual Interest Rate (%)">
-    <input type="number" id="years" placeholder="Loan Tenure (Years)">
-
-    <button onclick="calculateEMI()">Calculate EMI</button>
-
-    <div class="result" id="result"></div>
+  <div class="flexbox">
+    <label>Loan Amount (₹)</label>
+    <input type="number" id="loan" placeholder="Enter loan amount">
   </div>
+
+  <div class="flexbox">
+    <label>Interest Rate (% per year)</label>
+    <input type="number" id="rate" placeholder="Enter annual interest rate">
+  </div>
+
+  <div class="flexbox">
+    <label>Loan Tenure (Years)</label>
+    <input type="number" id="years" placeholder="Enter loan duration">
+  </div>
+
+  <button class="calculate-btn" onclick="calculateEMI()">Calculate EMI</button>
+
+  <div class="result" id="result">
+    EMI will appear here
+  </div>
+
 </div>
 
 <script>
 function calculateEMI(){
-  const P = parseFloat(loan.value);
-  const R = parseFloat(rate.value) / 12 / 100;
-  const N = parseFloat(years.value) * 12;
+  const P = parseFloat(document.getElementById("loan").value);
+  const annualRate = parseFloat(document.getElementById("rate").value);
+  const years = parseFloat(document.getElementById("years").value);
+  const result = document.getElementById("result");
 
-  if(isNaN(P) || isNaN(R) || isNaN(N)){
-    result.innerText = "Please enter valid values";
+  if(!P || !annualRate || !years){
+    result.innerText = "Please fill all fields correctly";
     return;
   }
 
-  const emi = (P * R * Math.pow(1 + R, N)) /
-              (Math.pow(1 + R, N) - 1);
+  const r = annualRate / 12 / 100;
+  const n = years * 12;
 
-  result.innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+  const emi = (P * r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+
+  result.innerText = `Monthly EMI: ₹${emi.toFixed(2)}`;
 }
 </script>
 
