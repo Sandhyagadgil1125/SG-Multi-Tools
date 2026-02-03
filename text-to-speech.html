@@ -7,102 +7,95 @@
 
 <style>
 :root{
-  --bg:#0d0f14;
-  --card:#12151a;
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
-  --muted:#b6c3d1;
-  --radius:12px;
+  --muted:#94a3b8;
 }
 
 *{
   box-sizing:border-box;
-  font-family:Segoe UI, Arial, sans-serif;
-  margin:0;
-  padding:0;
+  font-family:Arial, sans-serif;
 }
 
 body{
+  margin:0;
+  padding:10px;
   background:var(--bg);
   color:var(--text);
 }
 
+/* TOOL CARD */
 .tool-wrapper{
+  position:relative;
   max-width:520px;
-  margin:60px auto;
+  margin:40px auto;
   background:var(--card);
-  padding:26px;
-  border-radius:var(--radius);
-  border:2px solid rgba(66,248,245,.35);
-  box-shadow:0 0 30px rgba(66,248,245,.25);
+  padding:24px;
+  border-radius:18px;
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-.tool-wrapper h2{
-  text-align:center;
-  color:var(--accent);
-  margin-bottom:20px;
-}
-
-.flexbox{
-  background:#1c222d;
-  padding:14px 16px;
-  border-radius:var(--radius);
-  border:1px solid #2f3645;
-  margin-top:14px;
-}
-
-label{
-  display:block;
-  margin-bottom:6px;
+/* CLOSE */
+.close-btn{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:22px;
   color:var(--muted);
-  font-size:14px;
+  cursor:pointer;
+}
+.close-btn:hover{ color:var(--accent); }
+
+/* TITLE */
+h2{
+  text-align:center;
+  margin-bottom:18px;
 }
 
+/* FLEXBOX */
+.flexbox{
+  background:var(--flex);
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #334155;
+  margin-bottom:14px;
+}
+
+/* INPUTS */
 textarea, select{
   width:100%;
   padding:12px;
   border-radius:8px;
-  border:1px solid #2a303c;
-  background:#0b0e13;
+  border:none;
+  background:#020617;
   color:#fff;
-  font-size:14px;
+  font-size:15px;
+  resize:none;
 }
 
+/* BUTTON */
 button{
   width:100%;
-  margin-top:18px;
-  padding:14px;
+  height:44px;
   border-radius:10px;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-weight:700;
-  font-size:16px;
-  cursor:pointer;
-}
-
-button:hover{
+  border:none;
   background:var(--accent);
   color:#000;
-}
-
-.result{
-  margin-top:16px;
-  padding:14px;
-  border-radius:8px;
-  background:#0f131a;
-  border:1px dashed var(--accent);
-  text-align:center;
+  font-weight:bold;
   font-size:15px;
+  cursor:pointer;
 }
+button:hover{ opacity:.9; }
 
-.back-link{
-  display:block;
-  margin-top:18px;
+/* INFO */
+.info{
   text-align:center;
-  color:var(--accent);
-  text-decoration:none;
-  font-weight:600;
+  font-size:14px;
+  color:var(--muted);
 }
 </style>
 </head>
@@ -110,60 +103,56 @@ button:hover{
 <body>
 
 <div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+
   <h2>Text to Speech</h2>
 
   <div class="flexbox">
-    <label>Enter Text</label>
     <textarea id="text" rows="4" placeholder="Type text to convert into speech..."></textarea>
   </div>
 
   <div class="flexbox">
-    <label>Voice</label>
     <select id="voice"></select>
   </div>
 
-  <button onclick="speakText()">Speak</button>
-
-  <div class="result" id="status">
-    Audio will play using your browser voice
+  <div class="flexbox">
+    <button onclick="speakText()">Speak</button>
   </div>
 
-  <a href="index.html" class="back-link">← Back to Tools</a>
+  <div class="info">
+    Audio will play using your browser voice
+  </div>
 </div>
 
 <script>
 const voiceSelect = document.getElementById("voice");
-const statusBox = document.getElementById("status");
+let voices = [];
 
 function loadVoices(){
-  const voices = speechSynthesis.getVoices();
+  voices = speechSynthesis.getVoices();
   voiceSelect.innerHTML = "";
-  voices.forEach(v => {
+  voices.forEach((v,i)=>{
     const opt = document.createElement("option");
-    opt.value = v.name;
+    opt.value = i;
     opt.textContent = `${v.name} (${v.lang})`;
     voiceSelect.appendChild(opt);
   });
 }
 
-loadVoices();
 speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
 
 function speakText(){
   const text = document.getElementById("text").value.trim();
   if(!text){
-    statusBox.innerText = "Please enter text first";
+    alert("Please enter text");
     return;
   }
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  const voices = speechSynthesis.getVoices();
-  utterance.voice = voices.find(v => v.name === voiceSelect.value);
-
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.voice = voices[voiceSelect.value];
   speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
-
-  statusBox.innerText = "Speaking...";
+  speechSynthesis.speak(utter);
 }
 </script>
 
