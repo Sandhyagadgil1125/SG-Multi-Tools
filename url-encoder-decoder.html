@@ -6,68 +6,128 @@
 <title>URL Encoder / Decoder | SG Multi Tools</title>
 
 <style>
-/* CLOSE BUTTON – NEON MATCH */
-.close-btn{
-  position:absolute;
-  top:14px;
-  right:16px;
-  font-size:22px;
-  cursor:pointer;
-  color:#42f8f5;
-  font-weight:700;
+/* ================================
+   RESET & BASE
+================================ */
+* {
+  box-sizing: border-box;
+  font-family: Segoe UI, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-.close-btn:hover{ opacity:.8; }
+
+body {
+  background: #0d0f14;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+/* ================================
+   TOOL WRAPPER
+================================ */
+.tool-wrapper {
+  position: relative;
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #12151a;
+  border-radius: 16px;
+  border: 1px solid #222831;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ff4b5c;
+}
+
+/* TOOL FLEXBOX */
+.flexbox {
+  display: flex;
+  flex-direction: column;
+  background: #1c222d;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px 0;
+  gap: 10px;
+}
+
+/* INPUTS */
+input, textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+/* BUTTON */
+button {
+  padding: 10px;
+  background: #42f8f5;
+  color: #0d0f14;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #2ac4c2;
+}
+
+/* RESULT AREA */
+.result {
+  background: #1c222d;
+  padding: 12px;
+  border-radius: 8px;
+  min-height: 40px;
+  font-weight: bold;
+  word-break: break-word;
+}
 </style>
 </head>
-
 <body>
 
 <div class="tool-wrapper">
   <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
   <h2>URL Encoder / Decoder</h2>
 
-  <!-- INPUT -->
   <div class="flexbox">
-    <label>Enter URL / Text</label>
-    <textarea id="input" placeholder="Enter URL or text here..."></textarea>
-  </div>
-
-  <!-- ACTION BUTTONS -->
-  <div class="flexbox">
-    <button onclick="encodeURL()">Encode</button>
+    <label>Enter Text / URL</label>
+    <textarea id="inputText" placeholder="Enter text or URL here"></textarea>
   </div>
 
   <div class="flexbox">
-    <button onclick="decodeURL()">Decode</button>
+    <button onclick="encodeURL()">Encode URL</button>
+    <button onclick="decodeURL()">Decode URL</button>
   </div>
 
-  <!-- RESULT -->
-  <div class="flexbox result" id="result">
-    Encoded / decoded result will appear here
+  <div class="flexbox">
+    <label>Result</label>
+    <div class="result" id="result"></div>
   </div>
 </div>
 
 <script>
-function encodeURL(){
-  const input = document.getElementById("input").value;
-  const result = document.getElementById("result");
-
-  if(!input){
-    result.innerText = "Please enter text or URL";
-    return;
-  }
-  result.innerText = encodeURIComponent(input);
+function encodeURL() {
+  const input = document.getElementById('inputText').value;
+  const result = encodeURIComponent(input);
+  document.getElementById('result').textContent = result;
 }
 
-function decodeURL(){
-  const input = document.getElementById("input").value;
-  const result = document.getElementById("result");
-
-  try{
-    result.innerText = decodeURIComponent(input);
-  }catch(e){
-    result.innerText = "Invalid encoded URL";
+function decodeURL() {
+  const input = document.getElementById('inputText').value;
+  try {
+    const result = decodeURIComponent(input);
+    document.getElementById('result').textContent = result;
+  } catch(e) {
+    document.getElementById('result').textContent = 'Invalid encoded URL';
   }
 }
 </script>
