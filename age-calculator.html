@@ -6,43 +6,130 @@
 <title>Age Calculator | SG Multi Tools</title>
 
 <style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
+  --radius:14px;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  padding:10px;
+}
+
+/* TOOL CARD */
+.tool-wrapper{
+  position:relative;
+  max-width:520px;
+  margin:40px auto;
+  background:var(--card);
+  padding:24px;
+  border-radius:18px;
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
+}
+
 /* CLOSE BUTTON */
 .close-btn{
   position:absolute;
-  top:14px;
-  right:16px;
+  top:12px;
+  right:14px;
   font-size:22px;
-  font-weight:bold;
-  color:#94a3b8;
+  color:var(--muted);
   cursor:pointer;
 }
-.close-btn:hover{
-  color:#42f8f5;
+.close-btn:hover{ color:var(--accent); }
+
+/* TITLE */
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+/* FLEXBOX */
+.flexbox{
+  background:var(--flex);
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #334155;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+/* LABEL */
+.flexbox label{
+  min-width:120px;
+  font-size:14px;
+}
+
+/* INPUT */
+input{
+  flex:1;
+  height:40px;
+  border-radius:8px;
+  border:none;
+  padding:0 10px;
+  font-size:14px;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  height:44px;
+  border-radius:10px;
+  border:none;
+  background:var(--accent);
+  color:#000;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{
+  background:#00f5d4;
+}
+
+/* RESULT */
+.result{
+  background:#020617;
+  border:1px dashed var(--accent);
+  padding:14px;
+  border-radius:10px;
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
 }
 </style>
 </head>
 
 <body>
 
-<div class="tool-wrapper" style="position:relative;">
-  
-  <!-- ❌ CLOSE -->
+<div class="tool-wrapper">
   <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <h2>Age Calculator</h2>
 
-  <!-- DATE INPUT -->
   <div class="flexbox">
-    <label for="dob">Date of Birth</label>
+    <label>Date of Birth</label>
     <input type="date" id="dob">
   </div>
 
-  <!-- BUTTON -->
   <div class="flexbox">
     <button onclick="calculateAge()">Calculate Age</button>
   </div>
 
-  <!-- RESULT -->
   <div class="flexbox result" id="result">
     Your age will appear here
   </div>
@@ -50,20 +137,20 @@
 
 <script>
 function calculateAge(){
-  const dob = document.getElementById("dob").value;
+  const dobInput = document.getElementById("dob").value;
   const result = document.getElementById("result");
 
-  if(!dob){
-    result.textContent = "Please select your date of birth";
+  if(!dobInput){
+    result.innerText = "Please select your date of birth";
     return;
   }
 
-  const birthDate = new Date(dob);
+  const dob = new Date(dobInput);
   const today = new Date();
 
-  let years = today.getFullYear() - birthDate.getFullYear();
-  let months = today.getMonth() - birthDate.getMonth();
-  let days = today.getDate() - birthDate.getDate();
+  let years = today.getFullYear() - dob.getFullYear();
+  let months = today.getMonth() - dob.getMonth();
+  let days = today.getDate() - dob.getDate();
 
   if(days < 0){
     months--;
@@ -75,7 +162,7 @@ function calculateAge(){
     months += 12;
   }
 
-  result.textContent = `${years} Years, ${months} Months, ${days} Days`;
+  result.innerText = `${years} Years, ${months} Months, ${days} Days`;
 }
 </script>
 
