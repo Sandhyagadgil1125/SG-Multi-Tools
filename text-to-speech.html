@@ -4,88 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Text to Speech | SG Multi Tools</title>
-
 <style>
-/* CLOSE BUTTON */
-.close-btn{
-  position:absolute;
-  top:14px;
-  right:16px;
-  font-size:22px;
-  font-weight:bold;
-  color:#94a3b8;
-  cursor:pointer;
-}
-.close-btn:hover{
-  color:#42f8f5;
-}
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1A1D24;
+    color: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .tts-container {
+    background-color: #222831;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+    width: 100%;
+    max-width: 500px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #00F5D4;
+    margin-bottom: 25px;
+    text-shadow: 0 0 8px rgba(0, 245, 212, 0.7);
+  }
+
+  label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+  }
+
+  textarea, select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #00F5D4;
+    background-color: #252A34;
+    color: #F0F0F0;
+    font-size: 16px;
+    margin-bottom: 20px;
+    resize: vertical;
+  }
+
+  textarea:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+  }
+
+  button {
+    width: 48%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #00F5D4;
+    color: #1A1D24;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 4%;
+    transition: 0.3s;
+  }
+
+  button:last-child {
+    margin-right: 0;
+  }
+
+  button:hover {
+    background-color: #00bfa5;
+    box-shadow: 0 0 15px rgba(0, 245, 212, 0.6);
+  }
 </style>
 </head>
-
 <body>
 
-<div class="tool-wrapper" style="position:relative;">
+<div class="tts-container">
+  <h1>Text to Speech</h1>
 
-  <!-- ❌ CLOSE -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <label for="text">Enter Text</label>
+  <textarea id="text" rows="5" placeholder="Enter text to convert into speech..."></textarea>
 
-  <h2>Text to Speech</h2>
+  <label for="voice">Voice</label>
+  <select id="voice"></select>
 
-  <!-- TEXT INPUT -->
-  <div class="flexbox">
-    <label for="text">Enter Text</label>
-    <textarea id="text" placeholder="Enter text to convert into speech..."></textarea>
+  <div style="display:flex; justify-content:space-between;">
+    <button id="speakBtn">Speak</button>
+    <button id="stopBtn">Stop</button>
   </div>
-
-  <!-- VOICE SELECT -->
-  <div class="flexbox">
-    <label for="voiceSelect">Voice</label>
-    <select id="voiceSelect"></select>
-  </div>
-
-  <!-- BUTTON -->
-  <div class="flexbox">
-    <button onclick="speakText()">Speak</button>
-  </div>
-
-  <!-- STOP -->
-  <div class="flexbox">
-    <button onclick="stopSpeech()">Stop</button>
-  </div>
-
 </div>
 
 <script>
-const synth = window.speechSynthesis;
-const voiceSelect = document.getElementById("voiceSelect");
+  const synth = window.speechSynthesis;
+  const textInput = document.getElementById('text');
+  const voiceSelect = document.getElementById('voice');
+  const speakBtn = document.getElementById('speakBtn');
+  const stopBtn = document.getElementById('stopBtn');
 
-function loadVoices(){
-  const voices = synth.getVoices();
-  voiceSelect.innerHTML = "";
-  voices.forEach((voice, i)=>{
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = `${voice.name} - ${voice.lang}`;
-    voiceSelect.appendChild(option);
+  let voices = [];
+
+  function populateVoices() {
+    voices = synth.getVoices();
+    voiceSelect.innerHTML = '';
+    voices.forEach((voice, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = `${voice.name} - ${voice.lang}`;
+      voiceSelect.appendChild(option);
+    });
+  }
+
+  populateVoices();
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoices;
+  }
+
+  speakBtn.addEventListener('click', () => {
+    if (synth.speaking) {
+      alert('Already speaking...');
+      return;
+    }
+    if (textInput.value.trim() === '') {
+      alert('Please enter text to speak');
+      return;
+    }
+
+    const utterThis = new SpeechSynthesisUtterance(textInput.value);
+    const selectedVoice = voices[voiceSelect.value];
+    if (selectedVoice) utterThis.voice = selectedVoice;
+
+    synth.speak(utterThis);
   });
-}
 
-function speakText(){
-  const text = document.getElementById("text").value;
-  if(!text) return;
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  const voices = synth.getVoices();
-  utterance.voice = voices[voiceSelect.value];
-  synth.speak(utterance);
-}
-
-function stopSpeech(){
-  synth.cancel();
-}
-
-loadVoices();
-speechSynthesis.onvoiceschanged = loadVoices;
+  stopBtn.addEventListener('click', () => {
+    if (synth.speaking) {
+      synth.cancel();
+    }
+  });
 </script>
 
 </body>
