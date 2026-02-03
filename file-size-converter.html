@@ -3,140 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>File Size Converter – SG Multi Tools</title>
+<title>File Size Converter | SG Multi Tools</title>
 
 <style>
 :root{
-  --bg:#0d0f14;
-  --card:#12151a;
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
-  --muted:#b6c3d1;
+  --muted:#94a3b8;
 }
 
-*{box-sizing:border-box;font-family:Segoe UI,Arial}
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
 
 body{
   margin:0;
+  padding:10px;
   background:var(--bg);
   color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
-/* ===== NEON TOOL BOX ===== */
-.tool-box{
+/* TOOL CARD */
+.tool-wrapper{
   position:relative;
-  width:360px;
+  max-width:520px;
+  margin:40px auto;
   background:var(--card);
-  padding:28px;
-  border-radius:14px;
+  padding:24px;
+  border-radius:18px;
   border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.35);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE BUTTON */
-.close{
+/* CLOSE */
+.close-btn{
   position:absolute;
   top:12px;
   right:14px;
-  font-size:18px;
+  font-size:22px;
   color:var(--muted);
   cursor:pointer;
 }
-.close:hover{color:var(--accent)}
+.close-btn:hover{ color:var(--accent); }
 
-h1{
+/* TITLE */
+h2{
   text-align:center;
-  font-size:1.4rem;
-  margin-bottom:20px;
+  margin-bottom:18px;
+}
+
+/* FLEXBOX */
+.flexbox{
+  background:var(--flex);
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #334155;
+  margin-bottom:14px;
 }
 
 /* INPUTS */
 input, select{
   width:100%;
-  padding:10px;
-  margin-bottom:12px;
-  background:#0f172a;
-  color:white;
-  border:1px solid #334155;
+  padding:12px;
   border-radius:8px;
+  border:none;
+  background:#020617;
+  color:#fff;
   font-size:15px;
 }
 
+/* BUTTON */
 button{
   width:100%;
-  padding:11px;
-  background:transparent;
-  border:2px solid var(--accent);
-  color:var(--accent);
-  font-weight:700;
-  border-radius:8px;
-  cursor:pointer;
-}
-button:hover{
+  height:44px;
+  border-radius:10px;
+  border:none;
   background:var(--accent);
   color:#000;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{ opacity:.9; }
+
+/* RESULT */
+.result{
+  text-align:center;
+  font-size:16px;
 }
 
-.result{
-  margin-top:15px;
-  font-weight:600;
-  color:var(--accent);
+/* INFO */
+.info{
   text-align:center;
+  font-size:14px;
+  color:var(--muted);
 }
 </style>
 </head>
 
 <body>
 
-<div class="tool-box">
-  <span class="close" onclick="location.href='/'">✕</span>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
-  <h1>File Size Converter</h1>
+  <h2>File Size Converter</h2>
 
-  <input type="number" id="value" placeholder="Enter value">
+  <div class="flexbox">
+    <input type="number" id="size" placeholder="Enter file size">
+  </div>
 
-  <select id="from">
-    <option value="1">Bytes</option>
-    <option value="1024">KB</option>
-    <option value="1048576">MB</option>
-    <option value="1073741824">GB</option>
-    <option value="1099511627776">TB</option>
-  </select>
+  <div class="flexbox">
+    <select id="fromUnit">
+      <option value="B">Bytes (B)</option>
+      <option value="KB">Kilobytes (KB)</option>
+      <option value="MB">Megabytes (MB)</option>
+      <option value="GB">Gigabytes (GB)</option>
+      <option value="TB">Terabytes (TB)</option>
+    </select>
+  </div>
 
-  <select id="to">
-    <option value="1">Bytes</option>
-    <option value="1024">KB</option>
-    <option value="1048576">MB</option>
-    <option value="1073741824">GB</option>
-    <option value="1099511627776">TB</option>
-  </select>
+  <div class="flexbox">
+    <select id="toUnit">
+      <option value="B">Bytes (B)</option>
+      <option value="KB">Kilobytes (KB)</option>
+      <option value="MB">Megabytes (MB)</option>
+      <option value="GB">Gigabytes (GB)</option>
+      <option value="TB">Terabytes (TB)</option>
+    </select>
+  </div>
 
-  <button onclick="convert()">Convert</button>
+  <div class="flexbox">
+    <button onclick="convertSize()">Convert</button>
+  </div>
 
-  <div class="result" id="result"></div>
+  <div class="flexbox result" id="result">
+    Converted size will appear here
+  </div>
+
+  <div class="info">
+    Convert file sizes between common units
+  </div>
 </div>
 
 <script>
-function convert(){
-  const val = document.getElementById("value").value;
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
+const factors = {
+  B: 1,
+  KB: 1024,
+  MB: 1024 ** 2,
+  GB: 1024 ** 3,
+  TB: 1024 ** 4
+};
 
-  if(val === ""){
-    document.getElementById("result").innerText = "Enter a value";
+function convertSize(){
+  const size = parseFloat(document.getElementById("size").value);
+  const from = document.getElementById("fromUnit").value;
+  const to = document.getElementById("toUnit").value;
+
+  if(isNaN(size)){
+    alert("Please enter a file size");
     return;
   }
 
-  const bytes = val * from;
-  const output = bytes / to;
+  const bytes = size * factors[from];
+  const result = bytes / factors[to];
 
-  document.getElementById("result").innerText =
-    output.toLocaleString() + " " +
-    document.getElementById("to").selectedOptions[0].text;
+  document.getElementById("result").innerHTML =
+    `<b>${result.toFixed(4)}</b> ${to}`;
 }
 </script>
 
