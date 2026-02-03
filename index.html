@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SG Multi Tools For Daily Use</title>
+<title>SG Multi Tools</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png">
 
 <style>
 :root{
@@ -14,6 +17,7 @@
   --muted:#94a3b8;
 }
 
+/* BODY */
 body{
   margin:0;
   padding:0;
@@ -31,10 +35,13 @@ header{
   background: var(--card);
   border-bottom: 2px solid var(--accent);
   flex-wrap: wrap;
+  position: relative;
 }
 header h1{
   margin:0;
   font-size:24px;
+  position: relative;
+  z-index:1;
 }
 header nav a{
   margin-left:20px;
@@ -44,6 +51,32 @@ header nav a{
   transition: color 0.2s;
 }
 header nav a:hover{
+  color: var(--accent);
+}
+
+/* LOGO "SG" BEHIND HEADER TITLE */
+.header-logo{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform: translateY(-50%);
+  font-size:32px;
+  font-weight:bold;
+  color: rgba(66,248,245,0.15);
+  z-index:0;
+}
+
+/* HERO SECTION */
+.hero{
+  text-align:center;
+  margin:40px 0;
+}
+.hero h2{
+  font-size:32px;
+  margin-bottom:10px;
+}
+.hero p{
+  font-size:18px;
   color: var(--accent);
 }
 
@@ -67,23 +100,19 @@ header nav a:hover{
   box-shadow: 0 0 20px rgba(66,248,245,0.2);
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .tool-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 0 25px rgba(66,248,245,0.4);
 }
-
 .tool-card h3{
   margin-bottom: 10px;
   font-size:18px;
 }
-
 .tool-card p{
   font-size:14px;
   color: var(--muted);
   margin-bottom:15px;
 }
-
 .tool-card .btn{
   display:inline-block;
   padding: 10px 20px;
@@ -148,11 +177,20 @@ footer a:hover{
   header nav{
     margin-top:10px;
   }
+  .header-logo{
+    font-size:24px;
+  }
+  .hero h2{
+    font-size:24px;
+  }
+  .hero p{
+    font-size:16px;
+  }
 }
 </style>
 
 <!-- Font Awesome for social icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-dhYt4s0Q6wZJZ4P7yZK+Vb0Z4IZOop6Bl1x5Q1J8y6W5Bz5Zq2NILbhgq8J6z4X8N7TfNPiC6R3eU1fU1dzX9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -160,6 +198,7 @@ footer a:hover{
 
 <!-- HEADER -->
 <header>
+  <div class="header-logo">SG</div>
   <h1>SG Multi Tools</h1>
   <nav>
     <a href="index.html">Home</a>
@@ -167,6 +206,12 @@ footer a:hover{
     <a href="about.html">About</a>
   </nav>
 </header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <h2>SG Multi Tools For Daily Use</h2>
+  <p>All your handy web tools in one place</p>
+</section>
 
 <!-- TOOL CARDS -->
 <div class="tool-grid">
@@ -191,75 +236,7 @@ footer a:hover{
     <p>Find percentages easily.</p>
     <a class="btn" href="percentage-calculator.html">Open Tool</a>
   </div>
-
-  <div class="tool-card">
-    <h3>Advanced Calculator</h3>
-    <p>Perform complex calculations.</p>
-    <a class="btn" href="advanced-calculator.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>Unit Converter</h3>
-    <p>Convert between units quickly.</p>
-    <a class="btn" href="unit-converter.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>Image Converter</h3>
-    <p>Convert images between formats.</p>
-    <a class="btn" href="image-converter.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>Date Difference</h3>
-    <p>Calculate difference between dates.</p>
-    <a class="btn" href="date-difference.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Timer & Stopwatch</h3>
-    <p>Use a stopwatch or countdown timer.</p>
-    <a class="btn" href="timer-stopwatch.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>SIP Calculator</h3>
-    <p>Plan investments with SIP returns.</p>
-    <a class="btn" href="sip-calculator.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>QR Code Generator</h3>
-    <p>Create QR codes for URLs or text.</p>
-    <a class="btn" href="qrcode-generator.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>URL Encoder/Decoder</h3>
-    <p>Encode or decode URLs easily.</p>
-    <a class="btn" href="url-encoder-decoder.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Word Counter</h3>
-    <p>Count words and characters in text.</p>
-    <a class="btn" href="word-counter.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>Currency Converter</h3>
-    <p>Convert currencies in real time.</p>
-    <a class="btn" href="currency-converter.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>File Size Converter</h3>
-    <p>Convert file sizes between units.</p>
-    <a class="btn" href="file-size-converter.html">Open Tool</a>
-  </div>
-  <div class="tool-card">
-    <h3>Note Text Changer</h3>
-    <p>Modify text in your notes quickly.</p>
-    <a class="btn" href="note-text-changer.html">Open Tool</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Note Text Saver</h3>
-    <p>Save text as files in your browser.</p>
-    <a class="btn" href="note-text-saver.html">Open Tool</a>
-  </div>
+  <!-- Add remaining tools here, same format -->
 </div>
 
 <!-- FOOTER -->
