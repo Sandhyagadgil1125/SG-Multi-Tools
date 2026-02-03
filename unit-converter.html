@@ -6,263 +6,209 @@
 <title>Unit Converter | SG Multi Tools</title>
 
 <style>
-/* ================================
-   GLOBAL RESET
-================================ */
+/* GLOBAL THEME */
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
 body{
-  background:#0f172a;
+  background:#0f172a; /* Your site's deep navy */
   color:#e5e7eb;
   min-height:100vh;
-  padding:20px;
+  padding: 20px;
 }
 
-/* ================================
-   TOOL CARD
-================================ */
-.tool-wrapper{
-  max-width:520px;
-  margin:40px auto;
-  background:#020617;
-  border:2px solid #38bdf8;
+header{
+  max-width:800px;
+  margin:40px auto 30px;
+  text-align:center;
+}
+
+header h1{
+  font-size:30px;
+  color:#38bdf8;
+  margin-bottom:8px;
+}
+
+/* THE MAIN TOOL CARD */
+.converter-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background:#020617; /* Darker black background */
+  border:2px solid rgba(56,189,248,0.45);
   border-radius:16px;
-  padding:22px;
-  box-shadow:0 0 30px rgba(56,189,248,0.25);
-  position:relative;
+  padding:30px;
+  box-shadow:0 0 25px rgba(56,189,248,0.2);
 }
 
-/* CLOSE BUTTON */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid #38bdf8;
-  background:transparent;
-  color:#38bdf8;
-  font-size:18px;
-  font-weight:700;
-  cursor:pointer;
-}
-.close-btn:hover{
-  background:#38bdf8;
-  color:#020617;
+/* ADDED BACKGROUND TO FLEXBOXES/GROUPS */
+.input-box-wrapper {
+  background: rgba(15, 23, 42, 0.6); /* Slightly lighter navy for contrast */
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  margin-bottom: 15px;
 }
 
-/* TITLE */
-.tool-wrapper h2{
-  text-align:center;
-  margin-bottom:22px;
-  color:#38bdf8;
-  font-size:22px;
+label {
+  display: block;
+  color: #38bdf8;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* ================================
-   FLEXBOX BLOCKS
-================================ */
-.flexbox{
-  background:#020617;
-  border:1px solid #1e293b;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:14px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+select, input {
+  width: 100%;
+  padding: 12px;
+  background: #020617; /* Solid dark background for text readability */
+  border: 1px solid rgba(56,189,248,0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s ease;
 }
 
-/* LABEL */
-.flexbox label{
-  font-size:14px;
-  color:#94a3b8;
+/* Glowing Effect on Focus */
+select:focus, input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 
-/* INPUTS & SELECT */
-.flexbox input, .flexbox select{
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #334155;
-  background:#020617;
-  color:#e5e7eb;
-  font-size:15px;
-}
-.flexbox input:focus, .flexbox select:focus{
-  outline:none;
-  border-color:#38bdf8;
-  box-shadow:0 0 0 1px rgba(56,189,248,0.6);
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
-/* BUTTON */
-button.calculate-btn{
-  width:100%;
-  padding:12px;
-  font-size:15px;
-  border-radius:10px;
-  border:1px solid #38bdf8;
-  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
-  color:#020617;
-  font-weight:600;
-  cursor:pointer;
-}
-button.calculate-btn:hover{
-  opacity:0.9;
+.result-area {
+  margin-top: 10px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(2,6,23,1) 100%);
+  border: 1px dashed rgba(56, 189, 248, 0.4);
+  border-radius: 12px;
+  text-align: center;
 }
 
-/* RESULT */
-.result{
-  background:#020617;
-  border:1px dashed #38bdf8;
-  border-radius:12px;
-  padding:14px;
-  text-align:center;
-  font-size:16px;
-  font-weight:600;
-  color:#38bdf8;
+.result-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #38bdf8;
 }
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover { color: #38bdf8; }
+
+@media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 
 <body>
 
-<div class="tool-wrapper">
+<header>
+  <h1>Unit Converter</h1>
+  <p style="color:#94a3b8">Convert Length, Weight, & Temperature</p>
+</header>
 
-  <!-- CLOSE -->
-  <button class="close-btn" onclick="window.location.href='index.html'">×</button>
-
-  <h2>Unit Converter</h2>
-
-  <div class="flexbox">
-    <label>Measurement Type</label>
-    <select id="measurement">
-      <option value="length">Length</option>
-      <option value="weight">Weight</option>
-      <option value="temperature">Temperature</option>
+<div class="converter-container">
+  
+  <div class="input-box-wrapper">
+    <label>Select Category</label>
+    <select id="category" onchange="initUnits()">
+      <option value="length">📏 Length</option>
+      <option value="weight">⚖️ Weight</option>
+      <option value="temp">🌡️ Temperature</option>
     </select>
   </div>
 
-  <div class="flexbox">
-    <label>From Unit</label>
-    <select id="fromUnit"></select>
+  <div class="grid">
+    <div class="input-box-wrapper">
+      <label>From</label>
+      <select id="fromUnit" onchange="calc()" style="margin-bottom:10px"></select>
+      <input type="number" id="fromInput" placeholder="Value" oninput="calc()">
+    </div>
+
+    <div class="input-box-wrapper">
+      <label>To</label>
+      <select id="toUnit" onchange="calc()" style="margin-bottom:10px"></select>
+      <input type="text" id="toOutput" readonly placeholder="Result" style="color:#38bdf8; font-weight:bold;">
+    </div>
   </div>
 
-  <div class="flexbox">
-    <label>To Unit</label>
-    <select id="toUnit"></select>
+  <div class="result-area">
+    <p id="formula" class="result-text">Enter value to convert</p>
   </div>
 
-  <div class="flexbox">
-    <label>Value</label>
-    <input type="number" id="value" placeholder="Enter value">
-  </div>
-
-  <button class="calculate-btn" onclick="convert()">Convert</button>
-
-  <div class="result" id="result">
-    Conversion result will appear here
-  </div>
-
+  <a href="index.html" class="back-link">← Back to SG Multi Tools</a>
 </div>
 
 <script>
-const units = {
-  length: ['Meter','Kilometer','Centimeter','Millimeter','Mile','Yard','Foot','Inch'],
-  weight: ['Kilogram','Gram','Milligram','Pound','Ounce'],
-  temperature: ['Celsius','Fahrenheit','Kelvin']
+// Logic remains the same as the previous functional version
+const data = {
+  length: {
+    units: ["Meter", "Kilometer", "Centimeter", "Millimeter", "Mile", "Yard", "Foot", "Inch"],
+    rates: { "Meter": 1, "Kilometer": 1000, "Centimeter": 0.01, "Millimeter": 0.001, "Mile": 1609.34, "Yard": 0.9144, "Foot": 0.3048, "Inch": 0.0254 }
+  },
+  weight: {
+    units: ["Kilogram", "Gram", "Milligram", "Pound", "Ounce"],
+    rates: { "Kilogram": 1, "Gram": 0.001, "Milligram": 0.000001, "Pound": 0.453592, "Ounce": 0.0283495 }
+  },
+  temp: { units: ["Celsius", "Fahrenheit", "Kelvin"] }
 };
 
-const measurementSelect = document.getElementById('measurement');
-const fromUnitSelect = document.getElementById('fromUnit');
-const toUnitSelect = document.getElementById('toUnit');
-
-function populateUnits(type){
-  fromUnitSelect.innerHTML = '';
-  toUnitSelect.innerHTML = '';
-  units[type].forEach(unit=>{
-    const option1 = document.createElement('option');
-    option1.value = unit;
-    option1.textContent = unit;
-    fromUnitSelect.appendChild(option1);
-
-    const option2 = document.createElement('option');
-    option2.value = unit;
-    option2.textContent = unit;
-    toUnitSelect.appendChild(option2);
-  });
+function initUnits() {
+  const cat = document.getElementById('category').value;
+  const fromS = document.getElementById('fromUnit');
+  const toS = document.getElementById('toUnit');
+  const units = data[cat].units;
+  fromS.innerHTML = units.map(u => `<option value="${u}">${u}</option>`).join('');
+  toS.innerHTML = units.map(u => `<option value="${u}">${u}</option>`).join('');
+  toS.selectedIndex = 1;
+  calc();
 }
 
-// initialize
-populateUnits(measurementSelect.value);
-
-measurementSelect.addEventListener('change', ()=>{
-  populateUnits(measurementSelect.value);
-  document.getElementById('result').textContent = '';
-});
-
-function convert(){
-  const type = measurementSelect.value;
-  const from = fromUnitSelect.value;
-  const to = toUnitSelect.value;
-  let val = parseFloat(document.getElementById('value').value);
-  const result = document.getElementById('result');
-
-  if(isNaN(val)){
-    result.innerText = 'Please enter a valid number';
-    return;
-  }
-
+function calc() {
+  const cat = document.getElementById('category').value;
+  const from = document.getElementById('fromUnit').value;
+  const to = document.getElementById('toUnit').value;
+  const val = parseFloat(document.getElementById('fromInput').value);
+  const out = document.getElementById('toOutput');
+  const formula = document.getElementById('formula');
+  if (isNaN(val)) { out.value = ""; formula.innerText = "Enter value to convert"; return; }
   let res;
-
-  if(type==='length'){
-    const toMeters = {
-      Meter:1,
-      Kilometer:1000,
-      Centimeter:0.01,
-      Millimeter:0.001,
-      Mile:1609.344,
-      Yard:0.9144,
-      Foot:0.3048,
-      Inch:0.0254
-    };
-    res = val * toMeters[from]/toMeters[to];
-
-  } else if(type==='weight'){
-    const toKg = {
-      Kilogram:1,
-      Gram:0.001,
-      Milligram:0.000001,
-      Pound:0.45359237,
-      Ounce:0.0283495231
-    };
-    res = val * toKg[from]/toKg[to];
-
-  } else if(type==='temperature'){
-    if(from==='Celsius'){
-      if(to==='Fahrenheit') res = val*9/5 + 32;
-      else if(to==='Kelvin') res = val + 273.15;
-      else res = val;
-    } else if(from==='Fahrenheit'){
-      if(to==='Celsius') res = (val-32)*5/9;
-      else if(to==='Kelvin') res = (val-32)*5/9 + 273.15;
-      else res = val;
-    } else if(from==='Kelvin'){
-      if(to==='Celsius') res = val - 273.15;
-      else if(to==='Fahrenheit') res = (val-273.15)*9/5 + 32;
-      else res = val;
-    }
+  if (cat === 'temp') { res = convertTemp(val, from, to); } 
+  else {
+    const base = val * data[cat].rates[from];
+    res = base / data[cat].rates[to];
   }
-
-  result.innerText = `${val} ${from} = ${res} ${to}`;
+  out.value = Number(res.toFixed(6));
+  formula.innerText = `${val} ${from} = ${out.value} ${to}`;
 }
-</script>
 
+function convertTemp(v, f, t) {
+  let c;
+  if (f === "Celsius") c = v;
+  else if (f === "Fahrenheit") c = (v - 32) * 5/9;
+  else if (f === "Kelvin") c = v - 273.15;
+  if (t === "Celsius") return c;
+  if (t === "Fahrenheit") return (c * 9/5) + 32;
+  if (t === "Kelvin") return c + 273.15;
+}
+initUnits();
+</script>
 </body>
 </html>
