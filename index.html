@@ -8,20 +8,38 @@
 <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%2342f8f5%22/><text x=%2250%%22 y=%2255%%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22000000%22 font-family=%22Arial%22 font-weight=%22bold%22>SG</text></svg>">
 
+<!-- Font Awesome for Social Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
 :root{
   --bg:#0f172a;
   --card:#1e293b;
+  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
+}
+
+/* Light Mode Variables */
+body.light-mode {
+  --bg: #f5f5f5;
+  --card: #ffffff;
+  --flex: #e0e0e0;
+  --accent: #42f8f5;
+  --text: #000000;
+  --muted: #555555;
+}
+
+*{
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
 }
 
 body{
   margin:0;
   padding:0;
   background: var(--bg);
-  font-family: Arial, sans-serif;
   color: var(--text);
 }
 
@@ -65,6 +83,14 @@ header nav a{
 }
 header nav a:hover{
   color: var(--accent);
+}
+#theme-toggle{
+  margin-left:20px;
+  padding:5px 10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:16px;
 }
 
 /* HERO */
@@ -180,10 +206,6 @@ footer a:hover{
   }
 }
 </style>
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 <body>
 
@@ -197,6 +219,7 @@ footer a:hover{
     <a href="index.html">Home</a>
     <a href="contact.html">Contact</a>
     <a href="about.html">About</a>
+    <button id="theme-toggle">🌙</button>
   </nav>
 </header>
 
@@ -247,6 +270,30 @@ footer a:hover{
     <a href="https://www.facebook.com/share/1YYEaCt3e4/" target="_blank"><i class="fab fa-facebook"></i></a>
   </div>
 </footer>
+
+<!-- Dark/Light Mode Script -->
+<script>
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Load saved preference
+if(localStorage.getItem('theme') === 'light') {
+  body.classList.add('light-mode');
+  themeToggle.textContent = '☀️';
+}
+
+// Toggle theme
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('light-mode');
+  if(body.classList.contains('light-mode')) {
+    themeToggle.textContent = '☀️';
+    localStorage.setItem('theme','light');
+  } else {
+    themeToggle.textContent = '🌙';
+    localStorage.setItem('theme','dark');
+  }
+});
+</script>
 
 </body>
 </html>
