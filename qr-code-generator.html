@@ -4,54 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QR Code Generator | SG Multi Tools</title>
-<link rel="stylesheet" href="tools-style.css">
-<style>
-*{box-sizing:border-box;font-family:Arial, sans-serif;}
-body{margin:0;padding:0 10px;background:#0f172a;color:#fff;text-align:center;}
-.tool-wrapper{position:relative;width:100%;max-width:520px;margin:40px auto;background:#1e293b;padding:24px;border-radius:16px;border:2px solid #42f8f5;box-shadow:0 0 30px rgba(66,248,245,0.55);}
-.close-btn{position:absolute;top:12px;right:14px;font-size:22px;color:#94a3b8;cursor:pointer;}
-.close-btn:hover{color:#42f8f5;}
-h2{margin-bottom:20px;}
-.tool-flex{display:flex;flex-direction:column;gap:14px;align-items:center;}
-input{width:100%;height:48px;font-size:16px;padding:0 12px;border-radius:8px;border:none;text-align:center;}
-button{width:100%;height:48px;font-size:16px;border-radius:8px;border:none;cursor:pointer;font-weight:bold;background:#42f8f5;color:#000;}
-button:hover{background:#00f5d4;}
-#qrcode{margin-top:20px;background:#fff;padding:10px;border-radius:12px;}
-@media(max-width:480px){h2{font-size:20px;}.close-btn{font-size:18px;}}
-</style>
 
+<link rel="stylesheet" href="tools-style.css">
+
+<style>
+/* CLOSE BUTTON – MATCHES NEON */
+.close-btn{
+  position:absolute;
+  top:14px;
+  right:16px;
+  font-size:22px;
+  cursor:pointer;
+  color:#42f8f5;
+  font-weight:700;
+}
+.close-btn:hover{ opacity:.8; }
+</style>
 </head>
+
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='../index.html'">✕</span>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+
   <h2>QR Code Generator</h2>
-  <div class="tool-flex">
-    <input type="text" id="text" placeholder="Enter text or URL">
-    <button onclick="generateQR()">Generate QR</button>
-    <a id="downloadLink" style="display:none;" download="qr-code.png"><button>Download QR</button></a>
-    <div id="qrcode"></div>
+
+  <!-- INPUT -->
+  <div class="flexbox">
+    <label>Enter Text / URL</label>
+    <input type="text" id="qrText" placeholder="Enter text or link">
+  </div>
+
+  <!-- BUTTON -->
+  <div class="flexbox">
+    <button onclick="generateQR()">Generate QR Code</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="flexbox result" id="qrResult">
+    QR Code will appear here
   </div>
 </div>
 
-<!-- QRCode.js library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-let qrcode;
 function generateQR(){
-  const text = document.getElementById("text").value.trim();
-  if(!text){ alert("Enter text or URL"); return; }
-  const qrcodeDiv = document.getElementById("qrcode");
-  qrcodeDiv.innerHTML = "";
-  qrcode = new QRCode(qrcodeDiv, {text: text,width:200,height:200,colorDark:"#000000",colorLight:"#ffffff"});
-  document.getElementById("downloadLink").style.display = "inline-block";
-}
+  const text = document.getElementById("qrText").value.trim();
+  const box = document.getElementById("qrResult");
 
-document.getElementById("downloadLink").addEventListener("click", function(){
-  if(!qrcode) return;
-  const img = document.querySelector("#qrcode img");
-  if(img) this.href = img.src;
-});
+  if(!text){
+    box.innerText = "Please enter text or URL";
+    return;
+  }
+
+  box.innerHTML = `
+    <img 
+      src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(text)}"
+      alt="QR Code"
+    >
+  `;
+}
 </script>
 
 </body>
