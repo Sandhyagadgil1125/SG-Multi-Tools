@@ -8,291 +8,241 @@
 
 <style>
 /* ================================
-   GLOBAL RESET & BASE
+   GLOBAL RESET
 ================================ */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-body {
-  background: #0f172a;
-  color: #e5e7eb;
-  min-height: 100vh;
-  padding: 20px;
+body{
+  background:#0f172a;
+  color:#e5e7eb;
+  min-height:100vh;
 }
 
 /* ================================
-   TOOL CARD WRAPPER
+   HEADER
 ================================ */
-.tool-wrapper {
-  max-width: 520px;
-  margin: 30px auto;
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 22px;
-  box-shadow: 0 0 25px rgba(56,189,248,0.08);
+header{
+  max-width:1100px;
+  margin:0 auto 40px;
+  padding:20px;
+  text-align:center;
 }
 
-.tool-wrapper h2 {
-  text-align: center;
-  margin-bottom: 18px;
-  color: #38bdf8;
-  font-size: 22px;
+header h1{
+  color:#38bdf8;
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+header p{
+  color:#94a3b8;
+  font-size:15px;
 }
 
 /* ================================
-   FLEXBOX (THIS FIXES YOUR ISSUE)
+   TOOLS GRID
 ================================ */
-.flexbox {
-  width: 100%;
-  background: #020617;          /* 🔥 FIX: background locked */
-  border: 1px solid #1e293b;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Labels */
-.flexbox label {
-  font-size: 14px;
-  color: #94a3b8;
+.tools-grid{
+  max-width:1100px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+  padding:0 20px 60px;
 }
 
 /* ================================
-   INPUTS / TEXTAREAS / SELECTS
+   TOOL CARD
 ================================ */
-.flexbox input,
-.flexbox textarea,
-.flexbox select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: #020617;
-  color: #e5e7eb;
-  font-size: 15px;
-  outline: none;
+.tool-card{
+  background:#020617;
+  border:1px solid #1e293b;
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 0 25px rgba(56,189,248,.08);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 
-.flexbox textarea {
-  resize: vertical;
-  min-height: 90px;
+.tool-card h3{
+  color:#38bdf8;
+  margin-bottom:10px;
+  font-size:18px;
 }
 
-.flexbox input:focus,
-.flexbox textarea:focus,
-.flexbox select:focus {
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 1px rgba(56,189,248,0.6);
+.tool-card p{
+  color:#cbd5f5;
+  font-size:14px;
+  margin-bottom:18px;
+  line-height:1.5;
 }
 
 /* ================================
-   BUTTONS
+   BUTTON
 ================================ */
-button {
-  padding: 12px;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 1px solid #38bdf8;
-  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-  color: #020617;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.btn{
+  text-decoration:none;
+  text-align:center;
+  padding:12px;
+  border-radius:10px;
+  font-weight:600;
+  border:1px solid #38bdf8;
+  color:#38bdf8;
+  transition:.25s;
 }
 
-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 0 12px rgba(56,189,248,0.6);
-}
-
-button:active {
-  transform: scale(0.98);
+.btn:hover{
+  background:#38bdf8;
+  color:#020617;
 }
 
 /* ================================
-   RESULT AREA (CRITICAL FIX)
+   FOOTER
 ================================ */
-.result {
-  background: #020617;          /* 🔥 FIX: no transparency */
-  border: 1px dashed #38bdf8;
-  border-radius: 10px;
-  padding: 14px;
-  font-size: 15px;
-  color: #e5e7eb;
-  min-height: 48px;             /* 🔥 ensures visibility */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  word-break: break-word;
+footer{
+  border-top:1px solid #1e293b;
+  padding:20px;
+  text-align:center;
+  color:#94a3b8;
+  font-size:14px;
 }
-
-/* ================================
-   SMALL TEXT / INFO
-================================ */
-.info-text {
-  font-size: 13px;
-  color: #94a3b8;
-  text-align: center;
+footer a{
+  color:#38bdf8;
+  text-decoration:none;
+  margin:0 6px;
 }
-
-/* ================================
-   LINKS
-================================ */
-a {
-  color: #38bdf8;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* ================================
-   MOBILE OPTIMIZATION
-================================ */
-@media (max-width: 480px) {
-  body {
-    padding: 12px;
-  }
-
-  .tool-wrapper {
-    padding: 18px;
-  }
-
-  button {
-    font-size: 14px;
-  }
+footer a:hover{
+  text-decoration:underline;
 }
 </style>
-
 </head>
 
 <body>
 
-<section class="container" id="tools">
+<header>
+  <h1>SG Multi Tools For Daily Use</h1>
+  <p>Free, fast & simple online tools for everyday needs</p>
+</header>
 
-<h1>SG Multi Tools <span>For Daily Use</span></h1>
-
-<div class="tools-grid">
+<section class="tools-grid">
 
   <div class="tool-card">
-    <h2>Timer / Stopwatch</h2>
+    <h3>Timer / Stopwatch</h3>
     <p>Countdown & stopwatch with sound.</p>
     <a class="btn" href="timer-stopwatch.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>Text to Speech</h2>
+    <h3>Text to Speech</h3>
     <p>Convert text into voice/audio.</p>
     <a class="btn" href="text-to-speech.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>Speech to Text</h2>
+    <h3>Speech to Text</h3>
     <p>Convert speech/audio into text.</p>
     <a class="btn" href="speech-to-text.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>Age Calculator</h2>
+    <h3>Age Calculator</h3>
     <p>Calculate your age instantly.</p>
     <a class="btn" href="age-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>EMI Calculator</h2>
+    <h3>EMI Calculator</h3>
     <p>Loan EMI calculation made easy.</p>
     <a class="btn" href="emi-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>SIP Calculator</h2>
+    <h3>SIP Calculator</h3>
     <p>Investment SIP calculator.</p>
     <a class="btn" href="sip-calculator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>QR Code Generator</h2>
+    <h3>QR Code Generator</h3>
     <p>Generate QR codes instantly.</p>
-    <a class="btn" href="tools/qr-code-generator.html">Open Tool</a>
-    <a class="btn" href="qr-code-generator.html">Open Tool</a> 
+    <a class="btn" href="qr-code-generator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>Password Generator</h2>
+    <h3>Password Generator</h3>
     <p>Create strong passwords instantly.</p>
     <a class="btn" href="password-generator.html">Open Tool</a>
   </div>
 
   <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
+    <h3>URL Encoder / Decoder</h3>
     <p>Encode or decode URLs safely.</p>
     <a class="btn" href="url-encoder-decoder.html">Open Tool</a>
   </div>
 
-    <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
+  <div class="tool-card">
+    <h3>Advanced Calculator</h3>
+    <p>Perform advanced math calculations.</p>
     <a class="btn" href="advanced-calculator.html">Open Tool</a>
   </div>
 
-    <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
+  <div class="tool-card">
+    <h3>Case Changer</h3>
+    <p>Convert text case instantly.</p>
     <a class="btn" href="case-changer.html">Open Tool</a>
   </div>
 
-    <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
-    <a class="btn" href="colo-picker.html">Open Tool</a>
+  <div class="tool-card">
+    <h3>Color Picker</h3>
+    <p>Select & copy colors easily.</p>
+    <a class="btn" href="color-picker.html">Open Tool</a>
   </div>
 
-    <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
+  <div class="tool-card">
+    <h3>Currency Converter</h3>
+    <p>Convert currencies easily.</p>
     <a class="btn" href="currency-converter.html">Open Tool</a>
   </div>
 
-    <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
+  <div class="tool-card">
+    <h3>Date Difference</h3>
+    <p>Find difference between two dates.</p>
     <a class="btn" href="date-difference.html">Open Tool</a>
   </div>
 
-     <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
+  <div class="tool-card">
+    <h3>File Size Converter</h3>
+    <p>Convert file sizes quickly.</p>
     <a class="btn" href="file-size-converter.html">Open Tool</a>
   </div>
 
-     <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
-    <a class="btn" href="note-text-saver.html">Open Tool</a>
+  <div class="tool-card">
+    <h3>Notes Text Saver</h3>
+    <p>Save notes in your browser.</p>
+    <a class="btn" href="notes-text-saver.html">Open Tool</a>
   </div>
 
-     <div class="tool-card">
-    <h2>URL Encoder / Decoder</h2>
-    <p>Encode or decode URLs safely.</p>
-    <a class="btn" href="word-counter">Open Tool</a>
+  <div class="tool-card">
+    <h3>Word Counter</h3>
+    <p>Count words & characters.</p>
+    <a class="btn" href="word-counter.html">Open Tool</a>
   </div>
-   
-</div>
 
 </section>
 
 <footer>
-  <p>© 2026 SG Multi Tools. All rights reserved.</p>
+  © 2026 SG Multi Tools |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a> |
+  <a href="privacy-policy.html">Privacy</a> |
+  <a href="terms-and-conditions.html">Terms</a> |
+  <a href="disclaimer.html">Disclaimer</a>
 </footer>
 
 </body>
