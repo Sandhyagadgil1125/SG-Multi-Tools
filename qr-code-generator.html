@@ -7,35 +7,52 @@
 
 <style>
 /* ================================
-   RESET (LOCAL ONLY)
+   SAME VARIABLES AS index.html
 ================================ */
-.tool-wrapper, 
-.tool-wrapper *{
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
+}
+
+/* Light Mode */
+body.light-mode{
+  --bg:#f5f5f5;
+  --card:#ffffff;
+  --flex:#e0e0e0;
+  --accent:#42f8f5;
+  --text:#000000;
+  --muted:#555555;
+}
+
+*{
   box-sizing:border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-family: Arial, sans-serif;
 }
 
-/* ================================
-   PAGE
-================================ */
 body{
-  background:#f6f7fb;
+  margin:0;
   padding:20px;
+  background:var(--bg);
+  color:var(--text);
 }
 
 /* ================================
-   TOOL CARD (BORDER FIXED)
+   TOOL CARD (MATCHES tool-card)
 ================================ */
 .tool-wrapper{
   max-width:420px;
-  margin:auto;
-  background:#fff;
+  margin:40px auto;
+  background:var(--card);
+  border:2px solid var(--accent);
+  border-radius:12px;
   padding:20px;
-  border-radius:14px;
+  text-align:left;
+  box-shadow:0 0 20px rgba(66,248,245,0.25);
   position:relative;
-
-  outline:1px solid #dcdcdc;
-  box-shadow:0 0 0 1px #dcdcdc, 0 10px 25px rgba(0,0,0,0.08);
 }
 
 /* ================================
@@ -45,21 +62,24 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
+  margin-bottom:15px;
 }
 
 .tool-header h1{
+  margin:0;
   font-size:20px;
-  font-weight:600;
-  color:#222;
 }
 
 .close-btn{
-  border:none;
   background:none;
+  border:none;
   font-size:20px;
+  color:var(--muted);
   cursor:pointer;
-  color:#666;
+}
+
+.close-btn:hover{
+  color:var(--accent);
 }
 
 /* ================================
@@ -72,23 +92,29 @@ body{
 .input-title{
   display:block;
   font-size:14px;
-  color:#555;
+  color:var(--muted);
   margin-bottom:6px;
 }
 
 textarea{
   width:100%;
-  min-height:80px;
+  min-height:90px;
   padding:10px;
   border-radius:8px;
-  border:1px solid #ccc;
+  border:1px solid var(--accent);
+  background:var(--flex);
+  color:var(--text);
   font-size:14px;
   resize:none;
 }
 
+textarea::placeholder{
+  color:var(--muted);
+}
+
 textarea:focus{
   outline:none;
-  border-color:#4f46e5;
+  box-shadow:0 0 8px rgba(66,248,245,0.4);
 }
 
 /* ================================
@@ -99,20 +125,20 @@ textarea:focus{
   margin-top:15px;
   padding:12px;
   border:none;
-  border-radius:10px;
-  background:#4f46e5;
-  color:#fff;
+  border-radius:8px;
+  background:var(--accent);
+  color:#000;
   font-size:15px;
-  font-weight:500;
+  font-weight:bold;
   cursor:pointer;
 }
 
 .generate-btn:hover{
-  background:#4338ca;
+  opacity:0.9;
 }
 
 /* ================================
-   OUTPUT
+   QR OUTPUT
 ================================ */
 .qr-output{
   margin-top:20px;
@@ -125,15 +151,28 @@ textarea:focus{
   padding:10px;
   background:#fff;
   border-radius:10px;
-  outline:1px solid #dcdcdc;
+  box-shadow:0 0 15px rgba(66,248,245,0.4);
 }
 
 .download-link{
   display:inline-block;
   margin-top:10px;
-  color:#4f46e5;
+  color:var(--accent);
   text-decoration:none;
-  font-weight:500;
+  font-weight:bold;
+}
+
+.download-link:hover{
+  text-decoration:underline;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media(max-width:600px){
+  .tool-wrapper{
+    margin:20px;
+  }
 }
 </style>
 </head>
@@ -184,7 +223,7 @@ function generateQR(){
 }
 
 function closeTool(){
-  window.history.back();
+  window.location.href = "index.html";
 }
 </script>
 
