@@ -9,208 +9,202 @@
 :root{
   --bg:#0f172a;
   --card:#1e293b;
-  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
 }
 
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
 body{
   margin:0;
-  padding:10px;
   background:var(--bg);
   color:var(--text);
+  font-family:Arial, sans-serif;
+  padding:10px;
 }
 
-/* TOOL CARD */
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
+.tool{
+  max-width:420px;
+  margin:30px auto;
   background:var(--card);
   padding:24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
+  text-align:center;
 }
 
-/* CLOSE */
-.close-btn{
+h2{ margin-bottom:16px; }
+
+/* CLOCK */
+.clock{
+  position:relative;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  border:6px solid var(--accent);
+  margin:18px auto;
+}
+
+.hand{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-/* TITLE */
-h2{
-  text-align:center;
-  margin-bottom:18px;
+  width:3px;
+  height:90px;
+  background:var(--accent);
+  top:20px;
+  left:50%;
+  transform-origin:bottom;
 }
 
-/* FLEXBOX */
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-  text-align:center;
+.center-dot{
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:var(--accent);
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
 }
 
-/* INPUTS */
+.time{
+  font-size:26px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+/* INPUT */
 input{
   width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-  text-align:center;
-}
-
-/* BUTTON */
-button{
-  width:48%;
-  height:44px;
-  margin:1%;
+  height:42px;
   border-radius:10px;
   border:none;
+  padding:0 10px;
+  font-size:16px;
+  margin-top:12px;
+}
+
+/* CONTROLS */
+.controls{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+button{
+  flex:1;
+  height:44px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
   background:var(--accent);
   color:#000;
-  font-weight:bold;
-  font-size:15px;
   cursor:pointer;
 }
-button:hover{ opacity:.9; }
-
-/* DISPLAY */
-.display{
-  font-size:28px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-/* INFO */
-.info{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-}
+button:active{ transform:scale(.98); }
 </style>
 </head>
 
 <body>
 
-<div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+<div class="tool">
+  <h2>Timer / Stopwatch</h2>
 
-  <h2>Timer & Stopwatch</h2>
-
-  <!-- STOPWATCH -->
-  <div class="flexbox">
-    <div class="display" id="stopwatchDisplay">00:00:00</div>
-    <button onclick="startStopwatch()">Start</button>
-    <button onclick="stopStopwatch()">Stop</button>
-    <button onclick="resetStopwatch()">Reset</button>
+  <div class="clock">
+    <div class="hand" id="secondHand"></div>
+    <div class="center-dot"></div>
   </div>
 
-  <!-- TIMER -->
-  <div class="flexbox">
-    <input type="number" id="timerInput" placeholder="Enter seconds">
-    <div class="display" id="timerDisplay">00:00</div>
-    <button onclick="startTimer()">Start Timer</button>
-    <button onclick="stopTimer()">Stop Timer</button>
-    <button onclick="resetTimer()">Reset Timer</button>
-  </div>
+  <div class="time" id="display">00:00.00</div>
 
-  <div class="info">
-    Stopwatch and countdown timer in one tool
+  <!-- TIMER INPUT (seconds) -->
+  <input type="number" id="timerInput" placeholder="Timer seconds (optional)" min="1">
+
+  <div class="controls">
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
   </div>
 </div>
 
+<!-- 🔔 Bell sound -->
+<audio id="bell">
+  <source src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg" type="audio/ogg">
+  <source src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-// STOPWATCH
-let swInterval;
-let swSeconds = 0;
+let startTime = 0;
+let running = false;
+let rafId;
+let timerDuration = null;
 
-function updateStopwatchDisplay(){
-  const h = String(Math.floor(swSeconds/3600)).padStart(2,'0');
-  const m = String(Math.floor((swSeconds%3600)/60)).padStart(2,'0');
-  const s = String(swSeconds%60).padStart(2,'0');
-  document.getElementById("stopwatchDisplay").textContent = `${h}:${m}:${s}`;
+const display = document.getElementById("display");
+const hand = document.getElementById("secondHand");
+const bell = document.getElementById("bell");
+const timerInput = document.getElementById("timerInput");
+
+function playBell(){
+  bell.currentTime = 0;
+  bell.play().catch(()=>{});
 }
 
-function startStopwatch(){
-  if(swInterval) return;
-  swInterval = setInterval(()=>{
-    swSeconds++;
-    updateStopwatchDisplay();
-  }, 1000);
-}
+function update(){
+  if(!running) return;
 
-function stopStopwatch(){
-  clearInterval(swInterval);
-  swInterval = null;
-}
+  const now = performance.now();
+  const elapsed = now - startTime;
 
-function resetStopwatch(){
-  stopStopwatch();
-  swSeconds = 0;
-  updateStopwatchDisplay();
-}
+  let remaining = timerDuration ? timerDuration - elapsed : elapsed;
 
-// TIMER
-let timerInterval;
-let timerRemaining = 0;
-
-function updateTimerDisplay(){
-  const m = String(Math.floor(timerRemaining/60)).padStart(2,'0');
-  const s = String(timerRemaining%60).padStart(2,'0');
-  document.getElementById("timerDisplay").textContent = `${m}:${s}`;
-}
-
-function startTimer(){
-  if(timerInterval) return;
-  const input = parseInt(document.getElementById("timerInput").value);
-  if(isNaN(input) || input <=0){
-    alert("Please enter valid seconds");
+  if(timerDuration && remaining <= 0){
+    display.textContent = "00:00.00";
+    hand.style.transform = "rotate(0deg)";
+    running = false;
+    playBell(); // 🔔 TIMER COMPLETE
     return;
   }
-  timerRemaining = input;
-  updateTimerDisplay();
-  timerInterval = setInterval(()=>{
-    timerRemaining--;
-    updateTimerDisplay();
-    if(timerRemaining <=0){
-      clearInterval(timerInterval);
-      timerInterval = null;
-      alert("Timer finished!");
-    }
-  },1000);
+
+  const totalSeconds = Math.abs(remaining) / 1000;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  display.textContent =
+    `${String(minutes).padStart(2,"0")}:${seconds.toFixed(2).padStart(5,"0")}`;
+
+  /* 🔄 Smooth moving seconds */
+  const angle = (seconds / 60) * 360;
+  hand.style.transform = `rotate(${angle}deg)`;
+
+  rafId = requestAnimationFrame(update);
 }
 
-function stopTimer(){
-  clearInterval(timerInterval);
-  timerInterval = null;
+function start(){
+  if(running) return;
+
+  const inputSeconds = parseFloat(timerInput.value);
+  timerDuration = !isNaN(inputSeconds) && inputSeconds > 0
+    ? inputSeconds * 1000
+    : null;
+
+  startTime = performance.now();
+  running = true;
+  update();
 }
 
-function resetTimer(){
-  stopTimer();
-  timerRemaining = 0;
-  updateTimerDisplay();
-  document.getElementById("timerInput").value = '';
+function stop(){
+  if(!running) return;
+  running = false;
+  cancelAnimationFrame(rafId);
+  playBell(); // 🔔 STOPWATCH STOP
 }
 
+function reset(){
+  running = false;
+  cancelAnimationFrame(rafId);
+  display.textContent = "00:00.00";
+  hand.style.transform = "rotate(0deg)";
+  timerInput.value = "";
+}
 </script>
 
 </body>
