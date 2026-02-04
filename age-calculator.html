@@ -13,7 +13,6 @@
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
-  --radius:14px;
 }
 
 *{
@@ -28,7 +27,6 @@ body{
   padding:10px;
 }
 
-/* TOOL CARD */
 .tool-wrapper{
   position:relative;
   max-width:520px;
@@ -40,7 +38,6 @@ body{
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE BUTTON */
 .close-btn{
   position:absolute;
   top:12px;
@@ -51,13 +48,11 @@ body{
 }
 .close-btn:hover{ color:var(--accent); }
 
-/* TITLE */
 h2{
   text-align:center;
   margin-bottom:20px;
 }
 
-/* FLEXBOX */
 .flexbox{
   background:var(--flex);
   padding:14px 16px;
@@ -69,13 +64,11 @@ h2{
   margin-bottom:14px;
 }
 
-/* LABEL */
 .flexbox label{
   min-width:120px;
   font-size:14px;
 }
 
-/* INPUT */
 input{
   flex:1;
   height:40px;
@@ -85,7 +78,10 @@ input{
   font-size:14px;
 }
 
-/* BUTTON */
+input[type="text"]{
+  letter-spacing:1px;
+}
+
 button{
   width:100%;
   height:44px;
@@ -97,11 +93,7 @@ button{
   font-size:16px;
   cursor:pointer;
 }
-button:hover{
-  background:#00f5d4;
-}
 
-/* RESULT */
 .result{
   background:#020617;
   border:1px dashed var(--accent);
@@ -122,8 +114,13 @@ button:hover{
   <h2>Age Calculator</h2>
 
   <div class="flexbox">
-    <label>Date of Birth</label>
-    <input type="date" id="dob">
+    <label>DOB (Calendar)</label>
+    <input type="date" id="dobCalendar">
+  </div>
+
+  <div class="flexbox">
+    <label>DOB (dd/mm/yyyy)</label>
+    <input type="text" id="dobText" placeholder="dd/mm/yyyy" inputmode="numeric">
   </div>
 
   <div class="flexbox">
@@ -136,16 +133,58 @@ button:hover{
 </div>
 
 <script>
-function calculateAge(){
-  const dobInput = document.getElementById("dob").value;
-  const result = document.getElementById("result");
+const dobCalendar = document.getElementById("dobCalendar");
+const dobText = document.getElementById("dobText");
+const result = document.getElementById("result");
 
-  if(!dobInput){
-    result.innerText = "Please select your date of birth";
+/* Sync calendar → text */
+dobCalendar.addEventListener("change", () => {
+  if(!dobCalendar.value) return;
+  const d = new Date(dobCalendar.value);
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const yyyy = d.getFullYear();
+  dobText.value = `${dd}/${mm}/${yyyy}`;
+});
+
+/* Sync text → calendar */
+dobText.addEventListener("blur", () => {
+  const parts = dobText.value.split("/");
+  if(parts.length !== 3) return;
+
+  const [dd, mm, yyyy] = parts.map(Number);
+  if(!dd || !mm || !yyyy) return;
+
+  const isoDate = `${yyyy}-${String(mm).padStart(2,"0")}-${String(dd).padStart(2,"0")}`;
+  const testDate = new Date(isoDate);
+
+  if(testDate && testDate.getDate() === dd){
+    dobCalendar.value = isoDate;
+  }
+});
+
+function calculateAge(){
+  let dob;
+
+  if(dobCalendar.value){
+    dob = new Date(dobCalendar.value);
+  }else if(dobText.value){
+    const parts = dobText.value.split("/");
+    if(parts.length !== 3){
+      result.innerText = "Invalid date format (use dd/mm/yyyy)";
+      return;
+    }
+    const [dd, mm, yyyy] = parts.map(Number);
+    dob = new Date(yyyy, mm - 1, dd);
+    if(isNaN(dob)){
+      result.innerText = "Invalid date";
+      return;
+    }
+  }else{
+    result.innerText = "Please enter your date of birth";
     return;
   }
 
-  const dob = new Date(dobInput);
   const today = new Date();
 
   let years = today.getFullYear() - dob.getFullYear();
