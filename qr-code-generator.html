@@ -22,8 +22,7 @@ body{
 }
 
 /* ================================
-   FORCE TOOL CARD BORDER
-   (works even in modal/iframe)
+   TOOL CARD (FORCED BORDER)
 ================================ */
 .tool-wrapper{
   max-width:420px;
@@ -31,17 +30,13 @@ body{
   background:#ffffff;
   padding:20px;
   border-radius:14px;
-
-  /* PRIMARY BORDER */
-  outline:1px solid #dcdcdc;
-
-  /* SECONDARY SAFETY */
-  box-shadow:0 0 0 1px #dcdcdc, 0 10px 25px rgba(0,0,0,0.08);
-
   position:relative;
+
+  /* Border that survives modal/active state */
+  outline:1px solid #dcdcdc;
+  box-shadow:0 0 0 1px #dcdcdc, 0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* Ultra-safe fallback */
 .tool-wrapper::before{
   content:"";
   position:absolute;
@@ -80,16 +75,20 @@ body{
 }
 
 /* ================================
-   INPUT
+   INPUT GROUP
 ================================ */
-label{
+.input-group{
+  margin-top:10px;
+}
+
+.input-group label{
+  display:block;
   font-size:14px;
   color:#555;
   margin-bottom:6px;
-  display:block;
 }
 
-textarea{
+.input-group textarea{
   width:100%;
   min-height:80px;
   padding:10px;
@@ -99,7 +98,7 @@ textarea{
   resize:none;
 }
 
-textarea:focus{
+.input-group textarea:focus{
   border-color:#4f46e5;
   outline:none;
 }
@@ -116,6 +115,7 @@ textarea:focus{
   background:#4f46e5;
   color:#fff;
   font-size:15px;
+  font-weight:500;
   cursor:pointer;
 }
 
@@ -136,8 +136,8 @@ textarea:focus{
   margin-top:10px;
   padding:10px;
   background:#fff;
-  outline:1px solid #dcdcdc;
   border-radius:10px;
+  outline:1px solid #dcdcdc;
 }
 
 .download-link{
@@ -151,6 +151,15 @@ textarea:focus{
 .download-link:hover{
   text-decoration:underline;
 }
+
+/* ================================
+   MOBILE
+================================ */
+@media(max-width:480px){
+  .tool-wrapper{
+    padding:16px;
+  }
+}
 </style>
 </head>
 
@@ -163,5 +172,47 @@ textarea:focus{
     <button class="close-btn" onclick="closeTool()">✕</button>
   </div>
 
-  <label for="qrText">Enter text or URL</label>
-  <textarea id="qrText" placeho
+  <div class="input-group">
+    <label for="qrText">Enter text or URL</label>
+    <textarea id="qrText" placeholder="https://sgtools.in"></textarea>
+  </div>
+
+  <button class="generate-btn" onclick="generateQR()">
+    Generate QR Code
+  </button>
+
+  <div class="qr-output" id="qrOutput">
+    <img id="qrImage" alt="QR Code">
+    <br>
+    <a id="downloadLink" class="download-link" download="qr-code.png">
+      Download QR Code
+    </a>
+  </div>
+
+</div>
+
+<script>
+function generateQR(){
+  const text = document.getElementById("qrText").value.trim();
+
+  if(!text){
+    alert("Please enter text or URL");
+    return;
+  }
+
+  const qrURL =
+    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+    encodeURIComponent(text);
+
+  document.getElementById("qrImage").src = qrURL;
+  document.getElementById("downloadLink").href = qrURL;
+  document.getElementById("qrOutput").style.display = "block";
+}
+
+function closeTool(){
+  window.history.back();
+}
+</script>
+
+</body>
+</html>
