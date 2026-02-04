@@ -4,148 +4,166 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIP Calculator | SG Multi Tools</title>
+
 <style>
-/* ===============================
-   RESET & BASE
-=============================== */
-* {
-  box-sizing: border-box;
-  font-family: Segoe UI, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
+  --radius:14px;
 }
 
-body {
-  background: #0d0f14;
-  color: #ffffff;
-  text-align: center;
-  padding: 10px;
+*{
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
 
-/* ===============================
-   TOOL WRAPPER
-=============================== */
-.tool-wrapper {
-  max-width: 520px;
-  margin: 60px auto;
-  background: #12151a;
-  padding: 30px;
-  border-radius: 16px;
-  border: 1px solid #1c222d;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  position: relative;
+body{
+  margin:0;
+  padding:10px;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* Close button */
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #42f8f5;
+/* TOOL CARD */
+.tool-wrapper{
+  max-width:520px;
+  margin:40px auto;
+  background:var(--card);
+  padding:24px;
+  border-radius:18px;
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* Flexbox rows */
-.tool-flex {
-  display: flex;
-  flex-direction: column;
-  margin: 15px 0;
-  padding: 15px;
-  background: #1c222d;
-  border-radius: 10px;
+/* CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:12px;
+  right:14px;
+  font-size:22px;
+  color:var(--muted);
+  cursor:pointer;
+}
+.close-btn:hover{ color:var(--accent); }
+
+/* TITLE */
+h2{
+  text-align:center;
+  margin-bottom:20px;
 }
 
-label {
-  text-align: left;
-  margin-bottom: 5px;
-  color: #ffffff;
-  font-weight: 500;
+/* FLEXBOX */
+.flexbox{
+  background:var(--bg);
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid #334155;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-input, select, button {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 16px;
+.flexbox label{
+  flex:1;
+  min-width:120px;
+  font-size:14px;
 }
 
-input, select {
-  background: #0d0f14;
-  color: #ffffff;
+.flexbox input{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  background:#020617;
+  color:#fff;
+  font-size:14px;
 }
 
-button {
-  background: #42f8f5;
-  color: #0d0f14;
-  font-weight: bold;
-  cursor: pointer;
+/* BUTTON */
+button{
+  width:100%;
+  height:44px;
+  border-radius:10px;
+  border:none;
+  background:var(--accent);
+  color:#000;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{
+  opacity:.9;
 }
 
-button:hover {
-  opacity: 0.85;
-}
-
-.result {
-  margin-top: 15px;
-  padding: 15px;
-  background: #1c222d;
-  border-radius: 10px;
-  font-weight: bold;
-  text-align: center;
-  color: #ffffff;
+/* RESULT */
+.result{
+  background:#020617;
+  border:1px dashed var(--accent);
+  border-radius:10px;
+  padding:14px;
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  min-height:40px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="tool-wrapper">
   <span class="close-btn" onclick="location.href='index.html'">✕</span>
+
   <h2>SIP Calculator</h2>
 
-  <div class="tool-flex">
+  <div class="flexbox">
     <label>Monthly Investment (₹)</label>
-    <input type="number" id="investment" placeholder="Enter amount" min="0">
+    <input type="number" id="sipAmount" placeholder="e.g. 5000">
   </div>
 
-  <div class="tool-flex">
-    <label>Expected Annual Return (%)</label>
-    <input type="number" id="rate" placeholder="Enter rate" min="0" step="0.01">
+  <div class="flexbox">
+    <label>Annual Rate of Return (%)</label>
+    <input type="number" id="rate" placeholder="e.g. 12">
   </div>
 
-  <div class="tool-flex">
+  <div class="flexbox">
     <label>Investment Period (Years)</label>
-    <input type="number" id="years" placeholder="Enter duration" min="0">
+    <input type="number" id="years" placeholder="e.g. 10">
   </div>
 
-  <div class="tool-flex">
-    <button onclick="calculateSIP()">Calculate SIP</button>
+  <div class="flexbox">
+    <button onclick="calculateSIP()">Calculate</button>
   </div>
 
-  <div class="tool-flex">
-    <div class="result" id="result">Your total investment will appear here.</div>
+  <div class="flexbox result" id="result">
+    Your investment result will appear here
   </div>
 </div>
 
 <script>
-function calculateSIP() {
-  let P = parseFloat(document.getElementById('investment').value);
-  let R = parseFloat(document.getElementById('rate').value)/100;
-  let N = parseFloat(document.getElementById('years').value);
-  
-  if(isNaN(P) || isNaN(R) || isNaN(N)) {
-    document.getElementById('result').innerText = "Please enter valid numbers in all fields.";
+function calculateSIP(){
+  const P = parseFloat(document.getElementById("sipAmount").value);
+  const r = parseFloat(document.getElementById("rate").value)/100/12; // monthly rate
+  const n = parseFloat(document.getElementById("years").value)*12; // total months
+  const resultDiv = document.getElementById("result");
+
+  if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
+    resultDiv.innerText = "Please enter valid positive numbers";
     return;
   }
 
-  let n = 12; // compounding monthly
-  let total = P * (((Math.pow(1 + R/n, n*N) - 1) / (R/n)) * (1 + R/n));
-  let invested = P * N * 12;
+  // Future Value of SIP formula: FV = P * [ ( (1+r)^n -1 ) / r ] * (1+r)
+  const fv = P * (Math.pow(1+r, n) - 1) / r * (1+r);
 
-  document.getElementById('result').innerHTML =
-    `Total Investment: ₹${invested.toLocaleString()}<br>
-     Maturity Amount: ₹${total.toFixed(2).toLocaleString()}`;
+  resultDiv.innerHTML = `
+    Total Investment: ₹${(P*n).toLocaleString()} <br>
+    Estimated Returns: ₹${(fv - P*n).toLocaleString()} <br>
+    Total Value: ₹${fv.toLocaleString()}
+  `;
 }
 </script>
 
