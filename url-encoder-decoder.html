@@ -7,127 +7,211 @@
 
 <style>
 /* ================================
-   RESET & BASE
+   SAME VARIABLES AS index.html
 ================================ */
-* {
-  box-sizing: border-box;
-  font-family: Segoe UI, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --flex:#111827;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
 }
 
-body {
-  background: #0d0f14;
-  color: #ffffff;
-  text-align: center;
-  padding: 10px;
+/* Light Mode */
+body.light-mode{
+  --bg:#f5f5f5;
+  --card:#ffffff;
+  --flex:#e0e0e0;
+  --accent:#42f8f5;
+  --text:#000000;
+  --muted:#555555;
+}
+
+*{
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  margin:0;
+  padding:20px;
+  background:var(--bg);
+  color:var(--text);
 }
 
 /* ================================
-   TOOL WRAPPER
+   TOOL CARD (MATCHES tool-card)
 ================================ */
-.tool-wrapper {
-  position: relative;
-  max-width: 520px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #12151a;
-  border-radius: 16px;
-  border: 1px solid #222831;
+.tool-wrapper{
+  position:relative;
+  max-width:520px;
+  margin:40px auto;
+  padding:20px;
+  background:var(--card);
+  border:2px solid var(--accent);
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(66,248,245,0.25);
+  text-align:left;
 }
 
-/* CLOSE BUTTON */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #ff4b5c;
+/* ================================
+   HEADER
+================================ */
+.tool-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
 }
 
-/* TOOL FLEXBOX */
-.flexbox {
-  display: flex;
-  flex-direction: column;
-  background: #1c222d;
-  padding: 15px;
-  border-radius: 12px;
-  margin: 15px 0;
-  gap: 10px;
+.tool-header h1{
+  font-size:20px;
+  margin:0;
+}
+
+.close-btn{
+  background:none;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+.close-btn:hover{
+  color:var(--accent);
+}
+
+/* ================================
+   FLEX BOX SECTIONS
+================================ */
+.flexbox{
+  display:flex;
+  flex-direction:column;
+  background:var(--flex);
+  padding:15px;
+  border-radius:12px;
+  margin:15px 0;
+  gap:10px;
+}
+
+/* TITLES (safe replacement for label) */
+.input-title{
+  font-size:14px;
+  color:var(--muted);
 }
 
 /* INPUTS */
-input, textarea {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 16px;
+textarea{
+  width:100%;
+  min-height:80px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid var(--accent);
+  background:var(--card);
+  color:var(--text);
+  font-size:15px;
+  resize:none;
 }
 
-/* BUTTON */
-button {
-  padding: 10px;
-  background: #42f8f5;
-  color: #0d0f14;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
+textarea::placeholder{
+  color:var(--muted);
 }
 
-button:hover {
-  background: #2ac4c2;
+textarea:focus{
+  outline:none;
+  box-shadow:0 0 8px rgba(66,248,245,0.4);
 }
 
-/* RESULT AREA */
-.result {
-  background: #1c222d;
-  padding: 12px;
-  border-radius: 8px;
-  min-height: 40px;
-  font-weight: bold;
-  word-break: break-word;
+/* ================================
+   BUTTONS
+================================ */
+.btn-group{
+  display:flex;
+  gap:10px;
+}
+
+button{
+  flex:1;
+  padding:12px;
+  background:var(--accent);
+  color:#000;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:15px;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+/* ================================
+   RESULT
+================================ */
+.result{
+  background:var(--card);
+  padding:12px;
+  border-radius:8px;
+  min-height:40px;
+  font-weight:bold;
+  word-break:break-word;
+  border:1px solid var(--accent);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media(max-width:600px){
+  .tool-wrapper{
+    margin:20px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-  <h2>URL Encoder / Decoder</h2>
 
-  <div class="flexbox">
-    <label>Enter Text / URL</label>
-    <textarea id="inputText" placeholder="Enter text or URL here"></textarea>
+  <div class="tool-header">
+    <h1>URL Encoder / Decoder</h1>
+    <button class="close-btn" onclick="location.href='index.html'">✕</button>
   </div>
 
   <div class="flexbox">
+    <div class="input-title">Enter Text or URL</div>
+    <textarea id="inputText" placeholder="Enter text or URL here"></textarea>
+  </div>
+
+  <div class="flexbox btn-group">
     <button onclick="encodeURL()">Encode URL</button>
     <button onclick="decodeURL()">Decode URL</button>
   </div>
 
   <div class="flexbox">
-    <label>Result</label>
+    <div class="input-title">Result</div>
     <div class="result" id="result"></div>
   </div>
+
 </div>
 
 <script>
-function encodeURL() {
+function encodeURL(){
   const input = document.getElementById('inputText').value;
-  const result = encodeURIComponent(input);
-  document.getElementById('result').textContent = result;
+  document.getElementById('result').textContent =
+    encodeURIComponent(input);
 }
 
-function decodeURL() {
+function decodeURL(){
   const input = document.getElementById('inputText').value;
-  try {
-    const result = decodeURIComponent(input);
-    document.getElementById('result').textContent = result;
-  } catch(e) {
-    document.getElementById('result').textContent = 'Invalid encoded URL';
+  try{
+    document.getElementById('result').textContent =
+      decodeURIComponent(input);
+  }catch{
+    document.getElementById('result').textContent =
+      'Invalid encoded URL';
   }
 }
 </script>
