@@ -11,7 +11,6 @@
   --card:#1e293b;
   --accent:#42f8f5;
   --text:#ffffff;
-  --muted:#94a3b8;
 }
 
 body{
@@ -72,7 +71,6 @@ h2{ margin-bottom:16px; }
   margin-top:8px;
 }
 
-/* INPUT */
 input{
   width:100%;
   height:42px;
@@ -83,7 +81,6 @@ input{
   margin-top:12px;
 }
 
-/* CONTROLS */
 .controls{
   display:flex;
   gap:10px;
@@ -100,7 +97,6 @@ button{
   color:#000;
   cursor:pointer;
 }
-button:active{ transform:scale(.98); }
 </style>
 </head>
 
@@ -116,7 +112,6 @@ button:active{ transform:scale(.98); }
 
   <div class="time" id="display">00:00.00</div>
 
-  <!-- TIMER INPUT (seconds) -->
   <input type="number" id="timerInput" placeholder="Timer seconds (optional)" min="1">
 
   <div class="controls">
@@ -126,12 +121,6 @@ button:active{ transform:scale(.98); }
   </div>
 </div>
 
-<!-- 🔔 Bell sound -->
-<audio id="bell">
-  <source src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg" type="audio/ogg">
-  <source src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.mp3" type="audio/mpeg">
-</audio>
-
 <script>
 let startTime = 0;
 let running = false;
@@ -140,12 +129,23 @@ let timerDuration = null;
 
 const display = document.getElementById("display");
 const hand = document.getElementById("secondHand");
-const bell = document.getElementById("bell");
-const timerInput = document.getElementById("timerInput");
+
+/* 🔔 WEB AUDIO BELL (100% RELIABLE) */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playBell(){
-  bell.currentTime = 0;
-  bell.play().catch(()=>{});
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // bell pitch
+  gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 0.4); // bell duration
 }
 
 function update(){
@@ -171,7 +171,6 @@ function update(){
   display.textContent =
     `${String(minutes).padStart(2,"0")}:${seconds.toFixed(2).padStart(5,"0")}`;
 
-  /* 🔄 Smooth moving seconds */
   const angle = (seconds / 60) * 360;
   hand.style.transform = `rotate(${angle}deg)`;
 
@@ -181,13 +180,18 @@ function update(){
 function start(){
   if(running) return;
 
-  const inputSeconds = parseFloat(timerInput.value);
-  timerDuration = !isNaN(inputSeconds) && inputSeconds > 0
+  const inputSeconds = parseFloat(document.getElementById("timerInput").value);
+  timerDuration = (!isNaN(inputSeconds) && inputSeconds > 0)
     ? inputSeconds * 1000
     : null;
 
   startTime = performance.now();
   running = true;
+
+  if(audioCtx.state === "suspended"){
+    audioCtx.resume(); // required on mobile
+  }
+
   update();
 }
 
@@ -203,7 +207,7 @@ function reset(){
   cancelAnimationFrame(rafId);
   display.textContent = "00:00.00";
   hand.style.transform = "rotate(0deg)";
-  timerInput.value = "";
+  document.getElementById("timerInput").value = "";
 }
 </script>
 
