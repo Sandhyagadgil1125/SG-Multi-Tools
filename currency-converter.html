@@ -27,7 +27,6 @@ body{
   color:var(--text);
 }
 
-/* TOOL CARD */
 .tool-wrapper{
   position:relative;
   max-width:520px;
@@ -39,7 +38,6 @@ body{
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE */
 .close-btn{
   position:absolute;
   top:12px;
@@ -50,13 +48,11 @@ body{
 }
 .close-btn:hover{ color:var(--accent); }
 
-/* TITLE */
 h2{
   text-align:center;
   margin-bottom:18px;
 }
 
-/* FLEXBOX */
 .flexbox{
   background:var(--flex);
   padding:14px 16px;
@@ -65,7 +61,6 @@ h2{
   margin-bottom:14px;
 }
 
-/* INPUTS */
 input, select{
   width:100%;
   padding:12px;
@@ -76,7 +71,6 @@ input, select{
   font-size:15px;
 }
 
-/* BUTTON */
 button{
   width:100%;
   height:44px;
@@ -90,13 +84,11 @@ button{
 }
 button:hover{ opacity:.9; }
 
-/* RESULT */
 .result{
   text-align:center;
   font-size:16px;
 }
 
-/* INFO */
 .info{
   text-align:center;
   font-size:14px;
@@ -113,7 +105,7 @@ button:hover{ opacity:.9; }
   <h2>Currency Converter</h2>
 
   <div class="flexbox">
-    <input type="number" id="amount" placeholder="Enter amount" value="1">
+    <input type="number" id="amount" placeholder="Enter amount" value="1" min="0">
   </div>
 
   <div class="flexbox">
@@ -129,11 +121,11 @@ button:hover{ opacity:.9; }
   </div>
 
   <div class="flexbox result" id="result">
-    Converted amount will appear here
+    Loading exchange rates...
   </div>
 
   <div class="info">
-    Conversion rates fetched from a free API
+    Live rates provided by European Central Bank (free API)
   </div>
 </div>
 
@@ -144,7 +136,7 @@ const resultDiv = document.getElementById("result");
 
 let rates = {};
 
-// List of common currencies
+// Supported currencies
 const currencyList = ["USD","EUR","INR","GBP","JPY","AUD","CAD","CHF","CNY","SGD"];
 
 currencyList.forEach(cur=>{
@@ -155,15 +147,19 @@ currencyList.forEach(cur=>{
 fromSelect.value = "USD";
 toSelect.value = "INR";
 
-// Fetch latest rates
+// Fetch exchange rates (FREE + STABLE)
 async function fetchRates(){
   try{
-    const res = await fetch('https://api.exchangerate.host/latest?base=USD');
+    const res = await fetch("https://api.frankfurter.app/latest?from=USD");
     const data = await res.json();
+
     rates = data.rates;
-  }catch(e){
-    alert("Failed to fetch currency rates");
-    console.error(e);
+    rates["USD"] = 1;
+
+    resultDiv.innerHTML = "Rates loaded. Ready to convert.";
+  }catch(error){
+    resultDiv.innerHTML = "Unable to load exchange rates.";
+    console.error(error);
   }
 }
 
@@ -172,22 +168,27 @@ async function convertCurrency(){
   const from = fromSelect.value;
   const to = toSelect.value;
 
-  if(isNaN(amount)){
+  if(isNaN(amount) || amount < 0){
     alert("Please enter a valid amount");
     return;
   }
 
-  // If rates not loaded, fetch first
-  if(!rates[from] || !rates[to]){
+  if(Object.keys(rates).length === 0){
     await fetchRates();
   }
 
-  const usdAmount = amount / rates[from]; // Convert to USD first
+  if(from === to){
+    resultDiv.innerHTML = `<b>${amount.toFixed(4)}</b> ${to}`;
+    return;
+  }
+
+  const usdAmount = amount / rates[from];
   const converted = usdAmount * rates[to];
 
   resultDiv.innerHTML = `<b>${converted.toFixed(4)}</b> ${to}`;
 }
 
+// Initial load
 fetchRates();
 </script>
 
