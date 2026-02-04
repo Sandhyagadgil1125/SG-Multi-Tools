@@ -153,6 +153,11 @@ function loadNotes(){
   notesDiv.innerHTML = "";
   const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
 
+  if(notes.length === 0){
+    notesDiv.innerHTML = "<div class='info'>No notes found</div>";
+    return;
+  }
+
   notes.forEach((note, index) => {
     const div = document.createElement("div");
     div.className = "note";
@@ -163,6 +168,7 @@ function loadNotes(){
     notesDiv.appendChild(div);
   });
 }
+
 
 function saveNote(){
   const text = noteInput.value.trim();
