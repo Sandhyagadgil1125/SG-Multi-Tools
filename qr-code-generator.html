@@ -7,13 +7,13 @@
 
 <style>
 /* ================================
-   GLOBAL RESET
+   RESET
 ================================ */
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
 }
 
 body{
@@ -22,17 +22,33 @@ body{
 }
 
 /* ================================
-   TOOL WRAPPER
+   FORCE TOOL CARD BORDER
+   (works even in modal/iframe)
 ================================ */
 .tool-wrapper{
   max-width:420px;
   margin:auto;
-  background:#fff;
-  border:1px solid #e0e0e0;
-  border-radius:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.06);
+  background:#ffffff;
   padding:20px;
+  border-radius:14px;
+
+  /* PRIMARY BORDER */
+  outline:1px solid #dcdcdc;
+
+  /* SECONDARY SAFETY */
+  box-shadow:0 0 0 1px #dcdcdc, 0 10px 25px rgba(0,0,0,0.08);
+
   position:relative;
+}
+
+/* Ultra-safe fallback */
+.tool-wrapper::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid #dcdcdc;
+  border-radius:14px;
+  pointer-events:none;
 }
 
 /* ================================
@@ -52,11 +68,11 @@ body{
 }
 
 .close-btn{
-  font-size:20px;
-  cursor:pointer;
-  color:#555;
   border:none;
   background:none;
+  font-size:20px;
+  cursor:pointer;
+  color:#666;
 }
 
 .close-btn:hover{
@@ -64,7 +80,7 @@ body{
 }
 
 /* ================================
-   INPUT AREA
+   INPUT
 ================================ */
 label{
   font-size:14px;
@@ -76,22 +92,22 @@ label{
 textarea{
   width:100%;
   min-height:80px;
-  resize:none;
   padding:10px;
   border-radius:8px;
   border:1px solid #ccc;
-  outline:none;
   font-size:14px;
+  resize:none;
 }
 
 textarea:focus{
   border-color:#4f46e5;
+  outline:none;
 }
 
 /* ================================
    BUTTON
 ================================ */
-button.generate-btn{
+.generate-btn{
   width:100%;
   margin-top:15px;
   padding:12px;
@@ -100,11 +116,10 @@ button.generate-btn{
   background:#4f46e5;
   color:#fff;
   font-size:15px;
-  font-weight:500;
   cursor:pointer;
 }
 
-button.generate-btn:hover{
+.generate-btn:hover{
   background:#4338ca;
 }
 
@@ -120,33 +135,21 @@ button.generate-btn:hover{
 .qr-output img{
   margin-top:10px;
   padding:10px;
-  border:1px solid #e0e0e0;
+  background:#fff;
+  outline:1px solid #dcdcdc;
   border-radius:10px;
 }
 
-/* ================================
-   DOWNLOAD LINK
-================================ */
 .download-link{
   display:inline-block;
   margin-top:10px;
-  text-decoration:none;
-  font-size:14px;
   color:#4f46e5;
+  text-decoration:none;
   font-weight:500;
 }
 
 .download-link:hover{
   text-decoration:underline;
-}
-
-/* ================================
-   RESPONSIVE
-================================ */
-@media(max-width:480px){
-  .tool-wrapper{
-    padding:16px;
-  }
 }
 </style>
 </head>
@@ -154,51 +157,11 @@ button.generate-btn:hover{
 <body>
 
 <div class="tool-wrapper">
-  
+
   <div class="tool-header">
     <h1>QR Code Generator</h1>
     <button class="close-btn" onclick="closeTool()">✕</button>
   </div>
 
   <label for="qrText">Enter text or URL</label>
-  <textarea id="qrText" placeholder="https://sgtools.in"></textarea>
-
-  <button class="generate-btn" onclick="generateQR()">Generate QR Code</button>
-
-  <div class="qr-output" id="qrOutput">
-    <img id="qrImage" alt="QR Code">
-    <br>
-    <a id="downloadLink" class="download-link" download="qr-code.png">
-      Download QR Code
-    </a>
-  </div>
-
-</div>
-
-<script>
-function generateQR(){
-  const text = document.getElementById("qrText").value.trim();
-  const output = document.getElementById("qrOutput");
-  const img = document.getElementById("qrImage");
-  const download = document.getElementById("downloadLink");
-
-  if(text === ""){
-    alert("Please enter text or URL");
-    return;
-  }
-
-  const qrURL = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" 
-                + encodeURIComponent(text);
-
-  img.src = qrURL;
-  download.href = qrURL;
-  output.style.display = "block";
-}
-
-function closeTool(){
-  window.location.href = "/";
-}
-</script>
-
-</body>
-</html>
+  <textarea id="qrText" placeho
