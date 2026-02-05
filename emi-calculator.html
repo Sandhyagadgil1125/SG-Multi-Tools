@@ -17,12 +17,12 @@
 
 *{
   box-sizing:border-box;
-  font-family:system-ui, Arial, sans-serif;
+  font-family:Arial, sans-serif;
 }
 
 body{
   margin:0;
-  padding:12px;
+  padding:10px;
   background:var(--bg);
   color:var(--text);
 }
@@ -39,7 +39,7 @@ body{
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE */
+/* CLOSE BUTTON */
 .close-btn{
   position:absolute;
   top:12px;
@@ -56,7 +56,7 @@ h2{
   margin-bottom:18px;
 }
 
-/* FLEXBOX */
+/* FLEX BOX */
 .flexbox{
   background:var(--flex);
   padding:14px 16px;
@@ -66,6 +66,13 @@ h2{
 }
 
 /* INPUTS */
+label{
+  font-size:14px;
+  color:var(--muted);
+  display:block;
+  margin-bottom:6px;
+}
+
 input{
   width:100%;
   padding:12px;
@@ -74,14 +81,13 @@ input{
   background:#020617;
   color:#fff;
   font-size:15px;
-  margin-top:6px;
+  margin-bottom:14px;
 }
 
 /* BUTTON */
 button{
   width:100%;
   padding:12px;
-  margin-top:10px;
   border-radius:10px;
   border:none;
   background:var(--accent);
@@ -94,44 +100,42 @@ button:hover{ opacity:.9; }
 
 /* RESULT */
 .result{
+  text-align:center;
+  font-size:18px;
   margin-top:10px;
-  line-height:1.6;
-  font-size:15px;
 }
 
 /* CTA BLOCK */
-.cta-box{
+.finance-cta{
   margin-top:18px;
   padding:16px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#020617,#111827);
-  border:1px solid var(--accent);
+  border-radius:12px;
+  background:#020617;
+  border:2px solid var(--accent);
   text-align:center;
 }
 
-.cta-box h3{
-  margin:0 0 6px;
+.finance-cta h3{
+  margin:0 0 8px;
   font-size:16px;
   color:var(--accent);
 }
 
-.cta-box p{
+.finance-cta p{
   font-size:14px;
-  color:var(--muted);
   margin-bottom:12px;
 }
 
-.cta-box a{
+.cta-btn{
   display:inline-block;
   padding:10px 18px;
-  border-radius:999px;
+  border-radius:8px;
   background:var(--accent);
   color:#000;
+  font-weight:bold;
   text-decoration:none;
-  font-weight:600;
-  font-size:14px;
 }
-.cta-box a:hover{ opacity:.9; }
+.cta-btn:hover{ opacity:.9; }
 </style>
 </head>
 
@@ -143,53 +147,47 @@ button:hover{ opacity:.9; }
   <h2>EMI Calculator</h2>
 
   <div class="flexbox">
-    <label>Loan Amount (₹)</label>
-    <input type="number" id="loan" placeholder="e.g. 500000">
-  </div>
-
-  <div class="flexbox">
-    <label>Interest Rate (% per annum)</label>
-    <input type="number" id="rate" placeholder="e.g. 10">
-  </div>
-
-  <div class="flexbox">
+    <label>Loan Amount</label>
+    <input type="number" id="amount" placeholder="Enter loan amount">
+    
+    <label>Annual Interest Rate (%)</label>
+    <input type="number" id="rate" placeholder="Enter interest rate">
+    
     <label>Loan Tenure (Years)</label>
-    <input type="number" id="years" placeholder="e.g. 5">
+    <input type="number" id="tenure" placeholder="Enter tenure in years">
+
+    <button onclick="calculateEMI()">Calculate EMI</button>
+
+    <div class="result" id="result"></div>
   </div>
 
-  <button onclick="calculateEMI()">Calculate EMI</button>
-
-  <div class="flexbox result" id="result"></div>
-
-  <!-- CTA BLOCK -->
-  <div class="cta-box">
-    <h3>Struggling to manage EMIs?</h3>
-    <p>Track loans, expenses & savings automatically using a ready-made budget system.</p>
-    <a href="landing-budget.html">Get Budget Planner</a>
+  <!-- CTA -->
+  <div class="finance-cta">
+    <h3>Planning loans & investments together?</h3>
+    <p>
+      Learn how EMI decisions impact long-term investing and cashflow.
+    </p>
+    <a href="/landing-investing-cashflow.html" class="cta-btn">
+      Learn Investing & Cashflow
+    </a>
   </div>
 
 </div>
 
 <script>
 function calculateEMI(){
-  const P = parseFloat(document.getElementById("loan").value);
-  const r = parseFloat(document.getElementById("rate").value) / 12 / 100;
-  const n = parseFloat(document.getElementById("years").value) * 12;
+  const P = parseFloat(document.getElementById("amount").value);
+  const R = parseFloat(document.getElementById("rate").value) / 12 / 100;
+  const N = parseFloat(document.getElementById("tenure").value) * 12;
 
-  if(!P || !r || !n){
-    document.getElementById("result").innerHTML = "Please enter valid values.";
+  if(!P || !R || !N){
+    document.getElementById("result").innerHTML = "Please fill all fields";
     return;
   }
 
-  const emi = P * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
-  const total = emi * n;
-  const interest = total - P;
-
-  document.getElementById("result").innerHTML = `
-    Monthly EMI: ₹${emi.toFixed(2)}<br>
-    Total Interest: ₹${interest.toFixed(2)}<br>
-    Total Payment: ₹${total.toFixed(2)}
-  `;
+  const EMI = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+  document.getElementById("result").innerHTML =
+    "Monthly EMI: <strong>₹" + EMI.toFixed(2) + "</strong>";
 }
 </script>
 
