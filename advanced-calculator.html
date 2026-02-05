@@ -42,30 +42,26 @@ body{
 /* CLOSE */
 .close-btn{
   position:absolute;
-  top:10px;
-  right:12px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:18px;
-  font-weight:bold;
+  top:12px;
+  right:14px;
+  font-size:22px;
+  color:var(--muted);
   cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
-.close-btn:hover{
-  background:var(--accent);
-  color:#000;
-}
+.close-btn:hover{ color:var(--accent); }
 
 /* TITLE */
 h2{
   text-align:center;
-  margin-bottom:18px;
+  margin-bottom:8px;
+}
+
+/* AFFILIATE DISCLAIMER */
+.affiliate-disclaimer{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+  margin-bottom:14px;
 }
 
 /* FLEXBOX */
@@ -155,9 +151,16 @@ h2{
 <body>
 
 <div class="tool-wrapper">
-  <button class="close-btn" onclick="history.back()">✕</button>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <h2>Advanced Calculator</h2>
+
+  <!-- Affiliate Disclosure -->
+  <p class="affiliate-disclaimer">
+    Disclosure: SG Multi Tools may contain affiliate links.
+    If you click and purchase, we may earn a commission
+    at no additional cost to you.
+  </p>
 
   <div class="flexbox">
     <input type="text" id="display" readonly>
@@ -198,10 +201,7 @@ h2{
     <p>
       Learn how to apply numbers to real investing and cashflow decisions.
     </p>
-    <a href="landing-investing-cashflow.html"
-       class="cta-btn"
-       target="_blank"
-       rel="noopener">
+    <a href="/landing-investing-cashflow.html" class="cta-btn">
       Learn Investing & Cashflow
     </a>
   </div>
