@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Calculator | SG Multi Tools</title>
+<title>SIP Calculator | SG Multi Tools</title>
 
 <style>
 :root{
@@ -33,7 +33,7 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:24px;
+  padding:28px 24px 26px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
@@ -42,13 +42,25 @@ body{
 /* CLOSE */
 .close-btn{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
+  top:10px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:18px;
+  font-weight:bold;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.close-btn:hover{ color:var(--accent); }
+.close-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
 
 /* TITLE */
 h2{
@@ -63,48 +75,52 @@ h2{
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* DISPLAY */
-#display{
-  width:100%;
-  padding:14px;
+.flexbox label{
+  flex:1;
+  min-width:140px;
+  font-size:14px;
+}
+
+.flexbox input{
+  flex:1;
+  padding:10px;
   border-radius:8px;
   border:none;
   background:#020617;
   color:#fff;
-  font-size:18px;
-  text-align:right;
+  font-size:14px;
 }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-/* BUTTONS */
-.calc-btn{
+/* BUTTON */
+button{
+  width:100%;
   height:44px;
   border-radius:10px;
   border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-  cursor:pointer;
-}
-.calc-btn:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-.equal{
   background:var(--accent);
   color:#000;
   font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
 }
-.equal:hover{ opacity:.9; }
+button:hover{ opacity:.9; }
+
+/* RESULT */
+.result{
+  background:#020617;
+  border:1px dashed var(--accent);
+  border-radius:10px;
+  padding:14px;
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  min-height:40px;
+}
 
 /* CTA BLOCK */
 .finance-cta{
@@ -143,50 +159,43 @@ h2{
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <button class="close-btn" onclick="history.back()">✕</button>
 
-  <h2>Advanced Calculator</h2>
+  <h2>SIP Calculator</h2>
 
   <div class="flexbox">
-    <input type="text" id="display" readonly>
+    <label>Monthly Investment (₹)</label>
+    <input type="number" id="sipAmount" placeholder="e.g. 5000">
   </div>
 
   <div class="flexbox">
-    <div class="grid">
-      <button class="calc-btn" onclick="clearDisplay()">C</button>
-      <button class="calc-btn" onclick="append('%')">%</button>
-      <button class="calc-btn" onclick="append('**')">xʸ</button>
-      <button class="calc-btn" onclick="append('/')">÷</button>
+    <label>Annual Rate of Return (%)</label>
+    <input type="number" id="rate" placeholder="e.g. 12">
+  </div>
 
-      <button class="calc-btn" onclick="append('7')">7</button>
-      <button class="calc-btn" onclick="append('8')">8</button>
-      <button class="calc-btn" onclick="append('9')">9</button>
-      <button class="calc-btn" onclick="append('*')">×</button>
+  <div class="flexbox">
+    <label>Investment Period (Years)</label>
+    <input type="number" id="years" placeholder="e.g. 10">
+  </div>
 
-      <button class="calc-btn" onclick="append('4')">4</button>
-      <button class="calc-btn" onclick="append('5')">5</button>
-      <button class="calc-btn" onclick="append('6')">6</button>
-      <button class="calc-btn" onclick="append('-')">−</button>
+  <div class="flexbox">
+    <button onclick="calculateSIP()">Calculate</button>
+  </div>
 
-      <button class="calc-btn" onclick="append('1')">1</button>
-      <button class="calc-btn" onclick="append('2')">2</button>
-      <button class="calc-btn" onclick="append('3')">3</button>
-      <button class="calc-btn" onclick="append('+')">+</button>
-
-      <button class="calc-btn" onclick="append('0')">0</button>
-      <button class="calc-btn" onclick="append('.')">.</button>
-      <button class="calc-btn" onclick="sqrt()">√</button>
-      <button class="calc-btn equal" onclick="calculate()">=</button>
-    </div>
+  <div class="flexbox result" id="result">
+    Your investment result will appear here
   </div>
 
   <!-- CTA -->
   <div class="finance-cta">
-    <h3>Using calculations for financial planning?</h3>
+    <h3>Planning long-term investments?</h3>
     <p>
-      Learn how to apply numbers to real investing and cashflow decisions.
+      Learn how SIPs, investing strategies & cashflow systems actually work.
     </p>
-    <a href="/landing-investing-cashflow.html" class="cta-btn">
+    <a href="landing-investing-cashflow.html"
+       class="cta-btn"
+       target="_blank"
+       rel="noopener">
       Learn Investing & Cashflow
     </a>
   </div>
@@ -194,27 +203,24 @@ h2{
 </div>
 
 <script>
-const display = document.getElementById("display");
+function calculateSIP(){
+  const P = parseFloat(document.getElementById("sipAmount").value);
+  const r = parseFloat(document.getElementById("rate").value) / 100 / 12;
+  const n = parseFloat(document.getElementById("years").value) * 12;
+  const resultDiv = document.getElementById("result");
 
-function append(val){
-  display.value += val;
-}
-
-function clearDisplay(){
-  display.value = "";
-}
-
-function calculate(){
-  try{
-    display.value = eval(display.value);
-  }catch{
-    alert("Invalid expression");
+  if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
+    resultDiv.innerText = "Please enter valid positive numbers";
+    return;
   }
-}
 
-function sqrt(){
-  if(!display.value) return;
-  display.value = Math.sqrt(eval(display.value));
+  const fv = P * (Math.pow(1 + r, n) - 1) / r * (1 + r);
+
+  resultDiv.innerHTML = `
+    Total Investment: ₹${(P*n).toLocaleString()} <br>
+    Estimated Returns: ₹${(fv - P*n).toLocaleString()} <br>
+    Total Value: ₹${fv.toLocaleString()}
+  `;
 }
 </script>
 
