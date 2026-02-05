@@ -13,7 +13,6 @@
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
-  --radius:14px;
 }
 
 *{
@@ -34,35 +33,22 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:28px 24px 26px;
+  padding:24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE BUTTON */
+/* CLOSE */
 .close-btn{
   position:absolute;
-  top:10px;
-  right:12px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:18px;
-  font-weight:bold;
+  top:12px;
+  right:14px;
+  font-size:22px;
+  color:var(--muted);
   cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
-
-.close-btn:hover{
-  background:var(--accent);
-  color:#000;
-}
+.close-btn:hover{ color:var(--accent); }
 
 /* TITLE */
 h2{
@@ -77,125 +63,98 @@ h2{
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
 }
 
-.flexbox label{
-  flex:1;
-  min-width:120px;
-  font-size:14px;
-}
-
-.flexbox input{
-  flex:1;
-  padding:10px;
+/* INPUTS */
+input{
+  width:100%;
+  padding:12px;
   border-radius:8px;
   border:none;
   background:#020617;
   color:#fff;
-  font-size:14px;
+  font-size:16px;
+  margin-bottom:10px;
 }
 
 /* BUTTON */
 button{
   width:100%;
-  height:44px;
+  padding:12px;
   border-radius:10px;
   border:none;
   background:var(--accent);
   color:#000;
-  font-weight:bold;
   font-size:16px;
+  font-weight:bold;
   cursor:pointer;
 }
-
-button:hover{
-  opacity:.9;
-}
+button:hover{ opacity:.9; }
 
 /* RESULT */
-.result{
-  background:#020617;
-  border:1px dashed var(--accent);
-  border-radius:10px;
-  padding:14px;
+#result{
+  margin-top:10px;
+  font-size:15px;
   text-align:center;
-  font-size:16px;
-  font-weight:600;
-  min-height:40px;
 }
 
 /* CTA BLOCK */
-.cta-box{
-  margin-top:18px;
-  background:linear-gradient(135deg,#020617,#0f172a);
-  border:1px solid var(--accent);
-  border-radius:14px;
+.finance-cta{
+  margin-top:16px;
   padding:16px;
+  border-radius:12px;
+  background:#020617;
+  border:2px solid var(--accent);
   text-align:center;
 }
 
-.cta-box h3{
+.finance-cta h3{
   margin:0 0 8px;
   font-size:16px;
   color:var(--accent);
 }
 
-.cta-box p{
-  margin:0 0 12px;
+.finance-cta p{
   font-size:14px;
-  color:var(--muted);
+  margin-bottom:12px;
 }
 
-.cta-box a{
+.cta-btn{
   display:inline-block;
-  padding:10px 16px;
+  padding:10px 18px;
+  border-radius:8px;
   background:var(--accent);
   color:#000;
   font-weight:bold;
-  border-radius:10px;
   text-decoration:none;
-  font-size:14px;
 }
-
-.cta-box a:hover{
-  opacity:.9;
-}
+.cta-btn:hover{ opacity:.9; }
 </style>
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <button class="close-btn" onclick="history.back()">✕</button>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <h2>Percentage Calculator</h2>
 
   <div class="flexbox">
-    <label>Value</label>
-    <input type="number" id="value" placeholder="e.g. 500">
-  </div>
-
-  <div class="flexbox">
-    <label>Percentage (%)</label>
-    <input type="number" id="percent" placeholder="e.g. 20">
-  </div>
-
-  <div class="flexbox">
+    <input type="number" id="value" placeholder="Enter value">
+    <input type="number" id="percent" placeholder="Enter percentage">
     <button onclick="calculatePercentage()">Calculate</button>
+    <div id="result"></div>
   </div>
 
-  <div class="flexbox result" id="result">
-    Result will appear here
-  </div>
-
-  <!-- CTA BLOCK -->
-  <div class="cta-box">
-    <h3>Want to Use Percentages Smarter?</h3>
-    <p>Learn investing, cashflow systems & money management used by successful investors.</p>
-    <a href="landing-investing-cashflow.html">Explore Smart Investing Guides</a>
+  <!-- CTA -->
+  <div class="finance-cta">
+    <h3>Numbers are powerful when used right</h3>
+    <p>
+      Learn how percentages impact investing, savings, and cashflow decisions.
+    </p>
+    <a href="/landing-investing-cashflow.html" class="cta-btn">
+      Learn Investing & Cashflow
+    </a>
   </div>
 
 </div>
@@ -207,12 +166,12 @@ function calculatePercentage(){
   const resultDiv = document.getElementById("result");
 
   if(isNaN(value) || isNaN(percent)){
-    resultDiv.innerText = "Please enter valid numbers";
+    resultDiv.innerHTML = "Please enter valid numbers";
     return;
   }
 
   const result = (value * percent) / 100;
-  resultDiv.innerHTML = `${percent}% of ${value} = <br> <strong>${result}</strong>`;
+  resultDiv.innerHTML = `${percent}% of ${value} = <strong>${result}</strong>`;
 }
 </script>
 
