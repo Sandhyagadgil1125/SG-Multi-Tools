@@ -9,7 +9,6 @@
 :root{
   --bg:#0f172a;
   --card:#1e293b;
-  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
@@ -33,7 +32,7 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:24px;
+  padding:28px 24px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
@@ -42,65 +41,88 @@ body{
 /* CLOSE */
 .close-btn{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
+  top:10px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:18px;
+  font-weight:bold;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.close-btn:hover{ color:var(--accent); }
+.close-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
 
 /* TITLE */
 h2{
   text-align:center;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 /* FLEXBOX */
 .flexbox{
-  background:var(--flex);
-  padding:14px 16px;
+  background:#020617;
+  padding:12px 14px;
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* INPUTS */
-input{
-  width:100%;
-  padding:12px;
+.flexbox label{
+  flex:1;
+  font-size:14px;
+}
+
+.flexbox input{
+  flex:1;
+  padding:10px;
   border-radius:8px;
   border:none;
   background:#020617;
   color:#fff;
-  font-size:16px;
-  margin-bottom:10px;
+  font-size:14px;
 }
 
 /* BUTTON */
 button{
   width:100%;
-  padding:12px;
+  height:44px;
   border-radius:10px;
   border:none;
   background:var(--accent);
   color:#000;
-  font-size:16px;
   font-weight:bold;
+  font-size:16px;
   cursor:pointer;
 }
 button:hover{ opacity:.9; }
 
 /* RESULT */
-#result{
-  margin-top:10px;
-  font-size:15px;
+.result{
+  background:#020617;
+  border:1px dashed var(--accent);
+  border-radius:10px;
+  padding:14px;
   text-align:center;
+  font-size:15px;
+  font-weight:600;
+  min-height:40px;
 }
 
 /* CTA BLOCK */
-.finance-cta{
-  margin-top:16px;
+.budget-cta{
+  margin-top:18px;
   padding:16px;
   border-radius:12px;
   background:#020617;
@@ -108,15 +130,16 @@ button:hover{ opacity:.9; }
   text-align:center;
 }
 
-.finance-cta h3{
+.budget-cta h3{
   margin:0 0 8px;
   font-size:16px;
   color:var(--accent);
 }
 
-.finance-cta p{
+.budget-cta p{
   font-size:14px;
   margin-bottom:12px;
+  color:var(--text);
 }
 
 .cta-btn{
@@ -135,25 +158,39 @@ button:hover{ opacity:.9; }
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <button class="close-btn" onclick="location.href='index.html'">✕</button>
 
   <h2>Percentage Calculator</h2>
 
   <div class="flexbox">
-    <input type="number" id="value" placeholder="Enter value">
-    <input type="number" id="percent" placeholder="Enter percentage">
+    <label>Value</label>
+    <input type="number" id="value" placeholder="e.g. 200">
+  </div>
+
+  <div class="flexbox">
+    <label>Percentage (%)</label>
+    <input type="number" id="percent" placeholder="e.g. 15">
+  </div>
+
+  <div class="flexbox">
     <button onclick="calculatePercentage()">Calculate</button>
-    <div id="result"></div>
+  </div>
+
+  <div class="flexbox result" id="result">
+    Result will appear here
   </div>
 
   <!-- CTA -->
-  <div class="finance-cta">
-    <h3>Numbers are powerful when used right</h3>
+  <div class="budget-cta">
+    <h3>Percentages affecting your budget?</h3>
     <p>
-      Learn how percentages impact investing, savings, and cashflow decisions.
+      Track expenses, savings, and EMIs clearly with a simple personal budgeting system.
     </p>
-    <a href="/landing-investing-cashflow.html" class="cta-btn">
-      Learn Investing & Cashflow
+    <a href="landing-personal-budget.html"
+       class="cta-btn"
+       target="_blank"
+       rel="nofollow sponsored">
+      Get Personal Budget Template
     </a>
   </div>
 
@@ -163,15 +200,15 @@ button:hover{ opacity:.9; }
 function calculatePercentage(){
   const value = parseFloat(document.getElementById("value").value);
   const percent = parseFloat(document.getElementById("percent").value);
-  const resultDiv = document.getElementById("result");
+  const result = document.getElementById("result");
 
   if(isNaN(value) || isNaN(percent)){
-    resultDiv.innerHTML = "Please enter valid numbers";
+    result.innerText = "Please enter valid numbers";
     return;
   }
 
-  const result = (value * percent) / 100;
-  resultDiv.innerHTML = `${percent}% of ${value} = <strong>${result}</strong>`;
+  const res = (value * percent) / 100;
+  result.innerHTML = `${percent}% of ${value} = <strong>${res}</strong>`;
 }
 </script>
 
