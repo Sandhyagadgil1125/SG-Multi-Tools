@@ -32,7 +32,7 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:28px 24px 24px;
+  padding:26px 24px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
@@ -41,30 +41,27 @@ body{
 /* CLOSE */
 .close-btn{
   position:absolute;
-  top:10px;
-  right:12px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:18px;
-  font-weight:bold;
+  top:12px;
+  right:14px;
+  font-size:22px;
+  color:var(--muted);
   cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
-.close-btn:hover{
-  background:var(--accent);
-  color:#000;
-}
+.close-btn:hover{ color:var(--accent); }
 
 /* TITLE */
 h2{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:6px;
+}
+
+/* AFFILIATE DISCLOSURE */
+.affiliate-disclaimer{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+  margin-bottom:14px;
+  line-height:1.4;
 }
 
 /* FLEXBOX */
@@ -81,6 +78,7 @@ h2{
 
 .flexbox label{
   flex:1;
+  min-width:130px;
   font-size:14px;
 }
 
@@ -121,8 +119,8 @@ button:hover{ opacity:.9; }
 }
 
 /* CTA BLOCK */
-.budget-cta{
-  margin-top:18px;
+.finance-cta{
+  margin-top:16px;
   padding:16px;
   border-radius:12px;
   background:#020617;
@@ -130,16 +128,15 @@ button:hover{ opacity:.9; }
   text-align:center;
 }
 
-.budget-cta h3{
+.finance-cta h3{
   margin:0 0 8px;
   font-size:16px;
   color:var(--accent);
 }
 
-.budget-cta p{
+.finance-cta p{
   font-size:14px;
   margin-bottom:12px;
-  color:var(--text);
 }
 
 .cta-btn{
@@ -158,9 +155,16 @@ button:hover{ opacity:.9; }
 <body>
 
 <div class="tool-wrapper">
-  <button class="close-btn" onclick="location.href='index.html'">✕</button>
+  <button class="close-btn" onclick="history.back()">✕</button>
 
   <h2>EMI Calculator</h2>
+
+  <!-- Affiliate Disclosure -->
+  <p class="affiliate-disclaimer">
+    Disclosure: SG Multi Tools may contain affiliate links.
+    If you click and purchase, we may earn a commission
+    at no additional cost to you.
+  </p>
 
   <div class="flexbox">
     <label>Loan Amount (₹)</label>
@@ -168,13 +172,13 @@ button:hover{ opacity:.9; }
   </div>
 
   <div class="flexbox">
-    <label>Interest Rate (% p.a.)</label>
-    <input type="number" id="rate" placeholder="e.g. 9">
+    <label>Annual Interest Rate (%)</label>
+    <input type="number" id="rate" placeholder="e.g. 8.5">
   </div>
 
   <div class="flexbox">
     <label>Loan Tenure (Years)</label>
-    <input type="number" id="years" placeholder="e.g. 10">
+    <input type="number" id="years" placeholder="e.g. 20">
   </div>
 
   <div class="flexbox">
@@ -182,19 +186,16 @@ button:hover{ opacity:.9; }
   </div>
 
   <div class="flexbox result" id="result">
-    Your EMI details will appear here
+    EMI details will appear here
   </div>
 
   <!-- CTA -->
-  <div class="budget-cta">
-    <h3>Struggling to manage EMIs?</h3>
+  <div class="finance-cta">
+    <h3>Managing loans and monthly expenses?</h3>
     <p>
-      Plan your monthly budget smartly and stay debt-free with a ready-to-use budgeting system.
+      Plan EMIs, savings, and expenses using a smart personal budget system.
     </p>
-    <a href="landing-personal-budget.html"
-       class="cta-btn"
-       target="_blank"
-       rel="nofollow sponsored">
+    <a href="/landing-personal-budget.html" class="cta-btn">
       Get Personal Budget Template
     </a>
   </div>
@@ -213,14 +214,14 @@ function calculateEMI(){
     return;
   }
 
-  const emi = P * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+  const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
   const totalPayment = emi * n;
   const interest = totalPayment - P;
 
   result.innerHTML = `
-    Monthly EMI: ₹${emi.toFixed(0)} <br>
-    Total Interest: ₹${interest.toFixed(0)} <br>
-    Total Payment: ₹${totalPayment.toFixed(0)}
+    Monthly EMI: ₹${emi.toFixed(0).toLocaleString()}<br>
+    Total Interest: ₹${interest.toFixed(0).toLocaleString()}<br>
+    Total Payment: ₹${totalPayment.toFixed(0).toLocaleString()}
   `;
 }
 </script>
