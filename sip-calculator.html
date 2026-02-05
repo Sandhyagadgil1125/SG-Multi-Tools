@@ -9,6 +9,7 @@
 :root{
   --bg:#0f172a;
   --card:#1e293b;
+  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
@@ -32,13 +33,13 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:28px 24px 24px;
+  padding:28px 24px 26px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE BUTTON */
+/* CLOSE */
 .close-btn{
   position:absolute;
   top:10px;
@@ -64,13 +65,13 @@ body{
 /* TITLE */
 h2{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 /* FLEXBOX */
 .flexbox{
-  background:var(--bg);
-  padding:12px 14px;
+  background:var(--flex);
+  padding:14px 16px;
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
@@ -123,11 +124,12 @@ button:hover{ opacity:.9; }
 
 /* CTA BLOCK */
 .finance-cta{
-  margin-top:18px;
+  margin-top:16px;
   padding:16px;
   border-radius:12px;
   background:#020617;
   border:2px solid var(--accent);
+  text-align:center;
 }
 
 .finance-cta h3{
@@ -139,7 +141,6 @@ button:hover{ opacity:.9; }
 .finance-cta p{
   font-size:14px;
   margin-bottom:12px;
-  color:var(--text);
 }
 
 .cta-btn{
@@ -184,13 +185,28 @@ button:hover{ opacity:.9; }
   <div class="flexbox result" id="result">
     Your investment result will appear here
   </div>
+
+  <!-- CTA -->
+  <div class="finance-cta">
+    <h3>Planning long-term investments?</h3>
+    <p>
+      Learn how SIPs, investing strategies & cashflow systems actually work.
+    </p>
+    <a href="landing-investing-cashflow.html"
+       class="cta-btn"
+       target="_blank"
+       rel="noopener">
+      Learn Investing & Cashflow
+    </a>
+  </div>
+
 </div>
 
 <script>
 function calculateSIP(){
   const P = parseFloat(document.getElementById("sipAmount").value);
-  const r = parseFloat(document.getElementById("rate").value)/100/12;
-  const n = parseFloat(document.getElementById("years").value)*12;
+  const r = parseFloat(document.getElementById("rate").value) / 100 / 12;
+  const n = parseFloat(document.getElementById("years").value) * 12;
   const resultDiv = document.getElementById("result");
 
   if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
@@ -198,22 +214,12 @@ function calculateSIP(){
     return;
   }
 
-  const fv = P * (Math.pow(1+r, n) - 1) / r * (1+r);
+  const fv = P * (Math.pow(1 + r, n) - 1) / r * (1 + r);
 
   resultDiv.innerHTML = `
     Total Investment: ₹${(P*n).toLocaleString()} <br>
     Estimated Returns: ₹${(fv - P*n).toLocaleString()} <br>
     Total Value: ₹${fv.toLocaleString()}
-
-    <div class="finance-cta">
-      <h3>Want to turn these numbers into real wealth?</h3>
-      <p>
-        Learn smart investing and cashflow strategies based on your SIP goals.
-      </p>
-      <a href="/landing-investing-cashflow.html" class="cta-btn">
-        Learn Investing & Cashflow
-      </a>
-    </div>
   `;
 }
 </script>
