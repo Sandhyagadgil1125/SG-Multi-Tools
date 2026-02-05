@@ -29,10 +29,11 @@ body{
 
 /* TOOL CARD */
 .tool-wrapper{
+  position:relative; /* REQUIRED for X positioning */
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:24px;
+  padding:28px 24px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
@@ -41,13 +42,26 @@ body{
 /* CLOSE BUTTON */
 .close-btn{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
+  top:10px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:18px;
+  font-weight:bold;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.close-btn:hover{ color:var(--accent); }
+
+.close-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
 
 /* TITLE */
 h2{
@@ -95,6 +109,7 @@ button{
   font-size:16px;
   cursor:pointer;
 }
+
 button:hover{
   opacity:.9;
 }
@@ -116,7 +131,8 @@ button:hover{
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <!-- CLOSE X -->
+  <button class="close-btn" onclick="history.back()">✕</button>
 
   <h2>SIP Calculator</h2>
 
@@ -147,8 +163,8 @@ button:hover{
 <script>
 function calculateSIP(){
   const P = parseFloat(document.getElementById("sipAmount").value);
-  const r = parseFloat(document.getElementById("rate").value)/100/12; // monthly rate
-  const n = parseFloat(document.getElementById("years").value)*12; // total months
+  const r = parseFloat(document.getElementById("rate").value)/100/12;
+  const n = parseFloat(document.getElementById("years").value)*12;
   const resultDiv = document.getElementById("result");
 
   if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
@@ -156,7 +172,6 @@ function calculateSIP(){
     return;
   }
 
-  // Future Value of SIP formula: FV = P * [ ( (1+r)^n -1 ) / r ] * (1+r)
   const fv = P * (Math.pow(1+r, n) - 1) / r * (1+r);
 
   resultDiv.innerHTML = `
