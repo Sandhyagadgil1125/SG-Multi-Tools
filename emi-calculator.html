@@ -9,7 +9,6 @@
 :root{
   --bg:#0f172a;
   --card:#1e293b;
-  --flex:#111827;
   --accent:#42f8f5;
   --text:#ffffff;
   --muted:#94a3b8;
@@ -33,80 +32,96 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:24px;
+  padding:28px 24px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE BUTTON */
+/* CLOSE */
 .close-btn{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
+  top:10px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:18px;
+  font-weight:bold;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.close-btn:hover{ color:var(--accent); }
+.close-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
 
 /* TITLE */
 h2{
   text-align:center;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
-/* FLEX BOX */
+/* FLEXBOX */
 .flexbox{
-  background:var(--flex);
-  padding:14px 16px;
+  background:#020617;
+  padding:12px 14px;
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* INPUTS */
-label{
+.flexbox label{
+  flex:1;
   font-size:14px;
-  color:var(--muted);
-  display:block;
-  margin-bottom:6px;
 }
 
-input{
-  width:100%;
-  padding:12px;
+.flexbox input{
+  flex:1;
+  padding:10px;
   border-radius:8px;
   border:none;
   background:#020617;
   color:#fff;
-  font-size:15px;
-  margin-bottom:14px;
+  font-size:14px;
 }
 
 /* BUTTON */
 button{
   width:100%;
-  padding:12px;
+  height:44px;
   border-radius:10px;
   border:none;
   background:var(--accent);
   color:#000;
-  font-size:16px;
   font-weight:bold;
+  font-size:16px;
   cursor:pointer;
 }
 button:hover{ opacity:.9; }
 
 /* RESULT */
 .result{
+  background:#020617;
+  border:1px dashed var(--accent);
+  border-radius:10px;
+  padding:14px;
   text-align:center;
-  font-size:18px;
-  margin-top:10px;
+  font-size:15px;
+  font-weight:600;
+  min-height:40px;
 }
 
 /* CTA BLOCK */
-.finance-cta{
+.budget-cta{
   margin-top:18px;
   padding:16px;
   border-radius:12px;
@@ -115,15 +130,16 @@ button:hover{ opacity:.9; }
   text-align:center;
 }
 
-.finance-cta h3{
+.budget-cta h3{
   margin:0 0 8px;
   font-size:16px;
   color:var(--accent);
 }
 
-.finance-cta p{
+.budget-cta p{
   font-size:14px;
   margin-bottom:12px;
+  color:var(--text);
 }
 
 .cta-btn{
@@ -142,33 +158,44 @@ button:hover{ opacity:.9; }
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <button class="close-btn" onclick="location.href='index.html'">✕</button>
 
   <h2>EMI Calculator</h2>
 
   <div class="flexbox">
-    <label>Loan Amount</label>
-    <input type="number" id="amount" placeholder="Enter loan amount">
-    
-    <label>Annual Interest Rate (%)</label>
-    <input type="number" id="rate" placeholder="Enter interest rate">
-    
+    <label>Loan Amount (₹)</label>
+    <input type="number" id="amount" placeholder="e.g. 500000">
+  </div>
+
+  <div class="flexbox">
+    <label>Interest Rate (% p.a.)</label>
+    <input type="number" id="rate" placeholder="e.g. 9">
+  </div>
+
+  <div class="flexbox">
     <label>Loan Tenure (Years)</label>
-    <input type="number" id="tenure" placeholder="Enter tenure in years">
+    <input type="number" id="years" placeholder="e.g. 10">
+  </div>
 
+  <div class="flexbox">
     <button onclick="calculateEMI()">Calculate EMI</button>
+  </div>
 
-    <div class="result" id="result"></div>
+  <div class="flexbox result" id="result">
+    Your EMI details will appear here
   </div>
 
   <!-- CTA -->
-  <div class="finance-cta">
-    <h3>Planning loans & investments together?</h3>
+  <div class="budget-cta">
+    <h3>Struggling to manage EMIs?</h3>
     <p>
-      Learn how EMI decisions impact long-term investing and cashflow.
+      Plan your monthly budget smartly and stay debt-free with a ready-to-use budgeting system.
     </p>
-    <a href="/landing-investing-cashflow.html" class="cta-btn">
-      Learn Investing & Cashflow
+    <a href="landing-personal-budget.html"
+       class="cta-btn"
+       target="_blank"
+       rel="nofollow sponsored">
+      Get Personal Budget Template
     </a>
   </div>
 
@@ -177,17 +204,24 @@ button:hover{ opacity:.9; }
 <script>
 function calculateEMI(){
   const P = parseFloat(document.getElementById("amount").value);
-  const R = parseFloat(document.getElementById("rate").value) / 12 / 100;
-  const N = parseFloat(document.getElementById("tenure").value) * 12;
+  const r = parseFloat(document.getElementById("rate").value) / 100 / 12;
+  const n = parseFloat(document.getElementById("years").value) * 12;
+  const result = document.getElementById("result");
 
-  if(!P || !R || !N){
-    document.getElementById("result").innerHTML = "Please fill all fields";
+  if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
+    result.innerText = "Please enter valid positive numbers";
     return;
   }
 
-  const EMI = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
-  document.getElementById("result").innerHTML =
-    "Monthly EMI: <strong>₹" + EMI.toFixed(2) + "</strong>";
+  const emi = P * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+  const totalPayment = emi * n;
+  const interest = totalPayment - P;
+
+  result.innerHTML = `
+    Monthly EMI: ₹${emi.toFixed(0)} <br>
+    Total Interest: ₹${interest.toFixed(0)} <br>
+    Total Payment: ₹${totalPayment.toFixed(0)}
+  `;
 }
 </script>
 
