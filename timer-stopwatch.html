@@ -21,18 +21,47 @@ body{
   padding:10px;
 }
 
+/* TOOL CARD */
 .tool{
+  position:relative;
   max-width:420px;
   margin:30px auto;
   background:var(--card);
-  padding:24px;
+  padding:28px 24px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
   text-align:center;
 }
 
-h2{ margin-bottom:16px; }
+/* CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.close-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+/* TITLE */
+h2{
+  margin-bottom:16px;
+}
 
 /* CLOCK */
 .clock{
@@ -103,6 +132,9 @@ button{
 <body>
 
 <div class="tool">
+  <!-- CLOSE X -->
+  <button class="close-btn" onclick="closeTool()">✕</button>
+
   <h2>Timer / Stopwatch</h2>
 
   <div class="clock">
@@ -130,22 +162,19 @@ let timerDuration = null;
 const display = document.getElementById("display");
 const hand = document.getElementById("secondHand");
 
-/* 🔔 WEB AUDIO BELL (100% RELIABLE) */
+/* 🔔 WEB AUDIO BELL */
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playBell(){
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
-
   oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // bell pitch
+  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
   gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
-
   oscillator.connect(gainNode);
   gainNode.connect(audioCtx.destination);
-
   oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.4); // bell duration
+  oscillator.stop(audioCtx.currentTime + 0.4);
 }
 
 function update(){
@@ -153,14 +182,13 @@ function update(){
 
   const now = performance.now();
   const elapsed = now - startTime;
-
   let remaining = timerDuration ? timerDuration - elapsed : elapsed;
 
   if(timerDuration && remaining <= 0){
     display.textContent = "00:00.00";
     hand.style.transform = "rotate(0deg)";
     running = false;
-    playBell(); // 🔔 TIMER COMPLETE
+    playBell();
     return;
   }
 
@@ -168,8 +196,7 @@ function update(){
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
 
-  display.textContent =
-    `${String(minutes).padStart(2,"0")}:${seconds.toFixed(2).padStart(5,"0")}`;
+  display.textContent = `${String(minutes).padStart(2,"0")}:${seconds.toFixed(2).padStart(5,"0")}`;
 
   const angle = (seconds / 60) * 360;
   hand.style.transform = `rotate(${angle}deg)`;
@@ -181,15 +208,13 @@ function start(){
   if(running) return;
 
   const inputSeconds = parseFloat(document.getElementById("timerInput").value);
-  timerDuration = (!isNaN(inputSeconds) && inputSeconds > 0)
-    ? inputSeconds * 1000
-    : null;
+  timerDuration = (!isNaN(inputSeconds) && inputSeconds > 0) ? inputSeconds * 1000 : null;
 
   startTime = performance.now();
   running = true;
 
   if(audioCtx.state === "suspended"){
-    audioCtx.resume(); // required on mobile
+    audioCtx.resume();
   }
 
   update();
@@ -199,7 +224,7 @@ function stop(){
   if(!running) return;
   running = false;
   cancelAnimationFrame(rafId);
-  playBell(); // 🔔 STOPWATCH STOP
+  playBell();
 }
 
 function reset(){
@@ -208,6 +233,11 @@ function reset(){
   display.textContent = "00:00.00";
   hand.style.transform = "rotate(0deg)";
   document.getElementById("timerInput").value = "";
+}
+
+/* CLOSE TOOL */
+function closeTool(){
+  history.back(); // matches your other tools behavior
 }
 </script>
 
