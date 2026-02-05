@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIP Calculator | SG Multi Tools</title>
+<title>Advanced Calculator | SG Multi Tools</title>
 
 <style>
 :root{
@@ -33,7 +33,7 @@ body{
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:28px 24px 26px;
+  padding:24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
@@ -75,52 +75,48 @@ h2{
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
 }
 
-.flexbox label{
-  flex:1;
-  min-width:140px;
-  font-size:14px;
-}
-
-.flexbox input{
-  flex:1;
-  padding:10px;
+/* DISPLAY */
+#display{
+  width:100%;
+  padding:14px;
   border-radius:8px;
   border:none;
   background:#020617;
   color:#fff;
-  font-size:14px;
+  font-size:18px;
+  text-align:right;
 }
 
-/* BUTTON */
-button{
-  width:100%;
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+/* BUTTONS */
+.calc-btn{
   height:44px;
   border-radius:10px;
   border:none;
+  background:#020617;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+.calc-btn:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+.equal{
   background:var(--accent);
   color:#000;
   font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
 }
-button:hover{ opacity:.9; }
-
-/* RESULT */
-.result{
-  background:#020617;
-  border:1px dashed var(--accent);
-  border-radius:10px;
-  padding:14px;
-  text-align:center;
-  font-size:16px;
-  font-weight:600;
-  min-height:40px;
-}
+.equal:hover{ opacity:.9; }
 
 /* CTA BLOCK */
 .finance-cta{
@@ -161,36 +157,46 @@ button:hover{ opacity:.9; }
 <div class="tool-wrapper">
   <button class="close-btn" onclick="history.back()">✕</button>
 
-  <h2>SIP Calculator</h2>
+  <h2>Advanced Calculator</h2>
 
   <div class="flexbox">
-    <label>Monthly Investment (₹)</label>
-    <input type="number" id="sipAmount" placeholder="e.g. 5000">
+    <input type="text" id="display" readonly>
   </div>
 
   <div class="flexbox">
-    <label>Annual Rate of Return (%)</label>
-    <input type="number" id="rate" placeholder="e.g. 12">
-  </div>
+    <div class="grid">
+      <button class="calc-btn" onclick="clearDisplay()">C</button>
+      <button class="calc-btn" onclick="append('%')">%</button>
+      <button class="calc-btn" onclick="append('**')">xʸ</button>
+      <button class="calc-btn" onclick="append('/')">÷</button>
 
-  <div class="flexbox">
-    <label>Investment Period (Years)</label>
-    <input type="number" id="years" placeholder="e.g. 10">
-  </div>
+      <button class="calc-btn" onclick="append('7')">7</button>
+      <button class="calc-btn" onclick="append('8')">8</button>
+      <button class="calc-btn" onclick="append('9')">9</button>
+      <button class="calc-btn" onclick="append('*')">×</button>
 
-  <div class="flexbox">
-    <button onclick="calculateSIP()">Calculate</button>
-  </div>
+      <button class="calc-btn" onclick="append('4')">4</button>
+      <button class="calc-btn" onclick="append('5')">5</button>
+      <button class="calc-btn" onclick="append('6')">6</button>
+      <button class="calc-btn" onclick="append('-')">−</button>
 
-  <div class="flexbox result" id="result">
-    Your investment result will appear here
+      <button class="calc-btn" onclick="append('1')">1</button>
+      <button class="calc-btn" onclick="append('2')">2</button>
+      <button class="calc-btn" onclick="append('3')">3</button>
+      <button class="calc-btn" onclick="append('+')">+</button>
+
+      <button class="calc-btn" onclick="append('0')">0</button>
+      <button class="calc-btn" onclick="append('.')">.</button>
+      <button class="calc-btn" onclick="sqrt()">√</button>
+      <button class="calc-btn equal" onclick="calculate()">=</button>
+    </div>
   </div>
 
   <!-- CTA -->
   <div class="finance-cta">
-    <h3>Planning long-term investments?</h3>
+    <h3>Using calculations for financial planning?</h3>
     <p>
-      Learn how SIPs, investing strategies & cashflow systems actually work.
+      Learn how to apply numbers to real investing and cashflow decisions.
     </p>
     <a href="landing-investing-cashflow.html"
        class="cta-btn"
@@ -203,24 +209,27 @@ button:hover{ opacity:.9; }
 </div>
 
 <script>
-function calculateSIP(){
-  const P = parseFloat(document.getElementById("sipAmount").value);
-  const r = parseFloat(document.getElementById("rate").value) / 100 / 12;
-  const n = parseFloat(document.getElementById("years").value) * 12;
-  const resultDiv = document.getElementById("result");
+const display = document.getElementById("display");
 
-  if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
-    resultDiv.innerText = "Please enter valid positive numbers";
-    return;
+function append(val){
+  display.value += val;
+}
+
+function clearDisplay(){
+  display.value = "";
+}
+
+function calculate(){
+  try{
+    display.value = eval(display.value);
+  }catch{
+    alert("Invalid expression");
   }
+}
 
-  const fv = P * (Math.pow(1 + r, n) - 1) / r * (1 + r);
-
-  resultDiv.innerHTML = `
-    Total Investment: ₹${(P*n).toLocaleString()} <br>
-    Estimated Returns: ₹${(fv - P*n).toLocaleString()} <br>
-    Total Value: ₹${fv.toLocaleString()}
-  `;
+function sqrt(){
+  if(!display.value) return;
+  display.value = Math.sqrt(eval(display.value));
 }
 </script>
 
