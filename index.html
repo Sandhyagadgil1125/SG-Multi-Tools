@@ -1,118 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SG Multi Tools | Free Daily Use Online Tools</title>
-  <meta name="description" content="SG Multi Tools provides free online calculators, converters, and daily utility tools for everyday use.">
+<title>SG Multi Tools | Free Daily Use Online Tools</title>
+<meta name="description" content="Free online calculators, converters, and daily utility tools. Fast, simple, and privacy-friendly.">
 
-  <!-- Favicon (fixed & URL-encoded) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%2342f8f5'/%3E%3Ctext x='50' y='58' font-size='40' text-anchor='middle' fill='black' font-family='Arial' font-weight='bold'%3ESG%3C/text%3E%3C/svg%3E">
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%2342f8f5'/%3E%3Ctext x='50' y='58' font-size='40' text-anchor='middle' fill='black' font-family='Arial' font-weight='bold'%3ESG%3C/text%3E%3C/svg%3E">
 
-  <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 
-  <!-- Global Styles -->
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #0f172a;
-      color: #ffffff;
-    }
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --accent:#42f8f5;
+  --text:#ffffff;
+  --muted:#94a3b8;
+}
 
-    header {
-      padding: 20px;
-      background-color: #020617;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+*{ box-sizing:border-box; font-family:system-ui, Arial, sans-serif; }
 
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-      color: #42f8f5;
-    }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    nav a {
-      color: #ffffff;
-      margin-left: 15px;
-      text-decoration: none;
-      font-size: 14px;
-    }
+/* HEADER */
+header{
+  background:#020617;
+  padding:16px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    nav a:hover {
-      color: #42f8f5;
-    }
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+}
 
-    .hero {
-      padding: 60px 20px;
-      text-align: center;
-    }
+.logo span{
+  font-size:20px;
+  font-weight:600;
+  color:var(--accent);
+}
 
-    .hero h2 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
+nav a{
+  color:#fff;
+  margin-left:14px;
+  font-size:14px;
+  text-decoration:none;
+}
+nav a:hover{ color:var(--accent); }
 
-    .hero p {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 16px;
-      opacity: 0.9;
-    }
+/* HERO */
+.hero{
+  text-align:center;
+  padding:60px 20px 40px;
+}
+.hero h2{ font-size:32px; margin-bottom:10px; }
+.hero p{
+  max-width:650px;
+  margin:0 auto;
+  color:var(--muted);
+}
 
-    footer {
-      padding: 20px;
-      text-align: center;
-      font-size: 13px;
-      background-color: #020617;
-      opacity: 0.85;
-    }
+/* TOOLS GRID */
+.tools{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
 
-    footer a {
-      color: #42f8f5;
-      text-decoration: none;
-    }
-  </style>
+.tool-card{
+  background:var(--card);
+  border:1px solid #334155;
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  transition:.25s;
+}
+.tool-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-3px);
+}
+
+.tool-card h3{
+  margin-top:0;
+  font-size:16px;
+}
+
+.tool-card a{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 14px;
+  background:var(--accent);
+  color:#000;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+  background:#020617;
+  padding:18px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+}
+footer a{ color:var(--accent); text-decoration:none; }
+</style>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <h1>SG Multi Tools</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+<header>
+  <a href="index.html" class="logo">
+    <svg width="34" height="34" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="#42f8f5"/>
+      <text x="50" y="58" font-size="40" text-anchor="middle" fill="#000"
+            font-family="Arial" font-weight="bold">SG</text>
+    </svg>
+    <span>SG Multi Tools</span>
+  </a>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h2>Free Online Tools for Daily Use</h2>
-    <p>
-      Calculate, convert, plan, and simplify your everyday tasks using fast,
-      privacy-friendly online tools — no signup required.
-    </p>
-  </section>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Footer -->
-  <footer>
-    <p>
-      © 2026 SG Multi Tools ·
-      <a href="privacy-policy.html">Privacy Policy</a>
-    </p>
-  </footer>
+<section class="hero">
+  <h2>Free Online Tools for Daily Use</h2>
+  <p>Calculators, converters, and utilities to simplify daily tasks — fast, free, and private.</p>
+</section>
+
+<section class="tools">
+
+  <div class="tool-card"><h3>Age Calculator</h3><a href="age-calculator.html">Open</a></div>
+  <div class="tool-card"><h3>EMI Calculator</h3><a href="emi-calculator.html">Open</a></div>
+  <div class="tool-card"><h3>SIP Calculator</h3><a href="sip-calculator.html">Open</a></div>
+  <div class="tool-card"><h3>Advanced Calculator</h3><a href="advanced-calculator.html">Open</a></div>
+  <div class="tool-card"><h3>Percentage Calculator</h3><a href="percentage-calculator.html">Open</a></div>
+  <div class="tool-card"><h3>Unit Converter</h3><a href="unit-converter.html">Open</a></div>
+  <div class="tool-card"><h3>Currency Converter</h3><a href="currency-converter.html">Open</a></div>
+  <div class="tool-card"><h3>Timer & Stopwatch</h3><a href="timer-stopwatch.html">Open</a></div>
+  <div class="tool-card"><h3>QR Code Generator</h3><a href="qr-code-generator.html">Open</a></div>
+  <div class="tool-card"><h3>Word Counter</h3><a href="word-counter.html">Open</a></div>
+
+</section>
+
+<footer>
+  © 2026 SG Multi Tools ·
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
 
 </body>
 </html>
