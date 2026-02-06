@@ -1,148 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Tools | SG Multi Tools</title>
+<meta name="description" content="Browse all free online tools by SG Multi Tools including calculators, converters, and productivity utilities.">
 
-  <title>All Tools | SG Multi Tools</title>
-  <meta name="description" content="Browse all free online tools by SG Multi Tools including calculators, converters, and productivity utilities.">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BT8RQZBBTQ');
+</script>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<!-- Global CSS -->
+<link rel="stylesheet" href="css/style.css">
 
-  <style>
-    :root{
-      --bg:#0f172a;
-      --card:#1e293b;
-      --accent:#42f8f5;
-      --header:#020617;
-      --text:#ffffff;
-      --muted:#94a3b8;
-    }
+<style>
+/* Tools Grid */
+.tools{
+  max-width:1200px;
+  margin:40px auto 60px;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
 
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
+@media(max-width:900px){ .tools{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:480px){ .tools{ grid-template-columns:1fr; } }
 
-    /* HEADER */
-    header{
-      background:var(--header);
-      padding:15px 25px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+/* Tool Card */
+.tool-card{
+  background:#1e293b;
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+  transition:transform .2s, box-shadow .2s;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
 
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+.tool-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 18px rgba(66,248,245,.35);
+}
 
-    .logo-circle{
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      background:var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:bold;
-      color:#000;
-    }
+.tool-card h3{
+  margin:0 0 8px;
+  color:#42f8f5;
+  font-size:16px;
+}
 
-    .logo-title{
-      color:var(--accent);
-      font-size:18px;
-      font-weight:600;
-    }
+.tool-card p{
+  margin:0 0 14px;
+  color:#94a3b8;
+  font-size:13px;
+}
 
-    nav a{
-      color:var(--text);
-      margin-left:18px;
-      text-decoration:none;
-      font-size:14px;
-    }
-
-    nav a:hover{ color:var(--accent); }
-
-    /* PAGE TITLE */
-    .page-title{
-      text-align:center;
-      padding:50px 20px 20px;
-    }
-
-    .page-title h1{
-      color:var(--accent);
-      margin-bottom:10px;
-    }
-
-    .page-title p{
-      color:var(--muted);
-    }
-
-    /* TOOLS GRID */
-    .tools{
-      max-width:1200px;
-      margin:40px auto 60px;
-      padding:0 20px;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-    }
-
-    @media(max-width:900px){
-      .tools{ grid-template-columns:repeat(2,1fr); }
-    }
-
-    @media(max-width:480px){
-      .tools{ grid-template-columns:1fr; }
-    }
-
-    .tool-card{
-      background:var(--card);
-      padding:22px;
-      border-radius:14px;
-      text-align:center;
-      transition:transform .2s, box-shadow .2s;
-    }
-
-    .tool-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 0 18px rgba(66,248,245,.35);
-    }
-
-    .tool-card a{
-      text-decoration:none;
-      color:var(--accent);
-      font-weight:600;
-      font-size:15px;
-    }
-
-    /* FOOTER */
-    footer{
-      background:var(--header);
-      text-align:center;
-      padding:22px;
-      font-size:13px;
-      opacity:.9;
-    }
-
-    footer a{
-      color:var(--accent);
-      text-decoration:none;
-      margin:0 6px;
-    }
-  </style>
+.tool-card a{
+  display:block;
+  text-decoration:none;
+  font-weight:bold;
+  color:#000;
+  background:#42f8f5;
+  padding:10px 0;
+  border-radius:10px;
+  transition:opacity .2s;
+}
+.tool-card a:hover{
+  opacity:.9;
+}
+</style>
 </head>
 
 <body>
@@ -164,49 +96,145 @@
 
 <!-- TITLE -->
 <section class="page-title">
-  <h1>All Free Online Tools</h1>
-  <p>Quick access to all calculators, converters, and daily-use utilities</p>
+  <h1>SG Multi Tools For Daily Use</h1>
+  <p>Free calculators, converters, and utilities to simplify your daily work</p>
 </section>
 
 <!-- TOOLS LIST -->
 <section class="tools">
 
-  <div class="tool-card"><a href="tools/advanced-calculator.html">Advanced Calculator</a></div>
-  <div class="tool-card"><a href="tools/age-calculator.html">Age Calculator</a></div>
-  <div class="tool-card"><a href="tools/case-changer.html">Case Changer</a></div>
-  <div class="tool-card"><a href="tools/color-picker.html">Color Picker</a></div>
+  <!-- Each tool card: Title, description, Open button -->
+  <div class="tool-card">
+    <h3>Advanced Calculator</h3>
+    <p>Perform complex calculations with ease</p>
+    <a href="advanced-calculator.html">Open</a>
+  </div>
 
-  <div class="tool-card"><a href="tools/currency-converter.html">Currency Converter</a></div>
-  <div class="tool-card"><a href="tools/date-difference.html">Date Difference</a></div>
-  <div class="tool-card"><a href="tools/emi-calculator.html">EMI Calculator</a></div>
-  <div class="tool-card"><a href="tools/file-size-converter.html">File Size Converter</a></div>
+  <div class="tool-card">
+    <h3>Age Calculator</h3>
+    <p>Quickly find your age or duration between dates</p>
+    <a href="age-calculator.html">Open</a>
+  </div>
 
-  <div class="tool-card"><a href="tools/image-converter.html">Image Converter</a></div>
-  <div class="tool-card"><a href="tools/notes-text-saver.html">Note Text Saver</a></div>
-  <div class="tool-card"><a href="tools/password-generator.html">Password Generator</a></div>
-  <div class="tool-card"><a href="tools/percentage-calculator.html">Percentage Calculator</a></div>
+  <div class="tool-card">
+    <h3>Case Changer</h3>
+    <p>Convert text between uppercase, lowercase, and more</p>
+    <a href="case-changer.html">Open</a>
+  </div>
 
-  <div class="tool-card"><a href="tools/qr-code-generator.html">QR Code Generator</a></div>
-  <div class="tool-card"><a href="tools/sip-calculator.html">SIP Calculator</a></div>
-  <div class="tool-card"><a href="tools/speech-to-text.html">Speech to Text</a></div>
-  <div class="tool-card"><a href="tools/text-to-speech.html">Text to Speech</a></div>
+  <div class="tool-card">
+    <h3>Color Picker</h3>
+    <p>Pick and copy any color code easily</p>
+    <a href="color-picker.html">Open</a>
+  </div>
 
-  <div class="tool-card"><a href="tools/timer-stopwatch.html">Timer / Stopwatch</a></div>
-  <div class="tool-card"><a href="tools/unit-converter.html">Unit Converter</a></div>
-  <div class="tool-card"><a href="tools/url-encoder-decoder.html">URL Encoder / Decoder</a></div>
-  <div class="tool-card"><a href="tools/word-counter.html">Word Counter</a></div>
+  <div class="tool-card">
+    <h3>Currency Converter</h3>
+    <p>Convert currencies with real-time exchange rates</p>
+    <a href="currency-converter.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Date Difference</h3>
+    <p>Calculate days, months, years between two dates</p>
+    <a href="date-difference.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>EMI Calculator</h3>
+    <p>Compute your monthly EMI for loans</p>
+    <a href="emi-calculator.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>File Size Converter</h3>
+    <p>Convert file sizes between units</p>
+    <a href="file-size-converter.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Image Converter</h3>
+    <p>Change image formats quickly</p>
+    <a href="image-converter.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Note Text Saver</h3>
+    <p>Save and store text notes online</p>
+    <a href="note-text-saver.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Password Generator</h3>
+    <p>Create strong, random passwords</p>
+    <a href="password-generator.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Percentage Calculator</h3>
+    <p>Calculate percentages and ratios quickly</p>
+    <a href="percentage-calculator.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>QR Code Generator</h3>
+    <p>Generate QR codes for any URL or text</p>
+    <a href="qr-code-generator.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>SIP Calculator</h3>
+    <p>Plan your SIP investments effectively</p>
+    <a href="sip-calculator.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Speech to Text</h3>
+    <p>Convert spoken words into written text</p>
+    <a href="speech-to-text.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Text to Speech</h3>
+    <p>Read text aloud instantly</p>
+    <a href="text-to-speech.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Timer / Stopwatch</h3>
+    <p>Track time efficiently</p>
+    <a href="timer-stopwatch.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Unit Converter</h3>
+    <p>Convert between different units quickly</p>
+    <a href="unit-converter.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>URL Encoder / Decoder</h3>
+    <p>Encode or decode URLs easily</p>
+    <a href="url-encoder-decoder.html">Open</a>
+  </div>
+
+  <div class="tool-card">
+    <h3>Word Counter</h3>
+    <p>Count words, characters, and more</p>
+    <a href="word-counter.html">Open</a>
+  </div>
 
 </section>
 
 <!-- FOOTER -->
 <footer>
-  © 2026 SG Multi Tools ·
-  <a href="privacy-policy.html">Privacy Policy</a> ·
-  <a href="disclaimer.html">Disclaimer</a> ·
-  <a href="terms-and-conditions.html">Terms & Conditions</a> ·
-  <a href="sitemap.html">Sitemap</a> ·
-  <a href="about.html">About</a> ·
-  <a href="contact.html">Contact</a>
+© 2026 SG Multi Tools · 
+<a href="privacy-policy.html">Privacy Policy</a> ·
+<a href="disclaimer.html">Disclaimer</a> ·
+<a href="terms-and-conditions.html">Terms & Conditions</a> ·
+<a href="sitemap.html">Sitemap</a> ·
+<a href="about.html">About</a> ·
+<a href="contact.html">Contact</a>
 </footer>
 
 </body>
