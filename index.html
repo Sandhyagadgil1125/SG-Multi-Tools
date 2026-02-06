@@ -11,7 +11,8 @@
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
     <circle cx='50' cy='50' r='45' fill='%2342f8f5'/>
-    <text x='50' y='58' font-size='40' text-anchor='middle' fill='black' font-family='Arial' font-weight='bold'>SG</text>
+    <text x='50' y='58' font-size='40' text-anchor='middle'
+      fill='black' font-family='Arial' font-weight='bold'>SG</text>
   </svg>">
 
   <!-- Google Analytics GA4 -->
@@ -24,38 +25,66 @@
   </script>
 
   <style>
+    :root {
+      --bg:#0f172a;
+      --card:#1e293b;
+      --accent:#42f8f5;
+      --header:#020617;
+      --text:#ffffff;
+    }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f172a;
-      color: #ffffff;
+      background: var(--bg);
+      color: var(--text);
     }
 
+    /* ================= HEADER ================= */
     header {
-      padding: 20px;
-      background: #020617;
+      background: var(--header);
+      padding: 15px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    header h1 {
-      margin: 0;
-      color: #42f8f5;
-      font-size: 20px;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .logo-title {
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 600;
     }
 
     nav a {
-      color: #ffffff;
-      margin-left: 15px;
+      color: var(--text);
+      margin-left: 18px;
       text-decoration: none;
       font-size: 14px;
     }
 
     nav a:hover {
-      color: #42f8f5;
+      color: var(--accent);
     }
 
+    /* ================= HERO ================= */
     .hero {
       padding: 60px 20px;
       text-align: center;
@@ -63,54 +92,64 @@
 
     .hero h2 {
       font-size: 32px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      color: var(--accent); /* NOT white */
     }
 
     .hero p {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
       opacity: 0.9;
     }
 
+    /* ================= TOOLS ================= */
     .tools {
-      padding: 40px 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      padding: 40px 20px 60px;
       max-width: 1200px;
       margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .tools { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .tools { grid-template-columns: 1fr; }
     }
 
     .tool-card {
-      background: #1e293b;
-      border-radius: 10px;
-      padding: 20px;
+      background: var(--card);
+      padding: 22px;
+      border-radius: 12px;
       text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform .2s, box-shadow .2s;
     }
 
     .tool-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(66,248,245,0.3);
+      box-shadow: 0 0 18px rgba(66,248,245,0.35);
     }
 
     .tool-card a {
-      color: #42f8f5;
       text-decoration: none;
+      color: var(--accent);
       font-weight: 600;
-      display: block;
     }
 
+    /* ================= FOOTER ================= */
     footer {
-      background: #020617;
+      background: var(--header);
       text-align: center;
-      padding: 20px;
+      padding: 22px;
       font-size: 13px;
       opacity: 0.9;
     }
 
     footer a {
-      color: #42f8f5;
+      color: var(--accent);
       text-decoration: none;
       margin: 0 6px;
     }
@@ -119,9 +158,13 @@
 
 <body>
 
-<!-- Header -->
+<!-- HEADER -->
 <header>
-  <h1>SG Multi Tools</h1>
+  <div class="logo">
+    <div class="logo-circle">SG</div>
+    <div class="logo-title">SG Multi Tools</div>
+  </div>
+
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -129,7 +172,7 @@
   </nav>
 </header>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero">
   <h2>SG Multi Tools For Daily Use</h2>
   <p>
@@ -138,9 +181,8 @@
   </p>
 </section>
 
-<!-- Tools Grid -->
+<!-- TOOLS -->
 <section class="tools">
-
   <div class="tool-card"><a href="tools/age-calculator.html">Age Calculator</a></div>
   <div class="tool-card"><a href="tools/bmi-calculator.html">BMI Calculator</a></div>
   <div class="tool-card"><a href="tools/emi-calculator.html">EMI Calculator</a></div>
@@ -161,10 +203,9 @@
   <div class="tool-card"><a href="tools/notes-text-saver.html">Notes Text Saver</a></div>
   <div class="tool-card"><a href="tools/qr-code-generator.html">QR Code Generator</a></div>
   <div class="tool-card"><a href="tools/url-shortener.html">URL Shortener</a></div>
-
 </section>
 
-<!-- Footer -->
+<!-- FOOTER -->
 <footer>
   © 2026 SG Multi Tools ·
   <a href="privacy-policy.html">Privacy Policy</a> ·
