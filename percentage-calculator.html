@@ -14,10 +14,7 @@
   --muted:#94a3b8;
 }
 
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
+*{ box-sizing:border-box; font-family:Arial,sans-serif; }
 
 body{
   margin:0;
@@ -26,73 +23,57 @@ body{
   color:var(--text);
 }
 
-/* TOOL CARD */
 .tool-wrapper{
   position:relative;
   max-width:520px;
   margin:40px auto;
   background:var(--card);
-  padding:26px 24px 24px;
+  padding:28px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
 }
 
-/* CLOSE */
 .close-btn{
   position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
+  top:10px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  font-size:18px;
   cursor:pointer;
 }
-.close-btn:hover{ color:var(--accent); }
 
-/* TITLE */
-h2{
-  text-align:center;
-  margin-bottom:6px;
-}
+h2{ text-align:center; margin-bottom:6px; }
 
-/* AFFILIATE DISCLOSURE */
 .affiliate-disclaimer{
+  text-align:center;
   font-size:12px;
   color:var(--muted);
-  text-align:center;
-  margin-bottom:14px;
-  line-height:1.4;
+  margin-bottom:16px;
 }
 
-/* FLEXBOX */
 .flexbox{
   background:#020617;
   padding:12px 14px;
   border-radius:12px;
   border:1px solid #334155;
   margin-bottom:14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
 }
 
-.flexbox label{
-  flex:1;
-  min-width:120px;
-  font-size:14px;
-}
-
-.flexbox input{
-  flex:1;
+input{
+  width:100%;
   padding:10px;
   border-radius:8px;
   border:none;
-  background:#020617;
+  background:#000;
   color:#fff;
-  font-size:14px;
 }
 
-/* BUTTON */
 button{
   width:100%;
   height:44px;
@@ -102,25 +83,17 @@ button{
   color:#000;
   font-weight:bold;
   font-size:16px;
-  cursor:pointer;
 }
-button:hover{ opacity:.9; }
 
-/* RESULT */
 .result{
-  background:#020617;
-  border:1px dashed var(--accent);
-  border-radius:10px;
-  padding:14px;
   text-align:center;
-  font-size:15px;
+  font-size:16px;
   font-weight:600;
-  min-height:40px;
 }
 
-/* CTA BLOCK */
+/* CTA */
 .finance-cta{
-  margin-top:16px;
+  margin-top:18px;
   padding:16px;
   border-radius:12px;
   background:#020617;
@@ -129,9 +102,9 @@ button:hover{ opacity:.9; }
 }
 
 .finance-cta h3{
-  margin:0 0 8px;
-  font-size:16px;
   color:var(--accent);
+  font-size:16px;
+  margin-bottom:6px;
 }
 
 .finance-cta p{
@@ -142,13 +115,12 @@ button:hover{ opacity:.9; }
 .cta-btn{
   display:inline-block;
   padding:10px 18px;
-  border-radius:8px;
   background:var(--accent);
   color:#000;
+  border-radius:8px;
   font-weight:bold;
   text-decoration:none;
 }
-.cta-btn:hover{ opacity:.9; }
 </style>
 </head>
 
@@ -159,37 +131,27 @@ button:hover{ opacity:.9; }
 
   <h2>Percentage Calculator</h2>
 
-  <!-- Affiliate Disclosure -->
   <p class="affiliate-disclaimer">
     Disclosure: SG Multi Tools may contain affiliate links.
-    If you click and purchase, we may earn a commission
-    at no additional cost to you.
+    We may earn a commission at no extra cost to you.
   </p>
 
   <div class="flexbox">
-    <label>Value</label>
-    <input type="number" id="value" placeholder="e.g. 200">
+    <input type="number" id="value" placeholder="Value">
   </div>
 
   <div class="flexbox">
-    <label>Percentage (%)</label>
-    <input type="number" id="percent" placeholder="e.g. 15">
+    <input type="number" id="percent" placeholder="Percentage (%)">
   </div>
 
-  <div class="flexbox">
-    <button onclick="calculatePercentage()">Calculate</button>
-  </div>
+  <button onclick="calcPercent()">Calculate</button>
 
-  <div class="flexbox result" id="result">
-    Percentage result will appear here
-  </div>
+  <div class="flexbox result" id="result"></div>
 
   <!-- CTA -->
   <div class="finance-cta">
-    <h3>Tracking expenses, savings, or growth?</h3>
-    <p>
-      Manage percentages effortlessly with a structured personal budget system.
-    </p>
+    <h3>Tracking expenses & savings?</h3>
+    <p>Use a structured budget system instead of mental math.</p>
     <a href="/landing-personal-budget.html" class="cta-btn">
       Get Personal Budget Template
     </a>
@@ -198,22 +160,15 @@ button:hover{ opacity:.9; }
 </div>
 
 <script>
-function calculatePercentage(){
-  const value = parseFloat(document.getElementById("value").value);
-  const percent = parseFloat(document.getElementById("percent").value);
-  const result = document.getElementById("result");
-
-  if(isNaN(value) || isNaN(percent)){
-    result.innerText = "Please enter valid numbers";
+function calcPercent(){
+  const v = document.getElementById("value").value;
+  const p = document.getElementById("percent").value;
+  if(v<=0 || p<=0){
+    document.getElementById("result").innerText = "Enter valid values";
     return;
   }
-
-  const output = (value * percent) / 100;
-
-  result.innerHTML = `
-    ${percent}% of ${value} = <br>
-    ₹${output.toLocaleString()}
-  `;
+  document.getElementById("result").innerText =
+    (v * p / 100).toFixed(2);
 }
 </script>
 
