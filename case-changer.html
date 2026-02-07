@@ -1,36 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Case Changer | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Changer | SG Multi Tools</title>
+  <meta name="description" content="Convert your text to uppercase, lowercase, or proper case easily with SG Multi Tools.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <!-- Tool Title -->
   <h2>Case Changer</h2>
-
-  <!-- Tool Description -->
-  <div class="flexbox">
-    <p>Easily convert text between uppercase, lowercase, title case, and sentence case. Perfect for editing documents, emails, or online content quickly.</p>
+  <div class="description">
+    Convert your text to uppercase, lowercase, or proper case easily.
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
+  <!-- Text Input -->
+  <div class="flexbox">
+    <label for="inputText">Enter Text:</label>
+    <textarea id="inputText" rows="5" placeholder="Type or paste your text here..."></textarea>
+  </div>
 
+  <!-- Case Options -->
+  <div class="flexbox">
+    <label for="caseOption">Select Case:</label>
+    <select id="caseOption">
+      <option value="uppercase">UPPERCASE</option>
+      <option value="lowercase">lowercase</option>
+      <option value="titlecase">Title Case</option>
+    </select>
+  </div>
+
+  <!-- Button -->
+  <div class="flexbox">
+    <button onclick="changeCase()">Convert Text</button>
+  </div>
+
+  <!-- Result -->
+  <div class="flexbox result" id="result">
+    Converted text will appear here
+  </div>
 </div>
+
+<script>
+function changeCase() {
+  const text = document.getElementById('inputText').value;
+  const option = document.getElementById('caseOption').value;
+  const resultDiv = document.getElementById('result');
+
+  if (!text) {
+    resultDiv.innerText = "Please enter some text to convert";
+    return;
+  }
+
+  let converted = '';
+  if (option === 'uppercase') {
+    converted = text.toUpperCase();
+  } else if (option === 'lowercase') {
+    converted = text.toLowerCase();
+  } else if (option === 'titlecase') {
+    converted = text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  resultDiv.innerText = converted;
+}
+</script>
+
 </body>
 </html>
