@@ -2,13 +2,13 @@
    GLOBAL VARIABLES
 ============================== */
 :root {
-  --bg: #0f172a;           /* page background */
-  --card: #1e293b;         /* tool card background */
-  --flex: #111827;         /* input/flexbox background */
-  --accent: #42f8f5;       /* main accent color (buttons, border) */
-  --text: #ffffff;         /* primary text */
-  --muted: #94a3b8;        /* muted text (description, info) */
-  --radius: 14px;          /* default border radius */
+  --bg: #0f172a;
+  --card: #1e293b;
+  --flex: #111827;
+  --accent: #42f8f5;
+  --text: #ffffff;
+  --muted: #94a3b8;
+  --radius: 14px;
 }
 
 /* ==============================
@@ -18,140 +18,133 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-}
-/* ==============================
-   HERO SECTION
-============================== */
-.hero {
-  text-align: center;
-  padding: 60px 20px 30px;  /* top, sides, bottom spacing */
-}
-
-.hero h1 {
-  font-size: 42px;          /* larger, more impactful title */
-  color: #42f8f5;           /* accent color */
-  font-weight: bold;
-  margin-bottom: 12px;      /* spacing below title */
-}
-
-.hero p {
-  font-size: 16px;          /* description text */
-  color: #94a3b8;           /* muted text color */
-  margin-bottom: 0;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 600px) {
-  .hero h1 {
-    font-size: 32px;        /* scales down on mobile */
-  }
-
-  .hero p {
-    font-size: 14px;        /* slightly smaller description */
-  }
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  padding: 10px;
+  line-height: 1.6;
+}
+
+/* ==============================
+   SITE HEADER
+============================== */
+.site-header {
+  background: var(--card);
+  border-bottom: 1px solid #1f2937;
+  padding: 12px 20px;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.logo-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.logo-text {
+  color: var(--text);
+  font-size: 18px;
+}
+
+/* NAVIGATION */
+.nav {
+  display: flex;
+  gap: 22px;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--accent);
+}
+
+/* ==============================
+   HERO SECTION
+============================== */
+.hero {
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 16px;
+  color: var(--muted);
+}
+
+/* ==============================
+   TOOLS GRID (HOME + TOOLS PAGE)
+============================== */
+.tools-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
 }
 
 /* ==============================
    TOOL CARD
 ============================== */
 .tool-wrapper {
-  max-width: 520px;
-  margin: 40px auto;
-  padding: 28px 24px 24px;
   background: var(--card);
   border-radius: 18px;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 30px rgba(66, 248, 245, 0.45);
-  position: relative;
-  transition: all 0.3s ease;
+  padding: 26px 22px 24px;
+  border: 2px solid rgba(66, 248, 245, 0.35);
+  box-shadow: 0 0 22px rgba(66, 248, 245, 0.35);
+  transition: all 0.25s ease;
+  text-align: center;
 }
 
-/* Hover effect: brighter glow */
 .tool-wrapper:hover {
   box-shadow: 0 0 40px rgba(66, 248, 245, 0.9);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-/* ==============================
-   CLOSE BUTTON (GLOBAL "X")
-============================== */
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 22px;
-  color: var(--muted);
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-.close-btn:hover {
-  color: var(--accent);
-}
-
-/* ==============================
-   TOOL TITLE & DESCRIPTION
-============================== */
-h2 {
-  text-align: center;
+.tool-wrapper h2 {
+  font-size: 20px;
   margin-bottom: 8px;
-  font-size: 22px;
 }
 
 .description {
-  text-align: center;
   font-size: 14px;
   color: var(--muted);
   margin-bottom: 16px;
-}
-
-.info {
-  text-align: center;
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 12px;
-}
-
-/* ==============================
-   FLEXBOX / INPUT WRAPPERS
-============================== */
-.flexbox {
-  background: var(--flex);
-  padding: 14px 16px;
-  border-radius: var(--radius);
-  border: 1px solid #334155;
-  margin-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* ==============================
-   LABELS & INPUTS
-============================== */
-label {
-  font-size: 14px;
-  color: var(--text);
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: #020617;
-  color: #fff;
-  font-size: 15px;
-  resize: vertical;
 }
 
 /* ==============================
@@ -176,78 +169,92 @@ button:hover {
 }
 
 /* ==============================
-   RESULT BOX
+   TOOL PAGE WRAPPER
 ============================== */
-.result {
-  text-align: center;
-  font-size: 16px;
-  min-height: 40px;
-  padding: 10px;
-  background: #020617;
-  border: 1px dashed var(--accent);
-  border-radius: var(--radius);
-  word-break: break-word;
+.tool-container {
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 28px 24px;
+  background: var(--card);
+  border-radius: 18px;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 30px rgba(66, 248, 245, 0.45);
 }
 
 /* ==============================
-   CLOCK / SPECIAL HANDS (for Timer/Stopwatch)
+   INPUTS / SELECTS
 ============================== */
-.clock {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  border: 6px solid var(--accent);
-  margin: 18px auto;
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #020617;
+  color: #fff;
+  font-size: 15px;
 }
 
-.hand {
-  position: absolute;
-  width: 3px;
-  height: 90px;
-  background: var(--accent);
-  top: 20px;
-  left: 50%;
-  transform-origin: bottom;
+label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;
 }
 
-.center-dot {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.time {
-  font-size: 26px;
-  font-weight: bold;
-  margin-top: 8px;
+/* ==============================
+   RESULT BOX
+============================== */
+.result {
+  margin-top: 14px;
   text-align: center;
+  font-size: 16px;
+  padding: 12px;
+  background: #020617;
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+}
+
+/* ==============================
+   FOOTER
+============================== */
+.site-footer {
+  border-top: 1px solid #1f2937;
+  padding: 20px;
+  text-align: center;
+  background: #020617;
+}
+
+.site-footer a {
+  color: var(--muted);
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
 }
 
 /* ==============================
    RESPONSIVE
 ============================== */
+@media (max-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 600px) {
-  .tool-wrapper {
-    margin: 20px 10px;
-    padding: 20px;
+  .tools-grid {
+    grid-template-columns: 1fr;
   }
 
-  .clock {
-    width: 180px;
-    height: 180px;
+  .hero h1 {
+    font-size: 32px;
   }
 
-  .hand {
-    height: 70px;
-  }
-
-  button {
-    font-size: 14px;
+  .nav {
+    gap: 14px;
   }
 }
