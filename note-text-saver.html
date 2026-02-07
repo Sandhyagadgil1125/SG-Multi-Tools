@@ -1,61 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note Text Saver | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note Text Saver | SG Multi Tools</title>
+  <meta name="description" content="Write and save your notes quickly with SG Multi Tools Note Text Saver.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <!-- Tool Title -->
   <h2>Note Text Saver</h2>
+  <div class="description">
+    Quickly write, save, and copy your notes online.
+  </div>
 
-  <!-- Tool Description -->
+  <!-- Note Textarea -->
   <div class="flexbox">
-    <p>Write and save your notes directly in your browser. Quickly copy or clear your notes anytime. Perfect for reminders, lists, or temporary storage.</p>
+    <textarea id="noteInput" placeholder="Write your notes here..." rows="8"></textarea>
   </div>
 
-  <!-- Tool Interface -->
-  <div class="tool-content">
-    <textarea id="noteArea" rows="10" placeholder="Write your notes here..." style="width:100%; padding:12px; border-radius:8px; border:1px solid #334155; background:var(--bg-card); color:var(--text-main);"></textarea>
-    <div style="margin-top:12px; display:flex; gap:10px;">
-      <button id="saveBtn" class="cta-btn">Copy Notes</button>
-      <button id="clearBtn" class="cta-btn">Clear Notes</button>
-    </div>
+  <!-- Buttons -->
+  <div class="flexbox" style="display:flex; gap:10px;">
+    <button onclick="saveNote()">Save Note</button>
+    <button onclick="copyNote()">Copy Note</button>
+    <button onclick="clearNote()">Clear Note</button>
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
-
+  <!-- Result / Status -->
+  <div class="flexbox result" id="result">
+    Your saved notes will appear here
+  </div>
 </div>
 
 <script>
-const noteArea = document.getElementById('noteArea');
-const saveBtn = document.getElementById('saveBtn');
-const clearBtn = document.getElementById('clearBtn');
+const noteInput = document.getElementById('noteInput');
+const resultDiv = document.getElementById('result');
 
-saveBtn.addEventListener('click', () => {
-  noteArea.select();
-  document.execCommand('copy');
-  alert('Notes copied to clipboard!');
-});
+// Load saved note from localStorage
+window.onload = function() {
+  const saved = localStorage.getItem('sgNote');
+  if (saved) {
+    noteInput.value = saved;
+    resultDiv.innerText = saved;
+  }
+}
 
-clearBtn.addEventListener('click', () => {
-  noteArea.value = '';
-});
+function saveNote() {
+  const text = noteInput.value.trim();
+  if (!text) {
+    resultDiv.innerText = "Nothing to save";
+    return;
+  }
+  localStorage.setItem('sgNote', text);
+  resultDiv.innerText = text;
+}
+
+function copyNote() {
+  const text = noteInput.value.trim();
+  if (!text) {
+    resultDiv.innerText = "Nothing to copy";
+    return;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    resultDiv.innerText = "Copied to clipboard!";
+  });
+}
+
+function clearNote() {
+  noteInput.value = '';
+  resultDiv.innerText = '';
+  localStorage.removeItem('sgNote');
+}
 </script>
 
 </body>
