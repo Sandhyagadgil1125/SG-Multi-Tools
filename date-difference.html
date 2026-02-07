@@ -1,36 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Date Difference | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Difference | SG Multi Tools</title>
+  <meta name="description" content="Calculate the difference between two dates with SG Multi Tools Date Difference tool.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <!-- Tool Title -->
   <h2>Date Difference</h2>
-
-  <!-- Tool Description -->
-  <div class="flexbox">
-    <p>Calculate the difference between two dates in days, months, or years quickly and accurately. Ideal for planning, age calculations, or project timelines.</p>
+  <div class="description">
+    Find the difference between two dates in days, months, and years.
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
+  <!-- Date Inputs -->
+  <div class="flexbox">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate">
+  </div>
 
+  <div class="flexbox">
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate">
+  </div>
+
+  <!-- Calculate Button -->
+  <div class="flexbox">
+    <button onclick="calculateDifference()">Calculate</button>
+  </div>
+
+  <!-- Result -->
+  <div class="flexbox result" id="result">
+    Difference will appear here
+  </div>
 </div>
+
+<script>
+function calculateDifference() {
+  const start = document.getElementById('startDate').value;
+  const end = document.getElementById('endDate').value;
+  const resultDiv = document.getElementById('result');
+
+  if (!start || !end) {
+    resultDiv.innerText = "Please select both dates";
+    return;
+  }
+
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  if (endDate < startDate) {
+    resultDiv.innerText = "End date must be after start date";
+    return;
+  }
+
+  // Difference in milliseconds
+  const diffTime = endDate - startDate;
+
+  // Difference in days
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  // Calculate years, months, days
+  let years = endDate.getFullYear() - startDate.getFullYear();
+  let months = endDate.getMonth() - startDate.getMonth();
+  let days = endDate.getDate() - startDate.getDate();
+
+  if (days < 0) {
+    months -= 1;
+    days += new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  resultDiv.innerHTML = `
+    ${years} years, ${months} months, ${days} days<br>
+    Total: ${diffDays} days
+  `;
+}
+</script>
+
 </body>
 </html>
