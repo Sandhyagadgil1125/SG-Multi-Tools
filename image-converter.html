@@ -1,73 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Converter | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Converter | SG Multi Tools</title>
+  <meta name="description" content="Convert images between PNG, JPG, GIF, and WebP easily using SG Multi Tools Image Converter.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <!-- Tool Title -->
   <h2>Image Converter</h2>
-
-  <!-- Tool Description -->
-  <div class="flexbox">
-    <p>Convert images between formats like PNG, JPG, GIF, and WebP. Perfect for web design, sharing, or optimizing files for different platforms.</p>
+  <div class="description">
+    Convert images between PNG, JPG, GIF, and WebP formats easily.
   </div>
 
-  <!-- Tool Interface -->
-  <div class="tool-content">
+  <!-- File Input -->
+  <div class="flexbox">
+    <label for="imageInput">Select Image:</label>
     <input type="file" id="imageInput" accept="image/*">
+  </div>
+
+  <!-- Format Selection -->
+  <div class="flexbox">
+    <label for="formatSelect">Convert To:</label>
     <select id="formatSelect">
       <option value="png">PNG</option>
       <option value="jpg">JPG</option>
-      <option value="gif">GIF</option>
       <option value="webp">WebP</option>
+      <option value="gif">GIF</option>
     </select>
-    <button id="convertBtn">Convert</button>
   </div>
 
-  <!-- Preview / Download -->
-  <div class="flexbox" style="margin-top:16px;">
-    <img id="preview" src="" alt="" style="max-width:100%; display:none; margin-bottom:8px;">
-    <a id="downloadLink" href="#" download="converted-image" class="cta-btn" style="display:none;">Download Converted Image</a>
+  <!-- Convert Button -->
+  <div class="flexbox">
+    <button onclick="convertImage()">Convert</button>
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
-  <!-- .finance-cta placeholder -->
+  <!-- Result -->
+  <div class="flexbox result" id="result">
+    Converted image will appear here
+  </div>
 </div>
 
 <script>
-const imageInput = document.getElementById('imageInput');
-const formatSelect = document.getElementById('formatSelect');
-const convertBtn = document.getElementById('convertBtn');
-const preview = document.getElementById('preview');
-const downloadLink = document.getElementById('downloadLink');
+function convertImage() {
+  const fileInput = document.getElementById('imageInput');
+  const format = document.getElementById('formatSelect').value;
+  const resultDiv = document.getElementById('result');
 
-convertBtn.addEventListener('click', () => {
-  const file = imageInput.files[0];
-  if (!file) {
-    alert('Please select an image first.');
+  if (!fileInput.files || fileInput.files.length === 0) {
+    resultDiv.innerText = "Please select an image";
     return;
   }
 
+  const file = fileInput.files[0];
   const reader = new FileReader();
+
   reader.onload = function(e) {
     const img = new Image();
+    img.src = e.target.result;
+
     img.onload = function() {
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
@@ -75,21 +84,28 @@ convertBtn.addEventListener('click', () => {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0);
 
-      const selectedFormat = formatSelect.value;
-      const mimeType = 'image/' + (selectedFormat === 'jpg' ? 'jpeg' : selectedFormat);
+      let mimeType = 'image/png';
+      if (format === 'jpg') mimeType = 'image/jpeg';
+      else if (format === 'webp') mimeType = 'image/webp';
+      else if (format === 'gif') mimeType = 'image/gif';
+
       const dataURL = canvas.toDataURL(mimeType);
 
-      preview.src = dataURL;
-      preview.style.display = 'block';
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = `converted.${format}`;
+      link.innerText = `Download ${format.toUpperCase()} Image`;
+      link.style.display = 'block';
+      link.style.marginTop = '10px';
+      link.style.color = '#42f8f5';
+      resultDiv.innerHTML = '';
+      resultDiv.appendChild(link);
+    }
+  }
 
-      downloadLink.href = dataURL;
-      downloadLink.download = 'converted-image.' + selectedFormat;
-      downloadLink.style.display = 'inline-block';
-    };
-    img.src = e.target.result;
-  };
   reader.readAsDataURL(file);
-});
+}
 </script>
+
 </body>
 </html>
