@@ -5,202 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EMI Calculator | SG Multi Tools</title>
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
+<link rel="stylesheet" href="css/style.css">
 
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-}
-
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
-  background:var(--card);
-  padding:28px 24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-}
-
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:12px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:18px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.close-btn:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-h2{
-  text-align:center;
-  margin-bottom:6px;
-}
-
-.affiliate-disclaimer{
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
-
-.flexbox{
-  background:#020617;
-  padding:12px 14px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-.flexbox label{
-  font-size:14px;
-}
-
-.flexbox input{
-  width:100%;
-  margin-top:6px;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  background:#000;
-  color:#fff;
-}
-
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-}
-
-.result{
-  text-align:center;
-  font-size:16px;
-  font-weight:600;
-}
-
-/* CTA */
-.finance-cta{
-  margin-top:18px;
-  padding:16px;
-  border-radius:12px;
-  background:#020617;
-  border:2px solid var(--accent);
-  text-align:center;
-}
-
-.finance-cta h3{
-  color:var(--accent);
-  margin-bottom:6px;
-  font-size:16px;
-}
-
-.finance-cta p{
-  font-size:14px;
-  margin-bottom:12px;
-}
-
-.cta-btn{
-  display:inline-block;
-  padding:10px 18px;
-  background:var(--accent);
-  color:#000;
-  border-radius:8px;
-  font-weight:bold;
-  text-decoration:none;
-}
-</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <button class="close-btn" onclick="history.back()">✕</button>
+  <!-- X Close Button -->
+  <span class="close-btn" onclick="history.back()">✕</span>
 
+  <!-- Tool Title -->
   <h2>EMI Calculator</h2>
 
-  <p class="affiliate-disclaimer">
-    Disclosure: SG Multi Tools may contain affiliate links.
-    If you purchase through them, we may earn a commission
-    at no extra cost to you.
-  </p>
-
+  <!-- Tool Content -->
   <div class="flexbox">
-    <label>Loan Amount (₹)</label>
-    <input type="number" id="loan">
+    <p>Calculate your loan EMI by entering principal, interest rate, and loan duration.</p>
+    <!-- Replace above <p> with your actual EMI calculator form/inputs -->
   </div>
 
-  <div class="flexbox">
-    <label>Interest Rate (% per annum)</label>
-    <input type="number" id="rate">
-  </div>
-
-  <div class="flexbox">
-    <label>Loan Tenure (Years)</label>
-    <input type="number" id="years">
-  </div>
-
-  <button onclick="calculateEMI()">Calculate EMI</button>
-
-  <div class="flexbox result" id="result"></div>
-
-  <!-- CTA -->
+  <!-- Primary Affiliate CTA -->
   <div class="finance-cta">
-    <h3>Struggling to manage monthly EMIs?</h3>
-    <p>Plan expenses smartly with a ready-to-use personal budget system.</p>
-    <a href="/landing-personal-budget.html" class="cta-btn">
-      Get Budget & Money Manager
+    <h3>Maximize Your Loan Planning</h3>
+    <p>Get the full-featured EMI Calculator Pro for better insights and automatic calculations.</p>
+    <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" class="cta-btn">
+      Get EMI Calculator
     </a>
   </div>
 
+  <!-- Affiliate Disclosure -->
+  <p class="affiliate-disclaimer">
+    Disclosure: SG Multi Tools may contain affiliate links.
+    If you click and purchase, we may earn a commission
+    at no additional cost to you.
+  </p>
 </div>
-
-<script>
-function calculateEMI(){
-  const P = document.getElementById("loan").value;
-  const r = document.getElementById("rate").value / 12 / 100;
-  const n = document.getElementById("years").value * 12;
-
-  if(P<=0 || r<=0 || n<=0){
-    document.getElementById("result").innerText = "Enter valid values";
-    return;
-  }
-
-  const emi = (P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
-  document.getElementById("result").innerText =
-    "Monthly EMI: ₹" + emi.toFixed(2);
-}
-</script>
 
 </body>
 </html>
