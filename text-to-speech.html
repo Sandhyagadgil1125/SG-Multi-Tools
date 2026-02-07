@@ -4,156 +4,70 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Text to Speech | SG Multi Tools</title>
+<link rel="stylesheet" href="css/style.css">
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --flex:#111827;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* TOOL CARD */
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
-  background:var(--card);
-  padding:24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-}
-
-/* CLOSE */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-/* TITLE */
-h2{
-  text-align:center;
-  margin-bottom:18px;
-}
-
-/* FLEXBOX */
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-/* INPUTS */
-textarea, select{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-  resize:none;
-}
-
-/* BUTTON */
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{ opacity:.9; }
-
-/* INFO */
-.info{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-}
-</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
-
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <!-- X Close Button -->
+  <span class="close-btn" onclick="history.back()">✕</span>
 
+  <!-- Tool Title -->
   <h2>Text to Speech</h2>
 
+  <!-- Tool Description -->
   <div class="flexbox">
-    <textarea id="text" rows="4" placeholder="Type text to convert into speech..."></textarea>
+    <p>Convert written text into spoken audio instantly. Ideal for reading notes aloud, learning pronunciations, or creating audio content.</p>
   </div>
 
-  <div class="flexbox">
-    <select id="voice"></select>
+  <!-- Tool Interface -->
+  <div class="tool-content" style="display:flex; flex-direction:column; gap:12px;">
+    <textarea id="textInput" rows="8" placeholder="Enter text here..." style="width:100%; padding:12px; border-radius:8px; border:1px solid #334155; background:var(--bg-card); color:var(--text-main);"></textarea>
+    <div style="display:flex; gap:10px;">
+      <button id="speakBtn" class="cta-btn">Speak</button>
+      <button id="stopBtn" class="cta-btn">Stop</button>
+      <button id="clearBtn" class="cta-btn">Clear</button>
+    </div>
   </div>
 
-  <div class="flexbox">
-    <button onclick="speakText()">Speak</button>
-  </div>
+  <!-- Optional CTA block (skipped for free tool) -->
 
-  <div class="info">
-    Audio will play using your browser voice
-  </div>
 </div>
 
 <script>
-const voiceSelect = document.getElementById("voice");
-let voices = [];
+const speakBtn = document.getElementById('speakBtn');
+const stopBtn = document.getElementById('stopBtn');
+const clearBtn = document.getElementById('clearBtn');
+const textInput = document.getElementById('textInput');
 
-function loadVoices(){
-  voices = speechSynthesis.getVoices();
-  voiceSelect.innerHTML = "";
-  voices.forEach((v,i)=>{
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.textContent = `${v.name} (${v.lang})`;
-    voiceSelect.appendChild(opt);
-  });
-}
+let synth = window.speechSynthesis;
+let utterance;
 
-speechSynthesis.onvoiceschanged = loadVoices;
-loadVoices();
+speakBtn.addEventListener('click', () => {
+  if(textInput.value.trim() === '') return alert('Please enter text.');
+  if(synth.speaking) synth.cancel();
 
-function speakText(){
-  const text = document.getElementById("text").value.trim();
-  if(!text){
-    alert("Please enter text");
-    return;
-  }
+  utterance = new SpeechSynthesisUtterance(textInput.value);
+  synth.speak(utterance);
+});
 
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.voice = voices[voiceSelect.value];
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utter);
-}
+stopBtn.addEventListener('click', () => {
+  if(synth.speaking) synth.cancel();
+});
+
+clearBtn.addEventListener('click', () => {
+  textInput.value = '';
+  if(synth.speaking) synth.cancel();
+});
 </script>
 
 </body>
