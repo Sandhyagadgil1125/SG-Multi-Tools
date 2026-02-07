@@ -20,41 +20,54 @@
 </head>
 
 <body>
-  <div class="tool-wrapper">
-    <!-- Close Button -->
-    <button class="close-btn" onclick="history.back()">✕</button>
 
-    <!-- Tool Title -->
-    <h2>Advanced Calculator</h2>
+<div class="tool-wrapper">
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
-    <!-- Tool Content -->
-    <div class="tool-content">
-      <!-- Replace below with actual calculator UI -->
-      <p style="text-align:center; margin-top:20px;">Calculator interface goes here...</p>
-    </div>
+  <h2>Advanced Calculator</h2>
+  <div class="description">Make the most of your calculations</div>
 
-    <!-- Affiliate CTA -->
-    <div class="finance-cta">
-      <!-- Primary Affiliate Link -->
-      <h3>Make the most of your calculations</h3>
-      <p>Download Advanced Calculator Pro with extra features and automation.</p>
-      <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="cta-btn">
-        Get Advanced Calculator
-      </a>
-
-      <!-- Secondary Affiliate Link -->
-      <h3 style="margin-top:20px;">Try Our Advanced Calculator Bundle</h3>
-      <p>Get additional calculation templates and financial planning sheets.</p>
-      <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="cta-btn">
-        Get Bundle
-      </a>
-    </div>
-
-    <!-- Affiliate Disclosure -->
-    <p class="affiliate-disclaimer">
-      Disclosure: SG Multi Tools may contain affiliate links.
-      If you click and purchase, we may earn a commission at no additional cost to you.
-    </p>
+  <!-- Calculator Interface -->
+  <div class="flexbox">
+    <input type="text" id="calcInput" placeholder="Enter expression">
+    <button onclick="calculateAdvanced()">Calculate</button>
   </div>
+  <div class="flexbox result" id="calcResult">Result will appear here</div>
+
+  <!-- Affiliate Section -->
+  <div class="flexbox" style="flex-direction:column; gap:10px; padding:14px; background:var(--flex); border-radius:var(--radius);">
+    <div style="text-align:center; color:var(--text); font-size:15px;">
+      Download Advanced Calculator Pro with extra features and automation.
+    </div>
+    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
+      <button>Get Advanced Calculator</button>
+    </a>
+
+    <div style="text-align:center; color:var(--text); font-size:15px; margin-top:10px;">
+      Try Our Advanced Calculator Bundle for templates and financial planning sheets.
+    </div>
+    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
+      <button>Get Bundle</button>
+    </a>
+
+    <div style="text-align:center; color:var(--muted); font-size:12px; margin-top:6px;">
+      Disclosure: SG Multi Tools may contain affiliate links. If you click and purchase, we may earn a commission at no additional cost to you.
+    </div>
+  </div>
+</div>
+
+<!-- Optional: Add your calculator JS logic here -->
+<script>
+function calculateAdvanced() {
+  const input = document.getElementById("calcInput").value;
+  try {
+    const result = eval(input); // simple eval calculator
+    document.getElementById("calcResult").innerText = result;
+  } catch (e) {
+    document.getElementById("calcResult").innerText = "Invalid Expression";
+  }
+}
+</script>
+
 </body>
 </html>
