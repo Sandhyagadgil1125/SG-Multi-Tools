@@ -1,6 +1,6 @@
-/* =================================
-   GLOBAL RESET
-================================= */
+/* ===============================
+   RESET & BASE
+================================ */
 * {
   margin: 0;
   padding: 0;
@@ -14,17 +14,14 @@ body {
   line-height: 1.5;
 }
 
-/* =================================
-   LINKS
-================================= */
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
-/* =================================
+/* ===============================
    HEADER
-================================= */
+================================ */
 .site-header {
   background: #020617;
   border-bottom: 1px solid #1e293b;
@@ -67,17 +64,18 @@ a {
   opacity: 1;
 }
 
-/* =================================
+/* ===============================
    HERO
-================================= */
+================================ */
 .hero {
   text-align: center;
-  padding: 20px 16px 22px;
+  padding: 22px 16px 24px;
 }
 
 .hero h1 {
   font-size: 28px;
   margin-bottom: 6px;
+  color: #38bdf8;
 }
 
 .hero p {
@@ -85,37 +83,60 @@ a {
   opacity: 0.85;
 }
 
-/* =================================
-   TOOLS GRID
-================================= */
+/* ===============================
+   TOOLS GRID (RESPONSIVE)
+================================ */
 .tools-grid {
   max-width: 1200px;
-  margin: 0 auto 16px;
+  margin: 0 auto 20px;
   padding: 0 16px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
-/* =================================
-   TOOL CARD
-================================= */
-.tool-wrapper {
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 18px;
-  text-align: center;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+/* Tablet */
+@media (min-width: 600px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.tool-wrapper:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+/* Desktop */
+@media (min-width: 992px) {
+  .tools-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+}
+
+/* ===============================
+   TOOL CARD
+================================ */
+.tool-wrapper {
+  background: #020617;
+  border: 2px solid rgba(56, 189, 248, 0.55);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  min-height: 160px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.tool-wrapper:hover,
+.single-page .tool-wrapper {
+  border-color: #38bdf8;
+  box-shadow:
+    0 0 0 2px rgba(56,189,248,0.75),
+    0 14px 32px rgba(56,189,248,0.4);
+  transform: translateY(-4px);
 }
 
 .tool-wrapper h2 {
-  font-size: 17px;
+  font-size: 16px;
   margin-bottom: 6px;
 }
 
@@ -125,6 +146,9 @@ a {
   margin-bottom: 12px;
 }
 
+/* ===============================
+   BUTTON
+================================ */
 .btn {
   display: inline-block;
   padding: 8px 16px;
@@ -139,61 +163,25 @@ a {
   background: #0ea5e9;
 }
 
-/* =================================
-   SINGLE PAGES (ABOUT, CONTACT)
-================================= */
-.single-page .hero {
-  padding-bottom: 12px;
-}
-
+/* ===============================
+   SINGLE PAGES (ABOUT / CONTACT)
+================================ */
 .single-page .tool-wrapper {
   max-width: 520px;
-  margin: 8px auto 12px;
+  margin: 12px auto;
 }
 
-/* Bullet spacing fix */
-.single-page ul {
-  padding-left: 22px;
-  text-align: left;
-}
-
-.single-page li {
-  margin-bottom: 6px;
-}
-
-/* =================================
+/* ===============================
    FOOTER
-================================= */
+================================ */
 .site-footer {
   border-top: 1px solid #1e293b;
   padding: 14px 16px 18px;
   text-align: center;
   font-size: 13px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .site-footer a {
   margin: 0 6px;
-}
-
-/* =================================
-   RESPONSIVE BREAKPOINTS
-================================= */
-
-/* Tablets */
-@media (min-width: 600px) {
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Laptops / Desktops */
-@media (min-width: 992px) {
-  .tools-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .hero h1 {
-    font-size: 32px;
-  }
 }
