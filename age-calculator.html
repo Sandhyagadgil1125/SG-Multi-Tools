@@ -4,206 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Age Calculator | SG Multi Tools</title>
+<link rel="stylesheet" href="css/style.css">
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --flex:#111827;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  padding:10px;
-}
-
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
-  background:var(--card);
-  padding:24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-}
-
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-h2{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.flexbox label{
-  min-width:120px;
-  font-size:14px;
-}
-
-input{
-  flex:1;
-  height:40px;
-  border-radius:8px;
-  border:none;
-  padding:0 10px;
-  font-size:14px;
-}
-
-input[type="text"]{
-  letter-spacing:1px;
-}
-
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-}
-
-.result{
-  background:#020617;
-  border:1px dashed var(--accent);
-  padding:14px;
-  border-radius:10px;
-  text-align:center;
-  font-size:16px;
-  font-weight:600;
-}
-</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
-
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <span class="close-btn" onclick="history.back()">✕</span>
 
   <h2>Age Calculator</h2>
 
   <div class="flexbox">
-    <label>DOB (Calendar)</label>
-    <input type="date" id="dobCalendar">
+    <p>Calculate your exact age based on your date of birth quickly and easily.</p>
   </div>
 
-  <div class="flexbox">
-    <label>DOB (dd/mm/yyyy)</label>
-    <input type="text" id="dobText" placeholder="dd/mm/yyyy" inputmode="numeric">
-  </div>
+  <!-- Optional CTA block can be omitted for free tools -->
+  <!-- <div class="finance-cta">
+    <h3>Optional Upgrade CTA</h3>
+    <p>Some description here if needed</p>
+    <a href="#" class="cta-btn">Optional Action</a>
+  </div> -->
 
-  <div class="flexbox">
-    <button onclick="calculateAge()">Calculate Age</button>
-  </div>
-
-  <div class="flexbox result" id="result">
-    Your age will appear here
-  </div>
 </div>
-
-<script>
-const dobCalendar = document.getElementById("dobCalendar");
-const dobText = document.getElementById("dobText");
-const result = document.getElementById("result");
-
-/* Sync calendar → text */
-dobCalendar.addEventListener("change", () => {
-  if(!dobCalendar.value) return;
-  const d = new Date(dobCalendar.value);
-  const dd = String(d.getDate()).padStart(2, "0");
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  dobText.value = `${dd}/${mm}/${yyyy}`;
-});
-
-/* Sync text → calendar */
-dobText.addEventListener("blur", () => {
-  const parts = dobText.value.split("/");
-  if(parts.length !== 3) return;
-
-  const [dd, mm, yyyy] = parts.map(Number);
-  if(!dd || !mm || !yyyy) return;
-
-  const isoDate = `${yyyy}-${String(mm).padStart(2,"0")}-${String(dd).padStart(2,"0")}`;
-  const testDate = new Date(isoDate);
-
-  if(testDate && testDate.getDate() === dd){
-    dobCalendar.value = isoDate;
-  }
-});
-
-function calculateAge(){
-  let dob;
-
-  if(dobCalendar.value){
-    dob = new Date(dobCalendar.value);
-  }else if(dobText.value){
-    const parts = dobText.value.split("/");
-    if(parts.length !== 3){
-      result.innerText = "Invalid date format (use dd/mm/yyyy)";
-      return;
-    }
-    const [dd, mm, yyyy] = parts.map(Number);
-    dob = new Date(yyyy, mm - 1, dd);
-    if(isNaN(dob)){
-      result.innerText = "Invalid date";
-      return;
-    }
-  }else{
-    result.innerText = "Please enter your date of birth";
-    return;
-  }
-
-  const today = new Date();
-
-  let years = today.getFullYear() - dob.getFullYear();
-  let months = today.getMonth() - dob.getMonth();
-  let days = today.getDate() - dob.getDate();
-
-  if(days < 0){
-    months--;
-    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-  }
-
-  if(months < 0){
-    years--;
-    months += 12;
-  }
-
-  result.innerText = `${years} Years, ${months} Months, ${days} Days`;
-}
-</script>
-
 </body>
 </html>
