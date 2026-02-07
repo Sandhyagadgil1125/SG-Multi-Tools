@@ -1,49 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIP Calculator | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator | SG Multi Tools</title>
+  <meta name="description" content="SIP Calculator by SG Multi Tools to calculate your future investments.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
-  <!-- Tool Title -->
   <h2>SIP Calculator</h2>
+  <div class="description">Calculate future value of your SIP investments</div>
 
-  <!-- Tool Description -->
+  <!-- SIP Inputs -->
   <div class="flexbox">
-    <p>Plan your investments with ease. Calculate monthly SIPs, expected returns, and maturity amounts. Ideal for financial planning and goal setting.</p>
+    <input type="number" id="sipAmount" placeholder="Monthly Investment (₹)">
+    <input type="number" id="sipRate" placeholder="Annual Rate of Return (%)">
+    <input type="number" id="sipYears" placeholder="Investment Period (Years)">
   </div>
-
-  <!-- Affiliate CTA -->
-  <div class="finance-cta">
-    <h3>Download SIP Calculator Pro</h3>
-    <p>Get advanced features, charts, and automation for your SIP investments.</p>
-    <!-- Primary Link -->
-    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="cta-btn">
-      Get SIP Calculator
-    </a>
-    <br><br>
-    <!-- Secondary Link -->
-    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="cta-btn">
-      Alternative Link
-    </a>
+  <div class="flexbox">
+    <button onclick="calculateSIP()">Calculate SIP</button>
   </div>
+  <div class="flexbox result" id="sipResult">SIP result will appear here</div>
 
+  <!-- Affiliate Section -->
+  <div class="flexbox" style="flex-direction:column; gap:10px; padding:14px; background:var(--flex); border-radius:var(--radius);">
+    <div style="text-align:center; color:var(--text); font-size:15px;">
+      Start your SIP with top mutual funds today.
+    </div>
+    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
+      <button>Invest in SIP</button>
+    </a>
+
+    <div style="text-align:center; color:var(--text); font-size:15px; margin-top:10px;">
+      Try our SIP bundle for enhanced investment guidance.
+    </div>
+    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
+      <button>Get SIP Bundle</button>
+    </a>
+
+    <div style="text-align:center; color:var(--muted); font-size:12px; margin-top:6px;">
+      Disclosure: SG Multi Tools may contain affiliate links. If you click and purchase, we may earn a commission at no additional cost to you.
+    </div>
+  </div>
 </div>
+
+<!-- SIP Calculator JS -->
+<script>
+function calculateSIP() {
+  const P = parseFloat(document.getElementById("sipAmount").value);
+  const r = parseFloat(document.getElementById("sipRate").value)/100/12; // monthly rate
+  const n = parseFloat(document.getElementById("sipYears").value)*12; // total months
+  const resultDiv = document.getElementById("sipResult");
+
+  if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
+    resultDiv.innerText = "Please enter valid positive numbers";
+    return;
+  }
+
+  // Future Value of SIP formula: FV = P * [ ( (1+r)^n -1 ) / r ] * (1+r)
+  const fv = P * (Math.pow(1+r, n) - 1) / r * (1+r);
+
+  resultDiv.innerHTML = `
+    Total Investment: ₹${(P*n).toLocaleString()} <br>
+    Estimated Returns: ₹${(fv - P*n).toLocaleString()} <br>
+    Total Value: ₹${fv.toLocaleString()}
+  `;
+}
+</script>
+
 </body>
 </html>
