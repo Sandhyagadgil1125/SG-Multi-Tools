@@ -4,194 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Note Text Saver | SG Multi Tools</title>
+<link rel="stylesheet" href="css/style.css">
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --flex:#111827;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* TOOL CARD */
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
-  background:var(--card);
-  padding:24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-}
-
-/* CLOSE */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-/* TITLE */
-h2{
-  text-align:center;
-  margin-bottom:18px;
-}
-
-/* FLEXBOX */
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-/* INPUT */
-textarea{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-  resize:none;
-}
-
-/* BUTTON */
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{ opacity:.9; }
-
-/* NOTE ITEM */
-.note{
-  background:#020617;
-  padding:10px;
-  border-radius:8px;
-  font-size:14px;
-  margin-bottom:8px;
-  position:relative;
-}
-
-.note span{
-  position:absolute;
-  right:10px;
-  top:6px;
-  cursor:pointer;
-  color:var(--muted);
-}
-.note span:hover{
-  color:var(--accent);
-}
-
-/* INFO */
-.info{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-}
-</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
-
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <!-- X Close Button -->
+  <span class="close-btn" onclick="history.back()">✕</span>
 
+  <!-- Tool Title -->
   <h2>Note Text Saver</h2>
 
+  <!-- Tool Description -->
   <div class="flexbox">
-    <textarea id="noteInput" rows="4" placeholder="Write your note here..."></textarea>
+    <p>Write and save your notes directly in your browser. Quickly copy or clear your notes anytime. Perfect for reminders, lists, or temporary storage.</p>
   </div>
 
-  <div class="flexbox">
-    <button onclick="saveNote()">Save Note</button>
+  <!-- Tool Interface -->
+  <div class="tool-content">
+    <textarea id="noteArea" rows="10" placeholder="Write your notes here..." style="width:100%; padding:12px; border-radius:8px; border:1px solid #334155; background:var(--bg-card); color:var(--text-main);"></textarea>
+    <div style="margin-top:12px; display:flex; gap:10px;">
+      <button id="saveBtn" class="cta-btn">Copy Notes</button>
+      <button id="clearBtn" class="cta-btn">Clear Notes</button>
+    </div>
   </div>
 
-  <div class="flexbox" id="notes">
-    <!-- Saved notes appear here -->
-  </div>
+  <!-- Optional CTA block (skipped for free tool) -->
 
-  <div class="info">
-    Notes are saved in your browser
-  </div>
 </div>
 
 <script>
-const noteInput = document.getElementById("noteInput");
-const notesDiv = document.getElementById("notes");
+const noteArea = document.getElementById('noteArea');
+const saveBtn = document.getElementById('saveBtn');
+const clearBtn = document.getElementById('clearBtn');
 
-function loadNotes(){
-  notesDiv.innerHTML = "";
-  const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
+saveBtn.addEventListener('click', () => {
+  noteArea.select();
+  document.execCommand('copy');
+  alert('Notes copied to clipboard!');
+});
 
-  if(notes.length === 0){
-    notesDiv.innerHTML = "<div class='info'>No notes found</div>";
-    return;
-  }
-
-  notes.forEach((note, index) => {
-    const div = document.createElement("div");
-    div.className = "note";
-    div.innerHTML = `
-      ${note}
-      <span onclick="deleteNote(${index})">✕</span>
-    `;
-    notesDiv.appendChild(div);
-  });
-}
-
-
-function saveNote(){
-  const text = noteInput.value.trim();
-  if(!text){
-    alert("Please write a note");
-    return;
-  }
-
-  const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
-  notes.unshift(text);
-  localStorage.setItem("sg_notes", JSON.stringify(notes));
-  noteInput.value = "";
-  loadNotes();
-}
-
-function deleteNote(index){
-  const notes = JSON.parse(localStorage.getItem("sg_notes")) || [];
-  notes.splice(index,1);
-  localStorage.setItem("sg_notes", JSON.stringify(notes));
-  loadNotes();
-}
-
-loadNotes();
+clearBtn.addEventListener('click', () => {
+  noteArea.value = '';
+});
 </script>
 
 </body>
