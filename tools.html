@@ -14,91 +14,315 @@
   <p>Access all your essential online tools in one place</p>
 </section>
 
-<!-- TOOL CARD: Unit Converter -->
-<div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+<!-- TOOLS GRID -->
+<section class="tools-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; padding:20px;">
 
-  <h2>Unit Converter</h2>
-  <div class="description">Convert between common units instantly</div>
-
-  <div class="flexbox">
-    <select id="type1">
-      <option value="length">Length</option>
-      <option value="weight">Weight</option>
-      <option value="temp">Temperature</option>
-    </select>
+  <!-- Tool Card Template -->
+  <!-- Repeat this block for each tool -->
+  
+  <!-- 1. Advanced Calculator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Advanced Calculator</h2>
+    <div class="description">Perform complex calculations with ease</div>
+    <div class="flexbox">
+      <input type="text" placeholder="Enter expression">
+    </div>
+    <div class="flexbox">
+      <button>Calculate</button>
+    </div>
+    <div class="flexbox result">Result will appear here</div>
   </div>
 
-  <div class="flexbox">
-    <input type="number" id="inputValue1" placeholder="Enter value">
+  <!-- 2. Age Calculator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Age Calculator</h2>
+    <div class="description">Calculate age based on date of birth</div>
+    <div class="flexbox">
+      <input type="date">
+    </div>
+    <div class="flexbox">
+      <button>Calculate Age</button>
+    </div>
+    <div class="flexbox result">Your age will appear here</div>
   </div>
 
-  <div class="flexbox">
-    <select id="fromUnit1"></select>
+  <!-- 3. Case Changer -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Case Changer</h2>
+    <div class="description">Convert text to uppercase, lowercase, or title case</div>
+    <div class="flexbox">
+      <textarea placeholder="Enter text"></textarea>
+    </div>
+    <div class="flexbox">
+      <button>Change Case</button>
+    </div>
+    <div class="flexbox result">Converted text will appear here</div>
   </div>
 
-  <div class="flexbox">
-    <select id="toUnit1"></select>
+  <!-- 4. Color Picker -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Color Picker</h2>
+    <div class="description">Select and copy colors easily</div>
+    <div class="flexbox">
+      <input type="color">
+    </div>
+    <div class="flexbox result">Selected color code will appear here</div>
   </div>
 
-  <div class="flexbox">
-    <button onclick="convert1()">Convert</button>
+  <!-- 5. Currency Converter -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Currency Converter</h2>
+    <div class="description">Convert between different currencies instantly</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Enter amount">
+    </div>
+    <div class="flexbox">
+      <select><option>USD</option><option>INR</option><option>EUR</option></select>
+      <select><option>INR</option><option>USD</option><option>EUR</option></select>
+    </div>
+    <div class="flexbox">
+      <button>Convert</button>
+    </div>
+    <div class="flexbox result">Converted value will appear here</div>
   </div>
 
-  <div class="flexbox result" id="result1">
-    Converted value will appear here
+  <!-- 6. Date Difference -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Date Difference</h2>
+    <div class="description">Calculate difference between two dates</div>
+    <div class="flexbox">
+      <input type="date">
+      <input type="date">
+    </div>
+    <div class="flexbox">
+      <button>Calculate Difference</button>
+    </div>
+    <div class="flexbox result">Date difference will appear here</div>
   </div>
-</div>
 
-<script>
-const units1 = {
-  length: { Meter: 1, Kilometer: 1000, Centimeter: 0.01, Mile: 1609.34, Foot: 0.3048 },
-  weight: { Kilogram: 1, Gram: 0.001, Pound: 0.453592, Ounce: 0.0283495 },
-  temp: ["Celsius","Fahrenheit","Kelvin"]
-};
-const fromUnit1 = document.getElementById("fromUnit1");
-const toUnit1 = document.getElementById("toUnit1");
+  <!-- 7. EMI Calculator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>EMI Calculator</h2>
+    <div class="description">Compute EMI for loans quickly</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Principal Amount">
+      <input type="number" placeholder="Rate of Interest (%)">
+      <input type="number" placeholder="Tenure (Months)">
+    </div>
+    <div class="flexbox">
+      <button>Calculate EMI</button>
+    </div>
+    <div class="flexbox result">EMI result will appear here</div>
+  </div>
 
-function updateUnits1(){
-  const type = document.getElementById("type1").value;
-  fromUnit1.innerHTML = "";
-  toUnit1.innerHTML = "";
-  if(type==="temp"){
-    units1.temp.forEach(u=>{
-      fromUnit1.innerHTML += `<option>${u}</option>`;
-      toUnit1.innerHTML += `<option>${u}</option>`;
-    });
-  } else {
-    for(let u in units1[type]){
-      fromUnit1.innerHTML += `<option>${u}</option>`;
-      toUnit1.innerHTML += `<option>${u}</option>`;
-    }
-  }
-}
-function convert1(){
-  const value = parseFloat(document.getElementById("inputValue1").value);
-  const type = document.getElementById("type1").value;
-  const from = fromUnit1.value;
-  const to = toUnit1.value;
-  if(isNaN(value)){ alert("Please enter a value"); return; }
-  let result;
-  if(type==="temp"){
-    if(from===to) result=value;
-    else if(from==="Celsius" && to==="Fahrenheit") result=value*9/5+32;
-    else if(from==="Celsius" && to==="Kelvin") result=value+273.15;
-    else if(from==="Fahrenheit" && to==="Celsius") result=(value-32)*5/9;
-    else if(from==="Fahrenheit" && to==="Kelvin") result=(value-32)*5/9+273.15;
-    else if(from==="Kelvin" && to==="Celsius") result=value-273.15;
-    else if(from==="Kelvin" && to==="Fahrenheit") result=(value-273.15)*9/5+32;
-  } else {
-    result = value * units1[type][from] / units1[type][to];
-  }
-  document.getElementById("result1").innerHTML = `<b>${result.toFixed(4)}</b>`;
-}
+  <!-- 8. File Size Converter -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>File Size Converter</h2>
+    <div class="description">Convert file size between KB, MB, GB</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Enter file size">
+      <select><option>KB</option><option>MB</option><option>GB</option></select>
+      <select><option>KB</option><option>MB</option><option>GB</option></select>
+    </div>
+    <div class="flexbox">
+      <button>Convert</button>
+    </div>
+    <div class="flexbox result">Converted size will appear here</div>
+  </div>
 
-updateUnits1();
-document.getElementById("type1").addEventListener("change", updateUnits1);
-</script>
+  <!-- 9. Image Converter -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Image Converter</h2>
+    <div class="description">Convert images between JPG, PNG, GIF, WebP</div>
+    <div class="flexbox">
+      <input type="file" accept="image/*">
+      <select><option>PNG</option><option>JPG</option><option>GIF</option><option>WebP</option></select>
+    </div>
+    <div class="flexbox">
+      <button>Convert</button>
+    </div>
+    <div class="flexbox result">Converted image will appear here</div>
+  </div>
+
+  <!-- 10. Note Text Saver -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Note Text Saver</h2>
+    <div class="description">Save notes and text online instantly</div>
+    <div class="flexbox">
+      <textarea placeholder="Write your note here"></textarea>
+    </div>
+    <div class="flexbox">
+      <button>Save Note</button>
+    </div>
+    <div class="flexbox result">Your saved note will appear here</div>
+  </div>
+
+  <!-- 11. Password Generator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Password Generator</h2>
+    <div class="description">Generate strong and secure passwords</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Password length">
+    </div>
+    <div class="flexbox">
+      <button>Generate Password</button>
+    </div>
+    <div class="flexbox result">Generated password will appear here</div>
+  </div>
+
+  <!-- 12. Percentage Calculator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Percentage Calculator</h2>
+    <div class="description">Calculate percentage values easily</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Enter total value">
+      <input type="number" placeholder="Enter percentage">
+    </div>
+    <div class="flexbox">
+      <button>Calculate</button>
+    </div>
+    <div class="flexbox result">Percentage result will appear here</div>
+  </div>
+
+  <!-- 13. QR Code Generator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>QR Code Generator</h2>
+    <div class="description">Generate QR codes for URLs or text</div>
+    <div class="flexbox">
+      <input type="text" placeholder="Enter text or URL">
+    </div>
+    <div class="flexbox">
+      <button>Generate QR Code</button>
+    </div>
+    <div class="flexbox result">QR Code will appear here</div>
+  </div>
+
+  <!-- 14. SIP Calculator -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>SIP Calculator</h2>
+    <div class="description">Calculate future value of your SIP investments</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Monthly Investment (₹)">
+      <input type="number" placeholder="Annual Rate of Return (%)">
+      <input type="number" placeholder="Investment Period (Years)">
+    </div>
+    <div class="flexbox">
+      <button>Calculate SIP</button>
+    </div>
+    <div class="flexbox result">SIP result will appear here</div>
+  </div>
+
+  <!-- 15. Speech to Text -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Speech to Text</h2>
+    <div class="description">Convert your speech into text instantly</div>
+    <div class="flexbox">
+      <button>Start Recording</button>
+      <button>Stop</button>
+    </div>
+    <div class="flexbox result">Transcribed text will appear here</div>
+  </div>
+
+  <!-- 16. Text to Speech -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Text to Speech</h2>
+    <div class="description">Convert text into spoken audio</div>
+    <div class="flexbox">
+      <textarea placeholder="Enter text here"></textarea>
+    </div>
+    <div class="flexbox">
+      <button>Speak Text</button>
+    </div>
+    <div class="flexbox result">Audio will play here</div>
+  </div>
+
+  <!-- 17. Timer / Stopwatch -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Timer / Stopwatch</h2>
+    <div class="description">Measure time and countdowns easily</div>
+    <div class="flexbox">
+      <input type="number" placeholder="Timer seconds (optional)">
+    </div>
+    <div class="flexbox">
+      <button>Start</button>
+      <button>Stop</button>
+      <button>Reset</button>
+    </div>
+    <div class="flexbox result">Time will appear here</div>
+  </div>
+
+  <!-- 18. Unit Converter -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Unit Converter</h2>
+    <div class="description">Convert between common units instantly</div>
+    <div class="flexbox">
+      <select>
+        <option>Length</option>
+        <option>Weight</option>
+        <option>Temperature</option>
+      </select>
+    </div>
+    <div class="flexbox">
+      <input type="number" placeholder="Enter value">
+    </div>
+    <div class="flexbox">
+      <select> <option>From Unit</option> </select>
+      <select> <option>To Unit</option> </select>
+    </div>
+    <div class="flexbox">
+      <button>Convert</button>
+    </div>
+    <div class="flexbox result">Converted value will appear here</div>
+  </div>
+
+  <!-- 19. URL Encoder / Decoder -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>URL Encoder / Decoder</h2>
+    <div class="description">Encode or decode URLs instantly</div>
+    <div class="flexbox">
+      <textarea placeholder="Enter URL"></textarea>
+    </div>
+    <div class="flexbox">
+      <button>Encode</button>
+      <button>Decode</button>
+    </div>
+    <div class="flexbox result">Result will appear here</div>
+  </div>
+
+  <!-- 20. Word Counter -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Word Counter</h2>
+    <div class="description">Count words, characters, and more</div>
+    <div class="flexbox">
+      <textarea placeholder="Enter text here"></textarea>
+    </div>
+    <div class="flexbox">
+      <button>Count Words</button>
+    </div>
+    <div class="flexbox result">Word count will appear here</div>
+  </div>
+
+</section>
 
 </body>
 </html>
