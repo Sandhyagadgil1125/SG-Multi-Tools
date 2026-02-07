@@ -1,231 +1,222 @@
-/* ===============================
-   ROOT VARIABLES
-================================ */
+/* ==============================
+   GLOBAL VARIABLES
+============================== */
 :root {
-  --bg-main: #0f172a;
-  --bg-card: #1e293b;
-  --bg-header: #020617;
-  --accent: #42f8f5;
-  --text-main: #ffffff;
-  --text-muted: #cbd5e1;
+  --bg: #0f172a;           /* page background */
+  --card: #1e293b;         /* tool card background */
+  --flex: #111827;         /* input/flexbox background */
+  --accent: #42f8f5;       /* main accent color (buttons, border) */
+  --text: #ffffff;         /* primary text */
+  --muted: #94a3b8;        /* muted text (description, info) */
+  --radius: 14px;          /* default border radius */
 }
 
-/* ===============================
+/* ==============================
    GLOBAL RESET
-================================ */
+============================== */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg-main);
-  color: var(--text-main);
-  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  padding: 10px;
 }
 
-/* ===============================
-   HEADER
-================================ */
-.site-header {
-  background: var(--bg-header);
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-badge {
-  width: 36px;
-  height: 36px;
-  background: var(--accent);
-  color: #000;
-  font-weight: 800;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.nav-links a {
-  margin-left: 18px;
-  text-decoration: none;
-  color: var(--text-main);
-  font-size: 14px;
-}
-
-.nav-links a:hover {
-  color: var(--accent);
-}
-
-/* ===============================
-   HERO SECTION
-================================ */
-.hero {
-  padding: 70px 20px 50px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 34px;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.hero p {
-  max-width: 650px;
-  margin: auto;
-  color: var(--text-muted);
-  font-size: 16px;
-}
-
-/* ===============================
-   TOOLS SECTION
-================================ */
-.tools-section {
-  padding: 40px 24px 60px;
-}
-
-.tools-grid {
-  max-width: 1200px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-
-/* ===============================
+/* ==============================
    TOOL CARD
-================================ */
-.tool-card {
-  background: var(--bg-card);
-  border-radius: 14px;
-  padding: 22px 18px 26px;
-  text-align: center;
+============================== */
+.tool-wrapper {
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 28px 24px 24px;
+  background: var(--card);
+  border-radius: 18px;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 30px rgba(66, 248, 245, 0.45);
   position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.3s ease;
 }
 
-.tool-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(66,248,245,0.25);
+/* Hover effect: brighter glow */
+.tool-wrapper:hover {
+  box-shadow: 0 0 40px rgba(66, 248, 245, 0.9);
+  transform: translateY(-2px);
 }
 
-.tool-card h3 {
-  font-size: 17px;
-  margin-bottom: 8px;
-  color: var(--text-main);
-}
-
-.tool-card p {
-  font-size: 13.5px;
-  color: var(--text-muted);
-  margin-bottom: 18px;
-  min-height: 34px;
-}
-/* ============================
-   CLOSE BUTTON FOR TOOLS
-============================ */
+/* ==============================
+   CLOSE BUTTON (GLOBAL "X")
+============================== */
 .close-btn {
   position: absolute;
   top: 12px;
   right: 14px;
   font-size: 22px;
-  color: var(--muted); /* muted text color */
+  color: var(--muted);
   cursor: pointer;
-  transition: color 0.2s ease;
-  z-index: 1000;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .close-btn:hover {
-  color: var(--accent); /* accent color on hover */
-}
-
-/* ===============================
-   OPEN BUTTON (HOVER MAGIC)
-================================ */
-.open-tool {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 42px;
-  width: 100%;
-  border-radius: 10px;
-  background: rgba(66,248,245,0.15);
   color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.25s ease, color 0.25s ease;
 }
 
-.tool-card:hover .open-tool {
+/* ==============================
+   TOOL TITLE & DESCRIPTION
+============================== */
+h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.description {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.info {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* ==============================
+   FLEXBOX / INPUT WRAPPERS
+============================== */
+.flexbox {
+  background: var(--flex);
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid #334155;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ==============================
+   LABELS & INPUTS
+============================== */
+label {
+  font-size: 14px;
+  color: var(--text);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #020617;
+  color: #fff;
+  font-size: 15px;
+  resize: vertical;
+}
+
+/* ==============================
+   BUTTONS
+============================== */
+button {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
   background: var(--accent);
   color: #000;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* ===============================
-   FOOTER
-================================ */
-.site-footer {
-  background: var(--bg-header);
-  padding: 26px 16px;
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ==============================
+   RESULT BOX
+============================== */
+.result {
   text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  font-size: 16px;
+  min-height: 40px;
+  padding: 10px;
+  background: #020617;
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  word-break: break-word;
 }
 
-.footer-links {
-  margin-bottom: 10px;
+/* ==============================
+   CLOCK / SPECIAL HANDS (for Timer/Stopwatch)
+============================== */
+.clock {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 6px solid var(--accent);
+  margin: 18px auto;
 }
 
-.footer-links a {
-  margin: 0 10px;
-  font-size: 13px;
-  color: var(--text-muted);
-  text-decoration: none;
+.hand {
+  position: absolute;
+  width: 3px;
+  height: 90px;
+  background: var(--accent);
+  top: 20px;
+  left: 50%;
+  transform-origin: bottom;
 }
 
-.footer-links a:hover {
-  color: var(--accent);
+.center-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.site-footer p {
-  font-size: 12px;
-  color: var(--text-muted);
+.time {
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
 }
 
-/* ===============================
+/* ==============================
    RESPONSIVE
-================================ */
-@media (max-width: 1024px) {
-  .tools-grid {
-    grid-template-columns: repeat(3, 1fr);
+============================== */
+@media (max-width: 600px) {
+  .tool-wrapper {
+    margin: 20px 10px;
+    padding: 20px;
   }
-}
 
-@media (max-width: 768px) {
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .clock {
+    width: 180px;
+    height: 180px;
   }
-}
 
-@media (max-width: 480px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
+  .hand {
+    height: 70px;
+  }
+
+  button {
+    font-size: 14px;
   }
 }
