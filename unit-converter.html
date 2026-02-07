@@ -1,82 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit Converter | SG Multi Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter | SG Multi Tools</title>
+  <meta name="description" content="Convert between common units instantly using SG Multi Tools Unit Converter.">
 
-<link rel="stylesheet" href="style.css"> <!-- global style -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
 
-<style>
-/* TOOL-SPECIFIC OVERRIDES IF NEEDED */
-.tool-wrapper{
-  max-width:520px;
-  margin:40px auto;
-  padding:28px 24px 24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-  position:relative; /* for global X button */
-}
-
-.description{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
-
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-input, select{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-}
-
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{ opacity:.9; }
-
-.result{
-  text-align:center;
-  font-size:16px;
-}
-</style>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <!-- GLOBAL X BUTTON -->
-  <button class="close-btn" onclick="history.back()">✕</button>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
+  <!-- Tool Title -->
   <h2>Unit Converter</h2>
-
-  <!-- SHORT DESCRIPTION -->
   <div class="description">
-    Quickly convert between common units like length, weight, and temperature.
+    Convert between common units instantly.
   </div>
 
+  <!-- Unit Type -->
   <div class="flexbox">
     <select id="type" onchange="updateUnits()">
       <option value="length">Length</option>
@@ -85,75 +40,84 @@ button:hover{ opacity:.9; }
     </select>
   </div>
 
+  <!-- Input Value -->
   <div class="flexbox">
     <input type="number" id="inputValue" placeholder="Enter value">
   </div>
 
+  <!-- From Unit -->
   <div class="flexbox">
     <select id="fromUnit"></select>
   </div>
 
+  <!-- To Unit -->
   <div class="flexbox">
     <select id="toUnit"></select>
   </div>
 
+  <!-- Convert Button -->
   <div class="flexbox">
     <button onclick="convert()">Convert</button>
   </div>
 
+  <!-- Result -->
   <div class="flexbox result" id="result">
     Converted value will appear here
+  </div>
+
+  <div class="info">
+    Convert between common units instantly
   </div>
 </div>
 
 <script>
 const units = {
-  length: { Meter:1, Kilometer:1000, Centimeter:0.01, Mile:1609.34, Foot:0.3048 },
-  weight: { Kilogram:1, Gram:0.001, Pound:0.453592, Ounce:0.0283495 },
-  temp: ["Celsius","Fahrenheit","Kelvin"]
+  length: { Meter: 1, Kilometer: 1000, Centimeter: 0.01, Mile: 1609.34, Foot: 0.3048 },
+  weight: { Kilogram: 1, Gram: 0.001, Pound: 0.453592, Ounce: 0.0283495 },
+  temp: ["Celsius", "Fahrenheit", "Kelvin"]
 };
 
 const fromUnit = document.getElementById("fromUnit");
 const toUnit = document.getElementById("toUnit");
 
-function updateUnits(){
+function updateUnits() {
   const type = document.getElementById("type").value;
   fromUnit.innerHTML = "";
   toUnit.innerHTML = "";
 
-  if(type === "temp"){
+  if(type === "temp") {
     units.temp.forEach(u=>{
       fromUnit.innerHTML += `<option>${u}</option>`;
       toUnit.innerHTML += `<option>${u}</option>`;
     });
-  }else{
-    for(let u in units[type]){
+  } else {
+    for(let u in units[type]) {
       fromUnit.innerHTML += `<option>${u}</option>`;
       toUnit.innerHTML += `<option>${u}</option>`;
     }
   }
 }
 
-function convert(){
+function convert() {
   const value = parseFloat(document.getElementById("inputValue").value);
   const type = document.getElementById("type").value;
   const from = fromUnit.value;
   const to = toUnit.value;
 
-  if(isNaN(value)){
+  if(isNaN(value)) {
     alert("Please enter a value");
     return;
   }
 
   let result;
-  if(type === "temp"){
+
+  if(type === "temp") {
     result = convertTemp(value, from, to);
-  }else{
+  } else {
     result = value * units[type][from] / units[type][to];
   }
 
-  document.getElementById("result").innerHTML =
-    `<b>${result.toFixed(4)}</b>`;
+  document.getElementById("result").innerHTML = `<b>${result.toFixed(4)}</b>`;
 }
 
 function convertTemp(v,f,t){
