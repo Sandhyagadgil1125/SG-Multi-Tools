@@ -1,63 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QR Code Generator | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator | SG Multi Tools</title>
+  <meta name="description" content="Generate QR codes instantly with SG Multi Tools QR Code Generator.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <!-- Tool Title -->
   <h2>QR Code Generator</h2>
+  <div class="description">
+    Generate QR codes instantly for URLs, text, or any data.
+  </div>
 
-  <!-- Tool Description -->
+  <!-- Input -->
   <div class="flexbox">
-    <p>Generate QR codes instantly for URLs, text, or contact information. Download or scan easily for quick sharing and accessibility.</p>
+    <input type="text" id="qrInput" placeholder="Enter text or URL">
   </div>
 
-  <!-- Tool Interface -->
-  <div class="tool-content" style="display:flex; flex-direction:column; gap:12px;">
-    <input type="text" id="qrText" placeholder="Enter text or URL" style="padding:10px; border-radius:8px; border:1px solid #334155; background:var(--bg-card); color:var(--text-main);">
-    <button id="generateQRBtn" class="cta-btn">Generate QR Code</button>
-    <canvas id="qrCanvas" style="margin-top:12px;"></canvas>
-    <a id="downloadQR" href="#" download="qrcode.png" class="cta-btn" style="display:none;">Download QR Code</a>
+  <!-- Generate Button -->
+  <div class="flexbox">
+    <button onclick="generateQR()">Generate QR Code</button>
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
-
+  <!-- QR Code Display -->
+  <div class="flexbox result" style="text-align:center;">
+    <canvas id="qrCanvas"></canvas>
+  </div>
 </div>
 
+<!-- QR Code JS Library (lightweight) -->
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script>
-const qrText = document.getElementById('qrText');
-const generateQRBtn = document.getElementById('generateQRBtn');
-const qrCanvas = document.getElementById('qrCanvas');
-const downloadQR = document.getElementById('downloadQR');
+const canvas = document.getElementById('qrCanvas');
 
-generateQRBtn.addEventListener('click', () => {
-  const text = qrText.value.trim();
-  if(!text) return alert('Please enter text or URL.');
-  
-  QRCode.toCanvas(qrCanvas, text, { width: 200 }, function (error) {
-    if(error) return console.error(error);
-    downloadQR.style.display = 'inline-block';
-    downloadQR.href = qrCanvas.toDataURL("image/png");
+function generateQR() {
+  const text = document.getElementById('qrInput').value.trim();
+  if (!text) {
+    alert('Please enter text or URL to generate QR code');
+    return;
+  }
+
+  QRCode.toCanvas(canvas, text, { width: 200, margin: 2, color: { dark: '#42f8f5', light: '#020617' } }, function (error) {
+    if (error) console.error(error);
   });
-});
+}
 </script>
 
 </body>
