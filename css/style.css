@@ -1,38 +1,28 @@
-/* ==============================
-   GLOBAL VARIABLES
-============================== */
 :root {
-  --bg: #0f172a;
-  --card: #1e293b;
-  --flex: #111827;
+  --bg: #0d0f14;
+  --card: #151a24;
   --accent: #42f8f5;
-  --text: #ffffff;
-  --muted: #94a3b8;
-  --radius: 14px;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
 }
 
-/* ==============================
-   GLOBAL RESET
-============================== */
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  line-height: 1.6;
 }
 
-/* ==============================
-   HEADER
-============================== */
+/* HEADER */
 .site-header {
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
+  background: var(--card);
+  border-bottom: 2px solid var(--accent);
 }
 
 .header-inner {
@@ -40,8 +30,8 @@ body {
   margin: auto;
   padding: 14px 20px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
@@ -51,408 +41,110 @@ body {
 }
 
 .logo-circle {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--accent);
   color: #000;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
 }
 
 .logo-text {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .nav a {
   margin-left: 18px;
   color: var(--text);
   text-decoration: none;
-  font-size: 15px;
 }
 
 .nav a:hover {
   color: var(--accent);
 }
 
-/* ==============================
-   HERO SECTION
-============================== */
+/* HERO */
 .hero {
   text-align: center;
-  padding: 60px 20px 30px;
+  padding: 16px 20px 18px;
 }
 
 .hero h1 {
-  font-size: 42px;
   color: var(--accent);
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
-.hero p {
-  color: var(--muted);
-  font-size: 16px;
-}
-
-/* ==============================
-   TOOLS GRID (HOME & TOOLS PAGE)
-============================== */
+/* TOOLS GRID */
 .tools-grid {
   max-width: 1200px;
   margin: auto;
-  padding: 30px 20px 50px;
+  padding: 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  align-items: stretch;
+  gap: 20px;
 }
 
-/* ==============================
-   TOOL CARD (CRITICAL FIX)
-============================== */
+/* MOBILE: ONLY ONE TOOL */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* TOOL CARD */
 .tool-wrapper {
   background: var(--card);
-  border-radius: 18px;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 30px rgba(66, 248, 245, 0.45);
-  padding: 26px 22px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  transition: all 0.3s ease;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  transition: 0.3s ease;
 }
 
 .tool-wrapper:hover {
-  box-shadow: 0 0 40px rgba(66, 248, 245, 0.9);
+  box-shadow: 0 0 32px rgba(66, 248, 245, 0.6);
   transform: translateY(-3px);
 }
 
-/* Card title */
 .tool-wrapper h2 {
-  font-size: 20px;
-  margin-bottom: 8px;
-  text-align: center;
+  font-size: 18px;
+  margin-bottom: 6px;
 }
 
-/* Card description */
 .description {
   font-size: 14px;
   color: var(--muted);
-  text-align: center;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
-/* Push button to bottom */
-.tool-wrapper a {
-  margin-top: auto;
-}
-
-/* ==============================
-   BUTTONS
-============================== */
-button {
-  width: 100%;
-  height: 44px;
-  border-radius: 10px;
-  border: none;
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
   background: var(--accent);
   color: #000;
-  font-weight: bold;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-/* ==============================
-   SINGLE TOOL PAGES (ABOUT, CONTACT)
-============================== */
-.single-page .tool-wrapper {
-  max-width: 520px;
-  margin: 40px auto;
-}
-
-/* ==============================
-   FOOTER
-============================== */
+/* FOOTER */
 .site-footer {
-  border-top: 1px solid #1e293b;
   text-align: center;
-  padding: 20px;
+  padding: 14px 10px;
+  margin-top: 20px;
   font-size: 14px;
-  color: var(--muted);
 }
 
 .site-footer a {
   color: var(--muted);
-  margin: 0 10px;
+  margin: 0 8px;
   text-decoration: none;
 }
 
 .site-footer a:hover {
   color: var(--accent);
 }
-
-/* ==============================
-   RESPONSIVE
-============================== */
-@media (max-width: 1100px) {
-  .tools-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 800px) {
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero h1 {
-    font-size: 34px;
-  }
-}
-
-@media (max-width: 500px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 28px;
-  }
-}
-/* ==============================
-   SINGLE STATIC PAGES FIX
-   (About, Contact, Policies)
-============================== */
-.single-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-/* ==============================
-   SINGLE STATIC PAGES FIX
-   (About, Contact, Policies)
-============================== */
-.single-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-/* ==============================
-   SINGLE STATIC PAGES FIX
-   (About, Contact, Policies)
-============================== */
-.single-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-/* ==============================
-   SINGLE STATIC PAGES FIX
-   (About, Contact, Policies)
-============================== */
-.single-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-/* ==============================
-   SINGLE STATIC PAGES FIX
-   (About, Contact, Policies)
-============================== */
-.single-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-
-/* ==============================
-   STATIC PAGES CENTER FIX
-============================== */
-body.single-page {
-  display: flex;
-  flex-direction: column;
-}
-
-body.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-/* ==============================
-   STATIC PAGES CENTER FIX
-============================== */
-
-body.single-page .tool-wrapper {
-  width: 100%;
-  max-width: 520px;
-  margin: 40px auto;
-}
-/* ==============================
-   STATIC PAGES (About, Contact)
-   Center ONLY the content card
-============================== */
-body.single-page .tool-wrapper {
-  max-width: 720px;
-  margin: 40px auto;
-}
-/* ==============================
-   HEADER LAYOUT (FIX)
-============================== */
-.site-header {
-  width: 100%;
-  background: var(--bg);
-}
-
-.header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-circle {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #000;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav {
-  display: flex;
-  gap: 18px;
-}
-
-.nav a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav a:hover,
-.nav a.active {
-  color: var(--accent);
-}
-/* ==============================
-   FIX: SINGLE PAGE CARD TEXT
-============================== */
-.single-page .tool-wrapper {
-  text-align: left;
-}
-
-.single-page .tool-wrapper h1,
-.single-page .tool-wrapper h2,
-.single-page .tool-wrapper p,
-.single-page .tool-wrapper ul {
-  text-align: left;
-}
-/* ==============================
-   FINAL LAYOUT SPACING (CLEAN)
-   Applies to ALL pages
-============================== */
-
-/* Header → Hero */
-.site-header {
-  margin-bottom: 0;
-}
-
-/* Hero section */
-.hero {
-  padding: 14px 20px 18px;
-  margin-top: 0;
-  text-align: center;
-}
-
-.hero h1 {
-  margin-bottom: 4px;
-}
-
-.hero p {
-  margin-bottom: 8px;
-}
-
-/* Tool cards */
-.tool-wrapper {
-  padding: 16px;
-}
-
-/* Single pages (About, Contact) */
-.single-page .tool-wrapper {
-  max-width: 520px;
-  margin: 8px auto 10px;
-}
-
-/* Footer */
-.site-footer {
-  margin-top: 8px;
-  padding: 8px 0;
-}
-/* Fix list & text alignment inside cards */
-.tool-wrapper ul {
-  padding-left: 22px;
-}
-
-.tool-wrapper li {
-  margin-bottom: 6px;
-}
-
-.tool-wrapper p,
-.tool-wrapper h1,
-.tool-wrapper h2,
-.tool-wrapper h3 {
-  text-align: left;
-}
-
-
-
-
