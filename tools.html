@@ -3,239 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Tools | SG Multi Tools</title>
-<meta name="description" content="Browse all free online tools by SG Multi Tools including calculators, converters, and productivity utilities.">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-BT8RQZBBTQ');
-</script>
-
-<!-- Global CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-<style>
-/* Tools Grid */
-.tools{
-  max-width:1200px;
-  margin:40px auto 60px;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-@media(max-width:900px){ .tools{ grid-template-columns:repeat(2,1fr); } }
-@media(max-width:480px){ .tools{ grid-template-columns:1fr; } }
-
-/* Tool Card */
-.tool-card{
-  background:#1e293b;
-  border-radius:16px;
-  padding:20px;
-  text-align:center;
-  transition:transform .2s, box-shadow .2s;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.tool-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 18px rgba(66,248,245,.35);
-}
-
-.tool-card h3{
-  margin:0 0 8px;
-  color:#42f8f5;
-  font-size:16px;
-}
-
-.tool-card p{
-  margin:0 0 14px;
-  color:#94a3b8;
-  font-size:13px;
-}
-
-.tool-card a{
-  display:block;
-  text-decoration:none;
-  font-weight:bold;
-  color:#000;
-  background:#42f8f5;
-  padding:10px 0;
-  border-radius:10px;
-  transition:opacity .2s;
-}
-.tool-card a:hover{
-  opacity:.9;
-}
-</style>
+<title>SG Multi Tools | All Tools</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">
-    <div class="logo-circle">SG</div>
-    <div class="logo-title">SG Multi Tools</div>
-  </div>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-
-<!-- TITLE -->
-<section class="page-title">
+<!-- HERO SECTION -->
+<section class="hero">
   <h1>SG Multi Tools For Daily Use</h1>
-  <p>Free calculators, converters, and utilities to simplify your daily work</p>
+  <p>Access all your essential online tools in one place</p>
 </section>
 
-<!-- TOOLS LIST -->
-<section class="tools">
+<!-- TOOLS GRID -->
+<section class="tools-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px;">
+  
+  <!-- Example Tool Card -->
+  <div class="tool-wrapper">
+    <span class="close-btn" onclick="location.href='index.html'">✕</span>
+    <h2>Unit Converter</h2>
+    <div class="description">Convert between common units instantly</div>
 
-  <!-- Each tool card: Title, description, Open button -->
-  <div class="tool-card">
-    <h3>Advanced Calculator</h3>
-    <p>Perform complex calculations with ease</p>
-    <a href="advanced-calculator.html">Open</a>
-  </div>
+    <div class="flexbox">
+      <select id="type1">
+        <option value="length">Length</option>
+        <option value="weight">Weight</option>
+        <option value="temp">Temperature</option>
+      </select>
+    </div>
 
-  <div class="tool-card">
-    <h3>Age Calculator</h3>
-    <p>Quickly find your age or duration between dates</p>
-    <a href="age-calculator.html">Open</a>
-  </div>
+    <div class="flexbox">
+      <input type="number" id="inputValue1" placeholder="Enter value">
+    </div>
 
-  <div class="tool-card">
-    <h3>Case Changer</h3>
-    <p>Convert text between uppercase, lowercase, and more</p>
-    <a href="case-changer.html">Open</a>
-  </div>
+    <div class="flexbox">
+      <select id="fromUnit1"></select>
+    </div>
 
-  <div class="tool-card">
-    <h3>Color Picker</h3>
-    <p>Pick and copy any color code easily</p>
-    <a href="color-picker.html">Open</a>
-  </div>
+    <div class="flexbox">
+      <select id="toUnit1"></select>
+    </div>
 
-  <div class="tool-card">
-    <h3>Currency Converter</h3>
-    <p>Convert currencies with real-time exchange rates</p>
-    <a href="currency-converter.html">Open</a>
-  </div>
+    <div class="flexbox">
+      <button onclick="convert1()">Convert</button>
+    </div>
 
-  <div class="tool-card">
-    <h3>Date Difference</h3>
-    <p>Calculate days, months, years between two dates</p>
-    <a href="date-difference.html">Open</a>
+    <div class="flexbox result" id="result1">
+      Converted value will appear here
+    </div>
   </div>
-
-  <div class="tool-card">
-    <h3>EMI Calculator</h3>
-    <p>Compute your monthly EMI for loans</p>
-    <a href="emi-calculator.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>File Size Converter</h3>
-    <p>Convert file sizes between units</p>
-    <a href="file-size-converter.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Image Converter</h3>
-    <p>Change image formats quickly</p>
-    <a href="image-converter.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Note Text Saver</h3>
-    <p>Save and store text notes online</p>
-    <a href="note-text-saver.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Password Generator</h3>
-    <p>Create strong, random passwords</p>
-    <a href="password-generator.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Percentage Calculator</h3>
-    <p>Calculate percentages and ratios quickly</p>
-    <a href="percentage-calculator.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>QR Code Generator</h3>
-    <p>Generate QR codes for any URL or text</p>
-    <a href="qr-code-generator.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>SIP Calculator</h3>
-    <p>Plan your SIP investments effectively</p>
-    <a href="sip-calculator.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Speech to Text</h3>
-    <p>Convert spoken words into written text</p>
-    <a href="speech-to-text.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Text to Speech</h3>
-    <p>Read text aloud instantly</p>
-    <a href="text-to-speech.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Timer / Stopwatch</h3>
-    <p>Track time efficiently</p>
-    <a href="timer-stopwatch.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Unit Converter</h3>
-    <p>Convert between different units quickly</p>
-    <a href="unit-converter.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>URL Encoder / Decoder</h3>
-    <p>Encode or decode URLs easily</p>
-    <a href="url-encoder-decoder.html">Open</a>
-  </div>
-
-  <div class="tool-card">
-    <h3>Word Counter</h3>
-    <p>Count words, characters, and more</p>
-    <a href="word-counter.html">Open</a>
-  </div>
+  <!-- Repeat similar .tool-wrapper for each tool -->
 
 </section>
 
-<!-- FOOTER -->
-<footer>
-© 2026 SG Multi Tools · 
-<a href="privacy-policy.html">Privacy Policy</a> ·
-<a href="disclaimer.html">Disclaimer</a> ·
-<a href="terms-and-conditions.html">Terms & Conditions</a> ·
-<a href="sitemap.html">Sitemap</a> ·
-<a href="about.html">About</a> ·
-<a href="contact.html">Contact</a>
-</footer>
+<script>
+/* Example Unit Converter logic for card 1 */
+const units1 = {
+  length: { Meter: 1, Kilometer: 1000, Centimeter: 0.01, Mile: 1609.34, Foot: 0.3048 },
+  weight: { Kilogram: 1, Gram: 0.001, Pound: 0.453592, Ounce: 0.0283495 },
+  temp: ["Celsius","Fahrenheit","Kelvin"]
+};
+const fromUnit1 = document.getElementById("fromUnit1");
+const toUnit1 = document.getElementById("toUnit1");
+
+function updateUnits1(){
+  const type = document.getElementById("type1").value;
+  fromUnit1.innerHTML = "";
+  toUnit1.innerHTML = "";
+  if(type==="temp"){
+    units1.temp.forEach(u=>{
+      fromUnit1.innerHTML += `<option>${u}</option>`;
+      toUnit1.innerHTML += `<option>${u}</option>`;
+    });
+  } else {
+    for(let u in units1[type]){
+      fromUnit1.innerHTML += `<option>${u}</option>`;
+      toUnit1.innerHTML += `<option>${u}</option>`;
+    }
+  }
+}
+function convert1(){
+  const value = parseFloat(document.getElementById("inputValue1").value);
+  const type = document.getElementById("type1").value;
+  const from = fromUnit1.value;
+  const to = toUnit1.value;
+  if(isNaN(value)){ alert("Please enter a value"); return; }
+  let result;
+  if(type==="temp"){
+    if(from===to) result=value;
+    else if(from==="Celsius" && to==="Fahrenheit") result=value*9/5+32;
+    else if(from==="Celsius" && to==="Kelvin") result=value+273.15;
+    else if(from==="Fahrenheit" && to==="Celsius") result=(value-32)*5/9;
+    else if(from==="Fahrenheit" && to==="Kelvin") result=(value-32)*5/9+273.15;
+    else if(from==="Kelvin" && to==="Celsius") result=value-273.15;
+    else if(from==="Kelvin" && to==="Fahrenheit") result=(value-273.15)*9/5+32;
+  } else {
+    result = value * units1[type][from] / units1[type][to];
+  }
+  document.getElementById("result1").innerHTML = `<b>${result.toFixed(4)}</b>`;
+}
+
+updateUnits1();
+document.getElementById("type1").addEventListener("change", updateUnits1);
+</script>
 
 </body>
 </html>
