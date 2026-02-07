@@ -3,243 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timer & Stopwatch | SG Multi Tools</title>
+<title>Timer / Stopwatch | SG Multi Tools</title>
+<link rel="stylesheet" href="css/style.css">
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --accent:#42f8f5;
-  --text:#ffffff;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial, sans-serif;
-  padding:10px;
-}
-
-/* TOOL CARD */
-.tool{
-  position:relative;
-  max-width:420px;
-  margin:30px auto;
-  background:var(--card);
-  padding:28px 24px 24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-  text-align:center;
-}
-
-/* CLOSE BUTTON */
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:12px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-size:18px;
-  font-weight:bold;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.close-btn:hover{
-  background:var(--accent);
-  color:#000;
-}
-
-/* TITLE */
-h2{
-  margin-bottom:16px;
-}
-
-/* CLOCK */
-.clock{
-  position:relative;
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  border:6px solid var(--accent);
-  margin:18px auto;
-}
-
-.hand{
-  position:absolute;
-  width:3px;
-  height:90px;
-  background:var(--accent);
-  top:20px;
-  left:50%;
-  transform-origin:bottom;
-}
-
-.center-dot{
-  position:absolute;
-  width:10px;
-  height:10px;
-  background:var(--accent);
-  border-radius:50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-}
-
-.time{
-  font-size:26px;
-  font-weight:bold;
-  margin-top:8px;
-}
-
-input{
-  width:100%;
-  height:42px;
-  border-radius:10px;
-  border:none;
-  padding:0 10px;
-  font-size:16px;
-  margin-top:12px;
-}
-
-.controls{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-}
-
-button{
-  flex:1;
-  height:44px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  background:var(--accent);
-  color:#000;
-  cursor:pointer;
-}
-</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
-
-<div class="tool">
-  <!-- CLOSE X -->
-  <button class="close-btn" onclick="closeTool()">✕</button>
+<div class="tool-wrapper">
+  <!-- X Close Button -->
+  <span class="close-btn" onclick="history.back()">✕</span>
 
   <h2>Timer / Stopwatch</h2>
 
-  <div class="clock">
-    <div class="hand" id="secondHand"></div>
-    <div class="center-dot"></div>
+  <div class="flexbox">
+    <p>Track time easily with this Timer and Stopwatch. Perfect for productivity, workouts, and daily tasks.</p>
   </div>
 
-  <div class="time" id="display">00:00.00</div>
-
-  <input type="number" id="timerInput" placeholder="Timer seconds (optional)" min="1">
-
-  <div class="controls">
-    <button onclick="start()">Start</button>
-    <button onclick="stop()">Stop</button>
-    <button onclick="reset()">Reset</button>
+  <!-- Timer / Stopwatch Interface -->
+  <div class="tool-content">
+    <div id="timerDisplay">00:00:00</div>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn">Stop</button>
+    <button id="resetBtn">Reset</button>
   </div>
+
+  <!-- Optional CTA block (skipped for free tool) -->
 </div>
 
 <script>
-let startTime = 0;
-let running = false;
-let rafId;
-let timerDuration = null;
+  // Simple Timer / Stopwatch Script
+  let timer;
+  let seconds = 0;
 
-const display = document.getElementById("display");
-const hand = document.getElementById("secondHand");
+  const display = document.getElementById("timerDisplay");
+  const startBtn = document.getElementById("startBtn");
+  const stopBtn = document.getElementById("stopBtn");
+  const resetBtn = document.getElementById("resetBtn");
 
-/* 🔔 WEB AUDIO BELL */
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-function playBell(){
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
-  gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.4);
-}
-
-function update(){
-  if(!running) return;
-
-  const now = performance.now();
-  const elapsed = now - startTime;
-  let remaining = timerDuration ? timerDuration - elapsed : elapsed;
-
-  if(timerDuration && remaining <= 0){
-    display.textContent = "00:00.00";
-    hand.style.transform = "rotate(0deg)";
-    running = false;
-    playBell();
-    return;
+  function formatTime(s){
+    let hrs = Math.floor(s/3600);
+    let mins = Math.floor((s%3600)/60);
+    let secs = s%60;
+    return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
   }
 
-  const totalSeconds = Math.abs(remaining) / 1000;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  display.textContent = `${String(minutes).padStart(2,"0")}:${seconds.toFixed(2).padStart(5,"0")}`;
-
-  const angle = (seconds / 60) * 360;
-  hand.style.transform = `rotate(${angle}deg)`;
-
-  rafId = requestAnimationFrame(update);
-}
-
-function start(){
-  if(running) return;
-
-  const inputSeconds = parseFloat(document.getElementById("timerInput").value);
-  timerDuration = (!isNaN(inputSeconds) && inputSeconds > 0) ? inputSeconds * 1000 : null;
-
-  startTime = performance.now();
-  running = true;
-
-  if(audioCtx.state === "suspended"){
-    audioCtx.resume();
+  startBtn.onclick = () => {
+    if(!timer) timer = setInterval(()=>{seconds++; display.textContent = formatTime(seconds);},1000);
   }
 
-  update();
-}
-
-function stop(){
-  if(!running) return;
-  running = false;
-  cancelAnimationFrame(rafId);
-  playBell();
-}
-
-function reset(){
-  running = false;
-  cancelAnimationFrame(rafId);
-  display.textContent = "00:00.00";
-  hand.style.transform = "rotate(0deg)";
-  document.getElementById("timerInput").value = "";
-}
-
-/* CLOSE TOOL */
-function closeTool(){
-  history.back(); // matches your other tools behavior
-}
+  stopBtn.onclick = () => { clearInterval(timer); timer = null; }
+  resetBtn.onclick = () => { clearInterval(timer); timer = null; seconds=0; display.textContent=formatTime(seconds); }
 </script>
-
 </body>
 </html>
