@@ -5,58 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
 
+<link rel="stylesheet" href="style.css"> <!-- global style -->
+
 <style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --flex:#111827;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* TOOL CARD */
+/* TOOL-SPECIFIC OVERRIDES IF NEEDED */
 .tool-wrapper{
-  position:relative;
   max-width:520px;
   margin:40px auto;
-  background:var(--card);
-  padding:24px;
+  padding:28px 24px 24px;
   border-radius:18px;
   border:2px solid var(--accent);
   box-shadow:0 0 30px rgba(66,248,245,.45);
+  position:relative; /* for global X button */
 }
 
-/* CLOSE */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-/* TITLE */
-h2{
+.description{
   text-align:center;
-  margin-bottom:18px;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:16px;
 }
 
-/* FLEXBOX */
 .flexbox{
   background:var(--flex);
   padding:14px 16px;
@@ -65,7 +34,6 @@ h2{
   margin-bottom:14px;
 }
 
-/* INPUTS */
 input, select{
   width:100%;
   padding:12px;
@@ -76,7 +44,6 @@ input, select{
   font-size:15px;
 }
 
-/* BUTTON */
 button{
   width:100%;
   height:44px;
@@ -90,17 +57,9 @@ button{
 }
 button:hover{ opacity:.9; }
 
-/* RESULT */
 .result{
   text-align:center;
   font-size:16px;
-}
-
-/* INFO */
-.info{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
 }
 </style>
 </head>
@@ -108,9 +67,15 @@ button:hover{ opacity:.9; }
 <body>
 
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <!-- GLOBAL X BUTTON -->
+  <button class="close-btn" onclick="history.back()">✕</button>
 
   <h2>Unit Converter</h2>
+
+  <!-- SHORT DESCRIPTION -->
+  <div class="description">
+    Quickly convert between common units like length, weight, and temperature.
+  </div>
 
   <div class="flexbox">
     <select id="type" onchange="updateUnits()">
@@ -139,28 +104,13 @@ button:hover{ opacity:.9; }
   <div class="flexbox result" id="result">
     Converted value will appear here
   </div>
-
-  <div class="info">
-    Convert between common units instantly
-  </div>
 </div>
 
 <script>
 const units = {
-  length: {
-    Meter: 1,
-    Kilometer: 1000,
-    Centimeter: 0.01,
-    Mile: 1609.34,
-    Foot: 0.3048
-  },
-  weight: {
-    Kilogram: 1,
-    Gram: 0.001,
-    Pound: 0.453592,
-    Ounce: 0.0283495
-  },
-  temp: ["Celsius", "Fahrenheit", "Kelvin"]
+  length: { Meter:1, Kilometer:1000, Centimeter:0.01, Mile:1609.34, Foot:0.3048 },
+  weight: { Kilogram:1, Gram:0.001, Pound:0.453592, Ounce:0.0283495 },
+  temp: ["Celsius","Fahrenheit","Kelvin"]
 };
 
 const fromUnit = document.getElementById("fromUnit");
@@ -196,7 +146,6 @@ function convert(){
   }
 
   let result;
-
   if(type === "temp"){
     result = convertTemp(value, from, to);
   }else{
