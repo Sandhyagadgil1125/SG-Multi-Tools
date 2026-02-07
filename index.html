@@ -1,192 +1,187 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* ===============================
+   RESET & BASE
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+}
 
-  <title>SG Multi Tools | Free Daily Use Online Tools</title>
-  <meta name="description" content="SG Multi Tools offers free online calculators, converters, generators, and productivity tools for daily use. Fast, simple, and secure.">
+body {
+  background: #0f172a;
+  color: #e5e7eb;
+  line-height: 1.5;
+}
 
-  <!-- FAVICON (FINAL, WORKING) -->
-  <link rel="icon" href="/favicon.png" type="image/png">
-  <link rel="shortcut icon" href="/favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="/favicon.png">
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-  <!-- GOOGLE ANALYTICS -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+/* ===============================
+   HEADER
+================================ */
+.site-header {
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
 
-  <!-- GLOBAL CSS -->
-  <link rel="stylesheet" href="css/style.css">
-</head>
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-<body>
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-<!-- ================= HEADER ================= -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="logo">
-      <span class="logo-circle">SG</span>
-      <span class="logo-text">SG Multi Tools</span>
-    </div>
+.logo-circle {
+  background: #38bdf8;
+  color: #020617;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
 
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="tools.html">Tools</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
+.logo-text {
+  font-weight: 600;
+}
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Free, fast, and easy online tools for everyday tasks</p>
-</section>
+.nav a {
+  margin-left: 18px;
+  font-size: 14px;
+  opacity: 0.85;
+}
 
-<!-- ================= TOOLS ================= -->
-<section class="tools-grid">
+.nav a:hover {
+  opacity: 1;
+}
 
-  <div class="tool-wrapper">
-    <h2>Advanced Calculator</h2>
-    <p class="description">Perform complex calculations easily</p>
-    <a href="advanced-calculator.html" class="btn">Open Tool</a>
-  </div>
+/* ===============================
+   HERO
+================================ */
+.hero {
+  text-align: center;
+  padding: 22px 16px 24px;
+}
 
-  <div class="tool-wrapper">
-    <h2>Age Calculator</h2>
-    <p class="description">Calculate age in years, months, and days</p>
-    <a href="age-calculator.html" class="btn">Open Tool</a>
-  </div>
+.hero h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+  color: #38bdf8;
+}
 
-  <div class="tool-wrapper">
-    <h2>Case Changer</h2>
-    <p class="description">Convert text to upper, lower, or title case</p>
-    <a href="case-changer.html" class="btn">Open Tool</a>
-  </div>
+.hero p {
+  font-size: 15px;
+  opacity: 0.85;
+}
 
-  <div class="tool-wrapper">
-    <h2>Color Picker</h2>
-    <p class="description">Pick and copy colors instantly</p>
-    <a href="color-picker.html" class="btn">Open Tool</a>
-  </div>
+/* ===============================
+   TOOLS GRID (RESPONSIVE)
+================================ */
+.tools-grid {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
 
-  <div class="tool-wrapper">
-    <h2>Currency Converter</h2>
-    <p class="description">Convert currencies instantly</p>
-    <a href="currency-converter.html" class="btn">Open Tool</a>
-  </div>
+/* Tablet */
+@media (min-width: 600px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-  <div class="tool-wrapper">
-    <h2>Date Difference</h2>
-    <p class="description">Find difference between two dates</p>
-    <a href="date-difference.html" class="btn">Open Tool</a>
-  </div>
+/* Desktop */
+@media (min-width: 992px) {
+  .tools-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
-  <div class="tool-wrapper">
-    <h2>EMI Calculator</h2>
-    <p class="description">Calculate monthly EMI for loans</p>
-    <a href="emi-calculator.html" class="btn">Open Tool</a>
-  </div>
+  .hero h1 {
+    font-size: 32px;
+  }
+}
 
-  <div class="tool-wrapper">
-    <h2>File Size Converter</h2>
-    <p class="description">Convert file sizes between KB, MB, GB</p>
-    <a href="file-size-converter.html" class="btn">Open Tool</a>
-  </div>
+/* ===============================
+   TOOL CARD
+================================ */
+.tool-wrapper {
+  background: #020617;
+  border: 2px solid rgba(56, 189, 248, 0.55);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  min-height: 160px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
 
-  <div class="tool-wrapper">
-    <h2>Image Converter</h2>
-    <p class="description">Convert images between formats</p>
-    <a href="image-converter.html" class="btn">Open Tool</a>
-  </div>
+.tool-wrapper:hover,
+.single-page .tool-wrapper {
+  border-color: #38bdf8;
+  box-shadow:
+    0 0 0 2px rgba(56,189,248,0.75),
+    0 14px 32px rgba(56,189,248,0.4);
+  transform: translateY(-4px);
+}
 
-  <div class="tool-wrapper">
-    <h2>Note Text Saver</h2>
-    <p class="description">Save notes securely online</p>
-    <a href="note-text-saver.html" class="btn">Open Tool</a>
-  </div>
+.tool-wrapper h2 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
 
-  <div class="tool-wrapper">
-    <h2>Password Generator</h2>
-    <p class="description">Generate strong secure passwords</p>
-    <a href="password-generator.html" class="btn">Open Tool</a>
-  </div>
+.tool-wrapper .description {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
 
-  <div class="tool-wrapper">
-    <h2>Percentage Calculator</h2>
-    <p class="description">Quick percentage calculations</p>
-    <a href="percentage-calculator.html" class="btn">Open Tool</a>
-  </div>
+/* ===============================
+   BUTTON
+================================ */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #38bdf8;
+  color: #020617;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+}
 
-  <div class="tool-wrapper">
-    <h2>QR Code Generator</h2>
-    <p class="description">Create QR codes instantly</p>
-    <a href="qr-code-generator.html" class="btn">Open Tool</a>
-  </div>
+.btn:hover {
+  background: #0ea5e9;
+}
 
-  <div class="tool-wrapper">
-    <h2>SIP Calculator</h2>
-    <p class="description">Calculate SIP investment returns</p>
-    <a href="sip-calculator.html" class="btn">Open Tool</a>
-  </div>
+/* ===============================
+   SINGLE PAGES (ABOUT / CONTACT)
+================================ */
+.single-page .tool-wrapper {
+  max-width: 520px;
+  margin: 12px auto;
+}
 
-  <div class="tool-wrapper">
-    <h2>Speech to Text</h2>
-    <p class="description">Convert voice into text</p>
-    <a href="speech-to-text.html" class="btn">Open Tool</a>
-  </div>
+/* ===============================
+   FOOTER
+================================ */
+.site-footer {
+  border-top: 1px solid #1e293b;
+  padding: 14px 16px 18px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.85;
+}
 
-  <div class="tool-wrapper">
-    <h2>Text to Speech</h2>
-    <p class="description">Convert text into speech</p>
-    <a href="text-to-speech.html" class="btn">Open Tool</a>
-  </div>
-
-  <div class="tool-wrapper">
-    <h2>Timer / Stopwatch</h2>
-    <p class="description">Track time accurately</p>
-    <a href="timer-stopwatch.html" class="btn">Open Tool</a>
-  </div>
-
-  <div class="tool-wrapper">
-    <h2>Unit Converter</h2>
-    <p class="description">Convert common units instantly</p>
-    <a href="unit-converter.html" class="btn">Open Tool</a>
-  </div>
-
-  <div class="tool-wrapper">
-    <h2>URL Encoder / Decoder</h2>
-    <p class="description">Encode or decode URLs</p>
-    <a href="url-encoder-decoder.html" class="btn">Open Tool</a>
-  </div>
-
-  <div class="tool-wrapper">
-    <h2>Word Counter</h2>
-    <p class="description">Count words and characters</p>
-    <a href="word-counter.html" class="btn">Open Tool</a>
-  </div>
-
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer">
-  <p>
-    <a href="privacy-policy.html">Privacy Policy</a> |
-    <a href="disclaimer.html">Disclaimer</a> |
-    <a href="terms-and-conditions.html">Terms & Conditions</a> |
-    <a href="sitemap.xml">Sitemap</a> |
-    <a href="about.html">About</a> |
-    <a href="contact.html">Contact</a>
-  </p>
-  <p>© 2026 SG Multi Tools. All rights reserved.</p>
-</footer>
-
-</body>
-</html>
+.site-footer a {
+  margin: 0 6px;
+}
