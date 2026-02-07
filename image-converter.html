@@ -4,190 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image Converter | SG Multi Tools</title>
+<link rel="stylesheet" href="css/style.css">
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --flex:#111827;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* TOOL CARD */
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
-  background:var(--card);
-  padding:24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-}
-
-/* CLOSE */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-/* TITLE */
-h2{
-  text-align:center;
-  margin-bottom:18px;
-}
-
-/* FLEXBOX */
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-  text-align:center;
-}
-
-/* INPUTS */
-input, select{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-}
-
-/* BUTTON */
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-  margin-top:8px;
-}
-button:hover{ opacity:.9; }
-
-/* IMAGE PREVIEW */
-#preview{
-  max-width:100%;
-  margin-top:10px;
-  border-radius:8px;
-  display:none;
-}
-
-/* INFO */
-.info{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-}
-</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
-
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <!-- X Close Button -->
+  <span class="close-btn" onclick="history.back()">✕</span>
 
+  <!-- Tool Title -->
   <h2>Image Converter</h2>
 
+  <!-- Tool Description -->
   <div class="flexbox">
-    <input type="file" id="imageInput" accept="image/*">
+    <p>Convert images between formats like PNG, JPG, GIF, and WebP. Perfect for web design, sharing, or optimizing files for different platforms.</p>
   </div>
 
-  <div class="flexbox">
-    <select id="formatSelect">
-      <option value="image/png">PNG</option>
-      <option value="image/jpeg">JPG</option>
-      <option value="image/webp">WebP</option>
-    </select>
-    <button onclick="convertImage()">Convert & Download</button>
-  </div>
+  <!-- Optional CTA block (skipped for free tool) -->
 
-  <div class="flexbox">
-    <img id="preview" alt="Image preview">
-  </div>
-
-  <div class="info">
-    Upload an image and convert it to PNG, JPG, or WebP
-  </div>
 </div>
-
-<script>
-const imageInput = document.getElementById("imageInput");
-const preview = document.getElementById("preview");
-const formatSelect = document.getElementById("formatSelect");
-
-let imgFile;
-
-imageInput.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if(!file) return;
-
-  imgFile = file;
-  const reader = new FileReader();
-  reader.onload = function(ev){
-    preview.src = ev.target.result;
-    preview.style.display = "block";
-  }
-  reader.readAsDataURL(file);
-});
-
-function convertImage(){
-  if(!imgFile){
-    alert("Please select an image first");
-    return;
-  }
-
-  const format = formatSelect.value;
-  const img = new Image();
-  const reader = new FileReader();
-
-  reader.onload = function(e){
-    img.src = e.target.result;
-    img.onload = function(){
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img,0,0);
-      canvas.toBlob(function(blob){
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        const ext = format.split("/")[1];
-        link.download = `converted.${ext}`;
-        link.click();
-      }, format);
-    }
-  }
-  reader.readAsDataURL(imgFile);
-}
-</script>
-
 </body>
 </html>
