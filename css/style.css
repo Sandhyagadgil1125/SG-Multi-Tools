@@ -18,38 +18,36 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   line-height: 1.6;
 }
 
 /* ==============================
-   SITE HEADER
+   HEADER
 ============================== */
 .site-header {
-  background: var(--card);
-  border-bottom: 1px solid #1f2937;
-  padding: 12px 20px;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
 }
 
 .header-inner {
   max-width: 1200px;
   margin: auto;
+  padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* LOGO */
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: bold;
 }
 
 .logo-circle {
@@ -61,29 +59,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-weight: 800;
 }
 
 .logo-text {
-  color: var(--text);
   font-size: 18px;
-}
-
-/* NAVIGATION */
-.nav {
-  display: flex;
-  gap: 22px;
+  font-weight: 700;
 }
 
 .nav a {
-  color: var(--muted);
+  margin-left: 18px;
+  color: var(--text);
   text-decoration: none;
   font-size: 15px;
-  transition: color 0.2s ease;
 }
 
-.nav a:hover,
-.nav a.active {
+.nav a:hover {
   color: var(--accent);
 }
 
@@ -98,37 +89,40 @@ body {
 .hero h1 {
   font-size: 42px;
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .hero p {
-  font-size: 16px;
   color: var(--muted);
+  font-size: 16px;
 }
 
 /* ==============================
-   TOOLS GRID (HOME + TOOLS PAGE)
+   TOOLS GRID (HOME & TOOLS PAGE)
 ============================== */
 .tools-grid {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px 20px 60px;
+  margin: auto;
+  padding: 30px 20px 50px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
+  align-items: stretch;
 }
 
 /* ==============================
-   TOOL CARD
+   TOOL CARD (CRITICAL FIX)
 ============================== */
 .tool-wrapper {
   background: var(--card);
   border-radius: 18px;
-  padding: 26px 22px 24px;
-  border: 2px solid rgba(66, 248, 245, 0.35);
-  box-shadow: 0 0 22px rgba(66, 248, 245, 0.35);
-  transition: all 0.25s ease;
-  text-align: center;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 30px rgba(66, 248, 245, 0.45);
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s ease;
 }
 
 .tool-wrapper:hover {
@@ -136,15 +130,24 @@ body {
   transform: translateY(-3px);
 }
 
+/* Card title */
 .tool-wrapper h2 {
   font-size: 20px;
   margin-bottom: 8px;
+  text-align: center;
 }
 
+/* Card description */
 .description {
   font-size: 14px;
   color: var(--muted);
-  margin-bottom: 16px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+/* Push button to bottom */
+.tool-wrapper a {
+  margin-top: auto;
 }
 
 /* ==============================
@@ -169,67 +172,28 @@ button:hover {
 }
 
 /* ==============================
-   TOOL PAGE WRAPPER
+   SINGLE TOOL PAGES (ABOUT, CONTACT)
 ============================== */
-.tool-container {
+.single-page .tool-wrapper {
   max-width: 520px;
   margin: 40px auto;
-  padding: 28px 24px;
-  background: var(--card);
-  border-radius: 18px;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 30px rgba(66, 248, 245, 0.45);
-}
-
-/* ==============================
-   INPUTS / SELECTS
-============================== */
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: #020617;
-  color: #fff;
-  font-size: 15px;
-}
-
-label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  display: block;
-}
-
-/* ==============================
-   RESULT BOX
-============================== */
-.result {
-  margin-top: 14px;
-  text-align: center;
-  font-size: 16px;
-  padding: 12px;
-  background: #020617;
-  border: 1px dashed var(--accent);
-  border-radius: var(--radius);
 }
 
 /* ==============================
    FOOTER
 ============================== */
 .site-footer {
-  border-top: 1px solid #1f2937;
-  padding: 20px;
+  border-top: 1px solid #1e293b;
   text-align: center;
-  background: #020617;
+  padding: 20px;
+  font-size: 14px;
+  color: var(--muted);
 }
 
 .site-footer a {
   color: var(--muted);
   margin: 0 10px;
   text-decoration: none;
-  font-size: 14px;
 }
 
 .site-footer a:hover {
@@ -239,22 +203,28 @@ label {
 /* ==============================
    RESPONSIVE
 ============================== */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 500px) {
   .tools-grid {
     grid-template-columns: 1fr;
   }
 
   .hero h1 {
-    font-size: 32px;
-  }
-
-  .nav {
-    gap: 14px;
+    font-size: 28px;
   }
 }
