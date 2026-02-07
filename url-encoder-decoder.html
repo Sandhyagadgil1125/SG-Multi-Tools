@@ -1,122 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URL Encoder/Decoder | SG Multi Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Encoder / Decoder | SG Multi Tools</title>
+  <meta name="description" content="Quickly encode or decode URLs using SG Multi Tools.">
 
-<link rel="stylesheet" href="style.css"> <!-- global style -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
 
-<style>
-/* TOOL SPECIFIC OVERRIDES */
-.tool-wrapper{
-  max-width:520px;
-  margin:40px auto;
-  padding:28px 24px 24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-  position:relative; /* for X button */
-}
-
-.description{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
-
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-input, textarea{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-}
-
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{ opacity:.9; }
-
-.result{
-  text-align:center;
-  font-size:16px;
-  min-height:40px;
-  padding:10px;
-  background:#020617;
-  border:1px dashed var(--accent);
-  border-radius:10px;
-}
-</style>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <!-- GLOBAL X BUTTON -->
-  <button class="close-btn" onclick="history.back()">✕</button>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
+  <!-- Tool Title -->
   <h2>URL Encoder / Decoder</h2>
   <div class="description">
-    Encode or decode any text or URL quickly and safely.
+    Encode or decode URLs quickly.
   </div>
 
+  <!-- Input Text -->
   <div class="flexbox">
-    <textarea id="inputText" placeholder="Enter text or URL" rows="4"></textarea>
+    <textarea id="inputText" placeholder="Enter your URL or text here"></textarea>
   </div>
 
-  <div class="flexbox">
-    <button onclick="encodeText()">Encode</button>
+  <!-- Buttons -->
+  <div class="flexbox" style="flex-direction: row; gap: 10px;">
+    <button onclick="encodeURL()">Encode</button>
+    <button onclick="decodeURL()">Decode</button>
   </div>
 
-  <div class="flexbox">
-    <button onclick="decodeText()">Decode</button>
-  </div>
-
+  <!-- Result -->
   <div class="flexbox result" id="result">
-    Encoded or decoded text will appear here
+    Your encoded or decoded URL will appear here
+  </div>
+
+  <div class="info">
+    Encode or decode URLs easily for sharing or analysis.
   </div>
 </div>
 
 <script>
-function encodeText(){
-  const text = document.getElementById("inputText").value;
-  if(!text){
-    alert("Please enter some text to encode");
-    return;
-  }
-  document.getElementById("result").innerHTML = encodeURIComponent(text);
+function encodeURL() {
+  const input = document.getElementById("inputText").value;
+  if(!input) { alert("Please enter text"); return; }
+  document.getElementById("result").innerHTML = encodeURIComponent(input);
 }
 
-function decodeText(){
-  const text = document.getElementById("inputText").value;
-  if(!text){
-    alert("Please enter some text to decode");
-    return;
-  }
-  try{
-    document.getElementById("result").innerHTML = decodeURIComponent(text);
-  }catch(e){
-    alert("Invalid encoded text");
+function decodeURL() {
+  const input = document.getElementById("inputText").value;
+  if(!input) { alert("Please enter text"); return; }
+  try {
+    document.getElementById("result").innerHTML = decodeURIComponent(input);
+  } catch(e) {
+    alert("Invalid encoded URL/text");
   }
 }
 </script>
