@@ -4,163 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Color Picker | SG Multi Tools</title>
+<link rel="stylesheet" href="css/style.css">
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#1e293b;
-  --flex:#111827;
-  --accent:#42f8f5;
-  --text:#ffffff;
-  --muted:#94a3b8;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  margin:0;
-  padding:10px;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* TOOL CARD */
-.tool-wrapper{
-  position:relative;
-  max-width:520px;
-  margin:40px auto;
-  background:var(--card);
-  padding:24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-}
-
-/* CLOSE */
-.close-btn{
-  position:absolute;
-  top:12px;
-  right:14px;
-  font-size:22px;
-  color:var(--muted);
-  cursor:pointer;
-}
-.close-btn:hover{ color:var(--accent); }
-
-/* TITLE */
-h2{
-  text-align:center;
-  margin-bottom:18px;
-}
-
-/* FLEXBOX */
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-/* INPUTS */
-input{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-  text-align:center;
-}
-
-input[type="color"]{
-  height:50px;
-  padding:4px;
-  cursor:pointer;
-}
-
-/* BUTTON */
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{ opacity:.9; }
-
-/* INFO */
-.info{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-}
-</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BT8RQZBBTQ');
+</script>
 </head>
 
 <body>
-
 <div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
+  <!-- X Close Button -->
+  <span class="close-btn" onclick="history.back()">✕</span>
 
+  <!-- Tool Title -->
   <h2>Color Picker</h2>
 
+  <!-- Tool Description -->
   <div class="flexbox">
-    <input type="color" id="color" value="#42f8f5">
+    <p>Quickly select and preview colors, get their HEX, RGB, and HSL codes, and use them in your design projects or web development work.</p>
   </div>
 
-  <div class="flexbox">
-    <input type="text" id="hex" readonly placeholder="HEX value">
-  </div>
+  <!-- Optional CTA block (skipped for free tool) -->
 
-  <div class="flexbox">
-    <input type="text" id="rgb" readonly placeholder="RGB value">
-  </div>
-
-  <div class="flexbox">
-    <button onclick="copyHex()">Copy HEX</button>
-  </div>
-
-  <div class="info">
-    Pick a color and copy its HEX or RGB value
-  </div>
 </div>
-
-<script>
-const colorInput = document.getElementById("color");
-const hexInput = document.getElementById("hex");
-const rgbInput = document.getElementById("rgb");
-
-function updateColor(){
-  const hex = colorInput.value.toUpperCase();
-  hexInput.value = hex;
-
-  const r = parseInt(hex.substr(1,2),16);
-  const g = parseInt(hex.substr(3,2),16);
-  const b = parseInt(hex.substr(5,2),16);
-
-  rgbInput.value = `rgb(${r}, ${g}, ${b})`;
-}
-
-function copyHex(){
-  if(!hexInput.value){
-    alert("Please pick a color first");
-    return;
-  }
-  navigator.clipboard.writeText(hexInput.value);
-}
-
-colorInput.addEventListener("input", updateColor);
-updateColor();
-</script>
-
 </body>
 </html>
