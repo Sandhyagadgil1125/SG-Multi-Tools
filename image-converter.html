@@ -29,8 +29,67 @@
     <p>Convert images between formats like PNG, JPG, GIF, and WebP. Perfect for web design, sharing, or optimizing files for different platforms.</p>
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
+  <!-- Tool Interface -->
+  <div class="tool-content">
+    <input type="file" id="imageInput" accept="image/*">
+    <select id="formatSelect">
+      <option value="png">PNG</option>
+      <option value="jpg">JPG</option>
+      <option value="gif">GIF</option>
+      <option value="webp">WebP</option>
+    </select>
+    <button id="convertBtn">Convert</button>
+  </div>
 
+  <!-- Preview / Download -->
+  <div class="flexbox" style="margin-top:16px;">
+    <img id="preview" src="" alt="" style="max-width:100%; display:none; margin-bottom:8px;">
+    <a id="downloadLink" href="#" download="converted-image" class="cta-btn" style="display:none;">Download Converted Image</a>
+  </div>
+
+  <!-- Optional CTA block (skipped for free tool) -->
+  <!-- .finance-cta placeholder -->
 </div>
+
+<script>
+const imageInput = document.getElementById('imageInput');
+const formatSelect = document.getElementById('formatSelect');
+const convertBtn = document.getElementById('convertBtn');
+const preview = document.getElementById('preview');
+const downloadLink = document.getElementById('downloadLink');
+
+convertBtn.addEventListener('click', () => {
+  const file = imageInput.files[0];
+  if (!file) {
+    alert('Please select an image first.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      const selectedFormat = formatSelect.value;
+      const mimeType = 'image/' + (selectedFormat === 'jpg' ? 'jpeg' : selectedFormat);
+      const dataURL = canvas.toDataURL(mimeType);
+
+      preview.src = dataURL;
+      preview.style.display = 'block';
+
+      downloadLink.href = dataURL;
+      downloadLink.download = 'converted-image.' + selectedFormat;
+      downloadLink.style.display = 'inline-block';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+</script>
 </body>
 </html>
