@@ -1,150 +1,128 @@
-:root {
-  --bg: #0d0f14;
-  --card: #151a24;
-  --accent: #42f8f5;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
+/* ==============================
+   ROOT VARIABLES
+============================== */
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --accent:#38bdf8;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
 }
 
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* ==============================
+   GLOBAL RESET
+============================== */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
+body{
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* HEADER */
-.site-header {
-  background: var(--card);
-  border-bottom: 2px solid var(--accent);
+/* ==============================
+   HEADER
+============================== */
+.header{
+  margin-bottom:0;
 }
 
-.header-inner {
-  max-width: 1200px;
-  margin: auto;
-  padding: 14px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* ==============================
+   HERO
+============================== */
+.hero{
+  text-align:center;
+  padding:20px 16px 18px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.hero h1{
+  font-size:26px;
+  margin-bottom:6px;
 }
 
-.logo-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #000;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hero p{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:10px;
 }
 
-.logo-text {
-  font-size: 18px;
-  font-weight: bold;
+/* ==============================
+   TOOLS GRID (RESPONSIVE FIX)
+============================== */
+.tools-grid{
+  max-width:1100px;
+  margin:0 auto;
+  padding:12px;
+  display:grid;
+  grid-template-columns:1fr; /* MOBILE DEFAULT */
+  gap:14px;
 }
 
-.nav a {
-  margin-left: 18px;
-  color: var(--text);
-  text-decoration: none;
-}
-
-.nav a:hover {
-  color: var(--accent);
-}
-
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 16px 20px 18px;
-}
-
-.hero h1 {
-  color: var(--accent);
-  margin-bottom: 4px;
-}
-
-/* TOOLS GRID */
-.tools-grid {
-  max-width: 1200px;
-  margin: auto;
-  padding: 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-/* MOBILE: ONLY ONE TOOL */
-@media (max-width: 768px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
+/* Tablet */
+@media (min-width:769px){
+  .tools-grid{
+    grid-template-columns:repeat(2, 1fr);
   }
 }
 
-/* TOOL CARD */
-.tool-wrapper {
-  background: var(--card);
-  border: 1px solid #1f2937;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: left;
-  transition: 0.3s ease;
+/* Laptop / Desktop */
+@media (min-width:1024px){
+  .tools-grid{
+    grid-template-columns:repeat(4, 1fr);
+  }
 }
 
-.tool-wrapper:hover {
-  box-shadow: 0 0 32px rgba(66, 248, 245, 0.6);
-  transform: translateY(-3px);
+/* ==============================
+   TOOL CARD
+============================== */
+.tool-wrapper{
+  background:var(--card);
+  border:1px solid #334155;
+  border-radius:14px;
+  padding:18px 18px 20px;
+  text-align:center;
+  max-width:100%;          /* FIXES ABOUT PAGE */
 }
 
-.tool-wrapper h2 {
-  font-size: 18px;
-  margin-bottom: 6px;
+.tool-wrapper h2{
+  font-size:16px;
+  margin-bottom:6px;
 }
 
-.description {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 12px;
+.tool-wrapper .description{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:14px;
+  padding:0 4px;           /* TEXT NOT TOUCH BORDER */
 }
 
-.btn {
-  display: inline-block;
-  padding: 8px 14px;
-  background: var(--accent);
-  color: #000;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
+.tool-wrapper button{
+  background:var(--accent);
+  border:none;
+  color:#000;
+  padding:8px 16px;
+  border-radius:20px;
+  font-size:13px;
+  cursor:pointer;
 }
 
-/* FOOTER */
-.site-footer {
-  text-align: center;
-  padding: 14px 10px;
-  margin-top: 20px;
-  font-size: 14px;
+/* ==============================
+   FOOTER
+============================== */
+.footer{
+  margin-top:16px;
+  padding:14px 10px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
 }
 
-.site-footer a {
-  color: var(--muted);
-  margin: 0 8px;
-  text-decoration: none;
-}
-
-.site-footer a:hover {
-  color: var(--accent);
+.footer a{
+  color:var(--muted);
+  text-decoration:none;
+  margin:0 4px;
 }
