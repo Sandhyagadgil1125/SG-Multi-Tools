@@ -1,44 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Percentage Calculator | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator | SG Multi Tools</title>
+  <meta name="description" content="Percentage Calculator by SG Multi Tools to quickly calculate percentages.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
-  <!-- Tool Title -->
   <h2>Percentage Calculator</h2>
+  <div class="description">Quickly calculate percentages, increase or decrease values</div>
 
-  <!-- Tool Description -->
+  <!-- Percentage Inputs -->
   <div class="flexbox">
-    <p>Easily calculate percentages, percentage changes, discounts, and more. Ideal for quick math, shopping discounts, or financial planning.</p>
+    <input type="number" id="percentageValue" placeholder="Enter Value">
+    <input type="number" id="percentagePercent" placeholder="Enter Percentage (%)">
   </div>
+  <div class="flexbox">
+    <button onclick="calculatePercentage()">Calculate Percentage</button>
+  </div>
+  <div class="flexbox result" id="percentageResult">Result will appear here</div>
 
-  <!-- Affiliate CTA -->
-  <div class="finance-cta">
-    <h3>Get Advanced Percentage Calculator</h3>
-    <p>Download the enhanced Percentage Calculator with automation and extended features.</p>
-    <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" 
-       target="_blank" class="cta-btn">
-      Get Percentage Calculator
+  <!-- Affiliate Section -->
+  <div class="flexbox" style="flex-direction:column; gap:10px; padding:14px; background:var(--flex); border-radius:var(--radius);">
+    <div style="text-align:center; color:var(--text); font-size:15px;">
+      Access financial tools and calculation bundles online.
+    </div>
+    <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank">
+      <button>Get Financial Tools</button>
     </a>
-  </div>
 
+    <div style="text-align:center; color:var(--muted); font-size:12px; margin-top:6px;">
+      Disclosure: SG Multi Tools may contain affiliate links. If you click and purchase, we may earn a commission at no additional cost to you.
+    </div>
+  </div>
 </div>
+
+<!-- Percentage Calculator JS -->
+<script>
+function calculatePercentage() {
+  const value = parseFloat(document.getElementById("percentageValue").value);
+  const percent = parseFloat(document.getElementById("percentagePercent").value);
+  const resultDiv = document.getElementById("percentageResult");
+
+  if(isNaN(value) || isNaN(percent)){
+    resultDiv.innerText = "Please enter valid numbers";
+    return;
+  }
+
+  const result = (value * percent) / 100;
+  resultDiv.innerHTML = `Result: ${result.toFixed(2)}`;
+}
+</script>
+
 </body>
 </html>
