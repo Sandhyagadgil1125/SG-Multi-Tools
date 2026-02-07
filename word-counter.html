@@ -1,115 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Word Counter | SG Multi Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Counter | SG Multi Tools</title>
+  <meta name="description" content="Count words, characters, and more using SG Multi Tools Word Counter.">
 
-<link rel="stylesheet" href="style.css"> <!-- global style -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
 
-<style>
-/* TOOL SPECIFIC OVERRIDES */
-.tool-wrapper{
-  max-width:520px;
-  margin:40px auto;
-  padding:28px 24px 24px;
-  border-radius:18px;
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(66,248,245,.45);
-  position:relative; /* for X button */
-}
-
-.description{
-  text-align:center;
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
-
-.flexbox{
-  background:var(--flex);
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #334155;
-  margin-bottom:14px;
-}
-
-textarea{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
-  font-size:15px;
-  resize:vertical;
-}
-
-button{
-  width:100%;
-  height:44px;
-  border-radius:10px;
-  border:none;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  font-size:15px;
-  cursor:pointer;
-}
-button:hover{ opacity:.9; }
-
-.result{
-  text-align:center;
-  font-size:16px;
-  min-height:40px;
-  padding:10px;
-  background:#020617;
-  border:1px dashed var(--accent);
-  border-radius:10px;
-}
-</style>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <div class="tool-wrapper">
-  <!-- GLOBAL X BUTTON -->
-  <button class="close-btn" onclick="history.back()">✕</button>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
+  <!-- Tool Title -->
   <h2>Word Counter</h2>
   <div class="description">
-    Quickly count words, characters, and spaces in your text.
+    Count words, characters, and more in your text.
   </div>
 
+  <!-- Input Text -->
   <div class="flexbox">
-    <textarea id="inputText" placeholder="Enter your text here..." rows="6"></textarea>
+    <textarea id="inputText" placeholder="Enter or paste your text here"></textarea>
   </div>
 
+  <!-- Button -->
   <div class="flexbox">
     <button onclick="countWords()">Count Words</button>
   </div>
 
+  <!-- Result -->
   <div class="flexbox result" id="result">
-    Word count, character count, and spaces will appear here
+    Word and character counts will appear here
+  </div>
+
+  <div class="info">
+    Quickly count words, characters, and spaces for your text.
   </div>
 </div>
 
 <script>
-function countWords(){
+function countWords() {
   const text = document.getElementById("inputText").value.trim();
-  if(!text){
+  if (!text) {
     document.getElementById("result").innerHTML = "Please enter some text";
     return;
   }
 
   const words = text.split(/\s+/).filter(Boolean).length;
-  const chars = text.replace(/\s/g,'').length;
-  const spaces = (text.match(/\s/g) || []).length;
+  const characters = text.length;
+  const charactersNoSpaces = text.replace(/\s+/g, '').length;
 
   document.getElementById("result").innerHTML = `
-    Words: <b>${words}</b><br>
-    Characters (without spaces): <b>${chars}</b><br>
-    Spaces: <b>${spaces}</b>
+    Words: <b>${words}</b> <br>
+    Characters (including spaces): <b>${characters}</b> <br>
+    Characters (excluding spaces): <b>${charactersNoSpaces}</b>
   `;
 }
 </script>
