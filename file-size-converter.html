@@ -1,36 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>File Size Converter | SG Multi Tools</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Size Converter | SG Multi Tools</title>
+  <meta name="description" content="Convert file sizes between KB, MB, GB, and more with SG Multi Tools File Size Converter.">
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BT8RQZBBTQ');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BT8RQZBBTQ');
+  </script>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <div class="tool-wrapper">
-  <!-- X Close Button -->
-  <span class="close-btn" onclick="history.back()">✕</span>
+  <!-- Close button -->
+  <span class="close-btn" onclick="location.href='index.html'">✕</span>
 
   <!-- Tool Title -->
   <h2>File Size Converter</h2>
-
-  <!-- Tool Description -->
-  <div class="flexbox">
-    <p>Convert file sizes between Bytes, KB, MB, GB, and TB instantly. Ideal for file management, downloads, or storage planning.</p>
+  <div class="description">
+    Convert file sizes easily between Bytes, KB, MB, GB, and TB.
   </div>
 
-  <!-- Optional CTA block (skipped for free tool) -->
+  <!-- Input -->
+  <div class="flexbox">
+    <label for="inputSize">Enter Size:</label>
+    <input type="number" id="inputSize" placeholder="Enter value" min="0">
+  </div>
 
+  <!-- From Unit -->
+  <div class="flexbox">
+    <label for="fromUnit">From:</label>
+    <select id="fromUnit"></select>
+  </div>
+
+  <!-- To Unit -->
+  <div class="flexbox">
+    <label for="toUnit">To:</label>
+    <select id="toUnit"></select>
+  </div>
+
+  <!-- Convert Button -->
+  <div class="flexbox">
+    <button onclick="convertFileSize()">Convert</button>
+  </div>
+
+  <!-- Result -->
+  <div class="flexbox result" id="result">
+    Converted size will appear here
+  </div>
 </div>
+
+<script>
+const units = {
+  Bytes: 1,
+  KB: 1024,
+  MB: 1024 * 1024,
+  GB: 1024 * 1024 * 1024,
+  TB: 1024 * 1024 * 1024 * 1024
+};
+
+const fromUnit = document.getElementById('fromUnit');
+const toUnit = document.getElementById('toUnit');
+
+function populateUnits() {
+  for (let u in units) {
+    fromUnit.innerHTML += `<option value="${u}">${u}</option>`;
+    toUnit.innerHTML += `<option value="${u}">${u}</option>`;
+  }
+}
+populateUnits();
+
+function convertFileSize() {
+  const inputSize = parseFloat(document.getElementById('inputSize').value);
+  const from = fromUnit.value;
+  const to = toUnit.value;
+  const resultDiv = document.getElementById('result');
+
+  if (isNaN(inputSize) || inputSize < 0) {
+    resultDiv.innerText = "Please enter a valid size";
+    return;
+  }
+
+  const converted = inputSize * units[from] / units[to];
+  resultDiv.innerText = `${inputSize} ${from} = ${converted.toFixed(4)} ${to}`;
+}
+</script>
+
 </body>
 </html>
