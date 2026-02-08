@@ -25,13 +25,13 @@ body {
 
 /* TOOL CARD */
 .tool-wrapper {
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center; /* center all content */
   max-width: 520px;
   width: 100%;
-  padding: 20px 15px 15px 15px; /* reduced height */
+  padding: 20px;
   background: #1e293b;
   border: 2px solid #42f8f5;
   border-radius: 12px;
@@ -46,8 +46,8 @@ body {
 }
 
 /* Tool title & description */
-.tool-wrapper h2 { font-size: 20px; margin-bottom: 8px; color: #42f8f5; }
-.tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 10px; }
+.tool-wrapper h2 { font-size: 22px; margin-bottom: 8px; color: #42f8f5; }
+.tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 15px; }
 
 /* Close button */
 .close-btn {
@@ -70,29 +70,38 @@ body {
 }
 .close-btn:hover { background: #6dfaff; }
 
-/* Form inputs */
+/* Center inputs & buttons */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
 input[type="number"] {
   width: 80%;
-  padding: 8px;
-  margin: 6px 0;
+  padding: 10px;
+  font-size: 16px;
   border-radius: 6px;
   border: none;
-  font-size: 16px;
   outline: none;
+  text-align: center; /* center text */
 }
 
 /* Calculate button */
 button.calc-btn {
   padding: 10px 0;
-  margin: 10px auto 5px auto;
+  margin: 5px auto;
   background: #42f8f5;
   color: #000;
   font-weight: bold;
   border: none;
   border-radius: 6px;
-  width: 50%;
   cursor: pointer;
   font-size: 16px;
+  width: 50%;
 }
 button.calc-btn:hover { background: #6dfaff; }
 
@@ -123,6 +132,7 @@ button.calc-btn:hover { background: #6dfaff; }
 .affiliate-text {
   font-size: 14px;
   margin-top: 4px;
+  text-align: center;
 }
 .affiliate-text a {
   color: #42f8f5;
@@ -133,8 +143,8 @@ button.calc-btn:hover { background: #6dfaff; }
 /* Responsive */
 @media (max-width: 768px) {
   .tool-wrapper { width: 90%; padding: 15px; }
-  input[type="number"] { font-size: 14px; }
-  button.calc-btn { font-size: 14px; width: 60%; }
+  input[type="number"] { width: 90%; font-size: 14px; }
+  button.calc-btn { width: 60%; font-size: 14px; }
   .affiliate-btn { max-width: 180px; }
 }
 </style>
@@ -153,10 +163,12 @@ button.calc-btn:hover { background: #6dfaff; }
   <div class="description">Calculate your SIP investments easily</div>
 
   <!-- SIP Form -->
-  <input type="number" id="amount" placeholder="Monthly Investment (₹)">
-  <input type="number" id="rate" placeholder="Expected Annual Return (%)">
-  <input type="number" id="years" placeholder="Investment Period (Years)">
-  <button class="calc-btn" onclick="calculateSIP()">Calculate SIP</button>
+  <div class="input-group">
+    <input type="number" id="amount" placeholder="Monthly Investment (₹)">
+    <input type="number" id="rate" placeholder="Expected Annual Return (%)">
+    <input type="number" id="years" placeholder="Investment Period (Years)">
+    <button class="calc-btn" onclick="calculateSIP()">Calculate SIP</button>
+  </div>
 
   <!-- Result -->
   <div id="result"></div>
