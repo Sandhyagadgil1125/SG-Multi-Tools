@@ -4,53 +4,48 @@
 :root {
   --bg: #020617;
   --card: #020617;
+  --border: #38bdf8;
   --accent: #38bdf8;
-  --accent-soft: rgba(56, 189, 248, 0.2);
+  --accent-soft: rgba(56, 189, 248, 0.25);
   --text: #e5e7eb;
   --muted: #94a3b8;
 }
 
 /* ==============================
-   RESET
+   GLOBAL RESET
 ============================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
 }
 
 body {
-  background: radial-gradient(circle at top, #020617, #020617);
+  background: radial-gradient(circle at top, #0f172a, #020617);
   color: var(--text);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* ==============================
    TOOL PAGE WRAPPER
 ============================== */
 .single-tool {
-  width: 100%;
+  min-height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 24px;
 }
 
-/* ==============================
-   TOOL CARD
-============================== */
 .tool-wrapper {
   position: relative;
   width: 100%;
-  max-width: 620px;
+  max-width: 560px;
   background: linear-gradient(180deg, #020617, #020617);
-  border-radius: 18px;
-  padding: 28px 26px 32px;
   border: 2px solid var(--accent);
-  box-shadow: 0 0 40px rgba(56, 189, 248, 0.35);
+  border-radius: 22px;
+  padding: 32px 28px 36px;
+  box-shadow: 0 0 40px rgba(56,189,248,0.25);
   text-align: center;
 }
 
@@ -59,34 +54,39 @@ body {
 ============================== */
 .close-btn {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 16px;
+  right: 16px;
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  border: 2px solid var(--accent);
   background: var(--accent);
   color: #020617;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
-  line-height: 36px;
-  text-align: center;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: #0ea5e9;
 }
 
 /* ==============================
-   HEADINGS
+   TITLES
 ============================== */
 .tool-wrapper h2 {
-  font-size: 28px;
-  font-weight: 800;
   color: var(--accent);
+  font-size: 28px;
   margin-bottom: 6px;
 }
 
 .tool-wrapper .description {
-  font-size: 15px;
   color: var(--muted);
-  margin-bottom: 18px;
+  font-size: 15px;
+  margin-bottom: 20px;
 }
 
 /* ==============================
@@ -94,24 +94,24 @@ body {
 ============================== */
 #screen {
   width: 100%;
-  height: 56px;
-  border-radius: 10px;
+  height: 64px;
+  border-radius: 14px;
   border: 2px solid var(--accent);
   background: #020617;
   color: var(--text);
-  font-size: 22px;
+  font-size: 26px;
   text-align: right;
-  padding: 10px 14px;
-  margin-bottom: 18px;
+  padding: 12px 16px;
+  margin-bottom: 22px;
 }
 
 /* ==============================
-   CALCULATOR GRID (CRITICAL FIX)
+   CALCULATOR GRID
 ============================== */
 .calc-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 14px;
   justify-items: center;
 }
 
@@ -119,20 +119,37 @@ body {
    CALCULATOR BUTTONS
 ============================== */
 .calc-grid button {
-  width: 100%;
-  max-width: 64px;
-  height: 50px;
-  border-radius: 10px;
+  width: 64px;
+  height: 56px;
+  border-radius: 14px;
   border: 1px solid var(--accent-soft);
-  background: #020617;
+  background: linear-gradient(180deg, #020617, #020617);
   color: var(--text);
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   cursor: pointer;
+
+  /* 🔥 PRO LOOK padding & glow */
+  box-shadow:
+    inset 0 -4px 0 rgba(56,189,248,0.35),
+    0 6px 14px rgba(0,0,0,0.6);
 }
 
+/* Hover effect */
 .calc-grid button:hover {
-  background: var(--accent-soft);
+  background: rgba(56,189,248,0.15);
+  box-shadow:
+    inset 0 -4px 0 rgba(56,189,248,0.6),
+    0 8px 20px rgba(56,189,248,0.25);
+}
+
+/* ==============================
+   OPERATOR BUTTONS
+============================== */
+.calc-grid button:nth-child(4n) {
+  background: rgba(56,189,248,0.15);
+  color: var(--accent);
+  font-size: 24px;
 }
 
 /* ==============================
@@ -140,12 +157,19 @@ body {
 ============================== */
 .calc-grid .equals {
   grid-column: span 4;
-  max-width: none;
-  height: 52px;
+  width: 100%;
+  height: 58px;
+  border-radius: 16px;
   background: var(--accent);
   color: #020617;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
+  border: none;
+  box-shadow: 0 10px 24px rgba(56,189,248,0.45);
+}
+
+.calc-grid .equals:hover {
+  background: #0ea5e9;
 }
 
 /* ==============================
@@ -153,10 +177,21 @@ body {
 ============================== */
 @media (max-width: 768px) {
   .tool-wrapper {
-    padding: 22px 18px 26px;
+    margin: 16px;
+    padding: 26px 20px 30px;
+  }
+
+  #screen {
+    font-size: 22px;
   }
 
   .calc-grid button {
-    max-width: 100%;
+    width: 58px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+  .calc-grid .equals {
+    font-size: 24px;
   }
 }
