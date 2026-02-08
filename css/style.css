@@ -1,14 +1,12 @@
 /* ==============================
-   ROOT VARIABLES
+   GLOBAL VARIABLES
 ============================== */
 :root {
-  --bg: #0f172a;
+  --bg: #0d0f14;
   --card: #1e293b;
   --accent: #42f8f5;
   --text: #ffffff;
   --muted: #aaa;
-  --btn-bg: #42f8f5;
-  --btn-color: #000;
 }
 
 /* ==============================
@@ -18,54 +16,36 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ==============================
+   BODY
+============================== */
 body {
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-button {
-  cursor: pointer;
-  padding: 8px 14px;
-  background: var(--btn-bg);
-  color: var(--btn-color);
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  box-shadow: 0 0 12px rgba(66,248,245,0.8);
 }
 
 /* ==============================
    HEADER
 ============================== */
-.site-header, .header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 16px 20px;
   background: var(--card);
   border-bottom: 2px solid var(--accent);
 }
 
-.logo, .logo-container {
+.logo-container {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.logo-badge, .logo-circle {
+.logo-circle {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -79,16 +59,15 @@ button:hover {
 }
 
 .logo-text {
+  color: var(--text);
   font-weight: bold;
   font-size: 18px;
-  color: var(--text);
 }
 
 .nav a {
-  margin-left: 18px;
   color: var(--text);
-  font-weight: 500;
   text-decoration: none;
+  margin-left: 18px;
 }
 
 .nav a:hover {
@@ -96,127 +75,216 @@ button:hover {
 }
 
 /* ==============================
-   HERO
+   HERO SECTION
 ============================== */
 .hero {
   text-align: center;
-  padding: 18px 12px 22px 12px;
-  margin-top: 0;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .hero h1 {
-  font-size: 28px;
   color: var(--accent);
-  margin-bottom: 6px;
+  font-size: 28px;
+  margin-bottom: 8px;
 }
 
 .hero p {
   font-size: 16px;
   color: var(--text);
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 /* ==============================
-   TOOLS GRID (Homepage & Tools Page)
+   TOOLS GRID
 ============================== */
 .tools-grid {
-  max-width: 1000px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-/* Open Tool buttons inside tool cards */
-.tool-wrapper a button {
-  width: 100%;          /* makes the button full width of the card */
-  max-width: 220px;     /* optional: set max width for desktop */
-  padding: 12px 0;      /* taller buttons for better touch/click area */
-  font-size: 16px;      /* adjust font size if needed */
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  display: block;
-  margin: 0 auto;       /* centers button horizontally */
-}
-
-
-.tool-wrapper h2 {
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-
-.tool-wrapper .description {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.tool-wrapper:hover {
-  box-shadow: 0 0 40px rgba(66,248,245,0.9);
-  transform: translateY(-3px);
-}
-
-/* ==============================
-   SINGLE TOOL PAGES
-============================== */
-.single-page .tools-container {
+/* Single tool card */
+.tool-wrapper {
+  position: relative;
   display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.single-page .tool-card.single-tool {
-  max-width: 520px;
-  width: 90%;
-  padding: 24px;
+  flex-direction: column;
+  align-items: center;
+  background: var(--card);
   border: 2px solid var(--accent);
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(66,248,245,0.5);
-  position: relative;
-  background: var(--card);
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
   text-align: center;
   transition: all 0.3s ease;
 }
 
-.single-page .tool-card.single-tool:hover {
-  box-shadow: 0 0 40px rgba(66,248,245,0.9);
-  transform: translateY(-3px);
+.tool-wrapper:hover {
+  box-shadow: 0 0 40px rgba(66, 248, 245, 0.9);
+  transform: translateY(-2px);
 }
 
-.single-page .tool-card .close-btn {
+.tool-wrapper h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+.tool-wrapper .description {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+/* ==============================
+   OPEN TOOL BUTTONS
+============================== */
+.tool-wrapper a button {
+  width: 100%;          /* full width of card */
+  max-width: 220px;     /* limit width on desktop */
+  padding: 12px 0;
+  font-size: 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto 12px auto; /* spacing + center */
+  background: var(--accent);
+  color: #000;
+  border: none;
+  transition: background 0.3s;
+}
+
+.tool-wrapper a button:hover {
+  background: #6dfaff;
+}
+
+/* ==============================
+   SINGLE TOOL PAGE (SIP, Advanced Calculator, etc.)
+============================== */
+.single-page .tool-wrapper {
+  max-width: 520px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.close-btn {
   position: absolute;
   top: 12px;
   right: 12px;
-  font-size: 20px;
-  color: var(--text);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #000;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 0;
+  transition: background 0.3s;
+}
+
+.close-btn:hover {
+  background: #6dfaff;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+input[type="number"], input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+
+/* Calculate button inside single tool */
+button.calc-btn {
+  padding: 10px 0;
+  margin: 5px auto;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 50%;
+}
+
+button.calc-btn:hover {
+  background: #6dfaff;
+}
+
+/* Affiliate links */
+.affiliate-btn {
+  display: block;
+  padding: 10px 0;
+  margin: 10px auto 5px auto;
+  background: #ffb400;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 220px;
+  transition: background 0.3s;
+}
+
+.affiliate-btn:hover {
+  background: #ffd86c;
+}
+
+.affiliate-text {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.affiliate-text a {
+  color: var(--accent);
   text-decoration: none;
 }
 
-.single-page .tool-card .close-btn:hover {
-  color: var(--accent);
+.affiliate-text a:hover {
+  text-decoration: underline;
 }
 
 /* ==============================
    FOOTER
 ============================== */
-.site-footer, .footer {
+.footer {
   text-align: center;
   padding: 20px;
-  margin-top: 12px;
+  margin-top: 40px;
   font-size: 14px;
   color: var(--muted);
 }
 
-.site-footer a, .footer a {
+.footer a {
   color: var(--muted);
   text-decoration: none;
-  margin: 0 6px;
+  margin: 0 4px;
 }
 
-.site-footer a:hover, .footer a:hover {
+.footer a:hover {
   color: var(--accent);
 }
 
@@ -224,25 +292,12 @@ button:hover {
    RESPONSIVE
 ============================== */
 @media (max-width: 1024px) {
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
-  .single-page .tool-card.single-tool {
-    width: 95%;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 24px;
-  }
-  .hero p {
-    font-size: 14px;
-  }
+  .tools-grid { grid-template-columns: 1fr; }
+  input[type="number"], input[type="text"] { width: 90%; font-size: 14px; }
+  button.calc-btn { width: 60%; font-size: 14px; }
+  .affiliate-btn { max-width: 180px; }
 }
