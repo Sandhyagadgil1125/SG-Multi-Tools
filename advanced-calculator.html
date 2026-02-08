@@ -1,17 +1,21 @@
-C<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Calculator | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 
+<!-- Global CSS -->
 <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 
+</head>
+<body class="single-page">
+
+<!-- HEADER -->
 <header class="site-header">
   <div class="logo">
     <span class="logo-badge">SG</span>
@@ -25,19 +29,30 @@ C<!DOCTYPE html>
   </nav>
 </header>
 
-<section class="hero single-page">
+<!-- HERO -->
+<section class="hero">
   <h1>SG Multi Tools For Daily Use</h1>
-  <p>Perform complex calculations easily</p>
+  <p>Perform complex calculations easily with our Advanced Calculator</p>
 </section>
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <h2>[Advanced Calculator]</h2>
-    <p>Perform complex calculations easily</p>
-    <a href="advanced-calculator.html" class="btn">Open Tool</a>
+
+<!-- TOOL CARD -->
+<main>
+  <div class="tool-wrapper single-tool">
+    <button class="close-tool" onclick="window.location.href='tools.html'">X</button>
+    <h2>Advanced Calculator</h2>
+    <div class="description">Perform complex calculations easily</div>
+
+    <!-- Calculator Tool UI -->
+    <div class="calculator-container">
+      <input type="text" id="calc-input" placeholder="Enter calculation" />
+      <button onclick="calculate()">Calculate</button>
+      <div id="calc-result"></div>
+    </div>
   </div>
 </main>
 
+<!-- FOOTER -->
 <footer class="site-footer">
   <a href="privacy-policy.html">Privacy Policy</a> |
   <a href="terms-and-conditions.html">Terms & Conditions</a> |
@@ -46,6 +61,19 @@ C<!DOCTYPE html>
   <a href="about.html">About</a> |
   <a href="contact.html">Contact</a>
 </footer>
+
+<!-- Calculator Script -->
+<script>
+function calculate() {
+  const input = document.getElementById("calc-input").value;
+  try {
+    const result = eval(input);
+    document.getElementById("calc-result").innerText = "Result: " + result;
+  } catch (e) {
+    document.getElementById("calc-result").innerText = "Invalid Expression";
+  }
+}
+</script>
 
 </body>
 </html>
