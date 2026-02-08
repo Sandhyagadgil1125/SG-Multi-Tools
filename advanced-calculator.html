@@ -25,10 +25,10 @@ body {
 
 /* TOOL CARD */
 .tool-wrapper {
-  position: relative; /* for X button */
+  position: relative; 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: 520px;
   width: 100%;
   padding: 30px 20px 20px 20px;
@@ -37,7 +37,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(66,248,245,0.4);
   text-align: center;
-  min-height: 260px;
 }
 
 /* Hover effect */
@@ -48,25 +47,9 @@ body {
 
 /* Tool title & description */
 .tool-wrapper h2 { font-size: 20px; margin-bottom: 10px; color: #42f8f5; }
-.tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 12px; flex-grow: 1; }
+.tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 12px; }
 
-/* Open Tool button */
-.tool-wrapper button {
-  padding: 10px 16px;
-  background: #42f8f5;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #000;
-  transition: background 0.3s;
-  width: 100%;
-  max-width: 150px;
-  margin: 0 auto;
-}
-.tool-wrapper button:hover { background: #6dfaff; }
-
-/* X Button in top-right corner */
+/* Close button */
 .close-btn {
   position: absolute;
   top: 12px;
@@ -87,9 +70,44 @@ body {
 }
 .close-btn:hover { background: #6dfaff; }
 
+/* Calculator display */
+#calc-display {
+  width: 90%;
+  padding: 10px;
+  margin: 10px auto;
+  font-size: 20px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  text-align: right;
+}
+
+/* Calculator buttons */
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 90%;
+  margin: 0 auto;
+}
+.calc-buttons button {
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.calc-buttons button:hover { background: #6dfaff; }
+
 /* Responsive */
 @media (max-width: 768px) {
   .tool-wrapper { width: 90%; padding: 20px; }
+  #calc-display { font-size: 18px; }
+  .calc-buttons button { padding: 12px; font-size: 14px; }
 }
 </style>
 </head>
@@ -97,6 +115,7 @@ body {
 
 <!-- TOOL CARD -->
 <div class="tool-wrapper">
+
   <!-- X Button -->
   <div class="close-btn" onclick="window.location.href='index.html'">&times;</div>
 
@@ -106,10 +125,52 @@ body {
   <!-- Tool Description -->
   <div class="description">Perform complex calculations easily</div>
 
-  <!-- Tool Action / Input -->
-  <input type="text" placeholder="Enter calculation" style="padding:8px; width:90%; margin-bottom:12px; border-radius:4px; border:none; outline:none;">
-  <button>Calculate</button>
+  <!-- Calculator Display -->
+  <input type="text" id="calc-display" readonly>
+
+  <!-- Calculator Buttons -->
+  <div class="calc-buttons">
+    <button onclick="appendCalc('7')">7</button>
+    <button onclick="appendCalc('8')">8</button>
+    <button onclick="appendCalc('9')">9</button>
+    <button onclick="appendCalc('/')">/</button>
+
+    <button onclick="appendCalc('4')">4</button>
+    <button onclick="appendCalc('5')">5</button>
+    <button onclick="appendCalc('6')">6</button>
+    <button onclick="appendCalc('*')">*</button>
+
+    <button onclick="appendCalc('1')">1</button>
+    <button onclick="appendCalc('2')">2</button>
+    <button onclick="appendCalc('3')">3</button>
+    <button onclick="appendCalc('-')">-</button>
+
+    <button onclick="appendCalc('0')">0</button>
+    <button onclick="appendCalc('.')">.</button>
+    <button onclick="calculateResult()">=</button>
+    <button onclick="appendCalc('+')">+</button>
+
+    <button onclick="clearCalc()" style="grid-column: span 4; background:#ff4c4c; color:#fff;">C</button>
+  </div>
+
 </div>
+
+<script>
+const display = document.getElementById('calc-display');
+function appendCalc(value) {
+  display.value += value;
+}
+function calculateResult() {
+  try {
+    display.value = eval(display.value);
+  } catch {
+    display.value = 'Error';
+  }
+}
+function clearCalc() {
+  display.value = '';
+}
+</script>
 
 </body>
 </html>
