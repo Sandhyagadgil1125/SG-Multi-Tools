@@ -11,40 +11,56 @@
 <!-- Global CSS -->
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- TOOL CARD -->
-<div class="tool-wrapper single-tool">
+<!-- PAGE WRAPPER -->
+<div class="tool-page">
 
-  <!-- Close button -->
-  <div class="close-btn" onclick="window.location.href='index.html'">X</div>
+  <!-- TOOL CARD -->
+  <div class="tool-card">
 
-  <h2>Advanced Calculator</h2>
-  <div class="description">Perform complex calculations easily</div>
+    <!-- Close button -->
+    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
 
-  <!-- Calculator Input -->
-  <input type="text" id="calc-input" placeholder="Enter calculation" />
+    <h2>Advanced Calculator</h2>
+    <p class="description">Perform complex calculations easily</p>
 
-  <!-- Buttons -->
-  <div class="calc-buttons">
-    <button onclick="appendValue('1')">1</button>
-    <button onclick="appendValue('2')">2</button>
-    <button onclick="appendValue('3')">3</button>
-    <button onclick="appendValue('+')">+</button>
-    <button onclick="appendValue('4')">4</button>
-    <button onclick="appendValue('5')">5</button>
-    <button onclick="appendValue('6')">6</button>
-    <button onclick="appendValue('-')">-</button>
-    <button onclick="appendValue('7')">7</button>
-    <button onclick="appendValue('8')">8</button>
-    <button onclick="appendValue('9')">9</button>
-    <button onclick="appendValue('*')">*</button>
-    <button onclick="appendValue('0')">0</button>
-    <button onclick="clearInput()">C</button>
-    <button onclick="calculateResult()">=</button>
-    <button onclick="appendValue('/')">/</button>
+    <!-- Display -->
+    <input
+      type="text"
+      id="calc-input"
+      class="calc-display"
+      placeholder="0"
+      readonly
+    />
+
+    <!-- Buttons -->
+    <div class="calc-buttons">
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('/')">÷</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('*')">×</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="clearInput()">C</button>
+      <button onclick="appendValue('+')">+</button>
+
+      <button class="equal-btn" onclick="calculateResult()">=</button>
+    </div>
+
   </div>
-
 </div>
 
 <!-- Scripts -->
@@ -52,15 +68,17 @@
 function appendValue(val) {
   document.getElementById('calc-input').value += val;
 }
+
 function clearInput() {
   document.getElementById('calc-input').value = '';
 }
+
 function calculateResult() {
   const input = document.getElementById('calc-input').value;
   try {
     document.getElementById('calc-input').value = eval(input);
   } catch {
-    alert('Invalid expression');
+    alert('Invalid calculation');
   }
 }
 </script>
