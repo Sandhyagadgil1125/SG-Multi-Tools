@@ -1,137 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit Converter | SG Multi Tools</title>
-  <meta name="description" content="Convert between common units instantly using SG Multi Tools Unit Converter.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Converter | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <!-- Close button -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <!-- Tool Title -->
-  <h2>Unit Converter</h2>
-  <div class="description">
-    Convert between common units instantly.
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Unit Type -->
-  <div class="flexbox">
-    <select id="type" onchange="updateUnits()">
-      <option value="length">Length</option>
-      <option value="weight">Weight</option>
-      <option value="temp">Temperature</option>
-    </select>
+<section class="hero single-page">
+  <h1>SG Mu<lti Tools For Daily Use</h1>
+  <p>Convert between common units instantly</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <title>Unit Converter | SG Multi Tools</title>
+    <p>Convert between common units instantly</p>
+    <a href="unit-converter.html" class="btn">Open Tool</a>
   </div>
+</main>
 
-  <!-- Input Value -->
-  <div class="flexbox">
-    <input type="number" id="inputValue" placeholder="Enter value">
-  </div>
-
-  <!-- From Unit -->
-  <div class="flexbox">
-    <select id="fromUnit"></select>
-  </div>
-
-  <!-- To Unit -->
-  <div class="flexbox">
-    <select id="toUnit"></select>
-  </div>
-
-  <!-- Convert Button -->
-  <div class="flexbox">
-    <button onclick="convert()">Convert</button>
-  </div>
-
-  <!-- Result -->
-  <div class="flexbox result" id="result">
-    Converted value will appear here
-  </div>
-
-  <div class="info">
-    Convert between common units instantly
-  </div>
-</div>
-
-<script>
-const units = {
-  length: { Meter: 1, Kilometer: 1000, Centimeter: 0.01, Mile: 1609.34, Foot: 0.3048 },
-  weight: { Kilogram: 1, Gram: 0.001, Pound: 0.453592, Ounce: 0.0283495 },
-  temp: ["Celsius", "Fahrenheit", "Kelvin"]
-};
-
-const fromUnit = document.getElementById("fromUnit");
-const toUnit = document.getElementById("toUnit");
-
-function updateUnits() {
-  const type = document.getElementById("type").value;
-  fromUnit.innerHTML = "";
-  toUnit.innerHTML = "";
-
-  if(type === "temp") {
-    units.temp.forEach(u=>{
-      fromUnit.innerHTML += `<option>${u}</option>`;
-      toUnit.innerHTML += `<option>${u}</option>`;
-    });
-  } else {
-    for(let u in units[type]) {
-      fromUnit.innerHTML += `<option>${u}</option>`;
-      toUnit.innerHTML += `<option>${u}</option>`;
-    }
-  }
-}
-
-function convert() {
-  const value = parseFloat(document.getElementById("inputValue").value);
-  const type = document.getElementById("type").value;
-  const from = fromUnit.value;
-  const to = toUnit.value;
-
-  if(isNaN(value)) {
-    alert("Please enter a value");
-    return;
-  }
-
-  let result;
-
-  if(type === "temp") {
-    result = convertTemp(value, from, to);
-  } else {
-    result = value * units[type][from] / units[type][to];
-  }
-
-  document.getElementById("result").innerHTML = `<b>${result.toFixed(4)}</b>`;
-}
-
-function convertTemp(v,f,t){
-  if(f===t) return v;
-  if(f==="Celsius" && t==="Fahrenheit") return v*9/5+32;
-  if(f==="Celsius" && t==="Kelvin") return v+273.15;
-  if(f==="Fahrenheit" && t==="Celsius") return (v-32)*5/9;
-  if(f==="Fahrenheit" && t==="Kelvin") return (v-32)*5/9+273.15;
-  if(f==="Kelvin" && t==="Celsius") return v-273.15;
-  if(f==="Kelvin" && t==="Fahrenheit") return (v-273.15)*9/5+32;
-}
-
-updateUnits();
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
