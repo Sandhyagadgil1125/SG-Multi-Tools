@@ -1,133 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timer / Stopwatch | SG Multi Tools</title>
-  <meta name="description" content="Track time with Timer and Stopwatch using SG Multi Tools.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer Stopwatch | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <!-- Close button -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <!-- Tool Title -->
-  <h2>Timer / Stopwatch</h2>
-  <div class="description">
-    Track time with precision using our timer and stopwatch.
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Clock Display -->
-  <div class="clock">
-    <div class="hand" id="secondHand"></div>
-    <div class="center-dot"></div>
+<section class="hero single-page">
+  <h1>SG Mu<lti Tools For Daily Use</h1>
+  <p>Track time with timer and stopwatch</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <title>Timer / Stopwatch | SG Multi Tools</title>
+    <p>Track time with timer and stopwatch</p>
+    <a href="timer-stopwatch.html" class="btn">Open Tool</a>
   </div>
+</main>
 
-  <!-- Time Display -->
-  <div class="time" id="display">00:00.00</div>
-
-  <!-- Timer Input -->
-  <div class="flexbox">
-    <input type="number" id="timerInput" placeholder="Timer seconds (optional)" min="1">
-  </div>
-
-  <!-- Controls -->
-  <div class="flexbox" style="display:flex; gap:10px;">
-    <button onclick="start()">Start</button>
-    <button onclick="stop()">Stop</button>
-    <button onclick="reset()">Reset</button>
-  </div>
-</div>
-
-<script>
-let startTime = 0;
-let running = false;
-let rafId;
-let timerDuration = null;
-
-const display = document.getElementById("display");
-const hand = document.getElementById("secondHand");
-
-// Web Audio Bell
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playBell(){
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
-  gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.4);
-}
-
-function update(){
-  if(!running) return;
-
-  const now = performance.now();
-  const elapsed = now - startTime;
-  let remaining = timerDuration ? timerDuration - elapsed : elapsed;
-
-  if(timerDuration && remaining <= 0){
-    display.textContent = "00:00.00";
-    hand.style.transform = "rotate(0deg)";
-    running = false;
-    playBell();
-    return;
-  }
-
-  const totalSeconds = Math.abs(remaining) / 1000;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  display.textContent = `${String(minutes).padStart(2,"0")}:${seconds.toFixed(2).padStart(5,"0")}`;
-
-  const angle = (seconds / 60) * 360;
-  hand.style.transform = `rotate(${angle}deg)`;
-
-  rafId = requestAnimationFrame(update);
-}
-
-function start(){
-  if(running) return;
-  const inputSeconds = parseFloat(document.getElementById("timerInput").value);
-  timerDuration = (!isNaN(inputSeconds) && inputSeconds > 0) ? inputSeconds * 1000 : null;
-  startTime = performance.now();
-  running = true;
-  if(audioCtx.state === "suspended"){ audioCtx.resume(); }
-  update();
-}
-
-function stop(){
-  if(!running) return;
-  running = false;
-  cancelAnimationFrame(rafId);
-  playBell();
-}
-
-function reset(){
-  running = false;
-  cancelAnimationFrame(rafId);
-  display.textContent = "00:00.00";
-  hand.style.transform = "rotate(0deg)";
-  document.getElementById("timerInput").value = "";
-}
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
