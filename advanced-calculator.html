@@ -103,6 +103,32 @@ body {
 }
 .calc-buttons button:hover { background: #6dfaff; }
 
+/* Affiliate links */
+.affiliate-btn {
+  display: block;
+  padding: 12px 18px;
+  margin: 15px auto 8px auto;
+  background: #ffb400;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 6px;
+  transition: background 0.3s;
+  max-width: 180px;
+}
+.affiliate-btn:hover { background: #ffd86c; }
+
+.affiliate-text {
+  font-size: 14px;
+  margin-top: 6px;
+}
+.affiliate-text a {
+  color: #42f8f5;
+  text-decoration: none;
+}
+.affiliate-text a:hover { text-decoration: underline; }
+
 /* Responsive */
 @media (max-width: 768px) {
   .tool-wrapper { width: 90%; padding: 20px; }
@@ -113,7 +139,6 @@ body {
 </head>
 <body>
 
-<!-- TOOL CARD -->
 <div class="tool-wrapper">
 
   <!-- X Button -->
@@ -153,6 +178,16 @@ body {
     <button onclick="clearCalc()" style="grid-column: span 4; background:#ff4c4c; color:#fff;">C</button>
   </div>
 
+  <!-- Primary Affiliate Link -->
+  <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-btn">
+    Get Full Advanced Tools
+  </a>
+
+  <!-- Secondary Affiliate Link -->
+  <div class="affiliate-text">
+    Check <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">this offer</a> for more options.
+  </div>
+
 </div>
 
 <script>
@@ -161,15 +196,10 @@ function appendCalc(value) {
   display.value += value;
 }
 function calculateResult() {
-  try {
-    display.value = eval(display.value);
-  } catch {
-    display.value = 'Error';
-  }
+  try { display.value = eval(display.value); } 
+  catch { display.value = 'Error'; }
 }
-function clearCalc() {
-  display.value = '';
-}
+function clearCalc() { display.value = ''; }
 </script>
 
 </body>
