@@ -1,94 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Note Text Saver | SG Multi Tools</title>
-  <meta name="description" content="Write and save your notes quickly with SG Multi Tools Note Text Saver.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Note Text Saver | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <!-- Close button -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <!-- Tool Title -->
-  <h2>Note Text Saver</h2>
-  <div class="description">
-    Quickly write, save, and copy your notes online.
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Note Textarea -->
-  <div class="flexbox">
-    <textarea id="noteInput" placeholder="Write your notes here..." rows="8"></textarea>
+<section class="hero single-page">
+  <h1>SG Mu<lti Tools For Daily Use</h1> 
+  <p>Save your notes online</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <title>Note Text Saver | SG Multi Tools</title>
+    <p>Save your notes online</p>
+    <a href="note-text-saver.html" class="btn">Open Tool</a>
   </div>
+</main>
 
-  <!-- Buttons -->
-  <div class="flexbox" style="display:flex; gap:10px;">
-    <button onclick="saveNote()">Save Note</button>
-    <button onclick="copyNote()">Copy Note</button>
-    <button onclick="clearNote()">Clear Note</button>
-  </div>
-
-  <!-- Result / Status -->
-  <div class="flexbox result" id="result">
-    Your saved notes will appear here
-  </div>
-</div>
-
-<script>
-const noteInput = document.getElementById('noteInput');
-const resultDiv = document.getElementById('result');
-
-// Load saved note from localStorage
-window.onload = function() {
-  const saved = localStorage.getItem('sgNote');
-  if (saved) {
-    noteInput.value = saved;
-    resultDiv.innerText = saved;
-  }
-}
-
-function saveNote() {
-  const text = noteInput.value.trim();
-  if (!text) {
-    resultDiv.innerText = "Nothing to save";
-    return;
-  }
-  localStorage.setItem('sgNote', text);
-  resultDiv.innerText = text;
-}
-
-function copyNote() {
-  const text = noteInput.value.trim();
-  if (!text) {
-    resultDiv.innerText = "Nothing to copy";
-    return;
-  }
-  navigator.clipboard.writeText(text).then(() => {
-    resultDiv.innerText = "Copied to clipboard!";
-  });
-}
-
-function clearNote() {
-  noteInput.value = '';
-  resultDiv.innerText = '';
-  localStorage.removeItem('sgNote');
-}
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
