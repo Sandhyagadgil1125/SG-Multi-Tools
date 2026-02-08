@@ -1,86 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Case Changer | SG Multi Tools</title>
-  <meta name="description" content="Convert your text to uppercase, lowercase, or proper case easily with SG Multi Tools.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Case Changer | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <!-- Close button -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <!-- Tool Title -->
-  <h2>Case Changer</h2>
-  <div class="description">
-    Convert your text to uppercase, lowercase, or proper case easily.
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Text Input -->
-  <div class="flexbox">
-    <label for="inputText">Enter Text:</label>
-    <textarea id="inputText" rows="5" placeholder="Type or paste your text here..."></textarea>
+<section class="hero single-page">
+   <h1>SG Multi Tools For Daily Use</h1>
+  <p>Convert text to uppercase, lowercase, or proper case</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <h2>Case Changer</h2>
+    <p>Convert text to uppercase, lowercase, or proper case</p>
+    <a href="case-changer.html" class="btn">Open Tool</a>
   </div>
+</main>
 
-  <!-- Case Options -->
-  <div class="flexbox">
-    <label for="caseOption">Select Case:</label>
-    <select id="caseOption">
-      <option value="uppercase">UPPERCASE</option>
-      <option value="lowercase">lowercase</option>
-      <option value="titlecase">Title Case</option>
-    </select>
-  </div>
-
-  <!-- Button -->
-  <div class="flexbox">
-    <button onclick="changeCase()">Convert Text</button>
-  </div>
-
-  <!-- Result -->
-  <div class="flexbox result" id="result">
-    Converted text will appear here
-  </div>
-</div>
-
-<script>
-function changeCase() {
-  const text = document.getElementById('inputText').value;
-  const option = document.getElementById('caseOption').value;
-  const resultDiv = document.getElementById('result');
-
-  if (!text) {
-    resultDiv.innerText = "Please enter some text to convert";
-    return;
-  }
-
-  let converted = '';
-  if (option === 'uppercase') {
-    converted = text.toUpperCase();
-  } else if (option === 'lowercase') {
-    converted = text.toLowerCase();
-  } else if (option === 'titlecase') {
-    converted = text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-  }
-
-  resultDiv.innerText = converted;
-}
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
