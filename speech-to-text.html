@@ -1,92 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Speech to Text | SG Multi Tools</title>
-  <meta name="description" content="Convert your speech into text instantly using SG Multi Tools Speech to Text tool.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speech To Text | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <!-- Close button -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <!-- Tool Title -->
-  <h2>Speech to Text</h2>
-  <div class="description">
-    Convert your speech into text instantly using your microphone.
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Start / Stop Controls -->
-  <div class="flexbox">
-    <button id="startBtn">Start Recording</button>
-    <button id="stopBtn" disabled>Stop Recording</button>
+<section class="hero single-page">
+  <h1>SG Mu<lti Tools For Daily Use</h1>
+  <p>Convert your speech into text</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <title>Speech to Text | SG Multi Tools</title>
+    <p>Convert your speech into text</p>
+    <a href="speech-to-text.html" class="btn">Open Tool</a>
   </div>
+</main>
 
-  <!-- Result -->
-  <div class="flexbox result" id="result">
-    Your converted text will appear here
-  </div>
-</div>
-
-<script>
-let recognition;
-const startBtn = document.getElementById('startBtn');
-const stopBtn = document.getElementById('stopBtn');
-const resultDiv = document.getElementById('result');
-
-// Check for browser support
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.lang = 'en-US';
-
-  recognition.onresult = function(event) {
-    let transcript = '';
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      transcript += event.results[i][0].transcript;
-    }
-    resultDiv.textContent = transcript;
-  }
-
-  recognition.onerror = function(event) {
-    console.error('Speech recognition error:', event.error);
-  }
-
-  startBtn.onclick = function() {
-    recognition.start();
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
-  }
-
-  stopBtn.onclick = function() {
-    recognition.stop();
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-  }
-
-} else {
-  resultDiv.textContent = "Sorry, your browser does not support Speech Recognition.";
-  startBtn.disabled = true;
-  stopBtn.disabled = true;
-}
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
