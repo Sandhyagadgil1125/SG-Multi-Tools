@@ -1,80 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text to Speech | SG Multi Tools</title>
-  <meta name="description" content="Listen to your text aloud instantly using SG Multi Tools Text to Speech tool.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text To Speech | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <!-- Close button -->
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <!-- Tool Title -->
-  <h2>Text to Speech</h2>
-  <div class="description">
-    Enter text and listen to it aloud instantly.
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <!-- Text input -->
-  <div class="flexbox">
-    <textarea id="textInput" placeholder="Enter text here..." rows="6"></textarea>
+<section class="hero single-page">
+  <h1>SG Mu<lti Tools For Daily Use</h1>
+  <p>Listen to your text aloud</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <title>Text to Speech | SG Multi Tools</title>
+    <p>Listen to your text aloud</p>
+    <a href="text-to-speech.html" class="btn">Open Tool</a>
   </div>
+</main>
 
-  <!-- Play / Stop Buttons -->
-  <div class="flexbox">
-    <button id="playBtn">Play</button>
-    <button id="stopBtn" disabled>Stop</button>
-  </div>
-</div>
-
-<script>
-const playBtn = document.getElementById('playBtn');
-const stopBtn = document.getElementById('stopBtn');
-const textInput = document.getElementById('textInput');
-let utterance;
-
-playBtn.onclick = function() {
-  const text = textInput.value.trim();
-  if (!text) {
-    alert('Please enter text to speak');
-    return;
-  }
-
-  utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  speechSynthesis.speak(utterance);
-
-  playBtn.disabled = true;
-  stopBtn.disabled = false;
-
-  utterance.onend = function() {
-    playBtn.disabled = false;
-    stopBtn.disabled = true;
-  }
-}
-
-stopBtn.onclick = function() {
-  speechSynthesis.cancel();
-  playBtn.disabled = false;
-  stopBtn.disabled = true;
-}
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
