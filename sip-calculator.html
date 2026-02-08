@@ -1,88 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIP Calculator | SG Multi Tools</title>
-  <meta name="description" content="SIP Calculator by SG Multi Tools to calculate your future investments.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Calculator | SG Multi Tools</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BT8RQZBBTQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BT8RQZBBTQ');
-  </script>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="tool-wrapper">
-  <span class="close-btn" onclick="location.href='index.html'">✕</span>
-
-  <h2>SIP Calculator</h2>
-  <div class="description">Calculate future value of your SIP investments</div>
-
-  <!-- SIP Inputs -->
-  <div class="flexbox">
-    <input type="number" id="sipAmount" placeholder="Monthly Investment (₹)">
-    <input type="number" id="sipRate" placeholder="Annual Rate of Return (%)">
-    <input type="number" id="sipYears" placeholder="Investment Period (Years)">
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-badge">SG</span>
+    <span class="logo-text">SG Multi Tools</span>
   </div>
-  <div class="flexbox">
-    <button onclick="calculateSIP()">Calculate SIP</button>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero single-page">
+  <h1>SG Mu<lti Tools For Daily Use</h1>
+  <p>Calculate your SIP investments</p>
+</section>
+
+<main class="tools-container single-page">
+  <div class="tool-card">
+    <title>SIP Calculator | SG Multi Tools</title>
+    <p>Calculate your SIP investments</p>
+    <a href="sip-calculator.html" class="btn">Open Tool</a>
   </div>
-  <div class="flexbox result" id="sipResult">SIP result will appear here</div>
+</main>
 
-  <!-- Affiliate Section -->
-  <div class="flexbox" style="flex-direction:column; gap:10px; padding:14px; background:var(--flex); border-radius:var(--radius);">
-    <div style="text-align:center; color:var(--text); font-size:15px;">
-      Start your SIP with top mutual funds today.
-    </div>
-    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
-      <button>Invest in SIP</button>
-    </a>
-
-    <div style="text-align:center; color:var(--text); font-size:15px; margin-top:10px;">
-      Try our SIP bundle for enhanced investment guidance.
-    </div>
-    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
-      <button>Get SIP Bundle</button>
-    </a>
-
-    <div style="text-align:center; color:var(--muted); font-size:12px; margin-top:6px;">
-      Disclosure: SG Multi Tools may contain affiliate links. If you click and purchase, we may earn a commission at no additional cost to you.
-    </div>
-  </div>
-</div>
-
-<!-- SIP Calculator JS -->
-<script>
-function calculateSIP() {
-  const P = parseFloat(document.getElementById("sipAmount").value);
-  const r = parseFloat(document.getElementById("sipRate").value)/100/12; // monthly rate
-  const n = parseFloat(document.getElementById("sipYears").value)*12; // total months
-  const resultDiv = document.getElementById("sipResult");
-
-  if(isNaN(P) || isNaN(r) || isNaN(n) || P<=0 || r<=0 || n<=0){
-    resultDiv.innerText = "Please enter valid positive numbers";
-    return;
-  }
-
-  // Future Value of SIP formula: FV = P * [ ( (1+r)^n -1 ) / r ] * (1+r)
-  const fv = P * (Math.pow(1+r, n) - 1) / r * (1+r);
-
-  resultDiv.innerHTML = `
-    Total Investment: ₹${(P*n).toLocaleString()} <br>
-    Estimated Returns: ₹${(fv - P*n).toLocaleString()} <br>
-    Total Value: ₹${fv.toLocaleString()}
-  `;
-}
-</script>
+<footer class="site-footer">
+  <a href="privacy-policy.html">Privacy Policy</a> |
+  <a href="terms-and-conditions.html">Terms & Conditions</a> |
+  <a href="disclaimer.html">Disclaimer</a> |
+  <a href="sitemap.xml">Sitemap</a> |
+  <a href="about.html">About</a> |
+  <a href="contact.html">Contact</a>
+</footer>
 
 </body>
 </html>
