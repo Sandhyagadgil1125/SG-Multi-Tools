@@ -6,198 +6,59 @@
 <title>SIP Calculator | SG Multi Tools</title>
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="favicon.png?v=1">
 
 <!-- Global CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0d0f14;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* TOOL CARD */
-.tool-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* center all content */
-  max-width: 520px;
-  width: 100%;
-  padding: 20px;
-  background: #1e293b;
-  border: 2px solid #42f8f5;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(66,248,245,0.4);
-  text-align: center;
-}
-
-/* Hover effect */
-.tool-wrapper:hover {
-  box-shadow: 0 0 40px rgba(66,248,245,0.9);
-  transform: translateY(-2px);
-}
-
-/* Tool title & description */
-.tool-wrapper h2 { font-size: 22px; margin-bottom: 8px; color: #42f8f5; }
-.tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 15px; }
-
-/* Close button */
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #42f8f5;
-  color: #000;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 0;
-  transition: background 0.3s;
-}
-.close-btn:hover { background: #6dfaff; }
-
-/* Center inputs & buttons */
-.input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-input[type="number"] {
-  width: 80%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
-  text-align: center; /* center text */
-}
-
-/* Calculate button */
-button.calc-btn {
-  padding: 10px 0;
-  margin: 5px auto;
-  background: #42f8f5;
-  color: #000;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 50%;
-}
-button.calc-btn:hover { background: #6dfaff; }
-
-/* Result */
-#result {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-/* Affiliate links */
-.affiliate-btn {
-  display: block;
-  padding: 10px 0;
-  margin: 10px auto 5px auto;
-  background: #ffb400;
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  border-radius: 6px;
-  transition: background 0.3s;
-  width: 100%;
-  max-width: 220px;
-}
-.affiliate-btn:hover { background: #ffd86c; }
-
-.affiliate-text {
-  font-size: 14px;
-  margin-top: 4px;
-  text-align: center;
-}
-.affiliate-text a {
-  color: #42f8f5;
-  text-decoration: none;
-}
-.affiliate-text a:hover { text-decoration: underline; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .tool-wrapper { width: 90%; padding: 15px; }
-  input[type="number"] { width: 90%; font-size: 14px; }
-  button.calc-btn { width: 60%; font-size: 14px; }
-  .affiliate-btn { max-width: 180px; }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="tool-wrapper">
+<!-- TOOL CARD -->
+<div class="tool-wrapper single-tool">
 
-  <!-- X Button -->
-  <div class="close-btn" onclick="window.location.href='index.html'">&times;</div>
+  <!-- Close button -->
+  <div class="close-btn" onclick="window.location.href='index.html'">X</div>
 
-  <!-- Tool Title -->
   <h2>SIP Calculator</h2>
+  <div class="description">Calculate your SIP investments</div>
 
-  <!-- Tool Description -->
-  <div class="description">Calculate your SIP investments easily</div>
-
-  <!-- SIP Form -->
-  <div class="input-group">
-    <input type="number" id="amount" placeholder="Monthly Investment (₹)">
-    <input type="number" id="rate" placeholder="Expected Annual Return (%)">
-    <input type="number" id="years" placeholder="Investment Period (Years)">
-    <button class="calc-btn" onclick="calculateSIP()">Calculate SIP</button>
+  <!-- SIP Input Fields -->
+  <div class="sip-inputs">
+    <input type="number" id="monthly-investment" placeholder="Monthly Investment (₹)" />
+    <input type="number" id="years" placeholder="Number of Years" />
+    <input type="number" id="expected-return" placeholder="Expected Annual Return (%)" />
   </div>
 
-  <!-- Result -->
-  <div id="result"></div>
+  <button onclick="calculateSIP()">Calculate SIP</button>
 
-  <!-- Primary Affiliate Link -->
-  <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-btn">
-    Get Full SIP Tools
-  </a>
+  <div id="sip-result" class="description" style="margin-top:12px;"></div>
 
-  <!-- Secondary Affiliate Link -->
-  <div class="affiliate-text">
-    Check <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">this offer</a> for more options.
+  <!-- Affiliate Links -->
+  <div class="affiliate-links" style="margin-top:20px;">
+    <p>Check this offer for more options:</p>
+    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
+      <button>Primary Offer</button>
+    </a>
+    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
+      <button>Secondary Offer</button>
+    </a>
   </div>
 
 </div>
 
+<!-- Scripts -->
 <script>
 function calculateSIP() {
-  const P = parseFloat(document.getElementById('amount').value);
-  const r = parseFloat(document.getElementById('rate').value)/100/12;
-  const n = parseFloat(document.getElementById('years').value)*12;
-
-  if(isNaN(P) || isNaN(r) || isNaN(n)) {
-    document.getElementById('result').innerText = 'Please enter valid numbers';
+  const P = parseFloat(document.getElementById('monthly-investment').value);
+  const n = parseFloat(document.getElementById('years').value) * 12;
+  const r = parseFloat(document.getElementById('expected-return').value) / 12 / 100;
+  if (isNaN(P) || isNaN(n) || isNaN(r)) {
+    alert("Please fill all fields correctly");
     return;
   }
-
-  const sip = P * ((Math.pow(1+r, n)-1)/r) * (1+r);
-  document.getElementById('result').innerText = 'Future Value: ₹' + sip.toFixed(2);
+  const sip = P * (Math.pow(1 + r, n) - 1) / r * (1 + r);
+  document.getElementById('sip-result').innerHTML = 
+    `Estimated SIP Value: ₹${sip.toFixed(2)}`;
 }
 </script>
 
