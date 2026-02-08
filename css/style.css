@@ -1,35 +1,60 @@
+/* ==============================
+   ROOT VARIABLES
+============================== */
 :root {
   --bg: #0f172a;
   --card: #1e293b;
-  --accent: #38bdf8;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
+  --accent: #42f8f5;
+  --text: #ffffff;
+  --muted: #aaa;
+  --btn-bg: #42f8f5;
+  --btn-color: #000;
 }
 
-/* RESET */
+/* ==============================
+   GLOBAL RESET
+============================== */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, sans-serif;
-}
-
-html, body {
-  width: 100%;
-  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
+  line-height: 1.6;
 }
 
-/* HEADER */
-.site-header {
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  padding: 8px 14px;
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  box-shadow: 0 0 12px rgba(66,248,245,0.8);
+}
+
+/* ==============================
+   HEADER
+============================== */
+.site-header, .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
+  padding: 16px 24px;
   background: var(--card);
   border-bottom: 2px solid var(--accent);
 }
@@ -40,134 +65,181 @@ body {
   gap: 10px;
 }
 
-.logo-badge {
-  background: var(--accent);
-  color: #000;
-  font-weight: 700;
-  padding: 8px 10px;
+.logo-badge, .logo-circle {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
 }
 
-.nav a {
-  margin-left: 16px;
-  text-decoration: none;
+.logo-text {
+  font-weight: bold;
+  font-size: 18px;
   color: var(--text);
 }
 
-/* HERO */
+.nav a {
+  margin-left: 18px;
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+/* ==============================
+   HERO
+============================== */
 .hero {
   text-align: center;
-  padding: 26px 14px;
+  padding: 18px 12px 22px 12px;
+  margin-top: 0;
 }
 
 .hero h1 {
+  font-size: 28px;
   color: var(--accent);
-  font-size: 1.8rem;
+  margin-bottom: 6px;
 }
 
 .hero p {
-  color: var(--muted);
-  margin-top: 6px;
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 12px;
 }
 
-/* UNIVERSAL PAGE WRAPPER */
-.page,
-.tools-container,
-.tool-page {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-/* TOOLS GRID */
+/* ==============================
+   TOOLS GRID (Homepage & Tools Page)
+============================== */
 .tools-grid {
-  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   display: grid;
-  gap: 18px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
 }
 
-/* MOBILE */
-@media (max-width: 640px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
+.tool-wrapper {
+  background: var(--card);
+  padding: 20px;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(66,248,245,0.5);
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
-/* TABLET */
-@media (min-width: 641px) and (max-width: 1023px) {
+.tool-wrapper h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.tool-wrapper .description {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.tool-wrapper:hover {
+  box-shadow: 0 0 40px rgba(66,248,245,0.9);
+  transform: translateY(-3px);
+}
+
+/* ==============================
+   SINGLE TOOL PAGES
+============================== */
+.single-page .tools-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.single-page .tool-card.single-tool {
+  max-width: 520px;
+  width: 90%;
+  padding: 24px;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(66,248,245,0.5);
+  position: relative;
+  background: var(--card);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.single-page .tool-card.single-tool:hover {
+  box-shadow: 0 0 40px rgba(66,248,245,0.9);
+  transform: translateY(-3px);
+}
+
+/* Close button top-right */
+.single-page .tool-card .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: bold;
+}
+
+.single-page .tool-card .close-btn:hover {
+  color: var(--accent);
+}
+
+/* ==============================
+   FOOTER
+============================== */
+.site-footer, .footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.site-footer a, .footer a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0 6px;
+}
+
+.site-footer a:hover, .footer a:hover {
+  color: var(--accent);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 1024px) {
   .tools-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* DESKTOP */
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
   .tools-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+  }
+  .single-page .tool-card.single-tool {
+    width: 95%;
   }
 }
 
-/* TOOL CARD */
-.tool-card {
-  background: var(--card);
-  border: 2px solid var(--accent);
-  border-radius: 14px;
-  padding: 18px;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-
-.tool-card:hover {
-  box-shadow: 0 0 24px rgba(56,189,248,0.35);
-  transform: translateY(-3px);
-}
-
-.tool-card h2 {
-  font-size: 1rem;
-  margin-bottom: 6px;
-}
-
-.tool-card p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-/* BUTTON */
-.btn {
-  display: inline-block;
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #000;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-/* TOOL PAGES (OPENED TOOL) */
-.tool-box {
-  background: var(--card);
-  border: 2px solid var(--accent);
-  border-radius: 16px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 520px;
-  width: 100%;
-  box-shadow: 0 0 28px rgba(56,189,248,0.35);
-}
-
-/* FOOTER */
-.site-footer {
-  text-align: center;
-  padding: 16px;
-  margin-top: 30px;
-  border-top: 1px solid var(--accent);
-}
-
-.site-footer a {
-  color: var(--muted);
-  margin: 0 6px;
-  font-size: 0.85rem;
-  text-decoration: none;
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 24px;
+  }
+  .hero p {
+    font-size: 14px;
+  }
 }
