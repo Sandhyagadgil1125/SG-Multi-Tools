@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Calculator | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" href="favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,36 +14,33 @@
 <div class="tool-page">
   <div class="tool-card">
 
-    <!-- Close button -->
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <button class="close-btn" onclick="location.href='index.html'">X</button>
 
     <h2>Advanced Calculator</h2>
     <p class="description">Perform complex calculations easily</p>
 
-    <!-- Display -->
-    <input type="text" id="display" readonly />
+    <input id="screen" type="text" readonly>
 
-    <!-- Calculator buttons -->
     <div class="calc-grid">
-      <button onclick="add('7')">7</button>
-      <button onclick="add('8')">8</button>
-      <button onclick="add('9')">9</button>
-      <button class="op" onclick="add('/')">÷</button>
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('/')">/</button>
 
-      <button onclick="add('4')">4</button>
-      <button onclick="add('5')">5</button>
-      <button onclick="add('6')">6</button>
-      <button class="op" onclick="add('*')">×</button>
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('*')">*</button>
 
-      <button onclick="add('1')">1</button>
-      <button onclick="add('2')">2</button>
-      <button onclick="add('3')">3</button>
-      <button class="op" onclick="add('-')">−</button>
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('-')">-</button>
 
-      <button onclick="add('0')">0</button>
-      <button onclick="add('.')">.</button>
-      <button class="clear" onclick="clearDisplay()">C</button>
-      <button class="op" onclick="add('+')">+</button>
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="clearScreen()">C</button>
+      <button onclick="press('+')">+</button>
 
       <button class="equals" onclick="calculate()">=</button>
     </div>
@@ -52,18 +49,19 @@
 </div>
 
 <script>
-function add(value) {
-  document.getElementById("display").value += value;
+const screen = document.getElementById("screen");
+
+function press(val) {
+  screen.value += val;
 }
 
-function clearDisplay() {
-  document.getElementById("display").value = "";
+function clearScreen() {
+  screen.value = "";
 }
 
 function calculate() {
   try {
-    document.getElementById("display").value =
-      eval(document.getElementById("display").value);
+    screen.value = Function("return " + screen.value)();
   } catch {
     alert("Invalid calculation");
   }
