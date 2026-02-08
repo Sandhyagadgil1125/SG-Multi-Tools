@@ -5,80 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Calculator | SG Multi Tools</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="favicon.png?v=1">
-
-<!-- Global CSS -->
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- PAGE WRAPPER -->
 <div class="tool-page">
-
-  <!-- TOOL CARD -->
   <div class="tool-card">
 
     <!-- Close button -->
-    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
 
     <h2>Advanced Calculator</h2>
     <p class="description">Perform complex calculations easily</p>
 
     <!-- Display -->
-    <input
-      type="text"
-      id="calc-input"
-      class="calc-display"
-      placeholder="0"
-      readonly
-    />
+    <input type="text" id="display" readonly />
 
-    <!-- Buttons -->
-    <div class="calc-buttons">
-      <button onclick="appendValue('7')">7</button>
-      <button onclick="appendValue('8')">8</button>
-      <button onclick="appendValue('9')">9</button>
-      <button onclick="appendValue('/')">÷</button>
+    <!-- Calculator buttons -->
+    <div class="calc-grid">
+      <button onclick="add('7')">7</button>
+      <button onclick="add('8')">8</button>
+      <button onclick="add('9')">9</button>
+      <button class="op" onclick="add('/')">÷</button>
 
-      <button onclick="appendValue('4')">4</button>
-      <button onclick="appendValue('5')">5</button>
-      <button onclick="appendValue('6')">6</button>
-      <button onclick="appendValue('*')">×</button>
+      <button onclick="add('4')">4</button>
+      <button onclick="add('5')">5</button>
+      <button onclick="add('6')">6</button>
+      <button class="op" onclick="add('*')">×</button>
 
-      <button onclick="appendValue('1')">1</button>
-      <button onclick="appendValue('2')">2</button>
-      <button onclick="appendValue('3')">3</button>
-      <button onclick="appendValue('-')">−</button>
+      <button onclick="add('1')">1</button>
+      <button onclick="add('2')">2</button>
+      <button onclick="add('3')">3</button>
+      <button class="op" onclick="add('-')">−</button>
 
-      <button onclick="appendValue('0')">0</button>
-      <button onclick="appendValue('.')">.</button>
-      <button onclick="clearInput()">C</button>
-      <button onclick="appendValue('+')">+</button>
+      <button onclick="add('0')">0</button>
+      <button onclick="add('.')">.</button>
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="op" onclick="add('+')">+</button>
 
-      <button class="equal-btn" onclick="calculateResult()">=</button>
+      <button class="equals" onclick="calculate()">=</button>
     </div>
 
   </div>
 </div>
 
-<!-- Scripts -->
 <script>
-function appendValue(val) {
-  document.getElementById('calc-input').value += val;
+function add(value) {
+  document.getElementById("display").value += value;
 }
 
-function clearInput() {
-  document.getElementById('calc-input').value = '';
+function clearDisplay() {
+  document.getElementById("display").value = "";
 }
 
-function calculateResult() {
-  const input = document.getElementById('calc-input').value;
+function calculate() {
   try {
-    document.getElementById('calc-input').value = eval(input);
+    document.getElementById("display").value =
+      eval(document.getElementById("display").value);
   } catch {
-    alert('Invalid calculation');
+    alert("Invalid calculation");
   }
 }
 </script>
