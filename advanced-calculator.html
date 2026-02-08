@@ -12,8 +12,88 @@
 <!-- Global CSS -->
 <link rel="stylesheet" href="css/style.css">
 
+<style>
+/* Center single tool card and make responsive */
+.single-tool {
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 24px;
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(66,248,245,0.4);
+  position: relative;
+}
+
+.single-tool:hover {
+  box-shadow: 0 0 40px rgba(66,248,245,0.9);
+  transform: translateY(-2px);
+}
+
+/* Close button in top-right corner of card */
+.close-tool {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.close-tool:hover {
+  background: #42f8f5;
+}
+
+/* Tool card content */
+.single-tool h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.single-tool .description {
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+/* Calculator UI */
+.calculator-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #888;
+}
+
+.calculator-container button {
+  padding: 10px 16px;
+  background: var(--accent);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calculator-container button:hover {
+  background: #42f8f5;
+}
+
+.calculator-container #calc-result {
+  margin-top: 12px;
+  font-weight: bold;
+  color: var(--accent);
+}
+</style>
 </head>
-<body class="single-page">
+<body>
 
 <!-- HEADER -->
 <header class="site-header">
@@ -29,21 +109,14 @@
   </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Perform complex calculations easily with our Advanced Calculator</p>
-</section>
-
-
 <!-- TOOL CARD -->
 <main>
-  <div class="tool-wrapper single-tool">
+  <div class="single-tool">
     <button class="close-tool" onclick="window.location.href='tools.html'">X</button>
     <h2>Advanced Calculator</h2>
     <div class="description">Perform complex calculations easily</div>
 
-    <!-- Calculator Tool UI -->
+    <!-- Calculator UI -->
     <div class="calculator-container">
       <input type="text" id="calc-input" placeholder="Enter calculation" />
       <button onclick="calculate()">Calculate</button>
