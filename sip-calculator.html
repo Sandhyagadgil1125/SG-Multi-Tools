@@ -5,47 +5,189 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIP Calculator | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png">
 
+<!-- Global CSS -->
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0d0f14;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* TOOL CARD */
+.tool-wrapper {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 520px;
+  width: 100%;
+  padding: 20px 15px 15px 15px; /* reduced height */
+  background: #1e293b;
+  border: 2px solid #42f8f5;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(66,248,245,0.4);
+  text-align: center;
+}
+
+/* Hover effect */
+.tool-wrapper:hover {
+  box-shadow: 0 0 40px rgba(66,248,245,0.9);
+  transform: translateY(-2px);
+}
+
+/* Tool title & description */
+.tool-wrapper h2 { font-size: 20px; margin-bottom: 8px; color: #42f8f5; }
+.tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 10px; }
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 0;
+  transition: background 0.3s;
+}
+.close-btn:hover { background: #6dfaff; }
+
+/* Form inputs */
+input[type="number"] {
+  width: 80%;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Calculate button */
+button.calc-btn {
+  padding: 10px 0;
+  margin: 10px auto 5px auto;
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  width: 50%;
+  cursor: pointer;
+  font-size: 16px;
+}
+button.calc-btn:hover { background: #6dfaff; }
+
+/* Result */
+#result {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Affiliate links */
+.affiliate-btn {
+  display: block;
+  padding: 10px 0;
+  margin: 10px auto 5px auto;
+  background: #ffb400;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 6px;
+  transition: background 0.3s;
+  width: 100%;
+  max-width: 220px;
+}
+.affiliate-btn:hover { background: #ffd86c; }
+
+.affiliate-text {
+  font-size: 14px;
+  margin-top: 4px;
+}
+.affiliate-text a {
+  color: #42f8f5;
+  text-decoration: none;
+}
+.affiliate-text a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tool-wrapper { width: 90%; padding: 15px; }
+  input[type="number"] { font-size: 14px; }
+  button.calc-btn { font-size: 14px; width: 60%; }
+  .affiliate-btn { max-width: 180px; }
+}
+</style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="tool-wrapper">
+
+  <!-- X Button -->
+  <div class="close-btn" onclick="window.location.href='index.html'">&times;</div>
+
+  <!-- Tool Title -->
+  <h2>SIP Calculator</h2>
+
+  <!-- Tool Description -->
+  <div class="description">Calculate your SIP investments easily</div>
+
+  <!-- SIP Form -->
+  <input type="number" id="amount" placeholder="Monthly Investment (₹)">
+  <input type="number" id="rate" placeholder="Expected Annual Return (%)">
+  <input type="number" id="years" placeholder="Investment Period (Years)">
+  <button class="calc-btn" onclick="calculateSIP()">Calculate SIP</button>
+
+  <!-- Result -->
+  <div id="result"></div>
+
+  <!-- Primary Affiliate Link -->
+  <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-btn">
+    Get Full SIP Tools
+  </a>
+
+  <!-- Secondary Affiliate Link -->
+  <div class="affiliate-text">
+    Check <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">this offer</a> for more options.
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Calculate your SIP investments</p>
-</section>
+</div>
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>SIP Calculator | SG Multi Tools</title>
-    <p>Calculate your SIP investments</p>
-    <a href="sip-calculator.html" class="btn">Open Tool</a>
-  </div>
-</main>
+<script>
+function calculateSIP() {
+  const P = parseFloat(document.getElementById('amount').value);
+  const r = parseFloat(document.getElementById('rate').value)/100/12;
+  const n = parseFloat(document.getElementById('years').value)*12;
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+  if(isNaN(P) || isNaN(r) || isNaN(n)) {
+    document.getElementById('result').innerText = 'Please enter valid numbers';
+    return;
+  }
+
+  const sip = P * ((Math.pow(1+r, n)-1)/r) * (1+r);
+  document.getElementById('result').innerText = 'Future Value: ₹' + sip.toFixed(2);
+}
+</script>
 
 </body>
 </html>
