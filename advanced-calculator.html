@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SG Multi Tools | Free Daily Use Online Tools</title>
+<title>Advanced Calculator | SG Multi Tools</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png">
@@ -17,75 +17,40 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: #0d0f14;
   color: #fff;
-}
-
-/* HEADER */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  background: #1e293b;
-  border-bottom: 2px solid #42f8f5;
-}
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.logo-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #42f8f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  font-weight: bold;
-  font-size: 16px;
-}
-.logo-text { font-weight: bold; font-size: 18px; color: #fff; }
-.nav a { color: #fff; text-decoration: none; margin-left: 18px; }
-.nav a:hover { color: #6dfaff; }
-
-/* HERO */
-.hero {
-  text-align: center;
-  margin: 20px 0;
-}
-.hero h1 { color: #42f8f5; margin-bottom: 8px; }
-.hero p { color: #fff; margin-bottom: 20px; }
-
-/* TOOLS GRID */
-.tools-grid {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+  align-items: center;
+  min-height: 100vh;
 }
 
 /* TOOL CARD */
 .tool-wrapper {
+  position: relative; /* for X button */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   max-width: 520px;
   width: 100%;
-  padding: 20px;
+  padding: 30px 20px 20px 20px;
   background: #1e293b;
   border: 2px solid #42f8f5;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(66,248,245,0.4);
   text-align: center;
-  min-height: 220px;
+  min-height: 260px;
 }
-.tool-wrapper:hover { box-shadow: 0 0 40px rgba(66,248,245,0.9); transform: translateY(-2px); }
 
-.tool-wrapper h2 { font-size: 18px; margin-bottom: 10px; color: #42f8f5; }
+/* Hover effect */
+.tool-wrapper:hover {
+  box-shadow: 0 0 40px rgba(66,248,245,0.9);
+  transform: translateY(-2px);
+}
+
+/* Tool title & description */
+.tool-wrapper h2 { font-size: 20px; margin-bottom: 10px; color: #42f8f5; }
 .tool-wrapper .description { font-size: 14px; color: #fff; margin-bottom: 12px; flex-grow: 1; }
 
+/* Open Tool button */
 .tool-wrapper button {
   padding: 10px 16px;
   background: #42f8f5;
@@ -101,51 +66,50 @@ body {
 }
 .tool-wrapper button:hover { background: #6dfaff; }
 
+/* X Button in top-right corner */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #42f8f5;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 0;
+  transition: background 0.3s;
+}
+.close-btn:hover { background: #6dfaff; }
+
 /* Responsive */
 @media (max-width: 768px) {
-  .tools-grid { flex-direction: column; align-items: center; padding: 16px; }
-  .tool-wrapper { width: 90%; }
+  .tool-wrapper { width: 90%; padding: 20px; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="logo-container">
-    <div class="logo-circle">SG</div>
-    <div class="logo-text">SG Multi Tools</div>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<!-- TOOL CARD -->
+<div class="tool-wrapper">
+  <!-- X Button -->
+  <div class="close-btn" onclick="window.location.href='index.html'">&times;</div>
 
-<!-- HERO -->
-<div class="hero">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Access all your essential online tools in one place</p>
+  <!-- Tool Title -->
+  <h2>Advanced Calculator</h2>
+
+  <!-- Tool Description -->
+  <div class="description">Perform complex calculations easily</div>
+
+  <!-- Tool Action / Input -->
+  <input type="text" placeholder="Enter calculation" style="padding:8px; width:90%; margin-bottom:12px; border-radius:4px; border:none; outline:none;">
+  <button>Calculate</button>
 </div>
-
-<!-- TOOLS GRID -->
-<div class="tools-grid">
-
-  <!-- Advanced Calculator -->
-  <div class="tool-wrapper">
-    <h2>Advanced Calculator</h2>
-    <div class="description">Perform complex calculations easily</div>
-    <a href="advanced-calculator.html"><button>Open Tool</button></a>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer class="footer" style="text-align:center; padding:20px; margin-top:40px; font-size:14px; color:#aaa;">
-  © 2026 SG Multi Tools. All rights reserved.
-</footer>
 
 </body>
 </html>
