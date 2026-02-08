@@ -3,191 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Calculator | SG Multi Tools</title>
+<title>Tools | SG Multi Tools</title>
 
-<!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png">
-
-<!-- Global CSS -->
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0d0f14;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* Single tool card */
-.single-tool {
-  position: relative;
-  max-width: 520px;
-  width: 90%;
-  padding: 24px;
-  background: #1e293b;
-  border: 2px solid #42f8f5;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(66,248,245,0.4);
-  text-align: center;
-}
-
-.single-tool:hover {
-  box-shadow: 0 0 40px rgba(66,248,245,0.9);
-}
-
-/* Close button inside top-right corner */
-.close-tool {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #42f8f5;
-  border: none;
-  color: #000;
-  font-weight: bold;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.close-tool:hover {
-  background: #6dfaff;
-}
-
-/* Card content */
-.single-tool h2 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  color: #42f8f5;
-}
-
-.single-tool .description {
-  margin-bottom: 16px;
-  color: #ffffff;
-  font-size: 14px;
-}
-
-/* Calculator UI */
-.calculator-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.calculator-container input {
-  grid-column: span 4;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #888;
-  font-size: 18px;
-  text-align: right;
-}
-
-.calculator-container button {
-  padding: 16px 0;
-  background: #42f8f5;
-  border: none;
-  font-weight: bold;
-  border-radius: 6px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.calculator-container button:hover {
-  background: #6dfaff;
-}
-
-/* Result display */
-#calc-result {
-  grid-column: span 4;
-  margin-top: 8px;
-  text-align: right;
-  font-weight: bold;
-  color: #42f8f5;
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-  .calculator-container {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-  .calculator-container button {
-    padding: 12px 0;
-    font-size: 16px;
-  }
-  .calculator-container input {
-    font-size: 16px;
-  }
-}
+/* Paste same styles from index.html here for .tools-grid and .tool-wrapper, header, hero, footer */
 </style>
 </head>
 <body>
 
-<div class="single-tool">
-  <button class="close-tool" onclick="window.location.href='tools.html'">X</button>
-  <h2>Advanced Calculator</h2>
-  <div class="description">Perform complex calculations easily</div>
-
-  <div class="calculator-container">
-    <input type="text" id="calc-input" placeholder="0" readonly />
-
-    <!-- Buttons -->
-    <button onclick="appendCalc('7')">7</button>
-    <button onclick="appendCalc('8')">8</button>
-    <button onclick="appendCalc('9')">9</button>
-    <button onclick="appendCalc('/')">÷</button>
-
-    <button onclick="appendCalc('4')">4</button>
-    <button onclick="appendCalc('5')">5</button>
-    <button onclick="appendCalc('6')">6</button>
-    <button onclick="appendCalc('*')">×</button>
-
-    <button onclick="appendCalc('1')">1</button>
-    <button onclick="appendCalc('2')">2</button>
-    <button onclick="appendCalc('3')">3</button>
-    <button onclick="appendCalc('-')">−</button>
-
-    <button onclick="appendCalc('0')">0</button>
-    <button onclick="appendCalc('.')">.</button>
-    <button onclick="calculate()">=</button>
-    <button onclick="appendCalc('+')">+</button>
-
-    <button onclick="clearCalc()">C</button>
-    <div id="calc-result"></div>
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-container">
+    <div class="logo-circle">SG</div>
+    <div class="logo-text">SG Multi Tools</div>
   </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>All Tools</h1>
+  <p>Browse and access your essential online tools</p>
 </div>
 
-<script>
-const input = document.getElementById('calc-input');
-const resultDiv = document.getElementById('calc-result');
+<!-- TOOLS GRID -->
+<div class="tools-grid">
 
-function appendCalc(value) {
-  input.value += value;
-}
+  <!-- Advanced Calculator -->
+  <div class="tool-wrapper">
+    <h2>Advanced Calculator</h2>
+    <div class="description">Perform complex calculations easily</div>
+    <a href="advanced-calculator.html"><button>Open Tool</button></a>
+  </div>
 
-function clearCalc() {
-  input.value = '';
-  resultDiv.innerText = '';
-}
+</div>
 
-function calculate() {
-  try {
-    const result = eval(input.value.replace(/×/g,'*').replace(/÷/g,'/'));
-    resultDiv.innerText = "Result: " + result;
-  } catch (e) {
-    resultDiv.innerText = "Invalid Expression";
-  }
-}
-</script>
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 SG Multi Tools. All rights reserved.
+</footer>
 
 </body>
 </html>
