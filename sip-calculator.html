@@ -6,82 +6,214 @@
 <title>SIP Calculator | SG Multi Tools</title>
 
 <link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+  margin:0;
+  background:#020617;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  color:#e5e7eb;
+}
+
+.single-tool{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.tool-wrapper{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  padding:30px;
+  border-radius:18px;
+  background:radial-gradient(circle at top,#020617,#020617 60%);
+  border:2px solid #38bdf8;
+  box-shadow:0 0 40px rgba(56,189,248,0.25);
+}
+
+.close-btn{
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:38px;
+  height:38px;
+  border:none;
+  border-radius:50%;
+  font-size:22px;
+  cursor:pointer;
+  background:#38bdf8;
+  color:#020617;
+}
+
+h2{
+  text-align:center;
+  color:#38bdf8;
+  margin-bottom:6px;
+}
+
+.description{
+  text-align:center;
+  font-size:14px;
+  margin-bottom:22px;
+  opacity:0.9;
+}
+
+label{
+  display:block;
+  margin:12px 0 6px;
+  font-size:14px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:none;
+  outline:none;
+  font-size:15px;
+}
+
+button.calculate{
+  width:100%;
+  margin-top:16px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  background:#22c55e;
+  color:#022c22;
+}
+
+.result{
+  margin-top:18px;
+  padding:12px;
+  border-radius:8px;
+  background:#020617;
+  border:1px solid #334155;
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* Affiliate section */
+.affiliate-title{
+  margin-top:18px;
+  text-align:center;
+  font-size:15px;
+  color:#dbeafe;
+}
+
+.affiliate-actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.aff-btn{
+  padding:10px 14px;
+  border-radius:6px;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  text-align:center;
+  min-width:190px;
+}
+
+.primary-aff{
+  background:#22c55e;
+  color:#022c22;
+}
+
+.secondary-aff{
+  background:#38bdf8;
+  color:#022c22;
+}
+
+.affiliate-note{
+  margin-top:8px;
+  font-size:11px;
+  text-align:center;
+  opacity:0.75;
+}
+</style>
 </head>
 
 <body>
 
 <div class="single-tool">
-  <div class="tool-wrapper sip-tool">
+  <div class="tool-wrapper">
 
-    <!-- Close -->
     <button class="close-btn" onclick="location.href='index.html'">×</button>
 
     <h2>SIP Calculator</h2>
     <p class="description">Calculate your mutual fund SIP returns easily</p>
 
-    <!-- Inputs -->
-    <div class="sip-inputs">
-      <label>Monthly Investment (₹)</label>
-      <input type="number" id="monthly" placeholder="e.g. 5000">
+    <label>Monthly Investment (₹)</label>
+    <input type="number" id="monthly" placeholder="e.g. 5000">
 
-      <label>Expected Annual Return (%)</label>
-      <input type="number" id="rate" placeholder="e.g. 12">
+    <label>Expected Annual Return (%)</label>
+    <input type="number" id="rate" placeholder="e.g. 12">
 
-      <label>Time Period (Years)</label>
-      <input type="number" id="years" placeholder="e.g. 10">
-    </div>
+    <label>Time Period (Years)</label>
+    <input type="number" id="years" placeholder="e.g. 10">
 
-    <!-- Calculate -->
-    <button class="calc-btn" onclick="calculateSIP()">Calculate SIP</button>
+    <button class="calculate" onclick="calculateSIP()">Calculate SIP</button>
 
-    <!-- Results -->
-    <div class="sip-results" id="results" style="display:none;">
-      <div><span>Invested Amount</span><strong id="invested">₹0</strong></div>
-      <div><span>Estimated Returns</span><strong id="returns">₹0</strong></div>
-      <div class="total"><span>Total Value</span><strong id="total">₹0</strong></div>
-    </div>
+    <div class="result" id="result" style="display:none;"></div>
 
-    <!-- Affiliate -->
-    <div class="affiliate-box">
-      <p>Check this offer for more options</p>
-      <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
-        <button class="affiliate-btn primary">Get Full Investment Tools</button>
+    <!-- Affiliate Section -->
+    <p class="affiliate-title">Check this offer for more options</p>
+
+    <div class="affiliate-actions">
+      <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/"
+         target="_blank" rel="noopener"
+         class="aff-btn primary-aff">
+         Get Full Investment Tools
       </a>
-      <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
-        <button class="affiliate-btn secondary">Explore Advanced Options</button>
+
+      <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/"
+         target="_blank" rel="noopener"
+         class="aff-btn secondary-aff">
+         Explore Advanced Options
       </a>
     </div>
+
+    <p class="affiliate-note">
+      *We may earn a small commission if you purchase through these links, at no extra cost to you.
+    </p>
 
   </div>
 </div>
 
 <script>
-function calculateSIP() {
+function calculateSIP(){
   const monthly = Number(document.getElementById("monthly").value);
   const rate = Number(document.getElementById("rate").value) / 100 / 12;
   const years = Number(document.getElementById("years").value);
 
-  if (!monthly || !rate || !years) {
+  if(!monthly || !rate || !years){
     alert("Please fill all fields");
     return;
   }
 
   const months = years * 12;
-  const invested = monthly * months;
   const futureValue =
     monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
 
-  document.getElementById("invested").innerText =
-    "₹" + invested.toLocaleString("en-IN");
+  const invested = monthly * months;
+  const gains = futureValue - invested;
 
-  document.getElementById("returns").innerText =
-    "₹" + Math.round(futureValue - invested).toLocaleString("en-IN");
-
-  document.getElementById("total").innerText =
-    "₹" + Math.round(futureValue).toLocaleString("en-IN");
-
-  document.getElementById("results").style.display = "grid";
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML = `
+    <strong>Total Investment:</strong> ₹${invested.toLocaleString()}<br>
+    <strong>Estimated Returns:</strong> ₹${gains.toLocaleString()}<br>
+    <strong>Total Value:</strong> ₹${Math.round(futureValue).toLocaleString()}
+  `;
 }
 </script>
 
