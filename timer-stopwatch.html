@@ -3,49 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timer Stopwatch | SG Multi Tools</title>
+<title>Timer & Stopwatch | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <!-- Close Button -->
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h1>Timer / Stopwatch</h1>
+    <p class="tool-desc">Use countdown timer or stopwatch for daily tasks</p>
+
+    <!-- DISPLAY -->
+    <div class="result" id="display">
+      00:00:00
+    </div>
+
+    <!-- TIMER INPUT -->
+    <input type="number" id="minutes" placeholder="Enter minutes for timer">
+
+    <!-- BUTTONS -->
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="startStopwatch()">Start Stopwatch</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Track time with timer and stopwatch</p>
-</section>
+<script>
+let timerInterval = null;
+let seconds = 0;
+let isStopwatch = false;
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Timer / Stopwatch | SG Multi Tools</title>
-    <p>Track time with timer and stopwatch</p>
-    <a href="timer-stopwatch.html" class="btn">Open Tool</a>
-  </div>
-</main>
+/* FORMAT TIME */
+function formatTime(sec){
+  let h = Math.floor(sec / 3600);
+  let m = Math.floor((sec % 3600) / 60);
+  let s = sec % 60;
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+  return (
+    String(h).padStart(2,'0') + ":" +
+    String(m).padStart(2,'0') + ":" +
+    String(s).padStart(2,'0')
+  );
+}
+
+/* START TIMER */
+function startTimer(){
+  clearInterval(timerInterval);
+  let mins = parseInt(document.getElementById("minutes").value);
+
+  if(isNaN(mins) || mins <= 0){
+    alert("Enter valid minutes");
+    return;
+  }
+
+  isStopwatch = false;
+  seconds = mins * 60;
+  document.getElementById("display").textContent = formatTime(seconds);
+
+  timerInterval = setInterval(() => {
+    seconds--;
+    document.getElementById("display").textContent = formatTime(seconds);
+
+    if(seconds <= 0){
+      clearInterval(timerInterval);
+      alert("Time's up!");
+    }
+  },1000);
+}
+
+/* START STOPWATCH */
+function startStopwatch(){
+  clearInterval(timerInterval);
+  isStopwatch = true;
+
+  timerInterval = setInterval(() => {
+    seconds++;
+    document.getElementById("display").textContent = formatTime(seconds);
+  },1000);
+}
+
+/* STOP */
+function stop(){
+  clearInterval(timerInterval);
+}
+
+/* RESET */
+function reset(){
+  clearInterval(timerInterval);
+  seconds = 0;
+  document.getElementById("display").textContent = "00:00:00";
+  document.getElementById("minutes").value = "";
+}
+</script>
 
 </body>
 </html>
