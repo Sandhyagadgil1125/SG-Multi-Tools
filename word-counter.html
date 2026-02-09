@@ -5,47 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Word Counter | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Word Counter</h2>
+    <p class="description">Count words, characters, and lines instantly</p>
+
+    <label>Enter Text</label>
+    <textarea id="textInput" rows="6" placeholder="Type or paste your text here..."></textarea>
+
+    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
+      <button onclick="countText()">Count</button>
+      <button onclick="clearText()">Clear</button>
+    </div>
+
+    <div class="result" id="result" style="display:none;"></div>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Count words and characters in your text</p>
-</section>
+<script>
+function countText(){
+  const text = document.getElementById("textInput").value;
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Word Counter | SG Multi Tools</title>
-    <p>Count words and characters in your text</p>
-    <a href="word-counter.html" class="btn">Open Tool</a>>
-  </div>
-</main>
+  if(!text.trim()){
+    alert("Please enter some text");
+    return;
+  }
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+  const characters = text.length;
+  const charactersNoSpace = text.replace(/\s/g, "").length;
+  const words = text.trim().split(/\s+/).length;
+  const lines = text.split(/\n/).length;
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML = `
+    <strong>Results:</strong><br>
+    Words: ${words}<br>
+    Characters (with spaces): ${characters}<br>
+    Characters (without spaces): ${charactersNoSpace}<br>
+    Lines: ${lines}
+  `;
+}
+
+function clearText(){
+  document.getElementById("textInput").value = "";
+  document.getElementById("result").style.display = "none";
+}
+</script>
 
 </body>
 </html>
