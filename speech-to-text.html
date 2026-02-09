@@ -3,49 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Speech To Text | SG Multi Tools</title>
+<title>Speech to Text | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Speech to Text</h2>
+    <p class="description">
+      Convert your voice into text instantly using your microphone
+    </p>
+
+    <label>Transcribed Text</label>
+    <textarea id="output" rows="6" placeholder="Your speech will appear here..." readonly></textarea>
+
+    <div class="calc-grid" style="grid-template-columns:repeat(3,1fr);">
+      <button onclick="startListening()">Start</button>
+      <button onclick="stopListening()">Stop</button>
+      <button onclick="clearText()">Clear</button>
+    </div>
+
+    <div class="result" id="statusBox" style="display:none;"></div>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Convert your speech into text</p>
-</section>
+<script>
+const output = document.getElementById("output");
+const statusBox = document.getElementById("statusBox");
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Speech to Text | SG Multi Tools</title>
-    <p>Convert your speech into text</p>
-    <a href="speech-to-text.html" class="btn">Open Tool</a>
-  </div>
-</main>
+let recognition;
+let listening = false;
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = false;
+  recognition.lang = "en-US";
+
+  recognition.onresult = event => {
+    let transcript = "";
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
+    output.value += transcript + " ";
+  };
+
+  recognition.onstart = () => {
+    listening = true;
+    showStatus("🎙 Listening...");
+  };
+
+  recognition.onend = () => {
+    listening = false;
+    showStatus("⏹ Stopped");
+  };
+
+} else {
+  alert("Speech recognition not supported in this browser");
+}
+
+function startListening(){
+  if(recognition && !listening){
+    recognition.start();
+  }
+}
+
+function stopListening(){
+  if(recognition && listening){
+    recognition.stop();
+  }
+}
+
+function clearText(){
+  output.value = "";
+  statusBox.style.display = "none";
+}
+
+function showStatus(msg){
+  statusBox.style.display = "block";
+  statusBox.innerHTML = `<strong>${msg}</strong>`;
+}
+</script>
 
 </body>
 </html>
