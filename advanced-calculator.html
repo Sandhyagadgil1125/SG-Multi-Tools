@@ -1,14 +1,132 @@
-<div class="affiliate-section">
-   <p>Support SGTools — Shop via these links 👇</p>
-   <!-- Primary Link -->
-   <a href="https://www.amazon.in/dp/PRODUCTID/?tag=YourTag" 
-      target="_blank" rel="noopener noreferrer">
-      <img src="https://example.com/your-banner1.jpg" alt="Shop on Amazon">
-   </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Calculator | SG Multi Tools</title>
 
-   <!-- Secondary Link -->
-   <a href="https://affiliate.flipkart.com/your-flipkart-link" 
-      target="_blank" rel="noopener noreferrer">
-      <img src="https://example.com/your-banner2.jpg" alt="Shop on Flipkart">
-   </a>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* Affiliate section styling (kept lightweight) */
+.affiliate-box{
+  margin-top:20px;
+  padding:15px;
+  background:#f8f9fa;
+  border-radius:10px;
+  text-align:center;
+}
+.affiliate-box h3{
+  font-size:16px;
+  margin-bottom:10px;
+}
+.affiliate-box a{
+  display:block;
+  margin:8px 0;
+  padding:10px;
+  border-radius:6px;
+  text-decoration:none;
+  font-weight:600;
+}
+.primary-aff{
+  background:#0d6efd;
+  color:#fff;
+}
+.secondary-aff{
+  background:#198754;
+  color:#fff;
+}
+.affiliate-note{
+  font-size:12px;
+  margin-top:10px;
+  color:#555;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Advanced Calculator</h2>
+    <p class="description">Perform complex calculations easily and accurately</p>
+
+    <input id="screen" type="text" readonly>
+
+    <div class="calc-grid">
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('/')">÷</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('*')">×</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('-')">−</button>
+
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="clearScreen()">C</button>
+      <button onclick="press('+')">+</button>
+
+      <button class="equals" onclick="calculate()">=</button>
+    </div>
+
+    <!-- Affiliate Section -->
+    <div class="affiliate-box">
+      <h3>💡 Recommended Tools & Resources</h3>
+
+      <!-- Primary Affiliate Link -->
+      <a class="primary-aff" 
+         href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" 
+         target="_blank" rel="noopener">
+         🔥 Top Recommended Offer
+      </a>
+
+      <!-- Secondary Affiliate Link -->
+      <a class="secondary-aff" 
+         href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" 
+         target="_blank" rel="noopener">
+         ⭐ Alternate Trusted Option
+      </a>
+
+      <div class="affiliate-note">
+        *We may earn a small commission if you purchase through these links — at no extra cost to you.
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<script>
+const screen = document.getElementById("screen");
+
+function press(val) {
+  screen.value += val;
+}
+
+function clearScreen() {
+  screen.value = "";
+}
+
+function calculate() {
+  try {
+    screen.value = Function("return " + screen.value)();
+  } catch {
+    alert("Invalid calculation");
+  }
+}
+</script>
+
+</body>
+</html>
