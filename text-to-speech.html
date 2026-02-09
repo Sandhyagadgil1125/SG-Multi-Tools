@@ -3,49 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text To Speech | SG Multi Tools</title>
+<title>Text to Speech | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Text to Speech</h2>
+    <p class="description">
+      Convert written text into natural-sounding speech
+    </p>
+
+    <label>Enter Text</label>
+    <textarea id="textInput" rows="6"
+      placeholder="Type or paste text here..."></textarea>
+
+    <label>Voice</label>
+    <select id="voiceSelect"></select>
+
+    <div class="calc-grid" style="grid-template-columns:repeat(3,1fr);">
+      <button onclick="speakText()">Speak</button>
+      <button onclick="stopSpeech()">Stop</button>
+      <button onclick="clearText()">Clear</button>
+    </div>
+
+    <div class="result" id="statusBox" style="display:none;"></div>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Listen to your text aloud</p>
-</section>
+<script>
+const textInput = document.getElementById("textInput");
+const voiceSelect = document.getElementById("voiceSelect");
+const statusBox = document.getElementById("statusBox");
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Text to Speech | SG Multi Tools</title>
-    <p>Listen to your text aloud</p>
-    <a href="text-to-speech.html" class="btn">Open Tool</a>
-  </div>
-</main>
+let voices = [];
+let utterance;
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+function loadVoices(){
+  voices = speechSynthesis.getVoices();
+  voiceSelect.innerHTML = "";
+  voices.forEach((voice, i) => {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = `${voice.name} (${voice.lang})`;
+    voiceSelect.appendChild(option);
+  });
+}
+
+speechSynthesis.onvoiceschanged = loadVoices;
+
+function speakText(){
+  const text = textInput.value.trim();
+  if(!text){
+    alert("Please enter some text");
+    return;
+  }
+
+  stopSpeech();
+
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.voice = voices[voiceSelect.value] || voices[0];
+
+  utterance.onstart = () => showStatus("🔊 Speaking...");
+  utterance.onend = () => showStatus("✅ Finished");
+
+  speechSynthesis.speak(utterance);
+}
+
+function stopSpeech(){
+  if(speechSynthesis.speaking){
+    speechSynthesis.cancel();
+    showStatus("⏹ Stopped");
+  }
+}
+
+function clearText(){
+  textInput.value = "";
+  statusBox.style.display = "none";
+}
+
+function showStatus(msg){
+  statusBox.style.display = "block";
+  statusBox.innerHTML = `<strong>${msg}</strong>`;
+}
+
+loadVoices();
+</script>
 
 </body>
 </html>
