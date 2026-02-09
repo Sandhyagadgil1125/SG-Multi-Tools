@@ -3,49 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> File Size Converter | SG Multi Tools</title>
+<title>File Size Converter | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>File Size Converter</h2>
+    <p class="description">Convert file sizes between KB, MB, GB and more</p>
+
+    <label>Enter Size</label>
+    <input type="number" id="sizeInput" placeholder="Enter value">
+
+    <label>From</label>
+    <select id="fromUnit">
+      <option value="B">Bytes</option>
+      <option value="KB">KB</option>
+      <option value="MB" selected>MB</option>
+      <option value="GB">GB</option>
+      <option value="TB">TB</option>
+    </select>
+
+    <label>To</label>
+    <select id="toUnit">
+      <option value="B">Bytes</option>
+      <option value="KB">KB</option>
+      <option value="MB">MB</option>
+      <option value="GB" selected>GB</option>
+      <option value="TB">TB</option>
+    </select>
+
+    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
+      <button onclick="convertSize()">Convert</button>
+      <button onclick="clearAll()">Clear</button>
+    </div>
+
+    <div class="result" id="resultBox" style="display:none;"></div>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Convert file sizes between KB, MB, GB</p>
-</section>
+<script>
+const multipliers = {
+  B: 1,
+  KB: 1024,
+  MB: 1024 ** 2,
+  GB: 1024 ** 3,
+  TB: 1024 ** 4
+};
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>File Size Converter | SG Multi Tools</title>
-    <p>Convert file sizes between KB, MB, GB</p>
-    <a href="file-size-converter.html" class="btn">Open Tool</a>
-  </div>
-</main>
+function convertSize(){
+  const value = document.getElementById("sizeInput").value;
+  const from = document.getElementById("fromUnit").value;
+  const to = document.getElementById("toUnit").value;
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+  if(!value || value < 0){
+    alert("Enter a valid size");
+    return;
+  }
+
+  const bytes = value * multipliers[from];
+  const result = bytes / multipliers[to];
+
+  const resultBox = document.getElementById("resultBox");
+  resultBox.style.display = "block";
+  resultBox.innerHTML = `
+    <strong>${value} ${from}</strong> =
+    <strong>${result.toFixed(4)} ${to}</strong>
+  `;
+}
+
+function clearAll(){
+  document.getElementById("sizeInput").value = "";
+  document.getElementById("resultBox").style.display = "none";
+}
+</script>
 
 </body>
 </html>
