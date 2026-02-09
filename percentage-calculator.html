@@ -5,47 +5,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Percentage Calculator | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Percentage Calculator</h2>
+    <p class="description">Quickly calculate percentages with ease</p>
+
+    <label>Value</label>
+    <input type="number" id="value" placeholder="e.g. 50">
+
+    <label>Total</label>
+    <input type="number" id="total" placeholder="e.g. 200">
+
+    <button class="calculate" onclick="calculatePercentage()">Calculate Percentage</button>
+
+    <div class="result" id="result" style="display:none;"></div>
+
+    <!-- Affiliate Section -->
+    <p class="affiliate-title">Recommended financial tools</p>
+
+    <div class="affiliate-actions">
+      <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/"
+         target="_blank" rel="noopener"
+         class="aff-btn primary-aff">
+         Explore Smart Finance Tools
+      </a>
+    </div>
+
+    <p class="affiliate-note">
+      *We may earn a small commission if you purchase through this link, at no extra cost to you.
+    </p>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-   <p>Quickly calculate percentages</p>
-</section>
+<script>
+function calculatePercentage(){
+  const value = Number(document.getElementById("value").value);
+  const total = Number(document.getElementById("total").value);
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Percentage Calculator | SG Multi Tools</title>
-    <p>Quickly calculate percentages</p>
-    <a href="percentage-calculator.html" class="btn">Open Tool</a>
-  </div>
-</main>
+  if(!value || !total){
+    alert("Please fill all fields");
+    return;
+  }
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+  const percentage = (value / total) * 100;
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML = `
+    <strong>Result:</strong> ${percentage.toFixed(2)}%
+  `;
+}
+</script>
 
 </body>
 </html>
