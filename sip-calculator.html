@@ -5,60 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIP Calculator | SG Multi Tools</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="favicon.png?v=1">
-
-<!-- Global CSS -->
+<link rel="icon" href="favicon.png">
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- TOOL CARD -->
-<div class="tool-wrapper single-tool">
+<div class="single-tool">
+  <div class="tool-wrapper sip-tool">
 
-  <!-- Close button -->
-  <div class="close-btn" onclick="window.location.href='index.html'">X</div>
+    <!-- Close -->
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
 
-  <h2>SIP Calculator</h2>
-  <div class="description">Calculate your SIP investments</div>
+    <h2>SIP Calculator</h2>
+    <p class="description">Calculate your mutual fund SIP returns easily</p>
 
-  <!-- SIP Input Fields -->
-  <div class="sip-inputs">
-    <input type="number" id="monthly-investment" placeholder="Monthly Investment (₹)" />
-    <input type="number" id="years" placeholder="Number of Years" />
-    <input type="number" id="expected-return" placeholder="Expected Annual Return (%)" />
+    <!-- Inputs -->
+    <div class="sip-inputs">
+      <label>Monthly Investment (₹)</label>
+      <input type="number" id="monthly" placeholder="e.g. 5000">
+
+      <label>Expected Annual Return (%)</label>
+      <input type="number" id="rate" placeholder="e.g. 12">
+
+      <label>Time Period (Years)</label>
+      <input type="number" id="years" placeholder="e.g. 10">
+    </div>
+
+    <!-- Calculate -->
+    <button class="calc-btn" onclick="calculateSIP()">Calculate SIP</button>
+
+    <!-- Results -->
+    <div class="sip-results" id="results" style="display:none;">
+      <div><span>Invested Amount</span><strong id="invested">₹0</strong></div>
+      <div><span>Estimated Returns</span><strong id="returns">₹0</strong></div>
+      <div class="total"><span>Total Value</span><strong id="total">₹0</strong></div>
+    </div>
+
+    <!-- Affiliate -->
+    <div class="affiliate-box">
+      <p>Check this offer for more options</p>
+      <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
+        <button class="affiliate-btn primary">Get Full Investment Tools</button>
+      </a>
+      <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
+        <button class="affiliate-btn secondary">Explore Advanced Options</button>
+      </a>
+    </div>
+
   </div>
-
-  <button onclick="calculateSIP()">Calculate SIP</button>
-
-  <div id="sip-result" class="description" style="margin-top:12px;"></div>
-
-  <!-- Affiliate Links -->
-  <div class="affiliate-links" style="margin-top:20px;">
-    <p>Check this offer for more options:</p>
-    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank">
-      <button>Primary Offer</button>
-    </a>
-    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank">
-      <button>Secondary Offer</button>
-    </a>
-  </div>
-
 </div>
 
-<!-- Scripts -->
 <script>
 function calculateSIP() {
-  const P = parseFloat(document.getElementById('monthly-investment').value);
-  const n = parseFloat(document.getElementById('years').value) * 12;
-  const r = parseFloat(document.getElementById('expected-return').value) / 12 / 100;
-  if (isNaN(P) || isNaN(n) || isNaN(r)) {
-    alert("Please fill all fields correctly");
+  const monthly = Number(document.getElementById("monthly").value);
+  const rate = Number(document.getElementById("rate").value) / 100 / 12;
+  const years = Number(document.getElementById("years").value);
+
+  if (!monthly || !rate || !years) {
+    alert("Please fill all fields");
     return;
   }
-  const sip = P * (Math.pow(1 + r, n) - 1) / r * (1 + r);
-  document.getElementById('sip-result').innerHTML = 
-    `Estimated SIP Value: ₹${sip.toFixed(2)}`;
+
+  const months = years * 12;
+  const invested = monthly * months;
+  const futureValue =
+    monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
+
+  document.getElementById("invested").innerText =
+    "₹" + invested.toLocaleString("en-IN");
+
+  document.getElementById("returns").innerText =
+    "₹" + Math.round(futureValue - invested).toLocaleString("en-IN");
+
+  document.getElementById("total").innerText =
+    "₹" + Math.round(futureValue).toLocaleString("en-IN");
+
+  document.getElementById("results").style.display = "grid";
 }
 </script>
 
