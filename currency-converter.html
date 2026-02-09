@@ -3,49 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Currency Converter | SG Multi Tools</title>
+<title>Currency Converter | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<div class="single-tool">
+  <div class="tool-wrapper">
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
- <p>Convert currencies instantly</p>
-</section>
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
 
-<main class="tools-container single-page">
-  <div class="tool-card">
     <h2>Currency Converter</h2>
-    <p>Convert currencies instantly</p>
-    <a href="currency-converter.html" class="btn">Open Tool</a>
-  </div>
-</main>
+    <p class="description">Convert currencies using real-time exchange rates</p>
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+    <label>Amount</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <label>From</label>
+    <select id="fromCurrency"></select>
+
+    <label>To</label>
+    <select id="toCurrency"></select>
+
+    <div class="calc-grid" style="grid-template-columns:1fr;">
+      <button onclick="convertCurrency()">Convert</button>
+    </div>
+
+    <div class="result" id="resultBox" style="display:none;"></div>
+
+  </div>
+</div>
+
+<script>
+const fromCurrency = document.getElementById("fromCurrency");
+const toCurrency = document.getElementById("toCurrency");
+const resultBox = document.getElementById("resultBox");
+
+const currencies = [
+  "USD","INR","EUR","GBP","AUD","CAD","JPY","CNY","SGD","NZD"
+];
+
+currencies.forEach(cur=>{
+  const opt1 = document.createElement("option");
+  const opt2 = document.createElement("option");
+  opt1.value = opt2.value = cur;
+  opt1.textContent = opt2.textContent = cur;
+  fromCurrency.appendChild(opt1);
+  toCurrency.appendChild(opt2);
+});
+
+fromCurrency.value = "USD";
+toCurrency.value = "INR";
+
+async function convertCurrency(){
+  const amount = document.getElementById("amount").value;
+  if(!amount || amount <= 0){
+    alert("Enter a valid amount");
+    return;
+  }
+
+  const from = fromCurrency.value;
+  const to = toCurrency.value;
+
+  try{
+    const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+    const data = await res.json();
+    const rate = data.rates[to];
+    const converted = (amount * rate).toFixed(2);
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+      <strong>${amount} ${from}</strong> =
+      <strong>${converted} ${to}</strong>
+    `;
+  }catch{
+    alert("Unable to fetch exchange rates");
+  }
+}
+</script>
 
 </body>
 </html>
