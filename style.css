@@ -1,211 +1,185 @@
-/* ================================
-   GLOBAL RESET & SAFETY
-================================ */
+/* =====================================================
+   SG MULTI TOOLS – MASTER STYLE.CSS
+   Global, Responsive, Mobile-Safe
+===================================================== */
+
+/* ========== RESET & GLOBAL BOX FIX ========== */
 *,
 *::before,
 *::after{
   box-sizing:border-box;
-}
-
-html, body{
   margin:0;
   padding:0;
-  width:100%;
-  overflow-x:hidden;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  background:#000;
+}
+
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:#020617;
   color:#e5e7eb;
+  line-height:1.5;
 }
 
-/* Accent color (single source of truth) */
-:root{
-  --accent:#38bdf8;
-  --dark:#020617;
-  --card:#020617;
-  --border:#38bdf8;
+/* ========== LINKS ========== */
+a{
+  color:#38bdf8;
+  text-decoration:none;
 }
+a:hover{opacity:0.85}
 
-/* ================================
-   TOOL LAYOUT (ALL TOOLS)
-================================ */
+/* ========== TOOL PAGE LAYOUT ========== */
 .single-tool{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:12px; /* prevents edge overflow */
+  padding:12px;
+  background:#020617;
 }
 
+/* ========== TOOL CARD (ALL TOOLS) ========== */
 .tool-wrapper{
   width:100%;
-  max-width:360px;              /* desktop & tablet */
-  background:var(--card);
-  padding:18px;
+  max-width:360px;
+  margin:auto;
+  padding:20px;
+
+  background:#020617;
+
+  /* Contrast border */
+  border:2px solid #38bdf8;
   border-radius:14px;
-  border:2px solid var(--border);
+
   position:relative;
 }
 
-/* Smaller phones */
-@media (max-width:480px){
-  .tool-wrapper{
-    max-width:100%;
-    padding:16px;
-  }
+/* ========== TOOL TITLE ========== */
+.tool-wrapper h1{
+  font-size:20px;
+  margin-bottom:6px;
+  text-align:center;
 }
 
-/* ================================
-   CLOSE BUTTON (CLEAN X)
-================================ */
+.tool-desc{
+  font-size:13px;
+  text-align:center;
+  opacity:0.8;
+  margin-bottom:16px;
+}
+
+/* ========== CLOSE (X) BUTTON ========== */
 .close-btn{
   position:absolute;
   top:10px;
-  right:10px;
-  background:transparent;     /* NO CIRCLE */
-  border:none;                /* NO BORDER */
-  color:var(--accent);        /* Accent color X */
+  right:12px;
+
+  background:none;
+  border:none;
+
   font-size:22px;
   font-weight:600;
-  line-height:1;
-  width:auto;
-  height:auto;
-  padding:4px;
+  color:#e5e7eb;
+
   cursor:pointer;
 }
 
-.close-btn:hover{
-  color:#0ea5e9;              /* Slight hover feedback */
-}
+/* ========== FORM ELEMENTS (GLOBAL FIX) ========== */
+.tool-wrapper input,
+.tool-wrapper textarea,
+.tool-wrapper select{
+  width:100%;
+  max-width:100%;
+  display:block;
 
+  padding:12px;
+  margin:8px 0 14px;
 
-.close-btn:hover{
   background:#020617;
+  color:#e5e7eb;
+
+  border:1.5px solid #38bdf8;
+  border-radius:8px;
+
+  font-size:15px;
 }
 
-/* ================================
-   HEADINGS & TEXT
-================================ */
-h2{
-  text-align:center;
-  margin:4px 0;
-}
+/* ========== FLEX / INFO BOXES ========== */
+.flex-box,
+.info-box,
+.output-box{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
 
-.description{
-  text-align:center;
+  background:#020617;
+  border:1.5px solid #38bdf8;
+  border-radius:10px;
+
   font-size:14px;
-  opacity:0.8;
-  margin-bottom:14px;
 }
 
-/* ================================
-   INPUTS & TEXTAREAS
-================================ */
-input,
-textarea,
-select{
+/* ========== BUTTONS (TAP FRIENDLY) ========== */
+button,
+.btn{
   width:100%;
   padding:14px;
-  font-size:16px;
-  border-radius:8px;
-  border:2px solid var(--border);
-  background:#000;
-  color:#e5e7eb;
-  outline:none;
-  margin-bottom:12px;
-}
+  margin-top:10px;
 
-textarea{
-  resize:vertical;
-}
+  font-size:15px;
+  font-weight:600;
 
-/* ================================
-   BUTTONS (GLOBAL)
-================================ */
-button,
-.calculate,
-.aff-btn{
-  min-height:44px;              /* TAP FRIENDLY */
-  padding:12px 16px;
-  font-size:16px;
-  border-radius:8px;
+  background:#38bdf8;
+  color:#020617;
+
+  border:none;
+  border-radius:10px;
+
   cursor:pointer;
-  border:2px solid var(--border);
-  background:#000;
-  color:#e5e7eb;
-  transition:background 0.2s ease;
 }
 
 button:hover,
-.calculate:hover{
-  background:#020617;
+.btn:hover{
+  opacity:0.9;
 }
 
-/* ================================
-   CALCULATOR GRID
-================================ */
-.calc-grid{
+/* ========== CALCULATOR KEY PADS ========== */
+.keypad{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-}
-
-.calc-grid button{
-  min-height:48px;              /* Extra tap space */
-  font-size:18px;
-}
-
-/* Operators */
-.calc-grid button[onclick*="'+'"],
-.calc-grid button[onclick*="'-'"],
-.calc-grid button[onclick*="'*'"],
-.calc-grid button[onclick*="'/'"]{
-  background:#001018;
-  color:#7dd3fc;
-}
-
-/* Clear */
-.calc-grid button[onclick*="clearScreen"]{
-  background:#180000;
-  border-color:#ef4444;
-  color:#fecaca;
-}
-
-/* Equals */
-.equals{
-  grid-column:span 4;
-  background:var(--accent);
-  color:#000;
-  font-size:20px;
-  font-weight:700;
-}
-
-.equals:hover{
-  background:#0ea5e9;
-}
-
-/* ================================
-   TEXT / RESULT BOXES
-================================ */
-.result{
-  margin-top:12px;
-  padding:14px;
-  border-radius:10px;
-  border:2px solid var(--border);
-  background:#020617;         /* FILLED */
-  color:#e5e7eb;
-  font-size:15px;
-  line-height:1.6;
-}
-
-
-/* ================================
-   AFFILIATE SECTION
-================================ */
-.affiliate-title{
   margin-top:14px;
+}
+
+.keypad button{
+  padding:14px 0;
+  font-size:16px;
+
+  background:#020617;
+  color:#e5e7eb;
+
+  border:1.5px solid #38bdf8;
+  border-radius:10px;
+}
+
+/* ========== RESULT BOX ========== */
+.result{
+  width:100%;
+  margin-top:14px;
+  padding:12px;
+
+  background:#020617;
+  border:1.5px solid #38bdf8;
+  border-radius:10px;
+
+  color:#e5e7eb;
+  font-size:14px;
+}
+
+/* ========== AFFILIATE SECTION ========== */
+.affiliate-title{
+  margin-top:16px;
   font-size:15px;
-  color:#dbeafe;
   text-align:center;
+  color:#dbeafe;
 }
 
 .affiliate-actions{
@@ -217,21 +191,23 @@ button:hover,
 }
 
 .aff-btn{
-  min-width:180px;
-  text-align:center;
+  padding:12px 14px;
+  border-radius:8px;
+  font-size:14px;
   font-weight:600;
+  text-decoration:none;
+  text-align:center;
+  min-width:180px;
 }
 
 .primary-aff{
   background:#22c55e;
   color:#022c22;
-  border-color:#22c55e;
 }
 
 .secondary-aff{
   background:#38bdf8;
   color:#022c22;
-  border-color:#38bdf8;
 }
 
 .affiliate-note{
@@ -241,10 +217,20 @@ button:hover,
   text-align:center;
 }
 
-/* ================================
-   MOBILE UX POLISH
-================================ */
-@media (max-width:380px){
-  h2{ font-size:18px; }
-  .calc-grid button{ font-size:17px; }
+/* ========== MOBILE SAFETY (CRITICAL) ========== */
+@media (max-width:480px){
+  .tool-wrapper{
+    max-width:100%;
+    padding:16px;
+  }
+
+  .keypad{
+    gap:8px;
+  }
+
+  button,
+  .btn{
+    padding:14px;
+    font-size:15px;
+  }
 }
