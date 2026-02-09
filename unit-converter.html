@@ -5,47 +5,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit Converter | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Unit Converter</h2>
+    <p class="description">
+      Convert common units quickly and accurately
+    </p>
+
+    <label>Category</label>
+    <select id="category" onchange="updateUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
+
+    <label>Value</label>
+    <input type="number" id="inputValue" placeholder="Enter value">
+
+    <label>From</label>
+    <select id="fromUnit"></select>
+
+    <label>To</label>
+    <select id="toUnit"></select>
+
+    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
+      <button onclick="convertUnit()">Convert</button>
+      <button onclick="resetUnit()">Reset</button>
+    </div>
+
+    <div class="result" id="resultBox" style="display:none;"></div>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Convert between common units instantly</p>
-</section>
+<script>
+const units = {
+  length: {
+    Meter: 1,
+    Kilometer: 1000,
+    Centimeter: 0.01,
+    Millimeter: 0.001,
+    Mile: 1609.34,
+    Foot: 0.3048,
+    Inch: 0.0254
+  },
+  weight: {
+    Kilogram: 1,
+    Gram: 0.001,
+    Pound: 0.453592,
+    Ounce: 0.0283495
+  }
+};
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Unit Converter | SG Multi Tools</title>
-    <p>Convert between common units instantly</p>
-    <a href="unit-converter.html" class="btn">Open Tool</a>
-  </div>
-</main>
+function updateUnits(){
+  const category = document.getElementById("category").value;
+  const from = document.getElementById("fromUnit");
+  const to = document.getElementById("toUnit");
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+  from.innerHTML = "";
+  to.innerHTML = "";
+
+  if(category === "temperature"){
+    ["Celsius","Fahrenheit","Kelvin"].forEach(u=>{
+      from.innerHTML += `<option>${u}</option>`;
+      to.innerHTML += `<option>${u}</option>`;
+    });
+    return;
+  }
+
+  for(const unit in units[category]){
+    from.innerHTML += `<option>${unit}</option>`;
+    to.innerHTML += `<option>${unit}</option>`;
+  }
+}
+
+function convertUnit(){
+  const category = document.getElementById("category").value;
+  const value = parseFloat(document.getElementById("inputValue").value);
+  const from = document.getElementById("fromUnit").value;
+  const to = document.getElementById("toUnit").value;
+  const resultBox = document.getElementById("resultBox");
+
+  if(isNaN(value)){
+    alert("Please enter a valid value");
+    return;
+  }
+
+  let result;
+
+  if(category === "temperature"){
+    if(from === to) result = value;
+    else if(from === "Celsius" && to === "Fahrenheit") result = (value * 9/5) + 32;
+    else if(from === "Celsius" && to === "Kelvin") result = value + 273.15;
+    else if(from === "Fahrenheit" && to === "Celsius") result = (value - 32) * 5/9;
+    else if(from === "Fahrenheit" && to === "Kelvin") result = (value - 32) * 5/9 + 273.15;
+    else if(from === "Kelvin" && to === "Celsius") result = value - 273.15;
+    else if(from === "Kelvin" && to === "Fahrenheit") result = (value - 273.15) * 9/5 + 32;
+  } else {
+    result = value * units[category][from] / units[category][to];
+  }
+
+  resultBox.style.display = "block";
+  resultBox.innerHTML = `<strong>Result:</strong> ${result.toFixed(4)}`;
+}
+
+function resetUnit(){
+  document.getElementById("inputValue").value = "";
+  document.getElementById("resultBox").style.display = "none";
+}
+
+updateUnits();
+</script>
 
 </body>
 </html>
