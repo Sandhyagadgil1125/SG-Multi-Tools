@@ -1,37 +1,57 @@
 /* ================================
-   GLOBAL RESET
+   GLOBAL RESET & SAFETY
 ================================ */
-*{
-  margin:0;
-  padding:0;
+*,
+*::before,
+*::after{
   box-sizing:border-box;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-body{
-  background:#020617;
+html, body{
+  margin:0;
+  padding:0;
+  width:100%;
+  overflow-x:hidden;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#000;
   color:#e5e7eb;
 }
 
+/* Accent color (single source of truth) */
+:root{
+  --accent:#38bdf8;
+  --dark:#020617;
+  --card:#020617;
+  --border:#38bdf8;
+}
+
 /* ================================
-   TOOL LAYOUT
+   TOOL LAYOUT (ALL TOOLS)
 ================================ */
 .single-tool{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:12px; /* prevents edge overflow */
 }
 
 .tool-wrapper{
-  position:relative;
   width:100%;
-  max-width:520px;
-  padding:30px;
-  border-radius:18px;
-  background:radial-gradient(circle at top,#020617,#020617 60%);
-  border:2px solid #38bdf8;
-  box-shadow:0 0 40px rgba(56,189,248,0.25);
+  max-width:360px;              /* desktop & tablet */
+  background:var(--card);
+  padding:18px;
+  border-radius:14px;
+  border:2px solid var(--border);
+  position:relative;
+}
+
+/* Smaller phones */
+@media (max-width:480px){
+  .tool-wrapper{
+    max-width:100%;
+    padding:16px;
+  }
 }
 
 /* ================================
@@ -39,16 +59,20 @@ body{
 ================================ */
 .close-btn{
   position:absolute;
-  top:15px;
-  right:15px;
-  width:38px;
-  height:38px;
-  border:none;
+  top:10px;
+  right:10px;
+  width:36px;
+  height:36px;
   border-radius:50%;
-  font-size:22px;
+  background:#000;
+  border:1.5px solid var(--border);
+  color:var(--border);
+  font-size:20px;
   cursor:pointer;
-  background:#38bdf8;
-  color:#020617;
+}
+
+.close-btn:hover{
+  background:#020617;
 }
 
 /* ================================
@@ -56,98 +80,122 @@ body{
 ================================ */
 h2{
   text-align:center;
-  color:#38bdf8;
-  margin-bottom:6px;
+  margin:4px 0;
 }
 
 .description{
   text-align:center;
   font-size:14px;
-  margin-bottom:22px;
-  opacity:0.9;
-}
-
-label{
-  display:block;
-  margin:12px 0 6px;
-  font-size:14px;
+  opacity:0.8;
+  margin-bottom:14px;
 }
 
 /* ================================
-   INPUTS & BUTTONS
+   INPUTS & TEXTAREAS
 ================================ */
-input{
+input,
+textarea,
+select{
   width:100%;
-  padding:10px;
-  border-radius:6px;
-  border:none;
-  outline:none;
-  font-size:15px;
-}
-
-button{
-  font-family:inherit;
-}
-
-button.calculate,
-.equals{
-  width:100%;
-  margin-top:16px;
-  padding:12px;
-  border:none;
-  border-radius:8px;
+  padding:14px;
   font-size:16px;
-  font-weight:600;
-  cursor:pointer;
-  background:#22c55e;
-  color:#022c22;
+  border-radius:8px;
+  border:2px solid var(--border);
+  background:#000;
+  color:#e5e7eb;
+  outline:none;
+  margin-bottom:12px;
+}
+
+textarea{
+  resize:vertical;
 }
 
 /* ================================
-   CALCULATOR GRID (ADVANCED CALC)
+   BUTTONS (GLOBAL)
+================================ */
+button,
+.calculate,
+.aff-btn{
+  min-height:44px;              /* TAP FRIENDLY */
+  padding:12px 16px;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+  border:2px solid var(--border);
+  background:#000;
+  color:#e5e7eb;
+  transition:background 0.2s ease;
+}
+
+button:hover,
+.calculate:hover{
+  background:#020617;
+}
+
+/* ================================
+   CALCULATOR GRID
 ================================ */
 .calc-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  margin-top:15px;
 }
 
 .calc-grid button{
-  padding:14px;
-  font-size:16px;
-  border-radius:8px;
-  border:none;
-  cursor:pointer;
-  background:#0f172a;
-  color:#e5e7eb;
+  min-height:48px;              /* Extra tap space */
+  font-size:18px;
 }
 
-.calc-grid .equals{
+/* Operators */
+.calc-grid button[onclick*="'+'"],
+.calc-grid button[onclick*="'-'"],
+.calc-grid button[onclick*="'*'"],
+.calc-grid button[onclick*="'/'"]{
+  background:#001018;
+  color:#7dd3fc;
+}
+
+/* Clear */
+.calc-grid button[onclick*="clearScreen"]{
+  background:#180000;
+  border-color:#ef4444;
+  color:#fecaca;
+}
+
+/* Equals */
+.equals{
   grid-column:span 4;
+  background:var(--accent);
+  color:#000;
+  font-size:20px;
+  font-weight:700;
+}
+
+.equals:hover{
+  background:#0ea5e9;
 }
 
 /* ================================
-   RESULT BOX
+   RESULTS BOX
 ================================ */
 .result{
-  margin-top:18px;
+  margin-top:12px;
   padding:12px;
   border-radius:8px;
-  background:#020617;
-  border:1px solid #334155;
-  font-size:14px;
-  line-height:1.6;
+  border:2px solid var(--border);
+  background:#000;
+  font-size:15px;
 }
 
 /* ================================
-   AFFILIATE SECTION (NEW)
+   AFFILIATE SECTION
 ================================ */
 .affiliate-title{
   margin-top:14px;
   font-size:15px;
-  text-align:center;
   color:#dbeafe;
+  text-align:center;
 }
 
 .affiliate-actions{
@@ -159,41 +207,34 @@ button.calculate,
 }
 
 .aff-btn{
-  padding:10px 14px;
-  border-radius:6px;
-  font-size:14px;
-  font-weight:600;
-  text-decoration:none;
-  text-align:center;
   min-width:180px;
+  text-align:center;
+  font-weight:600;
 }
 
 .primary-aff{
   background:#22c55e;
   color:#022c22;
+  border-color:#22c55e;
 }
 
 .secondary-aff{
   background:#38bdf8;
   color:#022c22;
+  border-color:#38bdf8;
 }
 
 .affiliate-note{
   margin-top:8px;
   font-size:11px;
-  text-align:center;
   opacity:0.75;
+  text-align:center;
 }
 
 /* ================================
-   RESPONSIVE
+   MOBILE UX POLISH
 ================================ */
-@media(max-width:480px){
-  .tool-wrapper{
-    padding:22px;
-  }
-
-  .aff-btn{
-    min-width:100%;
-  }
+@media (max-width:380px){
+  h2{ font-size:18px; }
+  .calc-grid button{ font-size:17px; }
 }
