@@ -3,49 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Image Converter | SG Multi Tools</title>
+<title>Image Converter | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
+<div class="single-tool">
+  <div class="tool-wrapper">
+
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
+
+    <h2>Image Converter</h2>
+    <p class="description">
+      Convert and compress images between PNG, JPG, and WEBP formats
+    </p>
+
+    <label>Select Image</label>
+    <input type="file" id="imageInput" accept="image/*">
+
+    <label>Convert To</label>
+    <select id="formatSelect">
+      <option value="image/png">PNG (lossless)</option>
+      <option value="image/jpeg" selected>JPG</option>
+      <option value="image/webp">WEBP</option>
+    </select>
+
+    <label>
+      Compression Quality:
+      <strong><span id="qualityVal">80</span>%</strong>
+    </label>
+    <input type="range" id="quality"
+           min="10" max="100" value="80">
+
+    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
+      <button onclick="convertImage()">Convert</button>
+      <button onclick="clearImage()">Clear</button>
+    </div>
+
+    <div class="result" id="resultBox" style="display:none;">
+      <strong>Preview:</strong><br>
+      <img id="preview"
+           style="max-width:100%; margin-top:8px; border-radius:8px;">
+      <br><br>
+      <a id="downloadLink"
+         class="aff-btn primary-aff"
+         download>
+        Download Converted Image
+      </a>
+    </div>
+
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+</div>
 
-<section class="hero single-page">
-  <h1>SG Multi Tools For Daily Use</h1>
-  <p>Convert images between formats</p>
-</section>
+<script>
+let uploadedImage = null;
 
-<main class="tools-container single-page">
-  <div class="tool-card">
-    <title>Image Converter | SG Multi Tools</title>
-    <p>Convert images between formats</p>
-    <a href="image-converter.html" class="btn">Open Tool</a>
-  </div>
-</main>
+const qualityInput = document.getElementById("quality");
+const qualityVal = document.getElementById("qualityVal");
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+qualityInput.addEventListener("input", () => {
+  qualityVal.textContent = qualityInput.value;
+});
 
-</body>
-</html>
+document.getElementById("imageInput").addEventListener("change", e => {
+  uploadedImage = e.target.files[0];
+});
+
+function convertImage(){
+  if(!uploadedImage){
+    alert("Please select an image");
+    return;
+  }
+
+  const format = document.getElementById("formatSelect").value;
+  const quality = qualityInput.value / 100;
+
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = e => img.src = e.target.result;
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    const options = (format === "image/png") ? {} : { quality };
+
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+
+      const preview = document.getElementById("preview");
+      const downloadLink = document.getElementById("downloadLink");
+
+      preview.src = url;
+
+      const ext = format.split("/")[1];
+      downloadLink.href = url;
+      downloadLink.download = `converted-image.${ext}`;
+
+      document.getElementById("resultBox").style.display = "block";
+    }, format, options
