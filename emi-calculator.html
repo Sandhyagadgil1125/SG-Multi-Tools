@@ -3,168 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SG Multi Tools | All Tools</title>
+<title>EMI Calculator | SG Multi Tools</title>
 
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-badge">SG</span>
-    <span class="logo-text">SG Multi Tools</span>
-  </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<div class="single-tool">
+  <div class="tool-wrapper">
 
-<section class="hero">
-  <h1>SG Multi Tools For Daily Use</h1>
-   <p>Calculate monthly EMI for loans</p>
-</section>
+    <button class="close-btn" onclick="location.href='index.html'">×</button>
 
-<main class="tools-container">
-  <div class="tools-grid">
+    <h2>EMI Calculator</h2>
+    <p class="description">Calculate your loan EMI quickly and accurately</p>
 
-    <!-- Tool Cards: same as index.html -->
-    <div class="tool-card">
-      <h2>EMI Calculator</h2>
-      <p>Calculate monthly EMI for loans</p>
-      <a href="emi-calculator.html" class="btn">Open Tool</a>
+    <label>Loan Amount (₹)</label>
+    <input type="number" id="amount" placeholder="e.g. 500000">
+
+    <label>Annual Interest Rate (%)</label>
+    <input type="number" id="rate" placeholder="e.g. 8.5">
+
+    <label>Loan Tenure (Years)</label>
+    <input type="number" id="years" placeholder="e.g. 20">
+
+    <button class="calculate" onclick="calculateEMI()">Calculate EMI</button>
+
+    <div class="result" id="result" style="display:none;"></div>
+
+    <!-- Affiliate Section -->
+    <p class="affiliate-title">Recommended financial tools</p>
+
+    <div class="affiliate-actions">
+      <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/"
+         target="_blank" rel="noopener"
+         class="aff-btn primary-aff">
+         Explore Smart Loan & Finance Tools
+      </a>
     </div>
 
-    <div class="tool-card">
-      <h2>Age Calculator</h2>
-      <p>Quickly calculate your age in years, months, and days</p>
-      <a href="age-calculator.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Case Changer</h2>
-      <p>Convert text to uppercase, lowercase, or proper case</p>
-      <a href="case-changer.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Color Picker</h2>
-      <p>Pick and copy colors easily</p>
-      <a href="color-picker.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Currency Converter</h2>
-      <p>Convert currencies instantly</p>
-      <a href="currency-converter.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Date Difference</h2>
-      <p>Find difference between two dates</p>
-      <a href="date-difference.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>EMI Calculator</h2>
-      <p>Calculate monthly EMI for loans</p>
-      <a href="emi-calculator.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>File Size Converter</h2>
-      <p>Convert file sizes between KB, MB, GB</p>
-      <a href="file-size-converter.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Image Converter</h2>
-      <p>Convert images between formats</p>
-      <a href="image-converter.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Note Text Saver</h2>
-      <p>Save your notes online</p>
-      <a href="note-text-saver.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Password Generator</h2>
-      <p>Generate strong passwords instantly</p>
-      <a href="password-generator.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Percentage Calculator</h2>
-      <p>Quickly calculate percentages</p>
-      <a href="percentage-calculator.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>QR Code Generator</h2>
-      <p>Generate QR codes instantly</p>
-      <a href="qr-code-generator.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>SIP Calculator</h2>
-      <p>Calculate your SIP investments</p>
-      <a href="sip-calculator.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Speech to Text</h2>
-      <p>Convert your speech into text</p>
-      <a href="speech-to-text.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Text to Speech</h2>
-      <p>Listen to your text aloud</p>
-      <a href="text-to-speech.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Timer / Stopwatch</h2>
-      <p>Track time with timer and stopwatch</p>
-      <a href="timer-stopwatch.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Unit Converter</h2>
-      <p>Convert between common units instantly</p>
-      <a href="unit-converter.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>URL Encoder / Decoder</h2>
-      <p>Encode or decode URLs quickly</p>
-      <a href="url-encoder-decoder.html" class="btn">Open Tool</a>
-    </div>
-
-    <div class="tool-card">
-      <h2>Word Counter</h2>
-      <p>Count words and characters in your text</p>
-      <a href="word-counter.html" class="btn">Open Tool</a>
-    </div>
+    <p class="affiliate-note">
+      *We may earn a small commission if you purchase through this link, at no extra cost to you.
+    </p>
 
   </div>
-</main>
+</div>
 
-<footer class="site-footer">
-  <a href="privacy-policy.html">Privacy Policy</a> |
-  <a href="terms-and-conditions.html">Terms & Conditions</a> |
-  <a href="disclaimer.html">Disclaimer</a> |
-  <a href="sitemap.xml">Sitemap</a> |
-  <a href="about.html">About</a> |
-  <a href="contact.html">Contact</a>
-</footer>
+<script>
+function calculateEMI(){
+  const amount = Number(document.getElementById("amount").value);
+  const annualRate = Number(document.getElementById("rate").value);
+  const years = Number(document.getElementById("years").value);
+
+  if(!amount || !annualRate || !years){
+    alert("Please fill all fields");
+    return;
+  }
+
+  const monthlyRate = annualRate / 12 / 100;
+  const months = years * 12;
+
+  const emi =
+    (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+    (Math.pow(1 + monthlyRate, months) - 1);
+
+  const totalPayment = emi * months;
+  const totalInterest = totalPayment - amount;
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML = `
+    <strong>Monthly EMI:</strong> ₹${Math.round(emi).toLocaleString()}<br>
+    <strong>Total Interest:</strong> ₹${Math.round(totalInterest).toLocaleString()}<br>
+    <strong>Total Payment:</strong> ₹${Math.round(totalPayment).toLocaleString()}
+  `;
+}
+</script>
 
 </body>
 </html>
