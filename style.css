@@ -1,278 +1,161 @@
-/* ===============================
-   ROOT THEME VARIABLES
-================================ */
-:root{
-  --bg-main:#020617;
-  --bg-card:#020617;
-  --border-main:#38bdf8;
-  --border-soft:#0ea5e9;
-  --text-main:#e5e7eb;
-  --text-muted:#94a3b8;
-  --input-bg:#020617;
-  --btn-main:#38bdf8;
-  --btn-hover:#0ea5e9;
-  --danger:#ef4444;
+/* ============================
+   GLOBAL STYLES
+============================ */
+body {
+  background-color: #0f172a; /* dark theme background */
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  color: #fff;
 }
 
-/* ===============================
-   GLOBAL RESET
-================================ */
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+/* ============================
+   CALCULATOR CONTAINER
+============================ */
+.calculator {
+  background-color: #0f172a; /* dark card background */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  display: inline-block;
 }
 
-body{
-  background:radial-gradient(circle at top, #020617, #000);
-  color:var(--text-main);
-  min-height:100vh;
+/* ============================
+   CALCULATOR TITLE
+============================ */
+.calculator h2 {
+  color: #3b82f6; /* theme color for title */
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
-/* ===============================
-   TOOL PAGE LAYOUT
-================================ */
-.single-tool{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
+.calculator p {
+  color: #94a3b8; /* lighter subtitle text */
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-/* ===============================
-   TOOL CARD
-================================ */
-.tool-wrapper{
-  position:relative;
-  width:100%;
-  max-width:420px;          /* mobile-safe */
-  background:var(--bg-card);
-  border:2px solid var(--border-main);
-  border-radius:20px;
-  padding:26px 22px 28px;
-  text-align:center;
+/* ============================
+   DISPLAY SCREEN
+============================ */
+.calculator-screen {
+  width: 100%;
+  height: 60px;
+  background-color: #1e293b; /* darker card background */
+  border: 2px solid #3b82f6; /* theme border */
+  border-radius: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: right;
+  box-sizing: border-box;
 }
 
-/* ===============================
-   CLOSE (X) BUTTON – CLEAN
-================================ */
-.close-btn{
-  position:absolute;
-  top:14px;
-  right:14px;
-  background:none;
-  border:none;
-  color:var(--text-main);
-  font-size:22px;
-  font-weight:700;
-  cursor:pointer;
+/* ============================
+   BUTTON GRID
+============================ */
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 70px); /* 4 columns */
+  gap: 12px; /* spacing between buttons */
+  justify-content: center;
 }
 
-/* ===============================
-   HEADINGS & TEXT
-================================ */
-.tool-wrapper h2{
-  font-size:26px;
-  margin-bottom:6px;
+/* ============================
+   INDIVIDUAL BUTTONS
+============================ */
+.calculator-buttons button {
+  width: 70px;
+  height: 60px;
+  background-color: #1e293b; /* card color */
+  color: #3b82f6; /* theme text */
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 2px solid #3b82f6; /* border matches text */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.description{
-  font-size:14px;
-  color:var(--text-muted);
-  margin-bottom:18px;
-  line-height:1.4;
+.calculator-buttons button:hover {
+  background-color: #3b82f6;
+  color: #fff;
+  transform: translateY(-2px);
 }
 
-/* ===============================
-   INPUTS / TEXTAREAS
-================================ */
-input,
-textarea,
-select{
-  width:100%;
-  padding:12px 14px;
-  border-radius:10px;
-  background:var(--input-bg);
-  border:2px solid var(--border-soft);
-  color:var(--text-main);
-  font-size:15px;
-  outline:none;
-  text-align:center;
+/* ============================
+   EQUAL BUTTON
+============================ */
+.calculator-buttons .equal-btn {
+  grid-column: span 4; /* full width */
+  background-color: #10b981; /* green */
+  color: #fff;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-textarea{
-  resize:none;
-  min-height:120px;
+.calculator-buttons .equal-btn:hover {
+  background-color: #059669; /* darker green hover */
+  transform: translateY(-2px);
 }
 
-/* ===============================
-   FLEX INPUT GROUPS
-================================ */
-.flex-box{
-  display:flex;
-  gap:10px;
-  margin-bottom:14px;
+/* ============================
+   AFFILIATE BUTTONS BELOW CALCULATOR
+============================ */
+.affiliate {
+  margin-top: 15px;
 }
 
-.flex-box input,
-.flex-box select{
-  flex:1;
+.affiliate .aff-btn {
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  background-color: #3b82f6;
+  color: #fff;
+  border-radius: 10px;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-/* ===============================
-   BUTTONS (TAP FRIENDLY)
-================================ */
-button,
-.btn{
-  width:100%;
-  padding:14px;
-  margin-top:12px;
-  border-radius:12px;
-  border:none;
-  background:var(--btn-main);
-  color:#022c22;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
+.affiliate .aff-btn:hover {
+  background-color: #1e40af;
 }
 
-button:hover,
-.btn:hover{
-  background:var(--btn-hover);
+.affiliate-note {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 5px;
+  text-align: center;
 }
 
-/* ===== SUBTLE INTERACTIONS ===== */
-button,
-.btn,
-.calc-grid button,
-.aff-btn{
-  transition: 
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    background 0.15s ease;
+/* ============================
+   EXTRA LINKS BUTTONS
+============================ */
+.extra-btn {
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 10px;
+  background-color: #38bdf8; /* light blue */
+  color: #0f172a;
+  border-radius: 10px;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-button:hover,
-.btn:hover,
-.calc-grid button:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(56,189,248,0.25);
-}
-
-button:active,
-.calc-grid button:active{
-  transform: scale(0.98);
-}
-
-/* ===============================
-   CALCULATOR GRID
-================================ */
-.calc-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:16px;
-}
-
-.calc-grid button{
-  padding:14px 0;
-  font-size:16px;
-  border-radius:10px;
-  background:var(--input-bg);
-  border:2px solid var(--border-soft);
-  color:var(--text-main);
-}
-
-.calc-grid .equals{
-  grid-column:span 4;
-  background:var(--btn-main);
-  color:#022c22;
-  font-weight:700;
-}
-
-/* ===============================
-   AFFILIATE SECTION (ADSENSE SAFE)
-================================ */
-.affiliate-box{
-  margin-top:22px;
-  padding-top:14px;
-  border-top:1px dashed var(--border-soft);
-}
-
-.affiliate-title{
-  font-size:14px;
-  color:var(--text-muted);
-  margin-bottom:10px;
-}
-
-.affiliate-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.aff-btn{
-  padding:10px 14px;
-  border-radius:8px;
-  font-size:14px;
-  font-weight:600;
-  text-decoration:none;
-  min-width:160px;
-}
-
-.primary-aff{
-  background:#22c55e;
-  color:#022c22;
-}
-
-.secondary-aff{
-  background:#38bdf8;
-  color:#022c22;
-}
-
-.affiliate-note{
-  font-size:11px;
-  margin-top:8px;
-  opacity:0.7;
-}
-
-/* ===== LOADING STATE ===== */
-.loading{
-  opacity:0.6;
-  pointer-events:none;
-}
-
-.loader{
-  margin:14px auto 0;
-  width:28px;
-  height:28px;
-  border:3px solid #1e293b;
-  border-top:3px solid var(--border-main);
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{ transform:rotate(360deg); }
-}
-
-/* ===============================
-   MOBILE SAFETY
-================================ */
-@media(max-width:480px){
-  .tool-wrapper{
-    max-width:100%;
-    padding:22px 18px;
-  }
-
-  .tool-wrapper h2{
-    font-size:22px;
-  }
-
-  button{
-    font-size:15px;
-  }
+.extra-btn:hover {
+  background-color: #0ea5e9;
 }
