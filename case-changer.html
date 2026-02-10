@@ -1,252 +1,331 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-theme">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Case Converter | SG Multi Tools</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* === Tool Specific Styles === */
-    
-    /* Make the card wider for text editing */
-    .tool-card {
-      width: 800px;
-      max-width: 95vw;
-    }
-
-    /* Text Area Styling */
-    textarea {
-      width: 100%;
-      height: 200px;
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid #334155;
-      background-color: #0f172a;
-      color: var(--text);
-      font-size: 1rem;
-      resize: vertical;
-      margin-bottom: 10px;
-      outline: none;
-      line-height: 1.5;
-    }
-
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-    }
-
-    /* Stats Bar (Word/Char count) */
-    .stats-bar {
-      display: flex;
-      justify-content: space-between;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-bottom: 20px;
-      padding: 0 5px;
-    }
-
-    /* Button Grids */
-    .controls-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .action-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 20px;
-    }
-
-    /* Button Variations */
-    button.secondary {
-      background-color: #334155;
-    }
-    button.secondary:hover {
-      background-color: #475569;
-    }
-
-    button.success {
-      background-color: #10b981; /* Green for Copy */
-    }
-    button.success:hover {
-      background-color: #059669;
-    }
-
-    button.danger {
-      background-color: #ef4444; /* Red for Clear */
-    }
-    button.danger:hover {
-      background-color: #dc2626;
-    }
-
-    /* Copy Feedback Toast */
-    #copyMsg {
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #10b981;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    
-    #copyMsg.show {
-      opacity: 1;
-    }
-
-    @media (max-width: 600px) {
-      .action-row {
-        flex-direction: column;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Changer - Convert Text Cases | SG Multi Tools</title>
+    <meta name="description" content="Free online case changer tool. Convert text to uppercase, lowercase, title case, sentence case and more instantly.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-primary">SG</span>
+                        <span class="logo-secondary">Tools</span>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th-large"></i> All Tools</a></li>
+                        <li><a href="case-changer.html" class="active"><i class="fas fa-text-height"></i> Case Changer</a></li>
+                        <li><a href="text-to-speech.html"><i class="fas fa-volume-up"></i> Text Tools</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <div class="tool-card">
-    <!-- Close Button -->
-    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
-    <div id="copyMsg">Text Copied!</div>
+    <!-- Main Content -->
+    <main class="container">
+        <div class="tool-container">
+            <!-- Tool Header -->
+            <div class="tool-header">
+                <h1><i class="fas fa-text-height"></i> Case Changer</h1>
+                <p>Convert text between different cases instantly. Perfect for formatting titles, names, and documents.</p>
+            </div>
+            
+            <!-- Tool Content -->
+            <div class="tool-content case-changer">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-keyboard"></i> Input Text</h3>
+                        <div class="text-stats">
+                            <span id="charCount">Characters: 0</span>
+                            <span id="wordCount">Words: 0</span>
+                            <span id="lineCount">Lines: 0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="text-area-container">
+                        <textarea id="inputText" class="tool-textarea" placeholder="Enter or paste your text here..." rows="8" autofocus></textarea>
+                        <div class="textarea-actions">
+                            <button id="clearBtn" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                            <button id="pasteBtn" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-paste"></i> Paste
+                            </button>
+                            <button id="sampleBtn" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-magic"></i> Load Sample
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Case Options -->
+                <div class="options-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-sliders-h"></i> Conversion Options</h3>
+                        <p>Select how you want to transform your text</p>
+                    </div>
+                    
+                    <div class="case-buttons-grid">
+                        <button class="case-btn active" data-case="upper">
+                            <i class="fas fa-text-height"></i>
+                            <span>UPPERCASE</span>
+                            <small>ALL CAPITAL LETTERS</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="lower">
+                            <i class="fas fa-text-height"></i>
+                            <span>lowercase</span>
+                            <small>all small letters</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="title">
+                            <i class="fas fa-heading"></i>
+                            <span>Title Case</span>
+                            <small>First Letter Of Each Word</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="sentence">
+                            <i class="fas fa-paragraph"></i>
+                            <span>Sentence case</span>
+                            <small>First letter of sentences</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="capitalize">
+                            <i class="fas fa-font"></i>
+                            <span>Capitalize Words</span>
+                            <small>Every Word Capitalized</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="inverse">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Inverse Case</span>
+                            <small>Swap UPPER/lower</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="alternating">
+                            <i class="fas fa-random"></i>
+                            <span>aLtErNaTiNg CaSe</span>
+                            <small>Alternating letters</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="snake">
+                            <i class="fas fa-minus"></i>
+                            <span>snake_case</span>
+                            <small>underscore_separated</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="kebab">
+                            <i class="fas fa-minus"></i>
+                            <span>kebab-case</span>
+                            <small>hyphen-separated</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="camel">
+                            <i class="fas fa-code"></i>
+                            <span>camelCase</span>
+                            <small>camelCaseFormat</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="pascal">
+                            <i class="fas fa-code"></i>
+                            <span>PascalCase</span>
+                            <small>PascalCaseFormat</small>
+                        </button>
+                        
+                        <button class="case-btn" data-case="dot">
+                            <i class="fas fa-circle"></i>
+                            <span>dot.case</span>
+                            <small>dot.separated.words</small>
+                        </button>
+                    </div>
+                    
+                    <div class="advanced-options">
+                        <h4><i class="fas fa-cog"></i> Advanced Options</h4>
+                        <div class="options-grid">
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="preserveFormatting" checked>
+                                <span class="checkmark"></span>
+                                Preserve line breaks & formatting
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="trimSpaces">
+                                <span class="checkmark"></span>
+                                Trim extra spaces
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="removeDuplicates">
+                                <span class="checkmark"></span>
+                                Remove duplicate lines
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="ignoreArticles">
+                                <span class="checkmark"></span>
+                                Ignore articles (a, an, the) in Title Case
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Output Section -->
+                <div class="output-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-file-alt"></i> Converted Text</h3>
+                        <div class="output-actions">
+                            <button id="copyBtn" class="btn btn-sm btn-primary">
+                                <i class="far fa-copy"></i> Copy Text
+                            </button>
+                            <button id="downloadBtn" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button id="speakBtn" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-volume-up"></i> Speak
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="text-area-container">
+                        <textarea id="outputText" class="tool-textarea" placeholder="Converted text will appear here..." rows="8" readonly></textarea>
+                        <div class="textarea-actions">
+                            <div class="output-stats">
+                                <span id="outputCharCount">Characters: 0</span>
+                                <span id="conversionTime">Time: 0ms</span>
+                            </div>
+                            <button id="swapBtn" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-exchange-alt"></i> Swap Text
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="convertBtn" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sync-alt"></i> Convert Now
+                    </button>
+                    <button id="resetAllBtn" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-redo"></i> Reset All
+                    </button>
+                    <button id="savePresetBtn" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-save"></i> Save Preset
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Examples & Tips -->
+            <div class="examples-section">
+                <h3><i class="fas fa-lightbulb"></i> Examples & Usage Tips</h3>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <h4>UPPERCASE</h4>
+                        <p>For headings, titles, or emphasis</p>
+                        <code>hello world → HELLO WORLD</code>
+                    </div>
+                    <div class="example-card">
+                        <h4>Title Case</h4>
+                        <p>For book titles, headings</p>
+                        <code>the quick brown fox → The Quick Brown Fox</code>
+                    </div>
+                    <div class="example-card">
+                        <h4>camelCase</h4>
+                        <p>For programming variable names</p>
+                        <code>user first name → userFirstName</code>
+                    </div>
+                    <div class="example-card">
+                        <h4>snake_case</h4>
+                        <p>For file names, database fields</p>
+                        <code>User Profile Page → user_profile_page</code>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tool Description -->
+            <div class="tool-description">
+                <h3><i class="fas fa-info-circle"></i> About Case Changer</h3>
+                <p>This tool helps you convert text between different cases instantly. It's perfect for:</p>
+                <ul>
+                    <li><strong>Writers & Editors:</strong> Format titles, headings, and content</li>
+                    <li><strong>Developers:</strong> Convert variable names between naming conventions</li>
+                    <li><strong>Students:</strong> Format essays and research papers</li>
+                    <li><strong>Social Media:</strong> Create stylized text for posts</li>
+                </ul>
+                <p>All processing happens in your browser - your text is never sent to any server.</p>
+            </div>
+        </div>
+    </main>
 
-    <h2>Case Converter</h2>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="footer-logo-text">
+                            <span class="logo-primary">SG</span>
+                            <span class="logo-secondary">Multi Tools</span>
+                        </div>
+                    </div>
+                    <p>Free online tools for daily use. No installation required.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Text Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="case-changer.html"><i class="fas fa-text-height"></i> Case Changer</a></li>
+                        <li><a href="word-counter.html"><i class="fas fa-sort-amount-up"></i> Word Counter</a></li>
+                        <li><a href="text-to-speech.html"><i class="fas fa-volume-up"></i> Text to Speech</a></li>
+                        <li><a href="speech-to-text.html"><i class="fas fa-microphone"></i> Speech to Text</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th-large"></i> All Tools</a></li>
+                        <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SG Multi Tools. All rights reserved. | <a href="https://sgtools.in">sgtools.in</a></p>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Text Input -->
-    <textarea id="textBox" placeholder="Type or paste your text here..." oninput="updateStats()"></textarea>
-    
-    <!-- Stats -->
-    <div class="stats-bar">
-      <span id="wordCount">0 Words</span>
-      <span id="charCount">0 Characters</span>
-    </div>
-
-    <!-- Transformation Buttons -->
-    <div class="controls-grid">
-      <button onclick="transform('upper')">UPPERCASE</button>
-      <button onclick="transform('lower')">lowercase</button>
-      <button class="secondary" onclick="transform('title')">Title Case</button>
-      <button class="secondary" onclick="transform('sentence')">Sentence case</button>
-      <button class="secondary" onclick="transform('inverse')">iNVERSE cASE</button>
-      <button class="secondary" onclick="transform('alternate')">aLtErNaTiNg</button>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="action-row">
-      <button class="success" onclick="copyText()">Copy to Clipboard</button>
-      <button class="secondary" onclick="downloadText()">Download .txt</button>
-      <button class="danger" onclick="clearText()">Clear</button>
-    </div>
-  </div>
-
-  <script>
-    const textBox = document.getElementById('textBox');
-    const wordCountSpan = document.getElementById('wordCount');
-    const charCountSpan = document.getElementById('charCount');
-
-    // 1. Update Statistics
-    function updateStats() {
-      const text = textBox.value;
-      const charCount = text.length;
-      
-      // Count words (filter out empty strings from multiple spaces)
-      const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-
-      charCountSpan.textContent = `${charCount} Characters`;
-      wordCountSpan.textContent = `${wordCount} Words`;
-    }
-
-    // 2. Transformation Logic
-    function transform(type) {
-      let text = textBox.value;
-      if (!text) return;
-
-      switch(type) {
-        case 'upper':
-          textBox.value = text.toUpperCase();
-          break;
-        case 'lower':
-          textBox.value = text.toLowerCase();
-          break;
-        case 'title':
-          textBox.value = text.toLowerCase().split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-          break;
-        case 'sentence':
-          // Split by sentence delimiters (. ! ?) and capitalize first letter
-          textBox.value = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, function(c) {
-            return c.toUpperCase();
-          });
-          break;
-        case 'inverse':
-          textBox.value = text.split('').map(char => {
-            if (char === char.toUpperCase()) return char.toLowerCase();
-            return char.toUpperCase();
-          }).join('');
-          break;
-        case 'alternate':
-          textBox.value = text.split('').map((char, index) => {
-             // Even index lowercase, odd index uppercase (or vice versa)
-             return index % 2 === 0 ? char.toLowerCase() : char.toUpperCase();
-          }).join('');
-          break;
-      }
-      updateStats();
-    }
-
-    // 3. Action Functions
-    function copyText() {
-      if (!textBox.value) return;
-      
-      textBox.select();
-      textBox.setSelectionRange(0, 99999); // Mobile compatibility
-      navigator.clipboard.writeText(textBox.value).then(() => {
-        showToast();
-      });
-    }
-
-    function clearText() {
-      if(confirm("Are you sure you want to clear the text?")) {
-        textBox.value = '';
-        updateStats();
-      }
-    }
-
-    function downloadText() {
-      if (!textBox.value) return;
-      const element = document.createElement('a');
-      const file = new Blob([textBox.value], {type: 'text/plain'});
-      element.href = URL.createObjectURL(file);
-      element.download = "sgtools-text.txt";
-      document.body.appendChild(element); // Required for Firefox
-      element.click();
-      document.body.removeChild(element);
-    }
-
-    // Toast Notification
-    function showToast() {
-      const msg = document.getElementById('copyMsg');
-      msg.classList.add('show');
-      setTimeout(() => {
-        msg.classList.remove('show');
-      }, 2000);
-    }
-  </script>
-
+    <!-- JavaScript -->
+    <script src="case-changer.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn')?.addEventListener('click', function() {
+            const nav = document.querySelector('.main-nav');
+            nav.classList.toggle('show');
+            this.innerHTML = nav.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+    </script>
 </body>
 </html>
