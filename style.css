@@ -1,203 +1,203 @@
-/* =====================================================
-   SG MULTI TOOLS – MASTER STYLE.CSS
-   Global, Responsive, Mobile-Safe
-===================================================== */
+/* ===============================
+   ROOT THEME VARIABLES
+================================ */
+:root{
+  --bg-main:#020617;
+  --bg-card:#020617;
+  --border-main:#38bdf8;
+  --border-soft:#0ea5e9;
+  --text-main:#e5e7eb;
+  --text-muted:#94a3b8;
+  --input-bg:#020617;
+  --btn-main:#38bdf8;
+  --btn-hover:#0ea5e9;
+  --danger:#ef4444;
+}
 
-/* ========== RESET & GLOBAL BOX FIX ========== */
-*,
-*::before,
-*::after{
+/* ===============================
+   GLOBAL RESET
+================================ */
+*{
   box-sizing:border-box;
   margin:0;
   padding:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-  background:#020617;
-  color:#e5e7eb;
-  line-height:1.5;
+  background:radial-gradient(circle at top, #020617, #000);
+  color:var(--text-main);
+  min-height:100vh;
 }
 
-/* ========== LINKS ========== */
-a{
-  color:#38bdf8;
-  text-decoration:none;
-}
-a:hover{opacity:0.85}
-
-/* ========== TOOL PAGE LAYOUT ========== */
+/* ===============================
+   TOOL PAGE LAYOUT
+================================ */
 .single-tool{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:12px;
-  background:#020617;
+  padding:16px;
 }
 
-/* ========== TOOL CARD (ALL TOOLS) ========== */
+/* ===============================
+   TOOL CARD
+================================ */
 .tool-wrapper{
-  width:100%;
-  max-width:360px;
-  margin:auto;
-  padding:20px;
-
-  background:#020617;
-
-  /* Contrast border */
-  border:2px solid #38bdf8;
-  border-radius:14px;
-
   position:relative;
-}
-
-/* ========== TOOL TITLE ========== */
-.tool-wrapper h1{
-  font-size:20px;
-  margin-bottom:6px;
+  width:100%;
+  max-width:420px;          /* mobile-safe */
+  background:var(--bg-card);
+  border:2px solid var(--border-main);
+  border-radius:20px;
+  padding:26px 22px 28px;
   text-align:center;
 }
 
-.tool-desc{
-  font-size:13px;
-  text-align:center;
-  opacity:0.8;
-  margin-bottom:16px;
-}
-
-/* ========== CLOSE (X) BUTTON ========== */
+/* ===============================
+   CLOSE (X) BUTTON – CLEAN
+================================ */
 .close-btn{
   position:absolute;
-  top:10px;
-  right:12px;
-
+  top:14px;
+  right:14px;
   background:none;
   border:none;
-
+  color:var(--text-main);
   font-size:22px;
-  font-weight:600;
-  color:#e5e7eb;
-
+  font-weight:700;
   cursor:pointer;
 }
 
-/* ========== FORM ELEMENTS (GLOBAL FIX) ========== */
-.tool-wrapper input,
-.tool-wrapper textarea,
-.tool-wrapper select{
-  width:100%;
-  max-width:100%;
-  display:block;
-
-  padding:12px;
-  margin:8px 0 14px;
-
-  background:#020617;
-  color:#e5e7eb;
-
-  border:1.5px solid #38bdf8;
-  border-radius:8px;
-
-  font-size:15px;
+/* ===============================
+   HEADINGS & TEXT
+================================ */
+.tool-wrapper h2{
+  font-size:26px;
+  margin-bottom:6px;
 }
 
-/* ========== FLEX / INFO BOXES ========== */
-.flex-box,
-.info-box,
-.output-box{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-
-  background:#020617;
-  border:1.5px solid #38bdf8;
-  border-radius:10px;
-
+.description{
   font-size:14px;
+  color:var(--text-muted);
+  margin-bottom:18px;
+  line-height:1.4;
 }
 
-/* ========== BUTTONS (TAP FRIENDLY) ========== */
+/* ===============================
+   INPUTS / TEXTAREAS
+================================ */
+input,
+textarea,
+select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  background:var(--input-bg);
+  border:2px solid var(--border-soft);
+  color:var(--text-main);
+  font-size:15px;
+  outline:none;
+  text-align:center;
+}
+
+textarea{
+  resize:none;
+  min-height:120px;
+}
+
+/* ===============================
+   FLEX INPUT GROUPS
+================================ */
+.flex-box{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.flex-box input,
+.flex-box select{
+  flex:1;
+}
+
+/* ===============================
+   BUTTONS (TAP FRIENDLY)
+================================ */
 button,
 .btn{
   width:100%;
   padding:14px;
-  margin-top:10px;
-
-  font-size:15px;
-  font-weight:600;
-
-  background:#38bdf8;
-  color:#020617;
-
+  margin-top:12px;
+  border-radius:12px;
   border:none;
-  border-radius:10px;
-
+  background:var(--btn-main);
+  color:#022c22;
+  font-size:16px;
+  font-weight:700;
   cursor:pointer;
 }
 
 button:hover,
 .btn:hover{
-  opacity:0.9;
+  background:var(--btn-hover);
 }
 
-/* ========== CALCULATOR KEY PADS ========== */
-.keypad{
+/* ===============================
+   CALCULATOR GRID
+================================ */
+.calc-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  margin-top:14px;
+  margin-top:16px;
 }
 
-.keypad button{
+.calc-grid button{
   padding:14px 0;
   font-size:16px;
-
-  background:#020617;
-  color:#e5e7eb;
-
-  border:1.5px solid #38bdf8;
   border-radius:10px;
+  background:var(--input-bg);
+  border:2px solid var(--border-soft);
+  color:var(--text-main);
 }
 
-/* ========== RESULT BOX ========== */
-.result{
-  width:100%;
-  margin-top:14px;
-  padding:12px;
-
-  background:#020617;
-  border:1.5px solid #38bdf8;
-  border-radius:10px;
-
-  color:#e5e7eb;
-  font-size:14px;
+.calc-grid .equals{
+  grid-column:span 4;
+  background:var(--btn-main);
+  color:#022c22;
+  font-weight:700;
 }
 
-/* ========== AFFILIATE SECTION ========== */
+/* ===============================
+   AFFILIATE SECTION (ADSENSE SAFE)
+================================ */
+.affiliate-box{
+  margin-top:22px;
+  padding-top:14px;
+  border-top:1px dashed var(--border-soft);
+}
+
 .affiliate-title{
-  margin-top:16px;
-  font-size:15px;
-  text-align:center;
-  color:#dbeafe;
+  font-size:14px;
+  color:var(--text-muted);
+  margin-bottom:10px;
 }
 
 .affiliate-actions{
   display:flex;
   gap:10px;
-  justify-content:center;
-  margin-top:10px;
   flex-wrap:wrap;
+  justify-content:center;
 }
 
 .aff-btn{
-  padding:12px 14px;
+  padding:10px 14px;
   border-radius:8px;
   font-size:14px;
   font-weight:600;
   text-decoration:none;
-  text-align:center;
-  min-width:180px;
+  min-width:160px;
 }
 
 .primary-aff{
@@ -211,26 +211,25 @@ button:hover,
 }
 
 .affiliate-note{
-  margin-top:8px;
   font-size:11px;
-  opacity:0.75;
-  text-align:center;
+  margin-top:8px;
+  opacity:0.7;
 }
 
-/* ========== MOBILE SAFETY (CRITICAL) ========== */
-@media (max-width:480px){
+/* ===============================
+   MOBILE SAFETY
+================================ */
+@media(max-width:480px){
   .tool-wrapper{
     max-width:100%;
-    padding:16px;
+    padding:22px 18px;
   }
 
-  .keypad{
-    gap:8px;
+  .tool-wrapper h2{
+    font-size:22px;
   }
 
-  button,
-  .btn{
-    padding:14px;
+  button{
     font-size:15px;
   }
 }
