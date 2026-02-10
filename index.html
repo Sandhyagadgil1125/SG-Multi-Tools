@@ -3,181 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG Multi Tools - Smart Tools for Daily Use</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>SG Multi Tools - 20+ Free Privacy-Focused Utilities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header & Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #4b6cb7;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(75, 108, 183, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 60px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: #4b6cb7;
+        }
+        
+        .checkmark {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        /* Tools Section */
+        .section-title {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #182848;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .tool-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #182848;
+        }
+        
+        .tool-desc {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .use-tool {
+            display: inline-block;
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .use-tool:hover {
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .features {
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">SG</div>
-            <div class="logo-text">SG Multi Tools</div>
-        </div>
+    <div class="container">
+        <header>
+            <div class="logo">SG Multi Tools</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
         
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
+        <main>
+            <section class="hero" id="home">
+                <h1>SG Multi Tools</h1>
+                <div class="hero-subtitle">
+                    20+ free, privacy-focused utilities. No installation needed - all tools work directly in your browser.
+                </div>
+                
+                <div class="features">
+                    <div class="feature">
+                        <span class="checkmark">✓</span> 100% Privacy Focused
+                    </div>
+                    <div class="feature">
+                        <span class="checkmark">✓</span> Instant Results
+                    </div>
+                    <div class="feature">
+                        <span class="checkmark">✓</span> No Installation
+                    </div>
+                </div>
+            </section>
+            
+            <section id="tools">
+                <h2 class="section-title">Most Popular Tools</h2>
+                <div class="tools-grid">
+                    <!-- Tool 1 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">📝</div>
+                        <h3 class="tool-title">Text Formatter</h3>
+                        <p class="tool-desc">Format, clean, and transform text with multiple options including case conversion, trimming, and more.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 2 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">🔢</div>
+                        <h3 class="tool-title">Unit Converter</h3>
+                        <p class="tool-desc">Convert between different units of measurement, currency, time, and more with real-time calculations.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 3 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">📊</div>
+                        <h3 class="tool-title">JSON Formatter</h3>
+                        <p class="tool-desc">Validate, format, and beautify JSON data with syntax highlighting and error detection.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 4 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">🔐</div>
+                        <h3 class="tool-title">Password Generator</h3>
+                        <p class="tool-desc">Create secure, random passwords with customizable length and character types for maximum security.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 5 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">🎨</div>
+                        <h3 class="tool-title">Color Picker</h3>
+                        <p class="tool-desc">Pick colors from screen, convert between formats, and create harmonious color palettes.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 6 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">📏</div>
+                        <h3 class="tool-title">Code Diff Checker</h3>
+                        <p class="tool-desc">Compare two text files or code snippets to highlight differences between them.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 7 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">⏱️</div>
+                        <h3 class="tool-title">Time Calculator</h3>
+                        <p class="tool-desc">Add, subtract, and calculate time durations between dates and times with precision.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                    
+                    <!-- Tool 8 -->
+                    <div class="tool-card">
+                        <div class="tool-icon">📄</div>
+                        <h3 class="tool-title">PDF Tools</h3>
+                        <p class="tool-desc">Merge, split, compress PDF files and convert between PDF and other formats.</p>
+                        <a href="#" class="use-tool">Use Tool</a>
+                    </div>
+                </div>
+            </section>
+        </main>
         
-        <nav class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
-            <a href="tools.html" class="nav-link"><i class="fas fa-tools"></i> Tools</a>
-            <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
-            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">SG Multi Tools For Daily Use</h1>
-            <p class="hero-subtitle">A collection of 20+ free, privacy-focused utilities. No installation required. All tools work directly in your browser with a professional, user-friendly interface.</p>
-            <div class="hero-stats">
-                <div class="stat">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>100% Privacy Focused</span>
-                </div>
-                <div class="stat">
-                    <i class="fas fa-bolt"></i>
-                    <span>Instant Results</span>
-                </div>
-                <div class="stat">
-                    <i class="fas fa-desktop"></i>
-                    <span>No Installation</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Tools -->
-    <section class="featured-tools">
-        <div class="container">
-            <h2 class="section-title">Most Popular Tools</h2>
-            <p class="section-subtitle">Our most frequently used utilities</p>
-            
-            <div class="tools-grid">
-                <!-- Tool 1: Password Generator -->
-                <div class="tool-card">
-                    <div class="tool-icon" style="background-color: rgba(245, 158, 11, 0.15); color: #f59e0b;">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <div class="tool-name">Password Generator</div>
-                    <div class="tool-desc">Create strong, random passwords with customizable options</div>
-                    <div class="tool-tags">
-                        <span class="tool-tag">Security</span>
-                        <span class="tool-tag">Generator</span>
-                    </div>
-                    <a href="tool-pages/password-generator.html" class="tool-link">Open Tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <!-- Tool 2: QR Code Generator -->
-                <div class="tool-card">
-                    <div class="tool-icon" style="background-color: rgba(139, 92, 246, 0.15); color: #8b5cf6;">
-                        <i class="fas fa-qrcode"></i>
-                    </div>
-                    <div class="tool-name">QR Code Generator</div>
-                    <div class="tool-desc">Generate QR codes for URLs, text, or contact information</div>
-                    <div class="tool-tags">
-                        <span class="tool-tag">Utility</span>
-                        <span class="tool-tag">Generator</span>
-                    </div>
-                    <a href="tool-pages/qr-code-generator.html" class="tool-link">Open Tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <!-- Tool 3: Advanced Calculator -->
-                <div class="tool-card affiliate-card">
-                    <div class="tool-icon" style="background-color: rgba(58, 134, 255, 0.15); color: #3a86ff;">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <div class="tool-name">Advanced Calculator</div>
-                    <div class="tool-desc">Scientific calculator with advanced functions</div>
-                    <div class="tool-tags">
-                        <span class="tool-tag">Math</span>
-                        <span class="tool-tag affiliate-tag">Affiliate</span>
-                    </div>
-                    <a href="tool-pages/advanced-calculator.html" class="tool-link">Open Tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <!-- Tool 4: Unit Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10b981;">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <div class="tool-name">Unit Converter</div>
-                    <div class="tool-desc">Convert between different units of measurement</div>
-                    <div class="tool-tags">
-                        <span class="tool-tag">Utility</span>
-                        <span class="tool-tag">Converter</span>
-                    </div>
-                    <a href="tool-pages/unit-converter.html" class="tool-link">Open Tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <div class="center-button">
-                <a href="tools.html" class="btn-primary">View All Tools <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- All Tools Preview -->
-    <section class="all-tools">
-        <div class="container">
-            <h2 class="section-title">All Tools (20)</h2>
-            <p class="section-subtitle">Browse our complete collection of utilities</p>
-            
-            <div class="tools-grid tools-grid-full">
-                <!-- Tools will be loaded dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-main">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <div class="logo">SG</div>
-                    <div class="logo-text">SG Multi Tools</div>
-                </div>
-                <p>A collection of 20+ free, privacy-focused utilities for daily use.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="tools.html">All Tools</a>
-                <a href="about.html">About Us</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="disclaimer.html">Disclaimer</a>
-                <a href="terms.html">Terms & Conditions</a>
-                <a href="sitemap.html">Sitemap</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-envelope"></i> contact@sgtools.in</p>
-                <p>All tools are free to use</p>
-                <p>No registration required</p>
-            </div>
-        </div>
+        <footer>
+            <p>© 2024 SG Multi Tools. All rights reserved. | Privacy-focused tools for daily use.</p>
+            <p style="margin-top: 10px; font-size: 14px;">All tools work directly in your browser - no data is sent to servers.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Simple script for smooth scrolling
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
         
-        <div class="footer-bottom">
-            <p>&copy; 2024 SG Multi Tools. All rights reserved.</p>
-            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for developers and professionals</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+        // Simple tool click handler (for demo)
+        document.querySelectorAll('.use-tool').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const toolName = this.parentElement.querySelector('.tool-title').textContent;
+                alert(`🚀 Launching: ${toolName}\n\n(This is a demo. In a real implementation, this would open the selected tool.)`);
+            });
+        });
+    </script>
 </body>
 </html>
