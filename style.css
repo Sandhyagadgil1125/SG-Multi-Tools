@@ -1,161 +1,281 @@
-/* ============================
-   GLOBAL STYLES
-============================ */
+/* ================================
+   GLOBAL RESET & BASE STYLES
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
 body {
-  background-color: #0f172a; /* dark theme background */
-  font-family: system-ui, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ================================
+   HEADER
+================================ */
+header {
+  background: #1e293b;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+header nav a {
+  margin-left: 1.5rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+header nav a:hover {
+  color: #3b82f6;
+}
+
+/* ================================
+   HERO SECTION
+================================ */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #1e293b;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #f8fafc;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #cbd5e1;
+}
+
+/* ================================
+   TOOLS CARDS / GRID
+================================ */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.tool-card {
+  background: #1e293b;
+  border-radius: 1rem;
+  padding: 2rem;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 3px solid #3b82f6; /* bold colored border */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center text */
+  text-align: center;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.tool-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.tool-card p {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.tool-card .btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background: #3b82f6;
+  color: #f8fafc;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.tool-card .btn:hover {
+  background: #2563eb;
+}
+
+/* ================================
+   CLOSE BUTTON "X" INSIDE TOOLS
+================================ */
+.tool-card .close-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  background: #ef4444;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.tool-card .close-btn:hover {
+  background: #dc2626;
+}
+
+/* ================================
+   FLEXBOX / RESULT BOXES
+================================ */
+.flex-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  color: #fff;
-}
-
-/* ============================
-   CALCULATOR CONTAINER
-============================ */
-.calculator {
-  background-color: #0f172a; /* dark card background */
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  display: inline-block;
-}
-
-/* ============================
-   CALCULATOR TITLE
-============================ */
-.calculator h2 {
-  color: #3b82f6; /* theme color for title */
-  font-size: 1.6rem;
-  margin-bottom: 5px;
+  background-color: #1e293b;
+  border-radius: 0.75rem;
+  border: 2px solid #3b82f6;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  min-height: 45px;
+  color: #f8fafc;
   text-align: center;
 }
 
-.calculator p {
-  color: #94a3b8; /* lighter subtitle text */
-  font-size: 0.9rem;
-  margin-bottom: 15px;
+/* ================================
+   FLEXBOX FOR DATE DISPLAY
+================================ */
+.date-display {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 2rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  background-color: #1e293b;
+  border-radius: 0.75rem;
+  border: 2px solid #3b82f6;
+}
+
+/* ================================
+   TOOL PAGE LAYOUT
+================================ */
+.tool-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #1e293b;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 3px solid #3b82f6;
   text-align: center;
 }
 
-/* ============================
-   DISPLAY SCREEN
-============================ */
-.calculator-screen {
+.tool-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #f8fafc;
+}
+
+.tool-page p.description {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+}
+
+/* ================================
+   INPUTS & BUTTONS
+================================ */
+input, select, textarea {
   width: 100%;
-  height: 60px;
-  background-color: #1e293b; /* darker card background */
-  border: 2px solid #3b82f6; /* theme border */
-  border-radius: 10px;
-  margin-bottom: 15px;
-  padding: 10px;
-  color: #fff;
-  font-size: 1.5rem;
-  text-align: right;
-  box-sizing: border-box;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid #3b82f6;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 1rem;
+  text-align: center;
 }
 
-/* ============================
-   BUTTON GRID
-============================ */
-.calculator-buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 70px); /* 4 columns */
-  gap: 12px; /* spacing between buttons */
-  justify-content: center;
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #2563eb;
 }
 
-/* ============================
-   INDIVIDUAL BUTTONS
-============================ */
-.calculator-buttons button {
-  width: 70px;
-  height: 60px;
-  background-color: #1e293b; /* card color */
-  color: #3b82f6; /* theme text */
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: 2px solid #3b82f6; /* border matches text */
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.calculator-buttons button:hover {
-  background-color: #3b82f6;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* ============================
-   EQUAL BUTTON
-============================ */
-.calculator-buttons .equal-btn {
-  grid-column: span 4; /* full width */
-  background-color: #10b981; /* green */
-  color: #fff;
-  font-size: 1.5rem;
+button {
+  background: #3b82f6;
+  color: #f8fafc;
   border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.3s;
 }
 
-.calculator-buttons .equal-btn:hover {
-  background-color: #059669; /* darker green hover */
-  transform: translateY(-2px);
+button:hover {
+  background: #2563eb;
 }
 
-/* ============================
-   AFFILIATE BUTTONS BELOW CALCULATOR
-============================ */
-.affiliate {
-  margin-top: 15px;
-}
-
-.affiliate .aff-btn {
-  width: 100%;
-  padding: 10px 0;
-  margin-top: 10px;
-  background-color: #3b82f6;
-  color: #fff;
-  border-radius: 10px;
-  display: block;
+/* ================================
+   FOOTER
+================================ */
+footer {
+  background: #1e293b;
   text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s;
+  padding: 1.5rem 2rem;
+  margin-top: 3rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
 }
 
-.affiliate .aff-btn:hover {
-  background-color: #1e40af;
+footer a {
+  color: #3b82f6;
+  margin: 0 0.5rem;
 }
 
-.affiliate-note {
-  font-size: 12px;
-  color: #94a3b8;
-  margin-top: 5px;
-  text-align: center;
-}
+/* ================================
+   RESPONSIVE MEDIA
+================================ */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
 
-/* ============================
-   EXTRA LINKS BUTTONS
-============================ */
-.extra-btn {
-  width: 100%;
-  padding: 10px 0;
-  margin-top: 10px;
-  background-color: #38bdf8; /* light blue */
-  color: #0f172a;
-  border-radius: 10px;
-  display: block;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
+  .tool-card h3 {
+    font-size: 1.2rem;
+  }
 
-.extra-btn:hover {
-  background-color: #0ea5e9;
+  .tool-card p {
+    font-size: 0.9rem;
+  }
 }
