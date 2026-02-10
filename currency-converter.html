@@ -1,294 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Currency Converter | SG Multi Tools</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* === Tool Specific Styles === */
-
-    .tool-card {
-      width: 450px;
-      max-width: 95vw;
-    }
-
-    /* Converter Grid */
-    .converter-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    /* Currency Selectors Row */
-    .currency-row {
-      display: flex;
-      align-items: flex-end; /* Align bottom to match inputs */
-      gap: 10px;
-    }
-
-    .select-group {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-
-    .select-group label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    select {
-      width: 100%;
-      padding: 12px;
-      background-color: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      appearance: none; /* Remove default arrow */
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 16px;
-    }
-
-    /* Swap Button */
-    .swap-btn {
-      width: 40px;
-      height: 40px;
-      background: #334155;
-      border: 1px solid #475569;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--accent);
-      font-size: 1.2rem;
-      transition: 0.3s;
-      margin-bottom: 2px; /* Align visually with inputs */
-    }
-
-    .swap-btn:hover {
-      background: var(--accent);
-      color: white;
-      transform: rotate(180deg);
-    }
-
-    /* Amount Input */
-    .amount-group {
-      text-align: left;
-      margin-bottom: 10px;
-    }
-    
-    .amount-group label {
-      display: block;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-      font-size: 0.9rem;
-    }
-
-    /* Result Area */
-    .result-box {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 10px;
-    }
-
-    .result-text {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    .result-value {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-      word-break: break-word;
-    }
-
-    .rate-info {
-      margin-top: 10px;
-      font-size: 0.8rem;
-      color: #64748b;
-    }
-
-    /* Loading Spinner */
-    .loader {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #fff;
-      border-bottom-color: transparent;
-      border-radius: 50%;
-      display: inline-block;
-      box-sizing: border-box;
-      animation: rotation 1s linear infinite;
-    }
-
-    @keyframes rotation {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter - SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-  <div class="tool-card">
-    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
-    
-    <h2>Currency Converter</h2>
-
-    <div class="converter-grid">
-      
-      <!-- Amount -->
-      <div class="amount-group">
-        <label>Amount</label>
-        <input type="number" id="amount" value="1" placeholder="Enter amount">
-      </div>
-
-      <!-- Selectors -->
-      <div class="currency-row">
-        <div class="select-group">
-          <label>From</label>
-          <select id="fromCurrency"></select>
-        </div>
-
-        <button class="swap-btn" onclick="swapCurrencies()" title="Swap Currencies">
-          ⇄
+    <header>
+        <a href="index.html" class="logo-container">
+            <div class="logo">SG</div>
+            <div class="logo-text">SG Multi Tools</div>
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
         </button>
+        
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="tools.html" class="nav-link"><i class="fas fa-tools"></i> Tools</a>
+            <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </header>
 
-        <div class="select-group">
-          <label>To</label>
-          <select id="toCurrency"></select>
+    <section class="tool-page-header">
+        <div class="container">
+            <a href="tools.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Tools
+            </a>
+            <div class="tool-header-content">
+                <h1 class="tool-page-title">Currency Converter</h1>
+                <p class="tool-page-subtitle">Convert between world currencies using latest exchange rates</p>
+            </div>
         </div>
-      </div>
+    </section>
 
-    </div>
+    <section class="tool-container">
+        <div class="container">
+            <div class="tool-wrapper">
+                <!-- Amount Input -->
+                <div style="margin-bottom: 1.5rem;">
+                    <label><i class="fas fa-money-bill-wave"></i> Amount</label>
+                    <input type="number" id="amount" class="tool-input" value="100" placeholder="Enter amount" min="0" step="0.01">
+                </div>
 
-    <!-- Action Button -->
-    <button onclick="convertCurrency()" id="convertBtn">Convert Now</button>
+                <!-- Currency Selection -->
+                <div class="tool-row">
+                    <div style="flex: 1;">
+                        <label><i class="fas fa-arrow-down"></i> From</label>
+                        <select id="fromCurrency" class="tool-select">
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="INR" selected>INR - Indian Rupee</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 1.5rem;">
+                        <button id="swapBtn" class="tool-button secondary" style="padding: 0.75rem;">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <label><i class="fas fa-arrow-up"></i> To</label>
+                        <select id="toCurrency" class="tool-select">
+                            <option value="USD" selected>USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                        </select>
+                    </div>
+                </div>
 
-    <!-- Result -->
-    <div class="result-box" id="resultBox" style="display:none;">
-      <div class="result-text">Converted Amount</div>
-      <div class="result-value" id="finalResult">
-        <!-- Result goes here -->
-      </div>
-      <div class="rate-info" id="rateInfo"></div>
-    </div>
+                <!-- Convert Button -->
+                <button id="convertBtn" class="tool-button" style="width: 100%; margin: 1.5rem 0;">
+                    <i class="fas fa-exchange-alt"></i> Convert Currency
+                </button>
 
-  </div>
+                <!-- Result -->
+                <div class="result-box" style="text-align: center; padding: 2rem;">
+                    <div id="result" style="font-size: 2rem; font-weight: bold; color: var(--primary);">
+                        100 INR = 1.20 USD
+                    </div>
+                    <div id="rateInfo" style="margin-top: 1rem; color: var(--text-secondary);">
+                        1 INR = 0.012 USD
+                    </div>
+                </div>
 
-  <script>
-    const amountInput = document.getElementById('amount');
-    const fromSelect = document.getElementById('fromCurrency');
-    const toSelect = document.getElementById('toCurrency');
-    const resultBox = document.getElementById('resultBox');
-    const finalResult = document.getElementById('finalResult');
-    const rateInfo = document.getElementById('rateInfo');
-    const convertBtn = document.getElementById('convertBtn');
+                <!-- Quick Actions -->
+                <div class="tool-row">
+                    <button id="copyBtn" class="tool-button secondary">
+                        <i class="fas fa-copy"></i> Copy Result
+                    </button>
+                    <button id="resetBtn" class="tool-button secondary">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
 
-    // List of major currencies
-    const currencies = [
-      "USD", "EUR", "INR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "HKD", "NZD", "SGD", "AED", "SAR", "ZAR", "BRL", "MXN", "RUB", "KRW", "TRY"
-    ];
+                <!-- Popular Conversions -->
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">
+                        <i class="fas fa-chart-line"></i> Popular Conversions
+                    </h3>
+                    <div id="popularConversions" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+                        <!-- Popular conversions will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Populate Dropdowns
-    currencies.forEach(currency => {
-      const option1 = document.createElement("option");
-      const option2 = document.createElement("option");
-      option1.value = option2.value = currency;
-      option1.text = option2.text = currency;
-      
-      fromSelect.add(option1);
-      toSelect.add(option2);
-    });
+    <footer>
+        <div class="footer-main">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo">SG</div>
+                    <div class="logo-text">SG Multi Tools</div>
+                </div>
+                <p>A collection of 20+ free, privacy-focused utilities for daily use.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="tools.html">All Tools</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@sgtools.in</p>
+                <p>All tools are free to use</p>
+                <p>No registration required</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 SG Multi Tools. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for developers and professionals</p>
+        </div>
+    </footer>
 
-    // Set Defaults
-    fromSelect.value = "USD";
-    toSelect.value = "INR";
-
-    // API Base URL (Free, no key needed)
-    const API_URL = "https://open.er-api.com/v6/latest/";
-
-    async function convertCurrency() {
-      const amount = amountInput.value;
-      const from = fromSelect.value;
-      const to = toSelect.value;
-
-      if(amount === "" || amount < 0) {
-        alert("Please enter a valid amount");
-        return;
-      }
-
-      // Show loading state
-      convertBtn.innerHTML = '<span class="loader"></span> Converting...';
-      convertBtn.disabled = true;
-
-      try {
-        const response = await fetch(`${API_URL}${from}`);
-        const data = await response.json();
-
-        const rate = data.rates[to];
-        const result = (amount * rate).toFixed(2);
-
-        // Format numbers with commas (e.g., 1,234.56)
-        const formattedResult = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: to
-        }).format(result);
-
-        // Update UI
-        resultBox.style.display = "block";
-        finalResult.innerHTML = formattedResult;
-        rateInfo.innerHTML = `1 ${from} = ${rate} ${to}`;
-
-      } catch (error) {
-        alert("Error fetching exchange rates. Please check your internet connection.");
-        console.error(error);
-      } finally {
-        convertBtn.innerText = "Convert Now";
-        convertBtn.disabled = false;
-      }
-    }
-
-    function swapCurrencies() {
-      const temp = fromSelect.value;
-      fromSelect.value = toSelect.value;
-      toSelect.value = temp;
-      convertCurrency(); // Auto convert on swap
-    }
-
-    // Event Listeners for "Enter" key
-    amountInput.addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        convertCurrency();
-      }
-    });
-
-    // Optional: Auto-convert when changing dropdowns (uncomment if desired)
-    // fromSelect.addEventListener('change', convertCurrency);
-    // toSelect.addEventListener('change', convertCurrency);
-
-  </script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const amount = document.getElementById('amount');
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            const convertBtn = document.getElementById('convertBtn');
+            const swapBtn = document.getElementById('swapBtn');
+            const result = document.getElementById('result');
+            const rateInfo = document.getElementById('rateInfo');
+            const copyBtn = document.getElementById('copyBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const popularConversions = document.getElementById('popularConversions');
+            
+            // Exchange rates (sample data - in real app, use API)
+            const exchangeRates = {
+                USD: 1,
+                EUR: 0.92,
+                GBP: 0.79,
+                INR: 83.33,
+                JPY: 148.50,
+                CAD: 1.36,
+                AUD: 1.52,
+                CNY: 7.20
+            };
+            
+            // Currency symbols
+            const currencySymbols = {
+                USD: '$',
+                EUR: '€',
+                GBP: '£',
+                INR: '₹',
+                JPY: '¥',
+                CAD: 'C$',
+                AUD: 'A$',
+                CNY: '¥'
+            };
+            
+            // Popular conversions
+            const popularPairs = [
+                { from: 'USD', to: 'INR' },
+                { from: 'EUR', to: 'USD' },
+                { from: 'GBP', to: 'EUR' },
+                { from: 'JPY', to: 'USD' }
+            ];
+            
+            // Format currency
+            function formatCurrency(amount, currency) {
+                return `${currencySymbols[currency] || ''}${parseFloat(amount).toFixed(2)}`;
+            }
+            
+            // Convert currency
+            function convertCurrency() {
+                const from = fromCurrency.value;
+                const to = toCurrency.value;
+                const inputAmount = parseFloat(amount.value) || 0;
+                
+                // Convert to USD first, then to target currency
+                const amountInUSD = inputAmount / exchangeRates[from];
+                const convertedAmount = amountInUSD * exchangeRates[to];
+                
+                // Update result
+                result.textContent = `${formatCurrency(inputAmount, from)} = ${formatCurrency(convertedAmount, to)}`;
+                rateInfo.textContent = `1 ${from} = ${(exchangeRates[to] / exchangeRates[from]).toFixed(4)} ${to}`;
+            }
+            
+            // Swap currencies
+            function swapCurrencies() {
+                const from = fromCurrency.value;
+                const to = toCurrency.value;
+                
+                fromCurrency.value = to;
+                toCurrency.value = from;
+                
+                convertCurrency();
+            }
+            
+            // Load popular conversions
+            function loadPopularConversions() {
+                popularConversions.innerHTML = '';
+                
+                popularPairs.forEach(pair => {
+                    const from = pair.from;
+                    const to = pair.to;
+                    const rate = (exchangeRates[to] / exchangeRates[from]).toFixed(4);
+                    
+                    const div = document.createElement('div');
+                    div.style.background = 'var(--bg-dark)';
+                    div.style.padding = '0.75rem';
+                    div.style.borderRadius = '8px';
+                    div.style.border = '1px solid var(--border-color)';
+                    div.style.cursor = 'pointer';
+                    div.style.textAlign = 'center';
+                    
+                    div.innerHTML = `
+                        <div style="font-weight: bold; color: var(--primary);">${from} → ${to}</div>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary);">1 ${from} = ${rate} ${to}</div>
+                    `;
+                    
+                    div.addEventListener('click', () => {
+                        fromCurrency.value = from;
+                        toCurrency.value = to;
+                        convertCurrency();
+                    });
+                    
+                    popularConversions.appendChild(div);
+                });
+            }
+            
+            // Event listeners
+            convertBtn.addEventListener('click', convertCurrency);
+            
+            swapBtn.addEventListener('click', swapCurrencies);
+            
+            amount.addEventListener('input', convertCurrency);
+            fromCurrency.addEventListener('change', convertCurrency);
+            toCurrency.addEventListener('change', convertCurrency);
+            
+            copyBtn.addEventListener('click', function() {
+                const text = `${amount.value} ${fromCurrency.value} = ${result.textContent}`;
+                navigator.clipboard.writeText(text);
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Result';
+                }, 2000);
+            });
+            
+            resetBtn.addEventListener('click', function() {
+                amount.value = 100;
+                fromCurrency.value = 'INR';
+                toCurrency.value = 'USD';
+                convertCurrency();
+            });
+            
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Initialize
+            convertCurrency();
+            loadPopularConversions();
+        });
+    </script>
 </body>
 </html>
