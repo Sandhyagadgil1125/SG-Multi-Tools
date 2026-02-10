@@ -4,121 +4,258 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Age Calculator | SG Multi Tools</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.png">
-
-  <!-- Main CSS -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <!-- Link to Main CSS -->
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Tool-specific overrides if needed */
-    .tool-card {
-      max-width: 500px;
-      margin: 50px auto;
-      padding: 25px;
-      background-color: var(--card);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* === Tool Specific Styles === */
+    
+    /* Input Group Layout */
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
-    .tool-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    /* Results Container - Hidden by default */
+    #resultContainer {
+      display: none;
+      margin-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* Main Age Grid (Years, Months, Days) */
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
       margin-bottom: 20px;
     }
 
-    .tool-header h2 {
-      font-size: 1.5rem;
-      color: #fff;
-    }
-
-    .close-btn {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .tool-body input, 
-    .tool-body button {
-      width: 100%;
-      padding: 10px 15px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-
-    .tool-body button {
-      background-color: #2563eb;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    .tool-body button:hover {
-      background-color: #1e40af;
-    }
-
-    .result {
-      background: #1e293b;
-      padding: 12px;
-      border-radius: 6px;
-      color: #f1f5f9;
-      font-weight: bold;
+    .age-box {
+      background: rgba(255,255,255,0.05);
+      padding: 15px 5px;
+      border-radius: 8px;
       text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .age-box span {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .age-box small {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    /* Next Birthday Section */
+    .next-birthday {
+      background: rgba(37, 99, 235, 0.1); /* Low opacity accent */
+      border: 1px solid var(--accent);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .next-birthday strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .next-birthday span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Summary List */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .summary-item {
+      background: #0f172a;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border: 1px solid #334155;
+    }
+
+    .summary-item b {
+      color: var(--text);
+      float: right;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <!-- Tool Card -->
+
   <div class="tool-card">
-    <div class="tool-header">
-      <h2>Age Calculator</h2>
-      <span class="close-btn" onclick="window.location.href='index.html'">X</span>
+    <!-- Close Button -->
+    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+
+    <h2>Age Calculator</h2>
+
+    <!-- Inputs -->
+    <div class="input-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob">
     </div>
 
-    <div class="tool-body">
-      <p>Enter your date of birth:</p>
-      <input type="date" id="dob" placeholder="DD/MM/YYYY">
+    <div class="input-group">
+      <label for="todayDate">Age at the Date of</label>
+      <input type="date" id="todayDate">
+    </div>
 
-      <button onclick="calculateAge()">Calculate Age</button>
+    <button onclick="calculateAge()">Calculate Age</button>
 
-      <div class="result" id="ageResult">Your age will appear here</div>
+    <!-- Results Area -->
+    <div id="resultContainer">
+      
+      <!-- Main Age Display -->
+      <div class="age-grid">
+        <div class="age-box">
+          <span id="resYears">0</span>
+          <small>Years</small>
+        </div>
+        <div class="age-box">
+          <span id="resMonths">0</span>
+          <small>Months</small>
+        </div>
+        <div class="age-box">
+          <span id="resDays">0</span>
+          <small>Days</small>
+        </div>
+      </div>
+
+      <!-- Next Birthday -->
+      <div class="next-birthday">
+        <strong>Next Birthday</strong>
+        <span id="nextBirthdayInfo">Friday, 5 Months 12 Days remaining</span>
+      </div>
+
+      <!-- Summary Stats -->
+      <div class="summary-grid">
+        <div class="summary-item">Total Months: <b id="totalMonths">0</b></div>
+        <div class="summary-item">Total Weeks: <b id="totalWeeks">0</b></div>
+        <div class="summary-item">Total Days: <b id="totalDays">0</b></div>
+        <div class="summary-item">Total Hours: <b id="totalHours">0</b></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- JS -->
   <script>
+    // Set default "Age at Date of" to today's date on load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('todayDate').valueAsDate = new Date();
+    });
+
     function calculateAge() {
       const dobInput = document.getElementById('dob').value;
-      if (!dobInput) {
-        alert('Please select your date of birth');
+      const todayInput = document.getElementById('todayDate').value;
+
+      if (!dobInput || !todayInput) {
+        alert("Please enter both dates.");
         return;
       }
 
       const dob = new Date(dobInput);
-      const today = new Date();
+      const today = new Date(todayInput);
 
+      // Validate dates
+      if (dob > today) {
+        alert("Date of Birth cannot be in the future relative to the comparison date!");
+        document.getElementById('resultContainer').style.display = 'none';
+        return;
+      }
+
+      // 1. Calculate Years, Months, Days
       let years = today.getFullYear() - dob.getFullYear();
       let months = today.getMonth() - dob.getMonth();
       let days = today.getDate() - dob.getDate();
 
+      // Adjust for negative days (borrow from previous month)
       if (days < 0) {
         months--;
-        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        // Get days in previous month
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        days += prevMonth;
       }
 
+      // Adjust for negative months (borrow from year)
       if (months < 0) {
         years--;
         months += 12;
       }
 
-      document.getElementById('ageResult').textContent =
-        `${years} years, ${months} months, ${days} days`;
+      // 2. Calculate Totals (Summary)
+      const diffTime = Math.abs(today - dob);
+      const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const totalWeeks = Math.floor(totalDays / 7);
+      const totalMonths = (years * 12) + months;
+      const totalHours = totalDays * 24;
+
+      // 3. Calculate Next Birthday
+      const nextBirthday = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+      if (today > nextBirthday) {
+        nextBirthday.setFullYear(today.getFullYear() + 1);
+      }
+      
+      const diffNext = nextBirthday - today;
+      const daysToNext = Math.ceil(diffNext / (1000 * 60 * 60 * 24));
+      
+      // Get day name of next birthday
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const nextDayName = daysOfWeek[nextBirthday.getDay()];
+
+      // 4. Update UI
+      document.getElementById('resYears').innerText = years;
+      document.getElementById('resMonths').innerText = months;
+      document.getElementById('resDays').innerText = days;
+
+      document.getElementById('totalMonths').innerText = totalMonths.toLocaleString();
+      document.getElementById('totalWeeks').innerText = totalWeeks.toLocaleString();
+      document.getElementById('totalDays').innerText = totalDays.toLocaleString();
+      document.getElementById('totalHours').innerText = totalHours.toLocaleString();
+
+      let nextBdayString = "";
+      if(daysToNext === 0 || daysToNext === 365 || daysToNext === 366) {
+        nextBdayString = "Happy Birthday! It's today! 🎉";
+      } else {
+        nextBdayString = `${nextDayName}, ${daysToNext} days remaining`;
+      }
+      document.getElementById('nextBirthdayInfo').innerText = nextBdayString;
+
+      // Show results
+      document.getElementById('resultContainer').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
