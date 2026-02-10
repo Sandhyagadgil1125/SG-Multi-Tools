@@ -1,68 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Color Picker | SG Multi Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Picker | SG Multi Tools</title>
 
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* === Tool Specific Styles === */
+    
+    .tool-card {
+      width: 500px; /* Slightly wider than default */
+    }
+
+    /* Color Preview Section */
+    .preview-container {
+      position: relative;
+      width: 100%;
+      height: 150px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      border: 2px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+      overflow: hidden;
+    }
+
+    .preview-container:hover {
+      transform: scale(1.02);
+    }
+
+    /* The actual input is hidden but clickable via the container */
+    #colorInput {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .color-label {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    /* Value Inputs */
+    .value-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+
+    .value-row label {
+      width: 50px;
+      font-weight: bold;
+      color: var(--text-muted);
+    }
+
+    .value-row input {
+      margin-bottom: 0; /* Override global CSS */
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #fff;
+      font-family: monospace;
+    }
+
+    .copy-btn {
+      width: auto !important; /* Override global button width */
+      padding: 10px 15px;
+      background: #334155;
+    }
+    
+    .copy-btn:hover {
+      background: var(--accent);
+    }
+
+    /* Shades Palette */
+    .palette-title {
+      margin: 20px 0 10px;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .shades-grid {
+      display: flex;
+      height: 50px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .shade {
+      flex: 1;
+      cursor: pointer;
+      transition: flex 0.2s;
+    }
+    .shade:hover {
+      flex: 2;
+    }
+
+    /* Random Button */
+    .btn-random {
+      background-color: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .btn-random:hover {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10b981;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s;
+      z-index: 100;
+    }
+    #toast.show {
+      opacity: 1;
+      top: 30px;
+    }
+
+  </style>
 </head>
-
 <body>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
+  <!-- Toast Notification -->
+  <div id="toast">Copied to clipboard!</div>
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
-
+  <div class="tool-card">
+    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+    
     <h2>Color Picker</h2>
-    <p class="description">Pick colors and get HEX & RGB values instantly</p>
 
-    <label>Select Color</label>
-    <input type="color" id="colorInput" value="#38bdf8">
+    <button class="btn-random" onclick="generateRandom()">🎲 Random Color</button>
 
-    <div class="result" id="result">
-      <strong>HEX:</strong> <span id="hexVal">#38bdf8</span><br>
-      <strong>RGB:</strong> <span id="rgbVal">rgb(56, 189, 248)</span>
+    <!-- Visual Preview -->
+    <div class="preview-container" id="previewBox" style="background-color: #2563eb;">
+      <input type="color" id="colorInput" value="#2563eb">
+      <div class="color-label">Click to Pick</div>
     </div>
 
-    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr); margin-top:12px;">
-      <button onclick="copyHEX()">Copy HEX</button>
-      <button onclick="copyRGB()">Copy RGB</button>
+    <!-- HEX -->
+    <div class="value-row">
+      <label>HEX</label>
+      <input type="text" id="hexVal" readonly value="#2563eb">
+      <button class="copy-btn" onclick="copyToClipboard('hexVal')">Copy</button>
+    </div>
+
+    <!-- RGB -->
+    <div class="value-row">
+      <label>RGB</label>
+      <input type="text" id="rgbVal" readonly value="rgb(37, 99, 235)">
+      <button class="copy-btn" onclick="copyToClipboard('rgbVal')">Copy</button>
+    </div>
+
+    <!-- HSL -->
+    <div class="value-row">
+      <label>HSL</label>
+      <input type="text" id="hslVal" readonly value="hsl(221, 83%, 53%)">
+      <button class="copy-btn" onclick="copyToClipboard('hslVal')">Copy</button>
+    </div>
+
+    <!-- Shades -->
+    <div class="palette-title">Generated Shades</div>
+    <div class="shades-grid" id="shadesGrid">
+      <!-- Generated via JS -->
     </div>
 
   </div>
-</div>
 
-<script>
-const colorInput = document.getElementById("colorInput");
-const hexVal = document.getElementById("hexVal");
-const rgbVal = document.getElementById("rgbVal");
+  <script>
+    const colorInput = document.getElementById('colorInput');
+    const previewBox = document.getElementById('previewBox');
+    
+    // Inputs
+    const hexInput = document.getElementById('hexVal');
+    const rgbInput = document.getElementById('rgbVal');
+    const hslInput = document.getElementById('hslVal');
+    const shadesGrid = document.getElementById('shadesGrid');
 
-colorInput.addEventListener("input", updateColor);
+    // Initialize
+    updateUI(colorInput.value);
 
-function updateColor(){
-  const hex = colorInput.value;
-  hexVal.textContent = hex;
+    // Event Listener
+    colorInput.addEventListener('input', (e) => {
+      updateUI(e.target.value);
+    });
 
-  const r = parseInt(hex.substr(1,2),16);
-  const g = parseInt(hex.substr(3,2),16);
-  const b = parseInt(hex.substr(5,2),16);
+    function updateUI(hex) {
+      // 1. Update Preview
+      previewBox.style.backgroundColor = hex;
+      hexInput.value = hex;
 
-  rgbVal.textContent = `rgb(${r}, ${g}, ${b})`;
-}
+      // 2. Convert to RGB
+      const rgb = hexToRgb(hex);
+      rgbInput.value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
 
-function copyHEX(){
-  navigator.clipboard.writeText(hexVal.textContent);
-  alert("HEX color copied");
-}
+      // 3. Convert to HSL
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      hslInput.value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
 
-function copyRGB(){
-  navigator.clipboard.writeText(rgbVal.textContent);
-  alert("RGB color copied");
-}
-</script>
+      // 4. Generate Shades
+      generateShades(hex);
+    }
+
+    function generateRandom() {
+      const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+      colorInput.value = randomColor;
+      updateUI(randomColor);
+    }
+
+    function generateShades(hex) {
+      shadesGrid.innerHTML = '';
+      // We will create 5 shades by manipulating opacity/lightness crudely via opacity overlay technique
+      // Or actually calculating HSL lightness. Let's use HSL lightness calculation.
+      
+      const rgb = hexToRgb(hex);
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      
+      // Generate 5 steps of Lightness from 10% to 90%
+      const steps = [15, 30, 50, 70, 85];
+      
+      steps.forEach(lightness => {
+        const div = document.createElement('div');
+        div.className = 'shade';
+        div.style.backgroundColor = `hsl(${hsl.h}, ${hsl.s}%, ${lightness}%)`;
+        div.title = `hsl(${hsl.h}, ${hsl.s}%, ${lightness}%)`;
+        div.onclick = function() {
+            // Convert HSL back to Hex to update the main picker (complex, skipping for simplicity, just copying logic)
+            // For now, let's just make it visually pleasing.
+        };
+        shadesGrid.appendChild(div);
+      });
+    }
+
+    // --- Math Helpers ---
+
+    function hexToRgb(hex) {
+      // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+      const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : { r: 0, g: 0, b: 0 };
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0; // achromatic
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+
+      return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
+
+    // --- Clipboard ---
+    function copyToClipboard(elementId) {
+      const copyText = document.getElementById(elementId);
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
+      
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
 
 </body>
 </html>
