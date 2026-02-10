@@ -1,75 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Case Changer | SG Multi Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Converter | SG Multi Tools</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
 
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* === Tool Specific Styles === */
+    
+    /* Make the card wider for text editing */
+    .tool-card {
+      width: 800px;
+      max-width: 95vw;
+    }
+
+    /* Text Area Styling */
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background-color: #0f172a;
+      color: var(--text);
+      font-size: 1rem;
+      resize: vertical;
+      margin-bottom: 10px;
+      outline: none;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Stats Bar (Word/Char count) */
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      padding: 0 5px;
+    }
+
+    /* Button Grids */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+    }
+
+    /* Button Variations */
+    button.secondary {
+      background-color: #334155;
+    }
+    button.secondary:hover {
+      background-color: #475569;
+    }
+
+    button.success {
+      background-color: #10b981; /* Green for Copy */
+    }
+    button.success:hover {
+      background-color: #059669;
+    }
+
+    button.danger {
+      background-color: #ef4444; /* Red for Clear */
+    }
+    button.danger:hover {
+      background-color: #dc2626;
+    }
+
+    /* Copy Feedback Toast */
+    #copyMsg {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10b981;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    #copyMsg.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .action-row {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
+  <div class="tool-card">
+    <!-- Close Button -->
+    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+    <div id="copyMsg">Text Copied!</div>
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <h2>Case Converter</h2>
 
-    <h2>Case Changer</h2>
-    <p class="description">Convert text into different letter cases instantly</p>
-
-    <label>Enter Text</label>
-    <textarea id="inputText" rows="5" placeholder="Type or paste your text here..."></textarea>
-
-    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
-      <button onclick="toUpper()">UPPER CASE</button>
-      <button onclick="toLower()">lower case</button>
-      <button onclick="toTitle()">Title Case</button>
-      <button onclick="toSentence()">Sentence case</button>
+    <!-- Text Input -->
+    <textarea id="textBox" placeholder="Type or paste your text here..." oninput="updateStats()"></textarea>
+    
+    <!-- Stats -->
+    <div class="stats-bar">
+      <span id="wordCount">0 Words</span>
+      <span id="charCount">0 Characters</span>
     </div>
 
-    <div class="result" id="result" style="display:none;"></div>
+    <!-- Transformation Buttons -->
+    <div class="controls-grid">
+      <button onclick="transform('upper')">UPPERCASE</button>
+      <button onclick="transform('lower')">lowercase</button>
+      <button class="secondary" onclick="transform('title')">Title Case</button>
+      <button class="secondary" onclick="transform('sentence')">Sentence case</button>
+      <button class="secondary" onclick="transform('inverse')">iNVERSE cASE</button>
+      <button class="secondary" onclick="transform('alternate')">aLtErNaTiNg</button>
+    </div>
 
+    <!-- Action Buttons -->
+    <div class="action-row">
+      <button class="success" onclick="copyText()">Copy to Clipboard</button>
+      <button class="secondary" onclick="downloadText()">Download .txt</button>
+      <button class="danger" onclick="clearText()">Clear</button>
+    </div>
   </div>
-</div>
 
-<script>
-function toUpper(){
-  convert(text => text.toUpperCase());
-}
+  <script>
+    const textBox = document.getElementById('textBox');
+    const wordCountSpan = document.getElementById('wordCount');
+    const charCountSpan = document.getElementById('charCount');
 
-function toLower(){
-  convert(text => text.toLowerCase());
-}
+    // 1. Update Statistics
+    function updateStats() {
+      const text = textBox.value;
+      const charCount = text.length;
+      
+      // Count words (filter out empty strings from multiple spaces)
+      const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
 
-function toTitle(){
-  convert(text =>
-    text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
-  );
-}
+      charCountSpan.textContent = `${charCount} Characters`;
+      wordCountSpan.textContent = `${wordCount} Words`;
+    }
 
-function toSentence(){
-  convert(text =>
-    text
-      .toLowerCase()
-      .replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase())
-  );
-}
+    // 2. Transformation Logic
+    function transform(type) {
+      let text = textBox.value;
+      if (!text) return;
 
-function convert(transform){
-  const input = document.getElementById("inputText").value.trim();
+      switch(type) {
+        case 'upper':
+          textBox.value = text.toUpperCase();
+          break;
+        case 'lower':
+          textBox.value = text.toLowerCase();
+          break;
+        case 'title':
+          textBox.value = text.toLowerCase().split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+          break;
+        case 'sentence':
+          // Split by sentence delimiters (. ! ?) and capitalize first letter
+          textBox.value = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, function(c) {
+            return c.toUpperCase();
+          });
+          break;
+        case 'inverse':
+          textBox.value = text.split('').map(char => {
+            if (char === char.toUpperCase()) return char.toLowerCase();
+            return char.toUpperCase();
+          }).join('');
+          break;
+        case 'alternate':
+          textBox.value = text.split('').map((char, index) => {
+             // Even index lowercase, odd index uppercase (or vice versa)
+             return index % 2 === 0 ? char.toLowerCase() : char.toUpperCase();
+          }).join('');
+          break;
+      }
+      updateStats();
+    }
 
-  if(!input){
-    alert("Please enter some text");
-    return;
-  }
+    // 3. Action Functions
+    function copyText() {
+      if (!textBox.value) return;
+      
+      textBox.select();
+      textBox.setSelectionRange(0, 99999); // Mobile compatibility
+      navigator.clipboard.writeText(textBox.value).then(() => {
+        showToast();
+      });
+    }
 
-  document.getElementById("result").style.display = "block";
-  document.getElementById("result").innerHTML =
-    `<strong>Result:</strong><br>${transform(input)}`;
-}
-</script>
+    function clearText() {
+      if(confirm("Are you sure you want to clear the text?")) {
+        textBox.value = '';
+        updateStats();
+      }
+    }
+
+    function downloadText() {
+      if (!textBox.value) return;
+      const element = document.createElement('a');
+      const file = new Blob([textBox.value], {type: 'text/plain'});
+      element.href = URL.createObjectURL(file);
+      element.download = "sgtools-text.txt";
+      document.body.appendChild(element); // Required for Firefox
+      element.click();
+      document.body.removeChild(element);
+    }
+
+    // Toast Notification
+    function showToast() {
+      const msg = document.getElementById('copyMsg');
+      msg.classList.add('show');
+      setTimeout(() => {
+        msg.classList.remove('show');
+      }, 2000);
+    }
+  </script>
 
 </body>
 </html>
