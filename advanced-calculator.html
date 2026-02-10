@@ -1,284 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Calculator | SG Multi Tools</title>
-
-<link rel="icon" href="/favicon.ico">
-
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#020617;
-  --input:#020617;
-  --text:#e5e7eb;
-  --muted:#94a3b8;
-  --border-main:#38bdf8;
-  --accent:#22c55e;
-}
-
-/* ===== RESET ===== */
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:14px;
-}
-
-/* ===== TOOL CARD ===== */
-.tool-wrapper{
-  width:100%;
-  max-width:420px;
-  background:var(--card);
-  border:2px solid var(--border-main);
-  border-radius:14px;
-  padding:18px 16px 20px;
-  position:relative;
-  text-align:center;
-}
-
-/* ===== CLOSE BUTTON ===== */
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:12px;
-  font-size:18px;
-  color:var(--muted);
-  cursor:pointer;
-  line-height:1;
-}
-
-/* ===== HEADINGS ===== */
-h1{
-  font-size:20px;
-  margin-bottom:6px;
-}
-
-.desc{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:14px;
-}
-
-/* ===== INPUT DISPLAY ===== */
-.calc-screen{
-  background:var(--input);
-  border:2px solid var(--border-main);
-  border-radius:10px;
-  padding:12px;
-  margin-bottom:14px;
-}
-
-.calc-screen input{
-  width:100%;
-  background:transparent;
-  border:none;
-  outline:none;
-  color:var(--text);
-  font-size:18px;
-  text-align:center;
-}
-
-/* ===== CALCULATOR GRID ===== */
-.calc-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-.calc-grid button{
-  padding:14px 0;
-  font-size:16px;
-  font-weight:700;
-  border-radius:10px;
-  border:2px solid var(--border-main);
-  background:var(--input);
-  color:var(--text);
-  cursor:pointer;
-}
-
-.calc-grid button:active{
-  transform:scale(0.97);
-}
-
-.calc-grid .equals{
-  grid-column:span 4;
-  background:var(--accent);
-  color:#022c22;
-  border-color:var(--accent);
-}
-
-/* ===== LOADING STATE ===== */
-.loading{
-  opacity:0.6;
-  pointer-events:none;
-}
-
-.loader{
-  display:none;
-  margin:14px auto 0;
-  width:26px;
-  height:26px;
-  border:3px solid #1e293b;
-  border-top:3px solid var(--border-main);
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{ transform:rotate(360deg); }
-}
-
-/* ===== AFFILIATE ===== */
-.affiliate{
-  margin-top:16px;
-}
-
-.affiliate-title{
-  font-size:14px;
-  margin-bottom:8px;
-  color:#dbeafe;
-}
-
-.affiliate-actions{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.aff-btn{
-  padding:10px 14px;
-  border-radius:8px;
-  font-size:14px;
-  font-weight:700;
-  text-decoration:none;
-  min-width:180px;
-  text-align:center;
-}
-
-.primary-aff{
-  background:#22c55e;
-  color:#022c22;
-}
-
-.secondary-aff{
-  background:#38bdf8;
-  color:#022c22;
-}
-
-.affiliate-note{
-  margin-top:8px;
-  font-size:11px;
-  opacity:0.7;
-}
-
-/* ===== MOBILE SAFETY ===== */
-@media (max-width:480px){
-  .tool-wrapper{
-    padding:16px 14px 18px;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator - SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
+    <header>
+        <a href="index.html" class="logo-container">
+            <div class="logo">SG</div>
+            <div class="logo-text">SG Multi Tools</div>
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="tools.html" class="nav-link"><i class="fas fa-tools"></i> Tools</a>
+            <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </header>
 
-<div class="tool-wrapper" id="tool">
-  <div class="close-btn" onclick="history.back()">✕</div>
+    <section class="tool-page-header">
+        <div class="container">
+            <a href="tools.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Tools
+            </a>
+            <div class="tool-header-content">
+                <h1 class="tool-page-title">Advanced Calculator</h1>
+                <p class="tool-page-subtitle">Scientific calculator with advanced functions</p>
+            </div>
+        </div>
+    </section>
 
-  <h1>Advanced Calculator</h1>
-  <p class="desc">Perform accurate calculations instantly.</p>
+    <!-- Affiliate Notice -->
+    <div class="container">
+        <div class="affiliate-notice">
+            <i class="fas fa-star"></i>
+            <h3>Professional Calculator Suite</h3>
+            <p>For advanced calculations, graphing, and professional features:</p>
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="tool-button" style="margin: 1rem 0;">
+                <i class="fas fa-external-link-alt"></i> Get Professional Calculator
+            </a>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">We may earn a commission on purchases</p>
+        </div>
+    </div>
 
-  <div class="calc-screen">
-    <input id="screen" type="text" readonly>
-  </div>
+    <section class="tool-container">
+        <div class="container">
+            <div class="tool-wrapper">
+                <!-- Calculator Display -->
+                <div class="calculator-display" id="display">0</div>
+                
+                <!-- Calculator Buttons -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                    <!-- Row 1 -->
+                    <button class="calc-btn func" data-action="clear">C</button>
+                    <button class="calc-btn func" data-action="backspace">⌫</button>
+                    <button class="calc-btn func" data-action="percent">%</button>
+                    <button class="calc-btn op" data-action="divide">/</button>
+                    
+                    <!-- Row 2 -->
+                    <button class="calc-btn" data-number="7">7</button>
+                    <button class="calc-btn" data-number="8">8</button>
+                    <button class="calc-btn" data-number="9">9</button>
+                    <button class="calc-btn op" data-action="multiply">×</button>
+                    
+                    <!-- Row 3 -->
+                    <button class="calc-btn" data-number="4">4</button>
+                    <button class="calc-btn" data-number="5">5</button>
+                    <button class="calc-btn" data-number="6">6</button>
+                    <button class="calc-btn op" data-action="subtract">-</button>
+                    
+                    <!-- Row 4 -->
+                    <button class="calc-btn" data-number="1">1</button>
+                    <button class="calc-btn" data-number="2">2</button>
+                    <button class="calc-btn" data-number="3">3</button>
+                    <button class="calc-btn op" data-action="add">+</button>
+                    
+                    <!-- Row 5 -->
+                    <button class="calc-btn" data-number="0">0</button>
+                    <button class="calc-btn" data-action="decimal">.</button>
+                    <button class="calc-btn" data-action="pi">π</button>
+                    <button class="calc-btn op equals" data-action="equals">=</button>
+                </div>
+                
+                <!-- Scientific Functions -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                    <button class="calc-btn sci" data-action="sqrt">√</button>
+                    <button class="calc-btn sci" data-action="power">x²</button>
+                    <button class="calc-btn sci" data-action="sin">sin</button>
+                    <button class="calc-btn sci" data-action="cos">cos</button>
+                    <button class="calc-btn sci" data-action="tan">tan</button>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 0.5rem;">
+                    <button class="calc-btn sci" data-action="log">log</button>
+                    <button class="calc-btn sci" data-action="ln">ln</button>
+                    <button class="calc-btn sci" data-action="exp">eˣ</button>
+                    <button class="calc-btn sci" data-action="factorial">x!</button>
+                    <button class="calc-btn sci" data-action="inverse">1/x</button>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="tool-row" style="margin-top: 1.5rem;">
+                    <button id="copyResult" class="tool-button secondary">
+                        <i class="fas fa-copy"></i> Copy Result
+                    </button>
+                    <button id="clearHistory" class="tool-button secondary">
+                        <i class="fas fa-trash"></i> Clear History
+                    </button>
+                </div>
+                
+                <!-- History -->
+                <div class="result-box" style="margin-top: 1.5rem; min-height: 100px;">
+                    <h4 style="margin-bottom: 0.5rem;">History</h4>
+                    <div id="history"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="calc-grid">
-    <button onclick="press('7')">7</button>
-    <button onclick="press('8')">8</button>
-    <button onclick="press('9')">9</button>
-    <button onclick="press('/')">÷</button>
+    <footer>
+        <div class="footer-main">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo">SG</div>
+                    <div class="logo-text">SG Multi Tools</div>
+                </div>
+                <p>A collection of 20+ free, privacy-focused utilities for daily use.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="tools.html">All Tools</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@sgtools.in</p>
+                <p>All tools are free to use</p>
+                <p>No registration required</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 SG Multi Tools. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for developers and professionals</p>
+        </div>
+    </footer>
 
-    <button onclick="press('4')">4</button>
-    <button onclick="press('5')">5</button>
-    <button onclick="press('6')">6</button>
-    <button onclick="press('*')">×</button>
-
-    <button onclick="press('1')">1</button>
-    <button onclick="press('2')">2</button>
-    <button onclick="press('3')">3</button>
-    <button onclick="press('-')">−</button>
-
-    <button onclick="press('0')">0</button>
-    <button onclick="press('.')">.</button>
-    <button onclick="clearScreen()">C</button>
-    <button onclick="press('+')">+</button>
-
-    <button class="equals" onclick="calculate()">=</button>
-  </div>
-
-  <div class="affiliate-actions">
-  <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/"
-     target="_blank"
-     class="aff-btn primary-aff">
-     Get Advanced Online Tools
-  </a>
-
-  <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/"
-     target="_blank"
-     class="aff-btn secondary-aff">
-     Explore More Useful Tools
-  </a>
-<div class="affiliate-note">
-  *Affiliate links may earn us a commission at no extra cost to you.
-</div>
-
-    
-</div>
-
-<p class="affiliate-note">Affiliate disclosure</p>
-
-
-<script>
-const screen = document.getElementById("screen");
-const loader = document.getElementById("loader");
-const tool = document.getElementById("tool");
-
-function press(val){
-  screen.value += val;
-}
-
-function clearScreen(){
-  screen.value = "";
-}
-
-function calculate(){
-  tool.classList.add("loading");
-  loader.style.display = "block";
-
-  setTimeout(()=>{
-    try{
-      screen.value = Function("return " + screen.value)();
-    }catch{
-      alert("Invalid calculation");
-    }
-    loader.style.display = "none";
-    tool.classList.remove("loading");
-  },300);
-}
-</script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const display = document.getElementById('display');
+            const historyDiv = document.getElementById('history');
+            const copyResultBtn = document.getElementById('copyResult');
+            const clearHistoryBtn = document.getElementById('clearHistory');
+            const buttons = document.querySelectorAll('.calc-btn');
+            
+            let currentInput = '0';
+            let previousInput = '';
+            let operation = null;
+            let resetDisplay = false;
+            let calculationHistory = [];
+            
+            // Button click handler
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    const number = this.getAttribute('data-number');
+                    
+                    if (number !== null) {
+                        inputNumber(number);
+                    } else if (action !== null) {
+                        handleAction(action);
+                    }
+                });
+            });
+            
+            function inputNumber(num) {
+                if (currentInput === '0' || resetDisplay) {
+                    currentInput = num;
+                    resetDisplay = false;
+                } else {
+                    currentInput += num;
+                }
+                updateDisplay();
+            }
+            
+            function handleAction(action) {
+                switch(action) {
+                    case 'clear':
+                        currentInput = '0';
+                        previousInput = '';
+                        operation = null;
+                        break;
+                    case 'backspace':
+                        if (currentInput.length > 1) {
+                            currentInput = currentInput.slice(0, -1);
+                        } else {
+                            currentInput = '0';
+                        }
+                        break;
+                    case 'decimal':
+                        if (!currentInput.includes('.')) {
+                            currentInput += '.';
+                        }
+                        break;
+                    case 'pi':
+                        currentInput = Math.PI.toString();
+                        break;
+                    case 'percent':
+                        currentInput = (parseFloat(currentInput) / 100).toString();
+                        break;
+                    case 'add':
+                    case 'subtract':
+                    case 'multiply':
+                    case 'divide':
+                        if (previousInput !== '') {
+                            calculate();
+                        }
+                        operation = action;
+                        previousInput = currentInput;
+                        resetDisplay = true;
+                        break;
+                    case 'equals':
+                        if (previousInput !== '' && operation !== null) {
+                            calculate();
+                            operation = null;
+                            previousInput = '';
+                        }
+                        break;
+                    case 'sqrt':
+                        currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+                        addToHistory(`√(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'power':
+                        currentInput = Math.pow(parseFloat(currentInput), 2).toString();
+                        addToHistory(`(${previousInput || currentInput})² = ${currentInput}`);
+                        break;
+                    case 'sin':
+                        currentInput = Math.sin(parseFloat(currentInput) * Math.PI / 180).toString();
+                        addToHistory(`sin(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'cos':
+                        currentInput = Math.cos(parseFloat(currentInput) * Math.PI / 180).toString();
+                        addToHistory(`cos(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'tan':
+                        currentInput = Math.tan(parseFloat(currentInput) * Math.PI / 180).toString();
+                        addToHistory(`tan(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'log':
+                        currentInput = Math.log10(parseFloat(currentInput)).toString();
+                        addToHistory(`log(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'ln':
+                        currentInput = Math.log(parseFloat(currentInput)).toString();
+                        addToHistory(`ln(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'exp':
+                        currentInput = Math.exp(parseFloat(currentInput)).toString();
+                        addToHistory(`e^(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                    case 'factorial':
+                        currentInput = factorial(parseInt(currentInput)).toString();
+                        addToHistory(`(${previousInput || currentInput})! = ${currentInput}`);
+                        break;
+                    case 'inverse':
+                        currentInput = (1 / parseFloat(currentInput)).toString();
+                        addToHistory(`1/(${previousInput || currentInput}) = ${currentInput}`);
+                        break;
+                }
+                updateDisplay();
+            }
+            
+            function calculate() {
+                let result;
+                const prev = parseFloat(previousInput);
+                const current = parseFloat(currentInput);
+                
+                if (isNaN(prev) || isNaN(current)) return;
+                
+                switch(operation) {
+                    case 'add':
+                        result = prev + current;
+                        break;
+                    case 'subtract':
+                        result = prev - current;
+                        break;
+                    case 'multiply':
+                        result = prev * current;
+                        break;
+                    case 'divide':
+                        result = prev / current;
+                        break;
+                    default:
+                        return;
+                }
+                
+                const operationSymbol = getOperationSymbol(operation);
+                addToHistory(`${prev} ${operationSymbol} ${current} = ${result}`);
+                
+                currentInput = result.toString();
+                resetDisplay = true;
+            }
+            
+            function getOperationSymbol(op) {
+                switch(op) {
+                    case 'add': return '+';
+                    case 'subtract': return '-';
+                    case 'multiply': return '×';
+                    case 'divide': return '÷';
+                    default: return '';
+                }
+            }
+            
+            function factorial(n) {
+                if (n < 0) return NaN;
+                if (n === 0 || n === 1) return 1;
+                return n * factorial(n - 1);
+            }
+            
+            function addToHistory(calculation) {
+                calculationHistory.unshift(calculation);
+                if (calculationHistory.length > 10) {
+                    calculationHistory.pop();
+                }
+                updateHistory();
+            }
+            
+            function updateHistory() {
+                historyDiv.innerHTML = '';
+                calculationHistory.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item;
+                    div.style.padding = '0.25rem 0';
+                    div.style.borderBottom = '1px solid var(--border-color)';
+                    historyDiv.appendChild(div);
+                });
+            }
+            
+            function updateDisplay() {
+                let displayValue = currentInput;
+                if (displayValue.length > 12) {
+                    displayValue = parseFloat(displayValue).toExponential(6);
+                }
+                display.textContent = displayValue;
+            }
+            
+            // Copy result
+            copyResultBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(display.textContent).then(() => {
+                    const original = copyResultBtn.innerHTML;
+                    copyResultBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyResultBtn.innerHTML = original;
+                    }, 2000);
+                });
+            });
+            
+            // Clear history
+            clearHistoryBtn.addEventListener('click', function() {
+                calculationHistory = [];
+                updateHistory();
+            });
+            
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Keyboard support
+            document.addEventListener('keydown', function(event) {
+                const key = event.key;
+                
+                if (key >= '0' && key <= '9') {
+                    inputNumber(key);
+                } else if (key === '.') {
+                    handleAction('decimal');
+                } else if (key === '+') {
+                    handleAction('add');
+                } else if (key === '-') {
+                    handleAction('subtract');
+                } else if (key === '*') {
+                    handleAction('multiply');
+                } else if (key === '/') {
+                    event.preventDefault();
+                    handleAction('divide');
+                } else if (key === 'Enter' || key === '=') {
+                    handleAction('equals');
+                } else if (key === 'Escape' || key === 'Delete') {
+                    handleAction('clear');
+                } else if (key === 'Backspace') {
+                    handleAction('backspace');
+                } else if (key === '%') {
+                    handleAction('percent');
+                }
+            });
+            
+            // Initialize
+            updateHistory();
+        });
+    </script>
 </body>
 </html>
