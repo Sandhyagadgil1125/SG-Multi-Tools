@@ -1,309 +1,153 @@
-/* ================================
-   GLOBAL RESET & BASE STYLES
-================================ */
+/* ==============================
+   SG Multi Tools - Main CSS
+============================== */
+
+/* ========== VARIABLES ========== */
+:root {
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --accent: #2563eb; /* Blue for buttons */
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #3b82f6;
+  --close-bg: #3b82f6;
+  --close-text: #fff;
+  --card-radius: 12px;
+  --transition: 0.3s ease;
+}
+
+/* ========== GLOBAL RESET ========== */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  background-color: #0f172a;
-  color: #f8fafc;
-  line-height: 1.6;
-  font-size: 16px;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul {
-  list-style: none;
-}
-
-/* ================================
-   HEADER
-================================ */
-header {
-  background: #1e293b;
-  padding: 1rem 2rem;
+  background-color: var(--bg);
+  color: var(--text);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  min-height: 100vh;
+  padding: 10px;
 }
 
-header .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #f8fafc;
-}
-
-header nav a {
-  margin-left: 1.5rem;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-header nav a:hover {
-  color: #3b82f6;
-}
-
-/* ================================
-   HERO SECTION
-================================ */
-.hero {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: #1e293b;
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #f8fafc;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  color: #cbd5e1;
-}
-
-/* ================================
-   TOOLS CARDS / GRID
-================================ */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
-
+/* ========== TOOL CARD ========== */
 .tool-card {
-  background: #1e293b;
-  border-radius: 1rem;
-  padding: 2rem;
   position: relative;
-  transition: transform 0.3s, box-shadow 0.3s;
-  border: 3px solid #3b82f6; /* bold colored border */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* center text */
-  text-align: center;
-  width: 100%;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: 30px 20px 20px 20px;
   max-width: 100%;
-  box-sizing: border-box; /* ensure border stays inside */
+  width: 400px; /* default width */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: var(--transition);
 }
 
-.tool-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+/* Make card responsive for mobile */
+@media screen and (max-width: 450px) {
+  .tool-card {
+    width: 100%;
+    padding: 25px 15px 15px 15px;
+  }
 }
 
-.tool-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-.tool-card p {
-  font-size: 1rem;
-  color: #cbd5e1;
-  margin-bottom: 1rem;
-}
-
-.tool-card .btn {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  background: #3b82f6;
-  color: #f8fafc;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: background 0.3s;
-}
-
-.tool-card .btn:hover {
-  background: #2563eb;
-}
-
-/* ================================
-   CLOSE BUTTON "X" INSIDE TOOLS
-================================ */
+/* ========== CLOSE BUTTON ========== */
 .tool-card .close-btn {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
-  background: #ef4444;
-  color: #fff;
-  font-weight: bold;
+  top: 15px;
+  right: 15px;
+  background-color: var(--close-bg);
+  color: var(--close-text);
   border: none;
   border-radius: 50%;
   width: 28px;
   height: 28px;
-  cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  transition: background 0.3s;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: var(--transition);
 }
 
 .tool-card .close-btn:hover {
-  background: #dc2626;
+  background-color: #1d4ed8; /* darker blue on hover */
 }
 
-/* ================================
-   FLEXBOX / RESULT BOXES
-================================ */
-.flex-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #1e293b;
-  border-radius: 0.75rem;
-  border: 2px solid #3b82f6;
-  padding: 0.8rem 1rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  min-height: 45px;
-  color: #f8fafc;
+/* ========== HEADINGS ========== */
+.tool-card h2 {
   text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
-/* ================================
-   FLEXBOX FOR DATE DISPLAY
-================================ */
-.date-display {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 2rem;
-  font-weight: 500;
-  color: #cbd5e1;
-  font-size: 0.95rem;
-  background-color: #1e293b;
-  border-radius: 0.75rem;
-  border: 2px solid #3b82f6;
-}
-
-/* ================================
-   TOOL PAGE LAYOUT
-================================ */
-.tool-page {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: #1e293b;
-  padding: 2rem;
-  border-radius: 1rem;
-  border: 3px solid #3b82f6;
-  text-align: center;
-}
-
-.tool-page h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #f8fafc;
-}
-
-.tool-page p.description {
-  font-size: 1rem;
-  color: #cbd5e1;
-  margin-bottom: 2rem;
-}
-
-/* ================================
-   INPUTS & BUTTONS
-================================ */
-input, select, textarea {
+/* ========== INPUT FIELDS ========== */
+.tool-card input[type="text"],
+.tool-card input[type="date"],
+.tool-card input[type="number"] {
   width: 100%;
-  padding: 0.8rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  border: 2px solid #3b82f6;
-  background: #0f172a;
-  color: #f8fafc;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background-color: #0f172a;
+  color: var(--text);
   font-size: 1rem;
-  text-align: center;
 }
 
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid #2563eb;
+.tool-card input::placeholder {
+  color: var(--text-muted);
 }
 
-button {
-  background: #3b82f6;
-  color: #f8fafc;
+/* ========== BUTTONS ========== */
+.tool-card button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent);
+  color: var(--text);
   border: none;
-  border-radius: 0.5rem;
-  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
   font-size: 1rem;
-  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: var(--transition);
 }
 
-button:hover {
-  background: #2563eb;
+.tool-card button:hover {
+  background-color: #1d4ed8;
 }
 
-/* ================================
-   FOOTER
-================================ */
-footer {
-  background: #1e293b;
+/* ========== RESULT BOX ========== */
+.tool-card .result {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #334155;
+  border-radius: 8px;
   text-align: center;
-  padding: 1.5rem 2rem;
-  margin-top: 3rem;
-  color: #cbd5e1;
-  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text);
+  min-height: 30px;
 }
 
-footer a {
-  color: #3b82f6;
-  margin: 0 0.5rem;
+/* ========== SPECIAL CALCULATOR STYLES (Optional per calculator) ========== */
+.calculator input[type="number"] {
+  text-align: right;
 }
 
-/* ================================
-   RESPONSIVE MEDIA
-================================ */
-@media (max-width: 1024px) {
-  .tools-grid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    padding: 1rem;
-  }
+.calculator button {
+  font-weight: 600;
 }
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .tool-card {
-    padding: 1.5rem;
-    margin: 0 auto;
-    border-width: 2px;
-  }
-
-  .tool-card h3 {
-    font-size: 1.2rem;
-  }
-
-  .tool-card p {
-    font-size: 0.9rem;
-  }
+/* ========== LINKS ========== */
+a {
+  color: var(--accent);
+  text-decoration: none;
 }
 
-@media (max-width: 480px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
-    padding: 0.5rem;
-  }
-
-  .tool-card {
-    padding: 1rem;
-    border-width: 2px;
-  }
+a:hover {
+  text-decoration: underline;
 }
