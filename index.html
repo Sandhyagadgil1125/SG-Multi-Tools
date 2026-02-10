@@ -3,176 +3,817 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG Multi Tools - 20+ Free Online Tools</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.png" type="image/png">
-    <meta name="description" content="Collection of 20+ free online tools including calculators, converters, generators and utilities for daily use. No installation required.">
+    <title>SG Multi Tools - Smart Tools for Daily Use</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>" type="image/svg+xml">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        :root {
+            --bg-dark: #0f1117;
+            --bg-card: #1a1d28;
+            --bg-header: #151822;
+            --bg-footer: #0d1017;
+            --primary: #3a86ff;
+            --primary-hover: #5a9cff;
+            --secondary: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #2d3748;
+            --border-card: #3a4559;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--bg-header);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: white;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #151822 0%, #0f1117 100%);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Tools Grid */
+        .tools-section {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .tools-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tool-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 2px solid var(--border-card);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background-color: rgba(58, 134, 255, 0.1);
+            color: var(--primary);
+        }
+        
+        .tool-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: auto;
+        }
+        
+        .tool-tag {
+            background-color: rgba(139, 92, 246, 0.15);
+            color: var(--secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--bg-footer);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .footer-contact {
+            text-align: center;
+            color: var(--text-secondary);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Tool Page Styles */
+        .tool-page {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .back-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-btn:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .tool-page-content {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 2px solid var(--border-card);
+            padding: 2rem;
+            min-height: 400px;
+        }
+        
+        .tool-page-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--bg-header);
+                width: 250px;
+                height: calc(100vh - 70px);
+                padding: 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+                border-left: 1px solid var(--border-color);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .tools-section {
+                padding: 2rem 1rem;
+            }
+            
+            .footer-links {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .tool-page {
+                padding: 1rem;
+            }
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Tool-specific styles */
+        .tool-input, .tool-textarea, .tool-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+        
+        .tool-button:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .result-box {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            min-height: 100px;
+            word-break: break-word;
+        }
+        
+        .tool-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-row > * {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>SG Multi Tools</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="tools.html">All Tools</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+        <div class="logo-container">
+            <div class="logo">SG</div>
+            <div class="logo-text">SG Multi Tools</div>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        
+        <nav class="nav-links" id="navLinks">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#tools" class="nav-link">Tools</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </nav>
     </header>
-    
-    <main>
-        <section class="hero">
-            <h2>Home Tools</h2>
-            <p class="tagline">Smart Tools for Daily Use</p>
-            <p class="description">A collection of 20+ free, privacy-focused utilities. No installation required.</p>
-        </section>
-        
-        <section class="featured-tools">
-            <h2>Popular Tools</h2>
-            <div class="tools-grid">
-                <!-- First 6 tools as featured -->
-                <div class="tool-card">
-                    <div class="tool-icon">📅</div>
-                    <h3>Age Calculator</h3>
-                    <p>Calculate your exact age in years, months, and days.</p>
-                    <a href="age-calculator.html" class="btn">Open Tool</a>
-                </div>
-                
-                <div class="tool-card">
-                    <div class="tool-icon">🔠</div>
-                    <h3>Case Changer</h3>
-                    <p>Convert text to Upper, Lower, Title, or Sentence case.</p>
-                    <a href="case-changer.html" class="btn">Open Tool</a>
-                </div>
-                
-                <div class="tool-card">
-                    <div class="tool-icon">🎨</div>
-                    <h3>Color Picker</h3>
-                    <p>Get HEX, RGB, and HSL codes with palette generation.</p>
-                    <a href="color-picker.html" class="btn">Open Tool</a>
-                </div>
-                
-                <div class="tool-card">
-                    <div class="tool-icon">💰</div>
-                    <h3>Currency Converter</h3>
-                    <p>Convert between different currencies with real-time rates.</p>
-                    <a href="currency-converter.html" class="btn">Open Tool</a>
-                </div>
-                
-                <div class="tool-card">
-                    <div class="tool-icon">📏</div>
-                    <h3>Unit Converter</h3>
-                    <p>Convert length, weight, temperature, and more.</p>
-                    <a href="unit-converter.html" class="btn">Open Tool</a>
-                </div>
-                
-                <div class="tool-card">
-                    <div class="tool-icon">🔐</div>
-                    <h3>Password Generator</h3>
-                    <p>Create strong, secure passwords instantly.</p>
-                    <a href="password-generator.html" class="btn">Open Tool</a>
-                </div>
+
+    <!-- Home Page (Default) -->
+    <section id="home" class="page active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="hero-title">SG Multi Tools For Daily Use</h1>
+            <p class="hero-subtitle">A collection of 20+ free, privacy-focused utilities. No installation required. All tools work directly in your browser with a professional, user-friendly interface.</p>
+        </div>
+
+        <!-- Tools Grid -->
+        <section class="tools-section">
+            <h2 class="tools-title">All Tools (20)</h2>
+            <div class="tools-grid" id="toolsGrid">
+                <!-- Tools will be dynamically generated here -->
             </div>
         </section>
-        
-        <section class="all-tools-preview">
-            <h2>All 20+ Tools Available</h2>
-            <div class="tools-list">
-                <div class="tool-item">
-                    <a href="advanced-calculator.html">🧮 Advanced Calculator</a>
-                    <span>Scientific calculator with advanced functions</span>
-                </div>
-                <div class="tool-item">
-                    <a href="age-calculator.html">📅 Age Calculator</a>
-                    <span>Calculate exact age in years, months, days</span>
-                </div>
-                <div class="tool-item">
-                    <a href="case-changer.html">🔠 Case Changer</a>
-                    <span>Convert text cases (upper, lower, title, sentence)</span>
-                </div>
-                <div class="tool-item">
-                    <a href="color-picker.html">🎨 Color Picker</a>
-                    <span>Get HEX, RGB, HSL color codes</span>
-                </div>
-                <div class="tool-item">
-                    <a href="currency-converter.html">💰 Currency Converter</a>
-                    <span>Convert between world currencies</span>
-                </div>
-                <div class="tool-item">
-                    <a href="date-difference.html">📅 Date Difference</a>
-                    <span>Calculate days between two dates</span>
-                </div>
-                <div class="tool-item">
-                    <a href="emi-calculator.html">🏦 EMI Calculator</a>
-                    <span>Calculate loan EMIs and payments</span>
-                </div>
-                <div class="tool-item">
-                    <a href="file-size-converter.html">💾 File Size Converter</a>
-                    <span>Convert between KB, MB, GB, TB</span>
-                </div>
-                <div class="tool-item">
-                    <a href="image-converter.html">🖼️ Image Converter</a>
-                    <span>Convert images between formats</span>
-                </div>
-                <div class="tool-item">
-                    <a href="note-text-saver.html">📝 Note Text Saver</a>
-                    <span>Save and manage text notes</span>
-                </div>
-                <div class="tool-item">
-                    <a href="password-generator.html">🔐 Password Generator</a>
-                    <span>Generate strong secure passwords</span>
-                </div>
-                <div class="tool-item">
-                    <a href="percentage-calculator.html">📊 Percentage Calculator</a>
-                    <span>Calculate percentages easily</span>
-                </div>
-                <div class="tool-item">
-                    <a href="qr-code-generator.html">🔲 QR Code Generator</a>
-                    <span>Generate QR codes from text/URLs</span>
-                </div>
-                <div class="tool-item">
-                    <a href="sip-calculator.html">📈 SIP Calculator</a>
-                    <span>Calculate SIP investment returns</span>
-                </div>
-                <div class="tool-item">
-                    <a href="speech-to-text.html">🎤 Speech to Text</a>
-                    <span>Convert speech to text online</span>
-                </div>
-                <div class="tool-item">
-                    <a href="text-to-speech.html">🔊 Text to Speech</a>
-                    <span>Convert text to speech audio</span>
-                </div>
-                <div class="tool-item">
-                    <a href="timer-stopwatch.html">⏱️ Timer & Stopwatch</a>
-                    <span>Timer, stopwatch, and countdown</span>
-                </div>
-                <div class="tool-item">
-                    <a href="unit-converter.html">📏 Unit Converter</a>
-                    <span>Convert various measurement units</span>
-                </div>
-                <div class="tool-item">
-                    <a href="url-encoder-decoder.html">🔗 URL Encoder/Decoder</a>
-                    <span>Encode and decode URLs</span>
-                </div>
-                <div class="tool-item">
-                    <a href="word-counter.html">📝 Word Counter</a>
-                    <span>Count words, characters, sentences</span>
-                </div>
-            </div>
-            <div class="center-button">
-                <a href="tools.html" class="btn btn-secondary">View All Tools</a>
-            </div>
-        </section>
-    </main>
-    
+    </section>
+
+    <!-- Tool Pages -->
+    <section id="toolPages" class="page hidden">
+        <!-- Tool pages will be dynamically loaded here -->
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms-and-conditions.html">Terms & Conditions</a>
-            <a href="disclaimer.html">Disclaimer</a>
+            <a href="#privacy" class="footer-link">Privacy Policy</a>
+            <a href="#disclaimer" class="footer-link">Disclaimer</a>
+            <a href="#terms" class="footer-link">Terms and Conditions</a>
+            <a href="#sitemap" class="footer-link">Sitemap</a>
+            <a href="#about" class="footer-link">About</a>
+            <a href="#contact" class="footer-link">Contact</a>
         </div>
-        <p>© 2026 SG Multi Tools. All rights reserved. | sgtools.in</p>
+        <div class="footer-contact">
+            <p>Contact: contact@sgtools.in</p>
+        </div>
     </footer>
-</body>
-</html>
+
+    <script>
+        // Tool Data - 20 tools with names, descriptions, and icons
+        const tools = [
+            { id: 1, name: "Text Case Converter", desc: "Convert text between uppercase, lowercase, and title case", icon: "Aa", tags: ["Text", "Formatter"], color: "#3a86ff" },
+            { id: 2, name: "JSON Formatter", desc: "Format and validate JSON data with syntax highlighting", icon: "{ }", tags: ["Developer", "Formatter"], color: "#10b981" },
+            { id: 3, name: "Password Generator", desc: "Create strong, random passwords with customizable options", icon: "🔒", tags: ["Security", "Generator"], color: "#f59e0b" },
+            { id: 4, name: "QR Code Generator", desc: "Generate QR codes for URLs, text, or contact information", icon: "⬜", tags: ["Generator", "Utility"], color: "#8b5cf6" },
+            { id: 5, name: "Base64 Encoder/Decoder", desc: "Encode and decode Base64 strings and files", icon: "64", tags: ["Encoder", "Developer"], color: "#ef4444" },
+            { id: 6, name: "Image Compressor", desc: "Compress images while preserving quality", icon: "🖼️", tags: ["Image", "Optimization"], color: "#3a86ff" },
+            { id: 7, name: "Unit Converter", desc: "Convert between different units of measurement", icon: "📏", tags: ["Calculator", "Utility"], color: "#10b981" },
+            { id: 8, name: "Color Picker", desc: "Select colors and get hex, RGB, and HSL values", icon: "🎨", tags: ["Design", "Utility"], color: "#f59e0b" },
+            { id: 9, name: "Lorem Ipsum Generator", desc: "Generate placeholder text for design mockups", icon: "✏️", tags: ["Design", "Generator"], color: "#8b5cf6" },
+            { id: 10, name: "URL Encoder/Decoder", desc: "Encode and decode URLs and URI components", icon: "🔗", tags: ["Encoder", "Developer"], color: "#ef4444" },
+            { id: 11, name: "MD5 Generator", desc: "Generate MD5 hash from any input string", icon: "#", tags: ["Security", "Developer"], color: "#3a86ff" },
+            { id: 12, name: "Time Zone Converter", desc: "Convert time between different time zones", icon: "🕒", tags: ["Time", "Utility"], color: "#10b981" },
+            { id: 13, name: "HTML Formatter", desc: "Format and beautify HTML code", icon: "</>", tags: ["Formatter", "Developer"], color: "#f59e0b" },
+            { id: 14, name: "Random Number Generator", desc: "Generate random numbers within a specified range", icon: "🎲", tags: ["Generator", "Utility"], color: "#8b5cf6" },
+            { id: 15, name: "Word Counter", desc: "Count words, characters, sentences, and paragraphs", icon: "📝", tags: ["Text", "Utility"], color: "#ef4444" },
+            { id: 16, name: "PDF to Text", desc: "Extract text content from PDF files", icon: "📄", tags: ["Document", "Converter"], color: "#3a86ff" },
+            { id: 17, name: "Date Calculator", desc: "Calculate difference between dates or add/subtract days", icon: "📅", tags: ["Calculator", "Utility"], color: "#10b981" },
+            { id: 18, name: "BMI Calculator", desc: "Calculate Body Mass Index based on height and weight", icon: "⚖️", tags: ["Health", "Calculator"], color: "#f59e0b" },
+            { id: 19, name: "Currency Converter", desc: "Convert between world currencies with live rates", icon: "💰", tags: ["Finance", "Converter"], color: "#8b5cf6" },
+            { id: 20, name: "IP Address Lookup", desc: "Get information about your IP address", icon: "🌐", tags: ["Network", "Utility"], color: "#ef4444" }
+        ];
+
+        // Navigation Elements
+        const homePage = document.getElementById('home');
+        const toolPagesSection = document.getElementById('toolPages');
+        const toolsGrid = document.getElementById('toolsGrid');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navLinkElements = document.querySelectorAll('.nav-link');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render all tool cards
+            renderTools();
+            
+            // Setup navigation
+            setupNavigation();
+            
+            // Setup mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+
+        // Render all tools on the home page
+        function renderTools() {
+            toolsGrid.innerHTML = '';
+            
+            tools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'tool-card';
+                toolCard.setAttribute('data-tool-id', tool.id);
+                
+                toolCard.innerHTML = `
+                    <div class="tool-icon" style="background-color: ${tool.color}20; color: ${tool.color}">
+                        ${tool.icon}
+                    </div>
+                    <div class="tool-name">${tool.name}</div>
+                    <div class="tool-desc">${tool.desc}</div>
+                    <div class="tool-tags">
+                        ${tool.tags.map(tag => `<span class="tool-tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                
+                toolCard.addEventListener('click', function() {
+                    openTool(tool.id);
+                });
+                
+                toolsGrid.appendChild(toolCard);
+            });
+        }
+
+        // Setup navigation
+        function setupNavigation() {
+            navLinkElements.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active nav link
+                    navLinkElements.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const target = this.getAttribute('href').substring(1);
+                    
+                    if (target === 'home') {
+                        showHomePage();
+                    } else if (target === 'tools') {
+                        showHomePage();
+                        // Scroll to tools section
+                        document.querySelector('.tools-section').scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        // For About and Contact, we'll show a simple page
+                        showSimplePage(target);
+                    }
+                });
+            });
+        }
+
+        // Show home page
+        function showHomePage() {
+            homePage.classList.remove('hidden');
+            homePage.classList.add('active');
+            toolPagesSection.classList.add('hidden');
+            toolPagesSection.classList.remove('active');
+        }
+
+        // Show a simple page (for About, Contact, etc.)
+        function showSimplePage(pageName) {
+            homePage.classList.add('hidden');
+            homePage.classList.remove('active');
+            toolPagesSection.classList.remove('hidden');
+            toolPagesSection.classList.add('active');
+            
+            const pageTitle = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+            
+            toolPagesSection.innerHTML = `
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <button class="back-btn" id="backBtn">← Back to Tools</button>
+                        <h1>${pageTitle}</h1>
+                    </div>
+                    <div class="tool-page-content">
+                        ${getSimplePageContent(pageName)}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('backBtn').addEventListener('click', showHomePage);
+        }
+
+        // Get content for simple pages
+        function getSimplePageContent(pageName) {
+            if (pageName === 'about') {
+                return `
+                    <h2 class="tool-page-title">About SG Multi Tools</h2>
+                    <p>SG Multi Tools is a collection of 20+ free, privacy-focused utilities designed for daily use. Our tools are built with a focus on user experience, privacy, and functionality.</p>
+                    <p>All tools work directly in your browser with no installation required. We don't store any of your data - everything is processed locally on your device.</p>
+                    <p>Our mission is to provide useful, professional-grade tools that are accessible to everyone for free.</p>
+                `;
+            } else if (pageName === 'contact') {
+                return `
+                    <h2 class="tool-page-title">Contact Us</h2>
+                    <p>We'd love to hear from you! Whether you have feedback, suggestions for new tools, or need support, please reach out to us.</p>
+                    <p><strong>Email:</strong> contact@sgtools.in</p>
+                    <p>We typically respond within 24-48 hours.</p>
+                `;
+            } else {
+                return `
+                    <h2 class="tool-page-title">${pageName.charAt(0).toUpperCase() + pageName.slice(1)}</h2>
+                    <p>This page is under construction. Please check back soon for more information.</p>
+                `;
+            }
+        }
+
+        // Open a tool
+        function openTool(toolId) {
+            const tool = tools.find(t => t.id === toolId);
+            if (!tool) return;
+            
+            homePage.classList.add('hidden');
+            homePage.classList.remove('active');
+            toolPagesSection.classList.remove('hidden');
+            toolPagesSection.classList.add('active');
+            
+            toolPagesSection.innerHTML = `
+                <div class="tool-page">
+                    <div class="tool-header">
+                        <button class="back-btn" id="backBtn">← Back to Tools</button>
+                        <h1>${tool.name}</h1>
+                    </div>
+                    <div class="tool-page-content">
+                        <div class="tool-icon-large" style="text-align: center; margin-bottom: 2rem;">
+                            <div style="display: inline-block; width: 80px; height: 80px; border-radius: 16px; background-color: ${tool.color}20; color: ${tool.color}; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                                ${tool.icon}
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">${tool.desc}</p>
+                        
+                        ${getToolContent(toolId)}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('backBtn').addEventListener('click', showHomePage);
+            
+            // Initialize tool functionality
+            initializeTool(toolId);
+        }
+
+        // Get content for specific tools
+        function getToolContent(toolId) {
+            switch(toolId) {
+                case 1: // Text Case Converter
+                    return `
+                        <h3 class="tool-page-title" style="font-size: 1.5rem;">Convert Your Text</h3>
+                        <textarea class="tool-textarea" id="textInput" placeholder="Enter your text here..." rows="5">Try SG Multi Tools - The best collection of free utilities!</textarea>
+                        
+                        <div class="tool-row">
+                            <button class="tool-button" id="upperBtn">UPPERCASE</button>
+                            <button class="tool-button" id="lowerBtn">lowercase</button>
+                            <button class="tool-button" id="titleBtn">Title Case</button>
+                        </div>
+                        
+                        <div class="result-box" id="textResult">
+                            Converted text will appear here...
+                        </div>
+                    `;
+                case 2: // JSON Formatter
+                    return `
+                        <h3 class="tool-page-title" style="font-size: 1.5rem;">Format JSON</h3>
+                        <textarea class="tool-textarea" id="jsonInput" placeholder='Enter JSON here...' rows="5">{"name":"John","age":30,"city":"New York","skills":["JavaScript","HTML","CSS"]}</textarea>
+                        
+                        <div class="tool-row">
+                            <button class="tool-button" id="formatBtn">Format JSON</button>
+                            <button class="tool-button" id="minifyBtn">Minify JSON</button>
+                            <button class="tool-button" id="validateBtn">Validate JSON</button>
+                        </div>
+                        
+                        <div class="result-box" id="jsonResult">
+                            Formatted JSON will appear here...
+                        </div>
+                    `;
+                case 3: // Password Generator
+                    return `
+                        <h3 class="tool-page-title" style="font-size: 1.5rem;">Generate Strong Password</h3>
+                        
+                        <div class="tool-row">
+                            <div>
+                                <label>Password Length</label>
+                                <input type="number" class="tool-input" id="passLength" value="12" min="6" max="50">
+                            </div>
+                            <div>
+                                <label>Include Numbers</label>
+                                <select class="tool-select" id="includeNumbers">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="tool-row">
+                            <div>
+                                <label>Include Symbols</label>
+                                <select class="tool-select" id="includeSymbols">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Include Uppercase</label>
+                                <select class="tool-select" id="includeUppercase">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button class="tool-button" id="generatePassBtn" style="width: 100%; margin-top: 1rem;">Generate Password</button>
+                        
+                        <div class="result-box" id="passwordResult" style="font-family: monospace; font-size: 1.2rem; text-align: center;">
+                            Your password will appear here...
+                        </div>
+                        
+                        <button class="tool-button" id="copyPassBtn" style="width: 100%; margin-top: 1rem;">Copy Password</button>
+                    `;
+                default:
+                    return `
+                        <h3 class="tool-page-title" style="font-size: 1.5rem;">Tool Preview</h3>
+                        <p>This is a preview of the ${tools.find(t => t.id === toolId).name} tool. In a fully implemented version, this would be a functional utility.</p>
+                        <p>All SG Multi Tools are designed to work directly in your browser with no installation required.</p>
+                        <div class="result-box" style="text-align: center; padding: 3rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">${tools.find(t => t.id === toolId).icon}</div>
+                            <div style="font-size: 1.2rem; color: var(--primary);">${tools.find(t => t.id === toolId).name}</div>
+                            <div style="margin-top: 1rem; color: var(--text-secondary);">Tool functionality would be implemented here</div>
+                        </div>
+                    `;
+            }
+        }
+
+        // Initialize tool functionality
+        function initializeTool(toolId) {
+            switch(toolId) {
+                case 1: // Text Case Converter
+                    const textInput = document.getElementById('textInput');
+                    const textResult = document.getElementById('textResult');
+                    const upperBtn = document.getElementById('upperBtn');
+                    const lowerBtn = document.getElementById('lowerBtn');
+                    const titleBtn = document.getElementById('titleBtn');
+                    
+                    upperBtn.addEventListener('click', () =>
