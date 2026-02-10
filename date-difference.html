@@ -6,7 +6,150 @@
 <title>Date Difference | SG Multi Tools</title>
 
 <link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
+
+<style>
+    /* General Body Styles */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        /* Use Flexbox to center the tool card on the page */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Main container for the single tool */
+    .single-tool {
+        width: 100%;
+        /* This is the key change: The card will not exceed 75% of the viewport width */
+        max-width: 75vw;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* The wrapper for the tool's content */
+    .tool-wrapper {
+        background: #ffffff;
+        padding: 2rem 2.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        /* Set a max-width in pixels for consistency on large screens */
+        max-width: 500px;
+        width: 100%;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+        body {
+            padding: 15px;
+        }
+        .single-tool {
+            /* On smaller screens, allow it to be a bit wider */
+            max-width: 95vw;
+        }
+        .tool-wrapper {
+            padding: 1.5rem;
+        }
+    }
+
+    /* Tool-specific styles */
+    .tool-wrapper h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .tool-wrapper .description {
+        text-align: center;
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .tool-wrapper label {
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .tool-wrapper input[type="date"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+
+    .calc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .tool-wrapper button {
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .tool-wrapper button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Style for the 'Clear' button */
+    .calc-grid button:last-child {
+        background-color: #6c757d;
+    }
+
+    .calc-grid button:last-child:hover {
+        background-color: #5a6268;
+    }
+
+    .result {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        line-height: 1.6;
+        border-left: 5px solid #007bff;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        font-size: 2rem;
+        color: #aaa;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+    }
+
+    .close-btn:hover {
+        color: #333;
+    }
+</style>
+
 </head>
 
 <body>
@@ -14,18 +157,18 @@
 <div class="single-tool">
   <div class="tool-wrapper">
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <button class="close-btn" onclick="location.href='index.html'" title="Close">×</button>
 
     <h2>Date Difference</h2>
     <p class="description">Calculate the difference between two dates</p>
 
-    <label>Start Date</label>
+    <label for="startDate">Start Date</label>
     <input type="date" id="startDate">
 
-    <label>End Date</label>
+    <label for="endDate">End Date</label>
     <input type="date" id="endDate">
 
-    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
+    <div class="calc-grid">
       <button onclick="calculateDiff()">Calculate</button>
       <button onclick="clearDates()">Clear</button>
     </div>
@@ -53,17 +196,28 @@ function calculateDiff(){
     return;
   }
 
+  // More accurate date difference calculation
+  let years = endDate.getFullYear() - startDate.getFullYear();
+  let months = endDate.getMonth() - startDate.getMonth();
+  let days = endDate.getDate() - startDate.getDate();
+
+  if (days < 0) {
+    months--;
+    days += new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
   const diffTime = endDate - startDate;
   const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  const years = Math.floor(totalDays / 365);
-  const months = Math.floor((totalDays % 365) / 30);
-  const days = totalDays - (years * 365) - (months * 30);
 
   const resultBox = document.getElementById("resultBox");
   resultBox.style.display = "block";
   resultBox.innerHTML = `
-    <strong>Total Difference:</strong><br>
+    <strong>Difference:</strong><br>
     ${years} Years, ${months} Months, ${days} Days<br><br>
     <strong>Total Days:</strong> ${totalDays}
   `;
