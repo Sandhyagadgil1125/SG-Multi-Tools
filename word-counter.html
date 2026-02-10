@@ -5,60 +5,200 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Word Counter | SG Multi Tools</title>
 
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="/favicon.ico">
+
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#020617;
+  --input:#020617;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --border-main:#38bdf8;
+  --accent:#22c55e;
+}
+
+/* ===== RESET ===== */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+
+/* ===== TOOL CARD ===== */
+.tool-wrapper{
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  border:2px solid var(--border-main);
+  border-radius:14px;
+  padding:18px 16px 20px;
+  position:relative;
+  text-align:center;
+}
+
+/* ===== CLOSE BUTTON ===== */
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:12px;
+  font-size:18px;
+  color:var(--muted);
+  cursor:pointer;
+  line-height:1;
+}
+
+/* ===== HEADINGS ===== */
+h1{
+  font-size:20px;
+  margin-bottom:6px;
+}
+
+.desc{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
+/* ===== TEXT AREA ===== */
+.text-box{
+  background:var(--input);
+  border:2px solid var(--border-main);
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:12px;
+}
+
+.text-box textarea{
+  width:100%;
+  min-height:120px;
+  resize:vertical;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-size:14px;
+  text-align:center;
+}
+
+/* ===== COUNTS ===== */
+.stats{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:10px;
+}
+
+.stat{
+  flex:1;
+  background:var(--input);
+  border:2px solid var(--border-main);
+  border-radius:10px;
+  padding:8px;
+  font-size:13px;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  background:var(--accent);
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn:active{
+  transform:scale(0.98);
+}
+
+/* ===== LOADING ===== */
+.loading{
+  opacity:0.6;
+  pointer-events:none;
+}
+
+.loader{
+  display:none;
+  margin:14px auto 0;
+  width:26px;
+  height:26px;
+  border:3px solid #1e293b;
+  border-top:3px solid var(--border-main);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:480px){
+  .stats{
+    flex-direction:column;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
+<div class="tool-wrapper" id="tool">
+  <div class="close-btn" onclick="history.back()">✕</div>
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+  <h1>Word Counter</h1>
+  <p class="desc">Count words, characters, and lines instantly.</p>
 
-    <h2>Word Counter</h2>
-    <p class="description">Count words, characters, and lines instantly</p>
+  <div class="text-box">
+    <textarea id="text" placeholder="Start typing here..."></textarea>
+  </div>
 
-    <label>Enter Text</label>
-    <textarea id="textInput" rows="6" placeholder="Type or paste your text here..."></textarea>
+  <button class="btn" onclick="countText()">Count</button>
 
-    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
-      <button onclick="countText()">Count</button>
-      <button onclick="clearText()">Clear</button>
-    </div>
+  <div class="loader" id="loader"></div>
 
-    <div class="result" id="result" style="display:none;"></div>
-
+  <div class="stats">
+    <div class="stat" id="words">Words: 0</div>
+    <div class="stat" id="chars">Characters: 0</div>
+    <div class="stat" id="lines">Lines: 0</div>
   </div>
 </div>
 
 <script>
 function countText(){
-  const text = document.getElementById("textInput").value;
+  const tool = document.getElementById("tool");
+  const loader = document.getElementById("loader");
+  const text = document.getElementById("text").value;
 
-  if(!text.trim()){
-    alert("Please enter some text");
-    return;
-  }
+  tool.classList.add("loading");
+  loader.style.display = "block";
 
-  const characters = text.length;
-  const charactersNoSpace = text.replace(/\s/g, "").length;
-  const words = text.trim().split(/\s+/).length;
-  const lines = text.split(/\n/).length;
+  setTimeout(()=>{
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    const lines = text ? text.split(/\n/).length : 0;
 
-  document.getElementById("result").style.display = "block";
-  document.getElementById("result").innerHTML = `
-    <strong>Results:</strong><br>
-    Words: ${words}<br>
-    Characters (with spaces): ${characters}<br>
-    Characters (without spaces): ${charactersNoSpace}<br>
-    Lines: ${lines}
-  `;
-}
+    document.getElementById("words").innerText = "Words: " + words;
+    document.getElementById("chars").innerText = "Characters: " + chars;
+    document.getElementById("lines").innerText = "Lines: " + lines;
 
-function clearText(){
-  document.getElementById("textInput").value = "";
-  document.getElementById("result").style.display = "none";
+    loader.style.display = "none";
+    tool.classList.remove("loading");
+  },300);
 }
 </script>
 
