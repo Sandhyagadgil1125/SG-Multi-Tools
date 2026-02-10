@@ -6,7 +6,171 @@
 <title>File Size Converter | SG Multi Tools</title>
 
 <link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+
+<!-- All necessary CSS is included here for prototyping -->
+<style>
+    /* General Body Styles (Consistent with other tools) */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Main container for the single tool page */
+    .single-tool {
+        width: 100%;
+        max-width: 75vw; /* Max width is 75% of the viewport width */
+        display: flex;
+        justify-content: center;
+    }
+
+    /* The actual card wrapper for the tool's content */
+    .tool-wrapper {
+        background: #ffffff;
+        padding: 2rem 2.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        max-width: 500px; /* Fixed max-width for consistency */
+        width: 100%;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    /* Tool-specific element styles */
+    .tool-wrapper h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-size: 1.8rem;
+    }
+
+    .tool-wrapper .description {
+        text-align: center;
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .tool-wrapper label {
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #555;
+    }
+
+    /* Input and Select Styling */
+    .tool-wrapper input[type="number"],
+    .tool-wrapper select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Grid for layout of inputs */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        align-items: flex-end; /* Aligns items to the bottom */
+    }
+
+    /* Grid for layout of buttons */
+    .calc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .tool-wrapper button {
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .tool-wrapper button:hover {
+        background-color: #0056b3;
+    }
+
+    .calc-grid button:last-child {
+        background-color: #6c757d;
+    }
+
+    .calc-grid button:last-child:hover {
+        background-color: #5a6268;
+    }
+
+    .result {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        line-height: 1.6;
+        border-left: 5px solid #007bff;
+        color: #333;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .result strong {
+        font-size: 1.3rem;
+        display: block;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        font-size: 2rem;
+        color: #aaa;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+    }
+
+    .close-btn:hover {
+        color: #333;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        body {
+            padding: 15px;
+        }
+        .single-tool {
+            max-width: 95vw;
+        }
+        .tool-wrapper {
+            padding: 1.5rem;
+        }
+        .tool-wrapper h2 {
+            font-size: 1.5rem;
+        }
+        .input-grid {
+            grid-template-columns: 1fr; /* Stack inputs on smaller screens */
+        }
+    }
+</style>
 </head>
 
 <body>
@@ -14,35 +178,42 @@
 <div class="single-tool">
   <div class="tool-wrapper">
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <button class="close-btn" onclick="location.href='index.html'" title="Close">×</button>
 
     <h2>File Size Converter</h2>
-    <p class="description">Convert file sizes between KB, MB, GB and more</p>
+    <p class="description">Convert between different file size units</p>
 
-    <label>Enter Size</label>
-    <input type="number" id="sizeInput" placeholder="Enter value">
+    <div class="input-grid">
+      <div>
+        <label for="fromValue">Value</label>
+        <input type="number" id="fromValue" placeholder="Enter a value">
+      </div>
+      <div>
+        <label for="fromUnit">From</label>
+        <select id="fromUnit">
+          <option value="B">Bytes (B)</option>
+          <option value="KB" selected>Kilobytes (KB)</option>
+          <option value="MB">Megabytes (MB)</option>
+          <option value="GB">Gigabytes (GB)</option>
+          <option value="TB">Terabytes (TB)</option>
+        </select>
+      </div>
+    </div>
 
-    <label>From</label>
-    <select id="fromUnit">
-      <option value="B">Bytes</option>
-      <option value="KB">KB</option>
-      <option value="MB" selected>MB</option>
-      <option value="GB">GB</option>
-      <option value="TB">TB</option>
-    </select>
+    <div>
+      <label for="toUnit">To</label>
+      <select id="toUnit">
+        <option value="B">Bytes (B)</option>
+        <option value="KB">Kilobytes (KB)</option>
+        <option value="MB" selected>Megabytes (MB)</option>
+        <option value="GB">Gigabytes (GB)</option>
+        <option value="TB">Terabytes (TB)</option>
+      </select>
+    </div>
 
-    <label>To</label>
-    <select id="toUnit">
-      <option value="B">Bytes</option>
-      <option value="KB">KB</option>
-      <option value="MB">MB</option>
-      <option value="GB" selected>GB</option>
-      <option value="TB">TB</option>
-    </select>
-
-    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
+    <div class="calc-grid">
       <button onclick="convertSize()">Convert</button>
-      <button onclick="clearAll()">Clear</button>
+      <button onclick="clearFields()">Clear</button>
     </div>
 
     <div class="result" id="resultBox" style="display:none;"></div>
@@ -51,38 +222,46 @@
 </div>
 
 <script>
-const multipliers = {
-  B: 1,
-  KB: 1024,
-  MB: 1024 ** 2,
-  GB: 1024 ** 3,
-  TB: 1024 ** 4
-};
+function convertSize() {
+  const fromValue = parseFloat(document.getElementById("fromValue").value);
+  const fromUnit = document.getElementById("fromUnit").value;
+  const toUnit = document.getElementById("toUnit").value;
+  const resultBox = document.getElementById("resultBox");
 
-function convertSize(){
-  const value = document.getElementById("sizeInput").value;
-  const from = document.getElementById("fromUnit").value;
-  const to = document.getElementById("toUnit").value;
-
-  if(!value || value < 0){
-    alert("Enter a valid size");
+  if (isNaN(fromValue)) {
+    alert("Please enter a valid number.");
     return;
   }
 
-  const bytes = value * multipliers[from];
-  const result = bytes / multipliers[to];
+  // Conversion factors (to Bytes)
+  const factors = {
+    'B': 1,
+    'KB': 1024,
+    'MB': Math.pow(1024, 2),
+    'GB': Math.pow(1024, 3),
+    'TB': Math.pow(1024, 4)
+  };
 
-  const resultBox = document.getElementById("resultBox");
+  // Convert the input value to bytes first
+  const valueInBytes = fromValue * factors[fromUnit];
+
+  // Convert from bytes to the target unit
+  const resultValue = valueInBytes / factors[toUnit];
+
   resultBox.style.display = "block";
+  // Use toFixed for cleaner output, and remove trailing zeros
+  const formattedResult = parseFloat(resultValue.toFixed(6));
+
   resultBox.innerHTML = `
-    <strong>${value} ${from}</strong> =
-    <strong>${result.toFixed(4)} ${to}</strong>
+    <strong>${formattedResult}</strong> ${toUnit}
   `;
 }
 
-function clearAll(){
-  document.getElementById("sizeInput").value = "";
+function clearFields() {
+  document.getElementById("fromValue").value = "";
   document.getElementById("resultBox").style.display = "none";
+  document.getElementById("fromUnit").value = "KB";
+  document.getElementById("toUnit").value = "MB";
 }
 </script>
 
