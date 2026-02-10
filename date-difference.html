@@ -1,244 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Date Difference | SG Multi Tools</title>
-
-<link rel="icon" href="favicon.png">
-
-<!-- All necessary CSS is included here for prototyping -->
-<style>
-    /* General Body Styles */
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #f0f2f5;
-        margin: 0;
-        /* Use Flexbox to center the tool card vertically and horizontally on the page */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    /* Main container for the single tool page */
-    /* This ensures the container doesn't exceed 75% of the screen's width */
-    .single-tool {
-        width: 100%;
-        max-width: 75vw; /* Sets the max-width relative to the viewport width */
-        display: flex;
-        justify-content: center;
-    }
-
-    /* The actual card wrapper for the tool's content */
-    .tool-wrapper {
-        background: #ffffff;
-        padding: 2rem 2.5rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        /* Sets a fixed max-width to prevent the card from becoming too wide on large screens */
-        max-width: 500px;
-        width: 100%;
-        position: relative; /* Needed for positioning the close button */
-        box-sizing: border-box;
-    }
-
-    /* Tool-specific element styles */
-    .tool-wrapper h2 {
-        text-align: center;
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        color: #333;
-        font-size: 1.8rem;
-    }
-
-    .tool-wrapper .description {
-        text-align: center;
-        color: #666;
-        margin-bottom: 2rem;
-        font-size: 0.9rem;
-    }
-
-    .tool-wrapper label {
-        display: block;
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        color: #555;
-    }
-
-    .tool-wrapper input[type="date"] {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 1rem;
-        color: #333;
-    }
-
-    /* Styles for the container holding the Calculate and Clear buttons */
-    .calc-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Creates two columns of equal width */
-        gap: 1rem; /* Space between the buttons */
-        margin-top: 1.5rem;
-    }
-
-    .tool-wrapper button {
-        padding: 0.75rem;
-        border: none;
-        border-radius: 4px;
-        background-color: #007bff;
-        color: white;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-    }
-
-    .tool-wrapper button:hover {
-        background-color: #0056b3;
-    }
-
-    /* Specific style for the 'Clear' button */
-    .calc-grid button:last-child {
-        background-color: #6c757d;
-    }
-
-    .calc-grid button:last-child:hover {
-        background-color: #5a6268;
-    }
-
-    /* Style for the result box that appears after calculation */
-    .result {
-        margin-top: 1.5rem;
-        padding: 1rem;
-        background-color: #e9ecef;
-        border-radius: 4px;
-        line-height: 1.6;
-        border-left: 5px solid #007bff;
-        color: #333;
-    }
-
-    /* Close button style */
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        background: transparent;
-        border: none;
-        font-size: 2rem;
-        color: #aaa;
-        cursor: pointer;
-        line-height: 1;
-        padding: 0;
-    }
-
-    .close-btn:hover {
-        color: #333;
-    }
-
-    /* Responsive adjustments for smaller screens (e.g., tablets and phones) */
-    @media (max-width: 768px) {
-        body {
-            padding: 15px; /* Reduce padding on smaller screens */
-        }
-        .single-tool {
-            /* Allow the card to be wider on smaller screens for better readability */
-            max-width: 95vw;
-        }
-        .tool-wrapper {
-            padding: 1.5rem; /* Reduce padding inside the card */
-        }
-        .tool-wrapper h2 {
-            font-size: 1.5rem; /* Slightly smaller title */
-        }
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference - SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
+    <header>
+        <a href="index.html" class="logo-container">
+            <div class="logo">SG</div>
+            <div class="logo-text">SG Multi Tools</div>
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="tools.html" class="nav-link"><i class="fas fa-tools"></i> Tools</a>
+            <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </header>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
+    <section class="tool-page-header">
+        <div class="container">
+            <a href="tools.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Tools
+            </a>
+            <div class="tool-header-content">
+                <h1 class="tool-page-title">Date Difference</h1>
+                <p class="tool-page-subtitle">Calculate the difference between two dates</p>
+            </div>
+        </div>
+    </section>
 
-    <button class="close-btn" onclick="location.href='index.html'" title="Close">×</button>
+    <section class="tool-container">
+        <div class="container">
+            <div class="tool-wrapper">
+                <!-- Date Inputs -->
+                <div class="tool-row">
+                    <div style="flex: 1;">
+                        <label><i class="fas fa-calendar-alt"></i> Start Date</label>
+                        <input type="date" id="startDate" class="tool-input" value="2024-01-01">
+                    </div>
+                    <div style="flex: 1;">
+                        <label><i class="fas fa-calendar-check"></i> End Date</label>
+                        <input type="date" id="endDate" class="tool-input">
+                    </div>
+                </div>
 
-    <h2>Date Difference</h2>
-    <p class="description">Calculate the difference between two dates</p>
+                <!-- Calculate Button -->
+                <button id="calculateBtn" class="tool-button" style="width: 100%; margin: 1.5rem 0;">
+                    <i class="fas fa-calculator"></i> Calculate Difference
+                </button>
 
-    <label for="startDate">Start Date</label>
-    <input type="date" id="startDate">
+                <!-- Results -->
+                <div class="result-box" style="text-align: center; padding: 2rem;">
+                    <div id="dateResult" style="font-size: 1.8rem; color: var(--primary); font-weight: bold;">
+                        Select dates to calculate
+                    </div>
+                    <div id="dateDetails" style="margin-top: 1rem; color: var(--text-secondary);">
+                        Choose start and end dates
+                    </div>
+                </div>
 
-    <label for="endDate">End Date</label>
-    <input type="date" id="endDate">
+                <!-- Breakdown -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1.5rem;">
+                    <div style="background: var(--bg-dark); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--primary);" id="years">0</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Years</div>
+                    </div>
+                    <div style="background: var(--bg-dark); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--primary);" id="months">0</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Months</div>
+                    </div>
+                    <div style="background: var(--bg-dark); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--primary);" id="weeks">0</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Weeks</div>
+                    </div>
+                    <div style="background: var(--bg-dark); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--primary);" id="days">0</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Days</div>
+                    </div>
+                </div>
 
-    <div class="calc-grid">
-      <button onclick="calculateDiff()">Calculate</button>
-      <button onclick="clearDates()">Clear</button>
-    </div>
+                <!-- Totals -->
+                <div style="margin-top: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                        <div style="background: var(--bg-card); padding: 1rem; border-radius: 10px; text-align: center;">
+                            <div style="color: var(--text-secondary);">Total Days</div>
+                            <div style="font-size: 1.2rem; color: var(--primary); font-weight: bold;" id="totalDays">0</div>
+                        </div>
+                        <div style="background: var(--bg-card); padding: 1rem; border-radius: 10px; text-align: center;">
+                            <div style="color: var(--text-secondary);">Total Hours</div>
+                            <div style="font-size: 1.2rem; color: var(--primary); font-weight: bold;" id="totalHours">0</div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="result" id="resultBox" style="display:none;"></div>
+                <!-- Quick Actions -->
+                <div class="tool-row" style="margin-top: 1.5rem;">
+                    <button id="swapBtn" class="tool-button secondary">
+                        <i class="fas fa-exchange-alt"></i> Swap Dates
+                    </button>
+                    <button id="todayBtn" class="tool-button secondary">
+                        <i class="fas fa-calendar-day"></i> Set Today
+                    </button>
+                    <button id="clearBtn" class="tool-button secondary">
+                        <i class="fas fa-redo"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  </div>
-</div>
+    <footer>
+        <div class="footer-main">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo">SG</div>
+                    <div class="logo-text">SG Multi Tools</div>
+                </div>
+                <p>A collection of 20+ free, privacy-focused utilities for daily use.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="tools.html">All Tools</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@sgtools.in</p>
+                <p>All tools are free to use</p>
+                <p>No registration required</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 SG Multi Tools. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for developers and professionals</p>
+        </div>
+    </footer>
 
-<script>
-function calculateDiff(){
-  const start = document.getElementById("startDate").value;
-  const end = document.getElementById("endDate").value;
-
-  if(!start || !end){
-    alert("Please select both dates");
-    return;
-  }
-
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-
-  if(endDate < startDate){
-    alert("End date must be after start date");
-    return;
-  }
-
-  // More accurate date difference calculation
-  let years = endDate.getFullYear() - startDate.getFullYear();
-  let months = endDate.getMonth() - startDate.getMonth();
-  let days = endDate.getDate() - startDate.getDate();
-
-  if (days < 0) {
-    months--;
-    // Get the last day of the previous month
-    days += new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
-  }
-
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
-  
-  // Calculate total days separately for accuracy
-  const diffTime = endDate - startDate;
-  const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  const resultBox = document.getElementById("resultBox");
-  resultBox.style.display = "block";
-  resultBox.innerHTML = `
-    <strong>Difference:</strong><br>
-    ${years} Years, ${months} Months, ${days} Days<br><br>
-    <strong>Total Days:</strong> ${totalDays}
-  `;
-}
-
-function clearDates(){
-  document.getElementById("startDate").value = "";
-  document.getElementById("endDate").value = "";
-  document.getElementById("resultBox").style.display = "none";
-}
-</script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const dateResult = document.getElementById('dateResult');
+            const dateDetails = document.getElementById('dateDetails');
+            const years = document.getElementById('years');
+            const months = document.getElementById('months');
+            const weeks = document.getElementById('weeks');
+            const days = document.getElementById('days');
+            const totalDays = document.getElementById('totalDays');
+            const totalHours = document.getElementById('totalHours');
+            const swapBtn = document.getElementById('swapBtn');
+            const todayBtn = document.getElementById('todayBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            
+            // Set end date to today
+            const today = new Date();
+            endDate.value = today.toISOString().split('T')[0];
+            
+            // Calculate date difference
+            function calculateDifference() {
+                const start = new Date(startDate.value);
+                const end = new Date(endDate.value);
+                
+                if (start > end) {
+                    dateResult.innerHTML = '<span style="color: var(--danger);">Invalid date range</span>';
+                    dateDetails.textContent = 'Start date must be before end date';
+                    resetCounts();
+                    return;
+                }
+                
+                // Calculate total days difference
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                // Calculate years, months, days
+                let yearsDiff = end.getFullYear() - start.getFullYear();
+                let monthsDiff = end.getMonth() - start.getMonth();
+                let daysDiff = end.getDate() - start.getDate();
+                
+                // Adjust negative days
+                if (daysDiff < 0) {
+                    monthsDiff--;
+                    const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0);
+                    daysDiff += prevMonth.getDate();
+                }
+                
+                // Adjust negative months
+                if (monthsDiff < 0) {
+                    yearsDiff--;
+                    monthsDiff += 12;
+                }
+                
+                // Update display
+                dateResult.textContent = `${yearsDiff} years, ${monthsDiff} months, ${daysDiff} days`;
+                dateDetails.textContent = `${start.toDateString()} to ${end.toDateString()}`;
+                
+                // Update breakdown
+                years.textContent = yearsDiff;
+                months.textContent = yearsDiff * 12 + monthsDiff;
+                weeks.textContent = Math.floor(diffDays / 7);
+                days.textContent = daysDiff;
+                
+                // Update totals
+                totalDays.textContent = diffDays.toLocaleString();
+                totalHours.textContent = (diffDays * 24).toLocaleString();
+            }
+            
+            // Reset counts
+            function resetCounts() {
+                years.textContent = '0';
+                months.textContent = '0';
+                weeks.textContent = '0';
+                days.textContent = '0';
+                totalDays.textContent = '0';
+                totalHours.textContent = '0';
+            }
+            
+            // Event listeners
+            calculateBtn.addEventListener('click', calculateDifference);
+            
+            startDate.addEventListener('change', calculateDifference);
+            endDate.addEventListener('change', calculateDifference);
+            
+            swapBtn.addEventListener('click', function() {
+                const temp = startDate.value;
+                startDate.value = endDate.value;
+                endDate.value = temp;
+                calculateDifference();
+            });
+            
+            todayBtn.addEventListener('click', function() {
+                endDate.value = today.toISOString().split('T')[0];
+                calculateDifference();
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                startDate.value = '2024-01-01';
+                endDate.value = today.toISOString().split('T')[0];
+                calculateDifference();
+            });
+            
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Initial calculation
+            calculateDifference();
+        });
+    </script>
 </body>
 </html>
