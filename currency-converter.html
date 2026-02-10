@@ -1,89 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Currency Converter | SG Multi Tools</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Converter | SG Multi Tools</title>
 
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* === Tool Specific Styles === */
+
+    .tool-card {
+      width: 450px;
+      max-width: 95vw;
+    }
+
+    /* Converter Grid */
+    .converter-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    /* Currency Selectors Row */
+    .currency-row {
+      display: flex;
+      align-items: flex-end; /* Align bottom to match inputs */
+      gap: 10px;
+    }
+
+    .select-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .select-group label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      appearance: none; /* Remove default arrow */
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+    }
+
+    /* Swap Button */
+    .swap-btn {
+      width: 40px;
+      height: 40px;
+      background: #334155;
+      border: 1px solid #475569;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--accent);
+      font-size: 1.2rem;
+      transition: 0.3s;
+      margin-bottom: 2px; /* Align visually with inputs */
+    }
+
+    .swap-btn:hover {
+      background: var(--accent);
+      color: white;
+      transform: rotate(180deg);
+    }
+
+    /* Amount Input */
+    .amount-group {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    
+    .amount-group label {
+      display: block;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    /* Result Area */
+    .result-box {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 10px;
+    }
+
+    .result-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .result-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      word-break: break-word;
+    }
+
+    .rate-info {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* Loading Spinner */
+    .loader {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #fff;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+  </style>
 </head>
-
 <body>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
-
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
-
+  <div class="tool-card">
+    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+    
     <h2>Currency Converter</h2>
-    <p class="description">Convert currencies using real-time exchange rates</p>
 
-    <label>Amount</label>
-    <input type="number" id="amount" placeholder="Enter amount">
+    <div class="converter-grid">
+      
+      <!-- Amount -->
+      <div class="amount-group">
+        <label>Amount</label>
+        <input type="number" id="amount" value="1" placeholder="Enter amount">
+      </div>
 
-    <label>From</label>
-    <select id="fromCurrency"></select>
+      <!-- Selectors -->
+      <div class="currency-row">
+        <div class="select-group">
+          <label>From</label>
+          <select id="fromCurrency"></select>
+        </div>
 
-    <label>To</label>
-    <select id="toCurrency"></select>
+        <button class="swap-btn" onclick="swapCurrencies()" title="Swap Currencies">
+          ⇄
+        </button>
 
-    <div class="calc-grid" style="grid-template-columns:1fr;">
-      <button onclick="convertCurrency()">Convert</button>
+        <div class="select-group">
+          <label>To</label>
+          <select id="toCurrency"></select>
+        </div>
+      </div>
+
     </div>
 
-    <div class="result" id="resultBox" style="display:none;"></div>
+    <!-- Action Button -->
+    <button onclick="convertCurrency()" id="convertBtn">Convert Now</button>
+
+    <!-- Result -->
+    <div class="result-box" id="resultBox" style="display:none;">
+      <div class="result-text">Converted Amount</div>
+      <div class="result-value" id="finalResult">
+        <!-- Result goes here -->
+      </div>
+      <div class="rate-info" id="rateInfo"></div>
+    </div>
 
   </div>
-</div>
 
-<script>
-const fromCurrency = document.getElementById("fromCurrency");
-const toCurrency = document.getElementById("toCurrency");
-const resultBox = document.getElementById("resultBox");
+  <script>
+    const amountInput = document.getElementById('amount');
+    const fromSelect = document.getElementById('fromCurrency');
+    const toSelect = document.getElementById('toCurrency');
+    const resultBox = document.getElementById('resultBox');
+    const finalResult = document.getElementById('finalResult');
+    const rateInfo = document.getElementById('rateInfo');
+    const convertBtn = document.getElementById('convertBtn');
 
-const currencies = [
-  "USD","INR","EUR","GBP","AUD","CAD","JPY","CNY","SGD","NZD"
-];
+    // List of major currencies
+    const currencies = [
+      "USD", "EUR", "INR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "HKD", "NZD", "SGD", "AED", "SAR", "ZAR", "BRL", "MXN", "RUB", "KRW", "TRY"
+    ];
 
-currencies.forEach(cur=>{
-  const opt1 = document.createElement("option");
-  const opt2 = document.createElement("option");
-  opt1.value = opt2.value = cur;
-  opt1.textContent = opt2.textContent = cur;
-  fromCurrency.appendChild(opt1);
-  toCurrency.appendChild(opt2);
-});
+    // Populate Dropdowns
+    currencies.forEach(currency => {
+      const option1 = document.createElement("option");
+      const option2 = document.createElement("option");
+      option1.value = option2.value = currency;
+      option1.text = option2.text = currency;
+      
+      fromSelect.add(option1);
+      toSelect.add(option2);
+    });
 
-fromCurrency.value = "USD";
-toCurrency.value = "INR";
+    // Set Defaults
+    fromSelect.value = "USD";
+    toSelect.value = "INR";
 
-async function convertCurrency(){
-  const amount = document.getElementById("amount").value;
-  if(!amount || amount <= 0){
-    alert("Enter a valid amount");
-    return;
-  }
+    // API Base URL (Free, no key needed)
+    const API_URL = "https://open.er-api.com/v6/latest/";
 
-  const from = fromCurrency.value;
-  const to = toCurrency.value;
+    async function convertCurrency() {
+      const amount = amountInput.value;
+      const from = fromSelect.value;
+      const to = toSelect.value;
 
-  try{
-    const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
-    const data = await res.json();
-    const rate = data.rates[to];
-    const converted = (amount * rate).toFixed(2);
+      if(amount === "" || amount < 0) {
+        alert("Please enter a valid amount");
+        return;
+      }
 
-    resultBox.style.display = "block";
-    resultBox.innerHTML = `
-      <strong>${amount} ${from}</strong> =
-      <strong>${converted} ${to}</strong>
-    `;
-  }catch{
-    alert("Unable to fetch exchange rates");
-  }
-}
-</script>
+      // Show loading state
+      convertBtn.innerHTML = '<span class="loader"></span> Converting...';
+      convertBtn.disabled = true;
+
+      try {
+        const response = await fetch(`${API_URL}${from}`);
+        const data = await response.json();
+
+        const rate = data.rates[to];
+        const result = (amount * rate).toFixed(2);
+
+        // Format numbers with commas (e.g., 1,234.56)
+        const formattedResult = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: to
+        }).format(result);
+
+        // Update UI
+        resultBox.style.display = "block";
+        finalResult.innerHTML = formattedResult;
+        rateInfo.innerHTML = `1 ${from} = ${rate} ${to}`;
+
+      } catch (error) {
+        alert("Error fetching exchange rates. Please check your internet connection.");
+        console.error(error);
+      } finally {
+        convertBtn.innerText = "Convert Now";
+        convertBtn.disabled = false;
+      }
+    }
+
+    function swapCurrencies() {
+      const temp = fromSelect.value;
+      fromSelect.value = toSelect.value;
+      toSelect.value = temp;
+      convertCurrency(); // Auto convert on swap
+    }
+
+    // Event Listeners for "Enter" key
+    amountInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        convertCurrency();
+      }
+    });
+
+    // Optional: Auto-convert when changing dropdowns (uncomment if desired)
+    // fromSelect.addEventListener('change', convertCurrency);
+    // toSelect.addEventListener('change', convertCurrency);
+
+  </script>
 
 </body>
 </html>
