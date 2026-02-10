@@ -6,7 +6,172 @@
 <title>Image Converter | SG Multi Tools</title>
 
 <link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+
+<!-- All necessary CSS is included here for prototyping -->
+<style>
+    /* General Body Styles (Consistent with other tools) */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Main container for the single tool page */
+    .single-tool {
+        width: 100%;
+        max-width: 75vw; /* Max width is 75% of the viewport width */
+        display: flex;
+        justify-content: center;
+    }
+
+    /* The actual card wrapper for the tool's content */
+    .tool-wrapper {
+        background: #ffffff;
+        padding: 2rem 2.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        max-width: 500px; /* Fixed max-width for consistency */
+        width: 100%;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    /* Tool-specific element styles */
+    .tool-wrapper h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-size: 1.8rem;
+    }
+
+    .tool-wrapper .description {
+        text-align: center;
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .tool-wrapper label {
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .tool-wrapper input[type="file"],
+    .tool-wrapper select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1rem;
+        color: #333;
+    }
+    
+    .tool-wrapper input[type="file"] {
+        padding: 0.5rem;
+    }
+
+    /* Grid for layout of buttons */
+    .calc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .tool-wrapper button, .download-btn {
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.2s ease;
+    }
+
+    .tool-wrapper button:hover, .download-btn:hover {
+        background-color: #0056b3;
+    }
+    
+    .download-btn {
+        background-color: #28a745; /* Green color for download */
+    }
+    
+    .download-btn:hover {
+        background-color: #218838;
+    }
+
+    .calc-grid button:last-child {
+        background-color: #6c757d;
+    }
+
+    .calc-grid button:last-child:hover {
+        background-color: #5a6268;
+    }
+
+    .result-area {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+    
+    #imagePreview {
+        max-width: 100px;
+        max-height: 100px;
+        margin-top: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        display: none; /* Hidden by default */
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        font-size: 2rem;
+        color: #aaa;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+    }
+
+    .close-btn:hover {
+        color: #333;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        body {
+            padding: 15px;
+        }
+        .single-tool {
+            max-width: 95vw;
+        }
+        .tool-wrapper {
+            padding: 1.5rem;
+        }
+        .tool-wrapper h2 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
 </head>
 
 <body>
@@ -14,99 +179,106 @@
 <div class="single-tool">
   <div class="tool-wrapper">
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <button class="close-btn" onclick="location.href='index.html'" title="Close">×</button>
 
     <h2>Image Converter</h2>
-    <p class="description">
-      Convert and compress images between PNG, JPG, and WEBP formats
-    </p>
+    <p class="description">Convert your image to JPG, PNG, or WEBP</p>
 
-    <label>Select Image</label>
+    <label for="imageInput">Select Image</label>
     <input type="file" id="imageInput" accept="image/*">
 
-    <label>Convert To</label>
-    <select id="formatSelect">
-      <option value="image/png">PNG (lossless)</option>
-      <option value="image/jpeg" selected>JPG</option>
-      <option value="image/webp">WEBP</option>
+    <label for="convertTo">Convert To</label>
+    <select id="convertTo">
+      <option value="jpeg">JPG</option>
+      <option value="png">PNG</option>
+      <option value="webp">WEBP</option>
     </select>
-
-    <label>
-      Compression Quality:
-      <strong><span id="qualityVal">80</span>%</strong>
-    </label>
-    <input type="range" id="quality"
-           min="10" max="100" value="80">
-
-    <div class="calc-grid" style="grid-template-columns:repeat(2,1fr);">
-      <button onclick="convertImage()">Convert</button>
-      <button onclick="clearImage()">Clear</button>
+    
+    <div class="calc-grid">
+        <button onclick="convertImage()">Convert</button>
+        <button onclick="clearFields()">Clear</button>
     </div>
-
-    <div class="result" id="resultBox" style="display:none;">
-      <strong>Preview:</strong><br>
-      <img id="preview"
-           style="max-width:100%; margin-top:8px; border-radius:8px;">
-      <br><br>
-      <a id="downloadLink"
-         class="aff-btn primary-aff"
-         download>
-        Download Converted Image
-      </a>
+    
+    <div class="result-area" id="resultArea" style="display:none;">
+        <img id="imagePreview" src="#" alt="Image Preview"/>
+        <p id="resultText"></p>
+        <a id="downloadLink" class="download-btn" href="#" download>Download Image</a>
     </div>
 
   </div>
 </div>
 
 <script>
-let uploadedImage = null;
+const imageInput = document.getElementById('imageInput');
+const convertTo = document.getElementById('convertTo');
+const resultArea = document.getElementById('resultArea');
+const imagePreview = document.getElementById('imagePreview');
+const resultText = document.getElementById('resultText');
+const downloadLink = document.getElementById('downloadLink');
 
-const qualityInput = document.getElementById("quality");
-const qualityVal = document.getElementById("qualityVal");
+let originalFileName = '';
 
-qualityInput.addEventListener("input", () => {
-  qualityVal.textContent = qualityInput.value;
+imageInput.addEventListener('change', function(event) {
+    if (event.target.files && event.target.files[0]) {
+        originalFileName = event.target.files[0].name.split('.').slice(0, -1).join('.');
+        imagePreview.src = URL.createObjectURL(event.target.files[0]);
+        imagePreview.style.display = 'block';
+        resultArea.style.display = 'block';
+        resultText.textContent = 'Preview of selected image.';
+        downloadLink.style.display = 'none'; // Hide download link on new selection
+    }
 });
 
-document.getElementById("imageInput").addEventListener("change", e => {
-  uploadedImage = e.target.files[0];
-});
+function convertImage() {
+    if (!imageInput.files || imageInput.files.length === 0) {
+        alert('Please select an image file first.');
+        return;
+    }
 
-function convertImage(){
-  if(!uploadedImage){
-    alert("Please select an image");
-    return;
-  }
+    const file = imageInput.files[0];
+    const reader = new FileReader();
 
-  const format = document.getElementById("formatSelect").value;
-  const quality = qualityInput.value / 100;
+    reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
 
-  const img = new Image();
-  const reader = new FileReader();
+            const format = convertTo.value;
+            const mimeType = `image/${format}`;
+            
+            // For JPG, fill background with white to avoid black background on transparent images
+            if (format === 'jpeg') {
+                ctx.globalCompositeOperation = 'destination-over';
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
 
-  reader.onload = e => img.src = e.target.result;
+            const dataUrl = canvas.toDataURL(mimeType, 0.95); // 0.95 is quality for jpeg/webp
 
-  img.onload = () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
+            downloadLink.href = dataUrl;
+            downloadLink.download = `${originalFileName}.${format}`;
+            downloadLink.style.display = 'block';
+            resultText.textContent = `Conversion successful! Click below to download.`;
+        };
+        img.src = event.target.result;
+    };
 
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
+    reader.readAsDataURL(file);
+}
 
-    const options = (format === "image/png") ? {} : { quality };
+function clearFields() {
+    imageInput.value = ''; // This clears the file input
+    resultArea.style.display = 'none';
+    imagePreview.style.display = 'none';
+    downloadLink.style.display = 'none';
+    originalFileName = '';
+    convertTo.value = 'jpeg';
+}
+</script>
 
-    canvas.toBlob(blob => {
-      const url = URL.createObjectURL(blob);
-
-      const preview = document.getElementById("preview");
-      const downloadLink = document.getElementById("downloadLink");
-
-      preview.src = url;
-
-      const ext = format.split("/")[1];
-      downloadLink.href = url;
-      downloadLink.download = `converted-image.${ext}`;
-
-      document.getElementById("resultBox").style.display = "block";
-    }, format, options
+</body>
+</html>
