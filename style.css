@@ -1,303 +1,275 @@
-/* =========================================
-   SG Multi Tools - Professional Dark Theme
-   ========================================= */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Size Converter | SG Multi Tools</title>
 
-:root {
-  /* Color Palette - Slate Dark Theme */
-  --bg: #0f172a;         /* Deep Blue/Black Background */
-  --card: #1e293b;       /* Lighter Card Background */
-  --input-bg: #020617;   /* Very Dark Input Background */
-  --border: #334155;     /* Border Color */
-  
-  --accent: #3b82f6;     /* Bright Blue Accent */
-  --accent-hover: #2563eb; 
-  
-  --text-main: #f8fafc;  /* Main White Text */
-  --text-muted: #94a3b8; /* Gray Secondary Text */
-  
-  --danger: #ef4444;     /* Red (Clear/Close) */
-  --success: #10b981;    /* Green (Copy/Save) */
-  
-  --radius: 12px;        /* Rounded Corners */
-  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --transition: all 0.2s ease;
-}
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
 
-/* Force Dark Mode defaults in browser (scrollbars, calendars) */
-:root {
-  color-scheme: dark;
-}
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
 
-/* ================= RESET ================= */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
+  <style>
+    /* === Tool Specific Styles === */
+    
+    .tool-card {
+      width: 100%;
+      max-width: 500px;
+    }
 
-body {
-  background-color: var(--bg);
-  color: var(--text-main);
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+    /* Converter Layout */
+    .converter-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-/* ================= HEADER ================= */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%;
-  background: rgba(15, 23, 42, 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+    /* Input & Select Row */
+    .input-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      align-items: start;
+    }
 
-/* Logo - Matches Favicon */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: var(--text-main);
-  text-decoration: none;
-  letter-spacing: -0.5px;
-}
+    /* Swap Button Container */
+    .swap-container {
+      display: flex;
+      justify-content: center;
+      margin: -10px 0; /* Tighten gap */
+      z-index: 10;
+    }
 
-.logo img {
-  height: 36px;
-  width: 36px;
-  border-radius: 8px; /* Matches favicon shape */
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); /* Subtle blue glow */
-}
+    .swap-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #334155;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
 
-/* Navigation */
-nav {
-  display: flex;
-  gap: 25px;
-}
+    .swap-btn:hover {
+      background: var(--accent);
+      color: white;
+      transform: rotate(180deg);
+    }
 
-nav a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: var(--transition);
-}
+    /* Result Box */
+    .result-box {
+      margin-top: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      display: none; /* Hidden by default */
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
 
-nav a:hover {
-  color: var(--accent);
-}
+    .result-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
 
-/* ================= HERO SECTION ================= */
-.hero {
-  text-align: center;
-  padding: 80px 20px 40px;
-  max-width: 800px;
-  margin: 0 auto;
-}
+    .result-val {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      word-break: break-all;
+    }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 15px;
-  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1.2;
-}
+    .formula-text {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-family: monospace;
+    }
 
-.hero p {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-}
+    /* Copy Button inside result */
+    .copy-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: auto;
+      padding: 5px;
+    }
+    .copy-icon:hover {
+      color: var(--success);
+    }
 
-/* ================= TOOLS GRID (Home Page) ================= */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 25px;
-  padding: 20px 5% 60px;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
 
-/* Individual Tool Link Card */
-.tool-link {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 25px;
-  text-decoration: none;
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
+  <div class="tool-card">
+    <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+    
+    <h2>File Size Converter</h2>
 
-.tool-link:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent);
-  box-shadow: var(--shadow);
-}
+    <div class="converter-grid">
+      
+      <!-- Input Section -->
+      <div class="input-row">
+        <div>
+          <label>Amount</label>
+          <input type="number" id="inputVal" placeholder="Enter size" value="1">
+        </div>
+        <div>
+          <label>Unit</label>
+          <select id="inputUnit">
+            <option value="B">Bytes</option>
+            <option value="KB">KB</option>
+            <option value="MB" selected>MB</option>
+            <option value="GB">GB</option>
+            <option value="TB">TB</option>
+            <option value="PB">PB</option>
+          </select>
+        </div>
+      </div>
 
-.tool-link h2 {
-  font-size: 1.2rem;
-  color: var(--text-main);
-  margin-bottom: 10px;
-}
+      <!-- Swap Button -->
+      <div class="swap-container">
+        <button class="swap-btn" onclick="swapUnits()" title="Swap Units">⇅</button>
+      </div>
 
-.tool-link p {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  flex-grow: 1;
-  line-height: 1.5;
-}
+      <!-- Output Section -->
+      <div class="input-row">
+        <div style="grid-column: span 2;"> <!-- Full width for label, select takes part -->
+          <label>Convert To</label>
+          <select id="outputUnit">
+            <option value="B">Bytes</option>
+            <option value="KB">KB</option>
+            <option value="MB">MB</option>
+            <option value="GB" selected>GB</option>
+            <option value="TB">TB</option>
+            <option value="PB">PB</option>
+          </select>
+        </div>
+      </div>
 
-.tool-link .open-btn {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--border);
-  padding: 10px;
-  border-radius: 6px;
-  text-align: center;
-  font-weight: 600;
-  transition: var(--transition);
-}
+      <button onclick="convertSize()">Convert File Size</button>
 
-.tool-link:hover .open-btn {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
+      <!-- Result Display -->
+      <div class="result-box" id="resultBox">
+        <button class="copy-icon" onclick="copyResult()" title="Copy Result">📋</button>
+        <div class="result-label">Result</div>
+        <div class="result-val" id="displayResult">0</div>
+        <div class="formula-text" id="formulaText"></div>
+      </div>
 
-/* ================= INDIVIDUAL TOOL INTERFACE ================= */
-/* This styles the specific tool cards (Age Calc, Currency, etc.) */
-.tool-card {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 30px;
-  margin: 40px auto;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: var(--shadow);
-  position: relative;
-  animation: slideUp 0.4s ease-out;
-}
+    </div>
+  </div>
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  <script>
+    // Multiplier logic: 1 KB = 1024 Bytes (Standard Binary/IEC)
+    const units = {
+      "B": 0,
+      "KB": 1,
+      "MB": 2,
+      "GB": 3,
+      "TB": 4,
+      "PB": 5
+    };
 
-.tool-card h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 1.5rem;
-  color: var(--text-main);
-}
+    function convertSize() {
+      const val = parseFloat(document.getElementById('inputVal').value);
+      const fromUnit = document.getElementById('inputUnit').value;
+      const toUnit = document.getElementById('outputUnit').value;
+      
+      if (isNaN(val)) {
+        alert("Please enter a valid number");
+        return;
+      }
 
-/* Close Button (X) */
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  color: var(--text-muted);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
+      // 1. Convert Input to Base Unit (Bytes)
+      // Math.pow(1024, units[fromUnit]) calculates the multiplier
+      // e.g., if MB (index 2), multiplier is 1024^2
+      const bytes = val * Math.pow(1024, units[fromUnit]);
 
-.close-btn:hover {
-  background: var(--danger);
-  color: white;
-}
+      // 2. Convert Bytes to Target Unit
+      // Divide by 1024^index
+      const result = bytes / Math.pow(1024, units[toUnit]);
 
-/* ================= FORMS & INPUTS ================= */
-input, select, textarea {
-  width: 100%;
-  padding: 12px 15px;
-  background-color: var(--input-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-main);
-  font-size: 1rem;
-  margin-bottom: 15px;
-  outline: none;
-  transition: var(--transition);
-}
+      // 3. Formatting
+      // If result is very small or very large, handle decimals nicely
+      let formattedResult;
+      if (Number.isInteger(result)) {
+        formattedResult = result;
+      } else {
+        formattedResult = result.toFixed(6).replace(/\.?0+$/, ""); // Remove trailing zeros
+      }
 
-input:focus, select:focus, textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
+      // 4. Update UI
+      const resultBox = document.getElementById('resultBox');
+      const display = document.getElementById('displayResult');
+      const formula = document.getElementById('formulaText');
 
-/* Dark Mode Dropdown Fix */
-select option {
-  background-color: var(--bg);
-  color: var(--text-main);
-}
+      resultBox.style.display = 'block';
+      display.innerText = `${formattedResult} ${toUnit}`;
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
+      // Generate simple formula explanation
+      const stepDiff = units[toUnit] - units[fromUnit];
+      if (stepDiff > 0) {
+        formula.innerText = `Divide by 1024 ${stepDiff} times`;
+      } else if (stepDiff < 0) {
+        formula.innerText = `Multiply by 1024 ${Math.abs(stepDiff)} times`;
+      } else {
+        formula.innerText = `No conversion needed`;
+      }
+    }
 
-/* Primary Button */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
+    function swapUnits() {
+      const from = document.getElementById('inputUnit');
+      const to = document.getElementById('outputUnit');
+      
+      const temp = from.value;
+      from.value = to.value;
+      to.value = temp;
+      
+      // Auto convert if result is already showing
+      if(document.getElementById('resultBox').style.display === 'block') {
+        convertSize();
+      }
+    }
 
-button:hover {
-  background-color: var(--accent-hover);
-  transform: translateY(-1px);
-}
+    function copyResult() {
+      const text = document.getElementById('displayResult').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        // Visual feedback
+        const btn = document.querySelector('.copy-icon');
+        const original = btn.innerText;
+        btn.innerText = '✅';
+        setTimeout(() => btn.innerText = original, 1500);
+      });
+    }
 
-/* ================= FOOTER ================= */
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  margin-top: auto;
-  border-top: 1px solid var(--border);
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
+    // Allow Enter key to convert
+    document.getElementById('inputVal').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') convertSize();
+    });
 
-/* Mobile Responsive */
-@media (max-width: 600px) {
-  header { padding: 15px; }
-  .logo span { display: none; } /* Show only Icon on very small screens? Optional */
-  .hero h1 { font-size: 2rem; }
-  .tools-grid { grid-template-columns: 1fr; }
-  .tool-card { margin: 10px; width: auto; }
-}
+  </script>
+
+</body>
+</html>
