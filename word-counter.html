@@ -1,206 +1,1924 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Word Counter | SG Multi Tools</title>
-
-<link rel="icon" href="/favicon.ico">
-
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#020617;
-  --input:#020617;
-  --text:#e5e7eb;
-  --muted:#94a3b8;
-  --border-main:#38bdf8;
-  --accent:#22c55e;
-}
-
-/* ===== RESET ===== */
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:14px;
-}
-
-/* ===== TOOL CARD ===== */
-.tool-wrapper{
-  width:100%;
-  max-width:420px;
-  background:var(--card);
-  border:2px solid var(--border-main);
-  border-radius:14px;
-  padding:18px 16px 20px;
-  position:relative;
-  text-align:center;
-}
-
-/* ===== CLOSE BUTTON ===== */
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:12px;
-  font-size:18px;
-  color:var(--muted);
-  cursor:pointer;
-  line-height:1;
-}
-
-/* ===== HEADINGS ===== */
-h1{
-  font-size:20px;
-  margin-bottom:6px;
-}
-
-.desc{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
-
-/* ===== TEXT AREA ===== */
-.text-box{
-  background:var(--input);
-  border:2px solid var(--border-main);
-  border-radius:10px;
-  padding:10px;
-  margin-bottom:12px;
-}
-
-.text-box textarea{
-  width:100%;
-  min-height:120px;
-  resize:vertical;
-  background:transparent;
-  border:none;
-  outline:none;
-  color:var(--text);
-  font-size:14px;
-  text-align:center;
-}
-
-/* ===== COUNTS ===== */
-.stats{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:10px;
-}
-
-.stat{
-  flex:1;
-  background:var(--input);
-  border:2px solid var(--border-main);
-  border-radius:10px;
-  padding:8px;
-  font-size:13px;
-}
-
-/* ===== BUTTON ===== */
-.btn{
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  background:var(--accent);
-  border:none;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.btn:active{
-  transform:scale(0.98);
-}
-
-/* ===== LOADING ===== */
-.loading{
-  opacity:0.6;
-  pointer-events:none;
-}
-
-.loader{
-  display:none;
-  margin:14px auto 0;
-  width:26px;
-  height:26px;
-  border:3px solid #1e293b;
-  border-top:3px solid var(--border-main);
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{ transform:rotate(360deg); }
-}
-
-/* ===== MOBILE ===== */
-@media (max-width:480px){
-  .stats{
-    flex-direction:column;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - SG Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .counter-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        /* Input Card */
+        .input-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .input-card:hover {
+            border-color: var(--primary-accent);
+            box-shadow: 0 15px 35px rgba(66, 248, 245, 0.15);
+        }
+        
+        .input-card::before {
+            content: '\f303';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            font-size: 3rem;
+            color: rgba(66, 248, 245, 0.08);
+        }
+        
+        .input-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-label i {
+            color: var(--primary-accent);
+        }
+        
+        /* Text Input Area */
+        .text-input-container {
+            margin-bottom: 25px;
+        }
+        
+        .text-input-area {
+            width: 100%;
+            min-height: 300px;
+            padding: 25px;
+            background: var(--main-bg);
+            border: 2px solid var(--dark-border);
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+        
+        .text-input-area:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 4px rgba(66, 248, 245, 0.15);
+        }
+        
+        .text-input-area::placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .text-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .text-action-btn {
+            flex: 1;
+            min-width: 140px;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 14px 20px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .text-action-btn:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.15);
+        }
+        
+        .text-action-btn i {
+            font-size: 1.1rem;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 18px;
+            padding: 22px 20px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--primary-accent);
+            background: rgba(66, 248, 245, 0.02);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.1);
+        }
+        
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.8rem;
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-value {
+            color: var(--text-primary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-trend {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        
+        /* Detailed Stats Card */
+        .detailed-stats-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .detailed-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .detailed-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .detailed-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+        }
+        
+        .detailed-title h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .detailed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .detailed-item {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .detailed-item:hover {
+            border-color: var(--primary-accent);
+            background: rgba(66, 248, 245, 0.02);
+        }
+        
+        .detailed-item-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .detailed-item-label i {
+            color: var(--primary-accent);
+            width: 22px;
+        }
+        
+        .detailed-item-value {
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Readability Card */
+        .readability-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .readability-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .readability-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+        }
+        
+        .readability-header h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .readability-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .metric-item {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .metric-header i {
+            color: var(--primary-accent);
+        }
+        
+        .metric-value {
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .metric-scale {
+            margin-top: 15px;
+            height: 8px;
+            background: var(--button-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .metric-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .metric-description {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .metric-description i {
+            color: var(--primary-accent);
+        }
+        
+        /* Word Frequency Card */
+        .frequency-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .frequency-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .frequency-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .frequency-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+        }
+        
+        .frequency-title h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .frequency-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .frequency-select {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            padding: 10px 16px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .frequency-select:hover {
+            border-color: var(--primary-accent);
+        }
+        
+        .frequency-select:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 2px rgba(66, 248, 245, 0.2);
+        }
+        
+        .frequency-list {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .frequency-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .frequency-list::-webkit-scrollbar-track {
+            background: var(--main-bg);
+            border-radius: 10px;
+        }
+        
+        .frequency-list::-webkit-scrollbar-thumb {
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+        
+        .frequency-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+        
+        .frequency-item:hover {
+            border-color: var(--primary-accent);
+            transform: translateX(5px);
+            background: rgba(66, 248, 245, 0.02);
+        }
+        
+        .frequency-word {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .frequency-word i {
+            color: var(--primary-accent);
+            font-size: 0.9rem;
+        }
+        
+        .frequency-count {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .frequency-number {
+            background: rgba(66, 248, 245, 0.15);
+            color: var(--primary-accent);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .frequency-bar {
+            width: 100px;
+            height: 8px;
+            background: var(--button-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .frequency-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Character Map Card */
+        .charmap-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .charmap-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .charmap-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+        }
+        
+        .charmap-header h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .charmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 12px;
+        }
+        
+        .charmap-item {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .charmap-item:hover {
+            border-color: var(--primary-accent);
+            transform: scale(1.05);
+            background: rgba(66, 248, 245, 0.05);
+        }
+        
+        .charmap-char {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .charmap-count {
+            color: var(--primary-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: rgba(66, 248, 245, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+        
+        /* History Card */
+        .history-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .history-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .history-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+        }
+        
+        .history-title h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .clear-history-btn {
+            background: transparent;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .clear-history-btn:hover {
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        .history-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .history-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .history-list::-webkit-scrollbar-track {
+            background: var(--main-bg);
+            border-radius: 10px;
+        }
+        
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+        
+        .history-item {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 18px;
+            transition: var(--transition);
+        }
+        
+        .history-item:hover {
+            border-color: var(--primary-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.1);
+        }
+        
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .history-time {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        
+        .history-stats {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .history-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(66, 248, 245, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--primary-accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .history-preview {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-height: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--button-bg-alt);
+            border-radius: 10px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .history-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .history-btn {
+            width: 38px;
+            height: 38px;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .history-btn:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+            transform: scale(1.1);
+        }
+        
+        .empty-history {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+        }
+        
+        .empty-history i {
+            font-size: 3rem;
+            color: rgba(66, 248, 245, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-top: 40px;
+            padding: 14px 28px;
+            background: var(--button-bg-alt);
+            border-radius: 30px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .back-link:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .frequency-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .frequency-controls {
+                width: 100%;
+            }
+            
+            .frequency-select {
+                flex: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .input-card,
+            .detailed-stats-card,
+            .readability-card,
+            .frequency-card,
+            .charmap-card,
+            .history-card {
+                padding: 20px;
+            }
+            
+            .text-actions {
+                flex-direction: column;
+            }
+            
+            .text-action-btn {
+                width: 100%;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .stat-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            
+            .metric-value {
+                font-size: 1.6rem;
+            }
+            
+            .charmap-grid {
+                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            }
+            
+            .history-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stat-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 18px;
+            }
+            
+            .stat-icon {
+                margin-bottom: 10px;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
+            }
+            
+            .detailed-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .frequency-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .frequency-count {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .frequency-bar {
+                width: 60px;
+            }
+            
+            .charmap-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">SG Tools</span>
+                        <span class="logo-subtitle">Multi Utilities</span>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-<div class="tool-wrapper" id="tool">
-  <div class="close-btn" onclick="history.back()">✕</div>
+    <main class="main-content">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <div class="calculator-header-icon">
+                        <i class="fas fa-chart-simple"></i>
+                    </div>
+                    <h1 class="section-title">Word Counter</h1>
+                    <p class="section-subtitle">Analyze your text with detailed statistics and insights</p>
+                </div>
+                
+                <div class="counter-container">
+                    <!-- Input Card -->
+                    <div class="input-card">
+                        <div class="input-label">
+                            <i class="fas fa-pencil"></i> Text Analysis
+                        </div>
+                        
+                        <div class="text-input-container">
+                            <textarea id="textInput" class="text-input-area" placeholder="Type or paste your text here to analyze...">SG Tools Word Counter provides comprehensive text analysis including word count, character count, sentence count, readability scores, and keyword density. Perfect for writers, students, and SEO professionals.
 
-  <h1>Word Counter</h1>
-  <p class="desc">Count words, characters, and lines instantly.</p>
+This tool helps you improve your writing by analyzing text structure, reading level, and word frequency. You can also track your progress over time with the history feature.</textarea>
+                            
+                            <div class="text-actions">
+                                <button class="text-action-btn" onclick="clearText()">
+                                    <i class="fas fa-trash-alt"></i> Clear
+                                </button>
+                                <button class="text-action-btn" onclick="pasteFromClipboard()">
+                                    <i class="fas fa-paste"></i> Paste
+                                </button>
+                                <button class="text-action-btn" onclick="loadSample()">
+                                    <i class="fas fa-file-lines"></i> Sample
+                                </button>
+                                <button class="text-action-btn" onclick="downloadText()">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-words"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="wordCount">42</div>
+                                <div class="stat-label">Words</div>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="fas fa-circle-info"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-characters"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="charCount">247</div>
+                                <div class="stat-label">Characters</div>
+                            </div>
+                            <div class="stat-trend">
+                                <span id="charNoSpaces">198</span> no spaces
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-font"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="letterCount">198</div>
+                                <div class="stat-label">Letters</div>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="fas fa-abc"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-hashtag"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="numberCount">0</div>
+                                <div class="stat-label">Numbers</div>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="fas fa-0"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-space-shuttle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="spaceCount">45</div>
+                                <div class="stat-label">Spaces</div>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrows-left-right"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-paragraph"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="paraCount">2</div>
+                                <div class="stat-label">Paragraphs</div>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="fas fa-enter"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="sentenceCount">4</div>
+                                <div class="stat-label">Sentences</div>
+                            </div>
+                            <div class="stat-trend">
+                                <i class="fas fa-period"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="readingTime">0.2</div>
+                                <div class="stat-label">Reading Time</div>
+                            </div>
+                            <div class="stat-trend">
+                                <span id="readingTimeUnit">min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Stats Card -->
+                    <div class="detailed-stats-card">
+                        <div class="detailed-header">
+                            <div class="detailed-title">
+                                <div class="detailed-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <h3>Detailed Statistics</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="detailed-grid">
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-calculator"></i>
+                                    Total Characters
+                                </span>
+                                <span class="detailed-item-value" id="totalChars">247</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-eraser"></i>
+                                    No Spaces
+                                </span>
+                                <span class="detailed-item-value" id="noSpacesChars">198</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-punctuation"></i>
+                                    Punctuation
+                                </span>
+                                <span class="detailed-item-value" id="punctuationCount">8</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-uppercase"></i>
+                                    Uppercase
+                                </span>
+                                <span class="detailed-item-value" id="uppercaseCount">15</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-lowercase"></i>
+                                    Lowercase
+                                </span>
+                                <span class="detailed-item-value" id="lowercaseCount">183</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-chart-line"></i>
+                                    Avg Word Length
+                                </span>
+                                <span class="detailed-item-value" id="avgWordLength">5.2</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Avg Sentence Length
+                                </span>
+                                <span class="detailed-item-value" id="avgSentenceLength">10.5</span>
+                            </div>
+                            <div class="detailed-item">
+                                <span class="detailed-item-label">
+                                    <i class="fas fa-arrows-alt"></i>
+                                    Longest Word
+                                </span>
+                                <span class="detailed-item-value" id="longestWord">professionals</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Readability Card -->
+                    <div class="readability-card">
+                        <div class="readability-header">
+                            <div class="readability-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3>Readability Analysis</h3>
+                        </div>
+                        
+                        <div class="readability-metrics">
+                            <div class="metric-item">
+                                <div class="metric-header">
+                                    <span>Flesch Reading Ease</span>
+                                    <i class="fas fa-chart-simple"></i>
+                                </div>
+                                <div class="metric-value" id="fleschScore">65.8</div>
+                                <div class="metric-label" id="fleschLabel">Standard</div>
+                                <div class="metric-scale">
+                                    <div class="metric-fill" id="fleschFill" style="width: 65%"></div>
+                                </div>
+                                <div class="metric-description">
+                                    <i class="fas fa-circle-info"></i>
+                                    <span id="fleschDesc">Easily understood by 13-15 year olds</span>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-header">
+                                    <span>Flesch-Kincaid Grade</span>
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="metric-value" id="gradeLevel">7.2</div>
+                                <div class="metric-label">Grade Level</div>
+                                <div class="metric-scale">
+                                    <div class="metric-fill" id="gradeFill" style="width: 48%"></div>
+                                </div>
+                                <div class="metric-description">
+                                    <i class="fas fa-circle-info"></i>
+                                    <span id="gradeDesc">7th grade reading level</span>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-header">
+                                    <span>Complex Words</span>
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                                <div class="metric-value" id="complexWords">3</div>
+                                <div class="metric-label">7% of total</div>
+                                <div class="metric-scale">
+                                    <div class="metric-fill" id="complexFill" style="width: 7%"></div>
+                                </div>
+                                <div class="metric-description">
+                                    <i class="fas fa-circle-info"></i>
+                                    <span>Words with 3+ syllables</span>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-header">
+                                    <span>Reading Level</span>
+                                    <i class="fas fa-signal"></i>
+                                </div>
+                                <div class="metric-value" id="readingLevel">Fair</div>
+                                <div class="metric-label">Difficulty</div>
+                                <div class="metric-scale">
+                                    <div class="metric-fill" id="levelFill" style="width: 45%"></div>
+                                </div>
+                                <div class="metric-description">
+                                    <i class="fas fa-circle-info"></i>
+                                    <span id="levelDesc">Moderately easy to read</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Word Frequency Card -->
+                    <div class="frequency-card">
+                        <div class="frequency-header">
+                            <div class="frequency-title">
+                                <div class="frequency-icon">
+                                    <i class="fas fa-chart-column"></i>
+                                </div>
+                                <h4>Word Frequency</h4>
+                            </div>
+                            <div class="frequency-controls">
+                                <select id="frequencyLimit" class="frequency-select" onchange="updateWordFrequency()">
+                                    <option value="5">Top 5 Words</option>
+                                    <option value="10" selected>Top 10 Words</option>
+                                    <option value="15">Top 15 Words</option>
+                                    <option value="20">Top 20 Words</option>
+                                </select>
+                                <select id="frequencyOrder" class="frequency-select" onchange="updateWordFrequency()">
+                                    <option value="desc" selected>Highest First</option>
+                                    <option value="asc">Lowest First</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="frequency-list" id="frequencyList">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Character Map Card -->
+                    <div class="charmap-card">
+                        <div class="charmap-header">
+                            <div class="charmap-icon">
+                                <i class="fas fa-grid"></i>
+                            </div>
+                            <h4>Character Distribution</h4>
+                        </div>
+                        
+                        <div class="charmap-grid" id="charmapGrid">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- History Card -->
+                    <div class="history-card">
+                        <div class="history-header">
+                            <div class="history-title">
+                                <div class="history-icon">
+                                    <i class="fas fa-clock-rotate-left"></i>
+                                </div>
+                                <h4>Analysis History</h4>
+                            </div>
+                            <button class="clear-history-btn" onclick="clearHistory()">
+                                <i class="fas fa-trash-can"></i> Clear History
+                            </button>
+                        </div>
+                        
+                        <div class="history-list" id="historyList">
+                            <div class="empty-history">
+                                <i class="fas fa-chart-line"></i>
+                                <p>No analysis history yet</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Analyze text to see your history</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="tools.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to All Tools
+                </a>
+            </div>
+        </div>
+    </main>
 
-  <div class="text-box">
-    <textarea id="text" placeholder="Start typing here..."></textarea>
-  </div>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="footer-logo-text">
+                        <h3>SG Multi Tools</h3>
+                        <p>Essential utilities for daily use</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#disclaimer">Disclaimer</a></li>
+                            <li><a href="#terms">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                            <li><a href="#sitemap">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@sgtools.in</span>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-  <button class="btn" onclick="countText()">Count</button>
+    <script>
+        // DOM Elements
+        const textInput = document.getElementById('textInput');
+        
+        // Stats Elements
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const charNoSpaces = document.getElementById('charNoSpaces');
+        const letterCount = document.getElementById('letterCount');
+        const numberCount = document.getElementById('numberCount');
+        const spaceCount = document.getElementById('spaceCount');
+        const paraCount = document.getElementById('paraCount');
+        const sentenceCount = document.getElementById('sentenceCount');
+        const readingTime = document.getElementById('readingTime');
+        const readingTimeUnit = document.getElementById('readingTimeUnit');
+        
+        // Detailed Stats
+        const totalChars = document.getElementById('totalChars');
+        const noSpacesChars = document.getElementById('noSpacesChars');
+        const punctuationCount = document.getElementById('punctuationCount');
+        const uppercaseCount = document.getElementById('uppercaseCount');
+        const lowercaseCount = document.getElementById('lowercaseCount');
+        const avgWordLength = document.getElementById('avgWordLength');
+        const avgSentenceLength = document.getElementById('avgSentenceLength');
+        const longestWord = document.getElementById('longestWord');
+        
+        // Readability Stats
+        const fleschScore = document.getElementById('fleschScore');
+        const fleschLabel = document.getElementById('fleschLabel');
+        const fleschFill = document.getElementById('fleschFill');
+        const fleschDesc = document.getElementById('fleschDesc');
+        const gradeLevel = document.getElementById('gradeLevel');
+        const gradeFill = document.getElementById('gradeFill');
+        const gradeDesc = document.getElementById('gradeDesc');
+        const complexWords = document.getElementById('complexWords');
+        const complexFill = document.getElementById('complexFill');
+        const readingLevel = document.getElementById('readingLevel');
+        const levelFill = document.getElementById('levelFill');
+        const levelDesc = document.getElementById('levelDesc');
+        
+        // Frequency Elements
+        const frequencyList = document.getElementById('frequencyList');
+        const charmapGrid = document.getElementById('charmapGrid');
+        const historyList = document.getElementById('historyList');
+        
+        // State
+        let analysisHistory = [];
 
-  <div class="loader" id="loader"></div>
+        // Load history from localStorage
+        function loadHistory() {
+            const stored = localStorage.getItem('sgTools_wordHistory');
+            if (stored) {
+                try {
+                    analysisHistory = JSON.parse(stored);
+                } catch (e) {
+                    analysisHistory = [];
+                }
+            }
+            renderHistory();
+        }
 
-  <div class="stats">
-    <div class="stat" id="words">Words: 0</div>
-    <div class="stat" id="chars">Characters: 0</div>
-    <div class="stat" id="lines">Lines: 0</div>
-  </div>
-</div>
+        // Save history to localStorage
+        function saveHistory() {
+            localStorage.setItem('sgTools_wordHistory', JSON.stringify(analysisHistory));
+            renderHistory();
+        }
 
-<script>
-function countText(){
-  const tool = document.getElementById("tool");
-  const loader = document.getElementById("loader");
-  const text = document.getElementById("text").value;
+        // Add to history
+        function addToHistory() {
+            const text = textInput.value.trim();
+            if (!text || !document.getElementById('saveHistory')?.checked) return;
+            
+            const words = parseInt(wordCount.textContent) || 0;
+            const chars = parseInt(charCount.textContent) || 0;
+            const sentences = parseInt(sentenceCount.textContent) || 0;
+            
+            analysisHistory.unshift({
+                text: text.substring(0, 150) + (text.length > 150 ? '...' : ''),
+                words: words,
+                chars: chars,
+                sentences: sentences,
+                readingTime: readingTime.textContent + ' ' + readingTimeUnit.textContent,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Keep only last 15
+            if (analysisHistory.length > 15) {
+                analysisHistory = analysisHistory.slice(0, 15);
+            }
+            
+            saveHistory();
+        }
 
-  tool.classList.add("loading");
-  loader.style.display = "block";
+        // Render history
+        function renderHistory() {
+            if (analysisHistory.length === 0) {
+                historyList.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-chart-line"></i>
+                        <p>No analysis history yet</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Analyze text to see your history</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            analysisHistory.forEach((item, index) => {
+                const date = new Date(item.timestamp);
+                const formattedDate = date.toLocaleDateString();
+                const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                html += `
+                    <div class="history-item">
+                        <div class="history-item-header">
+                            <span class="history-time">
+                                <i class="fas fa-calendar"></i> ${formattedDate}
+                                <i class="fas fa-clock"></i> ${formattedTime}
+                            </span>
+                            <div class="history-stats">
+                                <span class="history-stat">
+                                    <i class="fas fa-words"></i> ${item.words}
+                                </span>
+                                <span class="history-stat">
+                                    <i class="fas fa-characters"></i> ${item.chars}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="history-preview">
+                            ${item.text}
+                        </div>
+                        <div class="history-actions">
+                            <button class="history-btn" onclick="loadFromHistory(${index})" title="Load Text">
+                                <i class="fas fa-file-import"></i>
+                            </button>
+                            <button class="history-btn" onclick="deleteHistoryItem(${index})" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+        }
 
-  setTimeout(()=>{
-    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-    const chars = text.length;
-    const lines = text ? text.split(/\n/).length : 0;
+        // Load from history
+        function loadFromHistory(index) {
+            const item = analysisHistory[index];
+            if (item) {
+                textInput.value = item.text.replace(/\.\.\.$/, '');
+                analyzeText();
+            }
+        }
 
-    document.getElementById("words").innerText = "Words: " + words;
-    document.getElementById("chars").innerText = "Characters: " + chars;
-    document.getElementById("lines").innerText = "Lines: " + lines;
+        // Delete history item
+        function deleteHistoryItem(index) {
+            analysisHistory.splice(index, 1);
+            saveHistory();
+        }
 
-    loader.style.display = "none";
-    tool.classList.remove("loading");
-  },300);
-}
-</script>
+        // Clear history
+        function clearHistory() {
+            if (confirm('Clear all analysis history?')) {
+                analysisHistory = [];
+                saveHistory();
+            }
+        }
 
+        // Analyze text
+        function analyzeText() {
+            const text = textInput.value;
+            
+            // Basic counts
+            const chars = text.length;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const spaces = (text.match(/\s/g) || []).length;
+            const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+            
+            // Character types
+            const letters = (text.match(/[A-Za-z]/g) || []).length;
+            const numbers = (text.match(/[0-9]/g) || []).length;
+            const punctuation = (text.match(/[^\w\s]/g) || []).length;
+            const uppercase = (text.match(/[A-Z]/g) || []).length;
+            const lowercase = (text.match(/[a-z]/g) || []).length;
+            const charsNoSpaces = chars - spaces;
+            
+            // Sentences
+            const sentences = (text.match(/[.!?]+(?=\s|$)/g) || []).length || (text.trim() ? 1 : 0);
+            
+            // Reading time (average 225 words per minute)
+            const readingMinutes = words / 225;
+            const readingSeconds = readingMinutes * 60;
+            
+            // Update basic stats
+            wordCount.textContent = words;
+            charCount.textContent = chars;
+            charNoSpaces.textContent = charsNoSpaces;
+            letterCount.textContent = letters;
+            numberCount.textContent = numbers;
+            spaceCount.textContent = spaces;
+            paraCount.textContent = paragraphs;
+            sentenceCount.textContent = sentences;
+            
+            // Update reading time
+            if (readingMinutes < 1) {
+                readingTime.textContent = Math.ceil(readingSeconds);
+                readingTimeUnit.textContent = 'sec';
+            } else {
+                readingTime.textContent = readingMinutes.toFixed(1);
+                readingTimeUnit.textContent = 'min';
+            }
+            
+            // Update detailed stats
+            totalChars.textContent = chars;
+            noSpacesChars.textContent = charsNoSpaces;
+            punctuationCount.textContent = punctuation;
+            uppercaseCount.textContent = uppercase;
+            lowercaseCount.textContent = lowercase;
+            
+            // Average word length
+            const wordArray = text.trim() ? text.trim().split(/\s+/) : [];
+            const totalWordLength = wordArray.reduce((sum, word) => sum + word.length, 0);
+            const avgLength = wordArray.length ? (totalWordLength / wordArray.length).toFixed(1) : 0;
+            avgWordLength.textContent = avgLength;
+            
+            // Average sentence length
+            const avgSentWords = sentences ? (words / sentences).toFixed(1) : 0;
+            avgSentenceLength.textContent = avgSentWords;
+            
+            // Longest word
+            const longest = wordArray.reduce((longest, word) => {
+                return word.length > longest.length ? word : longest;
+            }, '');
+            longestWord.textContent = longest || '-';
+            
+            // Readability scores
+            calculateReadability(text, words, sentences);
+            
+            // Count syllables and complex words
+            const syllables = countSyllables(text);
+            const complex = wordArray.filter(word => countSyllables(word) >= 3).length;
+            complexWords.textContent = complex;
+            const complexPercent = words ? ((complex / words) * 100).toFixed(0) : 0;
+            complexFill.style.width = complexPercent + '%';
+            document.querySelector('#complexWords + .metric-label').textContent = complexPercent + '% of total';
+            
+            // Update word frequency
+            updateWordFrequency();
+            
+            // Update character map
+            updateCharacterMap();
+            
+            // Add to history
+            addToHistory();
+        }
+
+        // Calculate readability scores
+        function calculateReadability(text, words, sentences) {
+            // Count syllables
+            const syllables = countSyllables(text);
+            
+            // Flesch Reading Ease
+            // 206.835 - 1.015 * (words/sentences) - 84.6 * (syllables/words)
+            let score = 0;
+            if (words > 0 && sentences > 0) {
+                score = 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words);
+                score = Math.max(0, Math.min(100, score));
+            }
+            
+            fleschScore.textContent = score.toFixed(1);
+            fleschFill.style.width = score + '%';
+            
+            // Determine reading ease level
+            if (score >= 90) {
+                fleschLabel.textContent = 'Very Easy';
+                fleschDesc.textContent = 'Easily understood by 11-year-olds';
+            } else if (score >= 80) {
+                fleschLabel.textContent = 'Easy';
+                fleschDesc.textContent = 'Easily understood by 12-13 year olds';
+            } else if (score >= 70) {
+                fleschLabel.textContent = 'Fairly Easy';
+                fleschDesc.textContent = 'Easily understood by 13-15 year olds';
+            } else if (score >= 60) {
+                fleschLabel.textContent = 'Standard';
+                fleschDesc.textContent = 'Easily understood by 15-17 year olds';
+            } else if (score >= 50) {
+                fleschLabel.textContent = 'Fairly Difficult';
+                fleschDesc.textContent = 'Best understood by 17-19 year olds';
+            } else if (score >= 30) {
+                fleschLabel.textContent = 'Difficult';
+                fleschDesc.textContent = 'Best understood by college graduates';
+            } else {
+                fleschLabel.textContent = 'Very Difficult';
+                fleschDesc.textContent = 'Best understood by university graduates';
+            }
+            
+            // Flesch-Kincaid Grade Level
+            // 0.39 * (words/sentences) + 11.8 * (syllables/words) - 15.59
+            let grade = 0;
+            if (words > 0 && sentences > 0) {
+                grade = 0.39 * (words / sentences) + 11.8 * (syllables / words) - 15.59;
+                grade = Math.max(0, Math.min(12, grade));
+            }
+            
+            gradeLevel.textContent = grade.toFixed(1);
+            gradeFill.style.width = (grade / 12 * 100) + '%';
+            
+            // Grade level description
+            if (grade < 1) {
+                gradeDesc.textContent = 'Kindergarten reading level';
+            } else if (grade < 2) {
+                gradeDesc.textContent = '1st grade reading level';
+            } else if (grade < 3) {
+                gradeDesc.textContent = '2nd grade reading level';
+            } else if (grade < 4) {
+                gradeDesc.textContent = '3rd grade reading level';
+            } else if (grade < 5) {
+                gradeDesc.textContent = '4th grade reading level';
+            } else if (grade < 6) {
+                gradeDesc.textContent = '5th grade reading level';
+            } else if (grade < 7) {
+                gradeDesc.textContent = '6th grade reading level';
+            } else if (grade < 8) {
+                gradeDesc.textContent = '7th grade reading level';
+            } else if (grade < 9) {
+                gradeDesc.textContent = '8th grade reading level';
+            } else if (grade < 10) {
+                gradeDesc.textContent = '9th grade reading level';
+            } else if (grade < 11) {
+                gradeDesc.textContent = '10th grade reading level';
+            } else if (grade < 12) {
+                gradeDesc.textContent = '11th grade reading level';
+            } else {
+                gradeDesc.textContent = '12th grade reading level';
+            }
+            
+            // Overall reading level
+            if (score >= 70) {
+                readingLevel.textContent = 'Easy';
+                levelFill.style.width = '25%';
+                levelDesc.textContent = 'Easy to read';
+            } else if (score >= 50) {
+                readingLevel.textContent = 'Fair';
+                levelFill.style.width = '50%';
+                levelDesc.textContent = 'Moderately easy to read';
+            } else if (score >= 30) {
+                readingLevel.textContent = 'Difficult';
+                levelFill.style.width = '75%';
+                levelDesc.textContent = 'Difficult to read';
+            } else {
+                readingLevel.textContent = 'Very Difficult';
+                levelFill.style.width = '100%';
+                levelDesc.textContent = 'Very difficult to read';
+            }
+        }
+
+        // Count syllables in text
+        function countSyllables(text) {
+            const words = text.toLowerCase().split(/\s+/);
+            let count = 0;
+            
+            words.forEach(word => {
+                word = word.replace(/[^a-z]/g, '');
+                if (word.length === 0) return;
+                
+                // Count vowel groups
+                const vowelGroups = word.match(/[aeiouy]+/g);
+                let syllableCount = vowelGroups ? vowelGroups.length : 0;
+                
+                // Adjust for silent e
+                if (word.length > 2 && word.endsWith('e')) {
+                    syllableCount--;
+                }
+                
+                // Ensure at least 1 syllable
+                count += Math.max(1, syllableCount);
+            });
+            
+            return count;
+        }
+
+        // Update word frequency
+        function updateWordFrequency() {
+            const text = textInput.value.toLowerCase();
+            const words = text.trim() ? text.trim().split(/\s+/) : [];
+            const limit = parseInt(document.getElementById('frequencyLimit')?.value || 10);
+            const order = document.getElementById('frequencyOrder')?.value || 'desc';
+            
+            // Count frequencies
+            const frequency = {};
+            words.forEach(word => {
+                // Remove punctuation
+                word = word.replace(/[^\w\s]/g, '');
+                if (word.length > 1 || word === 'a' || word === 'i') {
+                    frequency[word] = (frequency[word] || 0) + 1;
+                }
+            });
+            
+            // Sort words
+            let sortedWords = Object.keys(frequency).sort((a, b) => {
+                if (order === 'desc') {
+                    return frequency[b] - frequency[a];
+                } else {
+                    return frequency[a] - frequency[b];
+                }
+            }).slice(0, limit);
+            
+            // Find max frequency for bar scaling
+            const maxFreq = Math.max(...Object.values(frequency), 1);
+            
+            // Generate HTML
+            let html = '';
+            sortedWords.forEach(word => {
+                const freq = frequency[word];
+                const percent = (freq / maxFreq) * 100;
+                
+                html += `
+                    <div class="frequency-item">
+                        <span class="frequency-word">
+                            <i class="fas fa-hashtag"></i>
+                            ${word}
+                        </span>
+                        <div class="frequency-count">
+                            <span class="frequency-number">${freq}</span>
+                            <div class="frequency-bar">
+                                <div class="frequency-bar-fill" style="width: ${percent}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            if (sortedWords.length === 0) {
+                html = '<div style="text-align: center; padding: 30px; color: var(--text-muted);">No words to display</div>';
+            }
+            
+            frequencyList.innerHTML = html;
+        }
+
+        // Update character map
+        function updateCharacterMap() {
+            const text = textInput.value;
+            
+            // Count characters (A-Z, a-z, 0-9)
+            const charCounts = {};
+            
+            for (let char of text) {
+                if (char.match(/[A-Za-z0-9]/)) {
+                    charCounts[char] = (charCounts[char] || 0) + 1;
+                }
+            }
+            
+            // Sort characters
+            const sortedChars = Object.keys(charCounts).sort();
+            
+            // Generate HTML
+            let html = '';
+            sortedChars.slice(0, 30).forEach(char => {
+                const count = charCounts[char];
+                html += `
+                    <div class="charmap-item" onclick="insertCharacter('${char}')" title="Click to insert">
+                        <span class="charmap-char">${char}</span>
+                        <span class="charmap-count">${count}</span>
+                    </div>
+                `;
+            });
+            
+            if (sortedChars.length === 0) {
+                html = '<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: var(--text-muted);">No alphanumeric characters</div>';
+            }
+            
+            charmapGrid.innerHTML = html;
+        }
+
+        // Insert character at cursor position
+        function insertCharacter(char) {
+            const start = textInput.selectionStart;
+            const end = textInput.selectionEnd;
+            const text = textInput.value;
+            
+            textInput.value = text.substring(0, start) + char + text.substring(end);
+            textInput.selectionStart = textInput.selectionEnd = start + 1;
+            textInput.focus();
+            
+            analyzeText();
+        }
+
+        // Clear text
+        function clearText() {
+            if (textInput.value.trim() && confirm('Clear all text?')) {
+                textInput.value = '';
+                analyzeText();
+            }
+        }
+
+        // Paste from clipboard
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                analyzeText();
+            } catch (e) {
+                alert('Unable to read from clipboard');
+            }
+        }
+
+        // Load sample text
+        function loadSample() {
+            textInput.value = `The quick brown fox jumps over the lazy dog. This pangram contains every letter of the English alphabet.
+
+Writing clear and effective content is essential for communication. Whether you're crafting an email, writing a blog post, or creating marketing materials, your word choice matters.
+
+SG Tools Word Counter helps you analyze your text with detailed statistics including word count, character count, reading time, and readability scores. Use this tool to improve your writing and ensure it resonates with your target audience.`;
+            analyzeText();
+        }
+
+        // Download text as file
+        function downloadText() {
+            if (!textInput.value.trim()) {
+                alert('No text to download');
+                return;
+            }
+            
+            const blob = new Blob([textInput.value], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sgtools-text-${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHistory();
+            analyzeText();
+            
+            // Add event listener for text input
+            textInput.addEventListener('input', analyzeText);
+            
+            // Add save history checkbox to options card (dynamically)
+            const optionsCard = document.querySelector('.frequency-card');
+            if (optionsCard) {
+                const saveOption = document.createElement('label');
+                saveOption.className = 'checkbox-item';
+                saveOption.style.marginTop = '20px';
+                saveOption.style.background = 'var(--main-bg)';
+                saveOption.innerHTML = `
+                    <input type="checkbox" id="saveHistory" checked>
+                    <span class="checkbox-label">
+                        <i class="fas fa-clock-rotate-left"></i>
+                        Save to history
+                    </span>
+                `;
+                optionsCard.appendChild(saveOption);
+            }
+        });
+
+        // Export functions
+        window.clearText = clearText;
+        window.pasteFromClipboard = pasteFromClipboard;
+        window.loadSample = loadSample;
+        window.downloadText = downloadText;
+        window.updateWordFrequency = updateWordFrequency;
+        window.insertCharacter = insertCharacter;
+        window.clearHistory = clearHistory;
+        window.loadFromHistory = loadFromHistory;
+        window.deleteHistoryItem = deleteHistoryItem;
+    </script>
 </body>
 </html>
