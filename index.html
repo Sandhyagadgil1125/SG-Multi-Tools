@@ -4,350 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SG Multi Tools For Daily Use</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            font-size: 2.8rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .logo i {
-            color: #3498db;
-            margin-right: 15px;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Main Heading */
-        .main-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #3498db;
-            display: inline-block;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 50px;
-            font-size: 1.1rem;
-        }
-
-        /* Tools Grid */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .tool-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid #eaeaea;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .tool-header {
-            background: linear-gradient(to right, #3498db, #2c3e50);
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .tool-header i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .tool-header h3 {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        .tool-body {
-            padding: 25px;
-        }
-
-        .tool-description {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            font-size: 1rem;
-        }
-
-        .features {
-            margin-bottom: 25px;
-        }
-
-        .features h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .features ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .features li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-            color: #666;
-        }
-
-        .features li:before {
-            content: "✓";
-            color: #27ae60;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        /* Button Styles */
-        .use-tool-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(to right, #27ae60, #219653);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        .use-tool-btn:hover {
-            background: linear-gradient(to right, #219653, #1e8449);
-            transform: scale(1.02);
-        }
-
-        .use-tool-btn i {
-            margin-left: 8px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            color: #7f8c8d;
-            margin-top: 30px;
-        }
-
-        footer p {
-            margin-bottom: 10px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .footer-links a {
-            color: #3498db;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #2980b9;
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .main-title {
-                font-size: 2rem;
-            }
-            
-            .logo {
-                font-size: 2.2rem;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-tools"></i>
-                SG Multi Tools
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">SG Tools</span>
+                        <span class="logo-subtitle">Multi Utilities</span>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
             </div>
-            <p class="tagline">
-                A comprehensive collection of essential utilities designed to simplify both business tasks and personal projects. 
-                All tools are free, easy to use, and accessible in one place.
-            </p>
-        </header>
+        </div>
+    </header>
 
-        <main>
-            <h1 class="main-title">SG Multi Tools For Daily Use</h1>
-            <p class="subtitle">Helpful tools for business and personal use</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">SG Multi Tools For Daily Use</h1>
+                <p class="hero-description">Helpful tools for business and personal use</p>
+                <p class="hero-tagline">All tools are completely free and easy to use</p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Tools Grid -->
+    <main class="main-content">
+        <div class="container">
+            <h2 class="section-title">Featured Tools</h2>
+            <p class="section-subtitle">Most popular utilities for daily tasks</p>
+            
             <div class="tools-grid">
-                <!-- Advanced Calculator Card -->
+                <!-- Advanced Calculator -->
                 <div class="tool-card">
-                    <div class="tool-header">
+                    <div class="tool-icon">
                         <i class="fas fa-calculator"></i>
-                        <h3>Advanced Calculator</h3>
                     </div>
-                    <div class="tool-body">
-                        <p class="tool-description">
-                            A powerful scientific calculator with advanced mathematical functions, memory operations, 
-                            and support for complex calculations. Perfect for students, engineers, and professionals.
-                        </p>
-                        <div class="features">
-                            <h4>Key Features:</h4>
-                            <ul>
-                                <li>Scientific functions (sin, cos, log, etc.)</li>
-                                <li>Memory functions (M+, M-, MR, MC)</li>
-                                <li>Complex number operations</li>
-                                <li>Equation solving capabilities</li>
-                                <li>Calculation history</li>
-                            </ul>
-                        </div>
-                        <a href="#calculator" class="use-tool-btn">
-                            Use Tool <i class="fas fa-arrow-right"></i>
-                        </a>
+                    <h3 class="tool-title">Advanced Calculator</h3>
+                    <p class="tool-description">Scientific calculator with advanced functions, memory, and complex calculations.</p>
+                    <div class="tool-features">
+                        <span><i class="fas fa-check-circle"></i> Scientific Functions</span>
+                        <span><i class="fas fa-check-circle"></i> Memory Operations</span>
+                        <span><i class="fas fa-check-circle"></i> Complex Calculations</span>
                     </div>
+                    <a href="calculator.html" class="tool-btn">
+                        <i class="fas fa-external-link-alt"></i> Use Tool
+                    </a>
                 </div>
 
-                <!-- Age Calculator Card -->
+                <!-- Age Calculator -->
                 <div class="tool-card">
-                    <div class="tool-header">
+                    <div class="tool-icon">
                         <i class="fas fa-birthday-cake"></i>
-                        <h3>Age Calculator</h3>
                     </div>
-                    <div class="tool-body">
-                        <p class="tool-description">
-                            Calculate your exact age in years, months, and days from your birth date to the current date. 
-                            Also calculate time until next birthday or age on any specific date.
-                        </p>
-                        <div class="features">
-                            <h4>Key Features:</h4>
-                            <ul>
-                                <li>Exact age in years, months, days</li>
-                                <li>Days until next birthday</li>
-                                <li>Age on any future date</li>
-                                <li>Leap year accurate</li>
-                                <li>Shareable results</li>
-                            </ul>
-                        </div>
-                        <a href="#age-calculator" class="use-tool-btn">
-                            Use Tool <i class="fas fa-arrow-right"></i>
-                        </a>
+                    <h3 class="tool-title">Age Calculator</h3>
+                    <p class="tool-description">Calculate exact age in years, months, and days from birth date to current date.</p>
+                    <div class="tool-features">
+                        <span><i class="fas fa-check-circle"></i> Exact Age</span>
+                        <span><i class="fas fa-check-circle"></i> Years/Months/Days</span>
+                        <span><i class="fas fa-check-circle"></i> Date Difference</span>
                     </div>
+                    <a href="age-calculator.html" class="tool-btn">
+                        <i class="fas fa-external-link-alt"></i> Use Tool
+                    </a>
                 </div>
 
-                <!-- Case Changer Card -->
+                <!-- Case Changer -->
                 <div class="tool-card">
-                    <div class="tool-header">
+                    <div class="tool-icon">
                         <i class="fas fa-font"></i>
-                        <h3>Case Changer</h3>
                     </div>
-                    <div class="tool-body">
-                        <p class="tool-description">
-                            Instantly convert text between uppercase, lowercase, title case, sentence case and more. 
-                            Perfect for formatting documents, code, or social media posts.
-                        </p>
-                        <div class="features">
-                            <h4>Key Features:</h4>
-                            <ul>
-                                <li>UPPERCASE & lowercase conversion</li>
-                                <li>Title Case & Sentence case</li>
-                                <li>Alternating case</li>
-                                <li>Copy to clipboard</li>
-                                <li>Live preview of changes</li>
-                            </ul>
-                        </div>
-                        <a href="#case-changer" class="use-tool-btn">
-                            Use Tool <i class="fas fa-arrow-right"></i>
-                        </a>
+                    <h3 class="tool-title">Case Changer</h3>
+                    <p class="tool-description">Convert text between uppercase, lowercase, title case, sentence case and more.</p>
+                    <div class="tool-features">
+                        <span><i class="fas fa-check-circle"></i> Multiple Cases</span>
+                        <span><i class="fas fa-check-circle"></i> Instant Conversion</span>
+                        <span><i class="fas fa-check-circle"></i> Copy to Clipboard</span>
+                    </div>
+                    <a href="case-changer.html" class="tool-btn">
+                        <i class="fas fa-external-link-alt"></i> Use Tool
+                    </a>
+                </div>
+
+                <!-- More tool cards can be added here -->
+            </div>
+
+            <div class="view-all-container">
+                <a href="tools.html" class="view-all-btn">
+                    <i class="fas fa-th-large"></i> View All Tools
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="footer-logo-text">
+                        <h3>SG Multi Tools</h3>
+                        <p>Essential utilities for daily use</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#disclaimer">Disclaimer</a></li>
+                            <li><a href="#terms">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                            <li><a href="#sitemap">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </main>
-
-        <footer>
-            <p><strong>SG Multi Tools</strong> - Your all-in-one utility solution</p>
-            <p>All tools are completely free to use. No registration required.</p>
-            <div class="footer-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Use</a>
-                <a href="#contact">Contact Us</a>
-                <a href="#tools">All Tools</a>
+            
+            <div class="footer-bottom">
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact @sgtools.in</span>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
+                </div>
             </div>
-            <p style="margin-top: 20px;">&copy; 2023 SG Multi Tools. All rights reserved.</p>
-        </footer>
-    </div>
-
-    <!-- No JavaScript included - pure HTML/CSS only -->
+        </div>
+    </footer>
 </body>
 </html>
