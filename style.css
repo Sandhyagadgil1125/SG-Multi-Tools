@@ -439,6 +439,276 @@ body {
     }
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - SG Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Calculator-specific styles (already in style.css) */
+        .input-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .age-result-item {
+            background: linear-gradient(135deg, rgba(66, 248, 245, 0.1), transparent);
+            border: 1px solid rgba(66, 248, 245, 0.2);
+        }
+        
+        .age-breakdown {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(66, 248, 245, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(66, 248, 245, 0.1);
+        }
+        
+        .breakdown-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">SG Tools</span>
+                        <span class="logo-subtitle">Multi Utilities</span>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <div class="calculator-header-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <h1 class="section-title">Age Calculator</h1>
+                    <p class="section-subtitle">Calculate your exact age in years, months, and days</p>
+                </div>
+                
+                <div class="calculator-box">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label><i class="fas fa-calendar-day"></i> Birth Date</label>
+                            <input type="date" id="birthDate" max="">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label><i class="fas fa-calendar-check"></i> Current Date</label>
+                            <input type="date" id="currentDate" value="">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label><i class="fas fa-cogs"></i> Calculation Type</label>
+                            <select id="calcType">
+                                <option value="exact">Exact Age</option>
+                                <option value="next">Until Next Birthday</option>
+                                <option value="specific">Age on Specific Date</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="calculate-btn" onclick="calculateAge()">
+                        <i class="fas fa-calculator"></i> Calculate Age
+                    </button>
+                    
+                    <div class="result-container" id="resultContainer">
+                        <div class="result-title">Your Age Calculation</div>
+                        <div class="result-grid">
+                            <div class="result-item age-result-item">
+                                <div class="result-value" id="years">0</div>
+                                <div class="result-label">Years</div>
+                            </div>
+                            <div class="result-item age-result-item">
+                                <div class="result-value" id="months">0</div>
+                                <div class="result-label">Months</div>
+                            </div>
+                            <div class="result-item age-result-item">
+                                <div class="result-value" id="days">0</div>
+                                <div class="result-label">Days</div>
+                            </div>
+                            <div class="result-item age-result-item">
+                                <div class="result-value" id="totalDays">0</div>
+                                <div class="result-label">Total Days</div>
+                            </div>
+                        </div>
+                        
+                        <div class="age-breakdown">
+                            <div class="breakdown-text" id="breakdownText">
+                                Your exact age breakdown will appear here...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="tools.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to All Tools
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="footer-logo-text">
+                        <h3>SG Multi Tools</h3>
+                        <p>Essential utilities for daily use</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#disclaimer">Disclaimer</a></li>
+                            <li><a href="#terms">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                            <li><a href="#sitemap">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact @sgtools.in</span>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current date as default
+        document.getElementById('currentDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('birthDate').max = new Date().toISOString().split('T')[0];
+        
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const currentDate = new Date(document.getElementById('currentDate').value);
+            const calcType = document.getElementById('calcType').value;
+            
+            if (!birthDate.getTime()) {
+                alert('Please select a valid birth date');
+                return;
+            }
+            
+            let years, months, days;
+            
+            if (calcType === 'next') {
+                // Calculate until next birthday
+                const nextBirthday = new Date(currentDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+                if (nextBirthday < currentDate) {
+                    nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+                }
+                
+                const diff = nextBirthday - currentDate;
+                days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                years = 0;
+                months = Math.floor(days / 30);
+                days = days % 30;
+            } else {
+                // Calculate exact age
+                years = currentDate.getFullYear() - birthDate.getFullYear();
+                months = currentDate.getMonth() - birthDate.getMonth();
+                days = currentDate.getDate() - birthDate.getDate();
+                
+                if (days < 0) {
+                    months--;
+                    const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+                    days += prevMonth.getDate();
+                }
+                
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+            }
+            
+            // Calculate total days
+            const timeDiff = currentDate - birthDate;
+            const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            
+            // Update display
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('totalDays').textContent = totalDays;
+            
+            // Update breakdown text
+            let breakdown = `You are <strong>${years}</strong> years, <strong>${months}</strong> months, and <strong>${days}</strong> days old. `;
+            breakdown += `That's a total of <strong>${totalDays}</strong> days.`;
+            
+            if (calcType === 'next') {
+                breakdown = `Your next birthday is in <strong>${months}</strong> months and <strong>${days}</strong> days.`;
+            }
+            
+            document.getElementById('breakdownText').innerHTML = breakdown;
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+        
+        // Show results on page load if date is already set
+        window.onload = function() {
+            if (document.getElementById('birthDate').value) {
+                calculateAge();
+            }
+        };
+    </script>
+</body>
+</html>
 @media (max-width: 480px) {
     .container {
         padding: 0 15px;
