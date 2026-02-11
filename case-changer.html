@@ -3,197 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Name - SG Multi Tools</title>
-    <!-- Change this line in all files -->
-    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Case Changer - SG Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tool-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .tool-header-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .case-changer {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .input-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            min-height: 150px;
+            resize: vertical;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .case-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .case-btn {
+            padding: 12px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .case-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, var(--success-color), #0da271);
+            color: white;
+        }
+        
+        .clear-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-top: 30px;
+            transition: var(--transition);
+        }
+        
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo-container">
-            <div class="logo">SG</div>
-            <div class="logo-text">SG Multi Tools</div>
-        </a>
-        
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <nav class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-            <a href="tools.html" class="nav-link"><i class="fas fa-tools"></i> Tools</a>
-            <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
-            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-        </nav>
+    <!-- Same header as other pages -->
+    <header class="main-header">
+        <!-- Copy header from calculator.html -->
     </header>
 
-    <section class="tool-page-header">
+    <main class="main-content">
         <div class="container">
-            <a href="tools.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back to Tools
-            </a>
-            <div class="tool-header-content">
-                <h1 class="tool-page-title">Case Changer</h1>
-                <p class="tool-page-subtitle">Convert text between different cases instantly</p>
+            <div class="tool-container">
+                <div class="tool-header">
+                    <div class="tool-header-icon">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h1 class="section-title">Case Changer</h1>
+                    <p class="section-subtitle">Convert text between different cases instantly</p>
+                </div>
+                
+                <div class="case-changer">
+                    <div class="input-group">
+                        <label for="inputText"><i class="fas fa-keyboard"></i> Enter your text:</label>
+                        <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+                    </div>
+                    
+                    <div class="case-buttons">
+                        <button class="case-btn" onclick="changeCase('uppercase')">UPPERCASE</button>
+                        <button class="case-btn" onclick="changeCase('lowercase')">lowercase</button>
+                        <button class="case-btn" onclick="changeCase('titlecase')">Title Case</button>
+                        <button class="case-btn" onclick="changeCase('sentencecase')">Sentence case</button>
+                        <button class="case-btn" onclick="changeCase('camelcase')">camelCase</button>
+                        <button class="case-btn" onclick="changeCase('pascalcase')">PascalCase</button>
+                        <button class="case-btn" onclick="changeCase('snakecase')">snake_case</button>
+                        <button class="case-btn" onclick="changeCase('kebabcase')">kebab-case</button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="outputText"><i class="fas fa-file-alt"></i> Converted text:</label>
+                        <textarea id="outputText" readonly placeholder="Converted text will appear here..."></textarea>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn copy-btn" onclick="copyToClipboard()">
+                            <i class="fas fa-copy"></i> Copy to Clipboard
+                        </button>
+                        <button class="action-btn clear-btn" onclick="clearText()">
+                            <i class="fas fa-broom"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+                
+                <a href="tools.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to All Tools
+                </a>
             </div>
         </div>
-    </section>
+    </main>
 
-    <section class="tool-container">
-        <div class="container">
-            <div class="tool-wrapper">
-                <textarea id="inputText" class="tool-textarea" placeholder="Enter your text here..." rows="5">Try SG Multi Tools - The best collection of free utilities!</textarea>
-                
-                <div class="tool-row">
-                    <button class="case-btn active" data-case="upper">UPPERCASE</button>
-                    <button class="case-btn" data-case="lower">lowercase</button>
-                    <button class="case-btn" data-case="title">Title Case</button>
-                    <button class="case-btn" data-case="sentence">Sentence case</button>
-                </div>
-                
-                <div class="tool-row">
-                    <button class="case-btn" data-case="camel">camelCase</button>
-                    <button class="case-btn" data-case="snake">snake_case</button>
-                    <button class="case-btn" data-case="kebab">kebab-case</button>
-                    <button class="case-btn" data-case="inverse">InVeRsE CaSe</button>
-                </div>
-                
-                <div class="result-box" id="outputText">
-                    Converted text will appear here...
-                </div>
-                
-                <div class="tool-row">
-                    <button class="tool-button" id="copyBtn">
-                        <i class="fas fa-copy"></i> Copy Text
-                    </button>
-                    <button class="tool-button secondary" id="clearBtn">
-                        <i class="fas fa-eraser"></i> Clear
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-main">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <div class="logo">SG</div>
-                    <div class="logo-text">SG Multi Tools</div>
-                </div>
-                <p>A collection of 20+ free, privacy-focused utilities for daily use.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="tools.html">All Tools</a>
-                <a href="about.html">About Us</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="disclaimer.html">Disclaimer</a>
-                <a href="terms.html">Terms & Conditions</a>
-                <a href="sitemap.html">Sitemap</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-envelope"></i> contact@sgtools.in</p>
-                <p>All tools are free to use</p>
-                <p>No registration required</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 SG Multi Tools. All rights reserved.</p>
-            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for developers and professionals</p>
-        </div>
+    <!-- Same footer as other pages -->
+    <footer class="main-footer">
+        <!-- Copy footer from calculator.html -->
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputText = document.getElementById('inputText');
-            const outputText = document.getElementById('outputText');
-            const caseBtns = document.querySelectorAll('.case-btn');
-            const copyBtn = document.getElementById('copyBtn');
-            const clearBtn = document.getElementById('clearBtn');
+        function changeCase(caseType) {
+            const input = document.getElementById('inputText').value;
+            let output = '';
             
-            let selectedCase = 'upper';
-            
-            // Case conversion functions
-            const converters = {
-                upper: (text) => text.toUpperCase(),
-                lower: (text) => text.toLowerCase(),
-                title: (text) => text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()),
-                sentence: (text) => text.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase()),
-                camel: (text) => text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
-                    .replace(/^./, c => c.toLowerCase()),
-                snake: (text) => text.toLowerCase().replace(/\s+/g, '_'),
-                kebab: (text) => text.toLowerCase().replace(/\s+/g, '-'),
-                inverse: (text) => text.split('').map(c => 
-                    c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()
-                ).join('')
-            };
-            
-            // Convert text
-            function convertText() {
-                const text = inputText.value.trim();
-                if (text) {
-                    outputText.textContent = converters[selectedCase](text);
-                }
+            switch(caseType) {
+                case 'uppercase':
+                    output = input.toUpperCase();
+                    break;
+                case 'lowercase':
+                    output = input.toLowerCase();
+                    break;
+                case 'titlecase':
+                    output = input.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+                    break;
+                case 'sentencecase':
+                    output = input.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, char => char.toUpperCase());
+                    break;
+                case 'camelcase':
+                    output = input.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase());
+                    break;
+                case 'pascalcase':
+                    output = input.toLowerCase().replace(/\b\w/g, char => char.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '');
+                    break;
+                case 'snakecase':
+                    output = input.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+                    break;
+                case 'kebabcase':
+                    output = input.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                    break;
+                default:
+                    output = input;
             }
             
-            // Case button click
-            caseBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    caseBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    selectedCase = this.dataset.case;
-                    convertText();
-                });
-            });
+            document.getElementById('outputText').value = output;
+        }
+        
+        function copyToClipboard() {
+            const outputText = document.getElementById('outputText');
+            if (outputText.value.trim() === '') {
+                alert('No text to copy!');
+                return;
+            }
             
-            // Input change
-            inputText.addEventListener('input', convertText);
+            outputText.select();
+            document.execCommand('copy');
             
-            // Copy button
-            copyBtn.addEventListener('click', function() {
-                if (outputText.textContent) {
-                    navigator.clipboard.writeText(outputText.textContent);
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Text';
-                    }, 2000);
-                }
-            });
+            // Visual feedback
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyBtn.style.background = 'linear-gradient(135deg, #10b981, #0da271)';
             
-            // Clear button
-            clearBtn.addEventListener('click', function() {
-                inputText.value = '';
-                outputText.textContent = 'Converted text will appear here...';
-            });
-            
-            // Mobile menu
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-            
-            // Initial conversion
-            convertText();
-        });
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.style.background = '';
+            }, 2000);
+        }
+        
+        function clearText() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').value = '';
+        }
     </script>
 </body>
 </html>
