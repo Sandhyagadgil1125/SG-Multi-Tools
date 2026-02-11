@@ -1,100 +1,1560 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Speech to Text | SG Multi Tools</title>
-
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text - SG Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .generator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        /* Speech Control Card */
+        .speech-control-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .speech-control-card:hover {
+            border-color: var(--primary-accent);
+            box-shadow: 0 15px 35px rgba(66, 248, 245, 0.15);
+        }
+        
+        .speech-control-card::before {
+            content: '\f130';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            font-size: 3rem;
+            color: rgba(66, 248, 245, 0.08);
+        }
+        
+        .speech-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .speech-label i {
+            color: var(--primary-accent);
+        }
+        
+        /* Voice Visualization */
+        .voice-visualization {
+            background: var(--main-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid var(--dark-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            transition: var(--transition);
+        }
+        
+        .voice-visualization.listening {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 30px rgba(66, 248, 245, 0.2);
+        }
+        
+        .mic-icon-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .mic-icon-main {
+            width: 100px;
+            height: 100px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-accent);
+            border: 2px solid var(--dark-border);
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .listening .mic-icon-main {
+            background: rgba(66, 248, 245, 0.2);
+            border-color: var(--primary-accent);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--glow-shadow);
+            animation: pulse 2s infinite;
+        }
+        
+        .sound-waves {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            height: 50px;
+        }
+        
+        .sound-wave {
+            width: 8px;
+            height: 20px;
+            background: rgba(66, 248, 245, 0.3);
+            border-radius: 4px;
+            transition: height 0.2s ease;
+            animation: soundWave 1s infinite ease-in-out;
+        }
+        
+        .sound-wave:nth-child(1) { animation-delay: 0.1s; }
+        .sound-wave:nth-child(2) { animation-delay: 0.2s; }
+        .sound-wave:nth-child(3) { animation-delay: 0.3s; }
+        .sound-wave:nth-child(4) { animation-delay: 0.4s; }
+        .sound-wave:nth-child(5) { animation-delay: 0.5s; }
+        .sound-wave:nth-child(6) { animation-delay: 0.6s; }
+        .sound-wave:nth-child(7) { animation-delay: 0.7s; }
+        .sound-wave:nth-child(8) { animation-delay: 0.8s; }
+        
+        @keyframes soundWave {
+            0%, 100% { height: 20px; background: rgba(66, 248, 245, 0.3); }
+            50% { height: 45px; background: rgba(66, 248, 245, 0.8); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(66, 248, 245, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(66, 248, 245, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(66, 248, 245, 0); }
+        }
+        
+        .voice-status {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: var(--transition);
+        }
+        
+        .status-indicator.active {
+            background: var(--primary-accent);
+            box-shadow: 0 0 15px var(--primary-accent);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .status-indicator.error {
+            background: var(--danger-color);
+            box-shadow: 0 0 15px var(--danger-color);
+        }
+        
+        .interim-transcript {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(66, 248, 245, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(66, 248, 245, 0.15);
+            min-height: 60px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Control Buttons */
+        .speech-actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .speech-btn {
+            flex: 1;
+            min-width: 180px;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 18px 25px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .speech-btn:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.15);
+        }
+        
+        .speech-btn.active {
+            background: rgba(66, 248, 245, 0.15);
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+        }
+        
+        .speech-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .speech-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            border-color: var(--dark-border);
+            color: var(--text-muted);
+        }
+        
+        .speech-btn:disabled:hover {
+            box-shadow: none;
+        }
+        
+        /* Text Output Card */
+        .text-output-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .text-output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .text-output-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .text-output-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+        }
+        
+        .text-output-title h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .text-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .text-action-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .text-action-btn:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.15);
+        }
+        
+        .text-output-area {
+            width: 100%;
+            min-height: 200px;
+            max-height: 400px;
+            padding: 20px;
+            background: var(--main-bg);
+            border: 2px solid var(--dark-border);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            margin-bottom: 15px;
+        }
+        
+        .text-output-area:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 10px 5px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .stats-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stats-item i {
+            color: var(--primary-accent);
+        }
+        
+        /* Language & Settings Card */
+        .settings-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .settings-group {
+            background: var(--main-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .settings-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .settings-header i {
+            color: var(--primary-accent);
+        }
+        
+        .language-select {
+            width: 100%;
+            padding: 15px;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 15px;
+        }
+        
+        .language-select:hover {
+            border-color: var(--primary-accent);
+        }
+        
+        .language-select:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+        }
+        
+        .language-select option {
+            background: var(--main-bg);
+            color: var(--text-primary);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 10px;
+            transition: var(--transition);
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(66, 248, 245, 0.05);
+            border-color: var(--primary-accent);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-accent);
+            cursor: pointer;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .checkbox-label i {
+            color: var(--primary-accent);
+            width: 22px;
+        }
+        
+        /* History Card */
+        .history-card {
+            background: var(--button-bg-alt);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .history-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .history-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.1rem;
+        }
+        
+        .history-title h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .clear-history-btn {
+            background: transparent;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .clear-history-btn:hover {
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .history-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .history-list::-webkit-scrollbar-track {
+            background: var(--main-bg);
+            border-radius: 10px;
+        }
+        
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+        
+        .history-item {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 18px;
+            transition: var(--transition);
+        }
+        
+        .history-item:hover {
+            border-color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+        
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .history-item-time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .history-item-time i {
+            color: var(--primary-accent);
+            font-size: 0.7rem;
+        }
+        
+        .history-item-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .history-item-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .history-item-btn:hover {
+            color: var(--primary-accent);
+            transform: scale(1.1);
+        }
+        
+        .history-item-text {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-height: 80px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .history-item-text::-webkit-scrollbar {
+            width: 3px;
+        }
+        
+        .history-item-text::-webkit-scrollbar-thumb {
+            background: var(--primary-accent);
+            border-radius: 3px;
+        }
+        
+        .empty-history {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+        
+        .empty-history i {
+            font-size: 2.5rem;
+            color: rgba(66, 248, 245, 0.2);
+            margin-bottom: 15px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background: var(--button-bg-alt);
+            border-radius: 30px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .back-link:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 992px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .speech-actions {
+                flex-direction: column;
+            }
+            
+            .speech-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .speech-control-card,
+            .text-output-card,
+            .settings-card,
+            .history-card {
+                padding: 20px;
+            }
+            
+            .text-output-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .text-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .mic-icon-main {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .voice-status {
+                font-size: 1rem;
+            }
+            
+            .sound-wave {
+                width: 5px;
+            }
+            
+            .interim-transcript {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">SG Tools</span>
+                        <span class="logo-subtitle">Multi Utilities</span>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
+    <main class="main-content">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <div class="calculator-header-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h1 class="section-title">Speech to Text</h1>
+                    <p class="section-subtitle">Convert your voice into text in real-time with high accuracy</p>
+                </div>
+                
+                <div class="generator-container">
+                    <!-- Speech Control Card -->
+                    <div class="speech-control-card">
+                        <div class="speech-label">
+                            <i class="fas fa-waveform"></i> Voice Input
+                        </div>
+                        
+                        <div class="voice-visualization" id="voiceVisualization">
+                            <div class="mic-icon-container">
+                                <div class="mic-icon-main">
+                                    <i class="fas fa-microphone"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="sound-waves">
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                                <div class="sound-wave"></div>
+                            </div>
+                            
+                            <div class="voice-status">
+                                <span class="status-indicator" id="statusIndicator"></span>
+                                <span id="voiceStatusText">Ready to listen</span>
+                            </div>
+                            
+                            <div class="interim-transcript" id="interimTranscript">
+                                Your speech will appear here in real-time...
+                            </div>
+                        </div>
+                        
+                        <div class="speech-actions">
+                            <button class="speech-btn" id="startBtn" onclick="startListening()">
+                                <i class="fas fa-play"></i> Start Listening
+                            </button>
+                            <button class="speech-btn" id="stopBtn" onclick="stopListening()" disabled>
+                                <i class="fas fa-stop"></i> Stop Listening
+                            </button>
+                            <button class="speech-btn" id="pauseBtn" onclick="pauseListening()" disabled>
+                                <i class="fas fa-pause"></i> Pause
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Text Output Card -->
+                    <div class="text-output-card">
+                        <div class="text-output-header">
+                            <div class="text-output-title">
+                                <div class="text-output-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h3>Transcribed Text</h3>
+                            </div>
+                            <div class="text-actions">
+                                <button class="text-action-btn" onclick="copyText()" title="Copy to Clipboard">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="text-action-btn" onclick="downloadText()" title="Download as TXT">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="text-action-btn" onclick="clearText()" title="Clear Text">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <textarea id="transcribedText" class="text-output-area" placeholder="Transcribed text will appear here..." readonly></textarea>
+                        
+                        <div class="stats-bar">
+                            <div class="stats-item">
+                                <i class="fas fa-characters"></i>
+                                Characters: <span id="charCount">0</span>
+                            </div>
+                            <div class="stats-item">
+                                <i class="fas fa-words"></i>
+                                Words: <span id="wordCount">0</span>
+                            </div>
+                            <div class="stats-item">
+                                <i class="fas fa-clock"></i>
+                                Duration: <span id="duration">00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Language & Settings Card -->
+                    <div class="settings-card">
+                        <div class="settings-grid">
+                            <div class="settings-group">
+                                <div class="settings-header">
+                                    <i class="fas fa-language"></i>
+                                    <span>Language & Recognition</span>
+                                </div>
+                                
+                                <select id="languageSelect" class="language-select">
+                                    <option value="en-US">English (United States)</option>
+                                    <option value="en-GB">English (United Kingdom)</option>
+                                    <option value="en-AU">English (Australia)</option>
+                                    <option value="en-CA">English (Canada)</option>
+                                    <option value="en-IN">English (India)</option>
+                                    <option value="hi-IN">Hindi (India)</option>
+                                    <option value="es-ES">Spanish (Spain)</option>
+                                    <option value="es-MX">Spanish (Mexico)</option>
+                                    <option value="fr-FR">French (France)</option>
+                                    <option value="fr-CA">French (Canada)</option>
+                                    <option value="de-DE">German (Germany)</option>
+                                    <option value="it-IT">Italian (Italy)</option>
+                                    <option value="pt-PT">Portuguese (Portugal)</option>
+                                    <option value="pt-BR">Portuguese (Brazil)</option>
+                                    <option value="ru-RU">Russian (Russia)</option>
+                                    <option value="ja-JP">Japanese (Japan)</option>
+                                    <option value="ko-KR">Korean (Korea)</option>
+                                    <option value="zh-CN">Chinese (Simplified)</option>
+                                    <option value="zh-TW">Chinese (Traditional)</option>
+                                    <option value="ar-SA">Arabic (Saudi Arabia)</option>
+                                    <option value="nl-NL">Dutch (Netherlands)</option>
+                                    <option value="sv-SE">Swedish (Sweden)</option>
+                                    <option value="da-DK">Danish (Denmark)</option>
+                                    <option value="fi-FI">Finnish (Finland)</option>
+                                    <option value="no-NO">Norwegian (Norway)</option>
+                                    <option value="pl-PL">Polish (Poland)</option>
+                                    <option value="tr-TR">Turkish (Turkey)</option>
+                                </select>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="continuousMode" checked>
+                                    <span class="checkbox-label">
+                                        <i class="fas fa-infinity"></i>
+                                        Continuous recognition (don't auto-stop)
+                                    </span>
+                                </label>
+                                
+                                <label class="checkbox-item" style="margin-top: 12px;">
+                                    <input type="checkbox" id="interimResults" checked>
+                                    <span class="checkbox-label">
+                                        <i class="fas fa-sync"></i>
+                                        Show interim results (real-time)
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="settings-group">
+                                <div class="settings-header">
+                                    <i class="fas fa-sliders-h"></i>
+                                    <span>Advanced Settings</span>
+                                </div>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="autoPunctuation" checked>
+                                    <span class="checkbox-label">
+                                        <i class="fas fa-comma"></i>
+                                        Auto-punctuation
+                                    </span>
+                                </label>
+                                
+                                <label class="checkbox-item" style="margin-top: 12px;">
+                                    <input type="checkbox" id="capitalizeSentences" checked>
+                                    <span class="checkbox-label">
+                                        <i class="fas fa-font"></i>
+                                        Auto-capitalize sentences
+                                    </span>
+                                </label>
+                                
+                                <label class="checkbox-item" style="margin-top: 12px;">
+                                    <input type="checkbox" id="filterProfanity">
+                                    <span class="checkbox-label">
+                                        <i class="fas fa-ban"></i>
+                                        Filter profanity
+                                    </span>
+                                </label>
+                                
+                                <label class="checkbox-item" style="margin-top: 12px;">
+                                    <input type="checkbox" id="saveToHistory" checked>
+                                    <span class="checkbox-label">
+                                        <i class="fas fa-history"></i>
+                                        Save to history
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- History Card -->
+                    <div class="history-card">
+                        <div class="history-header">
+                            <div class="history-title">
+                                <div class="history-icon">
+                                    <i class="fas fa-history"></i>
+                                </div>
+                                <h4>Transcription History</h4>
+                            </div>
+                            <button class="clear-history-btn" onclick="clearHistory()">
+                                <i class="fas fa-trash-alt"></i> Clear History
+                            </button>
+                        </div>
+                        
+                        <div class="history-list" id="historyList">
+                            <div class="empty-history">
+                                <i class="fas fa-microphone-slash"></i>
+                                <p>No transcriptions yet</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Start speaking to see your history</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="tools.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to All Tools
+                </a>
+            </div>
+        </div>
+    </main>
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="footer-logo-text">
+                        <h3>SG Multi Tools</h3>
+                        <p>Essential utilities for daily use</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#disclaimer">Disclaimer</a></li>
+                            <li><a href="#terms">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                            <li><a href="#sitemap">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@sgtools.in</span>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <h2>Speech to Text</h2>
-    <p class="description">
-      Convert your voice into text instantly using your microphone
-    </p>
-
-    <label>Transcribed Text</label>
-    <textarea id="output" rows="6" placeholder="Your speech will appear here..." readonly></textarea>
-
-    <div class="calc-grid" style="grid-template-columns:repeat(3,1fr);">
-      <button onclick="startListening()">Start</button>
-      <button onclick="stopListening()">Stop</button>
-      <button onclick="clearText()">Clear</button>
-    </div>
-
-    <div class="result" id="statusBox" style="display:none;"></div>
-
-  </div>
-</div>
-
-<script>
-const output = document.getElementById("output");
-const statusBox = document.getElementById("statusBox");
-
-let recognition;
-let listening = false;
-
-if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  recognition = new SpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = false;
-  recognition.lang = "en-US";
-
-  recognition.onresult = event => {
-    let transcript = "";
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript;
-    }
-    output.value += transcript + " ";
-  };
-
-  recognition.onstart = () => {
-    listening = true;
-    showStatus("🎙 Listening...");
-  };
-
-  recognition.onend = () => {
-    listening = false;
-    showStatus("⏹ Stopped");
-  };
-
-} else {
-  alert("Speech recognition not supported in this browser");
-}
-
-function startListening(){
-  if(recognition && !listening){
-    recognition.start();
-  }
-}
-
-function stopListening(){
-  if(recognition && listening){
-    recognition.stop();
-  }
-}
-
-function clearText(){
-  output.value = "";
-  statusBox.style.display = "none";
-}
-
-function showStatus(msg){
-  statusBox.style.display = "block";
-  statusBox.innerHTML = `<strong>${msg}</strong>`;
-}
-</script>
-
+    <script>
+        // DOM Elements
+        const transcribedText = document.getElementById('transcribedText');
+        const voiceVisualization = document.getElementById('voiceVisualization');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const voiceStatusText = document.getElementById('voiceStatusText');
+        const interimTranscript = document.getElementById('interimTranscript');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const continuousMode = document.getElementById('continuousMode');
+        const interimResults = document.getElementById('interimResults');
+        const autoPunctuation = document.getElementById('autoPunctuation');
+        const capitalizeSentences = document.getElementById('capitalizeSentences');
+        const filterProfanity = document.getElementById('filterProfanity');
+        const saveToHistory = document.getElementById('saveToHistory');
+        const charCount = document.getElementById('charCount');
+        const wordCount = document.getElementById('wordCount');
+        const duration = document.getElementById('duration');
+        const historyList = document.getElementById('historyList');
+        
+        // Speech Recognition
+        let recognition = null;
+        let isListening = false;
+        let isPaused = false;
+        let finalTranscript = '';
+        let startTime = null;
+        let timerInterval = null;
+        
+        // History storage
+        let transcriptionHistory = [];
+        
+        // Profanity filter list
+        const profanityList = ['badword1', 'badword2', 'badword3']; // Add actual profanity list if needed
+        
+        // Load history from localStorage
+        function loadHistory() {
+            const stored = localStorage.getItem('sgTools_speechHistory');
+            if (stored) {
+                try {
+                    transcriptionHistory = JSON.parse(stored);
+                } catch (e) {
+                    transcriptionHistory = [];
+                }
+            }
+            renderHistory();
+        }
+        
+        // Save history to localStorage
+        function saveHistory() {
+            localStorage.setItem('sgTools_speechHistory', JSON.stringify(transcriptionHistory));
+            renderHistory();
+        }
+        
+        // Add to history
+        function addToHistory(text) {
+            if (!text.trim() || !saveToHistory.checked) return;
+            
+            transcriptionHistory.unshift({
+                text: text,
+                timestamp: new Date().toISOString(),
+                language: languageSelect.value,
+                duration: duration.textContent
+            });
+            
+            // Keep only last 20
+            if (transcriptionHistory.length > 20) {
+                transcriptionHistory = transcriptionHistory.slice(0, 20);
+            }
+            
+            saveHistory();
+        }
+        
+        // Render history
+        function renderHistory() {
+            if (transcriptionHistory.length === 0) {
+                historyList.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-microphone-slash"></i>
+                        <p>No transcriptions yet</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Start speaking to see your history</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            transcriptionHistory.forEach((item, index) => {
+                const date = new Date(item.timestamp);
+                const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const previewText = item.text.substring(0, 100) + (item.text.length > 100 ? '...' : '');
+                
+                html += `
+                    <div class="history-item">
+                        <div class="history-item-header">
+                            <span class="history-item-time">
+                                <i class="fas fa-clock"></i> ${formattedDate}
+                            </span>
+                            <span class="history-item-time">
+                                <i class="fas fa-language"></i> ${item.language || 'en-US'}
+                            </span>
+                            <div class="history-item-actions">
+                                <button class="history-item-btn" onclick="loadFromHistory(${index})" title="Load to Editor">
+                                    <i class="fas fa-file-alt"></i>
+                                </button>
+                                <button class="history-item-btn" onclick="downloadHistoryItem(${index})" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="history-item-btn" onclick="deleteHistoryItem(${index})" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="history-item-text">
+                            ${previewText}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+        }
+        
+        // Load from history
+        function loadFromHistory(index) {
+            const item = transcriptionHistory[index];
+            if (item) {
+                transcribedText.value = item.text;
+                updateStats();
+            }
+        }
+        
+        // Download history item
+        function downloadHistoryItem(index) {
+            const item = transcriptionHistory[index];
+            if (item) {
+                const blob = new Blob([item.text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `sgtools-transcription-${Date.now()}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+        
+        // Delete history item
+        function deleteHistoryItem(index) {
+            transcriptionHistory.splice(index, 1);
+            saveHistory();
+        }
+        
+        // Clear history
+        function clearHistory() {
+            if (confirm('Clear all transcription history?')) {
+                transcriptionHistory = [];
+                saveHistory();
+            }
+        }
+        
+        // Initialize speech recognition
+        function initSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Speech recognition is not supported in your browser. Please use Chrome, Edge, or Safari.');
+                return false;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            // Configure
+            recognition.continuous = continuousMode.checked;
+            recognition.interimResults = interimResults.checked;
+            recognition.lang = languageSelect.value;
+            recognition.maxAlternatives = 1;
+            
+            // Event handlers
+            recognition.onstart = function() {
+                isListening = true;
+                isPaused = false;
+                updateUIState();
+                startTimer();
+            };
+            
+            recognition.onend = function() {
+                if (isListening && !isPaused) {
+                    // Restart if in continuous mode
+                    if (continuousMode.checked) {
+                        try {
+                            recognition.start();
+                        } catch (e) {
+                            console.log('Restart failed:', e);
+                        }
+                    } else {
+                        isListening = false;
+                        updateUIState();
+                        stopTimer();
+                    }
+                } else {
+                    isListening = false;
+                    updateUIState();
+                    stopTimer();
+                }
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                
+                if (event.error === 'not-allowed') {
+                    voiceStatusText.textContent = 'Microphone access denied';
+                    statusIndicator.className = 'status-indicator error';
+                } else if (event.error === 'no-speech') {
+                    voiceStatusText.textContent = 'No speech detected';
+                } else {
+                    voiceStatusText.textContent = `Error: ${event.error}`;
+                    statusIndicator.className = 'status-indicator error';
+                }
+                
+                isListening = false;
+                updateUIState();
+                stopTimer();
+            };
+            
+            recognition.onresult = function(event) {
+                let interim = '';
+                let final = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        final += event.results[i][0].transcript;
+                    } else {
+                        interim += event.results[i][0].transcript;
+                    }
+                }
+                
+                // Process final transcript
+                if (final) {
+                    final = processText(final);
+                    finalTranscript += ' ' + final;
+                    finalTranscript = finalTranscript.trim();
+                    transcribedText.value = finalTranscript;
+                    updateStats();
+                }
+                
+                // Show interim results
+                if (interim) {
+                    interim = processText(interim, true);
+                    interimTranscript.textContent = interim || 'Listening...';
+                    
+                    // Show real-time preview with interim
+                    if (!final) {
+                        transcribedText.value = finalTranscript + ' ' + interim;
+                    }
+                }
+                
+                // Animate sound waves based on speech intensity
+                animateSoundWaves(event.results[event.resultIndex][0].confidence);
+            };
+            
+            return true;
+        }
+        
+        // Process text (punctuation, capitalization, profanity)
+        function processText(text, isInterim = false) {
+            let processed = text.trim();
+            
+            // Filter profanity
+            if (filterProfanity.checked) {
+                profanityList.forEach(word => {
+                    const regex = new RegExp(word, 'gi');
+                    processed = processed.replace(regex, '****');
+                });
+            }
+            
+            // Auto punctuation (only for final results)
+            if (autoPunctuation.checked && !isInterim) {
+                processed = processed.replace(/\s+([.!?])/g, '$1');
+                
+                // Add period at end if missing and sentence seems complete
+                if (processed.length > 0 && !processed.match(/[.!?]$/)) {
+                    const lastChar = processed[processed.length - 1];
+                    if (lastChar.match(/[a-zA-Z0-9]/)) {
+                        processed += '.';
+                    }
+                }
+            }
+            
+            // Auto capitalize sentences
+            if (capitalizeSentences.checked) {
+                processed = processed.replace(/(^\w|\.\s+\w)/g, match => match.toUpperCase());
+            }
+            
+            return processed;
+        }
+        
+        // Animate sound waves
+        function animateSoundWaves(confidence) {
+            const waves = document.querySelectorAll('.sound-wave');
+            const intensity = confidence || 0.5;
+            
+            waves.forEach((wave, index) => {
+                const height = 20 + (intensity * 40 * (index % 3 + 1) / 3);
+                wave.style.height = height + 'px';
+            });
+        }
+        
+        // Start listening
+        function startListening() {
+            if (!recognition) {
+                if (!initSpeechRecognition()) {
+                    return;
+                }
+            }
+            
+            if (isPaused) {
+                // Resume from pause
+                isPaused = false;
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.log('Resume failed:', e);
+                }
+            } else {
+                // Start fresh
+                if (transcribedText.value) {
+                    if (!confirm('Starting new recording will clear the current text. Continue?')) {
+                        return;
+                    }
+                }
+                
+                finalTranscript = '';
+                transcribedText.value = '';
+                updateStats();
+                
+                try {
+                    // Update configuration
+                    recognition.continuous = continuousMode.checked;
+                    recognition.interimResults = interimResults.checked;
+                    recognition.lang = languageSelect.value;
+                    
+                    recognition.start();
+                } catch (e) {
+                    console.error('Failed to start recognition:', e);
+                }
+            }
+        }
+        
+        // Stop listening
+        function stopListening() {
+            if (recognition) {
+                isListening = false;
+                isPaused = false;
+                recognition.stop();
+            }
+        }
+        
+        // Pause listening
+        function pauseListening() {
+            if (recognition && isListening) {
+                isPaused = true;
+                isListening = false;
+                recognition.stop();
+                voiceStatusText.textContent = 'Paused';
+                statusIndicator.className = 'status-indicator';
+            }
+        }
+        
+        // Update UI state
+        function updateUIState() {
+            if (isListening) {
+                voiceVisualization.classList.add('listening');
+                statusIndicator.className = 'status-indicator active';
+                voiceStatusText.textContent = 'Listening...';
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                pauseBtn.disabled = false;
+            } else {
+                voiceVisualization.classList.remove('listening');
+                statusIndicator.className = 'status-indicator';
+                
+                if (isPaused) {
+                    voiceStatusText.textContent = 'Paused';
+                } else {
+                    voiceStatusText.textContent = 'Ready to listen';
+                }
+                
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                pauseBtn.disabled = true;
+            }
+            
+            // Reset sound waves
+            if (!isListening) {
+                const waves = document.querySelectorAll('.sound-wave');
+                waves.forEach(wave => {
+                    wave.style.height = '20px';
+                });
+            }
+        }
+        
+        // Start timer
+        function startTimer() {
+            startTime = new Date();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        // Stop timer
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+        
+        // Update timer
+        function updateTimer() {
+            if (startTime) {
+                const now = new Date();
+                const diff = Math.floor((now - startTime) / 1000);
+                const mins = Math.floor(diff / 60);
+                const secs = diff % 60;
+                duration.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const text = transcribedText.value;
+            charCount.textContent = text.length;
+            
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            wordCount.textContent = words;
+        }
+        
+        // Copy text to clipboard
+        function copyText() {
+            if (!transcribedText.value.trim()) {
+                alert('No text to copy');
+                return;
+            }
+            
+            navigator.clipboard.writeText(transcribedText.value).then(() => {
+                const copyBtn = document.querySelector('.text-action-btn[title="Copy to Clipboard"]');
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                copyBtn.style.color = '#42f8f5';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.style.color = '';
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy text');
+            });
+        }
+        
+        // Download text as file
+        function downloadText() {
+            if (!transcribedText.value.trim()) {
+                alert('No text to download');
+                return;
+            }
+            
+            const blob = new Blob([transcribedText.value], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sgtools-transcription-${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            // Add to history
+            if (saveToHistory.checked) {
+                addToHistory(transcribedText.value);
+            }
+        }
+        
+        // Clear text
+        function clearText() {
+            if (transcribedText.value.trim() && confirm('Clear all transcribed text?')) {
+                transcribedText.value = '';
+                finalTranscript = '';
+                updateStats();
+            }
+        }
+        
+        // Save current transcription
+        function saveTranscription() {
+            if (transcribedText.value.trim()) {
+                addToHistory(transcribedText.value);
+                alert('Transcription saved to history');
+            }
+        }
+        
+        // Event listeners
+        function initEventListeners() {
+            // Language change - update recognition
+            languageSelect.addEventListener('change', function() {
+                if (recognition) {
+                    recognition.lang = this.value;
+                }
+            });
+            
+            // Continuous mode change
+            continuousMode.addEventListener('change', function() {
+                if (recognition) {
+                    recognition.continuous = this.checked;
+                }
+            });
+            
+            // Interim results change
+            interimResults.addEventListener('change', function() {
+                if (recognition) {
+                    recognition.interimResults = this.checked;
+                }
+            });
+            
+            // Save on stop
+            window.addEventListener('beforeunload', function() {
+                if (transcribedText.value.trim() && saveToHistory.checked) {
+                    addToHistory(transcribedText.value);
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHistory();
+            initEventListeners();
+            updateStats();
+            
+            // Check browser support
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                voiceStatusText.textContent = 'Speech recognition not supported';
+                statusIndicator.className = 'status-indicator error';
+                startBtn.disabled = true;
+            }
+        });
+        
+        // Export functions
+        window.startListening = startListening;
+        window.stopListening = stopListening;
+        window.pauseListening = pauseListening;
+        window.copyText = copyText;
+        window.downloadText = downloadText;
+        window.clearText = clearText;
+        window.clearHistory = clearHistory;
+        window.loadFromHistory = loadFromHistory;
+        window.downloadHistoryItem = downloadHistoryItem;
+        window.deleteHistoryItem = deleteHistoryItem;
+        window.saveTranscription = saveTranscription;
+    </script>
 </body>
 </html>
