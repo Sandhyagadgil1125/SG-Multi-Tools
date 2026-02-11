@@ -1,76 +1,1072 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Note Text Saver | SG Multi Tools</title>
-
-<link rel="icon" href="favicon.png">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Text Saver - SG Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .note-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        /* Toolbar */
+        .note-toolbar {
+            background: var(--button-bg-alt);
+            border-radius: 16px;
+            padding: 20px 25px;
+            border: 1px solid var(--dark-border);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transition: var(--transition);
+        }
+        
+        .note-toolbar:hover {
+            border-color: var(--primary-accent);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.1);
+        }
+        
+        .toolbar-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .tool-btn {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .tool-btn:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.15);
+        }
+        
+        .tool-btn i {
+            color: var(--primary-accent);
+            font-size: 1rem;
+        }
+        
+        .tool-btn.danger:hover {
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        .tool-btn.danger i {
+            color: var(--danger-color);
+        }
+        
+        .stats-badge {
+            background: rgba(66, 248, 245, 0.1);
+            border: 1px solid rgba(66, 248, 245, 0.2);
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .stat-item i {
+            color: var(--primary-accent);
+        }
+        
+        .stat-value {
+            color: var(--primary-accent);
+            font-weight: 600;
+        }
+        
+        /* Main Editor */
+        .note-editor {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .note-editor:focus-within {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.1);
+        }
+        
+        .note-title-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--dark-border);
+            padding: 15px 0;
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .note-title-input:focus {
+            outline: none;
+            border-bottom-color: var(--primary-accent);
+        }
+        
+        .note-title-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        
+        .note-content-area {
+            position: relative;
+        }
+        
+        .note-textarea {
+            width: 100%;
+            min-height: 350px;
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 25px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .note-textarea:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.1);
+        }
+        
+        .note-textarea::placeholder {
+            color: var(--text-muted);
+        }
+        
+        /* Formatting Bar */
+        .formatting-bar {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .format-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .format-btn:hover {
+            background: rgba(66, 248, 245, 0.1);
+            border-color: rgba(66, 248, 245, 0.2);
+            color: var(--primary-accent);
+        }
+        
+        .format-btn i {
+            font-size: 1rem;
+        }
+        
+        .divider {
+            width: 1px;
+            height: 24px;
+            background: var(--dark-border);
+            margin: 0 8px;
+        }
+        
+        /* Notes Sidebar */
+        .notes-sidebar {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .sidebar-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(66, 248, 245, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 1.2rem;
+        }
+        
+        .sidebar-title h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .saved-count {
+            background: rgba(66, 248, 245, 0.15);
+            color: var(--primary-accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .saved-notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .saved-notes-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .saved-notes-list::-webkit-scrollbar-track {
+            background: var(--main-bg);
+            border-radius: 10px;
+        }
+        
+        .saved-notes-list::-webkit-scrollbar-thumb {
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+        
+        .saved-note-item {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .saved-note-item:hover {
+            border-color: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.1);
+        }
+        
+        .saved-note-title {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .saved-note-preview {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .saved-note-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+        
+        .note-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .note-actions {
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .saved-note-item:hover .note-actions {
+            opacity: 1;
+        }
+        
+        .note-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+        }
+        
+        .note-action-btn:hover {
+            color: var(--primary-accent);
+            transform: scale(1.1);
+        }
+        
+        .note-action-btn.delete:hover {
+            color: var(--danger-color);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: rgba(66, 248, 245, 0.2);
+            margin-bottom: 15px;
+        }
+        
+        .empty-state p {
+            font-size: 0.95rem;
+        }
+        
+        /* Autosave Indicator */
+        .autosave-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+        
+        .indicator-dot.saving {
+            background: var(--warning-color);
+            animation: pulse 1s infinite;
+        }
+        
+        .indicator-dot.saved {
+            background: var(--success-color);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        /* Word Count & Read Time */
+        .read-time {
+            background: rgba(66, 248, 245, 0.08);
+            border-radius: 8px;
+            padding: 12px 18px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(66, 248, 245, 0.1);
+        }
+        
+        .read-time-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .read-time-item i {
+            color: var(--primary-accent);
+        }
+        
+        .read-time-value {
+            color: var(--primary-accent);
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background: var(--button-bg-alt);
+            border-radius: 30px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .back-link:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .note-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .toolbar-group {
+                justify-content: space-between;
+            }
+            
+            .stats-badge {
+                justify-content: space-around;
+            }
+            
+            .note-title-input {
+                font-size: 1.4rem;
+            }
+            
+            .formatting-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            
+            .format-btn {
+                white-space: nowrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .note-editor {
+                padding: 20px;
+            }
+            
+            .note-textarea {
+                padding: 18px;
+                min-height: 250px;
+            }
+            
+            .tool-btn {
+                padding: 10px 14px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">SG Tools</span>
+                        <span class="logo-subtitle">Multi Utilities</span>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-<div class="single-tool">
-  <div class="tool-wrapper">
+    <main class="main-content">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <div class="calculator-header-icon">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <h1 class="section-title">Note Text Saver</h1>
+                    <p class="section-subtitle">Write, save, and manage your notes with autosave and word count</p>
+                </div>
+                
+                <div class="note-container">
+                    <!-- Toolbar -->
+                    <div class="note-toolbar">
+                        <div class="toolbar-group">
+                            <button class="tool-btn" onclick="newNote()">
+                                <i class="fas fa-plus-circle"></i> New Note
+                            </button>
+                            <button class="tool-btn" onclick="saveNote()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                            <button class="tool-btn" onclick="copyNote()">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="tool-btn" onclick="downloadNote()">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="tool-btn" onclick="printNote()">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                            <button class="tool-btn danger" onclick="clearNote()">
+                                <i class="fas fa-trash-alt"></i> Clear
+                            </button>
+                        </div>
+                        
+                        <div class="stats-badge">
+                            <div class="stat-item">
+                                <i class="fas fa-text-size"></i>
+                                <span class="stat-value" id="wordCount">0</span> words
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-font"></i>
+                                <span class="stat-value" id="charCount">0</span> chars
+                            </div>
+                            <div class="autosave-indicator" id="autosaveIndicator">
+                                <span class="indicator-dot" id="autosaveDot"></span>
+                                <span id="autosaveText">Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Editor -->
+                    <div class="note-editor">
+                        <input type="text" class="note-title-input" id="noteTitle" placeholder="Note Title (e.g., Meeting Notes, Ideas, Tasks)" value="Untitled Note">
+                        
+                        <div class="note-content-area">
+                            <textarea class="note-textarea" id="noteContent" placeholder="Write your notes here... Start typing to autosave!"></textarea>
+                        </div>
+                        
+                        <div class="formatting-bar">
+                            <button class="format-btn" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                            <button class="format-btn" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                            <button class="format-btn" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                            <span class="divider"></span>
+                            <button class="format-btn" onclick="formatText('justifyLeft')"><i class="fas fa-align-left"></i></button>
+                            <button class="format-btn" onclick="formatText('justifyCenter')"><i class="fas fa-align-center"></i></button>
+                            <button class="format-btn" onclick="formatText('justifyRight')"><i class="fas fa-align-right"></i></button>
+                            <span class="divider"></span>
+                            <button class="format-btn" onclick="formatText('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+                            <button class="format-btn" onclick="formatText('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+                            <span class="divider"></span>
+                            <button class="format-btn" onclick="increaseFontSize()"><i class="fas fa-plus"></i> Size</button>
+                            <button class="format-btn" onclick="decreaseFontSize()"><i class="fas fa-minus"></i> Size</button>
+                        </div>
+                        
+                        <!-- Read Time & Stats -->
+                        <div class="read-time">
+                            <div class="read-time-item">
+                                <i class="fas fa-clock"></i>
+                                Read Time: <span class="read-time-value" id="readTime">0</span> min
+                            </div>
+                            <div class="read-time-item">
+                                <i class="fas fa-book-open"></i>
+                                Sentences: <span class="read-time-value" id="sentenceCount">0</span>
+                            </div>
+                            <div class="read-time-item">
+                                <i class="fas fa-paragraph"></i>
+                                Paragraphs: <span class="read-time-value" id="paragraphCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Saved Notes Sidebar -->
+                    <div class="notes-sidebar">
+                        <div class="sidebar-header">
+                            <div class="sidebar-title">
+                                <div class="sidebar-icon">
+                                    <i class="fas fa-bookmark"></i>
+                                </div>
+                                <h3>Saved Notes</h3>
+                            </div>
+                            <span class="saved-count" id="savedNotesCount">0</span>
+                        </div>
+                        
+                        <div class="saved-notes-list" id="savedNotesList">
+                            <div class="empty-state">
+                                <i class="fas fa-notes-medical"></i>
+                                <p>No saved notes yet. Click Save to store your notes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="tools.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to All Tools
+                </a>
+            </div>
+        </div>
+    </main>
 
-    <button class="close-btn" onclick="location.href='index.html'">×</button>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="footer-logo-text">
+                        <h3>SG Multi Tools</h3>
+                        <p>Essential utilities for daily use</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#disclaimer">Disclaimer</a></li>
+                            <li><a href="#terms">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Site Map</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                            <li><a href="#sitemap">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact @sgtools.in</span>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <h2>Note Text Saver</h2>
-    <p class="description">Write, save, and retrieve notes instantly in your browser</p>
+    <script>
+        // DOM Elements
+        const noteTitle = document.getElementById('noteTitle');
+        const noteContent = document.getElementById('noteContent');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const readTime = document.getElementById('readTime');
+        const sentenceCount = document.getElementById('sentenceCount');
+        const paragraphCount = document.getElementById('paragraphCount');
+        const savedNotesList = document.getElementById('savedNotesList');
+        const savedNotesCount = document.getElementById('savedNotesCount');
+        const autosaveDot = document.getElementById('autosaveDot');
+        const autosaveText = document.getElementById('autosaveText');
+        
+        // Store saved notes
+        let savedNotes = [];
+        let autosaveTimer = null;
+        let currentFontSize = 16;
+        
+        // Load saved notes from localStorage
+        function loadSavedNotes() {
+            const stored = localStorage.getItem('sgTools_notes');
+            if (stored) {
+                try {
+                    savedNotes = JSON.parse(stored);
+                } catch (e) {
+                    savedNotes = [];
+                }
+            }
+            renderSavedNotes();
+        }
+        
+        // Save notes to localStorage
+        function persistNotes() {
+            localStorage.setItem('sgTools_notes', JSON.stringify(savedNotes));
+            renderSavedNotes();
+        }
+        
+        // Render saved notes list
+        function renderSavedNotes() {
+            if (savedNotes.length === 0) {
+                savedNotesList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-notes-medical"></i>
+                        <p>No saved notes yet. Click Save to store your notes.</p>
+                    </div>
+                `;
+                savedNotesCount.textContent = '0';
+                return;
+            }
+            
+            savedNotesCount.textContent = savedNotes.length;
+            
+            // Sort by date (newest first)
+            const sorted = [...savedNotes].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let html = '';
+            sorted.forEach((note, index) => {
+                const date = new Date(note.date);
+                const formattedDate = date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                const preview = note.content.substring(0, 80) + (note.content.length > 80 ? '...' : '');
+                
+                html += `
+                    <div class="saved-note-item" onclick="loadNote(${index})">
+                        <div class="saved-note-title">
+                            <span>${escapeHtml(note.title || 'Untitled Note')}</span>
+                        </div>
+                        <div class="saved-note-preview">
+                            ${escapeHtml(preview)}
+                        </div>
+                        <div class="saved-note-meta">
+                            <span class="note-date">
+                                <i class="fas fa-calendar-alt"></i> ${formattedDate}
+                            </span>
+                            <div class="note-actions" onclick="event.stopPropagation()">
+                                <button class="note-action-btn" onclick="deleteNote(${index})" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            savedNotesList.innerHTML = html;
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const content = noteContent.value;
+            const words = content.trim() === '' ? 0 : content.trim().split(/\s+/).length;
+            const chars = content.length;
+            const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            const paragraphs = content.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+            const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
+            
+            wordCount.textContent = words;
+            charCount.textContent = chars;
+            sentenceCount.textContent = sentences || 0;
+            paragraphCount.textContent = paragraphs || 0;
+            readTime.textContent = readTimeMinutes;
+        }
+        
+        // Autosave
+        function triggerAutosave() {
+            autosaveDot.className = 'indicator-dot saving';
+            autosaveText.textContent = 'Saving...';
+            
+            if (autosaveTimer) {
+                clearTimeout(autosaveTimer);
+            }
+            
+            autosaveTimer = setTimeout(() => {
+                saveNote(true);
+                autosaveDot.className = 'indicator-dot saved';
+                autosaveText.textContent = 'Saved';
+                
+                setTimeout(() => {
+                    autosaveDot.className = 'indicator-dot';
+                    autosaveText.textContent = 'Ready';
+                }, 2000);
+            }, 1000);
+        }
+        
+        // Save note
+        function saveNote(isAutosave = false) {
+            const title = noteTitle.value.trim() || 'Untitled Note';
+            const content = noteContent.value.trim();
+            
+            if (!content) {
+                if (!isAutosave) alert('Cannot save empty note');
+                return;
+            }
+            
+            const note = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                date: new Date().toISOString()
+            };
+            
+            savedNotes.push(note);
+            persistNotes();
+            
+            if (!isAutosave) {
+                alert('Note saved successfully!');
+            }
+        }
+        
+        // Load note
+        function loadNote(index) {
+            const note = savedNotes[index];
+            if (note) {
+                noteTitle.value = note.title || 'Untitled Note';
+                noteContent.value = note.content || '';
+                updateStats();
+                
+                // Highlight the loaded note temporarily
+                const items = document.querySelectorAll('.saved-note-item');
+                if (items[index]) {
+                    items[index].style.borderColor = 'var(--primary-accent)';
+                    items[index].style.boxShadow = '0 0 0 2px rgba(66, 248, 245, 0.3)';
+                    setTimeout(() => {
+                        items[index].style.borderColor = '';
+                        items[index].style.boxShadow = '';
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Delete note
+        function deleteNote(index) {
+            if (confirm('Are you sure you want to delete this note?')) {
+                savedNotes.splice(index, 1);
+                persistNotes();
+            }
+        }
+        
+        // New note
+        function newNote() {
+            if (noteContent.value.trim() !== '') {
+                if (confirm('You have unsaved content. Create new note anyway?')) {
+                    noteTitle.value = 'Untitled Note';
+                    noteContent.value = '';
+                    updateStats();
+                }
+            } else {
+                noteTitle.value = 'Untitled Note';
+                noteContent.value = '';
+                updateStats();
+            }
+        }
+        
+        // Clear note
+        function clearNote() {
+            if (noteContent.value.trim() !== '') {
+                if (confirm('Clear all content?')) {
+                    noteTitle.value = 'Untitled Note';
+                    noteContent.value = '';
+                    updateStats();
+                }
+            }
+        }
+        
+        // Copy note
+        function copyNote() {
+            const content = noteContent.value;
+            if (!content) {
+                alert('Nothing to copy');
+                return;
+            }
+            
+            navigator.clipboard.writeText(content).then(() => {
+                const btn = event.currentTarget;
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.style.background = 'rgba(66, 248, 245, 0.2)';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+        
+        // Download note
+        function downloadNote() {
+            const title = noteTitle.value.trim() || 'Untitled-Note';
+            const content = noteContent.value;
+            
+            if (!content) {
+                alert('Nothing to download');
+                return;
+            }
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${title.replace(/\s+/g, '-')}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Print note
+        function printNote() {
+            const title = noteTitle.value.trim() || 'Untitled Note';
+            const content = noteContent.value;
+            
+            if (!content) {
+                alert('Nothing to print');
+                return;
+            }
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>${title}</title>
+                        <style>
+                            body { 
+                                font-family: 'Poppins', sans-serif; 
+                                padding: 40px;
+                                max-width: 800px;
+                                margin: 0 auto;
+                                line-height: 1.8;
+                                color: #333;
+                            }
+                            h1 { 
+                                color: #42f8f5;
+                                border-bottom: 2px solid #42f8f5;
+                                padding-bottom: 10px;
+                            }
+                            pre {
+                                white-space: pre-wrap;
+                                word-wrap: break-word;
+                                font-family: inherit;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>${title}</h1>
+                        <pre>${content}</pre>
+                        <p style="color: #666; margin-top: 40px;">Generated by SG Multi Tools - Note Text Saver</p>
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+        
+        // Format text
+        function formatText(command) {
+            noteContent.focus();
+            document.execCommand(command, false, null);
+            noteContent.focus();
+            updateStats();
+            triggerAutosave();
+        }
+        
+        // Increase font size
+        function increaseFontSize() {
+            currentFontSize = Math.min(24, currentFontSize + 2);
+            noteContent.style.fontSize = currentFontSize + 'px';
+        }
+        
+        // Decrease font size
+        function decreaseFontSize() {
+            currentFontSize = Math.max(12, currentFontSize - 2);
+            noteContent.style.fontSize = currentFontSize + 'px';
+        }
+        
+        // Event listeners
+        noteContent.addEventListener('input', function() {
+            updateStats();
+            triggerAutosave();
+        });
+        
+        noteTitle.addEventListener('input', triggerAutosave);
+        
+        // Initialize
+        window.onload = function() {
+            loadSavedNotes();
+            updateStats();
+            
+            // Set default font size
+            noteContent.style.fontSize = currentFontSize + 'px';
+            
+            // Welcome message for first time users
+            if (savedNotes.length === 0) {
+                noteContent.value = `Welcome to SG Tools Note Text Saver!
 
-    <label>Your Note</label>
-    <textarea id="noteInput" rows="6" placeholder="Type your note here..."></textarea>
+Features:
+• Real-time word and character count
+• Autosave - your notes are saved automatically
+• Save and manage multiple notes
+• Download notes as text files
+• Copy to clipboard with one click
+• Print notes directly
+• Text formatting options
 
-    <div class="calc-grid" style="grid-template-columns:repeat(3,1fr);">
-      <button onclick="saveNote()">Save</button>
-      <button onclick="loadNote()">Load</button>
-      <button onclick="clearNote()">Clear</button>
-    </div>
-
-    <div class="result" id="statusBox" style="display:none;"></div>
-
-  </div>
-</div>
-
-<script>
-const noteInput = document.getElementById("noteInput");
-const statusBox = document.getElementById("statusBox");
-const STORAGE_KEY = "sg_note_text_saver";
-
-function saveNote(){
-  const text = noteInput.value.trim();
-  if(!text){
-    alert("Please enter a note to save");
-    return;
-  }
-
-  localStorage.setItem(STORAGE_KEY, text);
-  showStatus("✅ Note saved successfully");
-}
-
-function loadNote(){
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if(!saved){
-    alert("No saved note found");
-    return;
-  }
-
-  noteInput.value = saved;
-  showStatus("📄 Note loaded");
-}
-
-function clearNote(){
-  noteInput.value = "";
-  localStorage.removeItem(STORAGE_KEY);
-  statusBox.style.display = "none";
-}
-
-function showStatus(message){
-  statusBox.style.display = "block";
-  statusBox.innerHTML = `<strong>${message}</strong>`;
-}
-</script>
-
+Start typing to see the statistics update in real-time. Click Save to store this note or create your own!`;
+                updateStats();
+            }
+        };
+    </script>
 </body>
 </html>
