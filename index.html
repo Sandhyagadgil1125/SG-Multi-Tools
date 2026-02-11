@@ -8,6 +8,50 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- OVERRIDE STYLES: 4‑column grid + centered footer with horizontal links -->
+    <style>
+        /* ----- TOOLS GRID: 4 columns, 5 rows ----- */
+        .tools-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1.5rem !important;
+        }
+
+        /* ----- FOOTER: centered, clean, no old elements ----- */
+        .main-footer {
+            text-align: center !important;
+            padding: 2rem 1rem !important;
+        }
+        .main-footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-links-horizontal {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        .footer-links-horizontal a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        .footer-links-horizontal a:hover {
+            text-decoration: underline;
+            color: #2563eb;
+        }
+        .footer-email {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        /* Hide every part of the old footer – they are replaced by the new structure above */
+        .footer-top, .footer-bottom, .footer-logo, .footer-links, .contact-info, .copyright {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -49,7 +93,7 @@
                 </div>
             </div>
 
-            <!-- Tools Grid - 20 Tools -->
+            <!-- Tools Grid - 20 Tools (4 columns × 5 rows) -->
             <div class="tools-section">
                 <div class="tools-grid">
                     <!-- 1. Password Generator -->
@@ -336,58 +380,21 @@
         </div>
     </main>
 
+    <!-- ===== NEW FOOTER ===== -->
+    <!-- Logo, title, Legal, Company, old columns completely removed -->
+    <!-- Single horizontal line with the 6 required tabs + email below, all centered -->
     <footer class="main-footer">
         <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-square">
-                        <span>SG</span>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy"><i class="fas fa-shield"></i> Privacy Policy</a></li>
-                            <li><a href="#disclaimer"><i class="fas fa-scale-balanced"></i> Disclaimer</a></li>
-                            <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                            <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="about.html"><i class="fas fa-building"></i> About Us</a></li>
-                            <li><a href="contact.html"><i class="fas fa-message"></i> Contact</a></li>
-                            <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="footer-links-horizontal">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#disclaimer">Disclaimer</a>
+                <a href="#terms">Terms & Conditions</a>
+                <a href="#">Sitemap</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
             </div>
-            
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact@sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2025 SG Multi Tools. All rights reserved.</p>
-                </div>
+            <div class="footer-email">
+                contact@sgtools.in
             </div>
         </div>
     </footer>
