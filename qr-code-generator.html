@@ -3,1373 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator - SG Tools</title>
-    <link rel="stylesheet" href="style.css">
+    <title>QR Code Generator | SG Multi Tools</title>
+    <meta name="description" content="Generate QR codes for URLs, text, and more – free and easy.">
+    <link rel="icon" href="favicon/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <!-- QR Code Library (qrcode-generator) -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <style>
-        .generator-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        
-        /* QR Code Display Card */
-        .qr-display-card {
+        .tool-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
             background: var(--button-bg-alt);
             border-radius: 24px;
-            padding: 30px;
             border: 1px solid var(--dark-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+        }
+        .qr-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .qr-options {
             display: flex;
-            flex-direction: column;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            align-items: center;
         }
-        
-        .qr-display-card:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 15px 35px rgba(66, 248, 245, 0.15);
-        }
-        
-        .qr-display-card::before {
-            content: '\f029';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 30px;
-            top: 30px;
-            font-size: 3rem;
-            color: rgba(66, 248, 245, 0.08);
-        }
-        
-        .qr-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+        .qr-option-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
-        
-        .qr-label i {
-            color: var(--primary-accent);
+        .qr-option-item label {
+            color: var(--text-secondary);
         }
-        
-        .qr-code-container {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
+        .qr-option-item select,
+        .qr-option-item input[type="color"] {
+            padding: 0.5rem;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+        }
+        .qr-preview {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 15px 0 20px;
-            border: 2px solid var(--dark-border);
-            transition: var(--transition);
-            min-height: 280px;
+            min-height: 300px;
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
         }
-        
-        .qr-code-container:hover {
-            border-color: var(--primary-accent);
-        }
-        
-        #qrCode {
+        .qr-preview svg, .qr-preview img {
             max-width: 100%;
             height: auto;
-            image-rendering: crisp-edges;
         }
-        
         .qr-actions {
             display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .qr-action-btn {
-            flex: 1;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 14px 20px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
+            gap: 1rem;
             justify-content: center;
-            gap: 12px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
         }
-        
-        .qr-action-btn:hover {
-            border-color: var(--primary-accent);
-            color: var(--primary-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.15);
-        }
-        
-        .qr-action-btn i {
-            font-size: 1.1rem;
-        }
-        
-        .qr-info {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(66, 248, 245, 0.05);
+        .qr-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-accent);
+            border: none;
             border-radius: 12px;
-            border: 1px solid rgba(66, 248, 245, 0.15);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        
-        .qr-info i {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-        }
-        
-        /* Controls Card */
-        .controls-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .controls-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-        
-        .controls-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .controls-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-        }
-        
-        .controls-title h3 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .generate-btn {
-            background: linear-gradient(135deg, var(--primary-accent), var(--accent-shade));
             color: var(--main-bg);
-            border: none;
-            border-radius: 12px;
-            padding: 14px 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-        
-        .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px var(--glow-shadow);
-            border-color: var(--text-primary);
-        }
-        
-        .generate-btn i {
-            font-size: 1.1rem;
-        }
-        
-        /* Input Section */
-        .input-section {
-            margin-bottom: 30px;
-        }
-        
-        .input-label {
-            color: var(--text-primary);
-            font-weight: 500;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .input-label i {
-            color: var(--primary-accent);
-        }
-        
-        .qr-textarea {
-            width: 100%;
-            height: 120px;
-            padding: 20px;
-            background: var(--main-bg);
-            border: 2px solid var(--dark-border);
-            border-radius: 16px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            resize: vertical;
-            transition: var(--transition);
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .qr-textarea:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-        }
-        
-        .qr-textarea::placeholder {
-            color: var(--text-muted);
-        }
-        
-        .char-counter {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 8px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        
-        /* Options Grid */
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .option-group {
-            background: var(--main-bg);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .option-group.full-width {
-            grid-column: span 2;
-        }
-        
-        .option-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        
-        .option-header i {
-            color: var(--primary-accent);
-        }
-        
-        /* Size Slider */
-        .size-control {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .size-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .size-value {
-            background: rgba(66, 248, 245, 0.15);
-            color: var(--primary-accent);
-            padding: 4px 16px;
-            border-radius: 30px;
-            font-size: 0.95rem;
             font-weight: 600;
-        }
-        
-        .size-slider {
-            width: 100%;
-            height: 8px;
-            -webkit-appearance: none;
-            background: var(--button-bg);
-            border-radius: 4px;
-            outline: none;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .size-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--primary-accent);
-            cursor: pointer;
-            border: 2px solid var(--main-bg);
-            box-shadow: 0 0 15px var(--glow-shadow);
-            transition: var(--transition);
-        }
-        
-        .size-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
-        }
-        
-        /* Color Pickers */
-        .color-pickers {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        .color-item {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .color-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .color-input {
-            width: 100%;
-            height: 45px;
-            border: 2px solid var(--dark-border);
-            border-radius: 10px;
-            cursor: pointer;
-            background: var(--button-bg);
-            transition: var(--transition);
-        }
-        
-        .color-input:hover {
-            border-color: var(--primary-accent);
-        }
-        
-        .color-input::-webkit-color-swatch-wrapper {
-            padding: 0;
-        }
-        
-        .color-input::-webkit-color-swatch {
-            border: none;
-            border-radius: 8px;
-        }
-        
-        /* Error Correction */
-        .error-correction {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .ec-options {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .ec-option {
-            flex: 1;
-            min-width: 80px;
-        }
-        
-        .ec-option input[type="radio"] {
-            display: none;
-        }
-        
-        .ec-option label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px;
-            background: var(--button-bg);
-            border: 2px solid var(--dark-border);
-            border-radius: 12px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            text-align: center;
-        }
-        
-        .ec-option span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-        
-        .ec-option input[type="radio"]:checked + label {
-            border-color: var(--primary-accent);
-            background: rgba(66, 248, 245, 0.1);
-            color: var(--primary-accent);
-        }
-        
-        .ec-option input[type="radio"]:checked + label span {
-            color: var(--primary-accent);
-        }
-        
-        /* Border & Logo Options */
-        .border-options {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-        
-        .checkbox-item:hover {
-            background: rgba(66, 248, 245, 0.05);
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary-accent);
-            cursor: pointer;
-        }
-        
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
-        .checkbox-label i {
-            color: var(--primary-accent);
-            width: 20px;
-        }
-        
-        .border-width-input {
-            width: 80px;
-            padding: 10px;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            text-align: center;
-        }
-        
-        /* History Card */
-        .history-card {
-            grid-column: span 2;
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .history-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-        
-        .history-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .history-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-            font-size: 1.1rem;
-        }
-        
-        .history-title h4 {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        
-        .clear-history-btn {
-            background: transparent;
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .clear-history-btn:hover {
-            border-color: var(--danger-color);
-            color: var(--danger-color);
-        }
-        
-        .history-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        
-        .history-grid::-webkit-scrollbar {
-            width: 5px;
-        }
-        
-        .history-grid::-webkit-scrollbar-track {
-            background: var(--main-bg);
-            border-radius: 10px;
-        }
-        
-        .history-grid::-webkit-scrollbar-thumb {
-            background: var(--primary-accent);
-            border-radius: 10px;
-        }
-        
-        .history-item {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: var(--transition);
-        }
-        
-        .history-item:hover {
-            border-color: var(--primary-accent);
-            transform: translateY(-3px);
-        }
-        
-        .history-item-preview {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: white;
-            border-radius: 8px;
-            padding: 10px;
-            height: 100px;
-        }
-        
-        .history-item-preview canvas {
-            max-width: 100%;
-            max-height: 80px;
-        }
-        
-        .history-item-content {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .history-item-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        
-        .history-item-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            padding: 5px;
-        }
-        
-        .history-item-btn:hover {
-            color: var(--primary-accent);
-            transform: scale(1.1);
-        }
-        
-        .empty-history {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-        }
-        
-        .empty-history i {
-            font-size: 2.5rem;
-            color: rgba(66, 248, 245, 0.2);
-            margin-bottom: 15px;
-        }
-        
-        .back-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-top: 40px;
-            padding: 12px 25px;
-            background: var(--button-bg-alt);
-            border-radius: 30px;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
+            gap: 0.5rem;
         }
-        
-        .back-link:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            transform: translateX(-5px);
+        .qr-btn:hover {
+            background: var(--accent-shade);
+            transform: scale(1.05);
         }
-        
-        @media (max-width: 992px) {
-            .generator-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .history-card {
-                grid-column: span 1;
-            }
-            
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .option-group.full-width {
-                grid-column: span 1;
-            }
+        .qr-btn.secondary {
+            background: var(--button-bg);
+            color: var(--text-primary);
         }
-        
-        @media (max-width: 768px) {
-            .controls-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .generate-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .color-pickers {
-                grid-template-columns: 1fr;
-            }
-            
-            .ec-options {
-                flex-direction: column;
-            }
-            
-            .history-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .qr-display-card,
-            .controls-card,
-            .history-card {
-                padding: 20px;
-            }
-            
-            .qr-actions {
-                flex-direction: column;
-            }
-            
-            .border-options {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        .qr-btn.secondary:hover {
+            background: var(--dark-border);
         }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span class="logo-title">SG Tools</span>
-                        <span class="logo-subtitle">Multi Utilities</span>
-                    </div>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </nav>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-circle">SG</span>
+                <span class="logo-text">SG Multi Tools</span>
             </div>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="tools.html">Tools</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <main class="main-content">
+    <main>
         <div class="container">
-            <div class="calculator-container">
-                <div class="calculator-header">
-                    <div class="calculator-header-icon">
-                        <i class="fas fa-qrcode"></i>
+            <div class="tool-container">
+                <h1 style="color: var(--primary-accent); margin-bottom: 1.5rem;">📱 QR Code Generator</h1>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Enter text or a URL to generate a QR code.</p>
+
+                <!-- Input field -->
+                <input type="text" id="qrInput" class="qr-input" placeholder="https://example.com or any text" value="https://sgtools.in">
+
+                <!-- Options -->
+                <div class="qr-options">
+                    <div class="qr-option-item">
+                        <label>Size:</label>
+                        <select id="qrSize">
+                            <option value="5">Small (100x100)</option>
+                            <option value="7" selected>Medium (200x200)</option>
+                            <option value="10">Large (300x300)</option>
+                            <option value="12">Extra Large (400x400)</option>
+                        </select>
                     </div>
-                    <h1 class="section-title">QR Code Generator</h1>
-                    <p class="section-subtitle">Create custom QR codes for URLs, text, and more</p>
-                </div>
-                
-                <div class="generator-container">
-                    <!-- QR Code Display -->
-                    <div class="qr-display-card">
-                        <div class="qr-label">
-                            <i class="fas fa-qrcode"></i> Generated QR Code
-                        </div>
-                        <div class="qr-code-container" id="qrCodeContainer">
-                            <canvas id="qrCode"></canvas>
-                        </div>
-                        
-                        <div class="qr-actions">
-                            <button class="qr-action-btn" onclick="downloadQR()">
-                                <i class="fas fa-download"></i> Download PNG
-                            </button>
-                            <button class="qr-action-btn" onclick="copyQR()">
-                                <i class="fas fa-copy"></i> Copy Image
-                            </button>
-                            <button class="qr-action-btn" onclick="printQR()">
-                                <i class="fas fa-print"></i> Print
-                            </button>
-                        </div>
-                        
-                        <div class="qr-info">
-                            <i class="fas fa-info-circle"></i>
-                            <span id="qrSizeInfo">QR Code Size: 300x300 px</span>
-                        </div>
+                    <div class="qr-option-item">
+                        <label>Foreground:</label>
+                        <input type="color" id="qrForeground" value="#000000">
                     </div>
-                    
-                    <!-- Controls -->
-                    <div class="controls-card">
-                        <div class="controls-header">
-                            <div class="controls-title">
-                                <div class="controls-icon">
-                                    <i class="fas fa-sliders-h"></i>
-                                </div>
-                                <h3>QR Code Settings</h3>
-                            </div>
-                            <button class="generate-btn" onclick="generateQR()">
-                                <i class="fas fa-bolt"></i> Generate QR
-                            </button>
-                        </div>
-                        
-                        <!-- Input Section -->
-                        <div class="input-section">
-                            <div class="input-label">
-                                <i class="fas fa-pencil-alt"></i> Content
-                            </div>
-                            <textarea id="qrText" class="qr-textarea" placeholder="Enter text or URL...">https://sgtools.in</textarea>
-                            <div class="char-counter">
-                                <span id="charCount">0</span> characters
-                            </div>
-                        </div>
-                        
-                        <div class="options-grid">
-                            <!-- Size Control -->
-                            <div class="option-group">
-                                <div class="option-header">
-                                    <i class="fas fa-arrows-alt"></i>
-                                    <span>QR Code Size</span>
-                                </div>
-                                <div class="size-control">
-                                    <div class="size-header">
-                                        <span class="size-label">Dimensions</span>
-                                        <span class="size-value" id="sizeValue">300</span>
-                                    </div>
-                                    <input type="range" id="qrSize" class="size-slider" min="100" max="600" value="300" step="10">
-                                    <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem;">
-                                        <span>Small</span>
-                                        <span>Medium</span>
-                                        <span>Large</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Color Options -->
-                            <div class="option-group">
-                                <div class="option-header">
-                                    <i class="fas fa-palette"></i>
-                                    <span>Colors</span>
-                                </div>
-                                <div class="color-pickers">
-                                    <div class="color-item">
-                                        <span class="color-label">
-                                            <i class="fas fa-circle"></i> Foreground
-                                        </span>
-                                        <input type="color" id="qrForeground" class="color-input" value="#000000">
-                                    </div>
-                                    <div class="color-item">
-                                        <span class="color-label">
-                                            <i class="fas fa-circle"></i> Background
-                                        </span>
-                                        <input type="color" id="qrBackground" class="color-input" value="#ffffff">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Error Correction -->
-                            <div class="option-group">
-                                <div class="option-header">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Error Correction</span>
-                                </div>
-                                <div class="error-correction">
-                                    <div class="ec-options">
-                                        <div class="ec-option">
-                                            <input type="radio" name="errorCorrection" id="ecLow" value="L">
-                                            <label for="ecLow">
-                                                L <span>~7%</span>
-                                            </label>
-                                        </div>
-                                        <div class="ec-option">
-                                            <input type="radio" name="errorCorrection" id="ecMedium" value="M" checked>
-                                            <label for="ecMedium">
-                                                M <span>~15%</span>
-                                            </label>
-                                        </div>
-                                        <div class="ec-option">
-                                            <input type="radio" name="errorCorrection" id="ecQuart" value="Q">
-                                            <label for="ecQuart">
-                                                Q <span>~25%</span>
-                                            </label>
-                                        </div>
-                                        <div class="ec-option">
-                                            <input type="radio" name="errorCorrection" id="ecHigh" value="H">
-                                            <label for="ecHigh">
-                                                H <span>~30%</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Border & Formatting -->
-                            <div class="option-group full-width">
-                                <div class="option-header">
-                                    <i class="fas fa-border-all"></i>
-                                    <span>Border & Format</span>
-                                </div>
-                                <div class="border-options">
-                                    <label class="checkbox-item">
-                                        <input type="checkbox" id="addBorder" checked>
-                                        <span class="checkbox-label">
-                                            <i class="fas fa-square"></i> Add White Border
-                                        </span>
-                                    </label>
-                                    <div style="display: flex; align-items: center; gap: 15px;">
-                                        <span style="color: var(--text-secondary);">Border Width:</span>
-                                        <input type="number" id="borderWidth" class="border-width-input" min="1" max="20" value="4">
-                                        <span style="color: var(--text-muted);">px</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- History Card -->
-                    <div class="history-card">
-                        <div class="history-header">
-                            <div class="history-title">
-                                <div class="history-icon">
-                                    <i class="fas fa-history"></i>
-                                </div>
-                                <h4>Recently Generated QR Codes</h4>
-                            </div>
-                            <button class="clear-history-btn" onclick="clearHistory()">
-                                <i class="fas fa-trash-alt"></i> Clear History
-                            </button>
-                        </div>
-                        
-                        <div class="history-grid" id="historyGrid">
-                            <div class="empty-history">
-                                <i class="fas fa-qrcode"></i>
-                                <p>No QR codes generated yet</p>
-                            </div>
-                        </div>
+                    <div class="qr-option-item">
+                        <label>Background:</label>
+                        <input type="color" id="qrBackground" value="#ffffff">
                     </div>
                 </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
+
+                <!-- QR Code preview area -->
+                <div id="qrPreview" class="qr-preview">
+                    <!-- QR code will be inserted here -->
+                </div>
+
+                <!-- Action buttons -->
+                <div class="qr-actions">
+                    <button id="generateBtn" class="qr-btn">
+                        <i class="fas fa-qrcode"></i> Generate
+                    </button>
+                    <button id="downloadBtn" class="qr-btn secondary">
+                        <i class="fas fa-download"></i> Download PNG
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="main-footer">
         <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#disclaimer">Disclaimer</a></li>
-                            <li><a href="#terms">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                            <li><a href="#sitemap">Sitemap</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="footer-links-horizontal">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="terms-and-conditions.html">Terms & Conditions</a>
+                <a href="sitemap.xml">Sitemap</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
             </div>
-            
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact@sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
-                </div>
-            </div>
+            <div class="footer-email">contact@sgtools.in</div>
         </div>
     </footer>
 
     <script>
-        // DOM Elements
-        const qrText = document.getElementById('qrText');
-        const qrCode = document.getElementById('qrCode');
+        // DOM elements
+        const qrInput = document.getElementById('qrInput');
         const qrSize = document.getElementById('qrSize');
-        const sizeValue = document.getElementById('sizeValue');
         const qrForeground = document.getElementById('qrForeground');
         const qrBackground = document.getElementById('qrBackground');
-        const addBorder = document.getElementById('addBorder');
-        const borderWidth = document.getElementById('borderWidth');
-        const charCount = document.getElementById('charCount');
-        const qrSizeInfo = document.getElementById('qrSizeInfo');
-        const historyGrid = document.getElementById('historyGrid');
-        
-        // Error correction radios
-        const ecLow = document.getElementById('ecLow');
-        const ecMedium = document.getElementById('ecMedium');
-        const ecQuart = document.getElementById('ecQuart');
-        const ecHigh = document.getElementById('ecHigh');
-        
-        // History storage
-        let qrHistory = [];
-        
-        // Load history from localStorage
-        function loadHistory() {
-            const stored = localStorage.getItem('sgTools_qrHistory');
-            if (stored) {
-                try {
-                    qrHistory = JSON.parse(stored);
-                } catch (e) {
-                    qrHistory = [];
-                }
-            }
-            renderHistory();
-        }
-        
-        // Save history to localStorage
-        function saveHistory() {
-            localStorage.setItem('sgTools_qrHistory', JSON.stringify(qrHistory));
-            renderHistory();
-        }
-        
-        // Add to history
-        function addToHistory(content, settings) {
-            qrHistory.unshift({
-                content: content,
-                settings: settings,
-                timestamp: new Date().toISOString()
-            });
-            
-            // Keep only last 12
-            if (qrHistory.length > 12) {
-                qrHistory = qrHistory.slice(0, 12);
-            }
-            
-            saveHistory();
-        }
-        
-        // Render history
-        function renderHistory() {
-            if (qrHistory.length === 0) {
-                historyGrid.innerHTML = `
-                    <div class="empty-history">
-                        <i class="fas fa-qrcode"></i>
-                        <p>No QR codes generated yet</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            qrHistory.slice(0, 8).forEach((item, index) => {
-                const previewContent = item.content.substring(0, 30) + (item.content.length > 30 ? '...' : '');
-                html += `
-                    <div class="history-item">
-                        <div class="history-item-preview" id="preview-${index}"></div>
-                        <div class="history-item-content" title="${item.content}">
-                            <i class="fas fa-${item.content.startsWith('http') ? 'link' : 'text'}"></i>
-                            ${previewContent}
-                        </div>
-                        <div class="history-item-actions">
-                            <button class="history-item-btn" onclick="loadFromHistory(${index})" title="Use this QR">
-                                <i class="fas fa-qrcode"></i>
-                            </button>
-                            <button class="history-item-btn" onclick="downloadHistoryQR(${index})" title="Download">
-                                <i class="fas fa-download"></i>
-                            </button>
-                            <button class="history-item-btn" onclick="deleteHistoryItem(${index})" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            historyGrid.innerHTML = html;
-            
-            // Render previews
-            qrHistory.slice(0, 8).forEach((item, index) => {
-                const canvas = document.createElement('canvas');
-                const previewContainer = document.getElementById(`preview-${index}`);
-                if (previewContainer) {
-                    QRCode.toCanvas(canvas, item.content, {
-                        width: 80,
-                        margin: 1,
-                        color: {
-                            dark: item.settings?.foreground || '#000000',
-                            light: item.settings?.background || '#ffffff'
-                        },
-                        errorCorrectionLevel: item.settings?.errorCorrection || 'M'
-                    }, function(error) {
-                        if (!error) {
-                            previewContainer.innerHTML = '';
-                            previewContainer.appendChild(canvas);
-                        }
-                    });
-                }
-            });
-        }
-        
-        // Load from history
-        function loadFromHistory(index) {
-            const item = qrHistory[index];
-            if (item) {
-                qrText.value = item.content;
-                if (item.settings) {
-                    qrSize.value = item.settings.size || 300;
-                    sizeValue.textContent = qrSize.value;
-                    qrForeground.value = item.settings.foreground || '#000000';
-                    qrBackground.value = item.settings.background || '#ffffff';
-                    
-                    // Set error correction
-                    const ec = item.settings.errorCorrection || 'M';
-                    document.querySelector(`input[value="${ec}"]`).checked = true;
-                    
-                    addBorder.checked = item.settings.border || true;
-                    borderWidth.value = item.settings.borderWidth || 4;
-                }
-                generateQR();
-            }
-        }
-        
-        // Delete history item
-        function deleteHistoryItem(index) {
-            qrHistory.splice(index, 1);
-            saveHistory();
-        }
-        
-        // Clear all history
-        function clearHistory() {
-            if (confirm('Clear all QR code history?')) {
-                qrHistory = [];
-                saveHistory();
-            }
-        }
-        
-        // Download history QR
-        function downloadHistoryQR(index) {
-            const item = qrHistory[index];
-            if (item) {
-                const canvas = document.createElement('canvas');
-                QRCode.toCanvas(canvas, item.content, {
-                    width: 300,
-                    margin: addBorder.checked ? parseInt(borderWidth.value) : 0,
-                    color: {
-                        dark: item.settings?.foreground || '#000000',
-                        light: item.settings?.background || '#ffffff'
-                    },
-                    errorCorrectionLevel: item.settings?.errorCorrection || 'M'
-                }, function(error) {
-                    if (!error) {
-                        const link = document.createElement('a');
-                        link.download = `sgtools-qr-${Date.now()}.png`;
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                    }
-                });
-            }
-        }
-        
-        // Update character count
-        function updateCharCount() {
-            const count = qrText.value.length;
-            charCount.textContent = count;
-        }
-        
-        // Update size display
-        qrSize.addEventListener('input', function() {
-            sizeValue.textContent = this.value;
-            qrSizeInfo.textContent = `QR Code Size: ${this.value}x${this.value} px`;
-        });
-        
+        const qrPreview = document.getElementById('qrPreview');
+        const generateBtn = document.getElementById('generateBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        let currentQRCode = null;
+
         // Generate QR code
-        function generateQR() {
-            const text = qrText.value.trim();
-            
+        function generateQRCode() {
+            const text = qrInput.value.trim();
             if (!text) {
-                alert('Please enter text or URL for the QR code');
+                alert('Please enter text or a URL');
                 return;
             }
+
+            const size = parseInt(qrSize.value, 10);
+            const fg = qrForeground.value;
+            const bg = qrBackground.value;
+
+            // Create QR code instance
+            const qr = qrcode(0, 'M'); // Error correction level M
+            qr.addData(text);
+            qr.make();
+
+            // Get the matrix as a string
+            const moduleCount = qr.getModuleCount();
             
-            const size = parseInt(qrSize.value);
-            const foreground = qrForeground.value;
-            const background = qrBackground.value;
-            const border = addBorder.checked ? parseInt(borderWidth.value) : 0;
-            
-            // Get error correction level
-            let errorCorrection = 'M';
-            if (ecLow.checked) errorCorrection = 'L';
-            if (ecMedium.checked) errorCorrection = 'M';
-            if (ecQuart.checked) errorCorrection = 'Q';
-            if (ecHigh.checked) errorCorrection = 'H';
-            
-            // Clear previous QR
-            qrCode.getContext('2d').clearRect(0, 0, qrCode.width, qrCode.height);
-            
-            // Generate QR code
-            QRCode.toCanvas(qrCode, text, {
-                width: size,
-                margin: border,
-                color: {
-                    dark: foreground,
-                    light: background
-                },
-                errorCorrectionLevel: errorCorrection
-            }, function(error) {
-                if (error) {
-                    console.error(error);
-                    alert('Failed to generate QR code. Please try different content.');
-                } else {
-                    // Update size info
-                    qrSizeInfo.textContent = `QR Code Size: ${qrCode.width}x${qrCode.height} px`;
-                    
-                    // Add to history
-                    addToHistory(text, {
-                        size: size,
-                        foreground: foreground,
-                        background: background,
-                        errorCorrection: errorCorrection,
-                        border: border > 0,
-                        borderWidth: border
-                    });
+            // Create SVG
+            const cellSize = size; // each module cell size in pixels
+            const width = moduleCount * cellSize;
+            const height = moduleCount * cellSize;
+
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`;
+            svg += `<rect width="${width}" height="${height}" fill="${bg}" />`;
+
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr.isDark(row, col)) {
+                        svg += `<rect x="${col * cellSize}" y="${row * cellSize}" width="${cellSize}" height="${cellSize}" fill="${fg}" />`;
+                    }
                 }
-            });
+            }
+            svg += '</svg>';
+
+            qrPreview.innerHTML = svg;
+            currentQRCode = svg;
         }
-        
-        // Download QR code as PNG
+
+        // Download QR as PNG
         function downloadQR() {
-            if (!qrText.value.trim()) {
-                alert('No QR code to download');
+            if (!currentQRCode) {
+                alert('Generate a QR code first');
                 return;
             }
-            
-            const link = document.createElement('a');
-            link.download = `sgtools-qr-${Date.now()}.png`;
-            link.href = qrCode.toDataURL('image/png');
-            link.click();
-        }
-        
-        // Copy QR code to clipboard
-        function copyQR() {
-            if (!qrText.value.trim()) {
-                alert('No QR code to copy');
-                return;
-            }
-            
-            qrCode.toBlob(function(blob) {
-                navigator.clipboard.write([
-                    new ClipboardItem({
-                        'image/png': blob
-                    })
-                ]).then(function() {
-                    const copyBtn = document.querySelector('.qr-action-btn[onclick="copyQR()"]');
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    copyBtn.style.color = '#42f8f5';
-                    
-                    setTimeout(() => {
-                        copyBtn.innerHTML = originalHTML;
-                        copyBtn.style.color = '';
-                    }, 2000);
-                }).catch(function() {
-                    alert('Failed to copy QR code');
-                });
-            });
-        }
-        
-        // Print QR code
-        function printQR() {
-            if (!qrText.value.trim()) {
-                alert('No QR code to print');
-                return;
-            }
-            
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <html>
-                    <head>
-                        <title>Print QR Code - SG Tools</title>
-                        <style>
-                            body {
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                justify-content: center;
-                                height: 100vh;
-                                margin: 0;
-                                font-family: Arial, sans-serif;
-                            }
-                            img {
-                                max-width: 90%;
-                                max-height: 80vh;
-                                border: 1px solid #ccc;
-                                padding: 20px;
-                            }
-                            .info {
-                                margin-top: 20px;
-                                color: #666;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <img src="${qrCode.toDataURL('image/png')}" alt="QR Code">
-                        <div class="info">Generated with SG Tools</div>
-                        <script>
-                            window.onload = function() { window.print(); window.close(); }
-                        <\/script>
-                    </body>
-                </html>
-            `);
-            printWindow.document.close();
-        }
-        
-        // Initialize event listeners
-        function initEventListeners() {
-            // Update character count
-            qrText.addEventListener('input', updateCharCount);
-            
-            // Auto-generate on settings change (with debounce)
-            let settingsTimeout;
-            const settings = [qrSize, qrForeground, qrBackground, addBorder, borderWidth, ecLow, ecMedium, ecQuart, ecHigh];
-            
-            settings.forEach(setting => {
-                setting.addEventListener('input', function() {
-                    clearTimeout(settingsTimeout);
-                    settingsTimeout = setTimeout(generateQR, 300);
-                });
+
+            // Create a canvas from SVG
+            const svgData = currentQRCode;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
                 
-                if (setting.type === 'radio') {
-                    setting.addEventListener('change', function() {
-                        clearTimeout(settingsTimeout);
-                        settingsTimeout = setTimeout(generateQR, 300);
-                    });
-                }
-            });
+                // Create download link
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+
+            img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData);
         }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadHistory();
-            initEventListeners();
-            updateCharCount();
-            
-            // Set initial size value
-            sizeValue.textContent = qrSize.value;
-            
-            // Generate initial QR
-            setTimeout(generateQR, 100);
-        });
-        
-        // Export functions
-        window.generateQR = generateQR;
-        window.downloadQR = downloadQR;
-        window.copyQR = copyQR;
-        window.printQR = printQR;
-        window.clearHistory = clearHistory;
-        window.loadFromHistory = loadFromHistory;
-        window.downloadHistoryQR = downloadHistoryQR;
-        window.deleteHistoryItem = deleteHistoryItem;
+
+        // Event listeners
+        generateBtn.addEventListener('click', generateQRCode);
+        downloadBtn.addEventListener('click', downloadQR);
+
+        // Generate on page load
+        window.addEventListener('DOMContentLoaded', generateQRCode);
     </script>
 </body>
 </html>
