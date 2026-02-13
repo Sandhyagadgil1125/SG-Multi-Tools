@@ -3,1559 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Encoder / Decoder - SG Tools</title>
+    <title>URL Encoder/Decoder · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .generator-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        
-        /* Input Section */
-        .input-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .input-card:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 15px 35px rgba(66, 248, 245, 0.15);
-        }
-        
-        .input-card::before {
-            content: '\f6c4';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 30px;
-            top: 30px;
-            font-size: 3rem;
-            color: rgba(66, 248, 245, 0.08);
-        }
-        
-        .input-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
-        
-        .input-label i {
-            color: var(--primary-accent);
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
         }
-        
-        /* Mode Selector */
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- URL Encoder/Decoder Specific Styles ----- */
         .mode-selector {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            background: var(--main-bg);
-            padding: 10px;
-            border-radius: 16px;
-            border: 1px solid var(--dark-border);
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
         }
-        
+
         .mode-btn {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 16px 20px;
-            background: transparent;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .mode-btn i {
-            font-size: 1.3rem;
-        }
-        
-        .mode-btn:hover {
-            background: rgba(66, 248, 245, 0.05);
-            color: var(--primary-accent);
-        }
-        
-        .mode-btn.active {
-            background: rgba(66, 248, 245, 0.15);
-            border-color: var(--primary-accent);
-            color: var(--primary-accent);
-        }
-        
-        /* Text Areas */
-        .text-area-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .text-box {
-            background: var(--main-bg);
-            border: 2px solid var(--dark-border);
-            border-radius: 20px;
-            padding: 20px;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .text-box:hover {
-            border-color: var(--primary-accent);
-        }
-        
-        .text-box:focus-within {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 4px rgba(66, 248, 245, 0.15);
-        }
-        
-        .text-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
-        .text-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        
-        .text-title i {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-        }
-        
-        .text-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .text-action-btn {
-            width: 40px;
-            height: 40px;
             background: var(--button-bg-alt);
             border: 1px solid var(--dark-border);
-            border-radius: 10px;
+            border-radius: 100px;
+            padding: 0.5rem 0.3rem;
             color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            gap: 0.4rem;
             transition: var(--transition);
-            font-size: 1rem;
+            cursor: pointer;
+            white-space: nowrap;
         }
-        
-        .text-action-btn:hover {
-            border-color: var(--primary-accent);
+
+        .mode-btn i {
+            font-size: 0.75rem;
             color: var(--primary-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.15);
         }
-        
-        .text-area {
+
+        .mode-btn.active {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .mode-btn.active i {
+            color: var(--main-bg);
+        }
+
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        .url-textarea {
             width: 100%;
-            min-height: 250px;
-            padding: 15px;
             background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .url-textarea:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .output-panel {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .copy-btn {
+            background: var(--button-bg);
             border: 1px solid var(--dark-border);
             border-radius: 14px;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            font-family: 'Courier New', monospace;
-            resize: vertical;
-            transition: var(--transition);
-        }
-        
-        .text-area:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 2px rgba(66, 248, 245, 0.2);
-        }
-        
-        .text-area::placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-        
-        .text-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        
-        .stats-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .stats-item i {
-            color: var(--primary-accent);
-        }
-        
-        /* Control Buttons */
-        .control-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .control-btn {
-            min-width: 180px;
-            padding: 16px 30px;
-            background: var(--main-bg);
-            border: 2px solid var(--dark-border);
-            border-radius: 16px;
+            padding: 0.4rem 1rem;
             color: var(--text-secondary);
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
+            gap: 0.4rem;
             transition: var(--transition);
-        }
-        
-        .control-btn:hover {
-            border-color: var(--primary-accent);
-            color: var(--primary-accent);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.15);
-        }
-        
-        .control-btn.primary {
-            background: linear-gradient(135deg, var(--primary-accent), var(--accent-shade));
-            color: var(--main-bg);
-            border: none;
-        }
-        
-        .control-btn.primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px var(--glow-shadow);
-        }
-        
-        .control-btn i {
-            font-size: 1.2rem;
-        }
-        
-        /* Options Card */
-        .options-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .options-group {
-            background: var(--main-bg);
-            border-radius: 18px;
-            padding: 25px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .options-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .options-header i {
-            color: var(--primary-accent);
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 12px 16px;
-            border-radius: 12px;
-            transition: var(--transition);
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            margin-bottom: 12px;
-        }
-        
-        .checkbox-item:hover {
-            background: rgba(66, 248, 245, 0.05);
-            border-color: var(--primary-accent);
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--primary-accent);
             cursor: pointer;
         }
-        
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            flex: 1;
-        }
-        
-        .checkbox-label i {
-            color: var(--primary-accent);
-            width: 22px;
-        }
-        
-        .encoding-info {
-            margin-top: 20px;
-            padding: 16px;
-            background: rgba(66, 248, 245, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(66, 248, 245, 0.15);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-        
-        .encoding-info i {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-        }
-        
-        /* Character Table */
-        .char-table-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .char-table-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-        
-        .char-table-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .char-table-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-        }
-        
-        .char-table-title h4 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            border-radius: 16px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .char-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--main-bg);
-        }
-        
-        .char-table th {
-            background: rgba(66, 248, 245, 0.1);
-            color: var(--primary-accent);
-            padding: 16px 12px;
-            font-weight: 600;
-            text-align: left;
-            border-bottom: 2px solid var(--dark-border);
-        }
-        
-        .char-table td {
-            padding: 12px;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--dark-border);
-            font-family: 'Courier New', monospace;
-        }
-        
-        .char-table tr:hover td {
-            background: rgba(66, 248, 245, 0.05);
-            color: var(--text-primary);
-        }
-        
-        .char-table .encoded-char {
-            color: var(--primary-accent);
-            font-weight: 600;
-        }
-        
-        /* History Card */
-        .history-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .history-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-        
-        .history-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .history-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-        }
-        
-        .history-title h4 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        
-        .clear-history-btn {
-            background: transparent;
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .clear-history-btn:hover {
-            border-color: var(--danger-color);
-            color: var(--danger-color);
-        }
-        
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        
-        .history-list::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .history-list::-webkit-scrollbar-track {
-            background: var(--main-bg);
-            border-radius: 10px;
-        }
-        
-        .history-list::-webkit-scrollbar-thumb {
+
+        .copy-btn:hover {
             background: var(--primary-accent);
-            border-radius: 10px;
-        }
-        
-        .history-item {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: var(--transition);
-        }
-        
-        .history-item:hover {
+            color: var(--main-bg);
             border-color: var(--primary-accent);
-            transform: translateX(5px);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
-        .history-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
         }
-        
-        .history-mode {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 20px;
-            color: var(--primary-accent);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        
-        .history-time {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-        
-        .history-content {
-            display: grid;
-            grid-template-columns: 1fr 30px 1fr;
-            gap: 15px;
-            align-items: center;
-        }
-        
-        .history-input, .history-output {
+
+        #outputText {
+            width: 100%;
             background: var(--button-bg-alt);
-            padding: 12px;
-            border-radius: 10px;
             border: 1px solid var(--dark-border);
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
             color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            resize: vertical;
+            min-height: 90px;
+            white-space: pre-wrap;
             word-break: break-all;
         }
-        
-        .history-arrow {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-            text-align: center;
-        }
-        
-        .history-actions {
+
+        .action-buttons {
             display: flex;
-            gap: 10px;
-            justify-content: flex-end;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
         }
-        
-        .history-btn {
-            width: 38px;
-            height: 38px;
-            background: var(--button-bg-alt);
+
+        .clear-btn {
+            flex: 1;
+            background: var(--button-bg);
             border: 1px solid var(--dark-border);
-            border-radius: 10px;
+            border-radius: 16px;
+            padding: 0.6rem;
             color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
             cursor: pointer;
-            transition: var(--transition);
         }
-        
-        .history-btn:hover {
+
+        .clear-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
             border-color: var(--primary-accent);
-            color: var(--primary-accent);
-            transform: scale(1.1);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
-        .empty-history {
-            text-align: center;
-            padding: 50px;
-            color: var(--text-muted);
-        }
-        
-        .empty-history i {
-            font-size: 3rem;
-            color: rgba(66, 248, 245, 0.2);
-            margin-bottom: 20px;
-        }
-        
-        .back-link {
-            display: inline-flex;
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-top: 40px;
-            padding: 14px 28px;
-            background: var(--button-bg-alt);
-            border-radius: 30px;
-            border: 1px solid var(--dark-border);
+            justify-content: center;
+            gap: 0.6rem;
             transition: var(--transition);
+            cursor: pointer;
         }
-        
-        .back-link:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            transform: translateX(-5px);
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
         }
-        
-        @media (max-width: 992px) {
-            .text-area-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .history-content {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .history-arrow {
-                transform: rotate(90deg);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .input-card,
-            .options-card,
-            .char-table-card,
-            .history-card {
-                padding: 20px;
-            }
-            
-            .mode-selector {
-                flex-direction: column;
-            }
-            
-            .mode-btn {
-                width: 100%;
-            }
-            
-            .control-buttons {
-                flex-direction: column;
-            }
-            
-            .control-btn {
-                width: 100%;
-            }
-            
-            .char-table th,
-            .char-table td {
-                padding: 10px 8px;
-                font-size: 0.85rem;
-            }
-        }
-        
+
         @media (max-width: 480px) {
-            .text-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
             }
-            
-            .text-actions {
-                align-self: flex-end;
+            .mode-selector {
+                flex-wrap: wrap;
             }
-            
-            .checkbox-item {
-                padding: 10px;
-            }
-            
-            .history-item-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .mode-btn {
+                flex: 1 0 calc(50% - 0.25rem);
+                white-space: normal;
+                padding: 0.5rem 0.2rem;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span class="logo-title">SG Tools</span>
-                        <span class="logo-subtitle">Multi Utilities</span>
-                    </div>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </nav>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-link"></i>
             </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">URL Encoder/Decoder</h1>
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="calculator-container">
-                <div class="calculator-header">
-                    <div class="calculator-header-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <h1 class="section-title">URL Encoder / Decoder</h1>
-                    <p class="section-subtitle">Encode or decode URLs and special characters for web applications</p>
-                </div>
-                
-                <div class="generator-container">
-                    <!-- Input Card -->
-                    <div class="input-card">
-                        <div class="input-label">
-                            <i class="fas fa-pencil"></i> URL Converter
-                        </div>
-                        
-                        <!-- Mode Selector -->
-                        <div class="mode-selector">
-                            <button class="mode-btn active" id="encodeModeBtn" onclick="setMode('encode')">
-                                <i class="fas fa-lock"></i>
-                                <span>Encode</span>
-                            </button>
-                            <button class="mode-btn" id="decodeModeBtn" onclick="setMode('decode')">
-                                <i class="fas fa-unlock"></i>
-                                <span>Decode</span>
-                            </button>
-                        </div>
-                        
-                        <!-- Text Areas -->
-                        <div class="text-area-container">
-                            <!-- Input -->
-                            <div class="text-box">
-                                <div class="text-header">
-                                    <div class="text-title">
-                                        <i class="fas fa-circle-arrow-right"></i>
-                                        <span id="inputTitle">Input Text</span>
-                                    </div>
-                                    <div class="text-actions">
-                                        <button class="text-action-btn" onclick="clearInput()" title="Clear">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="text-action-btn" onclick="pasteFromClipboard()" title="Paste">
-                                            <i class="fas fa-paste"></i>
-                                        </button>
-                                        <button class="text-action-btn" onclick="loadSample()" title="Load Sample">
-                                            <i class="fas fa-file-lines"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <textarea id="inputText" class="text-area" placeholder="Enter text to encode/decode...">https://sgtools.in/search?query=web tools & utilities</textarea>
-                                <div class="text-stats">
-                                    <span class="stats-item">
-                                        <i class="fas fa-characters"></i>
-                                        <span id="inputChars">48</span> chars
-                                    </span>
-                                    <span class="stats-item">
-                                        <i class="fas fa-percent"></i>
-                                        <span id="specialChars">4</span> special
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <!-- Output -->
-                            <div class="text-box">
-                                <div class="text-header">
-                                    <div class="text-title">
-                                        <i class="fas fa-circle-arrow-left"></i>
-                                        <span id="outputTitle">Encoded URL</span>
-                                    </div>
-                                    <div class="text-actions">
-                                        <button class="text-action-btn" onclick="copyOutput()" title="Copy">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                        <button class="text-action-btn" onclick="downloadOutput()" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                        <button class="text-action-btn" onclick="swapInputOutput()" title="Swap">
-                                            <i class="fas fa-arrow-right-arrow-left"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <textarea id="outputText" class="text-area" placeholder="Encoded/decoded result..." readonly>https%3A%2F%2Fsgtools.in%2Fsearch%3Fquery%3Dweb%20tools%20%26%20utilities</textarea>
-                                <div class="text-stats">
-                                    <span class="stats-item">
-                                        <i class="fas fa-characters"></i>
-                                        <span id="outputChars">78</span> chars
-                                    </span>
-                                    <span class="stats-item">
-                                        <i class="fas fa-percent"></i>
-                                        <span id="encodedChars">9</span> encoded
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Control Buttons -->
-                        <div class="control-buttons">
-                            <button class="control-btn primary" onclick="processURL()">
-                                <i class="fas fa-bolt"></i>
-                                <span id="processBtnText">Encode URL</span>
-                            </button>
-                            <button class="control-btn" onclick="resetAll()">
-                                <i class="fas fa-rotate-left"></i>
-                                Reset
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Options Card -->
-                    <div class="options-card">
-                        <div class="options-grid">
-                            <div class="options-group">
-                                <div class="options-header">
-                                    <i class="fas fa-gear"></i>
-                                    <span>Encoding Options</span>
-                                </div>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="encodeURIComponent" checked>
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-link"></i>
-                                        EncodeURIComponent (full encoding)
-                                    </span>
-                                </label>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="encodeURI">
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-globe"></i>
-                                        EncodeURI (preserves structure)
-                                    </span>
-                                </label>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="encodePlus">
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-plus"></i>
-                                        Convert spaces to +
-                                    </span>
-                                </label>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="encodeAll">
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-shield"></i>
-                                        Encode all characters
-                                    </span>
-                                </label>
-                                
-                                <div class="encoding-info">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span id="encodingInfo">URI Component: Encodes all special characters including &, ?, #</span>
-                                </div>
-                            </div>
-                            
-                            <div class="options-group">
-                                <div class="options-header">
-                                    <i class="fas fa-sliders"></i>
-                                    <span>Additional Options</span>
-                                </div>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="autoUpdate" checked>
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-sync"></i>
-                                        Auto-update on input
-                                    </span>
-                                </label>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="saveHistory" checked>
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-clock-rotate-left"></i>
-                                        Save to history
-                                    </span>
-                                </label>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="detectURLs">
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-magnifying-glass"></i>
-                                        Auto-detect URLs
-                                    </span>
-                                </label>
-                                
-                                <label class="checkbox-item">
-                                    <input type="checkbox" id="showTooltips">
-                                    <span class="checkbox-label">
-                                        <i class="fas fa-circle-info"></i>
-                                        Show character tooltips
-                                    </span>
-                                </label>
-                                
-                                <div class="encoding-info">
-                                    <i class="fas fa-clock"></i>
-                                    <span>Real-time conversion when auto-update is enabled</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Character Encoding Table -->
-                    <div class="char-table-card">
-                        <div class="char-table-header">
-                            <div class="char-table-title">
-                                <div class="char-table-icon">
-                                    <i class="fas fa-table"></i>
-                                </div>
-                                <h4>Common URL Encoded Characters</h4>
-                            </div>
-                        </div>
-                        
-                        <div class="table-container">
-                            <table class="char-table">
-                                <thead>
-                                    <tr>
-                                        <th>Character</th>
-                                        <th>Encoded</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>space</td><td class="encoded-char">%20</td><td>Space</td></tr>
-                                    <tr><td>!</td><td class="encoded-char">%21</td><td>Exclamation mark</td></tr>
-                                    <tr><td>"</td><td class="encoded-char">%22</td><td>Double quote</td></tr>
-                                    <tr><td>#</td><td class="encoded-char">%23</td><td>Hash</td></tr>
-                                    <tr><td>$</td><td class="encoded-char">%24</td><td>Dollar sign</td></tr>
-                                    <tr><td>%</td><td class="encoded-char">%25</td><td>Percent sign</td></tr>
-                                    <tr><td>&</td><td class="encoded-char">%26</td><td>Ampersand</td></tr>
-                                    <tr><td>'</td><td class="encoded-char">%27</td><td>Single quote</td></tr>
-                                    <tr><td>(</td><td class="encoded-char">%28</td><td>Left parenthesis</td></tr>
-                                    <tr><td>)</td><td class="encoded-char">%29</td><td>Right parenthesis</td></tr>
-                                    <tr><td>*</td><td class="encoded-char">%2A</td><td>Asterisk</td></tr>
-                                    <tr><td>+</td><td class="encoded-char">%2B</td><td>Plus sign</td></tr>
-                                    <tr><td>,</td><td class="encoded-char">%2C</td><td>Comma</td></tr>
-                                    <tr><td>-</td><td class="encoded-char">%2D</td><td>Hyphen</td></tr>
-                                    <tr><td>.</td><td class="encoded-char">%2E</td><td>Period</td></tr>
-                                    <tr><td>/</td><td class="encoded-char">%2F</td><td>Slash</td></tr>
-                                    <tr><td>:</td><td class="encoded-char">%3A</td><td>Colon</td></tr>
-                                    <tr><td>;</td><td class="encoded-char">%3B</td><td>Semicolon</td></tr>
-                                    <tr><td><</td><td class="encoded-char">%3C</td><td>Less than</td></tr>
-                                    <tr><td>=</td><td class="encoded-char">%3D</td><td>Equals</td></tr>
-                                    <tr><td>></td><td class="encoded-char">%3E</td><td>Greater than</td></tr>
-                                    <tr><td>?</td><td class="encoded-char">%3F</td><td>Question mark</td></tr>
-                                    <tr><td>@</td><td class="encoded-char">%40</td><td>At symbol</td></tr>
-                                    <tr><td>[</td><td class="encoded-char">%5B</td><td>Left bracket</td></tr>
-                                    <tr><td>\</td><td class="encoded-char">%5C</td><td>Backslash</td></tr>
-                                    <tr><td>]</td><td class="encoded-char">%5D</td><td>Right bracket</td></tr>
-                                    <tr><td>^</td><td class="encoded-char">%5E</td><td>Caret</td></tr>
-                                    <tr><td>_</td><td class="encoded-char">%5F</td><td>Underscore</td></tr>
-                                    <tr><td>`</td><td class="encoded-char">%60</td><td>Grave accent</td></tr>
-                                    <tr><td>{</td><td class="encoded-char">%7B</td><td>Left brace</td></tr>
-                                    <tr><td>|</td><td class="encoded-char">%7C</td><td>Vertical bar</td></tr>
-                                    <tr><td>}</td><td class="encoded-char">%7D</td><td>Right brace</td></tr>
-                                    <tr><td>~</td><td class="encoded-char">%7E</td><td>Tilde</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <!-- History Card -->
-                    <div class="history-card">
-                        <div class="history-header">
-                            <div class="history-title">
-                                <div class="history-icon">
-                                    <i class="fas fa-clock-rotate-left"></i>
-                                </div>
-                                <h4>Conversion History</h4>
-                            </div>
-                            <button class="clear-history-btn" onclick="clearHistory()">
-                                <i class="fas fa-trash-can"></i> Clear History
-                            </button>
-                        </div>
-                        
-                        <div class="history-list" id="historyList">
-                            <div class="empty-history">
-                                <i class="fas fa-link"></i>
-                                <p>No conversion history yet</p>
-                                <p style="font-size: 0.9rem; margin-top: 10px;">Encode or decode URLs to see your history</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
-            </div>
+        <!-- Mode Selection (Encode / Decode) -->
+        <div class="mode-selector">
+            <button id="modeEncode" class="mode-btn active">
+                <i class="fas fa-lock"></i> Encode
+            </button>
+            <button id="modeDecode" class="mode-btn">
+                <i class="fas fa-unlock"></i> Decode
+            </button>
         </div>
-    </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#disclaimer">Disclaimer</a></li>
-                            <li><a href="#terms">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                            <li><a href="#sitemap">Sitemap</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Input Section -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-pencil-alt"></i>
+                <span id="inputLabel">Text to encode</span>
             </div>
-            
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact@sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
-                </div>
-            </div>
+            <textarea id="inputText" class="url-textarea" placeholder="Enter text here...">https://sgtools.in/search?q=url encoder</textarea>
         </div>
-    </footer>
+
+        <!-- Output Section -->
+        <div class="output-panel">
+            <div class="output-header">
+                <span class="input-label" style="margin-bottom: 0;">
+                    <i class="fas fa-result"></i>
+                    <span id="outputLabel">Encoded result</span>
+                </span>
+                <button id="copyBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+            <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="clearBtn" class="clear-btn">
+                <i class="fas fa-trash-alt"></i> Clear
+            </button>
+            <button id="swapBtn" class="clear-btn">
+                <i class="fas fa-exchange-alt"></i> Swap
+            </button>
+        </div>
+
+        <!-- Convert Button -->
+        <button id="convertBtn" class="generate-btn">
+            <i class="fas fa-sync-alt"></i> Convert
+        </button>
+    </div>
 
     <script>
-        // DOM Elements
-        const inputText = document.getElementById('inputText');
-        const outputText = document.getElementById('outputText');
-        const inputTitle = document.getElementById('inputTitle');
-        const outputTitle = document.getElementById('outputTitle');
-        const processBtnText = document.getElementById('processBtnText');
-        const encodeModeBtn = document.getElementById('encodeModeBtn');
-        const decodeModeBtn = document.getElementById('decodeModeBtn');
-        const encodeURIComponent = document.getElementById('encodeURIComponent');
-        const encodeURI = document.getElementById('encodeURI');
-        const encodePlus = document.getElementById('encodePlus');
-        const encodeAll = document.getElementById('encodeAll');
-        const autoUpdate = document.getElementById('autoUpdate');
-        const saveHistory = document.getElementById('saveHistory');
-        const encodingInfo = document.getElementById('encodingInfo');
-        const inputChars = document.getElementById('inputChars');
-        const outputChars = document.getElementById('outputChars');
-        const specialChars = document.getElementById('specialChars');
-        const encodedChars = document.getElementById('encodedChars');
-        const historyList = document.getElementById('historyList');
+        (function() {
+            "use strict";
 
-        // State
-        let currentMode = 'encode';
-        let conversionHistory = [];
+            // ---------- DOM Elements ----------
+            const modeEncode = document.getElementById('modeEncode');
+            const modeDecode = document.getElementById('modeDecode');
+            const inputText = document.getElementById('inputText');
+            const outputText = document.getElementById('outputText');
+            const inputLabel = document.getElementById('inputLabel');
+            const outputLabel = document.getElementById('outputLabel');
+            const convertBtn = document.getElementById('convertBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const swapBtn = document.getElementById('swapBtn');
 
-        // Load history from localStorage
-        function loadHistory() {
-            const stored = localStorage.getItem('sgTools_urlHistory');
-            if (stored) {
+            // ---------- State ----------
+            let currentMode = 'encode'; // 'encode' or 'decode'
+
+            // ---------- Set Active Mode ----------
+            function setActiveMode(mode) {
+                currentMode = mode;
+                modeEncode.classList.toggle('active', mode === 'encode');
+                modeDecode.classList.toggle('active', mode === 'decode');
+                
+                // Update labels
+                if (mode === 'encode') {
+                    inputLabel.textContent = 'Text to encode';
+                    outputLabel.textContent = 'Encoded result';
+                } else {
+                    inputLabel.textContent = 'Text to decode';
+                    outputLabel.textContent = 'Decoded result';
+                }
+                
+                convert();
+            }
+
+            // ---------- Conversion Function ----------
+            function convert() {
+                const text = inputText.value;
+                if (text === '') {
+                    outputText.value = '';
+                    return;
+                }
+
                 try {
-                    conversionHistory = JSON.parse(stored);
+                    if (currentMode === 'encode') {
+                        // Use encodeURIComponent for full URL encoding
+                        outputText.value = encodeURIComponent(text);
+                    } else {
+                        // Decode
+                        outputText.value = decodeURIComponent(text);
+                    }
                 } catch (e) {
-                    conversionHistory = [];
+                    // Handle invalid encoded strings
+                    outputText.value = '⚠️ Invalid encoding: ' + e.message;
                 }
             }
-            renderHistory();
-        }
 
-        // Save history to localStorage
-        function saveHistory() {
-            localStorage.setItem('sgTools_urlHistory', JSON.stringify(conversionHistory));
-            renderHistory();
-        }
-
-        // Add to history
-        function addToHistory(input, output, mode) {
-            if (!input.trim() || !output.trim() || !saveHistory.checked) return;
-            
-            conversionHistory.unshift({
-                input: input.substring(0, 100),
-                output: output.substring(0, 100),
-                mode: mode,
-                timestamp: new Date().toISOString()
-            });
-            
-            // Keep only last 15
-            if (conversionHistory.length > 15) {
-                conversionHistory = conversionHistory.slice(0, 15);
-            }
-            
-            saveHistory();
-        }
-
-        // Render history
-        function renderHistory() {
-            if (conversionHistory.length === 0) {
-                historyList.innerHTML = `
-                    <div class="empty-history">
-                        <i class="fas fa-link"></i>
-                        <p>No conversion history yet</p>
-                        <p style="font-size: 0.9rem; margin-top: 10px;">Encode or decode URLs to see your history</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            conversionHistory.forEach((item, index) => {
-                const date = new Date(item.timestamp);
-                const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                const formattedDate = date.toLocaleDateString();
-                
-                html += `
-                    <div class="history-item">
-                        <div class="history-item-header">
-                            <span class="history-mode">
-                                <i class="fas fa-${item.mode === 'encode' ? 'lock' : 'unlock'}"></i>
-                                ${item.mode === 'encode' ? 'Encoded' : 'Decoded'}
-                            </span>
-                            <span class="history-time">
-                                <i class="fas fa-calendar"></i> ${formattedDate}
-                                <i class="fas fa-clock"></i> ${formattedTime}
-                            </span>
-                        </div>
-                        <div class="history-content">
-                            <div class="history-input" title="${item.input}">
-                                ${item.input}
-                            </div>
-                            <div class="history-arrow">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                            <div class="history-output" title="${item.output}">
-                                ${item.output}
-                            </div>
-                        </div>
-                        <div class="history-actions">
-                            <button class="history-btn" onclick="loadFromHistory(${index})" title="Load">
-                                <i class="fas fa-file-import"></i>
-                            </button>
-                            <button class="history-btn" onclick="copyHistoryOutput(${index})" title="Copy Output">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <button class="history-btn" onclick="deleteHistoryItem(${index})" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            historyList.innerHTML = html;
-        }
-
-        // Load from history
-        function loadFromHistory(index) {
-            const item = conversionHistory[index];
-            if (item) {
-                if (item.mode === 'encode') {
-                    setMode('encode');
-                } else {
-                    setMode('decode');
-                }
-                inputText.value = item.input;
-                processURL();
-            }
-        }
-
-        // Copy history output
-        function copyHistoryOutput(index) {
-            const item = conversionHistory[index];
-            if (item) {
-                navigator.clipboard.writeText(item.output);
-                showToast('Output copied to clipboard');
-            }
-        }
-
-        // Delete history item
-        function deleteHistoryItem(index) {
-            conversionHistory.splice(index, 1);
-            saveHistory();
-        }
-
-        // Clear history
-        function clearHistory() {
-            if (confirm('Clear all conversion history?')) {
-                conversionHistory = [];
-                saveHistory();
-            }
-        }
-
-        // Set mode (encode/decode)
-        function setMode(mode) {
-            currentMode = mode;
-            
-            if (mode === 'encode') {
-                encodeModeBtn.classList.add('active');
-                decodeModeBtn.classList.remove('active');
-                inputTitle.textContent = 'Text to Encode';
-                outputTitle.textContent = 'Encoded URL';
-                processBtnText.textContent = 'Encode URL';
-                updateEncodingInfo();
-            } else {
-                decodeModeBtn.classList.add('active');
-                encodeModeBtn.classList.remove('active');
-                inputTitle.textContent = 'URL to Decode';
-                outputTitle.textContent = 'Decoded Text';
-                processBtnText.textContent = 'Decode URL';
-                encodingInfo.innerHTML = '<i class="fas fa-info-circle"></i> Decoding: Converts percent-encoded characters back to normal text';
-            }
-            
-            // Process if auto-update is enabled
-            if (autoUpdate.checked) {
-                processURL();
-            }
-        }
-
-        // Process URL (encode/decode)
-        function processURL() {
-            const text = inputText.value;
-            
-            if (!text.trim()) {
+            // ---------- Clear Input ----------
+            function clearAll() {
+                inputText.value = '';
                 outputText.value = '';
-                updateStats();
-                return;
             }
-            
-            try {
-                let result;
-                
-                if (currentMode === 'encode') {
-                    result = encodeText(text);
-                } else {
-                    result = decodeText(text);
+
+            // ---------- Swap Input/Output ----------
+            function swap() {
+                const output = outputText.value;
+                // Only swap if output is not an error message
+                if (output && !output.startsWith('⚠️')) {
+                    inputText.value = output;
+                    convert();
+                }
+            }
+
+            // ---------- Copy to Clipboard ----------
+            function copyResult() {
+                if (!outputText.value) {
+                    alert('Nothing to copy.');
+                    return;
                 }
                 
-                outputText.value = result;
-                updateStats();
-                
-                // Add to history
-                addToHistory(text, result, currentMode);
-            } catch (e) {
-                outputText.value = 'Error: Invalid input for ' + currentMode;
-                console.error(e);
-            }
-        }
-
-        // Encode text based on options
-        function encodeText(text) {
-            let encoded;
-            
-            if (encodeAll.checked) {
-                // Encode every character
-                encoded = encodeURIComponent(text).replace(/[!'()*]/g, function(c) {
-                    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+                navigator.clipboard.writeText(outputText.value).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
                 });
-            } else if (encodeURIComponent.checked) {
-                // Full URI component encoding
-                encoded = encodeURIComponent(text);
-            } else if (encodeURI.checked) {
-                // URI encoding (preserves /, ?, &, #, etc.)
-                encoded = encodeURI(text);
-            } else {
-                // Default to encodeURIComponent
-                encoded = encodeURIComponent(text);
             }
+
+            // ---------- Event Listeners ----------
+            modeEncode.addEventListener('click', () => setActiveMode('encode'));
+            modeDecode.addEventListener('click', () => setActiveMode('decode'));
             
-            // Convert spaces to + if option is checked
-            if (encodePlus.checked) {
-                encoded = encoded.replace(/%20/g, '+');
-            }
-            
-            return encoded;
-        }
+            inputText.addEventListener('input', convert);
+            convertBtn.addEventListener('click', convert);
+            copyBtn.addEventListener('click', copyResult);
+            clearBtn.addEventListener('click', clearAll);
+            swapBtn.addEventListener('click', swap);
 
-        // Decode text
-        function decodeText(text) {
-            let decoded;
-            
-            // Replace + with spaces for URL encoding
-            if (text.includes('+')) {
-                decoded = text.replace(/\+/g, ' ');
-            } else {
-                decoded = text;
-            }
-            
-            // Try both decoding methods
-            try {
-                decoded = decodeURIComponent(decoded);
-            } catch (e) {
-                try {
-                    decoded = decodeURI(decoded);
-                } catch (e2) {
-                    decoded = text;
-                }
-            }
-            
-            return decoded;
-        }
-
-        // Update statistics
-        function updateStats() {
-            // Input stats
-            const input = inputText.value;
-            inputChars.textContent = input.length;
-            
-            const specialCharCount = (input.match(/[^a-zA-Z0-9\s]/g) || []).length;
-            specialChars.textContent = specialCharCount;
-            
-            // Output stats
-            const output = outputText.value;
-            outputChars.textContent = output.length;
-            
-            const encodedCharCount = (output.match(/%[0-9A-F]{2}/gi) || []).length;
-            encodedChars.textContent = encodedCharCount;
-        }
-
-        // Clear input
-        function clearInput() {
-            inputText.value = '';
-            outputText.value = '';
-            updateStats();
-        }
-
-        // Paste from clipboard
-        async function pasteFromClipboard() {
-            try {
-                const text = await navigator.clipboard.readText();
-                inputText.value = text;
-                if (autoUpdate.checked) {
-                    processURL();
-                } else {
-                    updateStats();
-                }
-            } catch (e) {
-                alert('Unable to read from clipboard');
-            }
-        }
-
-        // Copy output to clipboard
-        function copyOutput() {
-            if (!outputText.value.trim()) {
-                alert('No output to copy');
-                return;
-            }
-            
-            navigator.clipboard.writeText(outputText.value).then(() => {
-                const copyBtn = document.querySelector('.text-action-btn[onclick="copyOutput()"]');
-                const originalHTML = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-                copyBtn.style.color = '#42f8f5';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalHTML;
-                    copyBtn.style.color = '';
-                }, 2000);
-            }).catch(() => {
-                alert('Failed to copy to clipboard');
-            });
-        }
-
-        // Download output as text file
-        function downloadOutput() {
-            if (!outputText.value.trim()) {
-                alert('No output to download');
-                return;
-            }
-            
-            const blob = new Blob([outputText.value], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `sgtools-url-${currentMode}-${Date.now()}.txt`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // Swap input and output
-        function swapInputOutput() {
-            const temp = inputText.value;
-            inputText.value = outputText.value;
-            outputText.value = temp;
-            
-            if (currentMode === 'encode') {
-                setMode('decode');
-            } else {
-                setMode('encode');
-            }
-            
-            processURL();
-        }
-
-        // Load sample text
-        function loadSample() {
-            if (currentMode === 'encode') {
-                inputText.value = 'https://sgtools.in/search?query=web tools & utilities+extra&page=1#results';
-            } else {
-                inputText.value = 'https%3A%2F%2Fsgtools.in%2Fsearch%3Fquery%3Dweb%20tools%20%26%20utilities%2Bextra%26page%3D1%23results';
-            }
-            processURL();
-        }
-
-        // Reset all
-        function resetAll() {
-            inputText.value = '';
-            outputText.value = '';
-            encodeURIComponent.checked = true;
-            encodeURI.checked = false;
-            encodePlus.checked = false;
-            encodeAll.checked = false;
-            autoUpdate.checked = true;
-            setMode('encode');
-            updateStats();
-            updateEncodingInfo();
-        }
-
-        // Update encoding info text
-        function updateEncodingInfo() {
-            if (encodeURIComponent.checked) {
-                encodingInfo.innerHTML = '<i class="fas fa-info-circle"></i> URI Component: Encodes all special characters including &, ?, #, /';
-            } else if (encodeURI.checked) {
-                encodingInfo.innerHTML = '<i class="fas fa-info-circle"></i> URI: Preserves URL structure, doesn\'t encode / ? & #';
-            } else if (encodeAll.checked) {
-                encodingInfo.innerHTML = '<i class="fas fa-info-circle"></i> Encode All: Encodes every non-alphanumeric character';
-            } else if (encodePlus.checked) {
-                encodingInfo.innerHTML = '<i class="fas fa-info-circle"></i> Space to +: Converts spaces to + signs (traditional URL encoding)';
-            } else {
-                encodingInfo.innerHTML = '<i class="fas fa-info-circle"></i> URI Component: Encodes all special characters including &, ?, #, /';
-            }
-        }
-
-        // Show toast notification
-        function showToast(message) {
-            // Simple alert for now - can be enhanced
-            alert(message);
-        }
-
-        // Event listeners
-        inputText.addEventListener('input', function() {
-            updateStats();
-            if (autoUpdate.checked) {
-                processURL();
-            }
-        });
-
-        encodeURIComponent.addEventListener('change', function() {
-            if (this.checked) {
-                encodeURI.checked = false;
-                encodeAll.checked = false;
-            }
-            updateEncodingInfo();
-            if (autoUpdate.checked) processURL();
-        });
-
-        encodeURI.addEventListener('change', function() {
-            if (this.checked) {
-                encodeURIComponent.checked = false;
-                encodeAll.checked = false;
-            }
-            updateEncodingInfo();
-            if (autoUpdate.checked) processURL();
-        });
-
-        encodeAll.addEventListener('change', function() {
-            if (this.checked) {
-                encodeURIComponent.checked = false;
-                encodeURI.checked = false;
-            }
-            updateEncodingInfo();
-            if (autoUpdate.checked) processURL();
-        });
-
-        encodePlus.addEventListener('change', function() {
-            if (autoUpdate.checked) processURL();
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadHistory();
-            updateStats();
-            updateEncodingInfo();
-            processURL();
-        });
-
-        // Export functions
-        window.setMode = setMode;
-        window.processURL = processURL;
-        window.clearInput = clearInput;
-        window.pasteFromClipboard = pasteFromClipboard;
-        window.copyOutput = copyOutput;
-        window.downloadOutput = downloadOutput;
-        window.swapInputOutput = swapInputOutput;
-        window.loadSample = loadSample;
-        window.resetAll = resetAll;
-        window.clearHistory = clearHistory;
-        window.loadFromHistory = loadFromHistory;
-        window.copyHistoryOutput = copyHistoryOutput;
-        window.deleteHistoryItem = deleteHistoryItem;
+            // ---------- Initial Conversion ----------
+            convert();
+        })();
     </script>
 </body>
 </html>
