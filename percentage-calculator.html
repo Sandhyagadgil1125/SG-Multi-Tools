@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,30 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- Percentage Calculator Specific Styles ----- */
-        .input-group {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .input-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .input-label i {
-            color: var(--primary-accent);
-            width: 18px;
-            text-align: center;
-        }
-
+        /* Percentage specific styles */
         .mode-selector {
             display: flex;
             gap: 0.5rem;
@@ -100,15 +77,31 @@
             box-shadow: 0 0 12px var(--glow-shadow);
         }
 
-        .input-row {
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
             margin-bottom: 0.5rem;
         }
 
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
         .input-field {
-            flex: 1;
+            width: 100%;
             background: var(--button-bg-alt);
             border: 1px solid var(--dark-border);
             border-radius: 12px;
@@ -219,6 +212,39 @@
             transform: translateY(-2px);
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -248,7 +274,7 @@
             <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Percentage Calculator</h1>
         </div>
 
-        <!-- Mode Selection (exact same style as Password Generator) -->
+        <!-- Mode Selection -->
         <div class="mode-selector">
             <button id="modePercentOf" class="mode-btn active">
                 <i class="fas fa-calculator"></i> % of
@@ -261,7 +287,7 @@
             </button>
         </div>
 
-        <!-- Input Panel (dynamic labels) -->
+        <!-- Input Panel -->
         <div class="input-group">
             <div id="input1Label" class="input-label">
                 <i class="fas fa-dollar-sign"></i>
@@ -286,13 +312,12 @@
             <div id="resultDescription" class="result-description">20% of 100 = 20</div>
         </div>
 
-        <!-- Details + Copy Button -->
+        <!-- Details + Copy -->
         <div class="result-details">
             <span><i class="fas fa-info-circle" style="color: var(--primary-accent);"></i> Calculation</span>
             <span id="calculationSummary" style="font-weight: 600; color: var(--text-primary);">100 × 0.20 = 20</span>
-            <button id="copyResultBtn" class="copy-btn" aria-label="Copy result">
-                <i class="fas fa-copy"></i>
-                <span>Copy</span>
+            <button id="copyResultBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy
             </button>
         </div>
 
@@ -300,13 +325,21 @@
         <button id="calculateBtn" class="generate-btn">
             <i class="fas fa-sync-alt"></i> Calculate
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
             const modePercentOf = document.getElementById('modePercentOf');
             const modeChange = document.getElementById('modeChange');
             const modeFind = document.getElementById('modeFind');
@@ -321,19 +354,14 @@
             const calculateBtn = document.getElementById('calculateBtn');
             const copyBtn = document.getElementById('copyResultBtn');
 
-            // ---------- State ----------
-            let currentMode = 'percentOf'; // percentOf, change, find
+            let currentMode = 'percentOf';
 
-            // ---------- Set Active Mode ----------
             function setActiveMode(mode) {
                 currentMode = mode;
-                
-                // Update button states
                 modePercentOf.classList.toggle('active', mode === 'percentOf');
                 modeChange.classList.toggle('active', mode === 'change');
                 modeFind.classList.toggle('active', mode === 'find');
                 
-                // Update UI labels based on mode
                 if (mode === 'percentOf') {
                     input1Label.innerHTML = '<i class="fas fa-dollar-sign"></i> Number';
                     input2Label.innerHTML = '<i class="fas fa-percent"></i> Percentage';
@@ -350,11 +378,16 @@
                     input2.placeholder = 'e.g., 200';
                     inputHint.textContent = 'Enter part and whole';
                 }
-                
                 calculatePercentage();
             }
 
-            // ---------- Calculate Based on Mode ----------
+            function formatNumber(num) {
+                if (num === 0) return '0';
+                if (Math.abs(num) < 0.0001) return num.toExponential(2);
+                const rounded = Math.round(num * 100) / 100;
+                return rounded.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+            }
+
             function calculatePercentage() {
                 let val1 = parseFloat(input1.value);
                 let val2 = parseFloat(input2.value);
@@ -362,17 +395,14 @@
                 let description = '';
                 let summary = '';
 
-                // Handle invalid inputs
                 if (isNaN(val1)) val1 = 0;
                 if (isNaN(val2)) val2 = 0;
 
                 if (currentMode === 'percentOf') {
-                    // X% of Y = (X/100)*Y
                     result = (val2 / 100) * val1;
                     description = `${val2}% of ${formatNumber(val1)} = ${formatNumber(result)}`;
                     summary = `${formatNumber(val1)} × ${val2/100} = ${formatNumber(result)}`;
                 } else if (currentMode === 'change') {
-                    // Percentage change from X to Y = ((Y-X)/X)*100
                     if (val1 !== 0) {
                         result = ((val2 - val1) / val1) * 100;
                     } else {
@@ -382,7 +412,6 @@
                     description = `Change from ${formatNumber(val1)} to ${formatNumber(val2)} = ${formatNumber(Math.abs(result))}% ${sign}`;
                     summary = `((${formatNumber(val2)} - ${formatNumber(val1)}) / ${formatNumber(val1)}) × 100 = ${formatNumber(result)}%`;
                 } else if (currentMode === 'find') {
-                    // X is what % of Y = (X/Y)*100
                     if (val2 !== 0) {
                         result = (val1 / val2) * 100;
                     } else {
@@ -392,25 +421,11 @@
                     summary = `(${formatNumber(val1)} / ${formatNumber(val2)}) × 100 = ${formatNumber(result)}%`;
                 }
 
-                // Format result with appropriate decimal places
                 resultValue.textContent = formatNumber(result) + (currentMode !== 'percentOf' ? '%' : '');
                 resultDescription.textContent = description;
                 calculationSummary.textContent = summary;
             }
 
-            // ---------- Format Number Helper ----------
-            function formatNumber(num) {
-                if (num === 0) return '0';
-                if (Math.abs(num) < 0.0001) return num.toExponential(2);
-                // Round to 2 decimal places for readability, remove trailing .00
-                const rounded = Math.round(num * 100) / 100;
-                return rounded.toLocaleString(undefined, { 
-                    minimumFractionDigits: 0, 
-                    maximumFractionDigits: 2 
-                });
-            }
-
-            // ---------- Copy Result to Clipboard ----------
             function copyResult() {
                 const text = resultDescription.textContent;
                 navigator.clipboard.writeText(text).then(() => {
@@ -426,7 +441,6 @@
                 });
             }
 
-            // ---------- Event Listeners ----------
             modePercentOf.addEventListener('click', () => setActiveMode('percentOf'));
             modeChange.addEventListener('click', () => setActiveMode('change'));
             modeFind.addEventListener('click', () => setActiveMode('find'));
@@ -436,7 +450,6 @@
             calculateBtn.addEventListener('click', calculatePercentage);
             copyBtn.addEventListener('click', copyResult);
 
-            // ---------- Initial Calculation ----------
             setActiveMode('percentOf');
         })();
     </script>
