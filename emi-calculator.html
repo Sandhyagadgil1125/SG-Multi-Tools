@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,7 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- EMI Calculator Specific Styles ----- */
+        /* EMI specific styles */
         .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -187,6 +187,39 @@
             transform: translateY(-2px);
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -251,7 +284,7 @@
             </div>
         </div>
 
-        <!-- Results Card (EMI, Total Interest, Total Payment) -->
+        <!-- Results -->
         <div class="result-card">
             <div class="result-item">
                 <span class="result-value" id="emiValue">20,276</span>
@@ -267,13 +300,12 @@
             </div>
         </div>
 
-        <!-- Details + Copy Button -->
+        <!-- Summary + Copy -->
         <div class="result-details">
             <span><i class="fas fa-chart-line" style="color: var(--primary-accent);"></i> Loan summary</span>
             <span id="loanSummary" style="font-weight: 600; color: var(--text-primary);">₹10L @8.5% for 5y</span>
-            <button id="copyResultBtn" class="copy-btn" aria-label="Copy EMI summary">
-                <i class="fas fa-copy"></i>
-                <span>Copy</span>
+            <button id="copyResultBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy
             </button>
         </div>
 
@@ -281,13 +313,21 @@
         <button id="calculateBtn" class="generate-btn">
             <i class="fas fa-calculator"></i> Calculate EMI
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
             const loanAmountInput = document.getElementById('loanAmount');
             const interestRateInput = document.getElementById('interestRate');
             const loanYearsInput = document.getElementById('loanYears');
@@ -299,12 +339,10 @@
             const calculateBtn = document.getElementById('calculateBtn');
             const copyBtn = document.getElementById('copyResultBtn');
 
-            // ---------- Format numbers with Indian numbering (lakhs, crores) ----------
             function formatIndianCurrency(amount) {
                 if (isNaN(amount)) return '0';
                 let num = Math.round(amount);
                 let numStr = num.toString();
-                // For numbers >= 1000, use Indian numbering: last 3 digits then commas every 2
                 if (numStr.length > 3) {
                     let lastThree = numStr.slice(-3);
                     let otherDigits = numStr.slice(0, -3);
@@ -317,29 +355,22 @@
             }
 
             function formatNumberWithCommas(value) {
-                // For displaying raw numbers without currency symbol
                 if (isNaN(value)) return '0';
                 let num = Math.round(value);
                 return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
 
-            // ---------- Calculate EMI ----------
             function calculateEMI() {
-                // Get values
                 let principal = parseFloat(loanAmountInput.value) || 0;
                 let annualRate = parseFloat(interestRateInput.value) || 0;
                 let years = parseFloat(loanYearsInput.value) || 0;
 
-                // Validation
                 if (principal < 0) principal = 0;
                 if (annualRate < 0) annualRate = 0;
                 if (years < 0.5) years = 0.5;
 
-                // Convert to monthly
                 let monthlyRate = annualRate / 12 / 100;
                 let months = years * 12;
-
-                // Update months display
                 monthsDisplay.textContent = `${years.toFixed(1)} years = ${Math.round(months)} months`;
 
                 let emi = 0;
@@ -347,41 +378,33 @@
                 let totalInterest = 0;
 
                 if (principal > 0 && annualRate > 0 && months > 0) {
-                    // EMI formula: P * r * (1+r)^n / ((1+r)^n - 1)
                     let factor = Math.pow(1 + monthlyRate, months);
                     emi = principal * monthlyRate * factor / (factor - 1);
                     totalPayment = emi * months;
                     totalInterest = totalPayment - principal;
                 } else if (principal > 0) {
-                    // Zero interest case
                     emi = principal / months;
                     totalPayment = principal;
                     totalInterest = 0;
                 }
 
-                // Update UI with formatted values
                 emiValue.textContent = formatIndianCurrency(emi);
                 totalInterestValue.textContent = formatIndianCurrency(totalInterest);
                 totalPaymentValue.textContent = formatIndianCurrency(totalPayment);
                 
-                // Update loan summary
                 let principalInLakhs = principal / 100000;
-                let summary = '';
                 if (principalInLakhs >= 1) {
-                    summary = `₹${(principal/100000).toFixed(1)}L @ ${annualRate}% for ${years}y`;
+                    loanSummary.textContent = `₹${(principal/100000).toFixed(1)}L @ ${annualRate}% for ${years}y`;
                 } else {
-                    summary = `₹${formatNumberWithCommas(principal)} @ ${annualRate}% for ${years}y`;
+                    loanSummary.textContent = `₹${formatNumberWithCommas(principal)} @ ${annualRate}% for ${years}y`;
                 }
-                loanSummary.textContent = summary;
             }
 
-            // ---------- Copy summary to clipboard ----------
             function copySummary() {
                 let principal = parseFloat(loanAmountInput.value) || 0;
                 let annualRate = parseFloat(interestRateInput.value) || 0;
                 let years = parseFloat(loanYearsInput.value) || 0;
                 let months = Math.round(years * 12);
-                
                 let emi = emiValue.textContent;
                 let totalInterest = totalInterestValue.textContent;
                 let totalPayment = totalPaymentValue.textContent;
@@ -401,16 +424,12 @@
                 });
             }
 
-            // ---------- Event Listeners ----------
             calculateBtn.addEventListener('click', calculateEMI);
             copyBtn.addEventListener('click', copySummary);
-            
-            // Auto-calculate on input change
             loanAmountInput.addEventListener('input', calculateEMI);
             interestRateInput.addEventListener('input', calculateEMI);
             loanYearsInput.addEventListener('input', calculateEMI);
 
-            // ---------- Initial calculation ----------
             calculateEMI();
         })();
     </script>
