@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,7 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- SIP Calculator Specific Styles ----- */
+        /* SIP specific styles */
         .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -187,6 +187,39 @@
             transform: translateY(-2px);
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -204,7 +237,7 @@
 </head>
 <body>
     <div class="tool-standalone">
-        <!-- Header with icon -->
+        <!-- Header -->
         <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
             <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
                 <i class="fas fa-chart-pie"></i>
@@ -225,7 +258,7 @@
             </div>
         </div>
 
-        <!-- Expected Return Rate (p.a.) -->
+        <!-- Return Rate -->
         <div class="input-group">
             <div class="input-label">
                 <i class="fas fa-percent"></i>
@@ -238,7 +271,7 @@
             </div>
         </div>
 
-        <!-- Time Period (Years) -->
+        <!-- Time Period -->
         <div class="input-group" style="margin-bottom: 0.5rem;">
             <div class="input-label">
                 <i class="fas fa-calendar"></i>
@@ -251,11 +284,11 @@
             </div>
         </div>
 
-        <!-- Results Card (Invested, Wealth Gained, Maturity) -->
+        <!-- Results -->
         <div class="result-card">
             <div class="result-item">
                 <span class="result-value" id="investedValue">6,00,000</span>
-                <span class="result-label">Total Invested</span>
+                <span class="result-label">Invested</span>
             </div>
             <div class="result-item">
                 <span class="result-value" id="wealthValue">5,80,000</span>
@@ -267,13 +300,12 @@
             </div>
         </div>
 
-        <!-- Details + Copy Button -->
+        <!-- Summary + Copy -->
         <div class="result-details">
             <span><i class="fas fa-chart-line" style="color: var(--primary-accent);"></i> SIP summary</span>
             <span id="sipSummary" style="font-weight: 600; color: var(--text-primary);">₹5k/mo @12% for 10y</span>
-            <button id="copyResultBtn" class="copy-btn" aria-label="Copy SIP summary">
-                <i class="fas fa-copy"></i>
-                <span>Copy</span>
+            <button id="copyResultBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy
             </button>
         </div>
 
@@ -281,31 +313,36 @@
         <button id="calculateBtn" class="generate-btn">
             <i class="fas fa-calculator"></i> Calculate SIP
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
-            const monthlyInvestmentInput = document.getElementById('monthlyInvestment');
-            const returnRateInput = document.getElementById('returnRate');
-            const investmentYearsInput = document.getElementById('investmentYears');
+            const monthlyInput = document.getElementById('monthlyInvestment');
+            const rateInput = document.getElementById('returnRate');
+            const yearsInput = document.getElementById('investmentYears');
             const monthsDisplay = document.getElementById('monthsDisplay');
-            const investedValue = document.getElementById('investedValue');
-            const wealthValue = document.getElementById('wealthValue');
-            const maturityValue = document.getElementById('maturityValue');
+            const investedSpan = document.getElementById('investedValue');
+            const wealthSpan = document.getElementById('wealthValue');
+            const maturitySpan = document.getElementById('maturityValue');
             const sipSummary = document.getElementById('sipSummary');
             const calculateBtn = document.getElementById('calculateBtn');
             const copyBtn = document.getElementById('copyResultBtn');
 
-            // ---------- Format numbers with Indian numbering (lakhs, crores) ----------
             function formatIndianCurrency(amount) {
                 if (isNaN(amount) || amount === null) return '₹0';
                 let num = Math.round(amount);
                 let numStr = num.toString();
-                
-                // For numbers >= 1000, use Indian numbering: last 3 digits then commas every 2
                 if (numStr.length > 3) {
                     let lastThree = numStr.slice(-3);
                     let otherDigits = numStr.slice(0, -3);
@@ -317,69 +354,52 @@
                 return '₹' + numStr;
             }
 
-            // ---------- Calculate SIP ----------
             function calculateSIP() {
-                // Get values
-                let monthly = parseFloat(monthlyInvestmentInput.value) || 0;
-                let annualRate = parseFloat(returnRateInput.value) || 0;
-                let years = parseFloat(investmentYearsInput.value) || 1;
+                let monthly = parseFloat(monthlyInput.value) || 0;
+                let annualRate = parseFloat(rateInput.value) || 0;
+                let years = parseFloat(yearsInput.value) || 1;
 
-                // Validation
                 if (monthly < 0) monthly = 0;
                 if (annualRate < 0) annualRate = 0;
                 if (years < 1) years = 1;
 
-                // Convert to monthly
                 let monthlyRate = annualRate / 12 / 100;
                 let months = years * 12;
 
-                // Update months display
                 monthsDisplay.textContent = `${years} years = ${Math.round(months)} months`;
 
-                // Total invested amount
                 let totalInvested = monthly * months;
-
                 let maturity = 0;
-                let wealthGained = 0;
 
                 if (monthly > 0 && annualRate > 0 && months > 0) {
-                    // SIP formula: FV = P * ((1 + i)^n - 1) / i * (1 + i)
-                    // where P = monthly investment, i = monthly rate, n = months
                     let factor = Math.pow(1 + monthlyRate, months);
                     maturity = monthly * (factor - 1) / monthlyRate * (1 + monthlyRate);
-                    wealthGained = maturity - totalInvested;
                 } else if (monthly > 0) {
-                    // Zero interest case
                     maturity = totalInvested;
-                    wealthGained = 0;
                 }
 
-                // Update UI with formatted values
-                investedValue.textContent = formatIndianCurrency(totalInvested);
-                wealthValue.textContent = formatIndianCurrency(wealthGained);
-                maturityValue.textContent = formatIndianCurrency(maturity);
-                
-                // Update SIP summary
+                let wealthGained = maturity - totalInvested;
+
+                investedSpan.textContent = formatIndianCurrency(totalInvested);
+                wealthSpan.textContent = formatIndianCurrency(wealthGained);
+                maturitySpan.textContent = formatIndianCurrency(maturity);
+
                 let monthlyInThousands = monthly / 1000;
-                let summary = '';
                 if (monthlyInThousands >= 1) {
-                    summary = `₹${monthlyInThousands.toFixed(1)}k/mo @ ${annualRate}% for ${years}y`;
+                    sipSummary.textContent = `₹${monthlyInThousands.toFixed(1)}k/mo @ ${annualRate}% for ${years}y`;
                 } else {
-                    summary = `₹${Math.round(monthly)}/mo @ ${annualRate}% for ${years}y`;
+                    sipSummary.textContent = `₹${Math.round(monthly)}/mo @ ${annualRate}% for ${years}y`;
                 }
-                sipSummary.textContent = summary;
             }
 
-            // ---------- Copy summary to clipboard ----------
             function copySummary() {
-                let monthly = parseFloat(monthlyInvestmentInput.value) || 0;
-                let annualRate = parseFloat(returnRateInput.value) || 0;
-                let years = parseFloat(investmentYearsInput.value) || 1;
+                let monthly = parseFloat(monthlyInput.value) || 0;
+                let annualRate = parseFloat(rateInput.value) || 0;
+                let years = parseFloat(yearsInput.value) || 1;
                 let months = Math.round(years * 12);
-                
-                let invested = investedValue.textContent;
-                let wealth = wealthValue.textContent;
-                let maturity = maturityValue.textContent;
+                let invested = investedSpan.textContent;
+                let wealth = wealthSpan.textContent;
+                let maturity = maturitySpan.textContent;
 
                 let summary = `SIP: ${maturity} | Total Invested: ${invested} | Wealth Gained: ${wealth} | Monthly: ₹${Math.round(monthly)} at ${annualRate}% for ${years} years (${months} months)`;
                 
@@ -396,16 +416,12 @@
                 });
             }
 
-            // ---------- Event Listeners ----------
             calculateBtn.addEventListener('click', calculateSIP);
             copyBtn.addEventListener('click', copySummary);
-            
-            // Auto-calculate on input change
-            monthlyInvestmentInput.addEventListener('input', calculateSIP);
-            returnRateInput.addEventListener('input', calculateSIP);
-            investmentYearsInput.addEventListener('input', calculateSIP);
+            monthlyInput.addEventListener('input', calculateSIP);
+            rateInput.addEventListener('input', calculateSIP);
+            yearsInput.addEventListener('input', calculateSIP);
 
-            // ---------- Initial calculation ----------
             calculateSIP();
         })();
     </script>
