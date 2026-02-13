@@ -3,238 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Tools · SG Multi Tools</title>
-    <meta name="description" content="Reliable, free online tools, no installation or sign‑ups.">
-    <link rel="icon" href="favicon/favicon.ico">
-    
-    <!-- Global styles (your complete theme) -->
+    <title>Case Changer · SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome & Google Fonts (already in style.css, but safe) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Page‑specific style: force 4 columns on large screens -->
     <style>
-        /* Override the auto‑fit grid – exactly 4 columns on desktop */
-        @media (min-width: 1024px) {
-            .tools-grid {
-                grid-template-columns: repeat(4, 1fr) !important;
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
+        body {
+            background: var(--main-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+            position: relative;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Case Changer specific styles */
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        textarea:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .mode-selector {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mode-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.3rem;
+        }
+
+        .mode-btn {
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 100px;
+            padding: 0.4rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .mode-btn.active {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .output-panel {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        #outputText {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.4rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
+        }
+
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .mode-options {
+                gap: 0.4rem;
+            }
+            .mode-btn {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.75rem;
             }
         }
-        /* Your existing media queries for <768 and <480 remain untouched */
     </style>
 </head>
 <body>
-    <!-- ===== GLOBAL HEADER ===== -->
-    <header class="main-header">
-        <div class="container header-content">
-            <div class="logo-section">
-                <div class="logo-square">SG</div>
-                <div class="logo-text">
-                    <span class="logo-title">SG Multi Tools</span>
-                    <span class="logo-subtitle">Essential utilities</span>
-                </div>
+    <div class="tool-standalone">
+        <!-- Close button -->
+        <a href="index.html" class="close-btn" title="Close tool">
+            <i class="fas fa-times"></i>
+        </a>
+
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-text-height"></i>
             </div>
-           <nav class="main-nav">
-    <ul>
-        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="tools.html"><i class="fas fa-tools"></i> Tools</a></li>
-        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-    </ul>
-</nav>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Case Changer</h1>
         </div>
-    </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Hero Section (exactly from your style.css) -->
-            <div class="hero-section">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        <span class="hero-highlight">SG Multi Tools</span>
-                    </h1>
-                    <p class="hero-description">Reliable, free online tools, no installation or sign‑ups.</p>>
-                </div>
+        <!-- Input Section -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Enter text</span>
             </div>
+            <textarea id="inputText" placeholder="Type or paste your text here...">The quick brown fox jumps over the lazy dog.</textarea>
+        </div>
 
-            <!-- Tools Grid – 20 cards, 4 columns on desktop -->
-            <div class="tools-grid">
-                <!-- 1. Advanced Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-calculator"></i></div>
-                    <h3 class="tool-title">Advanced Calculator</h3>
-                    <p class="tool-description">Scientific & basic calculations with history and memory functions.</p>
-                    <a href="advanced-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 2. Age Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-birthday-cake"></i></div>
-                    <h3 class="tool-title">Age Calculator</h3>
-                    <p class="tool-description">Exact age in years, months, days – find birthdays & differences.</p>
-                    <a href="age-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 3. Case Changer -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-text-height"></i></div>
-                    <h3 class="tool-title">Case Changer</h3>
-                    <p class="tool-description">Convert text to uppercase, lowercase, title case, sentence case.</p>
-                    <a href="case-changer.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 4. Color Picker -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-eye-dropper"></i></div>
-                    <h3 class="tool-title">Color Picker</h3>
-                    <p class="tool-description">Pick colors, generate palettes, convert HEX, RGB, HSL, CMYK.</p>
-                    <a href="color-picker.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 5. Currency Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-coins"></i></div>
-                    <h3 class="tool-title">Currency Converter</h3>
-                    <p class="tool-description">Live exchange rates (client‑side) – 160+ currencies.</p>
-                    <a href="currency-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 6. Date Difference -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <h3 class="tool-title">Date Difference</h3>
-                    <p class="tool-description">Calculate days, weeks, months between two dates.</p>
-                    <a href="date-difference.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 7. EMI Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-home"></i></div>
-                    <h3 class="tool-title">EMI Calculator</h3>
-                    <p class="tool-description">Loan EMI, principal, interest – monthly payment breakdown.</p>
-                    <a href="emi-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 8. File Size Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-file"></i></div>
-                    <h3 class="tool-title">File Size Converter</h3>
-                    <p class="tool-description">Convert between B, KB, MB, GB, TB, and more.</p>
-                    <a href="file-size-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 9. Image Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-image"></i></div>
-                    <h3 class="tool-title">Image Converter</h3>
-                    <p class="tool-description">Convert JPG, PNG, WebP – resize and compress.</p>
-                    <a href="image-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 10. Note Text Saver -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-sticky-note"></i></div>
-                    <h3 class="tool-title">Note Text Saver</h3>
-                    <p class="tool-description">Save notes locally in your browser – no login.</p>
-                    <a href="note-saver.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 11. Password Generator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-lock"></i></div>
-                    <h3 class="tool-title">Password Generator</h3>
-                    <p class="tool-description">Strong, customisable passwords – random or memorable.</p>
-                    <a href="password-generator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 12. Percentage Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-percent"></i></div>
-                    <h3 class="tool-title">Percentage Calculator</h3>
-                    <p class="tool-description">Find percentages, increases, decreases, and ratios.</p>
-                    <a href="percentage-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 13. QR Code Generator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-qrcode"></i></div>
-                    <h3 class="tool-title">QR Code Generator</h3>
-                    <p class="tool-description">Create custom QR codes for URLs, text, and more.</p>
-                    <a href="qr-generator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 14. SIP Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="tool-title">SIP Calculator</h3>
-                    <p class="tool-description">Systematic Investment Plan returns & wealth growth.</p>
-                    <a href="sip-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 15. Speech to Text -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-microphone"></i></div>
-                    <h3 class="tool-title">Speech to Text</h3>
-                    <p class="tool-description">Real‑time voice transcription – 25+ languages.</p>
-                    <a href="speech-to-text.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 16. Text to Speech -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-volume-up"></i></div>
-                    <h3 class="tool-title">Text to Speech</h3>
-                    <p class="tool-description">Natural voices, adjustable speed and pitch.</p>
-                    <a href="text-to-speech.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 17. Timer & Stopwatch -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-stopwatch"></i></div>
-                    <h3 class="tool-title">Timer & Stopwatch</h3>
-                    <p class="tool-description">Countdown timer, lap times, interval tracking.</p>
-                    <a href="timer-stopwatch.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 18. Unit Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-weight-hanging"></i></div>
-                    <h3 class="tool-title">Unit Converter</h3>
-                    <p class="tool-description">12 categories: length, mass, temperature, area, speed…</p>
-                    <a href="unit-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 19. URL Encoder/Decoder -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-link"></i></div>
-                    <h3 class="tool-title">URL Encoder/Decoder</h3>
-                    <p class="tool-description">Encode or decode URLs and special characters.</p>
-                    <a href="url-encoder-decoder.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <!-- 20. Word Counter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
-                    <h3 class="tool-title">Word Counter</h3>
-                    <p class="tool-description">Words, characters, sentences, reading time.</p>
-                    <a href="word-counter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
+        <!-- Mode Selection -->
+        <div class="mode-selector">
+            <div class="input-label">
+                <i class="fas fa-cog"></i>
+                <span>Case mode</span>
+            </div>
+            <div class="mode-options">
+                <button id="modeUppercase" class="mode-btn" data-mode="uppercase">UPPERCASE</button>
+                <button id="modeLowercase" class="mode-btn" data-mode="lowercase">lowercase</button>
+                <button id="modeTitle" class="mode-btn active" data-mode="title">Title Case</button>
+                <button id="modeSentence" class="mode-btn" data-mode="sentence">Sentence case</button>
+                <button id="modeCamel" class="mode-btn" data-mode="camel">camelCase</button>
+                <button id="modePascal" class="mode-btn" data-mode="pascal">PascalCase</button>
             </div>
         </div>
-    </main>
 
-    <!-- ===== GLOBAL FOOTER ===== -->
-    <footer class="main-footer">
-    <div class="container">
-        <!-- Centered footer links – one line -->
-        <div class="footer-links-centered">
-            <a href="privacy.html">Privacy Policy</a>
-            <span class="separator">·</span>
-            <a href="disclaimer.html">Disclaimer</a>
-            <span class="separator">·</span>
-            <a href="terms.html">Terms & Conditions</a>
-            <span class="separator">·</span>
-            <a href="sitemap.html">Sitemap</a>
-            <span class="separator">·</span>
-            <a href="about.html">About</a>
-            <span class="separator">·</span>
-            <a href="contact.html">Contact</a>
+        <!-- Output Section -->
+        <div class="output-panel">
+            <div class="output-header">
+                <span class="input-label" style="margin-bottom: 0;">
+                    <i class="fas fa-copy"></i>
+                    <span>Converted text</span>
+                </span>
+                <button id="copyBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+            </div>
+            <textarea id="outputText" readonly placeholder="Converted text will appear here..."></textarea>
         </div>
-        
-        <!-- Email address centered -->
-        <div class="footer-email-centered">
-            <i class="fas fa-envelope" style="color: var(--primary-accent);"></i>
-            contact @sgtool.in
-        </div>
-        
-        <!-- Optional copyright (can be removed or kept) -->
-        <div class="footer-copyright">
-            © 2026 SG Multi Tools. All client‑side, no tracking.
+
+        <!-- Convert Button -->
+        <button id="convertBtn" class="generate-btn">
+            <i class="fas fa-exchange-alt"></i> Convert
+        </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
         </div>
     </div>
-</footer>
-    </footer>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-text-height"></i> About the Case Changer
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our Case Changer is a simple yet powerful tool that instantly converts text between different letter cases. Whether you need to fix inconsistent capitalization in a document, prepare text for programming, or format titles for social media, this tool does it in real‑time with no server uploads.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>UPPERCASE:</strong> Converts all letters to capitals – useful for headings or emphasis.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>lowercase:</strong> Makes every letter small – great for casual writing or code comments.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Title Case:</strong> Capitalizes the first letter of each word – perfect for book titles, headlines, and names.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Sentence case:</strong> Capitalizes only the first letter of the first word – standard for normal sentences.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>camelCase:</strong> Removes spaces and capitalizes each word after the first – used in programming (e.g., <code>myVariableName</code>).</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>PascalCase:</strong> Similar to camelCase but the first word is also capitalized – common for class names in programming.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Type or paste your text into the input box.</li>
+            <li>Select the desired case mode by clicking one of the six buttons.</li>
+            <li>The converted text appears instantly in the output box.</li>
+            <li>Click the <strong>"Copy"</strong> button to copy the result to your clipboard.</li>
+            <li>Use <strong>"Convert"</strong> to manually trigger conversion (though it updates automatically).</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 When to Use Each Case</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>UPPERCASE:</strong> Shouting, acronyms, or decorative text.</li>
+            <li><strong>lowercase:</strong> URLs, email addresses, or stylistic choices.</li>
+            <li><strong>Title Case:</strong> News headlines, book titles, presentation slides.</li>
+            <li><strong>Sentence case:</strong> Regular paragraphs, emails, articles.</li>
+            <li><strong>camelCase:</strong> JavaScript variables, JSON keys, programming identifiers.</li>
+            <li><strong>PascalCase:</strong> C# class names, React component names.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                "Whether you're a writer, programmer, or student, this tool saves you from manually retyping text."
+            </p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            const inputText = document.getElementById('inputText');
+            const outputText = document.getElementById('outputText');
+            const convertBtn = document.getElementById('convertBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const modeBtns = document.querySelectorAll('.mode-btn');
+
+            let currentMode = 'title';
+
+            function setActiveMode(mode) {
+                modeBtns.forEach(btn => {
+                    if (btn.dataset.mode === mode) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                currentMode = mode;
+            }
+
+            modeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setActiveMode(this.dataset.mode);
+                    convertCase();
+                });
+            });
+
+            function toTitleCase(str) {
+                return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+            }
+
+            function toSentenceCase(str) {
+                if (!str) return str;
+                return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+            }
+
+            function toCamelCase(str) {
+                const words = str.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+                if (words.length === 0) return '';
+                const firstWord = words[0].toLowerCase();
+                const restWords = words.slice(1).map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                );
+                return firstWord + restWords.join('');
+            }
+
+            function toPascalCase(str) {
+                const words = str.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+                return words.map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join('');
+            }
+
+            function convertCase() {
+                const text = inputText.value;
+                if (!text) {
+                    outputText.value = '';
+                    return;
+                }
+
+                let result = '';
+                switch (currentMode) {
+                    case 'uppercase':
+                        result = text.toUpperCase();
+                        break;
+                    case 'lowercase':
+                        result = text.toLowerCase();
+                        break;
+                    case 'title':
+                        result = toTitleCase(text);
+                        break;
+                    case 'sentence':
+                        result = toSentenceCase(text);
+                        break;
+                    case 'camel':
+                        result = toCamelCase(text);
+                        break;
+                    case 'pascal':
+                        result = toPascalCase(text);
+                        break;
+                    default:
+                        result = text;
+                }
+                outputText.value = result;
+            }
+
+            function copyResult() {
+                if (!outputText.value) return;
+                navigator.clipboard.writeText(outputText.value).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
+                });
+            }
+
+            convertBtn.addEventListener('click', convertCase);
+            copyBtn.addEventListener('click', copyResult);
+            inputText.addEventListener('input', convertCase);
+
+            convertCase();
+        })();
+    </script>
 </body>
 </html>
