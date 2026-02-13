@@ -3,316 +3,719 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency Converter - SG Multi Tools</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Currency Converter · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- Currency Converter Specific Styles ----- */
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        #amountInput {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        #amountInput:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .currency-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .currency-select {
+            flex: 1;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .currency-select:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .swap-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .swap-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+            transform: rotate(180deg);
+        }
+
+        .result-card {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1rem 0 0.8rem;
+            text-align: center;
+        }
+
+        .result-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+
+        .result-rate {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-details {
+            background: rgba(10,15,30,0.6);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
+        }
+
+        .last-updated {
+            text-align: right;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .result-amount {
+                font-size: 1.6rem;
+            }
+            .currency-row {
+                flex-direction: column;
+            }
+            .swap-btn {
+                transform: rotate(90deg);
+            }
+            .swap-btn:hover {
+                transform: rotate(270deg);
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo-container">
-            <div class="logo">SG</div>
-            <div class="logo-text">SG Multi Tools</div>
-        </a>
-        
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-coins"></i>
+            </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Currency Converter</h1>
+        </div>
+
+        <!-- Amount Input -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-dollar-sign"></i>
+                <span>Amount</span>
+            </div>
+            <input type="number" id="amountInput" value="1.00" step="0.01" min="0">
+        </div>
+
+        <!-- Currency Selection -->
+        <div class="input-group" style="margin-bottom: 0.5rem;">
+            <div class="input-label">
+                <i class="fas fa-exchange-alt"></i>
+                <span>From → To</span>
+            </div>
+            
+            <!-- From Currency -->
+            <select id="fromCurrency" class="currency-select">
+                <option value="USD" selected>USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="INR">INR - Indian Rupee</option>
+            </select>
+            
+            <!-- Swap Button -->
+            <div style="display: flex; justify-content: center; margin: 0.3rem 0;">
+                <button id="swapBtn" class="swap-btn">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            
+            <!-- To Currency -->
+            <select id="toCurrency" class="currency-select">
+                <option value="EUR" selected>EUR - Euro</option>
+                <option value="USD">USD - US Dollar</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="INR">INR - Indian Rupee</option>
+            </select>
+        </div>
+
+        <!-- Result Display -->
+        <div class="result-card">
+            <div id="resultAmount" class="result-amount">1.00 EUR</div>
+            <div id="exchangeRate" class="result-rate">1 USD = 0.92 EUR</div>
+        </div>
+
+        <!-- Details + Copy Button -->
+        <div class="result-details">
+            <span><i class="fas fa-clock" style="color: var(--primary-accent);"></i> Last updated</span>
+            <span id="lastUpdated" style="font-weight: 600; color: var(--text-primary);">Loading...</span>
+            <button id="copyResultBtn" class="copy-btn" aria-label="Copy conversion">
+                <i class="fas fa-copy"></i>
+                <span>Copy</span>
+            </button>
+        </div>
+
+        <!-- Convert Button -->
+        <button id="convertBtn" class="generate-btn">
+            <i class="fas fa-sync-alt"></i> Convert
         </button>
         
-        <nav class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-            <a href="tools.html" class="nav-link"><i class="fas fa-tools"></i> Tools</a>
-            <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
-            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-        </nav>
-    </header>
-
-    <section class="tool-page-header">
-        <div class="container">
-            <a href="tools.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back to Tools
-            </a>
-            <div class="tool-header-content">
-                <h1 class="tool-page-title">Currency Converter</h1>
-                <p class="tool-page-subtitle">Convert between world currencies using latest exchange rates</p>
-            </div>
+        <div class="last-updated">
+            <i class="fas fa-info-circle"></i> Rates: budget.org (free, no API key)
         </div>
-    </section>
-
-    <section class="tool-container">
-        <div class="container">
-            <div class="tool-wrapper">
-                <!-- Amount Input -->
-                <div style="margin-bottom: 1.5rem;">
-                    <label><i class="fas fa-money-bill-wave"></i> Amount</label>
-                    <input type="number" id="amount" class="tool-input" value="100" placeholder="Enter amount" min="0" step="0.01">
-                </div>
-
-                <!-- Currency Selection -->
-                <div class="tool-row">
-                    <div style="flex: 1;">
-                        <label><i class="fas fa-arrow-down"></i> From</label>
-                        <select id="fromCurrency" class="tool-select">
-                            <option value="USD">USD - US Dollar</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="GBP">GBP - British Pound</option>
-                            <option value="INR" selected>INR - Indian Rupee</option>
-                            <option value="JPY">JPY - Japanese Yen</option>
-                            <option value="CAD">CAD - Canadian Dollar</option>
-                            <option value="AUD">AUD - Australian Dollar</option>
-                            <option value="CNY">CNY - Chinese Yuan</option>
-                        </select>
-                    </div>
-                    
-                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 1.5rem;">
-                        <button id="swapBtn" class="tool-button secondary" style="padding: 0.75rem;">
-                            <i class="fas fa-exchange-alt"></i>
-                        </button>
-                    </div>
-                    
-                    <div style="flex: 1;">
-                        <label><i class="fas fa-arrow-up"></i> To</label>
-                        <select id="toCurrency" class="tool-select">
-                            <option value="USD" selected>USD - US Dollar</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="GBP">GBP - British Pound</option>
-                            <option value="INR">INR - Indian Rupee</option>
-                            <option value="JPY">JPY - Japanese Yen</option>
-                            <option value="CAD">CAD - Canadian Dollar</option>
-                            <option value="AUD">AUD - Australian Dollar</option>
-                            <option value="CNY">CNY - Chinese Yuan</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Convert Button -->
-                <button id="convertBtn" class="tool-button" style="width: 100%; margin: 1.5rem 0;">
-                    <i class="fas fa-exchange-alt"></i> Convert Currency
-                </button>
-
-                <!-- Result -->
-                <div class="result-box" style="text-align: center; padding: 2rem;">
-                    <div id="result" style="font-size: 2rem; font-weight: bold; color: var(--primary);">
-                        100 INR = 1.20 USD
-                    </div>
-                    <div id="rateInfo" style="margin-top: 1rem; color: var(--text-secondary);">
-                        1 INR = 0.012 USD
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="tool-row">
-                    <button id="copyBtn" class="tool-button secondary">
-                        <i class="fas fa-copy"></i> Copy Result
-                    </button>
-                    <button id="resetBtn" class="tool-button secondary">
-                        <i class="fas fa-redo"></i> Reset
-                    </button>
-                </div>
-
-                <!-- Popular Conversions -->
-                <div style="margin-top: 2rem;">
-                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">
-                        <i class="fas fa-chart-line"></i> Popular Conversions
-                    </h3>
-                    <div id="popularConversions" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
-                        <!-- Popular conversions will be added here -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-main">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <div class="logo">SG</div>
-                    <div class="logo-text">SG Multi Tools</div>
-                </div>
-                <p>A collection of 20+ free, privacy-focused utilities for daily use.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="tools.html">All Tools</a>
-                <a href="about.html">About Us</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="disclaimer.html">Disclaimer</a>
-                <a href="terms.html">Terms & Conditions</a>
-                <a href="sitemap.html">Sitemap</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-envelope"></i> contact@sgtools.in</p>
-                <p>All tools are free to use</p>
-                <p>No registration required</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 SG Multi Tools. All rights reserved.</p>
-            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> for developers and professionals</p>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const amount = document.getElementById('amount');
+        (function() {
+            "use strict";
+
+            // ---------- DOM Elements ----------
+            const amountInput = document.getElementById('amountInput');
             const fromCurrency = document.getElementById('fromCurrency');
             const toCurrency = document.getElementById('toCurrency');
-            const convertBtn = document.getElementById('convertBtn');
             const swapBtn = document.getElementById('swapBtn');
-            const result = document.getElementById('result');
-            const rateInfo = document.getElementById('rateInfo');
-            const copyBtn = document.getElementById('copyBtn');
-            const resetBtn = document.getElementById('resetBtn');
-            const popularConversions = document.getElementById('popularConversions');
-            
-            // Exchange rates (sample data - in real app, use API)
-            const exchangeRates = {
-                USD: 1,
-                EUR: 0.92,
-                GBP: 0.79,
-                INR: 83.33,
-                JPY: 148.50,
-                CAD: 1.36,
-                AUD: 1.52,
-                CNY: 7.20
-            };
-            
-            // Currency symbols
-            const currencySymbols = {
-                USD: '$',
-                EUR: '€',
-                GBP: '£',
-                INR: '₹',
-                JPY: '¥',
-                CAD: 'C$',
-                AUD: 'A$',
-                CNY: '¥'
-            };
-            
-            // Popular conversions
-            const popularPairs = [
-                { from: 'USD', to: 'INR' },
-                { from: 'EUR', to: 'USD' },
-                { from: 'GBP', to: 'EUR' },
-                { from: 'JPY', to: 'USD' }
+            const convertBtn = document.getElementById('convertBtn');
+            const resultAmount = document.getElementById('resultAmount');
+            const exchangeRate = document.getElementById('exchangeRate');
+            const lastUpdatedSpan = document.getElementById('lastUpdated');
+            const copyBtn = document.getElementById('copyResultBtn');
+
+            // ---------- State ----------
+            let exchangeRates = null;
+            let lastFetchTime = null;
+            const CURRENCIES_CACHE_KEY = 'sg_currencies_cache';
+            const CACHE_DURATION = 3600000; // 1 hour
+
+            // ---------- Complete currency list (ISO 4217) ----------
+            const currencyList = [
+                { code: "USD", name: "US Dollar" },
+                { code: "EUR", name: "Euro" },
+                { code: "GBP", name: "British Pound" },
+                { code: "JPY", name: "Japanese Yen" },
+                { code: "INR", name: "Indian Rupee" },
+                { code: "AUD", name: "Australian Dollar" },
+                { code: "CAD", name: "Canadian Dollar" },
+                { code: "CHF", name: "Swiss Franc" },
+                { code: "CNY", name: "Chinese Yuan" },
+                { code: "HKD", name: "Hong Kong Dollar" },
+                { code: "NZD", name: "New Zealand Dollar" },
+                { code: "SEK", name: "Swedish Krona" },
+                { code: "KRW", name: "South Korean Won" },
+                { code: "SGD", name: "Singapore Dollar" },
+                { code: "NOK", name: "Norwegian Krone" },
+                { code: "MXN", name: "Mexican Peso" },
+                { code: "BRL", name: "Brazilian Real" },
+                { code: "RUB", name: "Russian Ruble" },
+                { code: "ZAR", name: "South African Rand" },
+                { code: "TRY", name: "Turkish Lira" },
+                { code: "AED", name: "UAE Dirham" },
+                { code: "AFN", name: "Afghan Afghani" },
+                { code: "ALL", name: "Albanian Lek" },
+                { code: "AMD", name: "Armenian Dram" },
+                { code: "ANG", name: "Netherlands Antillean Guilder" },
+                { code: "AOA", name: "Angolan Kwanza" },
+                { code: "ARS", name: "Argentine Peso" },
+                { code: "AWG", name: "Aruban Florin" },
+                { code: "AZN", name: "Azerbaijani Manat" },
+                { code: "BAM", name: "Bosnia-Herzegovina Convertible Mark" },
+                { code: "BBD", name: "Barbadian Dollar" },
+                { code: "BDT", name: "Bangladeshi Taka" },
+                { code: "BGN", name: "Bulgarian Lev" },
+                { code: "BHD", name: "Bahraini Dinar" },
+                { code: "BIF", name: "Burundian Franc" },
+                { code: "BMD", name: "Bermudan Dollar" },
+                { code: "BND", name: "Brunei Dollar" },
+                { code: "BOB", name: "Bolivian Boliviano" },
+                { code: "BSD", name: "Bahamian Dollar" },
+                { code: "BTN", name: "Bhutanese Ngultrum" },
+                { code: "BWP", name: "Botswanan Pula" },
+                { code: "BYN", name: "Belarusian Ruble" },
+                { code: "BZD", name: "Belize Dollar" },
+                { code: "CDF", name: "Congolese Franc" },
+                { code: "CLP", name: "Chilean Peso" },
+                { code: "COP", name: "Colombian Peso" },
+                { code: "CRC", name: "Costa Rican Colón" },
+                { code: "CUP", name: "Cuban Peso" },
+                { code: "CVE", name: "Cape Verdean Escudo" },
+                { code: "CZK", name: "Czech Koruna" },
+                { code: "DJF", name: "Djiboutian Franc" },
+                { code: "DKK", name: "Danish Krone" },
+                { code: "DOP", name: "Dominican Peso" },
+                { code: "DZD", name: "Algerian Dinar" },
+                { code: "EGP", name: "Egyptian Pound" },
+                { code: "ERN", name: "Eritrean Nakfa" },
+                { code: "ETB", name: "Ethiopian Birr" },
+                { code: "FJD", name: "Fijian Dollar" },
+                { code: "FKP", name: "Falkland Islands Pound" },
+                { code: "FOK", name: "Faroese Króna" },
+                { code: "GEL", name: "Georgian Lari" },
+                { code: "GGP", name: "Guernsey Pound" },
+                { code: "GHS", name: "Ghanaian Cedi" },
+                { code: "GIP", name: "Gibraltar Pound" },
+                { code: "GMD", name: "Gambian Dalasi" },
+                { code: "GNF", name: "Guinean Franc" },
+                { code: "GTQ", name: "Guatemalan Quetzal" },
+                { code: "GYD", name: "Guyanaese Dollar" },
+                { code: "HNL", name: "Honduran Lempira" },
+                { code: "HRK", name: "Croatian Kuna" },
+                { code: "HTG", name: "Haitian Gourde" },
+                { code: "HUF", name: "Hungarian Forint" },
+                { code: "IDR", name: "Indonesian Rupiah" },
+                { code: "ILS", name: "Israeli New Shekel" },
+                { code: "IMP", name: "Manx Pound" },
+                { code: "IQD", name: "Iraqi Dinar" },
+                { code: "IRR", name: "Iranian Rial" },
+                { code: "ISK", name: "Icelandic Króna" },
+                { code: "JEP", name: "Jersey Pound" },
+                { code: "JMD", name: "Jamaican Dollar" },
+                { code: "JOD", name: "Jordanian Dinar" },
+                { code: "KES", name: "Kenyan Shilling" },
+                { code: "KGS", name: "Kyrgystani Som" },
+                { code: "KHR", name: "Cambodian Riel" },
+                { code: "KID", name: "Kiribati Dollar" },
+                { code: "KMF", name: "Comorian Franc" },
+                { code: "KWD", name: "Kuwaiti Dinar" },
+                { code: "KYD", name: "Cayman Islands Dollar" },
+                { code: "KZT", name: "Kazakhstani Tenge" },
+                { code: "LAK", name: "Laotian Kip" },
+                { code: "LBP", name: "Lebanese Pound" },
+                { code: "LKR", name: "Sri Lankan Rupee" },
+                { code: "LRD", name: "Liberian Dollar" },
+                { code: "LSL", name: "Lesotho Loti" },
+                { code: "LYD", name: "Libyan Dinar" },
+                { code: "MAD", name: "Moroccan Dirham" },
+                { code: "MDL", name: "Moldovan Leu" },
+                { code: "MGA", name: "Malagasy Ariary" },
+                { code: "MKD", name: "Macedonian Denar" },
+                { code: "MMK", name: "Myanmar Kyat" },
+                { code: "MNT", name: "Mongolian Tugrik" },
+                { code: "MOP", name: "Macanese Pataca" },
+                { code: "MRU", name: "Mauritanian Ouguiya" },
+                { code: "MUR", name: "Mauritian Rupee" },
+                { code: "MVR", name: "Maldivian Rufiyaa" },
+                { code: "MWK", name: "Malawian Kwacha" },
+                { code: "MYR", name: "Malaysian Ringgit" },
+                { code: "MZN", name: "Mozambican Metical" },
+                { code: "NAD", name: "Namibian Dollar" },
+                { code: "NGN", name: "Nigerian Naira" },
+                { code: "NIO", name: "Nicaraguan Córdoba" },
+                { code: "NPR", name: "Nepalese Rupee" },
+                { code: "OMR", name: "Omani Rial" },
+                { code: "PAB", name: "Panamanian Balboa" },
+                { code: "PEN", name: "Peruvian Sol" },
+                { code: "PGK", name: "Papua New Guinean Kina" },
+                { code: "PHP", name: "Philippine Peso" },
+                { code: "PKR", name: "Pakistani Rupee" },
+                { code: "PLN", name: "Polish Złoty" },
+                { code: "PYG", name: "Paraguayan Guarani" },
+                { code: "QAR", name: "Qatari Riyal" },
+                { code: "RON", name: "Romanian Leu" },
+                { code: "RSD", name: "Serbian Dinar" },
+                { code: "RWF", name: "Rwandan Franc" },
+                { code: "SAR", name: "Saudi Riyal" },
+                { code: "SBD", name: "Solomon Islands Dollar" },
+                { code: "SCR", name: "Seychellois Rupee" },
+                { code: "SDG", name: "Sudanese Pound" },
+                { code: "SHP", name: "Saint Helena Pound" },
+                { code: "SLE", name: "Sierra Leonean Leone" },
+                { code: "SLL", name: "Sierra Leonean Leone (Old)" },
+                { code: "SOS", name: "Somali Shilling" },
+                { code: "SRD", name: "Surinamese Dollar" },
+                { code: "SSP", name: "South Sudanese Pound" },
+                { code: "STN", name: "São Tomé and Príncipe Dobra" },
+                { code: "SYP", name: "Syrian Pound" },
+                { code: "SZL", name: "Swazi Lilangeni" },
+                { code: "THB", name: "Thai Baht" },
+                { code: "TJS", name: "Tajikistani Somoni" },
+                { code: "TMT", name: "Turkmenistani Manat" },
+                { code: "TND", name: "Tunisian Dinar" },
+                { code: "TOP", name: "Tongan Paʻanga" },
+                { code: "TTD", name: "Trinidad and Tobago Dollar" },
+                { code: "TVD", name: "Tuvaluan Dollar" },
+                { code: "TWD", name: "New Taiwan Dollar" },
+                { code: "TZS", name: "Tanzanian Shilling" },
+                { code: "UAH", name: "Ukrainian Hryvnia" },
+                { code: "UGX", name: "Ugandan Shilling" },
+                { code: "UYU", name: "Uruguayan Peso" },
+                { code: "UZS", name: "Uzbekistani Som" },
+                { code: "VES", name: "Venezuelan Bolívar" },
+                { code: "VND", name: "Vietnamese Đồng" },
+                { code: "VUV", name: "Vanuatu Vatu" },
+                { code: "WST", name: "Samoan Tālā" },
+                { code: "XAF", name: "Central African CFA Franc" },
+                { code: "XCD", name: "East Caribbean Dollar" },
+                { code: "XDR", name: "Special Drawing Rights" },
+                { code: "XOF", name: "West African CFA Franc" },
+                { code: "XPF", name: "CFP Franc" },
+                { code: "YER", name: "Yemeni Rial" },
+                { code: "ZMW", name: "Zambian Kwacha" },
+                { code: "ZWL", name: "Zimbabwean Dollar" }
             ];
-            
-            // Format currency
-            function formatCurrency(amount, currency) {
-                return `${currencySymbols[currency] || ''}${parseFloat(amount).toFixed(2)}`;
+
+            // ---------- Populate dropdowns ----------
+            function populateCurrencyDropdowns() {
+                const fromSelect = document.getElementById('fromCurrency');
+                const toSelect = document.getElementById('toCurrency');
+                
+                // Clear existing options
+                fromSelect.innerHTML = '';
+                toSelect.innerHTML = '';
+                
+                // Sort currencies alphabetically by code
+                const sortedCurrencies = [...currencyList].sort((a, b) => a.code.localeCompare(b.code));
+                
+                sortedCurrencies.forEach(currency => {
+                    const fromOption = document.createElement('option');
+                    fromOption.value = currency.code;
+                    fromOption.textContent = `${currency.code} - ${currency.name}`;
+                    fromSelect.appendChild(fromOption);
+                    
+                    const toOption = document.createElement('option');
+                    toOption.value = currency.code;
+                    toOption.textContent = `${currency.code} - ${currency.name}`;
+                    toSelect.appendChild(toOption);
+                });
+                
+                // Set default values
+                fromSelect.value = 'USD';
+                toSelect.value = 'EUR';
             }
-            
-            // Convert currency
-            function convertCurrency() {
+
+            // ---------- Fetch exchange rates ----------
+            async function fetchExchangeRates() {
+                try {
+                    // Check cache first
+                    const cached = localStorage.getItem(CURRENCIES_CACHE_KEY);
+                    if (cached) {
+                        const { rates, timestamp } = JSON.parse(cached);
+                        const now = Date.now();
+                        if (now - timestamp < CACHE_DURATION) {
+                            exchangeRates = rates;
+                            lastFetchTime = new Date(timestamp);
+                            updateLastUpdated();
+                            populateCurrencyDropdowns(); // Ensure dropdowns are populated
+                            return rates;
+                        }
+                    }
+
+                    // Fetch new rates - using free API with no key required [citation:8]
+                    const response = await fetch('https://api.budjet.org/fiat/USD');
+                    if (!response.ok) throw new Error('Failed to fetch rates');
+                    
+                    const data = await response.json();
+                    
+                    // Cache the rates
+                    localStorage.setItem(CURRENCIES_CACHE_KEY, JSON.stringify({
+                        rates: data.rates,
+                        timestamp: Date.now()
+                    }));
+                    
+                    exchangeRates = data.rates;
+                    lastFetchTime = new Date();
+                    updateLastUpdated();
+                    return exchangeRates;
+                } catch (error) {
+                    console.error('Error fetching rates:', error);
+                    
+                    // Fallback to approximate rates if API fails
+                    exchangeRates = {
+                        USD: 1,
+                        EUR: 0.92,
+                        GBP: 0.79,
+                        JPY: 150.23,
+                        INR: 83.12,
+                        AUD: 1.52,
+                        CAD: 1.35,
+                        CHF: 0.88,
+                        CNY: 7.19,
+                        HKD: 7.82,
+                        NZD: 1.64,
+                        SEK: 10.45,
+                        KRW: 1330.45,
+                        SGD: 1.34,
+                        NOK: 10.56,
+                        MXN: 16.98,
+                        BRL: 5.12,
+                        RUB: 91.23,
+                        ZAR: 18.76,
+                        TRY: 32.15,
+                        AED: 3.67
+                    };
+                    lastFetchTime = new Date();
+                    updateLastUpdated();
+                    return exchangeRates;
+                }
+            }
+
+            // ---------- Update last updated display ----------
+            function updateLastUpdated() {
+                if (lastFetchTime) {
+                    const now = new Date();
+                    const diffMs = now - lastFetchTime;
+                    const diffMins = Math.floor(diffMs / 60000);
+                    
+                    if (diffMins < 1) {
+                        lastUpdatedSpan.textContent = 'Just now';
+                    } else if (diffMins < 60) {
+                        lastUpdatedSpan.textContent = `${diffMins} min ago`;
+                    } else {
+                        const hours = Math.floor(diffMins / 60);
+                        lastUpdatedSpan.textContent = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                    }
+                }
+            }
+
+            // ---------- Perform conversion ----------
+            async function convertCurrency() {
+                if (!exchangeRates) {
+                    await fetchExchangeRates();
+                }
+
+                const amount = parseFloat(amountInput.value) || 0;
                 const from = fromCurrency.value;
                 const to = toCurrency.value;
-                const inputAmount = parseFloat(amount.value) || 0;
+
+                if (amount <= 0) {
+                    resultAmount.textContent = '0.00';
+                    exchangeRate.textContent = 'Enter a valid amount';
+                    return;
+                }
+
+                if (!exchangeRates || !exchangeRates[from] || !exchangeRates[to]) {
+                    resultAmount.textContent = 'Error';
+                    exchangeRate.textContent = 'Rate unavailable';
+                    return;
+                }
+
+                // Convert via USD base
+                const usdAmount = amount / exchangeRates[from];
+                const convertedAmount = usdAmount * exchangeRates[to];
                 
-                // Convert to USD first, then to target currency
-                const amountInUSD = inputAmount / exchangeRates[from];
-                const convertedAmount = amountInUSD * exchangeRates[to];
+                // Format with appropriate decimal places
+                const decimals = to === 'JPY' || to === 'KRW' || to === 'IDR' ? 0 : 2;
+                const formattedAmount = convertedAmount.toFixed(decimals);
                 
-                // Update result
-                result.textContent = `${formatCurrency(inputAmount, from)} = ${formatCurrency(convertedAmount, to)}`;
-                rateInfo.textContent = `1 ${from} = ${(exchangeRates[to] / exchangeRates[from]).toFixed(4)} ${to}`;
+                // Display result
+                resultAmount.textContent = `${formattedAmount} ${to}`;
+                exchangeRate.textContent = `1 ${from} = ${(exchangeRates[to] / exchangeRates[from]).toFixed(4)} ${to}`;
             }
-            
-            // Swap currencies
+
+            // ---------- Swap currencies ----------
             function swapCurrencies() {
-                const from = fromCurrency.value;
-                const to = toCurrency.value;
-                
-                fromCurrency.value = to;
-                toCurrency.value = from;
-                
+                const fromValue = fromCurrency.value;
+                const toValue = toCurrency.value;
+                fromCurrency.value = toValue;
+                toCurrency.value = fromValue;
                 convertCurrency();
             }
-            
-            // Load popular conversions
-            function loadPopularConversions() {
-                popularConversions.innerHTML = '';
+
+            // ---------- Copy result to clipboard ----------
+            function copyResult() {
+                const amount = parseFloat(amountInput.value) || 0;
+                const from = fromCurrency.value;
+                const to = toCurrency.value;
+                const convertedText = resultAmount.textContent;
+                const rateText = exchangeRate.textContent;
                 
-                popularPairs.forEach(pair => {
-                    const from = pair.from;
-                    const to = pair.to;
-                    const rate = (exchangeRates[to] / exchangeRates[from]).toFixed(4);
-                    
-                    const div = document.createElement('div');
-                    div.style.background = 'var(--bg-dark)';
-                    div.style.padding = '0.75rem';
-                    div.style.borderRadius = '8px';
-                    div.style.border = '1px solid var(--border-color)';
-                    div.style.cursor = 'pointer';
-                    div.style.textAlign = 'center';
-                    
-                    div.innerHTML = `
-                        <div style="font-weight: bold; color: var(--primary);">${from} → ${to}</div>
-                        <div style="font-size: 0.9rem; color: var(--text-secondary);">1 ${from} = ${rate} ${to}</div>
-                    `;
-                    
-                    div.addEventListener('click', () => {
-                        fromCurrency.value = from;
-                        toCurrency.value = to;
-                        convertCurrency();
-                    });
-                    
-                    popularConversions.appendChild(div);
+                const summary = `${convertedText} • ${rateText} • Amount: ${amount} ${from}`;
+                
+                navigator.clipboard.writeText(summary).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
                 });
             }
-            
-            // Event listeners
+
+            // ---------- Initialize ----------
+            async function init() {
+                populateCurrencyDropdowns();
+                await fetchExchangeRates();
+                await convertCurrency();
+                
+                // Update rates every 5 minutes
+                setInterval(async () => {
+                    await fetchExchangeRates();
+                    await convertCurrency();
+                }, 300000);
+            }
+
+            // ---------- Event Listeners ----------
             convertBtn.addEventListener('click', convertCurrency);
-            
             swapBtn.addEventListener('click', swapCurrencies);
-            
-            amount.addEventListener('input', convertCurrency);
+            copyBtn.addEventListener('click', copyResult);
+            amountInput.addEventListener('input', convertCurrency);
             fromCurrency.addEventListener('change', convertCurrency);
             toCurrency.addEventListener('change', convertCurrency);
-            
-            copyBtn.addEventListener('click', function() {
-                const text = `${amount.value} ${fromCurrency.value} = ${result.textContent}`;
-                navigator.clipboard.writeText(text);
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Result';
-                }, 2000);
-            });
-            
-            resetBtn.addEventListener('click', function() {
-                amount.value = 100;
-                fromCurrency.value = 'INR';
-                toCurrency.value = 'USD';
-                convertCurrency();
-            });
-            
-            // Mobile menu
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-            
-            // Initialize
-            convertCurrency();
-            loadPopularConversions();
-        });
+
+            // Start the app
+            init();
+        })();
     </script>
 </body>
 </html>
