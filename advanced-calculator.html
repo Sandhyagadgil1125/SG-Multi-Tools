@@ -3,276 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator - SG Tools</title>
+    <title>Advanced Calculator · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- math.js for safe expression evaluation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.7.0/math.min.js"></script>
     <style>
-        .tool-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        
-        .tool-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .tool-header-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .calculator {
-            background: var(--dark-card);
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .calculator-display {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            min-height: 80px;
-            font-size: 1.8rem;
-            font-family: 'Courier New', monospace;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-        
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-        
-        .calc-btn {
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            color: var(--text-primary);
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
-        
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- Calculator Specific Styles ----- */
+        .display-container {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+
+        #calcDisplay {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-align: right;
+            outline: none;
+        }
+
+        #calcHistory {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            min-height: 1.2rem;
+            word-break: break-all;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .calc-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 0.3rem;
+            color: var(--text-secondary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
         .calc-btn:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
+
         .calc-btn.operator {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary-color);
+            background: rgba(66, 248, 245, 0.1);
+            color: var(--primary-accent);
+            font-weight: 600;
         }
-        
+
+        .calc-btn.operator:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+        }
+
         .calc-btn.equals {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            font-weight: 700;
         }
-        
+
+        .calc-btn.equals:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 16px var(--glow-shadow);
+        }
+
         .calc-btn.clear {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(255, 107, 107, 0.15);
             color: var(--danger-color);
         }
-        
-        .btn-wide {
-            grid-column: span 2;
+
+        .calc-btn.clear:hover {
+            background: var(--danger-color);
+            color: white;
         }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+
+        .calc-btn.function {
+            background: var(--button-bg-alt);
             color: var(--text-secondary);
-            text-decoration: none;
-            margin-top: 30px;
-            transition: var(--transition);
+            font-size: 0.8rem;
         }
-        
-        .back-link:hover {
-            color: var(--primary-color);
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .button-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.4rem;
+            }
+            #calcDisplay {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .button-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span class="logo-title">SG Tools</span>
-                        <span class="logo-subtitle">Multi Utilities</span>
-                    </div>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </nav>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-calculator"></i>
             </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Advanced Calculator</h1>
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="tool-container">
-                <div class="tool-header">
-                    <div class="tool-header-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h1 class="section-title">Advanced Calculator</h1>
-                    <p class="section-subtitle">Scientific calculator with memory functions</p>
-                </div>
-                
-                <div class="calculator">
-                    <div class="calculator-display" id="display">0</div>
-                    
-                    <div class="calculator-buttons">
-                        <button class="calc-btn clear" onclick="clearDisplay()">C</button>
-                        <button class="calc-btn operator" onclick="backspace()">⌫</button>
-                        <button class="calc-btn operator" onclick="appendToDisplay('%')">%</button>
-                        <button class="calc-btn operator" onclick="appendToDisplay('/')">/</button>
-                        
-                        <button class="calc-btn" onclick="appendToDisplay('7')">7</button>
-                        <button class="calc-btn" onclick="appendToDisplay('8')">8</button>
-                        <button class="calc-btn" onclick="appendToDisplay('9')">9</button>
-                        <button class="calc-btn operator" onclick="appendToDisplay('*')">×</button>
-                        
-                        <button class="calc-btn" onclick="appendToDisplay('4')">4</button>
-                        <button class="calc-btn" onclick="appendToDisplay('5')">5</button>
-                        <button class="calc-btn" onclick="appendToDisplay('6')">6</button>
-                        <button class="calc-btn operator" onclick="appendToDisplay('-')">-</button>
-                        
-                        <button class="calc-btn" onclick="appendToDisplay('1')">1</button>
-                        <button class="calc-btn" onclick="appendToDisplay('2')">2</button>
-                        <button class="calc-btn" onclick="appendToDisplay('3')">3</button>
-                        <button class="calc-btn operator" onclick="appendToDisplay('+')">+</button>
-                        
-                        <button class="calc-btn" onclick="appendToDisplay('0')">0</button>
-                        <button class="calc-btn" onclick="appendToDisplay('.')">.</button>
-                        <button class="calc-btn equals" onclick="calculate()">=</button>
-                    </div>
-                </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
-            </div>
+        <!-- Display -->
+        <div class="display-container">
+            <div id="calcHistory"></div>
+            <input type="text" id="calcDisplay" readonly value="0" aria-label="Calculator display">
         </div>
-    </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#disclaimer">Disclaimer</a></li>
-                            <li><a href="#terms">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                            <li><a href="#sitemap">Sitemap</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <!-- Button Grid -->
+        <div class="button-grid">
+            <!-- Row 1 -->
+            <button class="calc-btn function" data-value="(">(</button>
+            <button class="calc-btn function" data-value=")">)</button>
+            <button class="calc-btn clear" data-value="C">C</button>
+            <button class="calc-btn clear" data-value="CE">CE</button>
+            <button class="calc-btn function" data-value="del">⌫</button>
+            <button class="calc-btn operator" data-value="/">÷</button>
             
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact @sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
-                </div>
-            </div>
+            <!-- Row 2 -->
+            <button class="calc-btn function" data-value="sin">sin</button>
+            <button class="calc-btn function" data-value="cos">cos</button>
+            <button class="calc-btn function" data-value="tan">tan</button>
+            <button class="calc-btn" data-value="7">7</button>
+            <button class="calc-btn" data-value="8">8</button>
+            <button class="calc-btn" data-value="9">9</button>
+            
+            <!-- Row 3 -->
+            <button class="calc-btn function" data-value="asin">asin⁻¹</button>
+            <button class="calc-btn function" data-value="acos">acos⁻¹</button>
+            <button class="calc-btn function" data-value="atan">atan⁻¹</button>
+            <button class="calc-btn" data-value="4">4</button>
+            <button class="calc-btn" data-value="5">5</button>
+            <button class="calc-btn" data-value="6">6</button>
+            
+            <!-- Row 4 -->
+            <button class="calc-btn function" data-value="log">log₁₀</button>
+            <button class="calc-btn function" data-value="ln">ln</button>
+            <button class="calc-btn function" data-value="sqrt">√</button>
+            <button class="calc-btn" data-value="1">1</button>
+            <button class="calc-btn" data-value="2">2</button>
+            <button class="calc-btn" data-value="3">3</button>
+            
+            <!-- Row 5 -->
+            <button class="calc-btn function" data-value="pi">π</button>
+            <button class="calc-btn function" data-value="e">e</button>
+            <button class="calc-btn function" data-value="^">xʸ</button>
+            <button class="calc-btn" data-value="0">0</button>
+            <button class="calc-btn" data-value=".">.</button>
+            <button class="calc-btn equals" data-value="=">=</button>
         </div>
-    </footer>
+    </div>
 
     <script>
-        let display = document.getElementById('display');
-        let currentInput = '';
-        
-        function appendToDisplay(value) {
-            if (currentInput === '0' && value !== '.') {
-                currentInput = value;
-            } else {
-                currentInput += value;
+        (function() {
+            "use strict";
+
+            const display = document.getElementById('calcDisplay');
+            const historyDiv = document.getElementById('calcHistory');
+            let currentInput = '0';
+            let lastResult = null;
+            let pendingOperator = null;
+
+            function updateDisplay(value) {
+                display.value = value;
             }
-            display.textContent = currentInput;
-        }
-        
-        function clearDisplay() {
-            currentInput = '';
-            display.textContent = '0';
-        }
-        
-        function backspace() {
-            currentInput = currentInput.slice(0, -1);
-            if (currentInput === '') {
-                display.textContent = '0';
-            } else {
-                display.textContent = currentInput;
+
+            function appendToInput(val) {
+                if (currentInput === '0' && val !== '.') {
+                    currentInput = val;
+                } else {
+                    currentInput += val;
+                }
+                updateDisplay(currentInput);
             }
-        }
-        
-        function calculate() {
-            try {
-                currentInput = eval(currentInput.replace('×', '*')).toString();
-                display.textContent = currentInput;
-            } catch (error) {
-                display.textContent = 'Error';
-                currentInput = '';
+
+            function clearAll() {
+                currentInput = '0';
+                lastResult = null;
+                pendingOperator = null;
+                historyDiv.textContent = '';
+                updateDisplay('0');
             }
-        }
+
+            function clearEntry() {
+                currentInput = '0';
+                updateDisplay('0');
+            }
+
+            function deleteLast() {
+                if (currentInput.length > 1) {
+                    currentInput = currentInput.slice(0, -1);
+                } else {
+                    currentInput = '0';
+                }
+                updateDisplay(currentInput);
+            }
+
+            function calculate() {
+                try {
+                    // Replace ÷ with /, × with *, etc.
+                    let expression = currentInput
+                        .replace(/÷/g, '/')
+                        .replace(/×/g, '*')
+                        .replace(/\^/g, '^')
+                        .replace(/sin⁻¹/g, 'asin')
+                        .replace(/cos⁻¹/g, 'acos')
+                        .replace(/tan⁻¹/g, 'atan')
+                        .replace(/log₁₀/g, 'log')
+                        .replace(/√/g, 'sqrt')
+                        .replace(/π/g, 'pi');
+
+                    // Use math.js for safe evaluation
+                    const result = math.evaluate(expression);
+                    
+                    // Store expression and result
+                    historyDiv.textContent = currentInput + ' =';
+                    currentInput = String(result);
+                    updateDisplay(currentInput);
+                    lastResult = result;
+                } catch (e) {
+                    display.value = 'Error';
+                    currentInput = '0';
+                }
+            }
+
+            // Handle button clicks
+            document.querySelectorAll('.calc-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const val = this.dataset.value;
+
+                    if (!val) return;
+
+                    if (val === 'C') {
+                        clearAll();
+                    } else if (val === 'CE') {
+                        clearEntry();
+                    } else if (val === 'del') {
+                        deleteLast();
+                    } else if (val === '=') {
+                        calculate();
+                    } else if (val === 'pi') {
+                        appendToInput('π');
+                    } else if (val === 'e') {
+                        appendToInput('e');
+                    } else if (val === 'sin' || val === 'cos' || val === 'tan' || 
+                               val === 'asin' || val === 'acos' || val === 'atan' ||
+                               val === 'log' || val === 'ln' || val === 'sqrt') {
+                        appendToInput(val + '(');
+                    } else if (val === '^') {
+                        appendToInput('^');
+                    } else {
+                        appendToInput(val);
+                    }
+                });
+            });
+
+            // Keyboard support
+            document.addEventListener('keydown', function(e) {
+                const key = e.key;
+                if (key >= '0' && key <= '9') {
+                    appendToInput(key);
+                } else if (key === '.') {
+                    appendToInput('.');
+                } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+                    appendToInput(key);
+                } else if (key === '(' || key === ')') {
+                    appendToInput(key);
+                } else if (key === 'Enter' || key === '=') {
+                    calculate();
+                } else if (key === 'Escape') {
+                    clearAll();
+                } else if (key === 'Backspace') {
+                    deleteLast();
+                }
+            });
+
+            // Initial display
+            updateDisplay('0');
+        })();
     </script>
 </body>
 </html>
