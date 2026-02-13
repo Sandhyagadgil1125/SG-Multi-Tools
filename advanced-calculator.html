@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- math.js for safe expression evaluation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.7.0/math.min.js"></script>
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -43,7 +42,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- Calculator Specific Styles ----- */
+        /* Calculator specific styles */
         .display-container {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -141,6 +140,39 @@
             font-size: 0.8rem;
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -154,7 +186,6 @@
                 font-size: 1.4rem;
             }
         }
-
         @media (max-width: 360px) {
             .button-grid {
                 grid-template-columns: repeat(4, 1fr);
@@ -164,7 +195,7 @@
 </head>
 <body>
     <div class="tool-standalone">
-        <!-- Header with icon -->
+        <!-- Header -->
         <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
             <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
                 <i class="fas fa-calculator"></i>
@@ -175,7 +206,7 @@
         <!-- Display -->
         <div class="display-container">
             <div id="calcHistory"></div>
-            <input type="text" id="calcDisplay" readonly value="0" aria-label="Calculator display">
+            <input type="text" id="calcDisplay" readonly value="0">
         </div>
 
         <!-- Button Grid -->
@@ -220,6 +251,15 @@
             <button class="calc-btn" data-value=".">.</button>
             <button class="calc-btn equals" data-value="=">=</button>
         </div>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
     </div>
 
     <script>
@@ -230,7 +270,6 @@
             const historyDiv = document.getElementById('calcHistory');
             let currentInput = '0';
             let lastResult = null;
-            let pendingOperator = null;
 
             function updateDisplay(value) {
                 display.value = value;
@@ -248,7 +287,6 @@
             function clearAll() {
                 currentInput = '0';
                 lastResult = null;
-                pendingOperator = null;
                 historyDiv.textContent = '';
                 updateDisplay('0');
             }
@@ -269,7 +307,6 @@
 
             function calculate() {
                 try {
-                    // Replace ÷ with /, × with *, etc.
                     let expression = currentInput
                         .replace(/÷/g, '/')
                         .replace(/×/g, '*')
@@ -281,10 +318,7 @@
                         .replace(/√/g, 'sqrt')
                         .replace(/π/g, 'pi');
 
-                    // Use math.js for safe evaluation
                     const result = math.evaluate(expression);
-                    
-                    // Store expression and result
                     historyDiv.textContent = currentInput + ' =';
                     currentInput = String(result);
                     updateDisplay(currentInput);
@@ -295,59 +329,35 @@
                 }
             }
 
-            // Handle button clicks
             document.querySelectorAll('.calc-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     const val = this.dataset.value;
-
                     if (!val) return;
-
-                    if (val === 'C') {
-                        clearAll();
-                    } else if (val === 'CE') {
-                        clearEntry();
-                    } else if (val === 'del') {
-                        deleteLast();
-                    } else if (val === '=') {
-                        calculate();
-                    } else if (val === 'pi') {
-                        appendToInput('π');
-                    } else if (val === 'e') {
-                        appendToInput('e');
-                    } else if (val === 'sin' || val === 'cos' || val === 'tan' || 
-                               val === 'asin' || val === 'acos' || val === 'atan' ||
-                               val === 'log' || val === 'ln' || val === 'sqrt') {
+                    if (val === 'C') clearAll();
+                    else if (val === 'CE') clearEntry();
+                    else if (val === 'del') deleteLast();
+                    else if (val === '=') calculate();
+                    else if (val === 'pi') appendToInput('π');
+                    else if (val === 'e') appendToInput('e');
+                    else if (['sin','cos','tan','asin','acos','atan','log','ln','sqrt'].includes(val)) {
                         appendToInput(val + '(');
-                    } else if (val === '^') {
-                        appendToInput('^');
-                    } else {
-                        appendToInput(val);
-                    }
+                    } else if (val === '^') appendToInput('^');
+                    else appendToInput(val);
                 });
             });
 
-            // Keyboard support
             document.addEventListener('keydown', function(e) {
                 const key = e.key;
-                if (key >= '0' && key <= '9') {
-                    appendToInput(key);
-                } else if (key === '.') {
-                    appendToInput('.');
-                } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-                    appendToInput(key);
-                } else if (key === '(' || key === ')') {
-                    appendToInput(key);
-                } else if (key === 'Enter' || key === '=') {
-                    calculate();
-                } else if (key === 'Escape') {
-                    clearAll();
-                } else if (key === 'Backspace') {
-                    deleteLast();
-                }
+                if (key >= '0' && key <= '9') appendToInput(key);
+                else if (key === '.') appendToInput('.');
+                else if (key === '+' || key === '-' || key === '*' || key === '/') appendToInput(key);
+                else if (key === '(' || key === ')') appendToInput(key);
+                else if (key === 'Enter' || key === '=') calculate();
+                else if (key === 'Escape') clearAll();
+                else if (key === 'Backspace') deleteLast();
             });
 
-            // Initial display
             updateDisplay('0');
         })();
     </script>
