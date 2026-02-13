@@ -19,6 +19,7 @@
             margin: 0;
             padding: 10px;
             box-sizing: border-box;
+            flex-direction: column;
         }
 
         .tool-standalone {
@@ -237,17 +238,21 @@
             color: var(--main-bg);
         }
 
-        /* Hide description on mobile, keep only the tool */
+        /* Hide AdSense description on mobile */
         @media (max-width: 768px) {
-            /* Hide the AdSense description div */
-            div[style*="margin-top: 2rem"] {
+            /* Target any div that comes after the tool-standalone */
+            body > div:not(.tool-standalone) {
                 display: none !important;
             }
             
-            /* Ensure tool card takes full width */
+            /* Make sure the tool is centered properly */
+            body {
+                padding: 5px;
+            }
+            
             .tool-standalone {
                 max-width: 100%;
-                margin: 0;
+                margin: 0 auto;
             }
         }
 
@@ -264,12 +269,6 @@
                 font-size: 0.75rem;
             }
         }
-        /* Hide description on mobile, keep only the tool */
-        @media (max-width: 768px) {
-      div[style*="margin-top: 2rem"] {
-        display: none !important;
-    }
-}
     </style>
 </head>
 <body>
@@ -350,7 +349,7 @@
         <p style="margin-bottom: 1rem; line-height: 1.6;">
             Our Case Changer is a simple yet powerful tool that instantly converts text between different letter cases. Whether you need to fix inconsistent capitalization in a document, prepare text for programming, or format titles for social media, this tool does it in real‑time with no server uploads.
         </p>
-
+        
         <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
         <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
             <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
