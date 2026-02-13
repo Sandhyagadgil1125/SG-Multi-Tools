@@ -3,421 +3,608 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speech to Text | SG Multi Tools</title>
-    <meta name="description" content="Convert your voice into text in real-time – free and easy.">
-    <link rel="icon" href="favicon/favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
+    <title>Speech to Text · SG Multi Tools</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page‑specific styles for Speech to Text */
-        .tool-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            border: 1px solid var(--dark-border);
-        }
-
-        .voice-controls {
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
-        .voice-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--primary-accent);
-            border: none;
-            border-radius: 12px;
-            color: var(--main-bg);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1rem;
         }
 
-        .voice-btn:hover {
-            background: var(--accent-shade);
-            transform: scale(1.05);
-        }
-
-        .voice-btn.danger {
-            background: var(--danger-color);
-            color: white;
-        }
-
-        .voice-btn.secondary {
-            background: var(--button-bg);
-            color: var(--text-primary);
-        }
-
-        .voice-btn.secondary:hover {
-            background: var(--dark-border);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: var(--button-bg);
-            border-radius: 30px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        /* ----- Speech to Text Specific Styles ----- */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--main-bg);
             border: 1px solid var(--dark-border);
+            border-radius: 100px;
+            padding: 0.3rem 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
-        .status-badge i {
-            margin-right: 0.3rem;
+        .status-led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: var(--transition);
         }
 
-        .status-active {
-            color: #51cf66;
-            border-color: #51cf66;
+        .status-led.active {
+            background: var(--danger-color);
+            box-shadow: 0 0 8px var(--danger-color);
+            animation: pulse 1.5s infinite;
         }
 
-        .text-output-area {
-            margin: 1.5rem 0;
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
-        .text-output {
-            width: 100%;
-            min-height: 200px;
-            padding: 1rem;
+        .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
             border-radius: 16px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            line-height: 1.6;
-            resize: vertical;
-            font-family: inherit;
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .text-output:focus {
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        .language-select {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
             outline: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .language-select:focus {
             border-color: var(--primary-accent);
-            box-shadow: 0 0 0 2px rgba(66, 248, 245, 0.2);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .transcript-container {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            min-height: 150px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .transcript-content {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .interim-content {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.3rem;
+            padding-top: 0.3rem;
+            border-top: 1px dashed var(--dark-border);
         }
 
         .action-buttons {
             display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
         }
 
-        .language-selector {
-            padding: 0.6rem 1rem;
+        .primary-btn {
+            flex: 1;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .primary-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn {
+            flex: 1;
             background: var(--button-bg);
             border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-
-        .interim-display {
-            margin-top: 0.5rem;
-            padding: 0.8rem;
-            background: rgba(66, 248, 245, 0.08);
-            border-radius: 12px;
+            border-radius: 16px;
+            padding: 0.7rem;
             color: var(--text-secondary);
-            font-style: italic;
-            border-left: 3px solid var(--primary-accent);
-            min-height: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
         }
 
-        @media (max-width: 600px) {
-            .tool-container {
-                padding: 1.5rem;
-            }
-            .voice-controls {
-                flex-direction: column;
-                align-items: stretch;
+        .secondary-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
+        }
+
+        .error-message {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid var(--danger-color);
+            border-radius: 12px;
+            padding: 0.7rem;
+            color: var(--danger-color);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .compat-warning {
+            background: rgba(66, 248, 245, 0.1);
+            border: 1px solid var(--primary-accent);
+            border-radius: 12px;
+            padding: 0.7rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .compat-warning i {
+            color: var(--primary-accent);
+        }
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
             }
             .action-buttons {
-                justify-content: center;
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER (consistent with homepage) -->
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="logo">
-                <span class="logo-circle">SG</span>
-                <span class="logo-text">SG Multi Tools</span>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-microphone"></i>
             </div>
-            <nav class="nav">
-                <a href="index.html">Home</a>
-                <a href="tools.html">Tools</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </nav>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Speech to Text</h1>
         </div>
-    </header>
 
-    <main>
-        <div class="container">
-            <div class="tool-container">
-                <h1 style="color: var(--primary-accent); margin-bottom: 1rem;">
-                    <i class="fas fa-microphone" style="margin-right: 0.5rem;"></i> Speech to Text
-                </h1>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                    Convert your voice into text in real-time. Click "Start Listening" and speak.
-                </p>
+        <!-- Browser Compatibility Warning (shown only if unsupported) -->
+        <div id="compatWarning" class="compat-warning" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Your browser doesn't support speech recognition. Please use Chrome, Edge, or Chromium-based browsers.</span>
+        </div>
 
-                <!-- Voice Controls -->
-                <div class="voice-controls">
-                    <button id="startBtn" class="voice-btn">
-                        <i class="fas fa-microphone"></i> Start Listening
-                    </button>
-                    <button id="stopBtn" class="voice-btn danger" disabled>
-                        <i class="fas fa-stop"></i> Stop
-                    </button>
-                    <span id="status" class="status-badge">
-                        <i class="fas fa-circle"></i> Idle
-                    </span>
-                </div>
+        <!-- Status Indicator -->
+        <div class="status-indicator">
+            <div id="statusLed" class="status-led"></div>
+            <span id="statusText">Ready</span>
+            <span style="margin-left: auto; font-size: 0.7rem;" id="languageDisplay">English</span>
+        </div>
 
-                <!-- Language Selector -->
-                <div style="margin-bottom: 1rem;">
-                    <label style="color: var(--text-secondary); margin-right: 1rem;">🌐 Language:</label>
-                    <select id="language" class="language-selector">
-                        <option value="en-US">English (US)</option>
-                        <option value="en-GB">English (UK)</option>
-                        <option value="es-ES">Spanish</option>
-                        <option value="fr-FR">French</option>
-                        <option value="de-DE">German</option>
-                        <option value="it-IT">Italian</option>
-                        <option value="pt-PT">Portuguese</option>
-                        <option value="ru-RU">Russian</option>
-                        <option value="ja-JP">Japanese</option>
-                        <option value="ko-KR">Korean</option>
-                        <option value="zh-CN">Chinese (Simplified)</option>
-                        <option value="hi-IN">Hindi</option>
-                    </select>
-                </div>
-
-                <!-- Text Output Area -->
-                <div class="text-output-area">
-                    <textarea id="transcript" class="text-output" placeholder="Your speech will appear here..."></textarea>
-                </div>
-
-                <!-- Interim (live) transcript -->
-                <div id="interim" class="interim-display">
-                    <i class="fas fa-ellipsis-h"></i> Listening...
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button id="copyBtn" class="voice-btn secondary">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
-                    <button id="clearBtn" class="voice-btn secondary">
-                        <i class="fas fa-trash"></i> Clear
-                    </button>
-                    <button id="downloadBtn" class="voice-btn secondary">
-                        <i class="fas fa-download"></i> Download .txt
-                    </button>
-                </div>
+        <!-- Language Selection -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-language"></i>
+                <span>Recognition Language</span>
             </div>
+            <select id="languageSelect" class="language-select">
+                <option value="en-US" selected>English (United States)</option>
+                <option value="en-GB">English (United Kingdom)</option>
+                <option value="en-AU">English (Australia)</option>
+                <option value="en-CA">English (Canada)</option>
+                <option value="en-IN">English (India)</option>
+                <option value="hi-IN">हिन्दी (Hindi)</option>
+                <option value="es-ES">Español (Spanish)</option>
+                <option value="fr-FR">Français (French)</option>
+                <option value="de-DE">Deutsch (German)</option>
+                <option value="it-IT">Italiano (Italian)</option>
+                <option value="pt-BR">Português (Brazilian Portuguese)</option>
+                <option value="ru-RU">Русский (Russian)</option>
+                <option value="ja-JP">日本語 (Japanese)</option>
+                <option value="ko-KR">한국어 (Korean)</option>
+                <option value="zh-CN">中文 (Chinese Simplified)</option>
+                <option value="zh-TW">中文 (Chinese Traditional)</option>
+                <option value="ar-SA">العربية (Arabic)</option>
+                <option value="nl-NL">Nederlands (Dutch)</option>
+                <option value="sv-SE">Svenska (Swedish)</option>
+                <option value="da-DK">Dansk (Danish)</option>
+                <option value="fi-FI">Suomi (Finnish)</option>
+                <option value="no-NO">Norsk (Norwegian)</option>
+                <option value="pl-PL">Polski (Polish)</option>
+                <option value="tr-TR">Türkçe (Turkish)</option>
+            </select>
         </div>
-    </main>
 
-    <!-- FOOTER (single‑line, white links, email) -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-links-horizontal">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="disclaimer.html">Disclaimer</a>
-                <a href="terms-and-conditions.html">Terms & Conditions</a>
-                <a href="sitemap.xml">Sitemap</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <div class="footer-email">contact@sgtools.in</div>
+        <!-- Transcription Display -->
+        <div class="transcript-container">
+            <div id="finalTranscript" class="transcript-content"></div>
+            <div id="interimTranscript" class="interim-content"></div>
         </div>
-    </footer>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="startBtn" class="primary-btn">
+                <i class="fas fa-microphone"></i> Start Listening
+            </button>
+            <button id="stopBtn" class="secondary-btn" disabled>
+                <i class="fas fa-stop"></i> Stop
+            </button>
+        </div>
+
+        <!-- Clear & Copy Row -->
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button id="clearBtn" class="secondary-btn" style="flex: 1;">
+                <i class="fas fa-trash-alt"></i> Clear
+            </button>
+            <button id="copyBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Error Display -->
+        <div id="errorContainer" style="display: none;"></div>
+    </div>
 
     <script>
-        // Speech to Text Engine
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM elements
+        (function() {
+            "use strict";
+
+            // ---------- DOM Elements ----------
             const startBtn = document.getElementById('startBtn');
             const stopBtn = document.getElementById('stopBtn');
-            const transcript = document.getElementById('transcript');
-            const interimEl = document.getElementById('interim');
-            const statusEl = document.getElementById('status');
-            const copyBtn = document.getElementById('copyBtn');
             const clearBtn = document.getElementById('clearBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const languageSelect = document.getElementById('language');
+            const copyBtn = document.getElementById('copyBtn');
+            const finalTranscriptDiv = document.getElementById('finalTranscript');
+            const interimTranscriptDiv = document.getElementById('interimTranscript');
+            const statusLed = document.getElementById('statusLed');
+            const statusText = document.getElementById('statusText');
+            const languageSelect = document.getElementById('languageSelect');
+            const languageDisplay = document.getElementById('languageDisplay');
+            const compatWarning = document.getElementById('compatWarning');
+            const errorContainer = document.getElementById('errorContainer');
 
+            // ---------- State ----------
             let recognition = null;
-            let isListening = false;
+            let isSupported = true;
             let finalTranscript = '';
+            let isListening = false;
 
-            // Check browser support
-            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                interimEl.innerHTML = '❌ Your browser does not support speech recognition. Try Chrome, Edge, or Safari.';
+            // ---------- Check Browser Support ----------
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                isSupported = false;
+                compatWarning.style.display = 'flex';
                 startBtn.disabled = true;
-                stopBtn.disabled = true;
-                statusEl.innerHTML = '<i class="fas fa-circle"></i> Not supported';
-            } else {
-                // Initialize recognition
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                startBtn.style.opacity = '0.5';
+                startBtn.style.cursor = 'not-allowed';
+                statusText.textContent = 'Not supported';
+            }
+
+            // ---------- Initialize Recognition ----------
+            function initRecognition() {
+                if (!isSupported) return;
+                
                 recognition = new SpeechRecognition();
+                
+                // Configure for continuous listening with interim results [citation:3][citation:8]
                 recognition.continuous = true;
                 recognition.interimResults = true;
                 recognition.maxAlternatives = 1;
-
-                // Set default language
+                
+                // Set language from select
                 recognition.lang = languageSelect.value;
-
-                // Language change handler
-                languageSelect.addEventListener('change', function() {
-                    if (recognition) {
-                        recognition.lang = this.value;
-                    }
-                });
-
-                // Event: onstart
+                
+                // Update language display
+                const selectedOption = languageSelect.options[languageSelect.selectedIndex];
+                languageDisplay.textContent = selectedOption.textContent.split('(')[0].trim() || 'English';
+                
+                // ---------- Event Handlers ----------
                 recognition.onstart = function() {
                     isListening = true;
+                    statusLed.classList.add('active');
+                    statusText.textContent = 'Listening...';
                     startBtn.disabled = true;
                     stopBtn.disabled = false;
-                    statusEl.innerHTML = '<i class="fas fa-circle"></i> Listening...';
-                    statusEl.classList.add('status-active');
-                    interimEl.innerHTML = '<i class="fas fa-microphone"></i> Listening... Speak now.';
+                    
+                    // Clear any existing errors
+                    errorContainer.style.display = 'none';
+                    errorContainer.innerHTML = '';
                 };
-
-                // Event: onresult
-                recognition.onresult = function(event) {
-                    let interimTranscript = '';
-                    for (let i = event.resultIndex; i < event.results.length; ++i) {
-                        if (event.results[i].isFinal) {
-                            finalTranscript += event.results[i][0].transcript + ' ';
-                        } else {
-                            interimTranscript += event.results[i][0].transcript;
-                        }
-                    }
-                    transcript.value = finalTranscript;
-                    if (interimTranscript) {
-                        interimEl.innerHTML = '<i class="fas fa-ellipsis-h"></i> ' + interimTranscript;
-                    } else {
-                        interimEl.innerHTML = '<i class="fas fa-check-circle"></i> Waiting for speech...';
-                    }
-                };
-
-                // Event: onerror
-                recognition.onerror = function(event) {
-                    console.error('Speech recognition error', event.error);
-                    if (event.error === 'not-allowed') {
-                        interimEl.innerHTML = '❌ Microphone access denied. Please allow microphone access.';
-                    } else if (event.error === 'no-speech') {
-                        interimEl.innerHTML = '⏳ No speech detected. Try again.';
-                    } else {
-                        interimEl.innerHTML = '❌ Error: ' + event.error;
-                    }
-                    stopListening();
-                };
-
-                // Event: onend
+                
                 recognition.onend = function() {
-                    if (isListening) {
-                        // If we're still supposed to be listening, restart
-                        recognition.start();
-                    } else {
-                        stopListening();
-                    }
-                };
-
-                // Start listening
-                function startListening() {
-                    if (!recognition) return;
-                    finalTranscript = transcript.value || '';
-                    try {
-                        recognition.start();
-                    } catch (e) {
-                        console.error('Failed to start:', e);
-                    }
-                }
-
-                // Stop listening
-                function stopListening() {
-                    if (recognition) {
-                        isListening = false;
-                        recognition.stop();
-                    }
+                    isListening = false;
+                    statusLed.classList.remove('active');
+                    statusText.textContent = 'Ready';
                     startBtn.disabled = false;
                     stopBtn.disabled = true;
-                    statusEl.innerHTML = '<i class="fas fa-circle"></i> Idle';
-                    statusEl.classList.remove('status-active');
-                    interimEl.innerHTML = '<i class="fas fa-ellipsis-h"></i> Stopped. Click "Start Listening" to begin.';
+                    
+                    // If we were forcibly stopped, don't restart
+                    if (isListeningForcedStop) {
+                        isListeningForcedStop = false;
+                        return;
+                    }
+                };
+                
+                // Track if we intentionally stopped
+                let isListeningForcedStop = false;
+                
+                recognition.onresult = function(event) {
+                    let interim = '';
+                    
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        
+                        if (event.results[i].isFinal) {
+                            // Add to final transcript with proper capitalization
+                            finalTranscript += transcript + ' ';
+                            finalTranscriptDiv.textContent = finalTranscript;
+                        } else {
+                            // Accumulate interim results [citation:3][citation:8]
+                            interim += transcript;
+                        }
+                    }
+                    
+                    // Update interim display
+                    interimTranscriptDiv.textContent = interim || '🎤 Speak now...';
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    
+                    let errorMessage = '';
+                    let errorType = 'error';
+                    
+                    // Handle specific error types [citation:3][citation:6][citation:8]
+                    switch(event.error) {
+                        case 'not-allowed':
+                            errorMessage = '❌ Microphone access denied. Please allow microphone permissions and try again.';
+                            errorType = 'warning';
+                            break;
+                        case 'no-speech':
+                            errorMessage = '⏸️ No speech detected. Please check your microphone and try again.';
+                            errorType = 'info';
+                            break;
+                        case 'network':
+                            errorMessage = '🌐 Network error occurred. Please check your internet connection.';
+                            break;
+                        case 'aborted':
+                            // User aborted, ignore
+                            return;
+                        case 'audio-capture':
+                            errorMessage = '🎤 No microphone found. Please connect a microphone and try again.';
+                            break;
+                        case 'service-not-allowed':
+                            errorMessage = '🚫 Speech recognition service is disabled on this browser/device.';
+                            break;
+                        case 'bad-grammar':
+                        case 'language-not-supported':
+                            errorMessage = '🌍 Selected language may not be fully supported. Try another language.';
+                            break;
+                        default:
+                            errorMessage = `⚠️ Recognition error: ${event.error}`;
+                    }
+                    
+                    // Display error
+                    errorContainer.style.display = 'block';
+                    errorContainer.className = 'error-message';
+                    errorContainer.innerHTML = `<i class="fas fa-info-circle"></i> ${errorMessage}`;
+                    
+                    // Reset UI
+                    statusLed.classList.remove('active');
+                    statusText.textContent = 'Ready';
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    isListening = false;
+                };
+            }
+
+            // ---------- Start Listening ----------
+            function startListening() {
+                if (!isSupported) {
+                    alert('Speech recognition is not supported in your browser. Please use Chrome, Edge, or another Chromium-based browser.');
+                    return;
                 }
-
-                // Button handlers
-                startBtn.addEventListener('click', startListening);
-                stopBtn.addEventListener('click', stopListening);
-
-                // Copy to clipboard
-                copyBtn.addEventListener('click', function() {
-                    if (!transcript.value.trim()) {
-                        alert('No text to copy');
-                        return;
-                    }
-                    navigator.clipboard.writeText(transcript.value).then(() => {
-                        const originalHTML = copyBtn.innerHTML;
-                        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                try {
+                    // Reinitialize fresh instance each time
+                    initRecognition();
+                    recognition.start();
+                } catch (error) {
+                    console.error('Failed to start recognition:', error);
+                    
+                    // Handle case where recognition is already started
+                    if (error.message.includes('already started')) {
+                        recognition.stop();
                         setTimeout(() => {
-                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-                        }, 2000);
-                    }).catch(() => alert('Failed to copy'));
-                });
-
-                // Clear text
-                clearBtn.addEventListener('click', function() {
-                    if (isListening) {
-                        stopListening();
+                            initRecognition();
+                            recognition.start();
+                        }, 250);
+                    } else {
+                        errorContainer.style.display = 'block';
+                        errorContainer.className = 'error-message';
+                        errorContainer.innerHTML = `<i class="fas fa-exclamation-circle"></i> Failed to start: ${error.message}`;
                     }
-                    transcript.value = '';
-                    finalTranscript = '';
-                    interimEl.innerHTML = '<i class="fas fa-ellipsis-h"></i> Cleared.';
-                });
+                }
+            }
 
-                // Download as .txt
-                downloadBtn.addEventListener('click', function() {
-                    const text = transcript.value.trim();
-                    if (!text) {
-                        alert('No text to download');
-                        return;
-                    }
-                    const blob = new Blob([text], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'speech-to-text.txt';
-                    a.click();
-                    URL.revokeObjectURL(url);
+            // ---------- Stop Listening ----------
+            function stopListening() {
+                if (recognition && isListening) {
+                    isListeningForcedStop = true;
+                    recognition.stop();
+                }
+            }
+
+            // ---------- Clear Transcription ----------
+            function clearTranscription() {
+                finalTranscript = '';
+                finalTranscriptDiv.textContent = '';
+                interimTranscriptDiv.textContent = '';
+                errorContainer.style.display = 'none';
+            }
+
+            // ---------- Copy to Clipboard ----------
+            function copyTranscription() {
+                const textToCopy = finalTranscriptDiv.textContent || interimTranscriptDiv.textContent;
+                if (!textToCopy || textToCopy === '') {
+                    alert('Nothing to copy.');
+                    return;
+                }
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
                 });
             }
 
-            // Cleanup on page unload
+            // ---------- Language Change Handler ----------
+            languageSelect.addEventListener('change', function() {
+                if (isListening) {
+                    stopListening();
+                }
+                
+                // Update language display
+                const selectedOption = languageSelect.options[languageSelect.selectedIndex];
+                languageDisplay.textContent = selectedOption.textContent.split('(')[0].trim() || 'English';
+                
+                // Recognition will pick up new language on next start
+            });
+
+            // ---------- Event Listeners ----------
+            startBtn.addEventListener('click', startListening);
+            stopBtn.addEventListener('click', stopListening);
+            clearBtn.addEventListener('click', clearTranscription);
+            copyBtn.addEventListener('click', copyTranscription);
+
+            // ---------- Cleanup on page unload ----------
             window.addEventListener('beforeunload', function() {
                 if (recognition && isListening) {
-                    recognition.abort();
+                    recognition.stop();
                 }
             });
-        });
+
+            // ---------- Initial Setup ----------
+            if (isSupported) {
+                initRecognition();
+                languageDisplay.textContent = 'English';
+            }
+        })();
     </script>
 </body>
 </html>
