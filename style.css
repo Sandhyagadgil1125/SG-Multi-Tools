@@ -20,6 +20,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* ===== RESPONSIVE: TOOLS GRID ===== */
 @media (max-width: 768px) {
     .tools-grid {
@@ -181,6 +182,7 @@ body {
 .hero-content {
     max-width: 800px;
     margin: 0 auto 30px;
+    text-align: center;
 }
 
 .hero-title {
@@ -188,7 +190,7 @@ body {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 8px;
-    color: var(--text-primary);
+    color: var(--primary-accent);
     letter-spacing: -0.5px;
 }
 
@@ -198,21 +200,12 @@ body {
     display: inline-block;
 }
 
-.hero-highlight::after {
-    content: '';
-    position: absolute;
-    bottom: 5px;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background: rgba(66, 248, 245, 0.2);
-    z-index: -1;
-}
-
 .hero-description {
     font-size: 1.1rem;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Tools Grid */
@@ -402,6 +395,55 @@ body {
     color: var(--primary-accent);
 }
 
+/* Centered Footer Links */
+.footer-links-centered {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.footer-links-centered a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    padding: 0.25rem 0;
+}
+
+.footer-links-centered a:hover {
+    color: var(--primary-accent);
+}
+
+.footer-links-centered .separator {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 1;
+    display: inline-block;
+}
+
+.footer-email-centered {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-email-centered i {
+    margin-right: 0.5rem;
+}
+
+.footer-copyright {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--dark-border);
+    padding-top: 1.5rem;
+}
+
 .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -454,6 +496,41 @@ body {
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
+}
+
+/* ===== Global Close Button for Tool Pages ===== */
+.tool-standalone {
+    position: relative; /* Required for absolute positioning of close button */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--button-bg);
+    border: 1px solid var(--dark-border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+    text-decoration: none;
+}
+
+.close-btn:hover {
+    background: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
+    transform: scale(1.1);
+}
+
+.close-btn i {
+    font-size: 0.9rem;
 }
 
 /* Responsive */
@@ -527,81 +604,4 @@ body {
         height: 60px;
         font-size: 1.6rem;
     }
-}
-/* ===== HERO SECTION – CENTERED & READABLE ===== */
-.hero-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 30px;
-}
-
-.hero-description {
-    font-size: 1.1rem;
-    color: #d1d5db;  /* Light gray – perfect contrast on dark background */
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-/* ===== HERO TITLE – FULL CYAN ===== */
-.hero-title {
-    color: var(--primary-accent);  /* Cyan */
-}
-
-/* (Optional) Remove the underline effect under "SG Multi Tools" if not wanted */
-.hero-highlight::after {
-    display: none;
-}
-
-/* ===== HERO DESCRIPTION – WHITE ===== */
-.hero-description {
-    color: var(--text-primary);  /* Pure white */
-}
-
-/* ===== Centered Footer Styles ===== */
-.footer-links-centered {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    color: var(--text-secondary);
-}
-
-.footer-links-centered a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: var(--transition);
-    padding: 0.25rem 0;
-}
-
-.footer-links-centered a:hover {
-    color: var(--primary-accent);
-}
-
-.footer-links-centered .separator {
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    line-height: 1;
-    display: inline-block;
-}
-
-.footer-email-centered {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-}
-
-.footer-email-centered i {
-    margin-right: 0.5rem;
-}
-
-.footer-copyright {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    border-top: 1px solid var(--dark-border);
-    padding-top: 1.5rem;
 }
