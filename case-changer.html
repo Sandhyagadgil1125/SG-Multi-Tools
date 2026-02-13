@@ -237,6 +237,20 @@
             color: var(--main-bg);
         }
 
+        /* Hide description on mobile, keep only the tool */
+        @media (max-width: 768px) {
+            /* Hide the AdSense description div */
+            div[style*="margin-top: 2rem"] {
+                display: none !important;
+            }
+            
+            /* Ensure tool card takes full width */
+            .tool-standalone {
+                max-width: 100%;
+                margin: 0;
+            }
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -322,7 +336,7 @@
         </div>
     </div>
 
-    <!-- Additional content for AdSense -->
+    <!-- Additional content for AdSense (hidden on mobile) -->
     <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
         <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
             <i class="fas fa-text-height"></i> About the Case Changer
