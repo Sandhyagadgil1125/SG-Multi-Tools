@@ -3,1715 +3,673 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text to Speech - SG Tools</title>
+    <title>Text to Speech · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .generator-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        
-        /* Text Input Card */
-        .text-input-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .text-input-card:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 15px 35px rgba(66, 248, 245, 0.15);
-        }
-        
-        .text-input-card::before {
-            content: '\f028';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 30px;
-            top: 30px;
-            font-size: 3rem;
-            color: rgba(66, 248, 245, 0.08);
-        }
-        
-        .text-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
-        
-        .text-label i {
-            color: var(--primary-accent);
-        }
-        
-        /* Text Input Area */
-        .text-input-container {
-            margin-bottom: 25px;
-        }
-        
-        .text-input-area {
-            width: 100%;
-            min-height: 200px;
-            padding: 25px;
-            background: var(--main-bg);
-            border: 2px solid var(--dark-border);
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
             border-radius: 20px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            line-height: 1.8;
-            resize: vertical;
-            font-family: 'Poppins', sans-serif;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- Text to Speech Specific Styles ----- */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 100px;
+            padding: 0.3rem 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .status-led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-muted);
             transition: var(--transition);
-            margin-bottom: 15px;
         }
-        
-        .text-input-area:focus {
+
+        .status-led.speaking {
+            background: var(--primary-accent);
+            box-shadow: 0 0 8px var(--glow-shadow);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        #textInput {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
             outline: none;
+            transition: var(--transition);
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        #textInput:focus {
             border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
         }
-        
-        .text-input-area::placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-        
+
         .text-stats {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             color: var(--text-muted);
-            font-size: 0.9rem;
-            padding: 5px 10px;
-            flex-wrap: wrap;
-            gap: 15px;
+            font-size: 0.65rem;
+            margin-top: 0.3rem;
         }
-        
-        .stats-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .stats-item i {
-            color: var(--primary-accent);
-        }
-        
-        .text-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .text-action-btn {
-            flex: 1;
-            min-width: 140px;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 14px;
-            padding: 16px 25px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .text-action-btn:hover {
-            border-color: var(--primary-accent);
-            color: var(--primary-accent);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.15);
-        }
-        
-        .text-action-btn i {
-            font-size: 1.2rem;
-        }
-        
-        /* Audio Player Card */
-        .audio-player-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .audio-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-        
-        .audio-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .audio-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-            font-size: 1.5rem;
-        }
-        
-        .audio-title h3 {
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-        
-        .voice-badge {
-            background: rgba(66, 248, 245, 0.15);
-            color: var(--primary-accent);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(66, 248, 245, 0.3);
-        }
-        
-        .voice-badge i {
-            font-size: 1rem;
-        }
-        
-        /* Waveform Visualization */
-        .waveform-container {
-            background: var(--main-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 2px solid var(--dark-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        
-        .waveform-container.playing {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 30px rgba(66, 248, 245, 0.15);
-        }
-        
-        .waveform-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-        
-        .wave-bar {
-            width: 10px;
-            height: 30px;
-            background: rgba(66, 248, 245, 0.3);
-            border-radius: 5px;
-            transition: height 0.2s ease, background 0.2s ease;
-            animation: waveform 1.5s infinite ease-in-out;
-        }
-        
-        .wave-bar:nth-child(1) { animation-delay: 0.1s; }
-        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
-        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
-        .wave-bar:nth-child(4) { animation-delay: 0.4s; }
-        .wave-bar:nth-child(5) { animation-delay: 0.5s; }
-        .wave-bar:nth-child(6) { animation-delay: 0.6s; }
-        .wave-bar:nth-child(7) { animation-delay: 0.7s; }
-        .wave-bar:nth-child(8) { animation-delay: 0.8s; }
-        .wave-bar:nth-child(9) { animation-delay: 0.9s; }
-        .wave-bar:nth-child(10) { animation-delay: 1.0s; }
-        
-        @keyframes waveform {
-            0%, 100% { height: 30px; background: rgba(66, 248, 245, 0.3); }
-            50% { height: 70px; background: rgba(66, 248, 245, 0.9); }
-        }
-        
-        .playing .wave-bar {
-            animation: waveform 1.5s infinite ease-in-out;
-        }
-        
-        .wave-status {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 10px;
-        }
-        
-        .status-indicator {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--text-muted);
-            transition: var(--transition);
-        }
-        
-        .status-indicator.playing {
-            background: var(--primary-accent);
-            box-shadow: 0 0 20px var(--primary-accent);
-            animation: pulse 1.5s infinite;
-        }
-        
-        .status-indicator.paused {
-            background: #ffd24d;
-            box-shadow: 0 0 20px rgba(255, 210, 77, 0.5);
-        }
-        
-        .status-indicator.stopped {
-            background: var(--text-muted);
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(66, 248, 245, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(66, 248, 245, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(66, 248, 245, 0); }
-        }
-        
-        /* Playback Controls */
-        .playback-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-        
-        .playback-btn {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: var(--main-bg);
-            border: 2px solid var(--dark-border);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .playback-btn:hover {
-            border-color: var(--primary-accent);
-            color: var(--primary-accent);
-            transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(66, 248, 245, 0.25);
-        }
-        
-        .playback-btn.play {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-accent), var(--accent-shade));
-            color: var(--main-bg);
-            border: none;
-            font-size: 2.2rem;
-        }
-        
-        .playback-btn.play:hover {
-            transform: scale(1.15);
-            box-shadow: 0 0 35px var(--glow-shadow);
-        }
-        
-        .playback-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none !important;
-            border-color: var(--dark-border) !important;
-            color: var(--text-muted) !important;
-            box-shadow: none !important;
-        }
-        
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--main-bg);
-            border-radius: 4px;
-            border: 1px solid var(--dark-border);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
-            border-radius: 4px;
-            transition: width 0.1s ease;
-            position: relative;
-        }
-        
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            right: -5px;
-            top: -4px;
-            width: 14px;
-            height: 14px;
-            background: var(--primary-accent);
-            border-radius: 50%;
-            border: 2px solid var(--main-bg);
-            box-shadow: 0 0 15px var(--glow-shadow);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        
-        .progress-bar:hover .progress-fill::after {
-            opacity: 1;
-        }
-        
-        .time-info {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-        
-        .current-time, .total-time {
-            font-family: 'Courier New', monospace;
-            color: var(--primary-accent);
-            font-weight: 600;
-        }
-        
-        /* Voice Settings Card */
-        .voice-settings-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .settings-group {
-            background: var(--main-bg);
-            border-radius: 18px;
-            padding: 25px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .settings-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .settings-header i {
-            color: var(--primary-accent);
-        }
-        
-        /* Voice Selection */
+
         .voice-select {
             width: 100%;
-            padding: 16px;
             background: var(--button-bg-alt);
-            border: 2px solid var(--dark-border);
-            border-radius: 14px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 20px;
-        }
-        
-        .voice-select:hover {
-            border-color: var(--primary-accent);
-        }
-        
-        .voice-select:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-        }
-        
-        .voice-select option {
-            background: var(--main-bg);
-            color: var(--text-primary);
-        }
-        
-        .voice-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            padding: 12px;
-            background: rgba(66, 248, 245, 0.05);
+            border: 1px solid var(--dark-border);
             border-radius: 12px;
-            border: 1px solid rgba(66, 248, 245, 0.15);
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 0.8rem;
         }
-        
-        .voice-info i {
-            color: var(--primary-accent);
+
+        .voice-select:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
         }
-        
-        /* Slider Controls */
-        .slider-control {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
+
+        .slider-container {
+            margin-bottom: 1rem;
         }
-        
+
         .slider-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 0.3rem;
         }
-        
+
         .slider-label {
-            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
         }
-        
+
         .slider-value {
-            background: rgba(66, 248, 245, 0.15);
-            color: var(--primary-accent);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: 'Courier New', monospace;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            padding: 0.15rem 0.8rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.8rem;
         }
-        
+
         .slider {
             width: 100%;
-            height: 8px;
-            -webkit-appearance: none;
-            background: var(--button-bg);
-            border-radius: 4px;
-            outline: none;
-            border: 1px solid var(--dark-border);
+            accent-color: var(--primary-accent);
+            background: var(--dark-border);
+            border-radius: 100px;
+            height: 5px;
         }
-        
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
+
+        .action-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .primary-btn {
+            flex: 1;
             background: var(--primary-accent);
-            cursor: pointer;
-            border: 2px solid var(--main-bg);
-            box-shadow: 0 0 15px var(--glow-shadow);
-            transition: var(--transition);
-        }
-        
-        .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-        
-        /* Pitch Preview */
-        .pitch-preview {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        
-        .pitch-preview span {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .pitch-preview i {
-            color: var(--primary-accent);
-        }
-        
-        /* History Card */
-        .history-card {
-            background: var(--button-bg-alt);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .history-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-        
-        .history-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .history-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 12px;
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-accent);
-            font-size: 1.3rem;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
         }
-        
-        .history-title h4 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 600;
+
+        .primary-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
         }
-        
-        .clear-history-btn {
-            background: transparent;
+
+        .secondary-btn {
+            flex: 1;
+            background: var(--button-bg);
             border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 0.7rem;
             color: var(--text-secondary);
-            padding: 12px 24px;
-            border-radius: 30px;
             font-size: 0.95rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
             cursor: pointer;
-            transition: var(--transition);
         }
-        
-        .clear-history-btn:hover {
-            border-color: var(--danger-color);
-            color: var(--danger-color);
-        }
-        
-        .history-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        
-        .history-grid::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .history-grid::-webkit-scrollbar-track {
-            background: var(--main-bg);
-            border-radius: 10px;
-        }
-        
-        .history-grid::-webkit-scrollbar-thumb {
+
+        .secondary-btn:hover {
             background: var(--primary-accent);
-            border-radius: 10px;
-        }
-        
-        .history-item {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 18px;
-            padding: 20px;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .history-item:hover {
+            color: var(--main-bg);
             border-color: var(--primary-accent);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(66, 248, 245, 0.1);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
-        .history-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+
+        .secondary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
         }
-        
-        .history-item-time {
-            color: var(--text-muted);
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
             font-size: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-        
-        .history-item-time i {
-            color: var(--primary-accent);
-        }
-        
-        .history-item-voice {
-            background: rgba(66, 248, 245, 0.1);
-            color: var(--primary-accent);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .history-item-content {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            max-height: 100px;
-            overflow-y: auto;
-            padding-right: 10px;
-            padding: 10px;
-            background: rgba(66, 248, 245, 0.02);
-            border-radius: 10px;
-            border: 1px solid transparent;
-        }
-        
-        .history-item-content:hover {
-            border-color: rgba(66, 248, 245, 0.2);
-        }
-        
-        .history-item-content::-webkit-scrollbar {
-            width: 3px;
-        }
-        
-        .history-item-content::-webkit-scrollbar-thumb {
-            background: var(--primary-accent);
-            border-radius: 3px;
-        }
-        
-        .history-item-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 5px;
-        }
-        
-        .history-item-btn {
-            width: 40px;
-            height: 40px;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 0.4rem;
+            transition: var(--transition);
             cursor: pointer;
-            transition: var(--transition);
-            font-size: 1rem;
+            margin-left: auto;
         }
-        
-        .history-item-btn:hover {
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
             border-color: var(--primary-accent);
-            color: var(--primary-accent);
-            transform: scale(1.1);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
-        .empty-history {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px;
-            color: var(--text-muted);
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
         }
-        
-        .empty-history i {
-            font-size: 3rem;
-            color: rgba(66, 248, 245, 0.2);
-            margin-bottom: 20px;
-        }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+
+        .compat-warning {
+            background: rgba(66, 248, 245, 0.1);
+            border: 1px solid var(--primary-accent);
+            border-radius: 12px;
+            padding: 0.7rem;
             color: var(--text-secondary);
-            text-decoration: none;
-            margin-top: 40px;
-            padding: 14px 28px;
-            background: var(--button-bg-alt);
-            border-radius: 30px;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
-        
-        .back-link:hover {
+
+        .compat-warning i {
             color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            transform: translateX(-5px);
         }
-        
-        @media (max-width: 992px) {
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .text-actions {
-                flex-direction: column;
-            }
-            
-            .text-action-btn {
-                width: 100%;
-            }
-            
-            .playback-controls {
-                flex-wrap: wrap;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .text-input-card,
-            .audio-player-card,
-            .voice-settings-card,
-            .history-card {
-                padding: 20px;
-            }
-            
-            .audio-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .voice-badge {
-                align-self: flex-start;
-            }
-            
-            .playback-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 1.5rem;
-            }
-            
-            .playback-btn.play {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-            
-            .history-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
+
         @media (max-width: 480px) {
-            .waveform-visual {
-                gap: 5px;
-                height: 60px;
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
             }
-            
-            .wave-bar {
-                width: 6px;
-            }
-            
-            .wave-status {
-                font-size: 1rem;
-            }
-            
-            .stats-item {
-                font-size: 0.85rem;
+            .action-buttons {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span class="logo-title">SG Tools</span>
-                        <span class="logo-subtitle">Multi Utilities</span>
-                    </div>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </nav>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-volume-up"></i>
             </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Text to Speech</h1>
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="calculator-container">
-                <div class="calculator-header">
-                    <div class="calculator-header-icon">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
-                    <h1 class="section-title">Text to Speech</h1>
-                    <p class="section-subtitle">Convert written text into natural-sounding speech with customizable voices</p>
-                </div>
-                
-                <div class="generator-container">
-                    <!-- Text Input Card -->
-                    <div class="text-input-card">
-                        <div class="text-label">
-                            <i class="fas fa-pencil-alt"></i> Text Input
-                        </div>
-                        
-                        <div class="text-input-container">
-                            <textarea id="textInput" class="text-input-area" placeholder="Type or paste your text here...">Welcome to SG Tools Text to Speech. This is a sample text to demonstrate the speech synthesis capabilities. You can change the voice, adjust the speed and pitch, and download the audio as an MP3 file.</textarea>
-                            
-                            <div class="text-stats">
-                                <div class="stats-item">
-                                    <i class="fas fa-characters"></i>
-                                    Characters: <span id="charCount">145</span>
-                                </div>
-                                <div class="stats-item">
-                                    <i class="fas fa-words"></i>
-                                    Words: <span id="wordCount">24</span>
-                                </div>
-                                <div class="stats-item">
-                                    <i class="fas fa-clock"></i>
-                                    Est. Duration: <span id="estDuration">00:32</span>
-                                </div>
-                            </div>
-                            
-                            <div class="text-actions">
-                                <button class="text-action-btn" onclick="clearText()">
-                                    <i class="fas fa-trash-alt"></i> Clear
-                                </button>
-                                <button class="text-action-btn" onclick="loadSample()">
-                                    <i class="fas fa-file-alt"></i> Sample Text
-                                </button>
-                                <button class="text-action-btn" onclick="downloadText()">
-                                    <i class="fas fa-download"></i> Save as TXT
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Audio Player Card -->
-                    <div class="audio-player-card">
-                        <div class="audio-header">
-                            <div class="audio-title">
-                                <div class="audio-icon">
-                                    <i class="fas fa-headphones"></i>
-                                </div>
-                                <h3>Audio Player</h3>
-                            </div>
-                            <div class="voice-badge">
-                                <i class="fas fa-microchip"></i>
-                                <span id="currentVoiceName">Microsoft David</span>
-                            </div>
-                        </div>
-                        
-                        <div class="waveform-container" id="waveformContainer">
-                            <div class="waveform-visual">
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                            </div>
-                            
-                            <div class="wave-status">
-                                <span class="status-indicator" id="statusIndicator"></span>
-                                <span id="statusText">Ready to speak</span>
-                            </div>
-                        </div>
-                        
-                        <div class="playback-controls">
-                            <button class="playback-btn" onclick="rewind()" title="Rewind 10 seconds" id="rewindBtn">
-                                <i class="fas fa-undo-alt"></i>
-                            </button>
-                            <button class="playback-btn play" onclick="playPause()" id="playPauseBtn">
-                                <i class="fas fa-play"></i>
-                            </button>
-                            <button class="playback-btn" onclick="stop()" title="Stop" id="stopBtn">
-                                <i class="fas fa-stop"></i>
-                            </button>
-                            <button class="playback-btn" onclick="forward()" title="Forward 10 seconds" id="forwardBtn">
-                                <i class="fas fa-redo-alt"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="progress-container">
-                            <div class="progress-bar" id="progressBar" onclick="seek(event)">
-                                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-                            </div>
-                            <div class="time-info">
-                                <span><span class="current-time" id="currentTime">00:00</span> / <span class="total-time" id="totalTime">00:00</span></span>
-                                <span>
-                                    <button class="history-item-btn" onclick="downloadAudio()" title="Download MP3" style="width: auto; padding: 5px 15px;">
-                                        <i class="fas fa-download"></i> Download Audio
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Voice Settings Card -->
-                    <div class="voice-settings-card">
-                        <div class="settings-grid">
-                            <div class="settings-group">
-                                <div class="settings-header">
-                                    <i class="fas fa-robot"></i>
-                                    <span>Voice Selection</span>
-                                </div>
-                                
-                                <select id="voiceSelect" class="voice-select">
-                                    <option value="">Loading voices...</option>
-                                </select>
-                                
-                                <div class="voice-info">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span id="voiceDetails">Choose a voice from the list above</span>
-                                </div>
-                            </div>
-                            
-                            <div class="settings-group">
-                                <div class="settings-header">
-                                    <i class="fas fa-sliders-h"></i>
-                                    <span>Speech Settings</span>
-                                </div>
-                                
-                                <div class="slider-control">
-                                    <div class="slider-header">
-                                        <span class="slider-label">
-                                            <i class="fas fa-tachometer-alt"></i> Speed
-                                        </span>
-                                        <span class="slider-value" id="speedValue">1.0x</span>
-                                    </div>
-                                    <input type="range" id="speedSlider" class="slider" min="0.5" max="2.0" value="1.0" step="0.1">
-                                    <div class="pitch-preview">
-                                        <span><i class="fas fa-turtle"></i> 0.5x</span>
-                                        <span><i class="fas fa-circle"></i> 1.0x</span>
-                                        <span><i class="fas fa-rabbit"></i> 2.0x</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="slider-control">
-                                    <div class="slider-header">
-                                        <span class="slider-label">
-                                            <i class="fas fa-chart-line"></i> Pitch
-                                        </span>
-                                        <span class="slider-value" id="pitchValue">1.0</span>
-                                    </div>
-                                    <input type="range" id="pitchSlider" class="slider" min="0.5" max="2.0" value="1.0" step="0.1">
-                                    <div class="pitch-preview">
-                                        <span><i class="fas fa-arrow-down"></i> Low</span>
-                                        <span><i class="fas fa-circle"></i> Normal</span>
-                                        <span><i class="fas fa-arrow-up"></i> High</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="slider-control">
-                                    <div class="slider-header">
-                                        <span class="slider-label">
-                                            <i class="fas fa-volume-high"></i> Volume
-                                        </span>
-                                        <span class="slider-value" id="volumeValue">100%</span>
-                                    </div>
-                                    <input type="range" id="volumeSlider" class="slider" min="0" max="1.0" value="1.0" step="0.01">
-                                    <div class="pitch-preview">
-                                        <span><i class="fas fa-volume-off"></i> 0%</span>
-                                        <span><i class="fas fa-volume-down"></i> 50%</span>
-                                        <span><i class="fas fa-volume-up"></i> 100%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- History Card -->
-                    <div class="history-card">
-                        <div class="history-header">
-                            <div class="history-title">
-                                <div class="history-icon">
-                                    <i class="fas fa-history"></i>
-                                </div>
-                                <h4>Speech History</h4>
-                            </div>
-                            <button class="clear-history-btn" onclick="clearHistory()">
-                                <i class="fas fa-trash-alt"></i> Clear History
-                            </button>
-                        </div>
-                        
-                        <div class="history-grid" id="historyGrid">
-                            <div class="empty-history">
-                                <i class="fas fa-volume-mute"></i>
-                                <p>No speech history yet</p>
-                                <p style="font-size: 0.9rem; margin-top: 10px;">Generate speech to see your history</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
-            </div>
+        <!-- Browser Compatibility Warning (shown only if unsupported) -->
+        <div id="compatWarning" class="compat-warning" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Your browser doesn't support speech synthesis. Please use Chrome, Edge, Safari, or modern browsers.</span>
         </div>
-    </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#disclaimer">Disclaimer</a></li>
-                            <li><a href="#terms">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                            <li><a href="#sitemap">Sitemap</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Status Indicator -->
+        <div class="status-indicator">
+            <div id="statusLed" class="status-led"></div>
+            <span id="statusText">Ready</span>
+            <span style="margin-left: auto; font-size: 0.7rem;" id="voiceDisplay">Default voice</span>
+        </div>
+
+        <!-- Text Input -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Enter text</span>
             </div>
-            
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact@sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
-                </div>
+            <textarea id="textInput" placeholder="Type or paste your text here...">Hello, this is a sample text to speech demonstration.</textarea>
+            <div class="text-stats">
+                <span id="charCount">48 characters</span>
+                <span id="wordCount">8 words</span>
             </div>
         </div>
-    </footer>
+
+        <!-- Voice Selection -->
+        <div class="input-group" style="margin-bottom: 0.5rem;">
+            <div class="input-label">
+                <i class="fas fa-user-voice"></i>
+                <span>Voice</span>
+            </div>
+            <select id="voiceSelect" class="voice-select">
+                <option value="">Loading voices...</option>
+            </select>
+        </div>
+
+        <!-- Speed Control -->
+        <div class="slider-container">
+            <div class="slider-header">
+                <span class="slider-label">
+                    <i class="fas fa-tachometer-alt"></i> Speed
+                </span>
+                <span id="speedValue" class="slider-value">1.0x</span>
+            </div>
+            <input type="range" id="speedSlider" class="slider" min="0.5" max="2.0" value="1.0" step="0.1">
+        </div>
+
+        <!-- Pitch Control -->
+        <div class="slider-container">
+            <div class="slider-header">
+                <span class="slider-label">
+                    <i class="fas fa-chart-line"></i> Pitch
+                </span>
+                <span id="pitchValue" class="slider-value">1.0</span>
+            </div>
+            <input type="range" id="pitchSlider" class="slider" min="0.5" max="2.0" value="1.0" step="0.1">
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="speakBtn" class="primary-btn">
+                <i class="fas fa-play"></i> Speak
+            </button>
+            <button id="pauseBtn" class="secondary-btn" disabled>
+                <i class="fas fa-pause"></i> Pause
+            </button>
+            <button id="stopBtn" class="secondary-btn" disabled>
+                <i class="fas fa-stop"></i> Stop
+            </button>
+        </div>
+
+        <!-- Copy & Clear Row -->
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button id="clearBtn" class="secondary-btn" style="flex: 1;">
+                <i class="fas fa-trash-alt"></i> Clear
+            </button>
+            <button id="copyBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+        </div>
+    </div>
 
     <script>
-        // DOM Elements
-        const textInput = document.getElementById('textInput');
-        const voiceSelect = document.getElementById('voiceSelect');
-        const speedSlider = document.getElementById('speedSlider');
-        const pitchSlider = document.getElementById('pitchSlider');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const speedValue = document.getElementById('speedValue');
-        const pitchValue = document.getElementById('pitchValue');
-        const volumeValue = document.getElementById('volumeValue');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const rewindBtn = document.getElementById('rewindBtn');
-        const forwardBtn = document.getElementById('forwardBtn');
-        const progressFill = document.getElementById('progressFill');
-        const currentTime = document.getElementById('currentTime');
-        const totalTime = document.getElementById('totalTime');
-        const statusIndicator = document.getElementById('statusIndicator');
-        const statusText = document.getElementById('statusText');
-        const waveformContainer = document.getElementById('waveformContainer');
-        const currentVoiceName = document.getElementById('currentVoiceName');
-        const voiceDetails = document.getElementById('voiceDetails');
-        const charCount = document.getElementById('charCount');
-        const wordCount = document.getElementById('wordCount');
-        const estDuration = document.getElementById('estDuration');
-        const historyGrid = document.getElementById('historyGrid');
-        
-        // Speech Synthesis
-        let synthesis = window.speechSynthesis;
-        let utterance = null;
-        let voices = [];
-        let isPlaying = false;
-        let isPaused = false;
-        let currentVoice = null;
-        let progressInterval = null;
-        
-        // History storage
-        let speechHistory = [];
-        
-        // Load history from localStorage
-        function loadHistory() {
-            const stored = localStorage.getItem('sgTools_speechHistory');
-            if (stored) {
-                try {
-                    speechHistory = JSON.parse(stored);
-                } catch (e) {
-                    speechHistory = [];
-                }
+        (function() {
+            "use strict";
+
+            // ---------- DOM Elements ----------
+            const textInput = document.getElementById('textInput');
+            const voiceSelect = document.getElementById('voiceSelect');
+            const speedSlider = document.getElementById('speedSlider');
+            const speedValue = document.getElementById('speedValue');
+            const pitchSlider = document.getElementById('pitchSlider');
+            const pitchValue = document.getElementById('pitchValue');
+            const speakBtn = document.getElementById('speakBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const charCount = document.getElementById('charCount');
+            const wordCount = document.getElementById('wordCount');
+            const statusLed = document.getElementById('statusLed');
+            const statusText = document.getElementById('statusText');
+            const voiceDisplay = document.getElementById('voiceDisplay');
+            const compatWarning = document.getElementById('compatWarning');
+
+            // ---------- State ----------
+            let voices = [];
+            let isSpeaking = false;
+            let isPaused = false;
+            let utterance = null;
+            let isSupported = true;
+
+            // ---------- Check Browser Support ----------
+            if (!window.speechSynthesis) {
+                isSupported = false;
+                compatWarning.style.display = 'flex';
+                speakBtn.disabled = true;
+                speakBtn.style.opacity = '0.5';
+                speakBtn.style.cursor = 'not-allowed';
+                pauseBtn.disabled = true;
+                stopBtn.disabled = true;
+                statusText.textContent = 'Not supported';
             }
-            renderHistory();
-        }
-        
-        // Save history to localStorage
-        function saveHistory() {
-            localStorage.setItem('sgTools_speechHistory', JSON.stringify(speechHistory));
-            renderHistory();
-        }
-        
-        // Add to history
-        function addToHistory(text, voice, rate, pitch) {
-            if (!text.trim()) return;
-            
-            speechHistory.unshift({
-                text: text.substring(0, 500), // Limit storage
-                voice: voice || 'Default',
-                voiceName: voice?.name || 'Default',
-                rate: rate || 1.0,
-                pitch: pitch || 1.0,
-                timestamp: new Date().toISOString(),
-                duration: totalTime.textContent
-            });
-            
-            // Keep only last 15
-            if (speechHistory.length > 15) {
-                speechHistory = speechHistory.slice(0, 15);
-            }
-            
-            saveHistory();
-        }
-        
-        // Render history
-        function renderHistory() {
-            if (speechHistory.length === 0) {
-                historyGrid.innerHTML = `
-                    <div class="empty-history">
-                        <i class="fas fa-volume-mute"></i>
-                        <p>No speech history yet</p>
-                        <p style="font-size: 0.9rem; margin-top: 10px;">Generate speech to see your history</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            speechHistory.forEach((item, index) => {
-                const date = new Date(item.timestamp);
-                const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                const previewText = item.text.substring(0, 80) + (item.text.length > 80 ? '...' : '');
+
+            // ---------- Load Voices ----------
+            function loadVoices() {
+                if (!isSupported) return;
                 
-                html += `
-                    <div class="history-item">
-                        <div class="history-item-header">
-                            <span class="history-item-time">
-                                <i class="fas fa-clock"></i> ${formattedDate}
-                            </span>
-                            <span class="history-item-voice">
-                                <i class="fas fa-robot"></i> ${item.voiceName.substring(0, 15)}...
-                            </span>
-                        </div>
-                        <div class="history-item-content">
-                            ${previewText}
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: var(--text-muted); font-size: 0.75rem;">
-                                <i class="fas fa-tachometer-alt"></i> ${item.rate}x | 
-                                <i class="fas fa-chart-line"></i> ${item.pitch}
-                            </span>
-                            <div class="history-item-actions">
-                                <button class="history-item-btn" onclick="loadFromHistory(${index})" title="Load Text">
-                                    <i class="fas fa-file-alt"></i>
-                                </button>
-                                <button class="history-item-btn" onclick="speakFromHistory(${index})" title="Speak">
-                                    <i class="fas fa-play"></i>
-                                </button>
-                                <button class="history-item-btn" onclick="deleteHistoryItem(${index})" title="Delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            historyGrid.innerHTML = html;
-        }
-        
-        // Load from history
-        function loadFromHistory(index) {
-            const item = speechHistory[index];
-            if (item) {
-                textInput.value = item.text;
-                updateTextStats();
+                voices = speechSynthesis.getVoices();
                 
-                // Try to find and set the voice
-                if (item.voiceName) {
-                    const voice = voices.find(v => v.name === item.voiceName);
-                    if (voice) {
-                        voiceSelect.value = voice.name;
-                        currentVoice = voice;
-                        currentVoiceName.textContent = voice.name.split(' ').slice(0, 2).join(' ');
-                    }
-                }
+                // Clear select
+                voiceSelect.innerHTML = '';
                 
-                speedSlider.value = item.rate || 1.0;
-                speedValue.textContent = item.rate + 'x';
-                pitchSlider.value = item.pitch || 1.0;
-                pitchValue.textContent = item.pitch;
-            }
-        }
-        
-        // Speak from history
-        function speakFromHistory(index) {
-            const item = speechHistory[index];
-            if (item) {
-                textInput.value = item.text;
-                updateTextStats();
-                speak();
-            }
-        }
-        
-        // Delete history item
-        function deleteHistoryItem(index) {
-            speechHistory.splice(index, 1);
-            saveHistory();
-        }
-        
-        // Clear history
-        function clearHistory() {
-            if (confirm('Clear all speech history?')) {
-                speechHistory = [];
-                saveHistory();
-            }
-        }
-        
-        // Load voices
-        function loadVoices() {
-            voices = synthesis.getVoices();
-            
-            if (voices.length === 0) {
-                // Try again after a delay
-                setTimeout(loadVoices, 100);
-                return;
-            }
-            
-            // Clear select
-            voiceSelect.innerHTML = '';
-            
-            // Group voices by language
-            const groupedVoices = {};
-            voices.forEach(voice => {
-                const lang = voice.lang.split('-')[0];
-                if (!groupedVoices[lang]) {
-                    groupedVoices[lang] = [];
-                }
-                groupedVoices[lang].push(voice);
-            });
-            
-            // Add voices to select
-            Object.keys(groupedVoices).sort().forEach(lang => {
-                const langGroup = document.createElement('optgroup');
-                langGroup.label = new Intl.DisplayNames(['en'], { type: 'language' }).of(lang) || lang;
-                
-                groupedVoices[lang].forEach(voice => {
+                if (voices.length === 0) {
                     const option = document.createElement('option');
-                    option.value = voice.name;
-                    option.textContent = `${voice.name} (${voice.lang})${voice.default ? ' - Default' : ''}`;
-                    langGroup.appendChild(option);
+                    option.textContent = 'No voices available';
+                    option.disabled = true;
+                    option.selected = true;
+                    voiceSelect.appendChild(option);
+                    return;
+                }
+                
+                // Populate dropdown
+                voices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `${voice.name} (${voice.lang})${voice.default ? ' [Default]' : ''}`;
+                    voiceSelect.appendChild(option);
                 });
                 
-                voiceSelect.appendChild(langGroup);
-            });
-            
-            // Set default voice
-            const defaultVoice = voices.find(voice => voice.default) || voices[0];
-            if (defaultVoice) {
-                voiceSelect.value = defaultVoice.name;
-                currentVoice = defaultVoice;
-                currentVoiceName.textContent = defaultVoice.name.split(' ').slice(0, 2).join(' ');
-                voiceDetails.textContent = `${defaultVoice.lang} - ${defaultVoice.name}`;
+                // Select default voice
+                const defaultIndex = voices.findIndex(voice => voice.default);
+                if (defaultIndex !== -1) {
+                    voiceSelect.value = defaultIndex;
+                    updateVoiceDisplay();
+                }
             }
-        }
-        
-        // Initialize voices
-        if (synthesis) {
-            loadVoices();
-            if (speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = loadVoices;
+
+            // ---------- Update Voice Display ----------
+            function updateVoiceDisplay() {
+                const selectedIndex = voiceSelect.value;
+                if (selectedIndex && voices[selectedIndex]) {
+                    const voice = voices[selectedIndex];
+                    voiceDisplay.textContent = voice.name.split(' ').slice(0, 2).join(' ') || voice.name;
+                } else {
+                    voiceDisplay.textContent = 'Default voice';
+                }
             }
-        }
-        
-        // Voice change handler
-        voiceSelect.addEventListener('change', function() {
-            const selectedVoice = voices.find(voice => voice.name === this.value);
-            if (selectedVoice) {
-                currentVoice = selectedVoice;
-                currentVoiceName.textContent = selectedVoice.name.split(' ').slice(0, 2).join(' ');
-                voiceDetails.textContent = `${selectedVoice.lang} - ${selectedVoice.name}`;
-            }
-        });
-        
-        // Slider event listeners
-        speedSlider.addEventListener('input', function() {
-            speedValue.textContent = this.value + 'x';
-            if (utterance) {
-                utterance.rate = parseFloat(this.value);
-            }
-        });
-        
-        pitchSlider.addEventListener('input', function() {
-            pitchValue.textContent = this.value;
-            if (utterance) {
-                utterance.pitch = parseFloat(this.value);
-            }
-        });
-        
-        volumeSlider.addEventListener('input', function() {
-            volumeValue.textContent = Math.round(this.value * 100) + '%';
-            if (utterance) {
-                utterance.volume = parseFloat(this.value);
-            }
-        });
-        
-        // Text input stats
-        function updateTextStats() {
-            const text = textInput.value;
-            charCount.textContent = text.length;
-            
-            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-            wordCount.textContent = words;
-            
-            // Estimate duration (rough estimate: ~150 words per minute)
-            const minutes = words / 150;
-            const seconds = Math.round(minutes * 60);
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            estDuration.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-        
-        textInput.addEventListener('input', updateTextStats);
-        
-        // Speak function
-        function speak() {
-            if (!textInput.value.trim()) {
-                alert('Please enter some text to speak');
-                return;
-            }
-            
-            // Cancel current speech
-            if (synthesis.speaking) {
-                synthesis.cancel();
-            }
-            
-            // Create new utterance
-            utterance = new SpeechSynthesisUtterance(textInput.value);
-            
-            // Set voice and settings
-            if (currentVoice) {
-                utterance.voice = currentVoice;
-            }
-            
-            utterance.rate = parseFloat(speedSlider.value);
-            utterance.pitch = parseFloat(pitchSlider.value);
-            utterance.volume = parseFloat(volumeSlider.value);
-            
-            // Event handlers
-            utterance.onstart = function() {
-                isPlaying = true;
-                isPaused = false;
-                updatePlaybackState();
-                startProgressTracking();
-                waveformContainer.classList.add('playing');
-            };
-            
-            utterance.onend = function() {
-                isPlaying = false;
-                isPaused = false;
-                updatePlaybackState();
-                stopProgressTracking();
-                waveformContainer.classList.remove('playing');
-                progressFill.style.width = '0%';
-                currentTime.textContent = '00:00';
+
+            // ---------- Update Text Stats ----------
+            function updateStats() {
+                const text = textInput.value;
+                const charCountVal = text.length;
+                const wordCountVal = text.trim() ? text.trim().split(/\s+/).length : 0;
                 
-                // Add to history
-                addToHistory(textInput.value, currentVoice, utterance.rate, utterance.pitch);
-            };
-            
-            utterance.onpause = function() {
-                isPlaying = false;
-                isPaused = true;
-                updatePlaybackState();
-                waveformContainer.classList.remove('playing');
-            };
-            
-            utterance.onresume = function() {
-                isPlaying = true;
-                isPaused = false;
-                updatePlaybackState();
-                waveformContainer.classList.add('playing');
-            };
-            
-            utterance.onerror = function(event) {
-                console.error('Speech synthesis error:', event);
-                isPlaying = false;
-                isPaused = false;
-                updatePlaybackState();
-                waveformContainer.classList.remove('playing');
-                stopProgressTracking();
-                statusText.textContent = 'Error occurred';
-                statusIndicator.className = 'status-indicator stopped';
-            };
-            
-            // Speak
-            synthesis.speak(utterance);
-        }
-        
-        // Play/Pause toggle
-        function playPause() {
-            if (!textInput.value.trim()) {
-                alert('Please enter some text to speak');
-                return;
+                charCount.textContent = `${charCountVal} character${charCountVal !== 1 ? 's' : ''}`;
+                wordCount.textContent = `${wordCountVal} word${wordCountVal !== 1 ? 's' : ''}`;
             }
-            
-            if (isPlaying) {
-                synthesis.pause();
-            } else if (isPaused) {
-                synthesis.resume();
-            } else {
-                speak();
+
+            // ---------- Update Slider Displays ----------
+            function updateSliderDisplays() {
+                speedValue.textContent = `${parseFloat(speedSlider.value).toFixed(1)}x`;
+                pitchValue.textContent = parseFloat(pitchSlider.value).toFixed(1);
             }
-        }
-        
-        // Stop speech
-        function stop() {
-            if (synthesis.speaking) {
-                synthesis.cancel();
-                isPlaying = false;
-                isPaused = false;
-                updatePlaybackState();
-                waveformContainer.classList.remove('playing');
-                stopProgressTracking();
-                progressFill.style.width = '0%';
-                currentTime.textContent = '00:00';
-            }
-        }
-        
-        // Rewind 10 seconds
-        function rewind() {
-            // Note: Web Speech API doesn't support seeking
-            // This is a visual placeholder
-            statusText.textContent = 'Seeking not supported';
-            setTimeout(() => {
-                updatePlaybackState();
-            }, 1000);
-        }
-        
-        // Forward 10 seconds
-        function forward() {
-            // Note: Web Speech API doesn't support seeking
-            // This is a visual placeholder
-            statusText.textContent = 'Seeking not supported';
-            setTimeout(() => {
-                updatePlaybackState();
-            }, 1000);
-        }
-        
-        // Seek
-        function seek(event) {
-            // Note: Web Speech API doesn't support seeking
-            // This is a visual placeholder
-            const progressBar = document.getElementById('progressBar');
-            const rect = progressBar.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const percentage = (x / rect.width) * 100;
-            progressFill.style.width = percentage + '%';
-        }
-        
-        // Update playback state UI
-        function updatePlaybackState() {
-            if (isPlaying) {
-                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                statusText.textContent = 'Speaking...';
-                statusIndicator.className = 'status-indicator playing';
-                stopBtn.disabled = false;
-            } else if (isPaused) {
-                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                statusText.textContent = 'Paused';
-                statusIndicator.className = 'status-indicator paused';
-                stopBtn.disabled = false;
-            } else {
-                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                statusText.textContent = 'Ready to speak';
-                statusIndicator.className = 'status-indicator stopped';
-                stopBtn.disabled = true;
-            }
-        }
-        
-        // Start progress tracking
-        function startProgressTracking() {
-            stopProgressTracking();
-            progressInterval = setInterval(updateProgress, 100);
-        }
-        
-        // Stop progress tracking
-        function stopProgressTracking() {
-            if (progressInterval) {
-                clearInterval(progressInterval);
-                progressInterval = null;
-            }
-        }
-        
-        // Update progress
-        function updateProgress() {
-            // Note: Web Speech API doesn't provide accurate timing
-            // This is a simulation
-            if (isPlaying) {
-                const currentWidth = parseFloat(progressFill.style.width) || 0;
-                if (currentWidth < 90) {
-                    progressFill.style.width = (currentWidth + 0.5) + '%';
+
+            // ---------- Speak Text ----------
+            function speak() {
+                if (!isSupported) {
+                    alert('Speech synthesis is not supported in your browser.');
+                    return;
                 }
                 
-                // Simulate time display
-                const totalSeconds = Math.floor((textInput.value.length / 15) * 60);
-                const currentSeconds = Math.floor((currentWidth / 100) * totalSeconds);
+                const text = textInput.value.trim();
+                if (!text) {
+                    alert('Please enter some text to speak.');
+                    return;
+                }
                 
-                const currMins = Math.floor(currentSeconds / 60);
-                const currSecs = currentSeconds % 60;
-                currentTime.textContent = `${currMins.toString().padStart(2, '0')}:${currSecs.toString().padStart(2, '0')}`;
+                // Stop any ongoing speech
+                speechSynthesis.cancel();
                 
-                const totalMins = Math.floor(totalSeconds / 60);
-                const totalSecs = totalSeconds % 60;
-                totalTime.textContent = `${totalMins.toString().padStart(2, '0')}:${totalSecs.toString().padStart(2, '0')}`;
+                // Create new utterance
+                utterance = new SpeechSynthesisUtterance(text);
+                
+                // Set voice
+                const selectedIndex = voiceSelect.value;
+                if (selectedIndex && voices[selectedIndex]) {
+                    utterance.voice = voices[selectedIndex];
+                }
+                
+                // Set rate and pitch
+                utterance.rate = parseFloat(speedSlider.value);
+                utterance.pitch = parseFloat(pitchSlider.value);
+                
+                // Event handlers
+                utterance.onstart = function() {
+                    isSpeaking = true;
+                    isPaused = false;
+                    statusLed.classList.add('speaking');
+                    statusText.textContent = 'Speaking...';
+                    speakBtn.disabled = true;
+                    pauseBtn.disabled = false;
+                    stopBtn.disabled = false;
+                };
+                
+                utterance.onend = function() {
+                    isSpeaking = false;
+                    isPaused = false;
+                    statusLed.classList.remove('speaking');
+                    statusText.textContent = 'Ready';
+                    speakBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    stopBtn.disabled = true;
+                    pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                };
+                
+                utterance.onerror = function(event) {
+                    console.error('Speech synthesis error:', event);
+                    isSpeaking = false;
+                    isPaused = false;
+                    statusLed.classList.remove('speaking');
+                    statusText.textContent = 'Error';
+                    speakBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    stopBtn.disabled = true;
+                    pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                };
+                
+                utterance.onpause = function() {
+                    isPaused = true;
+                    statusText.textContent = 'Paused';
+                    pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+                };
+                
+                utterance.onresume = function() {
+                    isPaused = false;
+                    statusText.textContent = 'Speaking...';
+                    pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                };
+                
+                // Speak
+                speechSynthesis.speak(utterance);
             }
-        }
-        
-        // Download audio
-        function downloadAudio() {
-            if (!textInput.value.trim()) {
-                alert('No text to convert');
-                return;
+
+            // ---------- Pause/Resume ----------
+            function togglePause() {
+                if (!isSpeaking) return;
+                
+                if (isPaused) {
+                    speechSynthesis.resume();
+                } else {
+                    speechSynthesis.pause();
+                }
             }
-            
-            alert('Audio download requires server-side processing. This is a client-side demo.\n\nYou can save the synthesized speech by recording your computer audio.');
-        }
-        
-        // Clear text
-        function clearText() {
-            if (textInput.value.trim() && confirm('Clear all text?')) {
+
+            // ---------- Stop Speaking ----------
+            function stop() {
+                speechSynthesis.cancel();
+                isSpeaking = false;
+                isPaused = false;
+                statusLed.classList.remove('speaking');
+                statusText.textContent = 'Ready';
+                speakBtn.disabled = false;
+                pauseBtn.disabled = true;
+                stopBtn.disabled = true;
+                pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+            }
+
+            // ---------- Clear Text ----------
+            function clearText() {
                 textInput.value = '';
-                updateTextStats();
+                updateStats();
                 stop();
             }
-        }
-        
-        // Load sample text
-        function loadSample() {
-            textInput.value = 'Welcome to SG Tools Text to Speech. This is a powerful utility that converts written text into natural sounding speech. You can choose from multiple voices, adjust the speaking rate, pitch, and volume. Try it now with your own text!';
-            updateTextStats();
-        }
-        
-        // Download text as file
-        function downloadText() {
-            if (!textInput.value.trim()) {
-                alert('No text to download');
-                return;
+
+            // ---------- Copy Text to Clipboard ----------
+            function copyText() {
+                const text = textInput.value;
+                if (!text) {
+                    alert('Nothing to copy.');
+                    return;
+                }
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
+                });
             }
+
+            // ---------- Event Listeners ----------
+            // Text input
+            textInput.addEventListener('input', updateStats);
             
-            const blob = new Blob([textInput.value], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `sgtools-text-${Date.now()}.txt`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadHistory();
-            updateTextStats();
+            // Sliders
+            speedSlider.addEventListener('input', function() {
+                speedValue.textContent = `${parseFloat(speedSlider.value).toFixed(1)}x`;
+            });
+            pitchSlider.addEventListener('input', function() {
+                pitchValue.textContent = parseFloat(pitchSlider.value).toFixed(1);
+            });
             
-            // Set initial slider values
-            speedValue.textContent = speedSlider.value + 'x';
-            pitchValue.textContent = pitchSlider.value;
-            volumeValue.textContent = Math.round(volumeSlider.value * 100) + '%';
+            // Voice select
+            voiceSelect.addEventListener('change', updateVoiceDisplay);
             
-            // Disable stop button initially
-            stopBtn.disabled = true;
+            // Buttons
+            speakBtn.addEventListener('click', speak);
+            pauseBtn.addEventListener('click', togglePause);
+            stopBtn.addEventListener('click', stop);
+            clearBtn.addEventListener('click', clearText);
+            copyBtn.addEventListener('click', copyText);
             
-            // Set total time estimate
-            totalTime.textContent = '00:00';
-            currentTime.textContent = '00:00';
-        });
-        
-        // Export functions
-        window.speak = speak;
-        window.playPause = playPause;
-        window.stop = stop;
-        window.rewind = rewind;
-        window.forward = forward;
-        window.seek = seek;
-        window.clearText = clearText;
-        window.loadSample = loadSample;
-        window.downloadText = downloadText;
-        window.downloadAudio = downloadAudio;
-        window.clearHistory = clearHistory;
-        window.loadFromHistory = loadFromHistory;
-        window.speakFromHistory = speakFromHistory;
-        window.deleteHistoryItem = deleteHistoryItem;
+            // ---------- Voice Loading (handles async) ----------
+            if (isSupported) {
+                // Chrome loads voices asynchronously
+                speechSynthesis.onvoiceschanged = function() {
+                    loadVoices();
+                };
+                
+                // Initial load
+                loadVoices();
+                
+                // Some browsers (Safari) might have voices already
+                if (voices.length === 0) {
+                    voices = speechSynthesis.getVoices();
+                    if (voices.length > 0) {
+                        loadVoices();
+                    }
+                }
+            }
+
+            // ---------- Initial Updates ----------
+            updateStats();
+            updateSliderDisplays();
+            updateVoiceDisplay();
+        })();
     </script>
 </body>
 </html>
