@@ -3,798 +3,442 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Percentage Calculator - SG Tools</title>
+    <title>Percentage Calculator · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .percentage-inputs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .percentage-card {
-            background: var(--button-bg-alt);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .percentage-card:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.15);
-            transform: translateY(-5px);
-        }
-        
-        .percentage-card::before {
-            content: '%';
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: rgba(66, 248, 245, 0.1);
-            font-family: 'Courier New', monospace;
-        }
-        
-        .percentage-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 12px;
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-accent);
-            margin-bottom: 20px;
-            border: 1px solid rgba(66, 248, 245, 0.2);
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
-        
-        .percentage-card h3 {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            font-weight: 600;
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
         }
-        
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- Percentage Calculator Specific Styles ----- */
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .mode-btn {
+            flex: 1;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 100px;
+            padding: 0.5rem 0.3rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            transition: var(--transition);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .mode-btn i {
+            font-size: 0.7rem;
+        }
+
+        .mode-btn.active {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
         .input-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-        
+
         .input-field {
             flex: 1;
-            position: relative;
-            min-width: 80px;
-        }
-        
-        .input-field input {
-            width: 100%;
-            padding: 12px 15px;
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-        
-        .input-field input:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 2px rgba(66, 248, 245, 0.2);
-        }
-        
-        .input-symbol {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        
-        .equals-sign {
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-        
-        .result-badge {
-            background: rgba(66, 248, 245, 0.1);
-            border: 1px solid rgba(66, 248, 245, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .result-badge-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .result-badge-value {
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-            font-weight: 700;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .quick-calculations {
-            margin-top: 40px;
-            padding: 25px;
             background: var(--button-bg-alt);
-            border-radius: 16px;
             border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
         }
-        
-        .quick-title {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+
+        .input-field:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
         }
-        
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+
+        .input-hint {
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            text-align: right;
+            margin-top: 0.2rem;
         }
-        
-        .quick-btn {
+
+        .result-card {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            padding: 15px;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1rem 0 0.8rem;
+            text-align: center;
         }
-        
-        .quick-btn:hover {
-            border-color: var(--primary-accent);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.15);
-        }
-        
-        .quick-btn i {
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
             color: var(--primary-accent);
-            font-size: 1.3rem;
+            line-height: 1.2;
+            margin-bottom: 0.2rem;
+            word-break: break-word;
         }
-        
-        .quick-label {
+
+        .result-description {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .result-details {
+            background: rgba(10,15,30,0.6);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--dark-border);
             color: var(--text-secondary);
             font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0 0.5rem;
         }
-        
-        .quick-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-accent);
-        }
-        
-        /* Affiliate Section - Single Card */
-        .affiliate-section {
-            margin-top: 50px;
-        }
-        
-        .affiliate-card {
-            background: linear-gradient(135deg, rgba(66, 248, 245, 0.08), rgba(18, 21, 26, 0.95));
-            border-radius: 20px;
-            padding: 35px;
-            border: 1px solid rgba(66, 248, 245, 0.3);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 0.4rem;
+            transition: var(--transition);
+            cursor: pointer;
         }
-        
-        .affiliate-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
-        }
-        
-        .affiliate-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-accent);
-            box-shadow: 0 20px 40px rgba(66, 248, 245, 0.25);
-        }
-        
-        .affiliate-badge {
-            position: absolute;
-            top: 20px;
-            right: 30px;
+
+        .copy-btn:hover {
             background: var(--primary-accent);
             color: var(--main-bg);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
-        .affiliate-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(66, 248, 245, 0.15);
-            border-radius: 50%;
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            color: var(--primary-accent);
-            border: 2px solid rgba(66, 248, 245, 0.3);
-            flex-shrink: 0;
-        }
-        
-        .affiliate-content {
-            flex: 1;
-        }
-        
-        .affiliate-title {
-            color: var(--text-primary);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--text-primary), var(--primary-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .affiliate-description {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            max-width: 600px;
-        }
-        
-        .affiliate-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--primary-accent), var(--accent-shade));
-            color: var(--main-bg);
-            font-weight: 700;
-            padding: 14px 30px;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            gap: 0.6rem;
             transition: var(--transition);
-            border: none;
             cursor: pointer;
-            text-decoration: none;
+            margin-top: 0.5rem;
         }
-        
-        .affiliate-cta i {
-            transition: transform 0.3s ease;
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
         }
-        
-        .affiliate-card:hover .affiliate-cta i {
-            transform: translateX(8px) rotate(45deg);
-        }
-        
-        .affiliate-cta:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--glow-shadow);
-        }
-        
-        @media (max-width: 768px) {
-            .percentage-inputs {
-                grid-template-columns: 1fr;
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
             }
-            
-            .affiliate-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 25px;
+            .mode-selector {
+                flex-wrap: wrap;
             }
-            
-            .affiliate-badge {
-                position: relative;
-                top: 0;
-                right: 0;
-                display: inline-block;
-                margin-bottom: 15px;
+            .mode-btn {
+                flex: 1 0 calc(50% - 0.25rem);
+                white-space: normal;
+                padding: 0.5rem 0.2rem;
             }
-            
-            .input-row {
-                flex-direction: column;
-                align-items: stretch;
+            .result-value {
+                font-size: 1.6rem;
             }
-            
-            .equals-sign {
-                align-self: center;
-            }
-        }
-        
-        .percentage-tips {
-            margin-top: 40px;
-            background: var(--button-bg-alt);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(66, 248, 245, 0.15);
-        }
-        
-        .tips-title {
-            color: var(--primary-accent);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .tip-item {
-            background: var(--main-bg);
-            padding: 12px 18px;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            border: 1px solid var(--dark-border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .tip-item i {
-            color: var(--primary-accent);
-            font-size: 1rem;
-        }
-        
-        .operation-select {
-            background: var(--main-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--dark-border);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .operation-select:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-        }
-        
-        .operation-select:hover {
-            border-color: var(--primary-accent);
         }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span class="logo-title">SG Tools</span>
-                        <span class="logo-subtitle">Multi Utilities</span>
-                    </div>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </nav>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-percent"></i>
             </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Percentage Calculator</h1>
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="calculator-container">
-                <div class="calculator-header">
-                    <div class="calculator-header-icon">
-                        <i class="fas fa-percent"></i>
-                    </div>
-                    <h1 class="section-title">Percentage Calculator</h1>
-                    <p class="section-subtitle">Calculate percentages, ratios, proportions and more with precision</p>
-                </div>
-                
-                <div class="calculator-box">
-                    <!-- Type 1: What is X% of Y? -->
-                    <div class="percentage-card">
-                        <div class="percentage-icon">
-                            <i class="fas fa-percent"></i>
-                        </div>
-                        <h3>What is <span style="color: var(--primary-accent);">X%</span> of <span style="color: var(--primary-accent);">Y</span>?</h3>
-                        <div class="input-row">
-                            <div class="input-field">
-                                <input type="number" id="percentValue1" value="15" min="0" max="100" step="0.1">
-                            </div>
-                            <span class="input-symbol">% of</span>
-                            <div class="input-field">
-                                <input type="number" id="numberValue1" value="200" min="0" step="1">
-                            </div>
-                            <span class="equals-sign">=</span>
-                        </div>
-                        <div class="result-badge">
-                            <span class="result-badge-label">Result:</span>
-                            <span class="result-badge-value" id="result1">30.00</span>
-                        </div>
-                        <button class="tool-btn" style="margin-top: 15px;" onclick="calculateType1()">
-                            <i class="fas fa-calculator"></i> Calculate
-                        </button>
-                    </div>
-                    
-                    <!-- Type 2: X is what % of Y? -->
-                    <div class="percentage-card">
-                        <div class="percentage-icon">
-                            <i class="fas fa-question"></i>
-                        </div>
-                        <h3><span style="color: var(--primary-accent);">X</span> is what % of <span style="color: var(--primary-accent);">Y</span>?</h3>
-                        <div class="input-row">
-                            <div class="input-field">
-                                <input type="number" id="numberValue2" value="25" min="0" step="1">
-                            </div>
-                            <span class="input-symbol">is what % of</span>
-                            <div class="input-field">
-                                <input type="number" id="totalValue2" value="100" min="0" step="1">
-                            </div>
-                            <span class="equals-sign">=</span>
-                        </div>
-                        <div class="result-badge">
-                            <span class="result-badge-label">Result:</span>
-                            <span class="result-badge-value" id="result2">25.00%</span>
-                        </div>
-                        <button class="tool-btn" style="margin-top: 15px;" onclick="calculateType2()">
-                            <i class="fas fa-calculator"></i> Calculate
-                        </button>
-                    </div>
-                    
-                    <!-- Type 3: Percentage Increase/Decrease -->
-                    <div class="percentage-card">
-                        <div class="percentage-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Percentage Change</h3>
-                        <div class="input-row">
-                            <div class="input-field">
-                                <input type="number" id="oldValue" value="50" min="0" step="1">
-                            </div>
-                            <span class="input-symbol">to</span>
-                            <div class="input-field">
-                                <input type="number" id="newValue" value="75" min="0" step="1">
-                            </div>
-                            <span class="equals-sign">=</span>
-                        </div>
-                        <div class="result-badge">
-                            <span class="result-badge-label">Change:</span>
-                            <span class="result-badge-value" id="result3">+50.00%</span>
-                        </div>
-                        <button class="tool-btn" style="margin-top: 15px;" onclick="calculateType3()">
-                            <i class="fas fa-calculator"></i> Calculate
-                        </button>
-                    </div>
-                    
-                    <!-- Type 4: Add/Subtract % to Number -->
-                    <div class="percentage-card">
-                        <div class="percentage-icon">
-                            <i class="fas fa-plus-minus"></i>
-                        </div>
-                        <h3>Add/Subtract Percentage</h3>
-                        <div class="input-row">
-                            <div class="input-field">
-                                <input type="number" id="baseValue" value="100" min="0" step="1">
-                            </div>
-                            <select id="operationType" class="operation-select">
-                                <option value="add">+</option>
-                                <option value="subtract">-</option>
-                            </select>
-                            <div class="input-field">
-                                <input type="number" id="percentValue4" value="10" min="0" max="100" step="0.1">
-                            </div>
-                            <span class="input-symbol">%</span>
-                            <span class="equals-sign">=</span>
-                        </div>
-                        <div class="result-badge">
-                            <span class="result-badge-label">Result:</span>
-                            <span class="result-badge-value" id="result4">110.00</span>
-                        </div>
-                        <button class="tool-btn" style="margin-top: 15px;" onclick="calculateType4()">
-                            <i class="fas fa-calculator"></i> Calculate
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Quick Percentage Calculations -->
-                <div class="quick-calculations">
-                    <div class="quick-title">
-                        <i class="fas fa-bolt"></i> Quick Percentage Calculations
-                    </div>
-                    <div class="quick-grid">
-                        <button class="quick-btn" onclick="setQuickCalculation('10', '200')">
-                            <i class="fas fa-percent"></i>
-                            <span class="quick-label">10% of 200</span>
-                            <span class="quick-value" id="quick1">20</span>
-                        </button>
-                        <button class="quick-btn" onclick="setQuickCalculation('20', '150')">
-                            <i class="fas fa-percent"></i>
-                            <span class="quick-label">20% of 150</span>
-                            <span class="quick-value" id="quick2">30</span>
-                        </button>
-                        <button class="quick-btn" onclick="setQuickCalculation('25', '80')">
-                            <i class="fas fa-percent"></i>
-                            <span class="quick-label">25% of 80</span>
-                            <span class="quick-value" id="quick3">20</span>
-                        </button>
-                        <button class="quick-btn" onclick="setQuickCalculation('50', '1000')">
-                            <i class="fas fa-percent"></i>
-                            <span class="quick-label">50% of 1000</span>
-                            <span class="quick-value" id="quick4">500</span>
-                        </button>
-                        <button class="quick-btn" onclick="setQuickCalculation('75', '400')">
-                            <i class="fas fa-percent"></i>
-                            <span class="quick-label">75% of 400</span>
-                            <span class="quick-value" id="quick5">300</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Percentage Tips -->
-                <div class="percentage-tips">
-                    <div class="tips-title">
-                        <i class="fas fa-lightbulb"></i> Percentage Tips & Tricks
-                    </div>
-                    <div class="tips-grid">
-                        <div class="tip-item">
-                            <i class="fas fa-check-circle"></i> 10% = divide by 10
-                        </div>
-                        <div class="tip-item">
-                            <i class="fas fa-check-circle"></i> 20% = divide by 5
-                        </div>
-                        <div class="tip-item">
-                            <i class="fas fa-check-circle"></i> 25% = divide by 4
-                        </div>
-                        <div class="tip-item">
-                            <i class="fas fa-check-circle"></i> 50% = divide by 2
-                        </div>
-                        <div class="tip-item">
-                            <i class="fas fa-check-circle"></i> 75% = multiply by 0.75
-                        </div>
-                        <div class="tip-item">
-                            <i class="fas fa-check-circle"></i> 12.5% = divide by 8
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Affiliate Section - Single Card -->
-                <div class="affiliate-section">
-                    <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" class="affiliate-card" target="_blank" rel="nofollow sponsored">
-                        <span class="affiliate-badge">Recommended</span>
-                        <div class="affiliate-icon">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="affiliate-content">
-                            <h2 class="affiliate-title">Top 100% Commission System</h2>
-                            <p class="affiliate-description">
-                                Unlock the secrets to earning 100% commissions on every sale. 
-                                Join thousands of successful marketers who are already using this proven system to generate passive income online.
-                            </p>
-                            <span class="affiliate-cta">
-                                Learn More <i class="fas fa-arrow-right"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
-            </div>
+        <!-- Mode Selection (exact same style as Password Generator) -->
+        <div class="mode-selector">
+            <button id="modePercentOf" class="mode-btn active">
+                <i class="fas fa-calculator"></i> % of
+            </button>
+            <button id="modeChange" class="mode-btn">
+                <i class="fas fa-chart-line"></i> % change
+            </button>
+            <button id="modeFind" class="mode-btn">
+                <i class="fas fa-question"></i> find %
+            </button>
         </div>
-    </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#disclaimer">Disclaimer</a></li>
-                            <li><a href="#terms">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                            <li><a href="#sitemap">Sitemap</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Input Panel (dynamic labels) -->
+        <div class="input-group">
+            <div id="input1Label" class="input-label">
+                <i class="fas fa-dollar-sign"></i>
+                <span>Number</span>
             </div>
+            <input type="number" id="input1" class="input-field" value="100" step="any">
             
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact @sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
-                </div>
+            <div id="input2Label" class="input-label" style="margin-top: 0.8rem;">
+                <i class="fas fa-percent"></i>
+                <span>Percentage</span>
+            </div>
+            <input type="number" id="input2" class="input-field" value="20" step="any">
+            
+            <div id="inputHint" class="input-hint">
+                Enter values above
             </div>
         </div>
-    </footer>
+
+        <!-- Result Display -->
+        <div class="result-card">
+            <div id="resultValue" class="result-value">20</div>
+            <div id="resultDescription" class="result-description">20% of 100 = 20</div>
+        </div>
+
+        <!-- Details + Copy Button -->
+        <div class="result-details">
+            <span><i class="fas fa-info-circle" style="color: var(--primary-accent);"></i> Calculation</span>
+            <span id="calculationSummary" style="font-weight: 600; color: var(--text-primary);">100 × 0.20 = 20</span>
+            <button id="copyResultBtn" class="copy-btn" aria-label="Copy result">
+                <i class="fas fa-copy"></i>
+                <span>Copy</span>
+            </button>
+        </div>
+
+        <!-- Calculate Button -->
+        <button id="calculateBtn" class="generate-btn">
+            <i class="fas fa-sync-alt"></i> Calculate
+        </button>
+    </div>
 
     <script>
-        // DOM Elements
-        const percentValue1 = document.getElementById('percentValue1');
-        const numberValue1 = document.getElementById('numberValue1');
-        const result1 = document.getElementById('result1');
-        
-        const numberValue2 = document.getElementById('numberValue2');
-        const totalValue2 = document.getElementById('totalValue2');
-        const result2 = document.getElementById('result2');
-        
-        const oldValue = document.getElementById('oldValue');
-        const newValue = document.getElementById('newValue');
-        const result3 = document.getElementById('result3');
-        
-        const baseValue = document.getElementById('baseValue');
-        const percentValue4 = document.getElementById('percentValue4');
-        const operationType = document.getElementById('operationType');
-        const result4 = document.getElementById('result4');
-        
-        // Calculate Type 1: What is X% of Y?
-        function calculateType1() {
-            const percent = parseFloat(percentValue1.value) || 0;
-            const number = parseFloat(numberValue1.value) || 0;
-            const result = (percent / 100) * number;
-            result1.textContent = result.toFixed(2);
-        }
-        
-        // Calculate Type 2: X is what % of Y?
-        function calculateType2() {
-            const part = parseFloat(numberValue2.value) || 0;
-            const whole = parseFloat(totalValue2.value) || 1; // Prevent division by zero
-            if (whole === 0) {
-                result2.textContent = 'Error';
-                return;
+        (function() {
+            "use strict";
+
+            // ---------- DOM Elements ----------
+            const modePercentOf = document.getElementById('modePercentOf');
+            const modeChange = document.getElementById('modeChange');
+            const modeFind = document.getElementById('modeFind');
+            const input1Label = document.getElementById('input1Label');
+            const input2Label = document.getElementById('input2Label');
+            const inputHint = document.getElementById('inputHint');
+            const input1 = document.getElementById('input1');
+            const input2 = document.getElementById('input2');
+            const resultValue = document.getElementById('resultValue');
+            const resultDescription = document.getElementById('resultDescription');
+            const calculationSummary = document.getElementById('calculationSummary');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const copyBtn = document.getElementById('copyResultBtn');
+
+            // ---------- State ----------
+            let currentMode = 'percentOf'; // percentOf, change, find
+
+            // ---------- Set Active Mode ----------
+            function setActiveMode(mode) {
+                currentMode = mode;
+                
+                // Update button states
+                modePercentOf.classList.toggle('active', mode === 'percentOf');
+                modeChange.classList.toggle('active', mode === 'change');
+                modeFind.classList.toggle('active', mode === 'find');
+                
+                // Update UI labels based on mode
+                if (mode === 'percentOf') {
+                    input1Label.innerHTML = '<i class="fas fa-dollar-sign"></i> Number';
+                    input2Label.innerHTML = '<i class="fas fa-percent"></i> Percentage';
+                    input2.placeholder = 'e.g., 20';
+                    inputHint.textContent = 'Enter number and percentage';
+                } else if (mode === 'change') {
+                    input1Label.innerHTML = '<i class="fas fa-arrow-up"></i> From value';
+                    input2Label.innerHTML = '<i class="fas fa-arrow-down"></i> To value';
+                    input2.placeholder = 'e.g., 150';
+                    inputHint.textContent = 'Enter original and new value';
+                } else if (mode === 'find') {
+                    input1Label.innerHTML = '<i class="fas fa-puzzle-piece"></i> Part';
+                    input2Label.innerHTML = '<i class="fas fa-circle"></i> Whole';
+                    input2.placeholder = 'e.g., 200';
+                    inputHint.textContent = 'Enter part and whole';
+                }
+                
+                calculatePercentage();
             }
-            const percentage = (part / whole) * 100;
-            result2.textContent = percentage.toFixed(2) + '%';
-        }
-        
-        // Calculate Type 3: Percentage Change
-        function calculateType3() {
-            const oldVal = parseFloat(oldValue.value) || 0;
-            const newVal = parseFloat(newValue.value) || 0;
-            if (oldVal === 0) {
-                result3.textContent = 'Error';
-                return;
+
+            // ---------- Calculate Based on Mode ----------
+            function calculatePercentage() {
+                let val1 = parseFloat(input1.value);
+                let val2 = parseFloat(input2.value);
+                let result = 0;
+                let description = '';
+                let summary = '';
+
+                // Handle invalid inputs
+                if (isNaN(val1)) val1 = 0;
+                if (isNaN(val2)) val2 = 0;
+
+                if (currentMode === 'percentOf') {
+                    // X% of Y = (X/100)*Y
+                    result = (val2 / 100) * val1;
+                    description = `${val2}% of ${formatNumber(val1)} = ${formatNumber(result)}`;
+                    summary = `${formatNumber(val1)} × ${val2/100} = ${formatNumber(result)}`;
+                } else if (currentMode === 'change') {
+                    // Percentage change from X to Y = ((Y-X)/X)*100
+                    if (val1 !== 0) {
+                        result = ((val2 - val1) / val1) * 100;
+                    } else {
+                        result = 0;
+                    }
+                    const sign = result >= 0 ? 'increase' : 'decrease';
+                    description = `Change from ${formatNumber(val1)} to ${formatNumber(val2)} = ${formatNumber(Math.abs(result))}% ${sign}`;
+                    summary = `((${formatNumber(val2)} - ${formatNumber(val1)}) / ${formatNumber(val1)}) × 100 = ${formatNumber(result)}%`;
+                } else if (currentMode === 'find') {
+                    // X is what % of Y = (X/Y)*100
+                    if (val2 !== 0) {
+                        result = (val1 / val2) * 100;
+                    } else {
+                        result = 0;
+                    }
+                    description = `${formatNumber(val1)} is ${formatNumber(result)}% of ${formatNumber(val2)}`;
+                    summary = `(${formatNumber(val1)} / ${formatNumber(val2)}) × 100 = ${formatNumber(result)}%`;
+                }
+
+                // Format result with appropriate decimal places
+                resultValue.textContent = formatNumber(result) + (currentMode !== 'percentOf' ? '%' : '');
+                resultDescription.textContent = description;
+                calculationSummary.textContent = summary;
             }
-            const change = ((newVal - oldVal) / oldVal) * 100;
-            const sign = change > 0 ? '+' : '';
-            result3.textContent = sign + change.toFixed(2) + '%';
-        }
-        
-        // Calculate Type 4: Add/Subtract Percentage
-        function calculateType4() {
-            const base = parseFloat(baseValue.value) || 0;
-            const percent = parseFloat(percentValue4.value) || 0;
-            const operation = operationType.value;
-            
-            const percentValue = (percent / 100) * base;
-            let result;
-            
-            if (operation === 'add') {
-                result = base + percentValue;
-            } else {
-                result = base - percentValue;
+
+            // ---------- Format Number Helper ----------
+            function formatNumber(num) {
+                if (num === 0) return '0';
+                if (Math.abs(num) < 0.0001) return num.toExponential(2);
+                // Round to 2 decimal places for readability, remove trailing .00
+                const rounded = Math.round(num * 100) / 100;
+                return rounded.toLocaleString(undefined, { 
+                    minimumFractionDigits: 0, 
+                    maximumFractionDigits: 2 
+                });
             }
-            
-            result4.textContent = result.toFixed(2);
-        }
-        
-        // Set Quick Calculation
-        function setQuickCalculation(percent, number) {
-            percentValue1.value = percent;
-            numberValue1.value = number;
-            calculateType1();
-            
-            // Scroll to first calculator
-            document.querySelector('.percentage-card').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Auto-calculate on input change
-        percentValue1.addEventListener('input', calculateType1);
-        numberValue1.addEventListener('input', calculateType1);
-        
-        numberValue2.addEventListener('input', calculateType2);
-        totalValue2.addEventListener('input', calculateType2);
-        
-        oldValue.addEventListener('input', calculateType3);
-        newValue.addEventListener('input', calculateType3);
-        
-        baseValue.addEventListener('input', calculateType4);
-        percentValue4.addEventListener('input', calculateType4);
-        operationType.addEventListener('change', calculateType4);
-        
-        // Initialize all calculations
-        window.onload = function() {
-            calculateType1();
-            calculateType2();
-            calculateType3();
-            calculateType4();
-            
-            // Update quick calculation values
-            document.getElementById('quick1').textContent = (0.1 * 200).toFixed(0);
-            document.getElementById('quick2').textContent = (0.2 * 150).toFixed(0);
-            document.getElementById('quick3').textContent = (0.25 * 80).toFixed(0);
-            document.getElementById('quick4').textContent = (0.5 * 1000).toFixed(0);
-            document.getElementById('quick5').textContent = (0.75 * 400).toFixed(0);
-        };
+
+            // ---------- Copy Result to Clipboard ----------
+            function copyResult() {
+                const text = resultDescription.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
+                });
+            }
+
+            // ---------- Event Listeners ----------
+            modePercentOf.addEventListener('click', () => setActiveMode('percentOf'));
+            modeChange.addEventListener('click', () => setActiveMode('change'));
+            modeFind.addEventListener('click', () => setActiveMode('find'));
+
+            input1.addEventListener('input', calculatePercentage);
+            input2.addEventListener('input', calculatePercentage);
+            calculateBtn.addEventListener('click', calculatePercentage);
+            copyBtn.addEventListener('click', copyResult);
+
+            // ---------- Initial Calculation ----------
+            setActiveMode('percentOf');
+        })();
     </script>
 </body>
 </html>
