@@ -65,7 +65,7 @@
             text-align: center;
         }
 
-        input[type="date"] {
+        .date-input {
             width: 100%;
             background: var(--button-bg-alt);
             border: 1px solid var(--dark-border);
@@ -78,22 +78,24 @@
             transition: var(--transition);
         }
 
-        input[type="date"]:focus {
+        .date-input:focus {
             border-color: var(--primary-accent);
             box-shadow: 0 0 0 3px var(--glow-shadow);
         }
 
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.8);
-            cursor: pointer;
+        .input-hint {
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            margin-top: 0.2rem;
+            text-align: right;
         }
 
         .result-card {
-            background: var(--button-bg-alt);
+            background: var(--main-bg);
             border: 1px solid var(--dark-border);
             border-radius: 20px;
             padding: 1.2rem;
-            margin: 1.2rem 0 0.8rem;
+            margin: 1rem 0 0.8rem;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 0.8rem;
@@ -119,7 +121,7 @@
             letter-spacing: 1px;
         }
 
-        .age-details {
+        .result-details {
             background: rgba(10,15,30,0.6);
             border-radius: 14px;
             padding: 0.8rem 1rem;
@@ -183,6 +185,13 @@
             transform: translateY(-2px);
         }
 
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
+            text-align: center;
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -208,25 +217,24 @@
             <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Age Calculator</h1>
         </div>
 
-        <!-- Input: Birth Date -->
+        <!-- Birth Date -->
         <div class="input-group">
             <div class="input-label">
                 <i class="fas fa-calendar-alt"></i>
-                <span>Date of birth</span>
+                <span>Date of birth (dd-mm-yyyy)</span>
             </div>
-            <input type="date" id="birthDate" max="2026-02-13" value="1990-01-01">
+            <input type="text" id="birthDate" class="date-input" placeholder="e.g. 15-08-1947" value="01-01-1990">
+            <div class="input-hint">Format: day-month-year</div>
         </div>
 
-        <!-- Input: As of Date (optional, defaults to today) -->
+        <!-- As of Date (optional) -->
         <div class="input-group" style="margin-bottom: 0.5rem;">
             <div class="input-label">
                 <i class="fas fa-calendar-check"></i>
-                <span>As of date (optional)</span>
+                <span>As of date (dd-mm-yyyy, optional)</span>
             </div>
-            <input type="date" id="asOfDate" value="2026-02-13">
-            <p style="color: var(--text-muted); font-size: 0.7rem; margin-top: 0.3rem; text-align: right;">
-                <i class="fas fa-info-circle"></i> Leave blank to use today
-            </p>
+            <input type="text" id="asOfDate" class="date-input" placeholder="Leave blank for today">
+            <div class="input-hint">If blank, uses current date</div>
         </div>
 
         <!-- Results Card (Years / Months / Days) -->
@@ -246,7 +254,7 @@
         </div>
 
         <!-- Additional Details + Copy Button -->
-        <div class="age-details">
+        <div class="result-details">
             <span><i class="fas fa-hourglass-half" style="color: var(--primary-accent);"></i> Total days</span>
             <span id="totalDaysValue" style="font-weight: 600; color: var(--text-primary);">13,189</span>
             <button id="copyResultBtn" class="copy-btn" aria-label="Copy age summary">
@@ -254,6 +262,9 @@
                 <span>Copy</span>
             </button>
         </div>
+
+        <!-- Error Display -->
+        <div id="errorDisplay" class="error-message"></div>
 
         <!-- Calculate Button -->
         <button id="calculateBtn" class="generate-btn">
@@ -274,36 +285,64 @@
             const totalDaysSpan = document.getElementById('totalDaysValue');
             const calculateBtn = document.getElementById('calculateBtn');
             const copyBtn = document.getElementById('copyResultBtn');
+            const errorDisplay = document.getElementById('errorDisplay');
 
-            // Set max date to today
-            const today = new Date().toISOString().split('T')[0];
-            birthDateInput.setAttribute('max', today);
-            if (!asOfDateInput.value) {
-                asOfDateInput.value = today;
+            // Helper: parse dd-mm-yyyy to Date object
+            function parseDate(dateStr) {
+                if (!dateStr) return null;
+                const parts = dateStr.split('-');
+                if (parts.length !== 3) return null;
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
+                const year = parseInt(parts[2], 10);
+                if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+                // Basic range checks
+                if (day < 1 || day > 31 || month < 0 || month > 11 || year < 1000 || year > 9999) return null;
+                const date = new Date(year, month, day);
+                // Verify that the date is valid (e.g., not 31 Feb)
+                if (date.getDate() !== day || date.getMonth() !== month || date.getFullYear() !== year) return null;
+                return date;
             }
 
-            // Calculate age function
+            // Format date to readable string (for display)
+            function formatDate(date) {
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            // Calculate age
             function calculateAge() {
-                const birthDate = new Date(birthDateInput.value);
-                if (isNaN(birthDate.getTime())) {
-                    alert('Please enter a valid birth date.');
+                errorDisplay.textContent = ''; // clear previous error
+
+                const birthStr = birthDateInput.value.trim();
+                if (!birthStr) {
+                    errorDisplay.textContent = 'Please enter your date of birth.';
+                    return;
+                }
+
+                const birthDate = parseDate(birthStr);
+                if (!birthDate) {
+                    errorDisplay.textContent = 'Invalid birth date. Use format dd-mm-yyyy (e.g., 15-08-1947).';
                     return;
                 }
 
                 let asOfDate;
-                if (asOfDateInput.value) {
-                    asOfDate = new Date(asOfDateInput.value);
-                    if (isNaN(asOfDate.getTime())) {
-                        alert('Please enter a valid "as of" date.');
+                const asOfStr = asOfDateInput.value.trim();
+                if (asOfStr) {
+                    asOfDate = parseDate(asOfStr);
+                    if (!asOfDate) {
+                        errorDisplay.textContent = 'Invalid "as of" date. Use format dd-mm-yyyy or leave blank.';
                         return;
                     }
                 } else {
-                    asOfDate = new Date();
+                    asOfDate = new Date(); // today
                 }
 
-                // Ensure birth date is not after as of date
+                // Ensure birth date <= as of date
                 if (birthDate > asOfDate) {
-                    alert('Birth date cannot be after the "as of" date.');
+                    errorDisplay.textContent = 'Birth date cannot be after the "as of" date.';
                     return;
                 }
 
@@ -338,14 +377,14 @@
 
             // Copy age summary
             function copyAgeSummary() {
-                const birthDate = birthDateInput.value ? new Date(birthDateInput.value).toLocaleDateString() : 'Not set';
-                const asOfDate = asOfDateInput.value ? new Date(asOfDateInput.value).toLocaleDateString() : 'Today';
+                const birthStr = birthDateInput.value.trim() || 'Not set';
+                const asOfStr = asOfDateInput.value.trim() ? asOfDateInput.value.trim() : 'Today';
                 const years = yearsSpan.textContent;
                 const months = monthsSpan.textContent;
                 const days = daysSpan.textContent;
                 const totalDays = totalDaysSpan.textContent;
 
-                const summary = `Age: ${years} years, ${months} months, ${days} days (${totalDays} total days) • Born: ${birthDate} • As of: ${asOfDate}`;
+                const summary = `Age: ${years} years, ${months} months, ${days} days (${totalDays} total days) • Born: ${birthStr} • As of: ${asOfStr}`;
                 
                 navigator.clipboard.writeText(summary).then(() => {
                     copyBtn.classList.add('copied');
@@ -364,12 +403,10 @@
             calculateBtn.addEventListener('click', calculateAge);
             copyBtn.addEventListener('click', copyAgeSummary);
 
-            // Auto‑calculate on page load
-            calculateAge();
+            // Optional: calculate on Enter key? Not needed, button is fine.
 
-            // Re‑calculate when dates change (optional)
-            birthDateInput.addEventListener('change', calculateAge);
-            asOfDateInput.addEventListener('change', calculateAge);
+            // Initial calculation
+            calculateAge();
         })();
     </script>
 </body>
