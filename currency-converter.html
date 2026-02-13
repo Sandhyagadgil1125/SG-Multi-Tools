@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,7 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- Currency Converter Specific Styles ----- */
+        /* Currency Converter specific styles */
         .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -122,6 +122,7 @@
             color: var(--text-secondary);
             transition: var(--transition);
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .swap-btn:hover {
@@ -142,7 +143,7 @@
         }
 
         .result-amount {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary-accent);
             line-height: 1.2;
@@ -152,7 +153,7 @@
 
         .result-rate {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
@@ -227,6 +228,39 @@
             margin-top: 0.3rem;
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -274,13 +308,7 @@
             </div>
             
             <!-- From Currency -->
-            <select id="fromCurrency" class="currency-select">
-                <option value="USD" selected>USD - US Dollar</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="JPY">JPY - Japanese Yen</option>
-                <option value="INR">INR - Indian Rupee</option>
-            </select>
+            <select id="fromCurrency" class="currency-select"></select>
             
             <!-- Swap Button -->
             <div style="display: flex; justify-content: center; margin: 0.3rem 0;">
@@ -290,13 +318,7 @@
             </div>
             
             <!-- To Currency -->
-            <select id="toCurrency" class="currency-select">
-                <option value="EUR" selected>EUR - Euro</option>
-                <option value="USD">USD - US Dollar</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="JPY">JPY - Japanese Yen</option>
-                <option value="INR">INR - Indian Rupee</option>
-            </select>
+            <select id="toCurrency" class="currency-select"></select>
         </div>
 
         <!-- Result Display -->
@@ -308,7 +330,7 @@
         <!-- Details + Copy Button -->
         <div class="result-details">
             <span><i class="fas fa-clock" style="color: var(--primary-accent);"></i> Last updated</span>
-            <span id="lastUpdated" style="font-weight: 600; color: var(--text-primary);">Loading...</span>
+            <span id="lastUpdated" style="font-weight: 600; color: var(--text-primary);">Just now</span>
             <button id="copyResultBtn" class="copy-btn" aria-label="Copy conversion">
                 <i class="fas fa-copy"></i>
                 <span>Copy</span>
@@ -323,13 +345,75 @@
         <div class="last-updated">
             <i class="fas fa-info-circle"></i> Rates: budget.org (free, no API key)
         </div>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-coins"></i> About the Currency Converter
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our Currency Converter provides real‑time exchange rates for over 150 currencies worldwide. Whether you're planning an international trip, managing a business with foreign suppliers, or simply curious about exchange rates, this tool gives you accurate conversions instantly – with no hidden fees or API keys required.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Live rates:</strong> Exchange rates are fetched from a free, reliable API and updated automatically.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>150+ currencies:</strong> Includes major and minor currencies from around the globe.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Swap currencies:</strong> Reverse the conversion instantly with one click.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Copy result:</strong> Copy the converted amount and the exchange rate with a single button.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Enter the amount you want to convert.</li>
+            <li>Select the source currency from the first dropdown.</li>
+            <li>Select the target currency from the second dropdown.</li>
+            <li>Click the swap button (↕️) to reverse the currencies if needed.</li>
+            <li>The converted amount and the exchange rate appear instantly.</li>
+            <li>Click the <strong>"Copy"</strong> button to copy the conversion summary to your clipboard.</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Why Use Our Converter?</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>Privacy first:</strong> All conversions happen in your browser – we don't store or track your queries.</li>
+            <li><strong>No API key needed:</strong> Many online converters require you to sign up; ours is completely free.</li>
+            <li><strong>Cache efficient:</strong> Rates are cached for one hour to reduce API calls and speed up repeated use.</li>
+            <li><strong>Works offline:</strong> If the API is unavailable, fallback rates ensure you can still convert.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                "Never overpay on international transfers – check the real rate before you exchange."
+            </p>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
             const amountInput = document.getElementById('amountInput');
             const fromCurrency = document.getElementById('fromCurrency');
             const toCurrency = document.getElementById('toCurrency');
@@ -340,13 +424,11 @@
             const lastUpdatedSpan = document.getElementById('lastUpdated');
             const copyBtn = document.getElementById('copyResultBtn');
 
-            // ---------- State ----------
             let exchangeRates = null;
             let lastFetchTime = null;
             const CURRENCIES_CACHE_KEY = 'sg_currencies_cache';
             const CACHE_DURATION = 3600000; // 1 hour
 
-            // ---------- Complete currency list (ISO 4217) ----------
             const currencyList = [
                 { code: "USD", name: "US Dollar" },
                 { code: "EUR", name: "Euro" },
@@ -512,16 +594,13 @@
                 { code: "ZWL", name: "Zimbabwean Dollar" }
             ];
 
-            // ---------- Populate dropdowns ----------
             function populateCurrencyDropdowns() {
-                const fromSelect = document.getElementById('fromCurrency');
-                const toSelect = document.getElementById('toCurrency');
+                const fromSelect = fromCurrency;
+                const toSelect = toCurrency;
                 
-                // Clear existing options
                 fromSelect.innerHTML = '';
                 toSelect.innerHTML = '';
                 
-                // Sort currencies alphabetically by code
                 const sortedCurrencies = [...currencyList].sort((a, b) => a.code.localeCompare(b.code));
                 
                 sortedCurrencies.forEach(currency => {
@@ -536,15 +615,12 @@
                     toSelect.appendChild(toOption);
                 });
                 
-                // Set default values
                 fromSelect.value = 'USD';
                 toSelect.value = 'EUR';
             }
 
-            // ---------- Fetch exchange rates ----------
             async function fetchExchangeRates() {
                 try {
-                    // Check cache first
                     const cached = localStorage.getItem(CURRENCIES_CACHE_KEY);
                     if (cached) {
                         const { rates, timestamp } = JSON.parse(cached);
@@ -553,18 +629,15 @@
                             exchangeRates = rates;
                             lastFetchTime = new Date(timestamp);
                             updateLastUpdated();
-                            populateCurrencyDropdowns(); // Ensure dropdowns are populated
                             return rates;
                         }
                     }
 
-                    // Fetch new rates - using free API with no key required [citation:8]
                     const response = await fetch('https://api.budjet.org/fiat/USD');
                     if (!response.ok) throw new Error('Failed to fetch rates');
                     
                     const data = await response.json();
                     
-                    // Cache the rates
                     localStorage.setItem(CURRENCIES_CACHE_KEY, JSON.stringify({
                         rates: data.rates,
                         timestamp: Date.now()
@@ -577,7 +650,6 @@
                 } catch (error) {
                     console.error('Error fetching rates:', error);
                     
-                    // Fallback to approximate rates if API fails
                     exchangeRates = {
                         USD: 1,
                         EUR: 0.92,
@@ -607,7 +679,6 @@
                 }
             }
 
-            // ---------- Update last updated display ----------
             function updateLastUpdated() {
                 if (lastFetchTime) {
                     const now = new Date();
@@ -625,7 +696,6 @@
                 }
             }
 
-            // ---------- Perform conversion ----------
             async function convertCurrency() {
                 if (!exchangeRates) {
                     await fetchExchangeRates();
@@ -647,20 +717,16 @@
                     return;
                 }
 
-                // Convert via USD base
                 const usdAmount = amount / exchangeRates[from];
                 const convertedAmount = usdAmount * exchangeRates[to];
                 
-                // Format with appropriate decimal places
                 const decimals = to === 'JPY' || to === 'KRW' || to === 'IDR' ? 0 : 2;
                 const formattedAmount = convertedAmount.toFixed(decimals);
                 
-                // Display result
                 resultAmount.textContent = `${formattedAmount} ${to}`;
                 exchangeRate.textContent = `1 ${from} = ${(exchangeRates[to] / exchangeRates[from]).toFixed(4)} ${to}`;
             }
 
-            // ---------- Swap currencies ----------
             function swapCurrencies() {
                 const fromValue = fromCurrency.value;
                 const toValue = toCurrency.value;
@@ -669,7 +735,6 @@
                 convertCurrency();
             }
 
-            // ---------- Copy result to clipboard ----------
             function copyResult() {
                 const amount = parseFloat(amountInput.value) || 0;
                 const from = fromCurrency.value;
@@ -692,20 +757,17 @@
                 });
             }
 
-            // ---------- Initialize ----------
             async function init() {
                 populateCurrencyDropdowns();
                 await fetchExchangeRates();
                 await convertCurrency();
                 
-                // Update rates every 5 minutes
                 setInterval(async () => {
                     await fetchExchangeRates();
                     await convertCurrency();
                 }, 300000);
             }
 
-            // ---------- Event Listeners ----------
             convertBtn.addEventListener('click', convertCurrency);
             swapBtn.addEventListener('click', swapCurrencies);
             copyBtn.addEventListener('click', copyResult);
@@ -713,7 +775,6 @@
             fromCurrency.addEventListener('change', convertCurrency);
             toCurrency.addEventListener('change', convertCurrency);
 
-            // Start the app
             init();
         })();
     </script>
