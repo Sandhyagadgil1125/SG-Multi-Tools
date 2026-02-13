@@ -238,21 +238,16 @@
             color: var(--main-bg);
         }
 
-        /* Hide AdSense description on mobile */
+        /* HIDE DESCRIPTION ON MOBILE - THIS IS FOR INDIVIDUAL TOOL PAGES ONLY */
         @media (max-width: 768px) {
-            /* Target any div that comes after the tool-standalone */
-            body > div:not(.tool-standalone) {
+            /* Hide the AdSense description div (the one after tool-standalone) */
+            div[style*="margin-top: 2rem"] {
                 display: none !important;
             }
             
-            /* Make sure the tool is centered properly */
-            body {
-                padding: 5px;
-            }
-            
+            /* Make sure the tool is centered */
             .tool-standalone {
-                max-width: 100%;
-                margin: 0 auto;
+                margin: 10px auto;
             }
         }
 
@@ -269,12 +264,6 @@
                 font-size: 0.75rem;
             }
         }
-        /* Hide AdSense description on mobile */
-@media (max-width: 768px) {
-    body > div:not(.tool-standalone) {
-        display: none !important;
-    }
-}
     </style>
 </head>
 <body>
@@ -347,7 +336,7 @@
         </div>
     </div>
 
-    <!-- Additional content for AdSense (hidden on mobile) -->
+    <!-- Additional content for AdSense (HIDDEN ON MOBILE) -->
     <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
         <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
             <i class="fas fa-text-height"></i> About the Case Changer
@@ -355,170 +344,14 @@
         <p style="margin-bottom: 1rem; line-height: 1.6;">
             Our Case Changer is a simple yet powerful tool that instantly converts text between different letter cases. Whether you need to fix inconsistent capitalization in a document, prepare text for programming, or format titles for social media, this tool does it in real‑time with no server uploads.
         </p>
-        
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
-        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>UPPERCASE:</strong> Converts all letters to capitals – useful for headings or emphasis.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>lowercase:</strong> Makes every letter small – great for casual writing or code comments.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Title Case:</strong> Capitalizes the first letter of each word – perfect for book titles, headlines, and names.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Sentence case:</strong> Capitalizes only the first letter of the first word – standard for normal sentences.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>camelCase:</strong> Removes spaces and capitalizes each word after the first – used in programming (e.g., <code>myVariableName</code>).</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>PascalCase:</strong> Similar to camelCase but the first word is also capitalized – common for class names in programming.</span>
-            </li>
-        </ul>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
-        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li>Type or paste your text into the input box.</li>
-            <li>Select the desired case mode by clicking one of the six buttons.</li>
-            <li>The converted text appears instantly in the output box.</li>
-            <li>Click the <strong>"Copy"</strong> button to copy the result to your clipboard.</li>
-            <li>Use <strong>"Convert"</strong> to manually trigger conversion (though it updates automatically).</li>
-        </ol>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 When to Use Each Case</h4>
-        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li><strong>UPPERCASE:</strong> Shouting, acronyms, or decorative text.</li>
-            <li><strong>lowercase:</strong> URLs, email addresses, or stylistic choices.</li>
-            <li><strong>Title Case:</strong> News headlines, book titles, presentation slides.</li>
-            <li><strong>Sentence case:</strong> Regular paragraphs, emails, articles.</li>
-            <li><strong>camelCase:</strong> JavaScript variables, JSON keys, programming identifiers.</li>
-            <li><strong>PascalCase:</strong> C# class names, React component names.</li>
-        </ul>
-
-        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
-                "Whether you're a writer, programmer, or student, this tool saves you from manually retyping text."
-            </p>
-        </div>
+        <!-- ... rest of description ... -->
     </div>
 
     <script>
+        // Your existing JavaScript
         (function() {
             "use strict";
-
-            const inputText = document.getElementById('inputText');
-            const outputText = document.getElementById('outputText');
-            const convertBtn = document.getElementById('convertBtn');
-            const copyBtn = document.getElementById('copyBtn');
-            const modeBtns = document.querySelectorAll('.mode-btn');
-
-            let currentMode = 'title';
-
-            function setActiveMode(mode) {
-                modeBtns.forEach(btn => {
-                    if (btn.dataset.mode === mode) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-                currentMode = mode;
-            }
-
-            modeBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    setActiveMode(this.dataset.mode);
-                    convertCase();
-                });
-            });
-
-            function toTitleCase(str) {
-                return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-            }
-
-            function toSentenceCase(str) {
-                if (!str) return str;
-                return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-            }
-
-            function toCamelCase(str) {
-                const words = str.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
-                if (words.length === 0) return '';
-                const firstWord = words[0].toLowerCase();
-                const restWords = words.slice(1).map(word => 
-                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-                );
-                return firstWord + restWords.join('');
-            }
-
-            function toPascalCase(str) {
-                const words = str.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
-                return words.map(word => 
-                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-                ).join('');
-            }
-
-            function convertCase() {
-                const text = inputText.value;
-                if (!text) {
-                    outputText.value = '';
-                    return;
-                }
-
-                let result = '';
-                switch (currentMode) {
-                    case 'uppercase':
-                        result = text.toUpperCase();
-                        break;
-                    case 'lowercase':
-                        result = text.toLowerCase();
-                        break;
-                    case 'title':
-                        result = toTitleCase(text);
-                        break;
-                    case 'sentence':
-                        result = toSentenceCase(text);
-                        break;
-                    case 'camel':
-                        result = toCamelCase(text);
-                        break;
-                    case 'pascal':
-                        result = toPascalCase(text);
-                        break;
-                    default:
-                        result = text;
-                }
-                outputText.value = result;
-            }
-
-            function copyResult() {
-                if (!outputText.value) return;
-                navigator.clipboard.writeText(outputText.value).then(() => {
-                    copyBtn.classList.add('copied');
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = originalHTML;
-                    }, 2000);
-                }).catch(() => {
-                    alert('Failed to copy. Please copy manually.');
-                });
-            }
-
-            convertBtn.addEventListener('click', convertCase);
-            copyBtn.addEventListener('click', copyResult);
-            inputText.addEventListener('input', convertCase);
-
-            convertCase();
+            // ... (keep your existing script) ...
         })();
     </script>
 </body>
