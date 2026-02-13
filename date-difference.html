@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,7 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- Date Difference Specific Styles ----- */
+        /* Date Difference specific styles */
         .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -65,7 +65,7 @@
             text-align: center;
         }
 
-        input[type="date"] {
+        .date-input {
             width: 100%;
             background: var(--button-bg-alt);
             border: 1px solid var(--dark-border);
@@ -78,14 +78,9 @@
             transition: var(--transition);
         }
 
-        input[type="date"]:focus {
+        .date-input:focus {
             border-color: var(--primary-accent);
             box-shadow: 0 0 0 3px var(--glow-shadow);
-        }
-
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.8);
-            cursor: pointer;
         }
 
         .checkbox-row {
@@ -199,6 +194,39 @@
             transform: translateY(-2px);
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -228,18 +256,18 @@
         <div class="input-group">
             <div class="input-label">
                 <i class="fas fa-calendar"></i>
-                <span>Start Date</span>
+                <span>Start Date (dd-mm-yyyy)</span>
             </div>
-            <input type="date" id="startDate">
+            <input type="text" id="startDate" class="date-input" placeholder="e.g. 01-01-2023" value="01-01-2023">
         </div>
 
         <!-- End Date -->
         <div class="input-group" style="margin-bottom: 0.5rem;">
             <div class="input-label">
                 <i class="fas fa-calendar-check"></i>
-                <span>End Date</span>
+                <span>End Date (dd-mm-yyyy)</span>
             </div>
-            <input type="date" id="endDate">
+            <input type="text" id="endDate" class="date-input" placeholder="e.g. 31-12-2023" value="31-12-2023">
         </div>
 
         <!-- Include End Date Toggle -->
@@ -248,18 +276,18 @@
             <label for="includeEndDate">Include end date in calculation</label>
         </div>
 
-        <!-- Results Card (Days, Weeks, Months, Years) -->
+        <!-- Results Card -->
         <div class="result-card">
             <div class="result-item">
-                <span class="result-value" id="daysValue">1</span>
+                <span class="result-value" id="daysValue">364</span>
                 <span class="result-label">Days</span>
             </div>
             <div class="result-item">
-                <span class="result-value" id="weeksValue">0</span>
+                <span class="result-value" id="weeksValue">52</span>
                 <span class="result-label">Weeks</span>
             </div>
             <div class="result-item">
-                <span class="result-value" id="monthsValue">0</span>
+                <span class="result-value" id="monthsValue">11</span>
                 <span class="result-label">Months</span>
             </div>
             <div class="result-item">
@@ -271,7 +299,7 @@
         <!-- Additional Details + Copy Button -->
         <div class="result-details">
             <span><i class="fas fa-clock" style="color: var(--primary-accent);"></i> Total days</span>
-            <span id="totalDaysValue" style="font-weight: 600; color: var(--text-primary);">1</span>
+            <span id="totalDaysValue" style="font-weight: 600; color: var(--text-primary);">364</span>
             <button id="copyResultBtn" class="copy-btn" aria-label="Copy date difference">
                 <i class="fas fa-copy"></i>
                 <span>Copy</span>
@@ -282,6 +310,70 @@
         <button id="calculateBtn" class="generate-btn">
             <i class="fas fa-calculator"></i> Calculate Difference
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-calendar-alt"></i> About the Date Difference Calculator
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our Date Difference Calculator tells you exactly how many days, weeks, months, and years lie between any two dates. It’s perfect for planning events, tracking project timelines, calculating age in a different way, or simply satisfying your curiosity about how much time has passed.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Manual date entry:</strong> Type dates in <code>dd-mm-yyyy</code> format – no calendar pop‑ups, fast and precise.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Include end date option:</strong> Decide whether the end date should be counted (e.g., for inclusive periods).</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Multiple units:</strong> See the difference in days, weeks, months, and years at a glance.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Copy summary:</strong> One‑click copy of the full result to use anywhere.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Enter the start date in the first field using <strong>dd-mm-yyyy</strong> (e.g., 01-01-2023).</li>
+            <li>Enter the end date in the second field using the same format.</li>
+            <li>Check or uncheck <strong>"Include end date"</strong> depending on whether you want to count the final day.</li>
+            <li>Click <strong>"Calculate Difference"</strong>.</li>
+            <li>The result shows the total days, weeks, months, and years between the dates.</li>
+            <li>Click the <strong>"Copy"</strong> button to copy the summary to your clipboard.</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Common Use Cases</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>Project planning:</strong> Calculate how many days remain until a deadline.</li>
+            <li><strong>Event countdown:</strong> Find out exactly how long until a wedding, birthday, or holiday.</li>
+            <li><strong>Tenure calculation:</strong> Measure employment periods, rental agreements, or subscription lengths.</li>
+            <li><strong>Historical events:</strong> Discover how many years have passed since a famous date.</li>
+            <li><strong>Age in a different way:</strong> For example, "I am 10,000 days old" – this tool can do that.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                "Know the exact time between any two dates – down to the day."
+            </p>
+        </div>
     </div>
 
     <script>
@@ -300,53 +392,47 @@
             const calculateBtn = document.getElementById('calculateBtn');
             const copyBtn = document.getElementById('copyResultBtn');
 
-            // Set default dates: today and tomorrow
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
+            // Helper: parse dd-mm-yyyy to Date object
+            function parseDate(dateStr) {
+                if (!dateStr) return null;
+                const parts = dateStr.split('-');
+                if (parts.length !== 3) return null;
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+                if (day < 1 || day > 31 || month < 0 || month > 11 || year < 1000 || year > 9999) return null;
+                const date = new Date(year, month, day);
+                if (date.getDate() !== day || date.getMonth() !== month || date.getFullYear() !== year) return null;
+                return date;
+            }
 
-            const formatDate = (date) => {
-                const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                return `${year}-${month}-${day}`;
-            };
-
-            startDateInput.value = formatDate(today);
-            endDateInput.value = formatDate(tomorrow);
-
-            // Calculate date difference
             function calculateDifference() {
-                const startDate = new Date(startDateInput.value);
-                const endDate = new Date(endDateInput.value);
-                
-                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                    alert('Please enter valid dates.');
+                const startDate = parseDate(startDateInput.value);
+                const endDate = parseDate(endDateInput.value);
+
+                if (!startDate || !endDate) {
+                    alert('Please enter valid dates in dd-mm-yyyy format.');
+                    return;
+                }
+
+                if (startDate > endDate) {
+                    alert('Start date must be before or equal to end date.');
                     return;
                 }
 
                 let diffTime = endDate - startDate;
                 
-                // Adjust if "include end date" is checked
                 if (includeEndDateCheck.checked) {
                     diffTime += 24 * 60 * 60 * 1000; // add one day
                 }
 
                 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
                 
-                if (diffDays < 0) {
-                    alert('End date must be after start date.');
-                    return;
-                }
-
-                // Calculate weeks, months, years (approximate)
                 const diffWeeks = Math.floor(diffDays / 7);
-                
-                // Approximate months and years (based on average days)
                 const diffMonths = Math.floor(diffDays / 30.44);
                 const diffYears = Math.floor(diffDays / 365.25);
 
-                // Update UI
                 daysValue.textContent = diffDays;
                 weeksValue.textContent = diffWeeks;
                 monthsValue.textContent = diffMonths;
@@ -354,17 +440,16 @@
                 totalDaysSpan.textContent = diffDays;
             }
 
-            // Copy summary
             function copySummary() {
-                const startDate = new Date(startDateInput.value).toLocaleDateString();
-                const endDate = new Date(endDateInput.value).toLocaleDateString();
+                const startStr = startDateInput.value || 'Not set';
+                const endStr = endDateInput.value || 'Not set';
                 const includeText = includeEndDateCheck.checked ? 'inclusive' : 'exclusive';
                 const days = daysValue.textContent;
                 const weeks = weeksValue.textContent;
                 const months = monthsValue.textContent;
                 const years = yearsValue.textContent;
 
-                const summary = `Date Difference: ${days} days (${weeks} weeks, ${months} months, ${years} years) • From ${startDate} to ${endDate} (${includeText})`;
+                const summary = `Date Difference: ${days} days (${weeks} weeks, ${months} months, ${years} years) • From ${startStr} to ${endStr} (${includeText})`;
                 
                 navigator.clipboard.writeText(summary).then(() => {
                     copyBtn.classList.add('copied');
@@ -379,17 +464,13 @@
                 });
             }
 
-            // Event listeners
             calculateBtn.addEventListener('click', calculateDifference);
             copyBtn.addEventListener('click', copySummary);
-            
-            // Auto-calculate on page load
-            calculateDifference();
-
-            // Re-calculate when dates or checkbox change
             startDateInput.addEventListener('change', calculateDifference);
             endDateInput.addEventListener('change', calculateDifference);
             includeEndDateCheck.addEventListener('change', calculateDifference);
+
+            calculateDifference();
         })();
     </script>
 </body>
