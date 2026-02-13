@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,7 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- Image Converter Specific Styles ----- */
+        /* Image Converter specific styles */
         .upload-area {
             background: var(--main-bg);
             border: 2px dashed var(--dark-border);
@@ -302,6 +302,39 @@
             pointer-events: none;
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -415,13 +448,79 @@
         <button id="convertBtn" class="generate-btn" disabled>
             <i class="fas fa-sync-alt"></i> Convert Image
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-image"></i> About the Image Converter
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our Image Converter lets you change image formats, adjust quality, and resize images – all directly in your browser. No uploads, no servers, no privacy concerns. Whether you need a smaller JPEG for a website, a transparent PNG for a design, or a modern WebP for faster loading, this tool has you covered.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>100% client‑side:</strong> Your images never leave your device – total privacy and security.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Multiple formats:</strong> Convert between PNG (lossless), JPEG, and WebP.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Quality control:</strong> Adjust compression from 1% to 100% for JPEG and WebP.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Resize option:</strong> Scale images to any dimensions while maintaining aspect ratio.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Live preview:</strong> See original and converted images side by side, with file sizes.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Drag & drop an image onto the upload area, or click to select one from your device.</li>
+            <li>Choose the output format (PNG, JPEG, or WebP).</li>
+            <li>Adjust quality with the slider (for JPEG/WebP only; PNG is lossless).</li>
+            <li>Optional: check "Resize" and enter desired dimensions.</li>
+            <li>Click <strong>"Convert Image"</strong> – the converted preview appears instantly.</li>
+            <li>Use <strong>"Download"</strong> to save the new image, or <strong>"Copy"</strong> to copy it to clipboard.</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Why Use Our Converter?</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>Privacy‑first:</strong> Unlike many online converters that upload your images to a server, everything stays in your browser.</li>
+            <li><strong>Fast & efficient:</strong> Uses the browser's built‑in Canvas API – no extra software needed.</li>
+            <li><strong>Web‑optimized:</strong> WebP conversion helps reduce page load times.</li>
+            <li><strong>Perfect for designers:</strong> Quickly test different formats and compressions before exporting.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                "Convert images privately – no uploads, no tracking, just results."
+            </p>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
             const uploadArea = document.getElementById('uploadArea');
             const fileInput = document.getElementById('fileInput');
             const previewSection = document.getElementById('previewSection');
@@ -440,7 +539,6 @@
             const downloadBtn = document.getElementById('downloadBtn');
             const copyBtn = document.getElementById('copyBtn');
 
-            // ---------- State ----------
             let originalFile = null;
             let originalImageData = null;
             let convertedBlob = null;
@@ -448,49 +546,39 @@
             let originalWidth = 0;
             let originalHeight = 0;
 
-            // ---------- Quality Slider Display ----------
             qualitySlider.addEventListener('input', function() {
                 qualityDisplay.textContent = qualitySlider.value;
-                // Auto-update if image is loaded
                 if (originalImageData) {
                     convertImage();
                 }
             });
 
-            // ---------- Format Change ----------
             formatSelect.addEventListener('change', function() {
-                // JPEG/WebP show quality slider, PNG hides it (lossless)
                 const format = formatSelect.value;
                 const isLossy = format !== 'image/png';
                 qualitySlider.disabled = !isLossy;
                 if (!isLossy) qualitySlider.value = 100;
                 qualityDisplay.textContent = qualitySlider.value;
-                
                 if (originalImageData) {
                     convertImage();
                 }
             });
 
-            // ---------- Resize Checkbox Toggle ----------
             resizeCheck.addEventListener('change', function() {
                 resizeControls.style.display = resizeCheck.checked ? 'block' : 'none';
                 widthInput.disabled = !resizeCheck.checked;
                 heightInput.disabled = !resizeCheck.checked;
-                
                 if (originalWidth && originalHeight) {
                     widthInput.value = originalWidth;
                     heightInput.value = originalHeight;
                 }
-                
                 if (originalImageData && resizeCheck.checked) {
                     convertImage();
                 }
             });
 
-            // ---------- Dimension Inputs ----------
             widthInput.addEventListener('input', function() {
                 if (resizeCheck.checked && originalWidth && originalHeight) {
-                    // Maintain aspect ratio
                     const ratio = originalHeight / originalWidth;
                     heightInput.value = Math.round(widthInput.value * ratio);
                 }
@@ -498,18 +586,15 @@
 
             heightInput.addEventListener('input', function() {
                 if (resizeCheck.checked && originalWidth && originalHeight) {
-                    // Maintain aspect ratio
                     const ratio = originalWidth / originalHeight;
                     widthInput.value = Math.round(heightInput.value * ratio);
                 }
             });
 
-            // ---------- Upload Area: Click to Browse ----------
             uploadArea.addEventListener('click', function() {
                 fileInput.click();
             });
 
-            // ---------- Drag & Drop Support ----------
             uploadArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 uploadArea.classList.add('drag-over');
@@ -529,16 +614,13 @@
                 }
             });
 
-            // ---------- File Input Change ----------
             fileInput.addEventListener('change', function(e) {
                 if (e.target.files.length > 0) {
                     handleFile(e.target.files[0]);
                 }
             });
 
-            // ---------- Handle Selected File ----------
             function handleFile(file) {
-                // Check if it's an image
                 if (!file.type.startsWith('image/')) {
                     alert('Please select an image file.');
                     return;
@@ -546,7 +628,6 @@
 
                 originalFile = file;
                 
-                // Read file as data URL for preview
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
@@ -555,24 +636,17 @@
                         originalHeight = img.height;
                         originalImageData = img;
                         
-                        // Set original preview
                         originalImg.src = e.target.result;
                         
-                        // Set dimension inputs
                         widthInput.value = originalWidth;
                         heightInput.value = originalHeight;
                         
-                        // Format file size
                         const fileSizeKB = (file.size / 1024).toFixed(1);
                         originalSize.textContent = `${fileSizeKB} KB`;
                         
-                        // Show preview section
                         previewSection.style.display = 'block';
-                        
-                        // Enable convert button
                         convertBtn.disabled = false;
                         
-                        // Auto-convert
                         convertImage();
                     };
                     img.src = e.target.result;
@@ -580,7 +654,6 @@
                 reader.readAsDataURL(file);
             }
 
-            // ---------- Convert Image ----------
             async function convertImage() {
                 if (!originalImageData) return;
 
@@ -588,7 +661,6 @@
                 const quality = parseInt(qualitySlider.value) / 100;
                 const shouldResize = resizeCheck.checked;
                 
-                // Create canvas for conversion
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 
@@ -603,33 +675,27 @@
                 canvas.width = targetWidth;
                 canvas.height = targetHeight;
                 
-                // Draw image with resize if needed
                 ctx.drawImage(originalImageData, 0, 0, targetWidth, targetHeight);
                 
-                // Convert to blob
                 canvas.toBlob((blob) => {
                     if (blob) {
                         convertedBlob = blob;
                         
-                        // Update converted preview
                         if (convertedObjectURL) {
                             URL.revokeObjectURL(convertedObjectURL);
                         }
                         convertedObjectURL = URL.createObjectURL(blob);
                         convertedImg.src = convertedObjectURL;
                         
-                        // Format converted file size
                         const convertedSizeKB = (blob.size / 1024).toFixed(1);
                         convertedSize.textContent = `${convertedSizeKB} KB`;
                         
-                        // Enable download and copy buttons
                         downloadBtn.disabled = false;
                         copyBtn.disabled = false;
                     }
                 }, format, quality);
             }
 
-            // ---------- Download Converted Image ----------
             function downloadImage() {
                 if (!convertedBlob) return;
                 
@@ -637,7 +703,6 @@
                 const a = document.createElement('a');
                 a.href = url;
                 
-                // Generate filename
                 const format = formatSelect.value.split('/')[1];
                 const timestamp = new Date().getTime();
                 a.download = `converted-${timestamp}.${format}`;
@@ -646,7 +711,6 @@
                 URL.revokeObjectURL(url);
             }
 
-            // ---------- Copy Image to Clipboard ----------
             function copyImage() {
                 if (!convertedBlob) return;
                 
@@ -667,12 +731,10 @@
                 });
             }
 
-            // ---------- Event Listeners ----------
             convertBtn.addEventListener('click', convertImage);
             downloadBtn.addEventListener('click', downloadImage);
             copyBtn.addEventListener('click', copyImage);
 
-            // Cleanup object URLs when page unloads
             window.addEventListener('beforeunload', function() {
                 if (convertedObjectURL) {
                     URL.revokeObjectURL(convertedObjectURL);
