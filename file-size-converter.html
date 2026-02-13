@@ -3,939 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Size Converter - SG Tools</title>
+    <title>File Size Converter · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .converter-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        
-        .input-section {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
-        }
-        
-        .input-section:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 30px rgba(66, 248, 245, 0.1);
-        }
-        
-        .size-input-area {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        @media (max-width: 768px) {
-            .size-input-area {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .value-input {
-            position: relative;
-        }
-        
-        .value-input input {
-            width: 100%;
-            padding: 18px 20px;
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
             background: var(--main-bg);
-            border: 2px solid var(--dark-border);
-            border-radius: 14px;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 500;
-            transition: var(--transition);
-            font-family: 'Courier New', monospace;
-        }
-        
-        .value-input input:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-        }
-        
-        .unit-select {
-            position: relative;
-        }
-        
-        .unit-select select {
-            width: 100%;
-            padding: 18px 20px;
-            background: var(--main-bg);
-            border: 2px solid var(--dark-border);
-            border-radius: 14px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 500;
-            transition: var(--transition);
-            cursor: pointer;
-            appearance: none;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .unit-select select:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-        }
-        
-        .unit-select::after {
-            content: '\f078';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-accent);
-            pointer-events: none;
-        }
-        
-        .swap-btn {
-            background: var(--button-bg-alt);
-            border: 2px solid rgba(66, 248, 245, 0.3);
-            border-radius: 14px;
-            padding: 16px;
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
         }
-        
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- File Size Converter Specific Styles ----- */
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        #sizeInput {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        #sizeInput:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .unit-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .unit-select {
+            flex: 1;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .unit-select:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .swap-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
         .swap-btn:hover {
             background: var(--primary-accent);
             color: var(--main-bg);
             border-color: var(--primary-accent);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--glow-shadow);
+            box-shadow: 0 0 12px var(--glow-shadow);
+            transform: rotate(180deg);
         }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
+
         .result-card {
-            background: linear-gradient(135deg, var(--main-bg), var(--button-bg-alt));
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(66, 248, 245, 0.2);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1rem 0 0.8rem;
+            text-align: center;
         }
-        
-        .result-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-accent);
-            box-shadow: 0 15px 30px rgba(66, 248, 245, 0.15);
-        }
-        
-        .result-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .result-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .result-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .result-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(66, 248, 245, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        .result-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--primary-accent);
-            font-size: 1.2rem;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+            word-break: break-word;
         }
-        
+
         .result-unit {
             color: var(--text-secondary);
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
         }
-        
-        .result-value {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary-accent);
-            margin-bottom: 5px;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 10px rgba(66, 248, 245, 0.2);
+
+        .result-details {
+            background: rgba(10,15,30,0.6);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0 0.5rem;
         }
-        
-        .result-sub {
-            color: var(--text-muted);
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
             font-size: 0.8rem;
-        }
-        
-        .quick-conversions {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-            margin-top: 30px;
-        }
-        
-        .quick-title {
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-        
-        .quick-item {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 20px;
+            gap: 0.4rem;
             transition: var(--transition);
             cursor: pointer;
         }
-        
-        .quick-item:hover {
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
             border-color: var(--primary-accent);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.15);
+            box-shadow: 0 0 12px var(--glow-shadow);
         }
-        
-        .quick-item-title {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
         }
-        
-        .quick-item-value {
-            color: var(--primary-accent);
-            font-size: 1.1rem;
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .comparison-section {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-            margin-top: 30px;
-        }
-        
-        .comparison-bars {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .comparison-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .comparison-label {
-            min-width: 80px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .comparison-bar-container {
-            flex: 1;
-            height: 12px;
-            background: var(--main-bg);
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .comparison-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
-            border-radius: 6px;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .comparison-value {
-            min-width: 100px;
-            color: var(--primary-accent);
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            text-align: right;
-        }
-        
-        .info-box {
-            background: rgba(66, 248, 245, 0.08);
-            border: 1px solid rgba(66, 248, 245, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .info-icon {
-            color: var(--primary-accent);
-            font-size: 1.5rem;
-        }
-        
-        .info-text {
-            color: var(--text-secondary);
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
             font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        
-        .info-text strong {
-            color: var(--primary-accent);
-        }
-        
-        .unit-system {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(66, 248, 245, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(66, 248, 245, 0.1);
-        }
-        
-        .system-option {
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-        
-        .system-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary-accent);
-            cursor: pointer;
-        }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-top: 40px;
-            padding: 12px 25px;
-            background: var(--button-bg-alt);
-            border-radius: 30px;
-            border: 1px solid var(--dark-border);
+            justify-content: center;
+            gap: 0.6rem;
             transition: var(--transition);
+            cursor: pointer;
+            margin-top: 0.5rem;
         }
-        
-        .back-link:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            transform: translateX(-5px);
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
         }
-        
-        @media (max-width: 768px) {
-            .input-section {
-                padding: 20px;
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
             }
-            
-            .result-value {
-                font-size: 1.3rem;
+            .result-amount {
+                font-size: 1.5rem;
             }
-            
-            .comparison-item {
-                flex-wrap: wrap;
+            .unit-row {
+                flex-direction: column;
             }
-            
-            .comparison-label {
-                min-width: 100%;
+            .swap-btn {
+                transform: rotate(90deg);
             }
-            
-            .comparison-value {
-                min-width: 100%;
-                text-align: left;
+            .swap-btn:hover {
+                transform: rotate(270deg);
             }
         }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span class="logo-title">SG Tools</span>
-                        <span class="logo-subtitle">Multi Utilities</span>
-                    </div>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="tools.html"><i class="fas fa-th"></i> Tools</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </nav>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-file"></i>
             </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">File Size Converter</h1>
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="calculator-container">
-                <div class="calculator-header">
-                    <div class="calculator-header-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h1 class="section-title">File Size Converter</h1>
-                    <p class="section-subtitle">Convert between bytes, KB, MB, GB, TB, and more with precision</p>
-                </div>
-                
-                <div class="converter-container">
-                    <!-- Input Section -->
-                    <div class="input-section">
-                        <div class="unit-system">
-                            <label class="system-option">
-                                <input type="radio" name="unitSystem" value="decimal" checked> Decimal (1000) - KB, MB, GB
-                            </label>
-                            <label class="system-option">
-                                <input type="radio" name="unitSystem" value="binary"> Binary (1024) - KiB, MiB, GiB
-                            </label>
-                        </div>
-                        
-                        <div class="size-input-area">
-                            <div class="value-input">
-                                <input type="number" id="inputValue" value="1" step="any" min="0">
-                            </div>
-                            
-                            <div class="unit-select">
-                                <select id="inputUnit">
-                                    <option value="B">Bytes (B)</option>
-                                    <option value="KB" selected>Kilobytes (KB)</option>
-                                    <option value="MB">Megabytes (MB)</option>
-                                    <option value="GB">Gigabytes (GB)</option>
-                                    <option value="TB">Terabytes (TB)</option>
-                                    <option value="PB">Petabytes (PB)</option>
-                                    <option value="KiB">Kibibytes (KiB)</option>
-                                    <option value="MiB">Mebibytes (MiB)</option>
-                                    <option value="GiB">Gibibytes (GiB)</option>
-                                    <option value="TiB">Tebibytes (TiB)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="swap-btn" onclick="swapUnits()">
-                                <i class="fas fa-arrows-up-down"></i>
-                            </div>
-                        </div>
-                        
-                        <!-- All Results -->
-                        <div class="results-grid" id="allResults">
-                            <!-- Results will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <!-- Quick Conversions -->
-                    <div class="quick-conversions">
-                        <div class="quick-title">
-                            <i class="fas fa-bolt"></i> Common File Sizes
-                        </div>
-                        <div class="quick-grid">
-                            <div class="quick-item" onclick="setQuickValue(1, 'MB')">
-                                <div class="quick-item-title">
-                                    <i class="fas fa-file"></i> 1 MB File
-                                </div>
-                                <div class="quick-item-value">1,000 KB</div>
-                            </div>
-                            <div class="quick-item" onclick="setQuickValue(5, 'MB')">
-                                <div class="quick-item-title">
-                                    <i class="fas fa-file-image"></i> 5 MB Photo
-                                </div>
-                                <div class="quick-item-value">5,000 KB</div>
-                            </div>
-                            <div class="quick-item" onclick="setQuickValue(10, 'MB')">
-                                <div class="quick-item-title">
-                                    <i class="fas fa-file-pdf"></i> 10 MB PDF
-                                </div>
-                                <div class="quick-item-value">10,000 KB</div>
-                            </div>
-                            <div class="quick-item" onclick="setQuickValue(100, 'MB')">
-                                <div class="quick-item-title">
-                                    <i class="fas fa-video"></i> 100 MB Video
-                                </div>
-                                <div class="quick-item-value">0.1 GB</div>
-                            </div>
-                            <div class="quick-item" onclick="setQuickValue(1, 'GB')">
-                                <div class="quick-item-title">
-                                    <i class="fas fa-film"></i> 1 GB Movie
-                                </div>
-                                <div class="quick-item-value">1,024 MB</div>
-                            </div>
-                            <div class="quick-item" onclick="setQuickValue(4.7, 'GB')">
-                                <div class="quick-item-title">
-                                    <i class="fas fa-disc"></i> DVD (4.7 GB)
-                                </div>
-                                <div class="quick-item-value">4,700 MB</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Size Comparison -->
-                    <div class="comparison-section">
-                        <div class="quick-title">
-                            <i class="fas fa-chart-bar"></i> Size Comparison
-                        </div>
-                        <div class="comparison-bars" id="comparisonBars">
-                            <!-- Comparison bars will be populated by JavaScript -->
-                        </div>
-                        
-                        <div class="info-box">
-                            <div class="info-icon">
-                                <i class="fas fa-info-circle"></i>
-                            </div>
-                            <div class="info-text">
-                                <strong>Did you know?</strong> <span id="funFact">A single byte can store one character of text. 1 KB can store about a paragraph, 1 MB a book, 1 GB a movie, and 1 TB about 500 hours of video!</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
+        <!-- Input: Number -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-calculator"></i>
+                <span>Enter size</span>
             </div>
+            <input type="number" id="sizeInput" value="1" step="any" min="0">
         </div>
-    </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities for daily use</p>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#disclaimer">Disclaimer</a></li>
-                            <li><a href="#terms">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Site Map</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="tools.html">Tools</a></li>
-                            <li><a href="#sitemap">Sitemap</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Unit Selection -->
+        <div class="input-group" style="margin-bottom: 0.5rem;">
+            <div class="input-label">
+                <i class="fas fa-exchange-alt"></i>
+                <span>From → To</span>
             </div>
             
-            <div class="footer-bottom">
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span>contact @sgtools.in</span>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 SG Multi Tools. All rights reserved.</p>
-                </div>
+            <!-- From Unit -->
+            <select id="fromUnit" class="unit-select">
+                <option value="B">Bytes (B)</option>
+                <option value="KB" selected>Kilobytes (KB)</option>
+                <option value="MB">Megabytes (MB)</option>
+                <option value="GB">Gigabytes (GB)</option>
+                <option value="TB">Terabytes (TB)</option>
+                <option value="PB">Petabytes (PB)</option>
+                <option value="EB">Exabytes (EB)</option>
+                <option value="ZB">Zettabytes (ZB)</option>
+            </select>
+            
+            <!-- Swap Button -->
+            <div style="display: flex; justify-content: center; margin: 0.3rem 0;">
+                <button id="swapBtn" class="swap-btn">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
             </div>
+            
+            <!-- To Unit -->
+            <select id="toUnit" class="unit-select">
+                <option value="B">Bytes (B)</option>
+                <option value="KB">Kilobytes (KB)</option>
+                <option value="MB" selected>Megabytes (MB)</option>
+                <option value="GB">Gigabytes (GB)</option>
+                <option value="TB">Terabytes (TB)</option>
+                <option value="PB">Petabytes (PB)</option>
+                <option value="EB">Exabytes (EB)</option>
+                <option value="ZB">Zettabytes (ZB)</option>
+            </select>
         </div>
-    </footer>
+
+        <!-- Result Display -->
+        <div class="result-card">
+            <div id="resultValue" class="result-amount">0.0009765625</div>
+            <div id="resultUnitLabel" class="result-unit">MB</div>
+        </div>
+
+        <!-- Details + Copy Button -->
+        <div class="result-details">
+            <span><i class="fas fa-info-circle" style="color: var(--primary-accent);"></i> 1 KB = 1024 B</span>
+            <span id="conversionSummary" style="font-weight: 600; color: var(--text-primary);">1 KB = 0.0009765625 MB</span>
+            <button id="copyResultBtn" class="copy-btn" aria-label="Copy conversion">
+                <i class="fas fa-copy"></i>
+                <span>Copy</span>
+            </button>
+        </div>
+
+        <!-- Convert Button (auto-convert also works) -->
+        <button id="convertBtn" class="generate-btn">
+            <i class="fas fa-sync-alt"></i> Convert
+        </button>
+    </div>
 
     <script>
-        // Conversion factors
-        const DECIMAL = {
-            'B': 1,
-            'KB': 1000,
-            'MB': 1000 ** 2,
-            'GB': 1000 ** 3,
-            'TB': 1000 ** 4,
-            'PB': 1000 ** 5
-        };
-        
-        const BINARY = {
-            'B': 1,
-            'KiB': 1024,
-            'MiB': 1024 ** 2,
-            'GiB': 1024 ** 3,
-            'TiB': 1024 ** 4,
-            'PiB': 1024 ** 5
-        };
-        
-        // All units for display
-        const ALL_UNITS = {
-            'decimal': ['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
-            'binary': ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
-        };
-        
-        // DOM Elements
-        const inputValue = document.getElementById('inputValue');
-        const inputUnit = document.getElementById('inputUnit');
-        const unitSystemRadios = document.querySelectorAll('input[name="unitSystem"]');
-        
-        // Fun facts
-        const funFacts = [
-            "A single byte can store one character of text. 1 KB can store about a paragraph, 1 MB a book, 1 GB a movie, and 1 TB about 500 hours of video!",
-            "The world's largest hard drive can store over 100 TB of data - enough for 3 million hours of music!",
-            "A 4.7 GB DVD can store approximately 120 minutes of standard definition video.",
-            "The first hard drive (1956) stored 5 MB of data and weighed over a ton!",
-            "A 1 MB file in 1990 would have cost about $10,000 in storage costs. Today it's practically free.",
-            "There are over 100 zettabytes of data stored in the world today - that's 100 billion terabytes!",
-            "A typical smartphone photo (3-5 MB) contains more data than the entire Apollo 11 guidance computer memory."
-        ];
-        
-        // Event listeners
-        inputValue.addEventListener('input', convert);
-        inputUnit.addEventListener('change', function() {
-            updateUnitSystemFromSelection();
-            convert();
-        });
-        
-        unitSystemRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                updateUnitDropdown();
-                convert();
-            });
-        });
-        
-        // Update unit system based on selected unit
-        function updateUnitSystemFromSelection() {
-            const unit = inputUnit.value;
-            const isBinary = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB'].includes(unit);
-            
-            if (isBinary) {
-                document.querySelector('input[value="binary"]').checked = true;
-            } else {
-                document.querySelector('input[value="decimal"]').checked = true;
+        (function() {
+            "use strict";
+
+            // ---------- DOM Elements ----------
+            const sizeInput = document.getElementById('sizeInput');
+            const fromUnit = document.getElementById('fromUnit');
+            const toUnit = document.getElementById('toUnit');
+            const swapBtn = document.getElementById('swapBtn');
+            const convertBtn = document.getElementById('convertBtn');
+            const resultValue = document.getElementById('resultValue');
+            const resultUnitLabel = document.getElementById('resultUnitLabel');
+            const conversionSummary = document.getElementById('conversionSummary');
+            const copyBtn = document.getElementById('copyResultBtn');
+
+            // ---------- Unit definitions (binary: 1 KB = 1024 B) ----------
+            const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB'];
+            const base = 1024;
+
+            // ---------- Convert value from one unit to another ----------
+            function convert(value, from, to) {
+                if (value === '' || isNaN(value) || value < 0) return 0;
+                const fromIndex = units.indexOf(from);
+                const toIndex = units.indexOf(to);
+                if (fromIndex === -1 || toIndex === -1) return 0;
+                
+                // Convert to bytes first
+                let bytes = value * Math.pow(base, fromIndex);
+                // Convert to target unit
+                return bytes / Math.pow(base, toIndex);
             }
-            
-            updateUnitDropdown();
-        }
-        
-        // Update unit dropdown based on selected system
-        function updateUnitDropdown() {
-            const system = document.querySelector('input[name="unitSystem"]:checked').value;
-            const currentUnit = inputUnit.value;
-            const isBinary = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB'].includes(currentUnit);
-            
-            // Clear and repopulate dropdown
-            inputUnit.innerHTML = '';
-            
-            if (system === 'decimal') {
-                ALL_UNITS.decimal.forEach(unit => {
-                    const option = document.createElement('option');
-                    option.value = unit;
-                    option.textContent = unit === 'B' ? 'Bytes (B)' : 
-                        unit === 'KB' ? 'Kilobytes (KB)' :
-                        unit === 'MB' ? 'Megabytes (MB)' :
-                        unit === 'GB' ? 'Gigabytes (GB)' :
-                        unit === 'TB' ? 'Terabytes (TB)' :
-                        'Petabytes (PB)';
-                    inputUnit.appendChild(option);
+
+            // ---------- Format number with appropriate decimal places ----------
+            function formatNumber(num) {
+                if (num === 0) return '0';
+                if (Math.abs(num) < 0.000001) return num.toExponential(4);
+                if (Math.abs(num) >= 1000) return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                if (Math.abs(num) >= 1) return num.toFixed(4).replace(/\.?0+$/, '');
+                return num.toFixed(6).replace(/\.?0+$/, '');
+            }
+
+            // ---------- Update the UI with conversion result ----------
+            function updateConversion() {
+                let value = parseFloat(sizeInput.value);
+                if (isNaN(value)) value = 0;
+                if (value < 0) value = 0;
+                
+                const from = fromUnit.value;
+                const to = toUnit.value;
+                
+                const result = convert(value, from, to);
+                const formattedResult = formatNumber(result);
+                
+                resultValue.textContent = formattedResult;
+                resultUnitLabel.textContent = to;
+                
+                // Update summary line
+                const fromIndex = units.indexOf(from);
+                const toIndex = units.indexOf(to);
+                const ratio = Math.pow(base, fromIndex - toIndex);
+                const formattedRatio = formatNumber(ratio);
+                conversionSummary.textContent = `1 ${from} = ${formattedRatio} ${to}`;
+            }
+
+            // ---------- Swap from and to units ----------
+            function swapUnits() {
+                const fromValue = fromUnit.value;
+                const toValue = toUnit.value;
+                fromUnit.value = toValue;
+                toUnit.value = fromValue;
+                updateConversion();
+            }
+
+            // ---------- Copy result to clipboard ----------
+            function copyResult() {
+                const value = parseFloat(sizeInput.value) || 0;
+                const from = fromUnit.value;
+                const to = toUnit.value;
+                const result = resultValue.textContent;
+                const ratioText = conversionSummary.textContent;
+                
+                const summary = `${value} ${from} = ${result} ${to} • ${ratioText}`;
+                
+                navigator.clipboard.writeText(summary).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
                 });
-                
-                // Set selected unit
-                if (isBinary) {
-                    inputUnit.value = 'MB';
-                } else {
-                    inputUnit.value = ALL_UNITS.decimal.includes(currentUnit) ? currentUnit : 'MB';
-                }
-            } else {
-                ALL_UNITS.binary.forEach(unit => {
-                    const option = document.createElement('option');
-                    option.value = unit;
-                    option.textContent = unit === 'B' ? 'Bytes (B)' : 
-                        unit === 'KiB' ? 'Kibibytes (KiB)' :
-                        unit === 'MiB' ? 'Mebibytes (MiB)' :
-                        unit === 'GiB' ? 'Gibibytes (GiB)' :
-                        unit === 'TiB' ? 'Tebibytes (TiB)' :
-                        'Pebibytes (PiB)';
-                    inputUnit.appendChild(option);
-                });
-                
-                // Set selected unit
-                if (!isBinary && !ALL_UNITS.binary.includes(currentUnit)) {
-                    inputUnit.value = 'MiB';
-                } else {
-                    inputUnit.value = ALL_UNITS.binary.includes(currentUnit) ? currentUnit : 'MiB';
-                }
             }
-        }
-        
-        // Convert function
-        function convert() {
-            const value = parseFloat(inputValue.value) || 0;
-            const fromUnit = inputUnit.value;
-            const system = document.querySelector('input[name="unitSystem"]:checked').value;
-            
-            // Convert to bytes first
-            let bytes;
-            if (system === 'decimal') {
-                bytes = value * (DECIMAL[fromUnit] || 1);
-            } else {
-                bytes = value * (BINARY[fromUnit] || 1);
-            }
-            
-            // Generate all results
-            generateResults(bytes, system);
-            generateComparison(bytes);
-            
-            // Update fun fact
-            const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
-            document.getElementById('funFact').textContent = randomFact;
-        }
-        
-        // Generate all conversion results
-        function generateResults(bytes, system) {
-            const resultsGrid = document.getElementById('allResults');
-            resultsGrid.innerHTML = '';
-            
-            const units = system === 'decimal' ? ALL_UNITS.decimal : ALL_UNITS.binary;
-            const conversionFactors = system === 'decimal' ? DECIMAL : BINARY;
-            
-            units.forEach(unit => {
-                if (unit === 'B') return; // Skip bytes as it's always shown
-            
-                const convertedValue = bytes / (conversionFactors[unit] || 1);
-                let displayValue;
-                
-                if (convertedValue >= 1000) {
-                    displayValue = convertedValue.toFixed(2);
-                } else if (convertedValue >= 1) {
-                    displayValue = convertedValue.toFixed(3);
-                } else if (convertedValue > 0) {
-                    displayValue = convertedValue.toFixed(6);
-                } else {
-                    displayValue = '0';
-                }
-                
-                // Remove trailing zeros after decimal
-                displayValue = parseFloat(displayValue).toString();
-                
-                const resultCard = document.createElement('div');
-                resultCard.className = 'result-card';
-                resultCard.innerHTML = `
-                    <div class="result-header">
-                        <div class="result-icon">
-                            <i class="fas ${getUnitIcon(unit)}"></i>
-                        </div>
-                        <div class="result-unit">${getUnitFullName(unit)}</div>
-                    </div>
-                    <div class="result-value">${displayValue}</div>
-                    <div class="result-sub">${formatBytes(bytes)} total</div>
-                `;
-                
-                resultsGrid.appendChild(resultCard);
-            });
-            
-            // Add Bytes card
-            const bytesCard = document.createElement('div');
-            bytesCard.className = 'result-card';
-            bytesCard.innerHTML = `
-                <div class="result-header">
-                    <div class="result-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="result-unit">Bytes (B)</div>
-                </div>
-                <div class="result-value">${formatNumber(bytes)}</div>
-                <div class="result-sub">exact value</div>
-            `;
-            resultsGrid.appendChild(bytesCard);
-        }
-        
-        // Generate comparison bars
-        function generateComparison(bytes) {
-            const comparisonBars = document.getElementById('comparisonBars');
-            comparisonBars.innerHTML = '';
-            
-            const comparisons = [
-                { name: 'Your File', value: bytes, color: 'var(--primary-accent)' },
-                { name: '1 MB Photo', value: 1000000, color: 'rgba(66, 248, 245, 0.7)' },
-                { name: '5 MB Song', value: 5000000, color: 'rgba(66, 248, 245, 0.6)' },
-                { name: '10 MB PDF', value: 10000000, color: 'rgba(66, 248, 245, 0.5)' },
-                { name: '100 MB Video', value: 100000000, color: 'rgba(66, 248, 245, 0.4)' },
-                { name: '1 GB Movie', value: 1000000000, color: 'rgba(66, 248, 245, 0.3)' }
-            ];
-            
-            const maxValue = Math.max(bytes, 1000000000); // 1 GB as max
-            
-            comparisons.forEach(item => {
-                const percentage = (item.value / maxValue * 100).toFixed(1);
-                
-                const comparisonItem = document.createElement('div');
-                comparisonItem.className = 'comparison-item';
-                comparisonItem.innerHTML = `
-                    <div class="comparison-label">${item.name}</div>
-                    <div class="comparison-bar-container">
-                        <div class="comparison-bar" style="width: ${Math.min(percentage, 100)}%; background: ${item.color};"></div>
-                    </div>
-                    <div class="comparison-value">${formatBytes(item.value)}</div>
-                `;
-                
-                comparisonBars.appendChild(comparisonItem);
-            });
-        }
-        
-        // Helper: Get unit icon
-        function getUnitIcon(unit) {
-            if (unit.includes('B')) return 'fa-database';
-            if (unit.includes('K')) return 'fa-file';
-            if (unit.includes('M')) return 'fa-file-image';
-            if (unit.includes('G')) return 'fa-film';
-            if (unit.includes('T')) return 'fa-hard-drive';
-            if (unit.includes('P')) return 'fa-cloud';
-            return 'fa-database';
-        }
-        
-        // Helper: Get unit full name
-        function getUnitFullName(unit) {
-            const names = {
-                'B': 'Bytes',
-                'KB': 'Kilobytes',
-                'MB': 'Megabytes',
-                'GB': 'Gigabytes',
-                'TB': 'Terabytes',
-                'PB': 'Petabytes',
-                'KiB': 'Kibibytes',
-                'MiB': 'Mebibytes',
-                'GiB': 'Gibibytes',
-                'TiB': 'Tebibytes',
-                'PiB': 'Pebibytes'
-            };
-            return names[unit] || unit;
-        }
-        
-        // Helper: Format bytes to human readable
-        function formatBytes(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            
-            const k = 1000;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-        
-        // Helper: Format number with commas
-        function formatNumber(num) {
-            return num.toLocaleString('en-US');
-        }
-        
-        // Swap units
-        function swapUnits() {
-            // This is a simplified swap - in reality you'd want to swap with the largest displayed unit
-            const currentUnit = inputUnit.value;
-            let targetUnit;
-            
-            if (currentUnit === 'B') targetUnit = 'MB';
-            else if (currentUnit === 'KB') targetUnit = 'B';
-            else if (currentUnit === 'MB') targetUnit = 'KB';
-            else if (currentUnit === 'GB') targetUnit = 'MB';
-            else if (currentUnit === 'TB') targetUnit = 'GB';
-            else if (currentUnit === 'PB') targetUnit = 'TB';
-            else if (currentUnit === 'KiB') targetUnit = 'B';
-            else if (currentUnit === 'MiB') targetUnit = 'KiB';
-            else if (currentUnit === 'GiB') targetUnit = 'MiB';
-            else if (currentUnit === 'TiB') targetUnit = 'GiB';
-            else if (currentUnit === 'PiB') targetUnit = 'TiB';
-            
-            if (targetUnit) {
-                inputUnit.value = targetUnit;
-                convert();
-            }
-        }
-        
-        // Set quick value
-        function setQuickValue(value, unit) {
-            inputValue.value = value;
-            
-            // Set appropriate unit system
-            if (['KiB', 'MiB', 'GiB', 'TiB', 'PiB'].includes(unit)) {
-                document.querySelector('input[value="binary"]').checked = true;
-            } else {
-                document.querySelector('input[value="decimal"]').checked = true;
-            }
-            
-            updateUnitDropdown();
-            inputUnit.value = unit;
-            convert();
-        }
-        
-        // Initialize
-        window.onload = function() {
-            updateUnitDropdown();
-            convert();
-        };
+
+            // ---------- Event Listeners ----------
+            sizeInput.addEventListener('input', updateConversion);
+            fromUnit.addEventListener('change', updateConversion);
+            toUnit.addEventListener('change', updateConversion);
+            swapBtn.addEventListener('click', swapUnits);
+            convertBtn.addEventListener('click', updateConversion);
+            copyBtn.addEventListener('click', copyResult);
+
+            // ---------- Initial conversion ----------
+            updateConversion();
+        })();
     </script>
 </body>
 </html>
