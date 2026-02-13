@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -41,7 +41,7 @@
             gap: 0.5rem;
         }
 
-        /* ----- File Size Converter Specific Styles ----- */
+        /* File Size Converter specific styles */
         .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -147,14 +147,13 @@
             font-weight: 700;
             color: var(--primary-accent);
             line-height: 1.2;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             word-break: break-word;
         }
 
         .result-unit {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
         }
 
         .result-details {
@@ -163,7 +162,7 @@
             padding: 0.8rem 1rem;
             border: 1px solid var(--dark-border);
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -174,9 +173,9 @@
             background: var(--button-bg);
             border: 1px solid var(--dark-border);
             border-radius: 14px;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.9rem;
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.4rem;
@@ -219,6 +218,39 @@
             background: var(--accent-shade);
             box-shadow: 0 0 20px var(--glow-shadow);
             transform: translateY(-2px);
+        }
+
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
         }
 
         @media (max-width: 480px) {
@@ -315,17 +347,79 @@
             </button>
         </div>
 
-        <!-- Convert Button (auto-convert also works) -->
+        <!-- Convert Button -->
         <button id="convertBtn" class="generate-btn">
             <i class="fas fa-sync-alt"></i> Convert
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-file"></i> About the File Size Converter
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our File Size Converter helps you quickly convert between different units of digital storage. Whether you're a developer estimating server space, a photographer managing image sizes, or just curious about how many gigabytes are in a terabyte, this tool gives you accurate results instantly.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>8 units:</strong> Convert between Bytes (B), Kilobytes (KB), Megabytes (MB), Gigabytes (GB), Terabytes (TB), Petabytes (PB), Exabytes (EB), and Zettabytes (ZB).</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Binary conversion:</strong> Uses 1 KB = 1024 B (the standard for file sizes, not the decimal 1000).</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Swap units:</strong> Instantly reverse the conversion with a single click.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Copy result:</strong> One‑click copy of the converted value and the conversion ratio.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Enter the number you want to convert.</li>
+            <li>Select the unit you're converting from (e.g., KB).</li>
+            <li>Select the unit you're converting to (e.g., MB).</li>
+            <li>Click the swap button (↕️) to quickly reverse the direction.</li>
+            <li>The result appears instantly, along with the conversion ratio (e.g., 1 KB = 0.00098 MB).</li>
+            <li>Click <strong>"Copy"</strong> to copy the full conversion summary.</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 When to Use</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>Web development:</strong> Check image sizes, plan bandwidth usage.</li>
+            <li><strong>Storage planning:</strong> Convert between hard drive capacities, cloud storage limits.</li>
+            <li><strong>File transfers:</strong> Estimate time to upload/download based on file size.</li>
+            <li><strong>Learning:</strong> Understand the relationship between different units of digital data.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                "From bytes to zettabytes – master your digital storage with ease."
+            </p>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
             const sizeInput = document.getElementById('sizeInput');
             const fromUnit = document.getElementById('fromUnit');
             const toUnit = document.getElementById('toUnit');
@@ -336,24 +430,19 @@
             const conversionSummary = document.getElementById('conversionSummary');
             const copyBtn = document.getElementById('copyResultBtn');
 
-            // ---------- Unit definitions (binary: 1 KB = 1024 B) ----------
             const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB'];
             const base = 1024;
 
-            // ---------- Convert value from one unit to another ----------
             function convert(value, from, to) {
                 if (value === '' || isNaN(value) || value < 0) return 0;
                 const fromIndex = units.indexOf(from);
                 const toIndex = units.indexOf(to);
                 if (fromIndex === -1 || toIndex === -1) return 0;
                 
-                // Convert to bytes first
                 let bytes = value * Math.pow(base, fromIndex);
-                // Convert to target unit
                 return bytes / Math.pow(base, toIndex);
             }
 
-            // ---------- Format number with appropriate decimal places ----------
             function formatNumber(num) {
                 if (num === 0) return '0';
                 if (Math.abs(num) < 0.000001) return num.toExponential(4);
@@ -362,7 +451,6 @@
                 return num.toFixed(6).replace(/\.?0+$/, '');
             }
 
-            // ---------- Update the UI with conversion result ----------
             function updateConversion() {
                 let value = parseFloat(sizeInput.value);
                 if (isNaN(value)) value = 0;
@@ -377,7 +465,6 @@
                 resultValue.textContent = formattedResult;
                 resultUnitLabel.textContent = to;
                 
-                // Update summary line
                 const fromIndex = units.indexOf(from);
                 const toIndex = units.indexOf(to);
                 const ratio = Math.pow(base, fromIndex - toIndex);
@@ -385,7 +472,6 @@
                 conversionSummary.textContent = `1 ${from} = ${formattedRatio} ${to}`;
             }
 
-            // ---------- Swap from and to units ----------
             function swapUnits() {
                 const fromValue = fromUnit.value;
                 const toValue = toUnit.value;
@@ -394,7 +480,6 @@
                 updateConversion();
             }
 
-            // ---------- Copy result to clipboard ----------
             function copyResult() {
                 const value = parseFloat(sizeInput.value) || 0;
                 const from = fromUnit.value;
@@ -417,7 +502,6 @@
                 });
             }
 
-            // ---------- Event Listeners ----------
             sizeInput.addEventListener('input', updateConversion);
             fromUnit.addEventListener('change', updateConversion);
             toUnit.addEventListener('change', updateConversion);
@@ -425,7 +509,6 @@
             convertBtn.addEventListener('click', updateConversion);
             copyBtn.addEventListener('click', copyResult);
 
-            // ---------- Initial conversion ----------
             updateConversion();
         })();
     </script>
