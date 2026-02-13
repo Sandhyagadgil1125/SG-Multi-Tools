@@ -3,227 +3,374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator - SG Tools</title>
+    <title>Age Calculator · SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .tool-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        
-        .tool-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .tool-header-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .age-calculator {
-            background: var(--dark-card);
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .input-group {
-            margin-bottom: 25px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        
-        .input-group input {
-            width: 100%;
-            padding: 15px;
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-        
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-        
-        .calculate-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 30px;
-        }
-        
-        .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-        }
-        
-        .result-container {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 12px;
-            padding: 25px;
-            border: 1px solid var(--dark-border);
-        }
-        
-        .result-title {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        
-        .result-item {
-            text-align: center;
-            padding: 15px;
-            background: var(--dark-bg);
-            border-radius: 8px;
-        }
-        
-        .result-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .result-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .back-link {
-            display: inline-flex;
+        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        body {
+            background: var(--main-bg);
+            display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- Age Calculator Specific Styles ----- */
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--text-secondary);
-            text-decoration: none;
-            margin-top: 30px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
             transition: var(--transition);
         }
-        
-        .back-link:hover {
-            color: var(--primary-color);
+
+        input[type="date"]:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
+        }
+
+        .result-card {
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1.2rem 0 0.8rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.8rem;
+            text-align: center;
+        }
+
+        .result-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            line-height: 1.2;
+        }
+
+        .result-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .age-details {
+            background: rgba(10,15,30,0.6);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .result-card {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .result-value {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Same header as other pages -->
-    <header class="main-header">
-        <!-- Copy header from calculator.html -->
-    </header>
+    <div class="tool-standalone">
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-birthday-cake"></i>
+            </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Age Calculator</h1>
+        </div>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="tool-container">
-                <div class="tool-header">
-                    <div class="tool-header-icon">
-                        <i class="fas fa-birthday-cake"></i>
-                    </div>
-                    <h1 class="section-title">Age Calculator</h1>
-                    <p class="section-subtitle">Calculate your exact age in years, months, and days</p>
-                </div>
-                
-                <div class="age-calculator">
-                    <div class="input-group">
-                        <label for="birthDate"><i class="fas fa-calendar-alt"></i> Select your birth date:</label>
-                        <input type="date" id="birthDate" max="" required>
-                    </div>
-                    
-                    <button class="calculate-btn" onclick="calculateAge()">
-                        <i class="fas fa-calculator"></i> Calculate Age
-                    </button>
-                    
-                    <div class="result-container" id="resultContainer" style="display: none;">
-                        <div class="result-title">Your Age Is:</div>
-                        <div class="result-grid">
-                            <div class="result-item">
-                                <div class="result-value" id="years">0</div>
-                                <div class="result-label">Years</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value" id="months">0</div>
-                                <div class="result-label">Months</div>
-                            </div>
-                            <div class="result-item">
-                                <div class="result-value" id="days">0</div>
-                                <div class="result-label">Days</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="tools.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to All Tools
-                </a>
+        <!-- Input: Birth Date -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Date of birth</span>
+            </div>
+            <input type="date" id="birthDate" max="2026-02-13" value="1990-01-01">
+        </div>
+
+        <!-- Input: As of Date (optional, defaults to today) -->
+        <div class="input-group" style="margin-bottom: 0.5rem;">
+            <div class="input-label">
+                <i class="fas fa-calendar-check"></i>
+                <span>As of date (optional)</span>
+            </div>
+            <input type="date" id="asOfDate" value="2026-02-13">
+            <p style="color: var(--text-muted); font-size: 0.7rem; margin-top: 0.3rem; text-align: right;">
+                <i class="fas fa-info-circle"></i> Leave blank to use today
+            </p>
+        </div>
+
+        <!-- Results Card (Years / Months / Days) -->
+        <div class="result-card">
+            <div class="result-item">
+                <span class="result-value" id="yearsValue">36</span>
+                <span class="result-label">Years</span>
+            </div>
+            <div class="result-item">
+                <span class="result-value" id="monthsValue">1</span>
+                <span class="result-label">Months</span>
+            </div>
+            <div class="result-item">
+                <span class="result-value" id="daysValue">12</span>
+                <span class="result-label">Days</span>
             </div>
         </div>
-    </main>
 
-    <!-- Same footer as other pages -->
-    <footer class="main-footer">
-        <!-- Copy footer from calculator.html -->
-    </footer>
+        <!-- Additional Details + Copy Button -->
+        <div class="age-details">
+            <span><i class="fas fa-hourglass-half" style="color: var(--primary-accent);"></i> Total days</span>
+            <span id="totalDaysValue" style="font-weight: 600; color: var(--text-primary);">13,189</span>
+            <button id="copyResultBtn" class="copy-btn" aria-label="Copy age summary">
+                <i class="fas fa-copy"></i>
+                <span>Copy</span>
+            </button>
+        </div>
+
+        <!-- Calculate Button -->
+        <button id="calculateBtn" class="generate-btn">
+            <i class="fas fa-calculator"></i> Calculate Age
+        </button>
+    </div>
 
     <script>
-        // Set max date to today
-        document.getElementById('birthDate').max = new Date().toISOString().split('T')[0];
-        
-        function calculateAge() {
-            const birthDate = new Date(document.getElementById('birthDate').value);
-            const today = new Date();
-            
-            if (!birthDate.getTime()) {
-                alert('Please select a valid birth date');
-                return;
+        (function() {
+            "use strict";
+
+            // DOM elements
+            const birthDateInput = document.getElementById('birthDate');
+            const asOfDateInput = document.getElementById('asOfDate');
+            const yearsSpan = document.getElementById('yearsValue');
+            const monthsSpan = document.getElementById('monthsValue');
+            const daysSpan = document.getElementById('daysValue');
+            const totalDaysSpan = document.getElementById('totalDaysValue');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const copyBtn = document.getElementById('copyResultBtn');
+
+            // Set max date to today
+            const today = new Date().toISOString().split('T')[0];
+            birthDateInput.setAttribute('max', today);
+            if (!asOfDateInput.value) {
+                asOfDateInput.value = today;
             }
-            
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
-            
-            if (days < 0) {
-                months--;
-                // Get days in previous month
-                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                days += prevMonth.getDate();
+
+            // Calculate age function
+            function calculateAge() {
+                const birthDate = new Date(birthDateInput.value);
+                if (isNaN(birthDate.getTime())) {
+                    alert('Please enter a valid birth date.');
+                    return;
+                }
+
+                let asOfDate;
+                if (asOfDateInput.value) {
+                    asOfDate = new Date(asOfDateInput.value);
+                    if (isNaN(asOfDate.getTime())) {
+                        alert('Please enter a valid "as of" date.');
+                        return;
+                    }
+                } else {
+                    asOfDate = new Date();
+                }
+
+                // Ensure birth date is not after as of date
+                if (birthDate > asOfDate) {
+                    alert('Birth date cannot be after the "as of" date.');
+                    return;
+                }
+
+                // Calculate years, months, days
+                let years = asOfDate.getFullYear() - birthDate.getFullYear();
+                let months = asOfDate.getMonth() - birthDate.getMonth();
+                let days = asOfDate.getDate() - birthDate.getDate();
+
+                // Adjust for negative days
+                if (days < 0) {
+                    months--;
+                    const lastMonth = new Date(asOfDate.getFullYear(), asOfDate.getMonth(), 0);
+                    days += lastMonth.getDate();
+                }
+
+                // Adjust for negative months
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                // Total days difference
+                const diffTime = asOfDate - birthDate;
+                const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+                // Update UI
+                yearsSpan.textContent = years;
+                monthsSpan.textContent = months;
+                daysSpan.textContent = days;
+                totalDaysSpan.textContent = totalDays.toLocaleString();
             }
-            
-            if (months < 0) {
-                years--;
-                months += 12;
+
+            // Copy age summary
+            function copyAgeSummary() {
+                const birthDate = birthDateInput.value ? new Date(birthDateInput.value).toLocaleDateString() : 'Not set';
+                const asOfDate = asOfDateInput.value ? new Date(asOfDateInput.value).toLocaleDateString() : 'Today';
+                const years = yearsSpan.textContent;
+                const months = monthsSpan.textContent;
+                const days = daysSpan.textContent;
+                const totalDays = totalDaysSpan.textContent;
+
+                const summary = `Age: ${years} years, ${months} months, ${days} days (${totalDays} total days) • Born: ${birthDate} • As of: ${asOfDate}`;
+                
+                navigator.clipboard.writeText(summary).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
+                });
             }
-            
-            document.getElementById('years').textContent = years;
-            document.getElementById('months').textContent = months;
-            document.getElementById('days').textContent = days;
-            
-            document.getElementById('resultContainer').style.display = 'block';
-        }
+
+            // Event listeners
+            calculateBtn.addEventListener('click', calculateAge);
+            copyBtn.addEventListener('click', copyAgeSummary);
+
+            // Auto‑calculate on page load
+            calculateAge();
+
+            // Re‑calculate when dates change (optional)
+            birthDateInput.addEventListener('change', calculateAge);
+            asOfDateInput.addEventListener('change', calculateAge);
+        })();
     </script>
 </body>
 </html>
