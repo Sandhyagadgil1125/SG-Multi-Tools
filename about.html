@@ -3,162 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | SG Multi Tools</title>
-    <meta name="description" content="Learn more about SG Multi Tools – free, fast, and easy online tools for everyday use.">
-
-    <!-- Favicon -->
-    <link rel="icon" href="favicon/favicon.ico">
-
-    <!-- Global Styles -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- Page‑specific centering & colors -->
+    <title>About SG Multi Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ----- Hero section: centered, cyan title, white description ----- */
-        .hero {
-            text-align: center;
+        /* Additional page-specific tweaks */
+        .about-container {
             max-width: 800px;
-            margin: 2rem auto 1.5rem;
-            padding: 0 1rem;
-        }
-
-        .hero h1 {
-            color: var(--primary-accent, #42f8f5); /* cyan */
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-            color: var(--text-primary, #ffffff); /* white */
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-
-        /* ----- Main content card: centered text, centered list ----- */
-        .tool-wrapper {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 3rem;
+            margin: 2rem auto;  /* Reduced top margin from default */
             padding: 2rem;
-            background: var(--button-bg-alt, #1a2535);
+            background: var(--button-bg-alt);
             border-radius: 24px;
-            border: 1px solid var(--dark-border, #2a3548);
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        .tool-wrapper h2 {
-            color: var(--primary-accent, #42f8f5);
-            margin-top: 1.5rem;
+        .about-container h1 {
+            color: var(--primary-accent);
+            font-size: 2rem;
             margin-bottom: 1rem;
-            font-size: 1.6rem;
         }
-
-        .tool-wrapper p {
-            color: var(--text-primary, #ffffff);
-            font-size: 1rem;
+        .about-container h2 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+        .about-container p {
+            color: var(--text-secondary);
             line-height: 1.6;
-            text-align: center;
+            margin-bottom: 1rem;
         }
-
-        /* Style the list – centered container, left-aligned items */
-        .tool-wrapper ul {
-            display: inline-block;
-            text-align: left;
-            margin: 0 auto 1rem;
-            padding-left: 0;
-            list-style-position: inside;
-            color: var(--text-primary, #ffffff);
+        .about-container ul {
+            list-style: none;
+            padding: 0;
         }
-
-        .tool-wrapper li {
+        .about-container li {
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
-            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-
-        /* Remove default bullet style if you prefer custom */
-        .tool-wrapper ul {
-            list-style-type: disc;
+        .about-container li i {
+            color: var(--primary-accent);
+            width: 20px;
         }
-
-        /* Adjust spacing for the first paragraph */
-        .tool-wrapper p:first-of-type {
-            margin-top: 0;
+        .mission-box {
+            background: rgba(66,248,245,0.1);
+            border-left: 4px solid var(--primary-accent);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-style: italic;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        @media (max-width: 768px) {
+            .about-container {
+                margin: 1rem auto;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
-<body class="single-page">
-
-<!-- ===== HEADER (match your homepage) ===== -->
-<header class="site-header">
-    <div class="header-inner">
-        <div class="logo">
-            <span class="logo-circle">SG</span>
-            <span class="logo-text">SG Multi Tools</span>
+<body>
+    <!-- ===== GLOBAL HEADER (matches index.html exactly) ===== -->
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo-section">
+                <div class="logo-square">SG</div>
+                <div class="logo-text">
+                    <span class="logo-title">SG Multi Tools</span>
+                    <span class="logo-subtitle">Essential utilities</span>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="tools.html">Tools</a>
-            <a href="about.html" class="active">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </div>
-</header>
+    </header>
 
-<!-- ===== HERO SECTION (centered, cyan title, white text) ===== -->
-<section class="hero">
-    <h1>About SG Multi Tools</h1>
-    <p>Free, fast, and easy online tools for everyday use</p>
-</section>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="container">
+            <div class="about-container">
+                <h1>About SG Multi Tools</h1>
+                <p>
+                    <strong>SG Multi Tools</strong> is a free online multi-tool platform designed to make everyday digital tasks simple, fast, and accessible.
+                </p>
 
-<!-- ===== MAIN CONTENT CARD ===== -->
-<div class="tool-wrapper">
-    <p>
-        <strong>SG Multi Tools</strong> is a free online multi‑tool platform designed
-        to make everyday digital tasks simple, fast, and accessible.
-    </p>
+                <h2>What We Offer</h2>
+                <ul>
+                    <li><i class="fas fa-calculator"></i> Calculators & financial tools</li>
+                    <li><i class="fas fa-pencil-alt"></i> Text & productivity utilities</li>
+                    <li><i class="fas fa-image"></i> Image & file tools</li>
+                    <li><i class="fas fa-exchange-alt"></i> Conversion & web utilities</li>
+                </ul>
 
-    <h2>What We Offer</h2>
-    <ul>
-        <li>Calculators & financial tools</li>
-        <li>Text & productivity utilities</li>
-        <li>Image & file tools</li>
-        <li>Conversion & web utilities</li>
-    </ul>
-
-    <h2>Our Mission</h2>
-    <p>
-        To provide simple, reliable tools without installation or sign‑ups.
-    </p>
-</div>
-
-<!-- ===== FOOTER (single line + email, white links) ===== -->
-<footer class="main-footer">
-    <div class="container">
-        <div class="footer-links-horizontal">
-            <a href="privacy-policy.html" style="color: #ffffff;">Privacy Policy</a>
-            <a href="disclaimer.html" style="color: #ffffff;">Disclaimer</a>
-            <a href="terms-and-conditions.html" style="color: #ffffff;">Terms & Conditions</a>
-            <a href="sitemap.xml" style="color: #ffffff;">Sitemap</a>
-            <a href="about.html" style="color: #ffffff;">About</a>
-            <a href="contact.html" style="color: #ffffff;">Contact</a>
+                <h2>Our Mission</h2>
+                <div class="mission-box">
+                    <i class="fas fa-quote-left" style="color: var(--primary-accent); opacity: 0.5;"></i>
+                    Reliable, free online tools, no installation, no sign-ups
+                    <i class="fas fa-quote-right" style="color: var(--primary-accent); opacity: 0.5; display: inline-block; margin-left: 0.5rem;"></i>
+                </div>
+            </div>
         </div>
-        <div class="footer-email" style="color: #ffffff;">
-            contact@sgtools.in
+    </main>
+
+    <!-- ===== GLOBAL FOOTER (matches index.html exactly) ===== -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <div class="logo-square">SG</div>
+                    <div class="footer-logo-text">
+                        <h3>SG Multi Tools</h3>
+                        <p>Essential utilities · 100% free</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Tools</h4>
+                        <ul>
+                            <li><a href="password-generator.html"><i class="fas fa-lock"></i> Password</a></li>
+                            <li><a href="qr-generator.html"><i class="fas fa-qrcode"></i> QR Code</a></li>
+                            <li><a href="unit-converter.html"><i class="fas fa-weight-hanging"></i> Unit Converter</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                            <li><a href="privacy.html"><i class="fas fa-shield"></i> Privacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms</a></li>
+                            <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+                            <li><a href="sitemap.html"><i class="fas fa-sitemap"></i> Sitemap</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 SG Multi Tools. All client‑side, no tracking.</div>
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span class="footer-email">hello@sgtools.in</span>
+                </div>
+            </div>
         </div>
-    </div>
-</footer>
-
-<!-- Ensure footer links are white (fallback if not in style.css) -->
-<style>
-    .footer-links-horizontal a,
-    .footer-email {
-        color: #ffffff !important;
-        transition: color 0.2s;
-    }
-    .footer-links-horizontal a:hover {
-        color: var(--primary-accent, #42f8f5);
-    }
-</style>
-
+    </footer>
 </body>
 </html>
