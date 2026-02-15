@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator · SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
+        body {
+            background: var(--main-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .tool-standalone {
+            background: var(--button-bg-alt);
+            border-radius: 20px;
+            border: 1px solid var(--dark-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            padding: 1.2rem;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: auto;
+            position: relative;
+        }
+
+        .tool-standalone h1 {
+            font-size: 1.3rem !important;
+            margin-bottom: 0.3rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Close button styles */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .close-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+            transform: scale(1.1);
+        }
+
+        .close-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* EMI specific styles */
+        .input-group {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-label i {
+            color: var(--primary-accent);
+            width: 18px;
+            text-align: center;
+        }
+
+        .emi-input {
+            width: 100%;
+            background: var(--button-bg-alt);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .emi-input:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px var(--glow-shadow);
+        }
+
+        .input-hint {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.3rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        .result-card {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1rem 0 0.8rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.8rem;
+            text-align: center;
+        }
+
+        .result-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .result-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .result-label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-details {
+            background: rgba(10,15,30,0.6);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .copy-btn {
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 14px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
+        }
+
+        .generate-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border: none;
+            border-radius: 16px;
+            padding: 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-shade);
+            box-shadow: 0 0 20px var(--glow-shadow);
+            transform: translateY(-2px);
+        }
+
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
+        /* Hide description on mobile */
+        @media (max-width: 768px) {
+            body > div:not(.tool-standalone) {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tool-standalone {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .result-card {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 0.4rem;
+            }
+            .result-value {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tool-standalone">
+        <!-- Close button -->
+        <a href="index.html" class="close-btn" title="Close tool">
+            <i class="fas fa-times"></i>
+        </a>
+
+        <!-- Header with icon -->
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
+                <i class="fas fa-home"></i>
+            </div>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">EMI Calculator</h1>
+        </div>
+
+        <!-- Loan Amount -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-rupee-sign"></i>
+                <span>Loan Amount</span>
+            </div>
+            <input type="number" id="loanAmount" class="emi-input" value="1000000" step="10000" min="0">
+            <div class="input-hint">
+                <span>₹1,000,000</span>
+                <span>Min: ₹0</span>
+            </div>
+        </div>
+
+        <!-- Interest Rate -->
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-percent"></i>
+                <span>Interest Rate (p.a.)</span>
+            </div>
+            <input type="number" id="interestRate" class="emi-input" value="8.5" step="0.1" min="0">
+            <div class="input-hint">
+                <span>8.5% per annum</span>
+                <span>Min: 0%</span>
+            </div>
+        </div>
+
+        <!-- Loan Tenure (Years) -->
+        <div class="input-group" style="margin-bottom: 0.5rem;">
+            <div class="input-label">
+                <i class="fas fa-calendar"></i>
+                <span>Loan Tenure (Years)</span>
+            </div>
+            <input type="number" id="loanYears" class="emi-input" value="5" step="0.5" min="0.5">
+            <div class="input-hint">
+                <span id="monthsDisplay">5 years = 60 months</span>
+                <span>Min: 0.5 yr</span>
+            </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="result-card">
+            <div class="result-item">
+                <span class="result-value" id="emiValue">20,276</span>
+                <span class="result-label">Monthly EMI</span>
+            </div>
+            <div class="result-item">
+                <span class="result-value" id="totalInterestValue">2,16,560</span>
+                <span class="result-label">Total Interest</span>
+            </div>
+            <div class="result-item">
+                <span class="result-value" id="totalPaymentValue">12,16,560</span>
+                <span class="result-label">Total Payment</span>
+            </div>
+        </div>
+
+        <!-- Summary + Copy -->
+        <div class="result-details">
+            <span><i class="fas fa-chart-line" style="color: var(--primary-accent);"></i> Loan summary</span>
+            <span id="loanSummary" style="font-weight: 600; color: var(--text-primary);">₹10L @8.5% for 5y</span>
+            <button id="copyResultBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Calculate Button -->
+        <button id="calculateBtn" class="generate-btn">
+            <i class="fas fa-calculator"></i> Calculate EMI
+        </button>
+
+        <!-- Affiliate Link (specific for EMI/Percentage) -->
+        <div class="affiliate-link">
+            <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-home"></i> About the EMI Calculator
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our EMI Calculator helps you understand the true cost of a loan by breaking down your monthly payments into principal and interest. Whether you're planning to buy a home, a car, or take a personal loan, this tool gives you a clear picture of your financial commitment.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Instant EMI calculation:</strong> Enter loan amount, interest rate, and tenure – get your monthly EMI immediately.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Total interest & payment:</strong> See at a glance how much interest you'll pay over the full loan term and the total amount you'll repay.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Indian currency formatting:</strong> Results are shown with ₹ and commas in lakhs/crores – familiar and easy to read.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Copy summary:</strong> One‑click copy of the full loan details for your records.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Enter the loan amount (e.g., ₹10,00,000 for a ₹10 lakh loan).</li>
+            <li>Enter the annual interest rate (e.g., 8.5%).</li>
+            <li>Enter the loan tenure in years (you can use decimals, e.g., 5 for 5 years, 0.5 for 6 months).</li>
+            <li>The monthly EMI, total interest, and total payment update automatically.</li>
+            <li>Click <strong>"Copy"</strong> to copy the loan summary to your clipboard.</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Why Use Our EMI Calculator?</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>Plan your budget:</strong> Know exactly what your monthly outgo will be before you commit to a loan.</li>
+            <li><strong>Compare loan offers:</strong> Test different interest rates and tenures to find the most affordable option.</li>
+            <li><strong>Understand the cost of borrowing:</strong> See how much extra you pay in interest over the life of the loan.</li>
+            <li><strong>No hidden fees:</strong> Our calculator is completely free, with no sign‑up or personal information required.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                "Know your EMI before you borrow – it's the smart way to plan your finances."
+            </p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            const loanAmountInput = document.getElementById('loanAmount');
+            const interestRateInput = document.getElementById('interestRate');
+            const loanYearsInput = document.getElementById('loanYears');
+            const monthsDisplay = document.getElementById('monthsDisplay');
+            const emiValue = document.getElementById('emiValue');
+            const totalInterestValue = document.getElementById('totalInterestValue');
+            const totalPaymentValue = document.getElementById('totalPaymentValue');
+            const loanSummary = document.getElementById('loanSummary');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const copyBtn = document.getElementById('copyResultBtn');
+
+            function formatIndianCurrency(amount) {
+                if (isNaN(amount)) return '0';
+                let num = Math.round(amount);
+                let numStr = num.toString();
+                if (numStr.length > 3) {
+                    let lastThree = numStr.slice(-3);
+                    let otherDigits = numStr.slice(0, -3);
+                    if (otherDigits !== '') {
+                        otherDigits = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+                        numStr = otherDigits + ',' + lastThree;
+                    }
+                }
+                return '₹' + numStr;
+            }
+
+            function formatNumberWithCommas(value) {
+                if (isNaN(value)) return '0';
+                let num = Math.round(value);
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            function calculateEMI() {
+                let principal = parseFloat(loanAmountInput.value) || 0;
+                let annualRate = parseFloat(interestRateInput.value) || 0;
+                let years = parseFloat(loanYearsInput.value) || 0;
+
+                if (principal < 0) principal = 0;
+                if (annualRate < 0) annualRate = 0;
+                if (years < 0.5) years = 0.5;
+
+                let monthlyRate = annualRate / 12 / 100;
+                let months = years * 12;
+                monthsDisplay.textContent = `${years.toFixed(1)} years = ${Math.round(months)} months`;
+
+                let emi = 0;
+                let totalPayment = 0;
+                let totalInterest = 0;
+
+                if (principal > 0 && annualRate > 0 && months > 0) {
+                    let factor = Math.pow(1 + monthlyRate, months);
+                    emi = principal * monthlyRate * factor / (factor - 1);
+                    totalPayment = emi * months;
+                    totalInterest = totalPayment - principal;
+                } else if (principal > 0) {
+                    emi = principal / months;
+                    totalPayment = principal;
+                    totalInterest = 0;
+                }
+
+                emiValue.textContent = formatIndianCurrency(emi);
+                totalInterestValue.textContent = formatIndianCurrency(totalInterest);
+                totalPaymentValue.textContent = formatIndianCurrency(totalPayment);
+                
+                let principalInLakhs = principal / 100000;
+                if (principalInLakhs >= 1) {
+                    loanSummary.textContent = `₹${(principal/100000).toFixed(1)}L @ ${annualRate}% for ${years}y`;
+                } else {
+                    loanSummary.textContent = `₹${formatNumberWithCommas(principal)} @ ${annualRate}% for ${years}y`;
+                }
+            }
+
+            function copySummary() {
+                let principal = parseFloat(loanAmountInput.value) || 0;
+                let annualRate = parseFloat(interestRateInput.value) || 0;
+                let years = parseFloat(loanYearsInput.value) || 0;
+                let months = Math.round(years * 12);
+                let emi = emiValue.textContent;
+                let totalInterest = totalInterestValue.textContent;
+                let totalPayment = totalPaymentValue.textContent;
+
+                let summary = `EMI: ${emi} | Total Interest: ${totalInterest} | Total Payment: ${totalPayment} | Loan: ₹${formatNumberWithCommas(principal)} at ${annualRate}% for ${years} years (${months} months)`;
+                
+                navigator.clipboard.writeText(summary).then(() => {
+                    copyBtn.classList.add('copied');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Failed to copy. Please copy manually.');
+                });
+            }
+
+            calculateBtn.addEventListener('click', calculateEMI);
+            copyBtn.addEventListener('click', copySummary);
+            loanAmountInput.addEventListener('input', calculateEMI);
+            interestRateInput.addEventListener('input', calculateEMI);
+            loanYearsInput.addEventListener('input', calculateEMI);
+
+            calculateEMI();
+        })();
+    </script>
+</body>
+</html>
