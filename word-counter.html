@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Encoder/Decoder · SG Multi Tools</title>
+    <title>Word Counter · SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,6 +32,7 @@
             max-height: 85vh;
             overflow-y: auto;
             margin: auto;
+            position: relative;
         }
 
         .tool-standalone h1 {
@@ -41,47 +43,38 @@
             gap: 0.5rem;
         }
 
-        /* URL Encoder/Decoder specific styles */
-        .mode-selector {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .mode-btn {
-            flex: 1;
-            background: var(--button-bg-alt);
+        /* Close button styles */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--button-bg);
             border: 1px solid var(--dark-border);
-            border-radius: 100px;
-            padding: 0.5rem 0.3rem;
             color: var(--text-secondary);
-            font-size: 0.8rem;
-            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
-            transition: var(--transition);
             cursor: pointer;
-            white-space: nowrap;
+            transition: var(--transition);
+            z-index: 10;
+            text-decoration: none;
         }
 
-        .mode-btn i {
-            font-size: 0.75rem;
-            color: var(--primary-accent);
+        .close-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+            transform: scale(1.1);
         }
 
-        .mode-btn.active {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
+        .close-btn i {
+            font-size: 0.9rem;
         }
 
-        .mode-btn.active i {
-            color: var(--main-bg);
-        }
-
+        /* Word Counter specific styles */
         .input-group {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
@@ -105,7 +98,7 @@
             text-align: center;
         }
 
-        .url-textarea {
+        #textInput {
             width: 100%;
             background: var(--button-bg-alt);
             border: 1px solid var(--dark-border);
@@ -117,76 +110,87 @@
             outline: none;
             transition: var(--transition);
             resize: vertical;
-            min-height: 90px;
+            min-height: 120px;
         }
 
-        .url-textarea:focus {
+        #textInput:focus {
             border-color: var(--primary-accent);
             box-shadow: 0 0 0 3px var(--glow-shadow);
         }
 
-        .output-panel {
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-card {
             background: var(--main-bg);
             border: 1px solid var(--dark-border);
             border-radius: 16px;
-            padding: 1rem;
+            padding: 0.8rem 0.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stats-secondary {
+            background: var(--main-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 0.8rem 1rem;
             margin-bottom: 1rem;
         }
 
-        .output-header {
+        .stat-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid var(--dark-border);
         }
 
-        .copy-btn {
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 14px;
-            padding: 0.4rem 1rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-row-label {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: var(--transition);
-            cursor: pointer;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
         }
 
-        .copy-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
+        .stat-row-label i {
+            color: var(--primary-accent);
+            width: 16px;
+            text-align: center;
         }
 
-        .copy-btn.copied {
-            background: var(--success-color);
-            border-color: var(--success-color);
-            color: var(--main-bg);
-        }
-
-        #outputText {
-            width: 100%;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 0.7rem 1rem;
+        .stat-row-value {
+            font-weight: 600;
             color: var(--text-primary);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
-            resize: vertical;
-            min-height: 90px;
-            white-space: pre-wrap;
-            word-break: break-all;
+            font-size: 0.8rem;
         }
 
         .action-buttons {
             display: flex;
             gap: 0.8rem;
-            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
         }
 
         .clear-btn {
@@ -213,27 +217,34 @@
             box-shadow: 0 0 12px var(--glow-shadow);
         }
 
-        .generate-btn {
-            width: 100%;
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border: none;
+        .copy-btn {
+            flex: 1;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
             border-radius: 16px;
-            padding: 0.7rem;
-            font-size: 0.95rem;
-            font-weight: 600;
+            padding: 0.6rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             transition: var(--transition);
             cursor: pointer;
         }
 
-        .generate-btn:hover {
-            background: var(--accent-shade);
-            box-shadow: 0 0 20px var(--glow-shadow);
-            transform: translateY(-2px);
+        .copy-btn:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--main-bg);
         }
 
         /* Affiliate link style */
@@ -269,64 +280,97 @@
             color: var(--main-bg);
         }
 
+        /* Hide description on mobile */
+        @media (max-width: 768px) {
+            body > div:not(.tool-standalone) {
+                display: none !important;
+            }
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
                 padding: 1rem;
             }
-            .mode-selector {
-                flex-wrap: wrap;
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
             }
-            .mode-btn {
-                flex: 1 0 calc(50% - 0.25rem);
-                white-space: normal;
-                padding: 0.5rem 0.2rem;
-                font-size: 0.75rem;
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            .action-buttons {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <div class="tool-standalone">
+        <!-- Close button -->
+        <a href="index.html" class="close-btn" title="Close tool">
+            <i class="fas fa-times"></i>
+        </a>
+
         <!-- Header with icon -->
         <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
             <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
-                <i class="fas fa-link"></i>
+                <i class="fas fa-file-alt"></i>
             </div>
-            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">URL Encoder/Decoder</h1>
+            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Word Counter</h1>
         </div>
 
-        <!-- Mode Selection (Encode / Decode) -->
-        <div class="mode-selector">
-            <button id="modeEncode" class="mode-btn active">
-                <i class="fas fa-lock"></i> Encode
-            </button>
-            <button id="modeDecode" class="mode-btn">
-                <i class="fas fa-unlock"></i> Decode
-            </button>
-        </div>
-
-        <!-- Input Section -->
+        <!-- Input Textarea -->
         <div class="input-group">
             <div class="input-label">
                 <i class="fas fa-pencil-alt"></i>
-                <span id="inputLabel">Text to encode</span>
+                <span>Enter text</span>
             </div>
-            <textarea id="inputText" class="url-textarea" placeholder="Enter text here...">https://sgtools.in/search?q=url encoder</textarea>
+            <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
         </div>
 
-        <!-- Output Section -->
-        <div class="output-panel">
-            <div class="output-header">
-                <span class="input-label" style="margin-bottom: 0;">
-                    <i class="fas fa-result"></i>
-                    <span id="outputLabel">Encoded result</span>
-                </span>
-                <button id="copyBtn" class="copy-btn">
-                    <i class="fas fa-copy"></i> Copy
-                </button>
+        <!-- Primary Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div id="wordCount" class="stat-value">0</div>
+                <div class="stat-label">Words</div>
             </div>
-            <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+            <div class="stat-card">
+                <div id="charCount" class="stat-value">0</div>
+                <div class="stat-label">Characters</div>
+            </div>
+            <div class="stat-card">
+                <div id="charNoSpaceCount" class="stat-value">0</div>
+                <div class="stat-label">No spaces</div>
+            </div>
+            <div class="stat-card">
+                <div id="sentenceCount" class="stat-value">0</div>
+                <div class="stat-label">Sentences</div>
+            </div>
+            <div class="stat-card">
+                <div id="paragraphCount" class="stat-value">0</div>
+                <div class="stat-label">Paragraphs</div>
+            </div>
+            <div class="stat-card">
+                <div id="uniqueWordCount" class="stat-value">0</div>
+                <div class="stat-label">Unique words</div>
+            </div>
+        </div>
+
+        <!-- Secondary Stats (Reading Time, Speaking Time) -->
+        <div class="stats-secondary">
+            <div class="stat-row">
+                <span class="stat-row-label">
+                    <i class="fas fa-clock"></i> Reading time
+                </span>
+                <span id="readingTime" class="stat-row-value">0 min</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-row-label">
+                    <i class="fas fa-microphone"></i> Speaking time
+                </span>
+                <span id="speakingTime" class="stat-row-value">0 min</span>
+            </div>
         </div>
 
         <!-- Action Buttons -->
@@ -334,15 +378,10 @@
             <button id="clearBtn" class="clear-btn">
                 <i class="fas fa-trash-alt"></i> Clear
             </button>
-            <button id="swapBtn" class="clear-btn">
-                <i class="fas fa-exchange-alt"></i> Swap
+            <button id="copyBtn" class="copy-btn">
+                <i class="fas fa-copy"></i> Copy Text
             </button>
         </div>
-
-        <!-- Convert Button -->
-        <button id="convertBtn" class="generate-btn">
-            <i class="fas fa-sync-alt"></i> Convert
-        </button>
 
         <!-- Affiliate Link -->
         <div class="affiliate-link">
@@ -357,52 +396,54 @@
     <!-- Additional content for AdSense -->
     <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
         <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            <i class="fas fa-link"></i> About the URL Encoder/Decoder
+            <i class="fas fa-file-alt"></i> About the Word Counter
         </h3>
         <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Our URL Encoder/Decoder converts special characters in URLs to a safe, transmitable format and back. When you need to include spaces, symbols, or non‑ASCII characters in a URL parameter, encoding ensures they are correctly interpreted by web servers. This tool is essential for web developers, SEO specialists, and anyone who works with URLs regularly.
+            Our Word Counter is a comprehensive text analysis tool that gives you instant statistics about your writing. Whether you're a student working on an essay, a writer crafting content, or a professional preparing a report, this tool provides valuable insights into your text, including word count, character count, sentence count, and reading time estimates.
         </p>
 
         <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
         <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
             <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Encode/Decode modes:</strong> Switch instantly between encoding and decoding.</span>
+                <span><strong>Comprehensive metrics:</strong> Tracks words, characters (with and without spaces), sentences, paragraphs, and unique words.</span>
             </li>
             <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>URI Component encoding:</strong> Uses <code>encodeURIComponent</code> and <code>decodeURIComponent</code>, which handle all special characters, including <code>/</code>, <code>?</code>, <code>&</code>, and <code>=</code>.</span>
+                <span><strong>Reading time:</strong> Estimates how long it takes to read your text (based on 238 words per minute).</span>
             </li>
             <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Swap:</strong> Move the output back to the input for iterative processing.</span>
+                <span><strong>Speaking time:</strong> Estimates how long it takes to speak your text (based on 150 words per minute).</span>
             </li>
             <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Copy & clear:</strong> One‑click copy of the result, and a clear button to reset.</span>
+                <span><strong>Real-time updates:</strong> All statistics update instantly as you type or paste text.</span>
             </li>
         </ul>
 
         <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
         <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li>Select <strong>Encode</strong> or <strong>Decode</strong> mode.</li>
             <li>Type or paste your text into the input area.</li>
-            <li>The converted text appears instantly in the output area.</li>
-            <li>Click <strong>"Copy"</strong> to copy the result to your clipboard.</li>
-            <li>Use <strong>"Swap"</strong> to move the output to the input for another round of conversion.</li>
-            <li>Click <strong>"Clear"</strong> to reset both fields.</li>
+            <li>All statistics update automatically in real-time.</li>
+            <li>View word count, character count, sentences, and paragraphs in the grid.</li>
+            <li>Check reading and speaking time estimates below.</li>
+            <li>Click <strong>"Copy Text"</strong> to copy your text to the clipboard.</li>
+            <li>Click <strong>"Clear"</strong> to reset the input and all statistics.</li>
         </ol>
 
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Why Encode URLs?</h4>
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 When to Use</h4>
         <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li><strong>Safe transmission:</strong> Characters like <code>&</code>, <code>?</code>, and spaces have special meanings in URLs. Encoding replaces them with percent‑encoded equivalents (<code>%20</code> for space).</li>
-            <li><strong>Data integrity:</strong> When you pass parameters in a query string, encoding ensures they are delivered unchanged.</li>
-            <li><strong>Internationalisation:</strong> Non‑ASCII characters (e.g., é, 中文) can be represented safely.</li>
+            <li><strong>Academic writing:</strong> Ensure your essays meet word count requirements.</li>
+            <li><strong>Content creation:</strong> Optimize blog posts and articles for readability.</li>
+            <li><strong>Social media:</strong> Check character limits for posts and tweets.</li>
+            <li><strong>Presentations:</strong> Estimate how long your speech will take.</li>
+            <li><strong>SEO optimization:</strong> Analyze content length for search engine rankings.</li>
         </ul>
 
         <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
             <p style="font-style: italic; margin: 0; color: var(--text-primary);">
-                “Never break a URL again – encode and decode with confidence.”
+                "Know your numbers – from words to reading time, we count it all."
             </p>
         </div>
     </div>
@@ -411,73 +452,87 @@
         (function() {
             "use strict";
 
-            const modeEncode = document.getElementById('modeEncode');
-            const modeDecode = document.getElementById('modeDecode');
-            const inputText = document.getElementById('inputText');
-            const outputText = document.getElementById('outputText');
-            const inputLabel = document.getElementById('inputLabel');
-            const outputLabel = document.getElementById('outputLabel');
-            const convertBtn = document.getElementById('convertBtn');
-            const copyBtn = document.getElementById('copyBtn');
+            // ---------- DOM Elements ----------
+            const textInput = document.getElementById('textInput');
+            const wordCount = document.getElementById('wordCount');
+            const charCount = document.getElementById('charCount');
+            const charNoSpaceCount = document.getElementById('charNoSpaceCount');
+            const sentenceCount = document.getElementById('sentenceCount');
+            const paragraphCount = document.getElementById('paragraphCount');
+            const uniqueWordCount = document.getElementById('uniqueWordCount');
+            const readingTime = document.getElementById('readingTime');
+            const speakingTime = document.getElementById('speakingTime');
             const clearBtn = document.getElementById('clearBtn');
-            const swapBtn = document.getElementById('swapBtn');
+            const copyBtn = document.getElementById('copyBtn');
 
-            let currentMode = 'encode';
-
-            function setActiveMode(mode) {
-                currentMode = mode;
-                modeEncode.classList.toggle('active', mode === 'encode');
-                modeDecode.classList.toggle('active', mode === 'decode');
+            // ---------- Update Statistics ----------
+            function updateStats() {
+                const text = textInput.value;
                 
-                if (mode === 'encode') {
-                    inputLabel.textContent = 'Text to encode';
-                    outputLabel.textContent = 'Encoded result';
+                // Words
+                const words = text.trim() ? text.trim().split(/\s+/).filter(word => word.length > 0) : [];
+                const wordCountValue = words.length;
+                wordCount.textContent = wordCountValue.toLocaleString();
+                
+                // Characters
+                charCount.textContent = text.length.toLocaleString();
+                
+                // Characters without spaces
+                const noSpaces = text.replace(/\s+/g, '');
+                charNoSpaceCount.textContent = noSpaces.length.toLocaleString();
+                
+                // Sentences (basic: .!? followed by space or end)
+                const sentences = text.split(/[.!?]+(?:\s|$)/).filter(s => s.trim().length > 0);
+                sentenceCount.textContent = sentences.length.toLocaleString();
+                
+                // Paragraphs
+                const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+                paragraphCount.textContent = paragraphs.length.toLocaleString();
+                
+                // Unique words
+                const uniqueWords = new Set(words.map(w => w.toLowerCase()));
+                uniqueWordCount.textContent = uniqueWords.size.toLocaleString();
+                
+                // Reading time (average 238 words per minute)
+                const readingMinutes = wordCountValue / 238;
+                if (readingMinutes < 1) {
+                    readingTime.textContent = '< 1 min';
+                } else if (readingMinutes < 60) {
+                    readingTime.textContent = `${Math.ceil(readingMinutes)} min`;
                 } else {
-                    inputLabel.textContent = 'Text to decode';
-                    outputLabel.textContent = 'Decoded result';
+                    const hours = Math.floor(readingMinutes / 60);
+                    const mins = Math.ceil(readingMinutes % 60);
+                    readingTime.textContent = `${hours}h ${mins}m`;
                 }
                 
-                convert();
-            }
-
-            function convert() {
-                const text = inputText.value;
-                if (text === '') {
-                    outputText.value = '';
-                    return;
-                }
-
-                try {
-                    if (currentMode === 'encode') {
-                        outputText.value = encodeURIComponent(text);
-                    } else {
-                        outputText.value = decodeURIComponent(text);
-                    }
-                } catch (e) {
-                    outputText.value = '⚠️ Invalid encoding: ' + e.message;
+                // Speaking time (average 150 words per minute)
+                const speakingMinutes = wordCountValue / 150;
+                if (speakingMinutes < 1) {
+                    speakingTime.textContent = '< 1 min';
+                } else if (speakingMinutes < 60) {
+                    speakingTime.textContent = `${Math.ceil(speakingMinutes)} min`;
+                } else {
+                    const hours = Math.floor(speakingMinutes / 60);
+                    const mins = Math.ceil(speakingMinutes % 60);
+                    speakingTime.textContent = `${hours}h ${mins}m`;
                 }
             }
 
-            function clearAll() {
-                inputText.value = '';
-                outputText.value = '';
+            // ---------- Clear Text ----------
+            function clearText() {
+                textInput.value = '';
+                updateStats();
             }
 
-            function swap() {
-                const output = outputText.value;
-                if (output && !output.startsWith('⚠️')) {
-                    inputText.value = output;
-                    convert();
-                }
-            }
-
-            function copyResult() {
-                if (!outputText.value) {
+            // ---------- Copy Text ----------
+            function copyText() {
+                const text = textInput.value;
+                if (!text) {
                     alert('Nothing to copy.');
                     return;
                 }
                 
-                navigator.clipboard.writeText(outputText.value).then(() => {
+                navigator.clipboard.writeText(text).then(() => {
                     copyBtn.classList.add('copied');
                     const originalHTML = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
@@ -490,16 +545,13 @@
                 });
             }
 
-            modeEncode.addEventListener('click', () => setActiveMode('encode'));
-            modeDecode.addEventListener('click', () => setActiveMode('decode'));
-            
-            inputText.addEventListener('input', convert);
-            convertBtn.addEventListener('click', convert);
-            copyBtn.addEventListener('click', copyResult);
-            clearBtn.addEventListener('click', clearAll);
-            swapBtn.addEventListener('click', swap);
+            // ---------- Event Listeners ----------
+            textInput.addEventListener('input', updateStats);
+            clearBtn.addEventListener('click', clearText);
+            copyBtn.addEventListener('click', copyText);
 
-            convert();
+            // ---------- Initial Stats ----------
+            updateStats();
         })();
     </script>
 </body>
