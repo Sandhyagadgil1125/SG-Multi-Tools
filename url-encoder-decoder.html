@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Encoder/Decoder · SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE (EXACT MATCH) ===== */
+        /* ===== ULTRA-COMPACT STANDALONE ===== */
         body {
             background: var(--main-bg);
             display: flex;
@@ -31,6 +32,7 @@
             max-height: 85vh;
             overflow-y: auto;
             margin: auto;
+            position: relative;
         }
 
         .tool-standalone h1 {
@@ -41,7 +43,38 @@
             gap: 0.5rem;
         }
 
-        /* ----- URL Encoder/Decoder Specific Styles ----- */
+        /* Close button styles */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .close-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+            transform: scale(1.1);
+        }
+
+        .close-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* URL Encoder/Decoder specific styles */
         .mode-selector {
             display: flex;
             gap: 0.5rem;
@@ -236,6 +269,46 @@
             transform: translateY(-2px);
         }
 
+        /* Affiliate link style */
+        .affiliate-link {
+            margin-top: 1rem;
+            text-align: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        .affiliate-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--button-bg);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--dark-border);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .affiliate-link a:hover {
+            background: var(--primary-accent);
+            color: var(--main-bg);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--glow-shadow);
+        }
+        .affiliate-link i {
+            color: var(--primary-accent);
+        }
+        .affiliate-link a:hover i {
+            color: var(--main-bg);
+        }
+
+        /* Hide description on mobile */
+        @media (max-width: 768px) {
+            body > div:not(.tool-standalone) {
+                display: none !important;
+            }
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -255,6 +328,11 @@
 </head>
 <body>
     <div class="tool-standalone">
+        <!-- Close button -->
+        <a href="index.html" class="close-btn" title="Close tool">
+            <i class="fas fa-times"></i>
+        </a>
+
         <!-- Header with icon -->
         <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
             <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
@@ -310,13 +388,74 @@
         <button id="convertBtn" class="generate-btn">
             <i class="fas fa-sync-alt"></i> Convert
         </button>
+
+        <!-- Affiliate Link -->
+        <div class="affiliate-link">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-star"></i>
+                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Additional content for AdSense -->
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
+        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-link"></i> About the URL Encoder/Decoder
+        </h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6;">
+            Our URL Encoder/Decoder converts special characters in URLs to a safe, transmitable format and back. When you need to include spaces, symbols, or non‑ASCII characters in a URL parameter, encoding ensures they are correctly interpreted by web servers. This tool is essential for web developers, SEO specialists, and anyone who works with URLs regularly.
+        </p>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
+        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Encode/Decode modes:</strong> Switch instantly between encoding and decoding.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>URI Component encoding:</strong> Uses <code>encodeURIComponent</code> and <code>decodeURIComponent</code>, which handle all special characters, including <code>/</code>, <code>?</code>, <code>&</code>, and <code>=</code>.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Swap:</strong> Move the output back to the input for iterative processing.</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
+                <span><strong>Copy & clear:</strong> One‑click copy of the result, and a clear button to reset.</span>
+            </li>
+        </ul>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
+        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li>Select <strong>Encode</strong> or <strong>Decode</strong> mode.</li>
+            <li>Type or paste your text into the input area.</li>
+            <li>The converted text appears instantly in the output area.</li>
+            <li>Click <strong>"Copy"</strong> to copy the result to your clipboard.</li>
+            <li>Use <strong>"Swap"</strong> to move the output to the input for another round of conversion.</li>
+            <li>Click <strong>"Clear"</strong> to reset both fields.</li>
+        </ol>
+
+        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Why Encode URLs?</h4>
+        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
+            <li><strong>Safe transmission:</strong> Characters like <code>&</code>, <code>?</code>, and spaces have special meanings in URLs. Encoding replaces them with percent‑encoded equivalents (<code>%20</code> for space).</li>
+            <li><strong>Data integrity:</strong> When you pass parameters in a query string, encoding ensures they are delivered unchanged.</li>
+            <li><strong>Internationalisation:</strong> Non‑ASCII characters (e.g., é, 中文) can be represented safely.</li>
+        </ul>
+
+        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
+                “Never break a URL again – encode and decode with confidence.”
+            </p>
+        </div>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            // ---------- DOM Elements ----------
             const modeEncode = document.getElementById('modeEncode');
             const modeDecode = document.getElementById('modeDecode');
             const inputText = document.getElementById('inputText');
@@ -328,16 +467,13 @@
             const clearBtn = document.getElementById('clearBtn');
             const swapBtn = document.getElementById('swapBtn');
 
-            // ---------- State ----------
-            let currentMode = 'encode'; // 'encode' or 'decode'
+            let currentMode = 'encode';
 
-            // ---------- Set Active Mode ----------
             function setActiveMode(mode) {
                 currentMode = mode;
                 modeEncode.classList.toggle('active', mode === 'encode');
                 modeDecode.classList.toggle('active', mode === 'decode');
                 
-                // Update labels
                 if (mode === 'encode') {
                     inputLabel.textContent = 'Text to encode';
                     outputLabel.textContent = 'Encoded result';
@@ -349,7 +485,6 @@
                 convert();
             }
 
-            // ---------- Conversion Function ----------
             function convert() {
                 const text = inputText.value;
                 if (text === '') {
@@ -359,35 +494,28 @@
 
                 try {
                     if (currentMode === 'encode') {
-                        // Use encodeURIComponent for full URL encoding
                         outputText.value = encodeURIComponent(text);
                     } else {
-                        // Decode
                         outputText.value = decodeURIComponent(text);
                     }
                 } catch (e) {
-                    // Handle invalid encoded strings
                     outputText.value = '⚠️ Invalid encoding: ' + e.message;
                 }
             }
 
-            // ---------- Clear Input ----------
             function clearAll() {
                 inputText.value = '';
                 outputText.value = '';
             }
 
-            // ---------- Swap Input/Output ----------
             function swap() {
                 const output = outputText.value;
-                // Only swap if output is not an error message
                 if (output && !output.startsWith('⚠️')) {
                     inputText.value = output;
                     convert();
                 }
             }
 
-            // ---------- Copy to Clipboard ----------
             function copyResult() {
                 if (!outputText.value) {
                     alert('Nothing to copy.');
@@ -407,7 +535,6 @@
                 });
             }
 
-            // ---------- Event Listeners ----------
             modeEncode.addEventListener('click', () => setActiveMode('encode'));
             modeDecode.addEventListener('click', () => setActiveMode('decode'));
             
@@ -417,7 +544,6 @@
             clearBtn.addEventListener('click', clearAll);
             swapBtn.addEventListener('click', swap);
 
-            // ---------- Initial Conversion ----------
             convert();
         })();
     </script>
