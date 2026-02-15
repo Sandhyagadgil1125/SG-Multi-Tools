@@ -15,9 +15,79 @@
                 grid-template-columns: repeat(4, 1fr) !important;
             }
         }
+        
+        /* Footer links in one row */
+        .footer-links-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-links-row a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .footer-links-row a:hover {
+            color: var(--primary-accent);
+        }
+        
+        .footer-email {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-email i {
+            color: var(--primary-accent);
+            margin-right: 0.5rem;
+        }
+        
+        .footer-email a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-email a:hover {
+            color: var(--primary-accent);
+        }
+        
+        @media (max-width: 768px) {
+            .footer-links-row {
+                gap: 1rem;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-links-row a {
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-links-row {
+                gap: 0.8rem;
+            }
+            
+            .footer-links-row a {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- HEADER SECTION -->
     <header class="main-header">
         <div class="container header-content">
             <div class="logo-section">
@@ -27,31 +97,29 @@
                     <span class="logo-subtitle">Essential utilities</span>
                 </div>
             </div>
-           <nav class="main-nav">
-    <ul>
-        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="tools.html"><i class="fas fa-tools"></i> Tools</a></li>
-        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-        <li><a href="privacy.html"><i class="fas fa-shield"></i> Privacy</a></li>
-        <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms</a></li>
-        <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
-        <li><a href="sitemap.html"><i class="fas fa-sitemap"></i> Sitemap</a></li>
-    </ul>
-</nav>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
+    <!-- MAIN CONTENT -->
     <main class="main-content">
         <div class="container">
+            <!-- HERO SECTION (UPDATED) -->
             <div class="hero-section">
                 <div class="hero-content">
                     <h1 class="hero-title">SG Multi Tools</h1>
-                    <p class="hero-description">Free online calculators, converters, and productivity tools — all in one place.</p>
+                    <p class="hero-description">Reliable, free online tools, no installation, no sign-ups</p>
                 </div>
             </div>
 
+            <!-- TOOLS GRID -->
             <div class="tools-grid">
                 <!-- Advanced Calculator -->
                 <div class="tool-card">
@@ -216,49 +284,28 @@
         </div>
     </main>
 
+    <!-- FOOTER SECTION (UPDATED) -->
     <footer class="main-footer">
         <div class="container">
-            <div class="footer-top">
-                <div class="footer-logo">
-                    <div class="logo-square">SG</div>
-                    <div class="footer-logo-text">
-                        <h3>SG Multi Tools</h3>
-                        <p>Essential utilities · 100% free</p>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Tools</h4>
-                        <ul>
-                            <li><a href="password-generator.html"><i class="fas fa-lock"></i> Password</a></li>
-                            <li><a href="qr-generator.html"><i class="fas fa-qrcode"></i> QR Code</a></li>
-                            <li><a href="unit-converter.html"><i class="fas fa-weight-hanging"></i> Unit Converter</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                            <li><a href="privacy.html"><i class="fas fa-shield"></i> Privacy</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms</a></li>
-                            <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
-                            <li><a href="sitemap.html"><i class="fas fa-sitemap"></i> Sitemap</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <!-- Footer Links in One Row -->
+            <div class="footer-links-row">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="terms-and-conditions.html">Terms and Conditions</a>
+                <a href="sitemap.html">Sitemap</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
             </div>
+            
+            <!-- Email Address -->
+            <div class="footer-email">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            
+            <!-- Copyright -->
             <div class="footer-bottom">
                 <div>© 2026 SG Multi Tools. All client‑side, no tracking.</div>
-                <div class="contact-info">
-                    <i class="fas fa-envelope"></i>
-                    <span class="footer-email">hello@sgtools.in</span>
-                </div>
             </div>
         </div>
     </footer>
