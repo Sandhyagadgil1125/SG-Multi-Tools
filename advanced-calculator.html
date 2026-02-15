@@ -44,6 +44,37 @@
             gap: 0.5rem;
         }
 
+        /* Close button styles */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .close-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+            transform: scale(1.1);
+        }
+
+        .close-btn i {
+            font-size: 0.9rem;
+        }
+
         /* Calculator specific styles */
         .display-container {
             background: var(--main-bg);
@@ -149,6 +180,7 @@
             padding-top: 0.8rem;
             border-top: 1px solid var(--dark-border);
         }
+        
         .affiliate-link a {
             display: inline-flex;
             align-items: center;
@@ -162,17 +194,27 @@
             text-decoration: none;
             transition: var(--transition);
         }
+        
         .affiliate-link a:hover {
             background: var(--primary-accent);
             color: var(--main-bg);
             border-color: var(--primary-accent);
             box-shadow: 0 0 12px var(--glow-shadow);
         }
+        
         .affiliate-link i {
             color: var(--primary-accent);
         }
+        
         .affiliate-link a:hover i {
             color: var(--main-bg);
+        }
+
+        /* Hide description on mobile */
+        @media (max-width: 768px) {
+            body > div:not(.tool-standalone) {
+                display: none !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -188,6 +230,7 @@
                 font-size: 1.4rem;
             }
         }
+        
         @media (max-width: 360px) {
             .button-grid {
                 grid-template-columns: repeat(4, 1fr);
