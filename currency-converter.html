@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Converter · SG Multi Tools</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,6 +32,7 @@
             max-height: 85vh;
             overflow-y: auto;
             margin: auto;
+            position: relative;
         }
 
         .tool-standalone h1 {
@@ -39,6 +41,37 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        /* Close button styles */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--button-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .close-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+            transform: scale(1.1);
+        }
+
+        .close-btn i {
+            font-size: 0.9rem;
         }
 
         /* Currency Converter specific styles */
@@ -261,6 +294,13 @@
             color: var(--main-bg);
         }
 
+        /* Hide description on mobile */
+        @media (max-width: 768px) {
+            body > div:not(.tool-standalone) {
+                display: none !important;
+            }
+        }
+
         @media (max-width: 480px) {
             .tool-standalone {
                 max-width: 100%;
@@ -283,6 +323,11 @@
 </head>
 <body>
     <div class="tool-standalone">
+        <!-- Close button -->
+        <a href="index.html" class="close-btn" title="Close tool">
+            <i class="fas fa-times"></i>
+        </a>
+
         <!-- Header with icon -->
         <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
             <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
@@ -723,60 +768,4 @@
                 const decimals = to === 'JPY' || to === 'KRW' || to === 'IDR' ? 0 : 2;
                 const formattedAmount = convertedAmount.toFixed(decimals);
                 
-                resultAmount.textContent = `${formattedAmount} ${to}`;
-                exchangeRate.textContent = `1 ${from} = ${(exchangeRates[to] / exchangeRates[from]).toFixed(4)} ${to}`;
-            }
-
-            function swapCurrencies() {
-                const fromValue = fromCurrency.value;
-                const toValue = toCurrency.value;
-                fromCurrency.value = toValue;
-                toCurrency.value = fromValue;
-                convertCurrency();
-            }
-
-            function copyResult() {
-                const amount = parseFloat(amountInput.value) || 0;
-                const from = fromCurrency.value;
-                const to = toCurrency.value;
-                const convertedText = resultAmount.textContent;
-                const rateText = exchangeRate.textContent;
-                
-                const summary = `${convertedText} • ${rateText} • Amount: ${amount} ${from}`;
-                
-                navigator.clipboard.writeText(summary).then(() => {
-                    copyBtn.classList.add('copied');
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = originalHTML;
-                    }, 2000);
-                }).catch(() => {
-                    alert('Failed to copy. Please copy manually.');
-                });
-            }
-
-            async function init() {
-                populateCurrencyDropdowns();
-                await fetchExchangeRates();
-                await convertCurrency();
-                
-                setInterval(async () => {
-                    await fetchExchangeRates();
-                    await convertCurrency();
-                }, 300000);
-            }
-
-            convertBtn.addEventListener('click', convertCurrency);
-            swapBtn.addEventListener('click', swapCurrencies);
-            copyBtn.addEventListener('click', copyResult);
-            amountInput.addEventListener('input', convertCurrency);
-            fromCurrency.addEventListener('change', convertCurrency);
-            toCurrency.addEventListener('change', convertCurrency);
-
-            init();
-        })();
-    </script>
-</body>
-</html>
+                resultAmount.textContent = `${form
