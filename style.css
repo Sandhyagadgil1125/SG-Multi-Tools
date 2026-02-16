@@ -1,6 +1,6 @@
 /* ========== MASTER STYLE.CSS - SG MULTI TOOLS ========== */
 /* Dark theme with cyan accent - Professional & Uniform */
-/* This file is linked from all HTML pages */
+/* Version 2.0 - Updated with all tool styles and affiliate support */
 
 * {
     margin: 0;
@@ -9,7 +9,7 @@
 }
 
 body {
-    background: #e8eef4;  /* Soft silver background */
+    background: #e8eef4;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
     display: flex;
@@ -17,7 +17,7 @@ body {
     align-items: center;
 }
 
-/* ========== NAVBAR - Consistent #1c222d ========== */
+/* ========== NAVBAR ========== */
 .navbar {
     background: #1c222d;
     width: 100%;
@@ -30,7 +30,7 @@ body {
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .logo {
@@ -57,7 +57,6 @@ body {
     color: white;
     font-size: 1.4rem;
     font-weight: 600;
-    letter-spacing: -0.5px;
 }
 
 .logo-text span {
@@ -140,7 +139,7 @@ body {
     padding: 0 20px;
 }
 
-/* ========== UNIFORM TOOL CARD ========== */
+/* ========== UNIFORM TOOL CARDS ========== */
 .tool-card {
     background: #1c222d;
     border-radius: 20px;
@@ -151,7 +150,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 340px;
+    min-height: 380px;
 }
 
 .tool-card:hover {
@@ -160,7 +159,7 @@ body {
     border-color: #42f8f5;
 }
 
-/* Card Header - Uniform for all cards */
+/* Card Header */
 .card-header {
     background: #12151a;
     padding: 15px 18px;
@@ -196,17 +195,17 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Card Content - Uniform spacing */
+/* Card Content */
 .card-content {
     padding: 18px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     background: #1c222d;
 }
 
-/* ========== UNIFORM FORM ELEMENTS ========== */
+/* ========== FORM ELEMENTS ========== */
 .input-field {
     background: white;
     border: 2px solid #3d5a73;
@@ -239,6 +238,21 @@ body {
     font-family: 'Fira Mono', monospace;
 }
 
+.select-field {
+    background: white;
+    border: 2px solid #3d5a73;
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: #1c222d;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
 .display-field {
     background: #12151a;
     border-radius: 12px;
@@ -252,10 +266,9 @@ body {
     box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
 }
 
-/* Button Grid */
+/* ========== BUTTONS ========== */
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     margin: 5px 0;
 }
@@ -264,6 +277,7 @@ body {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    margin-top: 5px;
 }
 
 .btn {
@@ -291,6 +305,10 @@ body {
     box-shadow: 0 5px 15px rgba(66, 248, 245, 0.5);
 }
 
+.btn:active {
+    transform: translateY(0);
+}
+
 .btn-primary {
     background: #42f8f5;
     color: #12151a;
@@ -304,28 +322,98 @@ body {
     box-shadow: 0 5px 20px rgba(66, 248, 245, 0.7);
 }
 
-/* Select dropdown */
-.select-field {
-    background: white;
-    border: 2px solid #3d5a73;
-    border-radius: 12px;
-    padding: 10px 15px;
-    font-size: 0.9rem;
-    color: #1c222d;
-    width: 100%;
+.btn-action {
+    background: #42f8f5;
+    color: #12151a;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 40px;
+    margin-top: 5px;
+    border: 2px solid #42f8f5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: center;
 }
 
-/* Checkbox styling */
+.btn-action:hover {
+    background: #3ff0ed;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
+}
+
+/* ========== AFFILIATE LINK STYLES (for Advanced Calculator only) ========== */
+.affiliate-section {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #2a4055;
+}
+
+.affiliate-link {
+    flex: 1;
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.affiliate-link.primary {
+    background: #ffd700;
+    color: #1c222d;
+    border-color: #ffd700;
+}
+
+.affiliate-link.secondary {
+    background: #c0c0c0;
+    color: #1c222d;
+    border-color: #c0c0c0;
+}
+
+.affiliate-link:hover {
+    background: #42f8f5;
+    border-color: #42f8f5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+}
+
+.affiliate-badge {
+    background: #ffd700;
+    color: #1c222d;
+    padding: 4px 10px;
+    border-radius: 30px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #ffd700;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.affiliate-badge:hover {
+    background: #42f8f5;
+    border-color: #42f8f5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+}
+
+/* ========== CHECKBOX STYLES ========== */
 .checkbox-group {
     display: flex;
     gap: 15px;
     color: white;
     font-size: 0.8rem;
+    flex-wrap: wrap;
 }
 
 .checkbox-group label {
@@ -339,6 +427,30 @@ body {
     accent-color: #42f8f5;
     width: 16px;
     height: 16px;
+}
+
+/* ========== MEMORY BAR (for calculator) ========== */
+.memory-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+    color: #6d8ba0;
+    font-size: 0.75rem;
+}
+
+.memory-bar span {
+    background: #12151a;
+    padding: 3px 10px;
+    border-radius: 15px;
+    border: 1px solid #2a4a60;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.memory-bar span:hover {
+    background: #42f8f5;
+    color: #12151a;
 }
 
 /* ========== FOOTER ========== */
@@ -367,17 +479,19 @@ body {
     list-style: none;
 }
 
-.footer-links a {
+.footer-links li a {
     color: #e0e0e0;
     text-decoration: none;
     font-size: 0.9rem;
     padding: 5px 10px;
     border-radius: 20px;
     transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
-.footer-links a:hover {
+.footer-links li a:hover {
     color: #42f8f5;
+    border-color: #42f8f5;
     background: #12151a;
 }
 
@@ -401,7 +515,28 @@ body {
     font-size: 0.85rem;
 }
 
-/* ========== RESPONSIVE ========== */
+/* ========== UTILITY CLASSES ========== */
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
+
+.mb-2 {
+    margin-bottom: 8px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
 @media screen and (max-width: 1100px) {
     .tools-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -429,6 +564,11 @@ body {
         margin: 10px 0 0;
         font-size: 1.3rem;
     }
+    
+    .hero-description {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -440,5 +580,9 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 15px;
+    }
+    
+    .button-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
     }
 }
