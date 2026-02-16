@@ -3,603 +3,902 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator - SG Multi Tools</title>
+    <title>SG Multi Tools - 20 Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #e8eef4;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .calculator-card {
-            background: #1c222d;
-            border-radius: 30px;
-            padding: 25px;
-            width: 100%;
-            max-width: 550px;
-            border: 2px solid #42f8f5;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #42f8f5;
-        }
-
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .card-icon {
-            color: #42f8f5;
-            font-size: 1.8rem;
-        }
-
-        .badge-container {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .card-badge {
-            background: #12151a;
-            color: #42f8f5;
-            padding: 5px 15px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .affiliate-badge {
-            background: #ffd700;
-            color: #1c222d;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-decoration: none;
-            text-transform: uppercase;
-            border: 1px solid #ffd700;
-            transition: all 0.2s ease;
-            display: inline-block;
-            letter-spacing: 0.5px;
-        }
-
-        .affiliate-badge:hover {
-            background: #42f8f5;
-            border-color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.5);
-        }
-
-        .affiliate-badge.secondary {
-            background: #c0c0c0;
-            border-color: #c0c0c0;
-            color: #1c222d;
-        }
-
-        .affiliate-badge.secondary:hover {
-            background: #42f8f5;
-            border-color: #42f8f5;
-        }
-
-        /* Display Screen */
-        .display {
-            background: #12151a;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid #42f8f5;
-            box-shadow: inset 0 0 15px rgba(66, 248, 245, 0.2);
-        }
-
-        #calc-display {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #42f8f5;
-            font-size: 2.5rem;
-            font-family: 'Fira Mono', 'Courier New', monospace;
-            text-align: right;
-            outline: none;
-            font-weight: 600;
-        }
-
-        /* Scientific Functions Row */
-        .scientific-row {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        /* Number Grid */
-        .number-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        /* Button Styles */
-        .btn {
-            background: #12151a;
-            border: 1px solid #42f8f5;
-            border-radius: 12px;
-            padding: 15px 5px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .btn:hover {
-            background: #42f8f5;
-            color: #12151a;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-function {
-            background: #1e3347;
-            border-color: #3d8f9e;
-            font-size: 0.95rem;
-        }
-
-        .btn-operator {
-            background: #2a3f55;
-            border-color: #3d9eb3;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .btn-action {
-            background: #42f8f5;
-            color: #12151a;
-            font-weight: 800;
-            font-size: 1.2rem;
-            padding: 15px;
-            border-radius: 40px;
-            margin: 10px 0 15px 0;
-            border: 2px solid #42f8f5;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            width: 100%;
-        }
-
-        .btn-action:hover {
-            background: #3ff0ed;
-            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
-        }
-
-        /* Affiliate Links Section */
-        .affiliate-section {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid #2a4055;
-        }
-
-        .affiliate-link {
-            flex: 1;
-            text-align: center;
-            padding: 12px 10px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .affiliate-link.primary {
-            background: #ffd700;
-            color: #1c222d;
-            border-color: #ffd700;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-        }
-
-        .affiliate-link.primary:hover {
-            background: #42f8f5;
-            border-color: #42f8f5;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.6);
-        }
-
-        .affiliate-link.secondary {
-            background: #c0c0c0;
-            color: #1c222d;
-            border-color: #c0c0c0;
-            box-shadow: 0 4px 12px rgba(192, 192, 192, 0.3);
-        }
-
-        .affiliate-link.secondary:hover {
-            background: #42f8f5;
-            border-color: #42f8f5;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.6);
-        }
-
-        /* Memory Indicators */
-        .memory-bar {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 10px;
-            color: #6d8ba0;
-            font-size: 0.8rem;
-        }
-
-        .memory-bar span {
-            background: #12151a;
-            padding: 3px 10px;
-            border-radius: 15px;
-            border: 1px solid #2a4a60;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .memory-bar span:hover {
-            background: #42f8f5;
-            color: #12151a;
-        }
-
-        /* Responsive */
-        @media screen and (max-width: 500px) {
-            .calculator-card {
-                padding: 15px;
-            }
-            
-            .btn {
-                padding: 12px 3px;
-                font-size: 0.9rem;
-            }
-            
-            #calc-display {
-                font-size: 2rem;
-            }
-            
-            .scientific-row {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            .affiliate-section {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="calculator-card">
-        <!-- Header with Affiliate Badge -->
-        <div class="card-header">
-            <div class="card-title">
-                <span class="card-icon">🧮</span> Advanced Calculator
-            </div>
-            <div class="badge-container">
-                <div class="card-badge">SCIENTIFIC</div>
-                <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-badge">⭐ PRO</a>
-            </div>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <div class="logo-sg">SG</div>
+            <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
-
-        <!-- Display Screen -->
-        <div class="display">
-            <input type="text" id="calc-display" value="0" readonly>
-            <div class="memory-bar">
-                <span id="memory-clear">MC</span>
-                <span id="memory-recall">MR</span>
-                <span id="memory-add">M+</span>
-                <span id="memory-subtract">M-</span>
-            </div>
-        </div>
-
-        <!-- Scientific Functions Row 1 -->
-        <div class="scientific-row">
-            <button class="btn btn-function" data-fn="sin">sin</button>
-            <button class="btn btn-function" data-fn="cos">cos</button>
-            <button class="btn btn-function" data-fn="tan">tan</button>
-            <button class="btn btn-function" data-fn="log">log</button>
-            <button class="btn btn-function" data-fn="ln">ln</button>
-        </div>
-
-        <!-- Scientific Functions Row 2 -->
-        <div class="scientific-row">
-            <button class="btn btn-function" data-fn="π">π</button>
-            <button class="btn btn-function" data-fn="e">e</button>
-            <button class="btn btn-function" data-fn="x²">x²</button>
-            <button class="btn btn-function" data-fn="√">√</button>
-            <button class="btn btn-function" data-fn="∛">∛</button>
-        </div>
-
-        <!-- Scientific Functions Row 3 -->
-        <div class="scientific-row">
-            <button class="btn btn-function" data-fn="xʸ">xʸ</button>
-            <button class="btn btn-function" data-fn="10ˣ">10ˣ</button>
-            <button class="btn btn-function" data-fn="|x|">|x|</button>
-            <button class="btn btn-function" data-fn="x!">x!</button>
-            <button class="btn btn-function" data-fn="1/x">1/x</button>
-        </div>
-
-        <!-- Parentheses Row -->
-        <div class="scientific-row">
-            <button class="btn btn-function" data-fn="(">(</button>
-            <button class="btn btn-function" data-fn=")">)</button>
-            <button class="btn btn-function" data-fn="%">%</button>
-            <button class="btn btn-function" data-fn="±">±</button>
-            <button class="btn btn-clear" data-clear="C">C</button>
-        </div>
-
-        <!-- Number Pad -->
-        <div class="number-grid">
-            <button class="btn" data-num="7">7</button>
-            <button class="btn" data-num="8">8</button>
-            <button class="btn" data-num="9">9</button>
-            <button class="btn btn-operator" data-op="÷">÷</button>
-            
-            <button class="btn" data-num="4">4</button>
-            <button class="btn" data-num="5">5</button>
-            <button class="btn" data-num="6">6</button>
-            <button class="btn btn-operator" data-op="×">×</button>
-            
-            <button class="btn" data-num="1">1</button>
-            <button class="btn" data-num="2">2</button>
-            <button class="btn" data-num="3">3</button>
-            <button class="btn btn-operator" data-op="-">−</button>
-            
-            <button class="btn" data-num="0">0</button>
-            <button class="btn" data-num="00">00</button>
-            <button class="btn" data-num=".">.</button>
-            <button class="btn btn-operator" data-op="+">+</button>
-        </div>
-
-        <!-- Backspace and Calculate -->
-        <button class="btn" data-back="⌫" style="width: 100%; margin-bottom: 10px;">⌫ BACKSPACE</button>
-        <button class="btn-action" data-calculate="=">📊 CALCULATE</button>
-
-        <!-- Affiliate Links Section -->
-        <div class="affiliate-section">
-            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary">
-                ⭐ PRIMARY AFFILIATE
-            </a>
-            <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary">
-                ⚡ SECONDARY AFFILIATE
-            </a>
-        </div>
-
-        <!-- Upgrade Text -->
-        <div style="text-align: center; margin-top: 12px; color: #6d8ba0; font-size: 0.75rem;">
-            Upgrade to Premium for advanced features and priority support
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
         </div>
     </div>
 
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>SG Multi Tools <span>For Daily Use</span></h1>
+        <div class="hero-description">⚡ Click any tool button to start · No installation · No sign-ups</div>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="tools-grid" id="toolsGrid"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Disclaimer</a></li>
+                <li><a href="#">Terms and Conditions</a></li>
+                <li><a href="#">Sitemap</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
+        </div>
+    </footer>
+
     <script>
-        (function() {
-            const display = document.getElementById('calc-display');
-            let currentInput = '0';
-            let memory = 0;
-
-            function updateDisplay() {
-                display.value = currentInput;
+        // ========== TOOL DEFINITIONS - ALL 20 TOOLS WITH CONSISTENT CLASSES ==========
+        const tools = [
+            {   // 1. Advanced Calculator (with affiliate links)
+                icon: '🧮', 
+                title: 'Advanced Calculator', 
+                badge: 'sci',
+                html: (id) => `
+                    <div class="display-field text-right" id="calc-display-${id}" style="font-size:1.5rem;">0</div>
+                    
+                    <!-- Memory Bar -->
+                    <div class="memory-bar">
+                        <span id="memory-clear-${id}">MC</span>
+                        <span id="memory-recall-${id}">MR</span>
+                        <span id="memory-add-${id}">M+</span>
+                        <span id="memory-subtract-${id}">M-</span>
+                    </div>
+                    
+                    <!-- Scientific Functions -->
+                    <div class="button-grid" style="grid-template-columns: repeat(5, 1fr);">
+                        <button class="btn" data-calc="${id}" data-fn="sin">sin</button>
+                        <button class="btn" data-calc="${id}" data-fn="cos">cos</button>
+                        <button class="btn" data-calc="${id}" data-fn="tan">tan</button>
+                        <button class="btn" data-calc="${id}" data-fn="log">log</button>
+                        <button class="btn" data-calc="${id}" data-fn="ln">ln</button>
+                        <button class="btn" data-calc="${id}" data-fn="π">π</button>
+                        <button class="btn" data-calc="${id}" data-fn="e">e</button>
+                        <button class="btn" data-calc="${id}" data-fn="x²">x²</button>
+                        <button class="btn" data-calc="${id}" data-fn="√">√</button>
+                        <button class="btn" data-calc="${id}" data-fn="∛">∛</button>
+                        <button class="btn" data-calc="${id}" data-fn="xʸ">xʸ</button>
+                        <button class="btn" data-calc="${id}" data-fn="10ˣ">10ˣ</button>
+                        <button class="btn" data-calc="${id}" data-fn="|x|">|x|</button>
+                        <button class="btn" data-calc="${id}" data-fn="x!">x!</button>
+                        <button class="btn" data-calc="${id}" data-fn="1/x">1/x</button>
+                        <button class="btn" data-calc="${id}" data-fn="(">(</button>
+                        <button class="btn" data-calc="${id}" data-fn=")">)</button>
+                        <button class="btn" data-calc="${id}" data-fn="%">%</button>
+                        <button class="btn" data-calc="${id}" data-fn="±">±</button>
+                        <button class="btn" data-calc="${id}" data-clear="C">C</button>
+                    </div>
+                    
+                    <!-- Number Pad -->
+                    <div class="button-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <button class="btn" data-calc="${id}" data-num="7">7</button>
+                        <button class="btn" data-calc="${id}" data-num="8">8</button>
+                        <button class="btn" data-calc="${id}" data-num="9">9</button>
+                        <button class="btn" data-calc="${id}" data-op="÷">÷</button>
+                        <button class="btn" data-calc="${id}" data-num="4">4</button>
+                        <button class="btn" data-calc="${id}" data-num="5">5</button>
+                        <button class="btn" data-calc="${id}" data-num="6">6</button>
+                        <button class="btn" data-calc="${id}" data-op="×">×</button>
+                        <button class="btn" data-calc="${id}" data-num="1">1</button>
+                        <button class="btn" data-calc="${id}" data-num="2">2</button>
+                        <button class="btn" data-calc="${id}" data-num="3">3</button>
+                        <button class="btn" data-calc="${id}" data-op="-">−</button>
+                        <button class="btn" data-calc="${id}" data-num="0">0</button>
+                        <button class="btn" data-calc="${id}" data-num="00">00</button>
+                        <button class="btn" data-calc="${id}" data-num=".">.</button>
+                        <button class="btn" data-calc="${id}" data-op="+">+</button>
+                    </div>
+                    
+                    <!-- Backspace and Calculate -->
+                    <button class="btn w-100" data-calc="${id}" data-back="⌫" style="margin:8px 0;">⌫ BACKSPACE</button>
+                    <button class="btn-action" data-calc="${id}" data-calculate="=">📊 CALCULATE</button>
+                    
+                    <!-- Affiliate Links (Unique to Advanced Calculator) -->
+                    <div class="affiliate-section">
+                        <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary">⭐ PRIMARY AFFILIATE</a>
+                        <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary">⚡ SECONDARY AFFILIATE</a>
+                    </div>
+                `
+            },
+            
+            {   // 2. Age Calculator
+                icon: '📅', 
+                title: 'Age Calculator', 
+                badge: 'age',
+                html: (id) => `
+                    <input class="input-field" id="age-input-${id}" type="text" value="01-01-1990" placeholder="DD-MM-YYYY">
+                    <div class="display-field" id="age-result-${id}">Not calculated</div>
+                    <button class="btn-action" id="calc-age-${id}">🎂 CALCULATE AGE</button>
+                `
+            },
+            
+            {   // 3. Case Changer
+                icon: '🔤', 
+                title: 'Case Changer', 
+                badge: 'text',
+                html: (id) => `
+                    <textarea class="textarea-field" id="case-input-${id}" placeholder="Enter text...">The quick brown fox</textarea>
+                    <select class="select-field" id="case-type-${id}">
+                        <option value="upper">UPPER CASE</option>
+                        <option value="lower">lower case</option>
+                        <option value="title">Title Case</option>
+                    </select>
+                    <textarea class="textarea-field" id="case-output-${id}" placeholder="Result" readonly></textarea>
+                    <button class="btn-action" id="apply-case-${id}">🔤 APPLY CASE</button>
+                `
+            },
+            
+            {   // 4. Color Picker
+                icon: '🎨', 
+                title: 'Color Picker', 
+                badge: 'hex',
+                html: (id) => `
+                    <input class="input-field" type="color" id="color-${id}" value="#42f8f5" style="height: 60px;">
+                    <div class="display-field" id="color-hex-${id}">#42f8f5</div>
+                    <button class="btn-action" id="copy-color-${id}">🎨 COPY COLOR</button>
+                `
+            },
+            
+            {   // 5. Currency Converter
+                icon: '💰', 
+                title: 'Currency Converter', 
+                badge: 'USD/EUR',
+                html: (id) => `
+                    <input class="input-field" id="currency-amount-${id}" type="number" value="100" placeholder="Amount">
+                    <select class="select-field" id="currency-from-${id}">
+                        <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option>
+                    </select>
+                    <select class="select-field" id="currency-to-${id}">
+                        <option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option>
+                    </select>
+                    <div class="display-field" id="currency-result-${id}">Enter amount</div>
+                    <button class="btn-action" id="convert-currency-${id}">💰 CONVERT</button>
+                `
+            },
+            
+            {   // 6. Date Difference
+                icon: '📆', 
+                title: 'Date Difference', 
+                badge: 'days',
+                html: (id) => `
+                    <input class="input-field" id="date1-${id}" type="text" value="15-03-2023" placeholder="Start date">
+                    <input class="input-field" id="date2-${id}" type="text" value="16-02-2026" placeholder="End date">
+                    <div class="display-field" id="datediff-result-${id}">Enter dates</div>
+                    <button class="btn-action" id="calc-datediff-${id}">📆 CALCULATE</button>
+                `
+            },
+            
+            {   // 7. EMI Calculator
+                icon: '🏦', 
+                title: 'EMI Calculator', 
+                badge: 'loan',
+                html: (id) => `
+                    <input class="input-field" id="emi-amount-${id}" type="number" value="100000" placeholder="Loan amount">
+                    <input class="input-field" id="emi-rate-${id}" type="number" value="9" placeholder="Rate %">
+                    <input class="input-field" id="emi-years-${id}" type="number" value="5" placeholder="Years">
+                    <div class="display-field" id="emi-result-${id}">Enter values</div>
+                    <button class="btn-action" id="calc-emi-${id}">🏦 CALCULATE EMI</button>
+                `
+            },
+            
+            {   // 8. File Size Converter
+                icon: '💾', 
+                title: 'File Size Converter', 
+                badge: 'MB/GB',
+                html: (id) => `
+                    <input class="input-field" id="filesize-input-${id}" type="number" value="1024" placeholder="Size">
+                    <select class="select-field" id="filesize-from-${id}">
+                        <option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option>
+                    </select>
+                    <select class="select-field" id="filesize-to-${id}">
+                        <option value="MB">MB</option><option value="GB">GB</option><option value="KB">KB</option>
+                    </select>
+                    <div class="display-field" id="filesize-result-${id}">Enter size</div>
+                    <button class="btn-action" id="convert-filesize-${id}">💾 CONVERT</button>
+                `
+            },
+            
+            {   // 9. Image Converter
+                icon: '🖼️', 
+                title: 'Image Converter', 
+                badge: 'png/jpg',
+                html: (id) => `
+                    <input class="input-field" type="file" accept="image/*" id="image-input-${id}">
+                    <div class="display-field" id="image-info-${id}">No file selected</div>
+                    <select class="select-field" id="image-format-${id}">
+                        <option value="png">PNG</option>
+                        <option value="jpg">JPG</option>
+                    </select>
+                    <button class="btn-action" id="convert-image-${id}">🖼️ CONVERT</button>
+                `
+            },
+            
+            {   // 10. Note Text Saver
+                icon: '📝', 
+                title: 'Note Text Saver', 
+                badge: 'local',
+                html: (id) => `
+                    <textarea class="textarea-field" id="note-${id}" placeholder="Write note..." rows="2"></textarea>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="save-note-${id}">SAVE</button>
+                        <button class="btn" id="load-note-${id}">LOAD</button>
+                        <button class="btn" id="clear-note-${id}">CLEAR</button>
+                    </div>
+                `
+            },
+            
+            {   // 11. Password Generator
+                icon: '🔐', 
+                title: 'Password Generator', 
+                badge: 'secure',
+                html: (id) => `
+                    <div class="display-field" id="password-${id}">Click Generate</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="uppercase-${id}" checked> A-Z</label>
+                        <label><input type="checkbox" id="numbers-${id}" checked> 0-9</label>
+                        <label><input type="checkbox" id="symbols-${id}"> !@#</label>
+                    </div>
+                    <button class="btn-action" id="generate-pw-${id}">🔐 GENERATE</button>
+                `
+            },
+            
+            {   // 12. Percentage Calculator
+                icon: '%', 
+                title: 'Percentage Calculator', 
+                badge: '%',
+                html: (id) => `
+                    <div class="button-row">
+                        <input class="input-field" id="perc-value-${id}" type="number" value="20" placeholder="%">
+                        <input class="input-field" id="perc-of-${id}" type="number" value="250" placeholder="of">
+                    </div>
+                    <div class="display-field" id="perc-result-${id}">Enter values</div>
+                    <button class="btn-action" id="calc-perc-${id}">% CALCULATE</button>
+                `
+            },
+            
+            {   // 13. QR Generator
+                icon: '📱', 
+                title: 'QR Generator', 
+                badge: 'qr',
+                html: (id) => `
+                    <input class="input-field" id="qr-text-${id}" type="text" value="Hello World">
+                    <div class="display-field" id="qr-result-${id}">Click Generate</div>
+                    <button class="btn-action" id="generate-qr-${id}">📱 GENERATE QR</button>
+                `
+            },
+            
+            {   // 14. SIP Calculator
+                icon: '📈', 
+                title: 'SIP Calculator', 
+                badge: 'mutual fund',
+                html: (id) => `
+                    <input class="input-field" id="sip-amount-${id}" type="number" value="5000" placeholder="Monthly SIP">
+                    <input class="input-field" id="sip-years-${id}" type="number" value="10" placeholder="Years">
+                    <input class="input-field" id="sip-return-${id}" type="number" value="12" placeholder="Return %">
+                    <div class="display-field" id="sip-result-${id}">Enter values</div>
+                    <button class="btn-action" id="calc-sip-${id}">📈 CALCULATE</button>
+                `
+            },
+            
+            {   // 15. Speech to Text
+                icon: '🎤', 
+                title: 'Speech to Text', 
+                badge: 'voice',
+                html: (id) => `
+                    <div class="display-field" id="speech-result-${id}">Click Start</div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="start-speech-${id}">START</button>
+                        <button class="btn" id="stop-speech-${id}">STOP</button>
+                        <button class="btn" id="copy-speech-${id}">COPY</button>
+                    </div>
+                `
+            },
+            
+            {   // 16. Text to Speech
+                icon: '🔊', 
+                title: 'Text to Speech', 
+                badge: 'listen',
+                html: (id) => `
+                    <textarea class="textarea-field" id="tts-text-${id}" placeholder="Text to speak">Hello, this is a test.</textarea>
+                    <button class="btn-action" id="speak-${id}">🔊 SPEAK</button>
+                `
+            },
+            
+            {   // 17. Timer/Stopwatch
+                icon: '⏱️', 
+                title: 'Timer', 
+                badge: 'stopwatch',
+                html: (id) => `
+                    <div class="display-field" style="font-size:1.8rem;" id="timer-display-${id}">00:00:00</div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="timer-start-${id}">START</button>
+                        <button class="btn" id="timer-pause-${id}">PAUSE</button>
+                        <button class="btn" id="timer-reset-${id}">RESET</button>
+                    </div>
+                `
+            },
+            
+            {   // 18. Unit Converter
+                icon: '📐', 
+                title: 'Unit Converter', 
+                badge: 'metric',
+                html: (id) => `
+                    <input class="input-field" id="unit-value-${id}" type="number" value="1">
+                    <select class="select-field" id="unit-category-${id}">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                    </select>
+                    <div class="display-field" id="unit-result-${id}">Enter value</div>
+                    <button class="btn-action" id="convert-unit-${id}">📐 CONVERT</button>
+                `
+            },
+            
+            {   // 19. URL Encoder/Decoder
+                icon: '🔗', 
+                title: 'URL Encoder/Decoder', 
+                badge: 'encode',
+                html: (id) => `
+                    <textarea class="textarea-field" id="url-input-${id}" placeholder="URL">hello world</textarea>
+                    <select class="select-field" id="url-action-${id}">
+                        <option value="encode">ENCODE</option>
+                        <option value="decode">DECODE</option>
+                    </select>
+                    <textarea class="textarea-field" id="url-output-${id}" placeholder="Result" readonly></textarea>
+                    <button class="btn-action" id="process-url-${id}">🔗 PROCESS</button>
+                `
+            },
+            
+            {   // 20. Word Counter
+                icon: '🔢', 
+                title: 'Word Counter', 
+                badge: 'count',
+                html: (id) => `
+                    <textarea class="textarea-field" id="wordcount-input-${id}" placeholder="Type text...">The quick brown fox jumps over the lazy dog.</textarea>
+                    <div class="display-field" id="wordcount-result-${id}">Click Count</div>
+                    <button class="btn-action" id="count-words-${id}">🔢 COUNT</button>
+                `
             }
+        ];
 
-            // Number buttons
-            document.querySelectorAll('[data-num]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const num = btn.dataset.num;
-                    if (currentInput === '0' || currentInput === 'Error') {
-                        currentInput = num;
-                    } else {
-                        currentInput += num;
-                    }
-                    updateDisplay();
-                });
-            });
+        // ========== GENERATE ALL 20 CARDS ==========
+        const grid = document.getElementById('toolsGrid');
+        
+        tools.forEach((tool, index) => {
+            const cardId = `tool-${index}`;
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">${tool.icon}</span> ${tool.title}
+                    </div>
+                    <div class="card-badge">${tool.badge}</div>
+                </div>
+                <div class="card-content" id="${cardId}">
+                    ${tool.html(cardId)}
+                </div>
+            `;
+            grid.appendChild(card);
+        });
 
-            // Operator buttons
-            document.querySelectorAll('[data-op]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const op = btn.dataset.op;
-                    if (currentInput === 'Error') currentInput = '0';
-                    
-                    const lastChar = currentInput[currentInput.length - 1];
-                    const operators = ['+', '-', '×', '÷', '^'];
-                    
-                    if (operators.includes(lastChar)) {
-                        currentInput = currentInput.slice(0, -1) + op;
-                    } else {
-                        currentInput += op;
-                    }
-                    updateDisplay();
-                });
-            });
+        // ========== TOOL FUNCTIONALITY ==========
+        
+        // Helper function for date parsing
+        function parseDMY(dateStr) {
+            const parts = dateStr.split('-');
+            return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
+        }
 
-            // Function buttons
-            document.querySelectorAll('[data-fn]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const fn = btn.dataset.fn;
-                    if (currentInput === 'Error') currentInput = '0';
-
-                    switch(fn) {
-                        case 'π':
-                            currentInput += Math.PI.toFixed(8);
-                            break;
-                        case 'e':
-                            currentInput += Math.E.toFixed(8);
-                            break;
-                        case 'x²':
-                            try {
-                                let val = eval(currentInput) || 0;
-                                currentInput = (val * val).toString();
-                            } catch { currentInput = 'Error'; }
-                            break;
-                        case '√':
-                            currentInput += '√(';
-                            break;
-                        case '∛':
-                            currentInput += '∛(';
-                            break;
-                        case 'xʸ':
-                            currentInput += '^';
-                            break;
-                        case '10ˣ':
-                            currentInput += '10^';
-                            break;
-                        case '|x|':
-                            currentInput = '|' + currentInput + '|';
-                            break;
-                        case 'x!':
-                            currentInput += '!';
-                            break;
-                        case '1/x':
-                            try {
-                                let val = eval(currentInput) || 0;
-                                currentInput = val !== 0 ? (1/val).toString() : 'Error';
-                            } catch { currentInput = 'Error'; }
-                            break;
-                        case '±':
-                            if (currentInput !== '0' && !currentInput.startsWith('-')) {
-                                currentInput = '-' + currentInput;
-                            } else if (currentInput.startsWith('-')) {
-                                currentInput = currentInput.substring(1);
-                            }
-                            break;
-                        default:
-                            if (!['C', '±'].includes(fn)) {
-                                currentInput += fn + '(';
-                            }
-                    }
-                    updateDisplay();
-                });
-            });
-
-            // Clear button
-            document.querySelector('[data-clear="C"]').addEventListener('click', () => {
-                currentInput = '0';
-                updateDisplay();
-            });
-
-            // Backspace button
-            document.querySelector('[data-back="⌫"]').addEventListener('click', () => {
-                if (currentInput.length > 1) {
-                    currentInput = currentInput.slice(0, -1);
-                } else {
-                    currentInput = '0';
-                }
-                updateDisplay();
-            });
-
-            // Calculate button
-            document.querySelector('[data-calculate="="]').addEventListener('click', () => {
-                try {
-                    let expr = currentInput
-                        .replace(/×/g, '*')
-                        .replace(/÷/g, '/')
-                        .replace(/π/g, Math.PI.toString())
-                        .replace(/e/g, Math.E.toString())
-                        .replace(/\^/g, '**')
-                        .replace(/√\(([^)]+)\)/g, 'Math.sqrt($1)')
-                        .replace(/∛\(([^)]+)\)/g, 'Math.cbrt($1)')
-                        .replace(/sin\(/g, 'Math.sin(')
-                        .replace(/cos\(/g, 'Math.cos(')
-                        .replace(/tan\(/g, 'Math.tan(')
-                        .replace(/log\(/g, 'Math.log10(')
-                        .replace(/ln\(/g, 'Math.log(')
-                        .replace(/\|([^|]+)\|/g, 'Math.abs($1)')
-                        .replace(/(\d+)!/g, (_, n) => {
-                            let fact = 1;
-                            for (let i = 2; i <= parseInt(n); i++) fact *= i;
-                            return fact;
-                        });
-
-                    const result = new Function('return ' + expr)();
-                    currentInput = (isNaN(result) || !isFinite(result)) ? 'Error' : result.toString();
-                } catch {
-                    currentInput = 'Error';
-                }
-                updateDisplay();
-            });
-
-            // Memory functions
-            document.getElementById('memory-add').addEventListener('click', () => {
-                try { memory += parseFloat(eval(currentInput) || 0); } catch {}
-            });
-            
-            document.getElementById('memory-subtract').addEventListener('click', () => {
-                try { memory -= parseFloat(eval(currentInput) || 0); } catch {}
-            });
-            
-            document.getElementById('memory-recall').addEventListener('click', () => {
-                currentInput = memory.toString();
-                updateDisplay();
-            });
-            
-            document.getElementById('memory-clear').addEventListener('click', () => {
-                memory = 0;
-            });
-
-            // Keyboard support
-            document.addEventListener('keydown', (e) => {
-                const key = e.key;
+        // 1. Advanced Calculator Functionality
+        document.querySelectorAll('[data-calc]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const cardId = this.dataset.calc;
+                const display = document.getElementById(`calc-display-${cardId}`);
+                if (!display) return;
                 
-                if (key >= '0' && key <= '9') {
-                    document.querySelector(`[data-num="${key}"]`)?.click();
-                } else if (key === '.') {
-                    document.querySelector('[data-num="."]')?.click();
-                } else if (key === '+') {
-                    document.querySelector('[data-op="+"]')?.click();
-                } else if (key === '-') {
-                    document.querySelector('[data-op="-"]')?.click();
-                } else if (key === '*') {
-                    document.querySelector('[data-op="×"]')?.click();
-                } else if (key === '/') {
-                    document.querySelector('[data-op="÷"]')?.click();
-                } else if (key === 'Enter' || key === '=') {
-                    e.preventDefault();
-                    document.querySelector('[data-calculate="="]')?.click();
-                } else if (key === 'Escape') {
-                    document.querySelector('[data-clear="C"]')?.click();
-                } else if (key === 'Backspace') {
-                    document.querySelector('[data-back="⌫"]')?.click();
-                } else if (key === '(') {
-                    document.querySelector('[data-fn="("]')?.click();
-                } else if (key === ')') {
-                    document.querySelector('[data-fn=")"]')?.click();
+                if (this.dataset.num) {
+                    display.innerText = display.innerText === '0' ? this.dataset.num : display.innerText + this.dataset.num;
+                } else if (this.dataset.op) {
+                    display.innerText += this.dataset.op;
+                } else if (this.dataset.clear) {
+                    display.innerText = '0';
+                } else if (this.dataset.back) {
+                    display.innerText = display.innerText.length > 1 ? display.innerText.slice(0, -1) : '0';
+                } else if (this.dataset.fn) {
+                    const fn = this.dataset.fn;
+                    const specialFns = ['π', 'e', 'x²', '√', '∛', 'xʸ', '10ˣ', '|x|', 'x!', '1/x', '±'];
+                    
+                    if (fn === 'π') display.innerText += Math.PI.toFixed(8);
+                    else if (fn === 'e') display.innerText += Math.E.toFixed(8);
+                    else if (fn === 'x²') {
+                        try {
+                            let val = eval(display.innerText) || 0;
+                            display.innerText = (val * val).toString();
+                        } catch { display.innerText = 'Error'; }
+                    } else if (fn === '1/x') {
+                        try {
+                            let val = eval(display.innerText) || 0;
+                            display.innerText = val !== 0 ? (1/val).toString() : 'Error';
+                        } catch { display.innerText = 'Error'; }
+                    } else if (fn === '±') {
+                        if (display.innerText !== '0' && !display.innerText.startsWith('-')) {
+                            display.innerText = '-' + display.innerText;
+                        } else if (display.innerText.startsWith('-')) {
+                            display.innerText = display.innerText.substring(1);
+                        }
+                    } else if (!specialFns.includes(fn)) {
+                        display.innerText += fn + '(';
+                    }
+                } else if (this.dataset.calculate) {
+                    try {
+                        let expr = display.innerText
+                            .replace(/×/g, '*')
+                            .replace(/÷/g, '/')
+                            .replace(/π/g, Math.PI.toString())
+                            .replace(/e/g, Math.E.toString())
+                            .replace(/\^/g, '**')
+                            .replace(/√\(/g, 'Math.sqrt(')
+                            .replace(/∛\(/g, 'Math.cbrt(')
+                            .replace(/sin\(/g, 'Math.sin(')
+                            .replace(/cos\(/g, 'Math.cos(')
+                            .replace(/tan\(/g, 'Math.tan(')
+                            .replace(/log\(/g, 'Math.log10(')
+                            .replace(/ln\(/g, 'Math.log(')
+                            .replace(/\|([^|]+)\|/g, 'Math.abs($1)');
+                        
+                        const result = new Function('return ' + expr)();
+                        display.innerText = (isNaN(result) || !isFinite(result)) ? 'Error' : result.toString();
+                    } catch {
+                        display.innerText = 'Error';
+                    }
                 }
             });
-        })();
+        });
+
+        // Memory functions for calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            let memory = 0;
+            
+            const mc = document.getElementById(`memory-clear-${id}`);
+            const mr = document.getElementById(`memory-recall-${id}`);
+            const mplus = document.getElementById(`memory-add-${id}`);
+            const mminus = document.getElementById(`memory-subtract-${id}`);
+            
+            if (mc) {
+                mc.addEventListener('click', () => { memory = 0; });
+                mr.addEventListener('click', () => {
+                    const display = document.getElementById(`calc-display-${id}`);
+                    if (display) display.innerText = memory.toString();
+                });
+                mplus.addEventListener('click', () => {
+                    const display = document.getElementById(`calc-display-${id}`);
+                    try { memory += parseFloat(eval(display.innerText) || 0); } catch {}
+                });
+                mminus.addEventListener('click', () => {
+                    const display = document.getElementById(`calc-display-${id}`);
+                    try { memory -= parseFloat(eval(display.innerText) || 0); } catch {}
+                });
+            }
+        }
+
+        // 2. Age Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const calcBtn = document.getElementById(`calc-age-${id}`);
+            if (calcBtn) {
+                calcBtn.addEventListener('click', function() {
+                    const input = document.getElementById(`age-input-${id}`).value;
+                    const birthDate = parseDMY(input);
+                    const today = new Date();
+                    
+                    let years = today.getFullYear() - birthDate.getFullYear();
+                    let months = today.getMonth() - birthDate.getMonth();
+                    let days = today.getDate() - birthDate.getDate();
+                    
+                    if (days < 0) { 
+                        months--; 
+                        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                    }
+                    if (months < 0) { 
+                        years--; 
+                        months += 12; 
+                    }
+                    
+                    document.getElementById(`age-result-${id}`).innerText = 
+                        `${years} years ${months} months ${days} days`;
+                });
+            }
+        }
+
+        // 3. Case Changer
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const applyBtn = document.getElementById(`apply-case-${id}`);
+            if (applyBtn) {
+                applyBtn.addEventListener('click', function() {
+                    const input = document.getElementById(`case-input-${id}`).value;
+                    const type = document.getElementById(`case-type-${id}`).value;
+                    let output = input;
+                    
+                    if (type === 'upper') output = input.toUpperCase();
+                    else if (type === 'lower') output = input.toLowerCase();
+                    else if (type === 'title') {
+                        output = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                    }
+                    
+                    document.getElementById(`case-output-${id}`).value = output;
+                });
+            }
+        }
+
+        // 4. Color Picker
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const picker = document.getElementById(`color-${id}`);
+            const hex = document.getElementById(`color-hex-${id}`);
+            const copy = document.getElementById(`copy-color-${id}`);
+            
+            if (picker && hex) {
+                picker.addEventListener('input', () => hex.innerText = picker.value);
+                copy.addEventListener('click', () => {
+                    navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
+                });
+            }
+        }
+
+        // 5. Currency Converter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`convert-currency-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
+                    const from = document.getElementById(`currency-from-${id}`).value;
+                    const to = document.getElementById(`currency-to-${id}`).value;
+                    const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
+                    const result = amount * rates[to] / rates[from];
+                    document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                });
+            }
+        }
+
+        // 6. Date Difference
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-datediff-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
+                    const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
+                    const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
+                    document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
+                });
+            }
+        }
+
+        // 7. EMI Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-emi-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
+                    const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
+                    const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
+                    const months = years * 12;
+                    const monthlyRate = rate / 12 / 100;
+                    const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+                    document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
+                });
+            }
+        }
+
+        // 8. File Size Converter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`convert-filesize-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
+                    const from = document.getElementById(`filesize-from-${id}`).value;
+                    const to = document.getElementById(`filesize-to-${id}`).value;
+                    const units = { KB: 1, MB: 1024, GB: 1048576 };
+                    const result = size * units[from] / units[to];
+                    document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                });
+            }
+        }
+
+        // 9. Image Converter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const input = document.getElementById(`image-input-${id}`);
+            const info = document.getElementById(`image-info-${id}`);
+            const convertBtn = document.getElementById(`convert-image-${id}`);
+            
+            if (input) {
+                input.addEventListener('change', function() {
+                    if (this.files?.[0]) info.innerText = this.files[0].name;
+                });
+                
+                convertBtn.addEventListener('click', function() {
+                    const format = document.getElementById(`image-format-${id}`).value;
+                    alert(`Demo: Converting to ${format.toUpperCase()}`);
+                });
+            }
+        }
+
+        // 10. Note Text Saver
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const note = document.getElementById(`note-${id}`);
+            if (note) {
+                document.getElementById(`save-note-${id}`).addEventListener('click', () => {
+                    localStorage.setItem(`note-${id}`, note.value);
+                    alert('Note saved!');
+                });
+                document.getElementById(`load-note-${id}`).addEventListener('click', () => {
+                    const saved = localStorage.getItem(`note-${id}`);
+                    if (saved) note.value = saved;
+                });
+                document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
+            }
+        }
+
+        // 11. Password Generator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`generate-pw-${id}`);
+            const display = document.getElementById(`password-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const upper = document.getElementById(`uppercase-${id}`)?.checked;
+                    const nums = document.getElementById(`numbers-${id}`)?.checked;
+                    const symbols = document.getElementById(`symbols-${id}`)?.checked;
+                    
+                    let chars = 'abcdefghijklmnopqrstuvwxyz';
+                    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    if (nums) chars += '0123456789';
+                    if (symbols) chars += '!@#$%^&*';
+                    
+                    let pw = '';
+                    for (let i = 0; i < 12; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+                    display.innerText = pw;
+                });
+            }
+        }
+
+        // 12. Percentage Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-perc-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
+                    const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
+                    document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
+                });
+            }
+        }
+
+        // 13. QR Generator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`generate-qr-${id}`);
+            const display = document.getElementById(`qr-result-${id}`);
+            const input = document.getElementById(`qr-text-${id}`);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    display.innerText = 'QR: ' + (input.value || 'Hello World');
+                });
+            }
+        }
+
+        // 14. SIP Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-sip-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
+                    const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
+                    const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
+                    const months = years * 12;
+                    const monthlyRate = rate / 12 / 100;
+                    const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+                    document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString('en-IN');
+                });
+            }
+        }
+
+        // 15. Speech to Text
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const start = document.getElementById(`start-speech-${id}`);
+            const stop = document.getElementById(`stop-speech-${id}`);
+            const copy = document.getElementById(`copy-speech-${id}`);
+            const display = document.getElementById(`speech-result-${id}`);
+            
+            if (start && 'webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.onresult = (e) => {
+                    display.innerText = e.results[e.results.length-1][0].transcript;
+                };
+                start.addEventListener('click', () => recognition.start());
+                stop.addEventListener('click', () => recognition.stop());
+                copy.addEventListener('click', () => {
+                    navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
+                });
+            } else if (start) {
+                start.addEventListener('click', () => display.innerText = 'Not supported');
+            }
+        }
+
+        // 16. Text to Speech
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const speak = document.getElementById(`speak-${id}`);
+            const textarea = document.getElementById(`tts-text-${id}`);
+            if (speak) {
+                speak.addEventListener('click', () => {
+                    if ('speechSynthesis' in window) {
+                        window.speechSynthesis.cancel();
+                        const utterance = new SpeechSynthesisUtterance(textarea.value);
+                        window.speechSynthesis.speak(utterance);
+                    }
+                });
+            }
+        }
+
+        // 17. Timer
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const display = document.getElementById(`timer-display-${id}`);
+            const start = document.getElementById(`timer-start-${id}`);
+            const pause = document.getElementById(`timer-pause-${id}`);
+            const reset = document.getElementById(`timer-reset-${id}`);
+            
+            if (display) {
+                let seconds = 0;
+                let interval = null;
+                
+                function updateDisplay() {
+                    const h = Math.floor(seconds / 3600);
+                    const m = Math.floor((seconds % 3600) / 60);
+                    const s = seconds % 60;
+                    display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                }
+                
+                start.addEventListener('click', () => {
+                    if (interval) clearInterval(interval);
+                    interval = setInterval(() => { seconds++; updateDisplay(); }, 1000);
+                });
+                
+                pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
+                reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; updateDisplay(); });
+            }
+        }
+
+        // 18. Unit Converter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`convert-unit-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
+                    const cat = document.getElementById(`unit-category-${id}`).value;
+                    let result = '';
+                    
+                    if (cat === 'length') {
+                        result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
+                    } else if (cat === 'weight') {
+                        result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
+                    } else if (cat === 'temperature') {
+                        result = val + ' °C = ' + (val * 9/5 + 32).toFixed(1) + ' °F';
+                    }
+                    
+                    document.getElementById(`unit-result-${id}`).innerText = result;
+                });
+            }
+        }
+
+        // 19. URL Encoder/Decoder
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`process-url-${id}`);
+            const input = document.getElementById(`url-input-${id}`);
+            const output = document.getElementById(`url-output-${id}`);
+            const action = document.getElementById(`url-action-${id}`);
+            
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    if (action.value === 'encode') {
+                        output.value = encodeURIComponent(input.value);
+                    } else {
+                        try {
+                            output.value = decodeURIComponent(input.value);
+                        } catch {
+                            output.value = 'Invalid encoding';
+                        }
+                    }
+                });
+            }
+        }
+
+        // 20. Word Counter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`count-words-${id}`);
+            const input = document.getElementById(`wordcount-input-${id}`);
+            const display = document.getElementById(`wordcount-result-${id}`);
+            
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const text = input.value || '';
+                    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                    const chars = text.length;
+                    display.innerText = `Words: ${words}, Characters: ${chars}`;
+                });
+            }
+        }
+
+        // Keyboard support for calculator
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            const key = e.key;
+            const activeCalc = document.querySelector('[data-calc]');
+            if (!activeCalc) return;
+            
+            const cardId = activeCalc.dataset.calc;
+            const display = document.getElementById(`calc-display-${cardId}`);
+            if (!display) return;
+            
+            if (key >= '0' && key <= '9') {
+                document.querySelector(`[data-calc="${cardId}"][data-num="${key}"]`)?.click();
+            } else if (key === '.') {
+                document.querySelector(`[data-calc="${cardId}"][data-num="."]`)?.click();
+            } else if (key === '+') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="+"]`)?.click();
+            } else if (key === '-') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="-"]`)?.click();
+            } else if (key === '*') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="×"]`)?.click();
+            } else if (key === '/') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="÷"]`)?.click();
+            } else if (key === 'Enter' || key === '=') {
+                e.preventDefault();
+                document.querySelector(`[data-calc="${cardId}"][data-calculate="="]`)?.click();
+            } else if (key === 'Escape') {
+                document.querySelector(`[data-calc="${cardId}"][data-clear="C"]`)?.click();
+            } else if (key === 'Backspace') {
+                document.querySelector(`[data-calc="${cardId}"][data-back="⌫"]`)?.click();
+            }
+        });
     </script>
 </body>
 </html>
