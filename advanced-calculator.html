@@ -3,479 +3,754 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator · SG Multi Tools</title>
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
+    <title>Advanced Calculator | Scientific Calculator</title>
+    <meta name="description" content="Free advanced scientific calculator with trigonometric, logarithmic, and exponential functions. Perfect for students and professionals.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.7.0/math.min.js"></script>
+    
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE ===== */
-        body {
-            background: var(--main-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            padding: 10px;
+            padding: 0;
             box-sizing: border-box;
         }
-        <!-- Updated on Feb 16, 2026 -->
-        .tool-standalone {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            padding: 1.2rem;
-            width: 100%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            margin: auto;
-            position: relative;
-        }
 
-        .tool-standalone h1 {
-            font-size: 1.3rem !important;
-            margin-bottom: 0.3rem !important;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Close button styles */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 10;
-            text-decoration: none;
+            padding: 20px;
         }
 
-        .close-btn:hover {
-            background: var(--danger-color);
-            color: white;
-            border-color: var(--danger-color);
-            transform: scale(1.1);
-        }
-
-        .close-btn i {
-            font-size: 0.9rem;
-        }
-
-        /* Calculator specific styles */
-        .display-container {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 0.8rem 1rem;
-            margin-bottom: 1rem;
-            text-align: right;
-        }
-
-        #calcDisplay {
+        .main-wrapper {
             width: 100%;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-family: 'Courier New', monospace;
-            font-size: 1.6rem;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Affiliate Banner - Primary */
+        .affiliate-primary {
+            background: linear-gradient(135deg, #ffd166 0%, #ffb347 100%);
+            border-radius: 15px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.5s ease;
+        }
+
+        .affiliate-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .affiliate-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .affiliate-text {
+            color: white;
+        }
+
+        .affiliate-text h4 {
+            font-size: 0.9rem;
             font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .affiliate-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .affiliate-btn {
+            background: white;
+            color: #ffb347;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Calculator Container */
+        .calculator-container {
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .calculator-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 25px;
+            color: white;
+        }
+
+        .calculator-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calculator-header h1 i {
+            font-size: 1.8rem;
+        }
+
+        .calculator-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Display */
+        .display-container {
+            padding: 25px 25px 15px;
+            background: #f8fafc;
+        }
+
+        .history {
+            text-align: right;
+            color: #64748b;
+            font-size: 1rem;
+            min-height: 24px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .display {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        #expression {
+            width: 100%;
+            border: none;
+            font-size: 1.5rem;
             text-align: right;
             outline: none;
+            color: #1e293b;
+            font-weight: 500;
+            background: transparent;
         }
 
-        #calcHistory {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            min-height: 1.2rem;
-            word-break: break-all;
+        #result {
+            text-align: right;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin-top: 10px;
+            word-wrap: break-word;
+            min-height: 48px;
         }
 
-        .button-grid {
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            gap: 10px;
+            padding: 0 25px 15px;
+            background: #f8fafc;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* Buttons Grid */
+        .buttons-container {
+            padding: 25px;
+            background: white;
+        }
+
+        .basic-buttons, .scientific-buttons {
+            display: none;
+        }
+
+        .basic-buttons.active, .scientific-buttons.active {
+            display: block;
+        }
+
+        .button-row {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .scientific-row {
+            grid-template-columns: repeat(5, 1fr);
         }
 
         .calc-btn {
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 0.7rem 0.3rem;
-            color: var(--text-secondary);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            cursor: pointer;
+            padding: 18px 5px;
             border: none;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .calc-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
         }
 
         .calc-btn.operator {
-            background: rgba(66, 248, 245, 0.1);
-            color: var(--primary-accent);
-            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
         .calc-btn.operator:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
+            opacity: 0.9;
         }
 
         .calc-btn.equals {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            font-weight: 700;
-        }
-
-        .calc-btn.equals:hover {
-            background: var(--accent-shade);
-            box-shadow: 0 0 16px var(--glow-shadow);
+            background: #10b981;
+            color: white;
         }
 
         .calc-btn.clear {
-            background: rgba(255, 107, 107, 0.15);
-            color: var(--danger-color);
-        }
-
-        .calc-btn.clear:hover {
-            background: var(--danger-color);
+            background: #ef4444;
             color: white;
         }
 
         .calc-btn.function {
-            background: var(--button-bg-alt);
-            color: var(--text-secondary);
-            font-size: 0.8rem;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 0.9rem;
         }
 
-        /* Affiliate link style */
-        .affiliate-link {
-            margin-top: 1rem;
-            text-align: center;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--dark-border);
+        .calc-btn.memory {
+            background: #fef3c7;
+            color: #d97706;
         }
-        
-        .affiliate-link a {
-            display: inline-flex;
+
+        /* Affiliate Banner - Secondary */
+        .affiliate-secondary {
+            background: linear-gradient(135deg, #a8e6cf 0%, #4ecdc4 100%);
+            border-radius: 15px;
+            padding: 15px 20px;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            background: var(--button-bg);
-            color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 100px;
-            border: 1px solid var(--dark-border);
-            font-size: 0.75rem;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.5s ease 0.2s both;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #4ecdc4;
+            padding: 8px 20px;
+            border-radius: 25px;
             text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .affiliate-link a:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-        
-        .affiliate-link i {
-            color: var(--primary-accent);
-        }
-        
-        .affiliate-link a:hover i {
-            color: var(--main-bg);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
 
-        /* Hide description on mobile */
-        @media (max-width: 768px) {
-            body > div:not(.tool-standalone) {
-                display: none !important;
-            }
+        .secondary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        @media (max-width: 480px) {
-            .tool-standalone {
-                max-width: 100%;
-                padding: 1rem;
+        /* Responsive */
+        @media (max-width: 500px) {
+            .calculator-container {
+                border-radius: 20px;
             }
-            .button-grid {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 0.4rem;
+
+            .calc-btn {
+                padding: 15px 5px;
+                font-size: 1rem;
             }
-            #calcDisplay {
-                font-size: 1.4rem;
+
+            .display {
+                padding: 15px;
             }
-        }
-        
-        @media (max-width: 360px) {
-            .button-grid {
-                grid-template-columns: repeat(4, 1fr);
+
+            #result {
+                font-size: 1.5rem;
+            }
+
+            .affiliate-primary, .affiliate-secondary {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .affiliate-content {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-standalone">
-        <!-- Close button -->
-        <a href="index.html" class="close-btn" title="Close tool">
-            <i class="fas fa-times"></i>
-        </a>
-
-        <!-- Header with icon -->
-        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
-            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
-                <i class="fas fa-calculator"></i>
+    <div class="main-wrapper">
+        <!-- Primary Affiliate Banner (Top) -->
+        <div class="affiliate-primary">
+            <div class="affiliate-content">
+                <div class="affiliate-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="affiliate-text">
+                    <h4>Recommended Tool</h4>
+                    <p>Boost your productivity with this premium resource</p>
+                </div>
             </div>
-            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Advanced Calculator</h1>
-        </div>
-
-        <!-- Display -->
-        <div class="display-container">
-            <div id="calcHistory"></div>
-            <input type="text" id="calcDisplay" readonly value="0">
-        </div>
-
-        <!-- Button Grid -->
-        <div class="button-grid">
-            <!-- Row 1 -->
-            <button class="calc-btn function" data-value="(">(</button>
-            <button class="calc-btn function" data-value=")">)</button>
-            <button class="calc-btn clear" data-value="C">C</button>
-            <button class="calc-btn clear" data-value="CE">CE</button>
-            <button class="calc-btn function" data-value="del">⌫</button>
-            <button class="calc-btn operator" data-value="/">÷</button>
-            
-            <!-- Row 2 -->
-            <button class="calc-btn function" data-value="sin">sin</button>
-            <button class="calc-btn function" data-value="cos">cos</button>
-            <button class="calc-btn function" data-value="tan">tan</button>
-            <button class="calc-btn" data-value="7">7</button>
-            <button class="calc-btn" data-value="8">8</button>
-            <button class="calc-btn" data-value="9">9</button>
-            
-            <!-- Row 3 -->
-            <button class="calc-btn function" data-value="asin">asin⁻¹</button>
-            <button class="calc-btn function" data-value="acos">acos⁻¹</button>
-            <button class="calc-btn function" data-value="atan">atan⁻¹</button>
-            <button class="calc-btn" data-value="4">4</button>
-            <button class="calc-btn" data-value="5">5</button>
-            <button class="calc-btn" data-value="6">6</button>
-            
-            <!-- Row 4 -->
-            <button class="calc-btn function" data-value="log">log₁₀</button>
-            <button class="calc-btn function" data-value="ln">ln</button>
-            <button class="calc-btn function" data-value="sqrt">√</button>
-            <button class="calc-btn" data-value="1">1</button>
-            <button class="calc-btn" data-value="2">2</button>
-            <button class="calc-btn" data-value="3">3</button>
-            
-            <!-- Row 5 -->
-            <button class="calc-btn function" data-value="pi">π</button>
-            <button class="calc-btn function" data-value="e">e</button>
-            <button class="calc-btn function" data-value="^">xʸ</button>
-            <button class="calc-btn" data-value="0">0</button>
-            <button class="calc-btn" data-value=".">.</button>
-            <button class="calc-btn equals" data-value="=">=</button>
-        </div>
-
-        <!-- Affiliate Links -->
-<div class="affiliate-links" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
-    <div style="text-align: center; padding-top: 0.8rem; border-top: 1px solid var(--dark-border);">
-        <div style="color: var(--text-secondary); font-size: 0.7rem; margin-bottom: 0.5rem;">Recommended Resources</div>
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center;">
-            <!-- Primary Link -->
-            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--button-bg); color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 100px; border: 1px solid var(--dark-border); font-size: 0.75rem; text-decoration: none; transition: var(--transition);">
-                <i class="fas fa-star" style="color: var(--primary-accent);"></i>
-                <span><strong>Ultimate Trading Course</strong> – 90% OFF</span>
-                <i class="fas fa-external-link-alt" style="font-size: 0.65rem;"></i>
-            </a>
-            
-            <!-- Secondary Link -->
-            <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--button-bg); color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 100px; border: 1px solid var(--dark-border); font-size: 0.75rem; text-decoration: none; transition: var(--transition);">
-                <i class="fas fa-gem" style="color: var(--primary-accent);"></i>
-                <span><strong>Advanced Trading Course</strong> – Limited Offer</span>
-                <i class="fas fa-external-link-alt" style="font-size: 0.65rem;"></i>
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" class="affiliate-btn" target="_blank" rel="nofollow sponsored">
+                Check it Out <i class="fas fa-arrow-right"></i>
             </a>
         </div>
-    </div>
-</div>
 
-    <!-- Additional content for AdSense -->
-    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
-        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            <i class="fas fa-calculator"></i> About the Advanced Calculator
-        </h3>
-        <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Our Advanced Calculator is a powerful scientific calculator built right into your browser. It handles everything from basic arithmetic to complex trigonometric, logarithmic, and exponential functions. Whether you're a student, engineer, or financial analyst, this tool provides the precision and functionality you need – without any downloads or installations.
-        </p>
-        
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
-        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Basic operations:</strong> addition, subtraction, multiplication, division, and percentages.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Scientific functions:</strong> sin, cos, tan, asin, acos, atan, log (base 10), ln (natural log), and square root.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Constants:</strong> π (pi) and e (Euler's number) for advanced calculations.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Parentheses and exponents:</strong> use ( ) for grouping and ^ for powers (e.g., 2^3 = 8).</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>History and memory:</strong> view past calculations with the history display and continue working.</span>
-            </li>
-        </ul>
+        <!-- Calculator -->
+        <div class="calculator-container">
+            <!-- Header -->
+            <div class="calculator-header">
+                <h1>
+                    <i class="fas fa-calculator"></i>
+                    Advanced Calculator
+                </h1>
+                <p>Scientific calculator with memory functions</p>
+            </div>
 
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
-        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li>Click the buttons or use your keyboard to enter an expression (e.g., <code>sin(30) + 5^2</code>).</li>
-            <li>Use parentheses to control the order of operations: <code>(2+3)*4</code>.</li>
-            <li>Press the <strong>=</strong> button or hit <kbd>Enter</kbd> to evaluate.</li>
-            <li>Use <strong>C</strong> to clear everything, <strong>CE</strong> to clear the last entry, and <strong>⌫</strong> to delete the last character.</li>
-            <li>Click the history (top of display) to recall previous results.</li>
-        </ol>
+            <!-- Display -->
+            <div class="display-container">
+                <div class="history" id="history"></div>
+                <div class="display">
+                    <input type="text" id="expression" placeholder="0" readonly>
+                    <div id="result">0</div>
+                </div>
+            </div>
 
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Why Use Our Calculator?</h4>
-        <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Unlike many online calculators that require Flash or plugins, ours is built with pure HTML, CSS, and JavaScript – it works on any modern device, including smartphones and tablets. All calculations are done locally in your browser, so your data never leaves your computer. Plus, it's completely free, with no ads or hidden fees.
-        </p>
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="basicMode">Basic</button>
+                <button class="mode-btn" id="scientificMode">Scientific</button>
+            </div>
 
-        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
-                "The only calculator you'll ever need – powerful enough for college, simple enough for everyday use."
-            </p>
+            <!-- Basic Calculator -->
+            <div class="buttons-container">
+                <div class="basic-buttons active" id="basicButtons">
+                    <!-- Memory Row -->
+                    <div class="button-row">
+                        <button class="calc-btn memory" onclick="memoryClear()">MC</button>
+                        <button class="calc-btn memory" onclick="memoryRecall()">MR</button>
+                        <button class="calc-btn memory" onclick="memoryAdd()">M+</button>
+                        <button class="calc-btn memory" onclick="memorySubtract()">M-</button>
+                    </div>
+
+                    <!-- Row 1 -->
+                    <div class="button-row">
+                        <button class="calc-btn clear" onclick="clearAll()">AC</button>
+                        <button class="calc-btn" onclick="deleteLast()">⌫</button>
+                        <button class="calc-btn" onclick="appendOperator('%')">%</button>
+                        <button class="calc-btn operator" onclick="appendOperator('/')">÷</button>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="button-row">
+                        <button class="calc-btn" onclick="appendNumber('7')">7</button>
+                        <button class="calc-btn" onclick="appendNumber('8')">8</button>
+                        <button class="calc-btn" onclick="appendNumber('9')">9</button>
+                        <button class="calc-btn operator" onclick="appendOperator('*')">×</button>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="button-row">
+                        <button class="calc-btn" onclick="appendNumber('4')">4</button>
+                        <button class="calc-btn" onclick="appendNumber('5')">5</button>
+                        <button class="calc-btn" onclick="appendNumber('6')">6</button>
+                        <button class="calc-btn operator" onclick="appendOperator('-')">−</button>
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="button-row">
+                        <button class="calc-btn" onclick="appendNumber('1')">1</button>
+                        <button class="calc-btn" onclick="appendNumber('2')">2</button>
+                        <button class="calc-btn" onclick="appendNumber('3')">3</button>
+                        <button class="calc-btn operator" onclick="appendOperator('+')">+</button>
+                    </div>
+
+                    <!-- Row 5 -->
+                    <div class="button-row">
+                        <button class="calc-btn" onclick="appendNumber('0')">0</button>
+                        <button class="calc-btn" onclick="appendDecimal()">.</button>
+                        <button class="calc-btn equals" onclick="calculate()">=</button>
+                    </div>
+                </div>
+
+                <!-- Scientific Calculator -->
+                <div class="scientific-buttons" id="scientificButtons">
+                    <!-- Memory Row -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn memory" onclick="memoryClear()">MC</button>
+                        <button class="calc-btn memory" onclick="memoryRecall()">MR</button>
+                        <button class="calc-btn memory" onclick="memoryAdd()">M+</button>
+                        <button class="calc-btn memory" onclick="memorySubtract()">M-</button>
+                        <button class="calc-btn clear" onclick="clearAll()">AC</button>
+                    </div>
+
+                    <!-- Row 1 - Functions -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn function" onclick="appendFunction('sin(')">sin</button>
+                        <button class="calc-btn function" onclick="appendFunction('cos(')">cos</button>
+                        <button class="calc-btn function" onclick="appendFunction('tan(')">tan</button>
+                        <button class="calc-btn function" onclick="appendFunction('log(')">log</button>
+                        <button class="calc-btn function" onclick="appendFunction('ln(')">ln</button>
+                    </div>
+
+                    <!-- Row 2 - Functions -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn function" onclick="appendFunction('asin(')">sin⁻¹</button>
+                        <button class="calc-btn function" onclick="appendFunction('acos(')">cos⁻¹</button>
+                        <button class="calc-btn function" onclick="appendFunction('atan(')">tan⁻¹</button>
+                        <button class="calc-btn function" onclick="appendFunction('√(')">√</button>
+                        <button class="calc-btn function" onclick="appendFunction('^')">xʸ</button>
+                    </div>
+
+                    <!-- Row 3 - Constants -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn function" onclick="appendConstant('π')">π</button>
+                        <button class="calc-btn function" onclick="appendConstant('e')">e</button>
+                        <button class="calc-btn function" onclick="appendFunction('abs(')">|x|</button>
+                        <button class="calc-btn function" onclick="appendFunction('fact(')">n!</button>
+                        <button class="calc-btn" onclick="deleteLast()">⌫</button>
+                    </div>
+
+                    <!-- Row 4 - Numbers -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn" onclick="appendNumber('7')">7</button>
+                        <button class="calc-btn" onclick="appendNumber('8')">8</button>
+                        <button class="calc-btn" onclick="appendNumber('9')">9</button>
+                        <button class="calc-btn operator" onclick="appendOperator('/')">÷</button>
+                        <button class="calc-btn function" onclick="appendFunction('(')">(</button>
+                    </div>
+
+                    <!-- Row 5 - Numbers -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn" onclick="appendNumber('4')">4</button>
+                        <button class="calc-btn" onclick="appendNumber('5')">5</button>
+                        <button class="calc-btn" onclick="appendNumber('6')">6</button>
+                        <button class="calc-btn operator" onclick="appendOperator('*')">×</button>
+                        <button class="calc-btn function" onclick="appendFunction(')')">)</button>
+                    </div>
+
+                    <!-- Row 6 - Numbers -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn" onclick="appendNumber('1')">1</button>
+                        <button class="calc-btn" onclick="appendNumber('2')">2</button>
+                        <button class="calc-btn" onclick="appendNumber('3')">3</button>
+                        <button class="calc-btn operator" onclick="appendOperator('-')">−</button>
+                        <button class="calc-btn function" onclick="appendFunction('^2')">x²</button>
+                    </div>
+
+                    <!-- Row 7 - Numbers -->
+                    <div class="button-row scientific-row">
+                        <button class="calc-btn" onclick="appendNumber('0')">0</button>
+                        <button class="calc-btn" onclick="appendDecimal()">.</button>
+                        <button class="calc-btn operator" onclick="appendOperator('+')">+</button>
+                        <button class="calc-btn equals" onclick="calculate()">=</button>
+                        <button class="calc-btn function" onclick="appendFunction('^(1/2)')">√x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Affiliate Banner (Bottom) -->
+        <div class="affiliate-secondary">
+            <div class="affiliate-content">
+                <div class="affiliate-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="affiliate-text">
+                    <h4>Premium Resource</h4>
+                    <p>Discover tools that professionals recommend</p>
+                </div>
+            </div>
+            <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" class="secondary-btn" target="_blank" rel="nofollow sponsored">
+                Learn More <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 
     <script>
-        (function() {
-            "use strict";
+        // DOM Elements
+        const expression = document.getElementById('expression');
+        const result = document.getElementById('result');
+        const history = document.getElementById('history');
+        const basicMode = document.getElementById('basicMode');
+        const scientificMode = document.getElementById('scientificMode');
+        const basicButtons = document.getElementById('basicButtons');
+        const scientificButtons = document.getElementById('scientificButtons');
 
-            const display = document.getElementById('calcDisplay');
-            const historyDiv = document.getElementById('calcHistory');
-            let currentInput = '0';
-            let lastResult = null;
+        // Memory variable
+        let memory = 0;
+        let memoryActive = false;
 
-            function updateDisplay(value) {
-                display.value = value;
+        // Mode Toggle
+        basicMode.addEventListener('click', () => {
+            basicMode.classList.add('active');
+            scientificMode.classList.remove('active');
+            basicButtons.classList.add('active');
+            scientificButtons.classList.remove('active');
+        });
+
+        scientificMode.addEventListener('click', () => {
+            scientificMode.classList.add('active');
+            basicMode.classList.remove('active');
+            scientificButtons.classList.add('active');
+            basicButtons.classList.remove('active');
+        });
+
+        // Append number to expression
+        function appendNumber(num) {
+            expression.value += num;
+        }
+
+        // Append operator
+        function appendOperator(op) {
+            const lastChar = expression.value.slice(-1);
+            if (['+', '-', '*', '/', '%'].includes(lastChar)) {
+                expression.value = expression.value.slice(0, -1) + op;
+            } else {
+                expression.value += op;
             }
+        }
 
-            function appendToInput(val) {
-                if (currentInput === '0' && val !== '.') {
-                    currentInput = val;
+        // Append decimal point
+        function appendDecimal() {
+            const parts = expression.value.split(/[\+\-\*\/\%]/);
+            const lastPart = parts[parts.length - 1];
+            if (!lastPart.includes('.')) {
+                expression.value += '.';
+            }
+        }
+
+        // Append function
+        function appendFunction(func) {
+            expression.value += func;
+        }
+
+        // Append constant
+        function appendConstant(constant) {
+            if (constant === 'π') {
+                expression.value += Math.PI;
+            } else if (constant === 'e') {
+                expression.value += Math.E;
+            }
+        }
+
+        // Delete last character
+        function deleteLast() {
+            expression.value = expression.value.slice(0, -1);
+        }
+
+        // Clear all
+        function clearAll() {
+            expression.value = '';
+            result.textContent = '0';
+            history.textContent = '';
+        }
+
+        // Calculate result
+        function calculate() {
+            try {
+                if (!expression.value) return;
+                
+                history.textContent = expression.value + ' =';
+                
+                // Replace mathematical constants and functions
+                let expr = expression.value
+                    .replace(/×/g, '*')
+                    .replace(/÷/g, '/')
+                    .replace(/−/g, '-')
+                    .replace(/\^/g, '**')
+                    .replace(/sin\(/g, 'Math.sin(')
+                    .replace(/cos\(/g, 'Math.cos(')
+                    .replace(/tan\(/g, 'Math.tan(')
+                    .replace(/asin\(/g, 'Math.asin(')
+                    .replace(/acos\(/g, 'Math.acos(')
+                    .replace(/atan\(/g, 'Math.atan(')
+                    .replace(/log\(/g, 'Math.log10(')
+                    .replace(/ln\(/g, 'Math.log(')
+                    .replace(/√\(/g, 'Math.sqrt(')
+                    .replace(/abs\(/g, 'Math.abs(')
+                    .replace(/fact\(/g, 'factorial(')
+                    .replace(/\^2/g, '**2')
+                    .replace(/x²/g, '**2')
+                    .replace(/√x/g, '**(1/2)')
+                    .replace(/\^(1\/2)/g, '**(1/2)');
+                
+                // Handle factorial
+                if (expr.includes('factorial(')) {
+                    expr = expr.replace(/factorial\((\d+)\)/g, (match, num) => {
+                        return factorial(parseInt(num));
+                    });
+                }
+                
+                // Evaluate expression
+                const evalResult = eval(expr);
+                
+                // Format result
+                if (Number.isFinite(evalResult)) {
+                    result.textContent = evalResult.toFixed(10).replace(/\.?0+$/, '');
                 } else {
-                    currentInput += val;
+                    result.textContent = 'Error';
                 }
-                updateDisplay(currentInput);
+            } catch (error) {
+                result.textContent = 'Error';
+                console.error(error);
             }
+        }
 
-            function clearAll() {
-                currentInput = '0';
-                lastResult = null;
-                historyDiv.textContent = '';
-                updateDisplay('0');
+        // Factorial function
+        function factorial(n) {
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
             }
+            return result;
+        }
 
-            function clearEntry() {
-                currentInput = '0';
-                updateDisplay('0');
-            }
+        // Memory functions
+        function memoryClear() {
+            memory = 0;
+            memoryActive = false;
+        }
 
-            function deleteLast() {
-                if (currentInput.length > 1) {
-                    currentInput = currentInput.slice(0, -1);
-                } else {
-                    currentInput = '0';
+        function memoryRecall() {
+            expression.value += memory;
+        }
+
+        function memoryAdd() {
+            try {
+                const currentValue = parseFloat(result.textContent);
+                if (!isNaN(currentValue)) {
+                    memory += currentValue;
+                    memoryActive = true;
                 }
-                updateDisplay(currentInput);
+            } catch (error) {
+                // Ignore error
             }
+        }
 
-            function calculate() {
-                try {
-                    let expression = currentInput
-                        .replace(/÷/g, '/')
-                        .replace(/×/g, '*')
-                        .replace(/\^/g, '^')
-                        .replace(/sin⁻¹/g, 'asin')
-                        .replace(/cos⁻¹/g, 'acos')
-                        .replace(/tan⁻¹/g, 'atan')
-                        .replace(/log₁₀/g, 'log')
-                        .replace(/√/g, 'sqrt')
-                        .replace(/π/g, 'pi');
-
-                    const result = math.evaluate(expression);
-                    historyDiv.textContent = currentInput + ' =';
-                    currentInput = String(result);
-                    updateDisplay(currentInput);
-                    lastResult = result;
-                } catch (e) {
-                    display.value = 'Error';
-                    currentInput = '0';
+        function memorySubtract() {
+            try {
+                const currentValue = parseFloat(result.textContent);
+                if (!isNaN(currentValue)) {
+                    memory -= currentValue;
+                    memoryActive = true;
                 }
+            } catch (error) {
+                // Ignore error
             }
+        }
 
-            document.querySelectorAll('.calc-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const val = this.dataset.value;
-                    if (!val) return;
-                    if (val === 'C') clearAll();
-                    else if (val === 'CE') clearEntry();
-                    else if (val === 'del') deleteLast();
-                    else if (val === '=') calculate();
-                    else if (val === 'pi') appendToInput('π');
-                    else if (val === 'e') appendToInput('e');
-                    else if (['sin','cos','tan','asin','acos','atan','log','ln','sqrt'].includes(val)) {
-                        appendToInput(val + '(');
-                    } else if (val === '^') appendToInput('^');
-                    else appendToInput(val);
-                });
-            });
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            const key = e.key;
+            
+            if (key >= '0' && key <= '9') {
+                appendNumber(key);
+            } else if (key === '.') {
+                appendDecimal();
+            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+                appendOperator(key);
+            } else if (key === 'Enter' || key === '=') {
+                e.preventDefault();
+                calculate();
+            } else if (key === 'Backspace') {
+                deleteLast();
+            } else if (key === 'Escape') {
+                clearAll();
+            } else if (key === '%') {
+                appendOperator('%');
+            }
+        });
 
-            document.addEventListener('keydown', function(e) {
-                const key = e.key;
-                if (key >= '0' && key <= '9') appendToInput(key);
-                else if (key === '.') appendToInput('.');
-                else if (key === '+' || key === '-' || key === '*' || key === '/') appendToInput(key);
-                else if (key === '(' || key === ')') appendToInput(key);
-                else if (key === 'Enter' || key === '=') calculate();
-                else if (key === 'Escape') clearAll();
-                else if (key === 'Backspace') deleteLast();
-            });
-
-            updateDisplay('0');
-        })();
+        // Initialize
+        clearAll();
     </script>
 </body>
 </html>
