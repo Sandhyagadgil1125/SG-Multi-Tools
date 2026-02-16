@@ -2,365 +2,252 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Age Calculator · dark theme · single input</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        <!-- Updated on Feb 16, 2026 -->
 
         body {
-            background: #0d1a24; /* deep background like previous theme */
+            background: #c0cbd6;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .age-card {
+            background: #1e2b37;
+            border-radius: 2rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 450px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 1rem;
+        }
+
+        .card-header h1 {
+            color: #ffffff;
+            font-size: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            padding: 16px;
+            gap: 10px;
         }
 
-        /* main card – dark, centered, fits any screen */
-        .age-card {
-            width: 100%;
-            max-width: 560px;
-            background: #1f2a35;      /* dark card body, matches theme */
-            border-radius: 3rem;
-            box-shadow: 0 30px 50px -10px rgba(0,0,0,0.8), 0 10px 25px -5px #0b141c;
-            padding: 2.2rem 2rem 2.5rem 2rem;
-            border: 1px solid rgba(255,180,100,0.15);
-            backdrop-filter: blur(1px);
-            transition: all 0.2s;
+        .card-header h1 span {
+            color: #42f8f5;
         }
 
-        /* header line */
-        .age-card h2 {
-            font-size: 2rem;
-            font-weight: 500;
-            letter-spacing: -0.5px;
-            color: #e8eef2;
-            margin-bottom: 0.2rem;
-            padding-left: 0.3rem;
-            border-left: 8px solid #f3b363;
-            padding-left: 1.2rem;
+        .badge {
+            background: #12151a;
+            color: #42f8f5;
+            font-size: 0.8rem;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            display: inline-block;
+            margin-top: 10px;
         }
 
-        .age-card h2 span {
-            font-size: 1rem;
-            background: #30495a;
-            color: #bcd6e6;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            margin-left: 1rem;
-            font-weight: 400;
-        }
-
-        /* input group — only ONE date field */
         .input-group {
-            margin-top: 2.2rem;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
         }
 
         .input-label {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #b6d0e0;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-            font-size: 1.1rem;
         }
 
         .input-label i {
+            color: #42f8f5;
             font-style: normal;
-            color: #f3b363;
-            font-size: 1.3rem;
         }
 
-        /* light-colored input box (explicitly light) */
-        .date-input {
-            width: 100%;
-            background: #eef5fa;        /* light off-white */
-            border: 2px solid #53788f;
-            border-radius: 3rem;
-            padding: 1.2rem 1.8rem;
-            font-size: 1.5rem;
-            font-family: 'Fira Mono', 'Courier New', monospace;
-            font-weight: 500;
-            color: #142b36;
-            box-shadow: inset 0 2px 8px rgba(0,20,20,0.1), 0 2px 4px #0e1f2b;
-            outline: none;
-            transition: 0.15s;
-            letter-spacing: 1px;
-        }
-
-        .date-input:focus {
-            border-color: #f3b363;
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(243,180,99,0.25), inset 0 2px 6px #b3c9da;
-        }
-
-        .date-input::placeholder {
-            color: #618196;
-            font-weight: 400;
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        /* hint line under input */
-        .input-hint {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.6rem;
-            color: #9bb5c9;
-            font-size: 0.95rem;
-            padding: 0 0.8rem;
-        }
-
-        .input-hint .badge {
-            background: #263e4e;
-            padding: 0.3rem 1rem;
-            border-radius: 30px;
-            color: #fad59f;
-            font-size: 0.9rem;
-            border: 1px solid #537e9b;
-        }
-
-        .input-hint .note {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* age result panel (years, months, days) */
-        .age-big-numbers {
-            background: #15242f;
-            border-radius: 3.5rem;
-            padding: 1.8rem 1.2rem;
-            margin: 2.2rem 0 1.8rem 0;
-            display: flex;
-            justify-content: space-around;
-            border: 1px solid #3b5e78;
-            box-shadow: inset 0 3px 10px #0d1f2b;
-        }
-
-        .age-unit {
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .age-value {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #fad68f;
-            line-height: 1;
-            text-shadow: 0 3px 5px #0d1f2b;
-            letter-spacing: 4px;
-        }
-
-        .age-label {
-            font-size: 1rem;
-            text-transform: uppercase;
-            color: #9fbdd3;
-            letter-spacing: 2px;
-            margin-top: 0.4rem;
-        }
-
-        /* total days + copy row */
-        .total-days-section {
-            background: #172b38;
-            border-radius: 4rem;
-            padding: 0.9rem 2rem 0.9rem 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #3b6885;
-            margin-bottom: 1rem;
-        }
-
-        .total-label {
-            color: #cbdae6;
-            font-size: 1.2rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .total-label span {
-            background: #214257;
-            padding: 0.2rem 0.7rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: #fad59f;
-        }
-
-        .total-number {
-            font-size: 2rem;
-            font-weight: 700;
-            font-family: 'Fira Mono', monospace;
-            color: #fad68f;
-            background: #1e3647;
-            padding: 0.2rem 1.2rem;
-            border-radius: 3rem;
-            letter-spacing: 1px;
-            border: 1px solid #729bb3;
-        }
-
-        .copy-button {
-            background: #f3b363;
-            border: none;
-            color: #0a1f2b;
-            font-weight: 700;
-            font-size: 1.2rem;
-            padding: 0.7rem 2rem;
-            border-radius: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            box-shadow: 0 6px 0 #9e6f36, 0 8px 15px black;
-            transition: 0.07s linear;
-            border: 1px solid #ffd8a8;
-            margin-left: 10px;
-        }
-
-        .copy-button:active {
-            transform: translateY(5px);
-            box-shadow: 0 2px 0 #9e6f36, 0 5px 12px black;
-        }
-
-        /* tiny extra */
-        .activate-warning {
-            margin-top: 1.8rem;
-            background: #2a3e4b;
+        .tool-input {
+            background: #eef5fa;
+            border: 2px solid #3d6b8c;
             border-radius: 2rem;
-            padding: 0.8rem 2rem;
-            color: #d2e5f5;
-            font-size: 0.9rem;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            color: #1c222d;
+            width: 100%;
+            outline: none;
+            transition: all 0.15s ease;
+            font-family: 'Fira Mono', monospace;
+        }
+
+        .tool-input:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 0 4px rgba(66, 248, 245, 0.3);
+            background: #ffffff;
+        }
+
+        .tool-display {
+            background: #1c222d;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            color: #42f8f5;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border: 1px solid #42f8f5;
+            margin: 1.5rem 0;
+            font-family: 'Fira Mono', monospace;
+            box-shadow: inset 0 0 15px rgba(66, 248, 245, 0.2);
+        }
+
+        .button-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #b8773b;
+            gap: 12px;
         }
 
-        .activate-warning .win-icon {
-            background: #4f7e9e;
-            padding: 0.2rem 1rem;
-            border-radius: 30px;
-            color: white;
+        .tool-btn {
+            background: #1c222d;
+            border: 1px solid #42f8f5;
+            border-radius: 2rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.2);
+            text-transform: uppercase;
         }
 
-        /* remove second input — we only have ONE input, as requested */
-        /* mobile fine-tuning */
-        @media (max-width: 480px) {
-            .age-card {
-                padding: 1.8rem 1.2rem;
-                border-radius: 2.2rem;
-            }
-
-            .age-value {
-                font-size: 2.8rem;
-            }
-
-            .total-number {
-                font-size: 1.5rem;
-                padding: 0.2rem 1rem;
-            }
-
-            .copy-button {
-                padding: 0.5rem 1.2rem;
-                font-size: 1rem;
-            }
-
-            .date-input {
-                padding: 1rem 1.5rem;
-                font-size: 1.3rem;
-            }
+        .tool-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.8);
         }
 
-        /* simulate static values for preview (36 years, 1 month, 15 days) */
-        /* they are just static text, matching screenshot */
+        .tool-btn.primary {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.6);
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #a0b8cc;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
     <div class="age-card">
-        <h2>📅 Age Calculator <span>dd-mm-yyyy</span></h2>
+        <div class="card-header">
+            <h1>
+                <span class="card-icon">📅</span> Age <span>Calculator</span>
+            </h1>
+            <div class="badge">DD-MM-YYYY</div>
+        </div>
 
-        <!-- only ONE input box: date of birth (dd-mm-yyyy) -->
         <div class="input-group">
             <div class="input-label">
-                <i>⏺</i> Date of birth (dd-mm-yyyy)
+                <i>📌</i> Date of birth
             </div>
-            <input class="date-input" type="text" value="01-01-1990" placeholder="01-01-1990">
-            <!-- hint area merged: "Format: day-month-year" plus optional note removed (second input gone) -->
-            <div class="input-hint">
-                <span class="badge">day-month-year</span>
-                <span class="note">📌 single input · no extra date field</span>
-            </div>
+            <input class="tool-input" id="ageInput" type="text" value="01-01-1990" placeholder="Enter date (DD-MM-YYYY)">
         </div>
 
-        <!-- Age result: years / months / days (static demo values from screenshot) -->
-        <div class="age-big-numbers">
-            <div class="age-unit">
-                <div class="age-value">36</div>
-                <div class="age-label">YEARS</div>
-            </div>
-            <div class="age-unit">
-                <div class="age-value">1</div>
-                <div class="age-label">MONTHS</div>
-            </div>
-            <div class="age-unit">
-                <div class="age-value">15</div>
-                <div class="age-label">DAYS</div>
-            </div>
+        <div class="tool-display" id="ageResult">36 years 1 months 15 days</div>
+
+        <div class="button-row">
+            <button class="tool-btn primary" id="calculateBtn">Calculate</button>
+            <button class="tool-btn" id="copyBtn">Copy</button>
         </div>
 
-        <!-- total days + copy button (exactly like screenshot) -->
-        <div class="total-days-section">
-            <div class="total-label">
-                ⏳ Total days <span>since birth</span>
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span class="total-number">13,195</span>
-                <button class="copy-button" onclick="navigator.clipboard?.writeText('13195'); alert('📋 Copied (demo)')">📋 Copy</button>
-            </div>
-        </div>
-
-        <!-- subtle "activate windows" footer — kept from screenshot, but visually integrated -->
-        <div class="activate-warning">
-            <span>⚠️ Activate Windows</span>
-            <span class="win-icon">⚙️ Go to Settings to activate Windows</span>
+        <div class="footer-note">
+            Enter your date of birth in DD-MM-YYYY format
         </div>
     </div>
 
-    <!-- tiny script to demonstrate copy behaviour and keep input light, no second input logic -->
     <script>
         (function() {
-            // Make copy button work (demo)
-            const copyBtn = document.querySelector('.copy-button');
-            if (copyBtn) {
-                copyBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const totalElem = document.querySelector('.total-number');
-                    const totalText = totalElem ? totalElem.innerText.replace(/,/g, '') : '13195';
-                    navigator.clipboard?.writeText(totalText).then(() => {
-                        alert('Copied: ' + totalText);
-                    }).catch(() => {
-                        alert('Press Ctrl+C (demo)');
-                    });
-                });
+            const ageInput = document.getElementById('ageInput');
+            const ageResult = document.getElementById('ageResult');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+
+            function parseDMY(dateStr) {
+                const parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    const day = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1;
+                    const year = parseInt(parts[2], 10);
+                    return new Date(year, month, day);
+                }
+                return new Date();
             }
 
-            // For demonstration: when you change the date, the static values (36y 1m 15d) won't automatically update — 
-            // it's a pure UI mockup consistent with the screenshot. If you need real calculation, we'd add js.
-            // But requirement was only one input, dark theme, light input field — perfectly met.
+            function calculateAge() {
+                const input = ageInput.value.trim();
+                if (!input) {
+                    ageResult.innerText = 'Please enter a date';
+                    return;
+                }
+
+                const birthDate = parseDMY(input);
+                if (isNaN(birthDate.getTime())) {
+                    ageResult.innerText = 'Invalid date format';
+                    return;
+                }
+
+                const today = new Date();
+                
+                let years = today.getFullYear() - birthDate.getFullYear();
+                let months = today.getMonth() - birthDate.getMonth();
+                let days = today.getDate() - birthDate.getDate();
+                
+                if (days < 0) { 
+                    months--; 
+                    const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                    days += lastMonth.getDate();
+                }
+                if (months < 0) { 
+                    years--; 
+                    months += 12; 
+                }
+
+                ageResult.innerText = `${years} years ${months} months ${days} days`;
+            }
+
+            calculateBtn.addEventListener('click', calculateAge);
+
+            copyBtn.addEventListener('click', function() {
+                const text = ageResult.innerText;
+                navigator.clipboard?.writeText(text).then(() => {
+                    alert('Age copied to clipboard!');
+                }).catch(() => {
+                    alert('Press Ctrl+C to copy');
+                });
+            });
+
+            // Calculate on page load
+            calculateAge();
         })();
     </script>
-    <!-- ensure only one date box exists, and the "as of date" second box is completely removed -->
-    <!-- background stays dark, input is light, tool card dark -->
 </body>
 </html>
