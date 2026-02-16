@@ -6,6 +6,39 @@
     <title>SG Multi Tools - 20 Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional inline styles to ensure uniformity */
+        .tool-card {
+            min-height: 380px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .btn, .btn-action, .input-field, .textarea-field, .select-field, .display-field {
+            margin-bottom: 0;
+        }
+        
+        .button-row {
+            margin: 2px 0;
+        }
+        
+        .button-grid {
+            margin: 2px 0;
+        }
+        
+        /* Ensure all cards have equal height */
+        .tools-grid {
+            align-items: stretch;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -48,70 +81,70 @@
     </footer>
 
     <script>
-        // ========== TOOL DEFINITIONS - ALL 20 TOOLS WITH CONSISTENT CLASSES ==========
+        // ========== TOOL DEFINITIONS - ALL 20 TOOLS WITH UNIFORM SIZE ==========
         const tools = [
-        {   // 1. Advanced Calculator (COMPACT with AFFILIATE LINKS)
-    icon: '🧮', 
-    title: 'Advanced Calculator', 
-    badge: 'sci',
-    html: (id) => `
-        <div class="display-field text-right" id="calc-display-${id}" style="font-size:1.2rem; padding:8px;">0</div>
-        
-        <!-- Scientific Functions -->
-        <div class="button-row" style="gap: 4px; margin: 4px 0;">
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="sin">sin</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="cos">cos</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="tan">tan</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="log">log</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="π">π</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="e">e</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="x²">x²</button>
-            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="√">√</button>
-        </div>
-        
-        <!-- Number Pad -->
-        <div class="button-grid" style="grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 4px 0;">
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="7">7</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="8">8</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="9">9</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="÷">÷</button>
+            {   // 1. Advanced Calculator (COMPACT with AFFILIATE LINKS)
+                icon: '🧮', 
+                title: 'Advanced Calculator', 
+                badge: 'sci',
+                html: (id) => `
+                    <div class="display-field text-right" id="calc-display-${id}" style="font-size:1.2rem; padding:8px;">0</div>
+                    
+                    <!-- Scientific Functions -->
+                    <div class="button-row" style="gap: 4px; margin: 4px 0;">
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="sin">sin</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="cos">cos</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="tan">tan</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="log">log</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="π">π</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="e">e</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="x²">x²</button>
+                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="√">√</button>
+                    </div>
+                    
+                    <!-- Number Pad -->
+                    <div class="button-grid" style="grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 4px 0;">
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="7">7</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="8">8</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="9">9</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="÷">÷</button>
+                        
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="4">4</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="5">5</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="6">6</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="×">×</button>
+                        
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="1">1</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="2">2</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="3">3</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="-">−</button>
+                        
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="0">0</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num=".">.</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-clear="C">C</button>
+                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="+">+</button>
+                    </div>
+                    
+                    <!-- Memory + Backspace + Calculate -->
+                    <div class="button-row" style="gap: 4px; margin: 4px 0;">
+                        <span class="memory-bar" style="display:flex; gap:4px; flex:2;">
+                            <span id="memory-clear-${id}" style="padding:4px 6px;">MC</span>
+                            <span id="memory-recall-${id}" style="padding:4px 6px;">MR</span>
+                            <span id="memory-add-${id}" style="padding:4px 6px;">M+</span>
+                            <span id="memory-subtract-${id}" style="padding:4px 6px;">M-</span>
+                        </span>
+                        <button class="btn" style="padding:6px 8px; flex:1;" data-calc="${id}" data-back="⌫">⌫</button>
+                        <button class="btn-action" style="padding:6px 8px; flex:2;" data-calc="${id}" data-calculate="=">=</button>
+                    </div>
+                    
+                    <!-- AFFILIATE LINKS -->
+                    <div class="affiliate-section" style="margin-top: 6px; padding-top: 6px; border-top: 1px solid #2a4055;">
+                        <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary" style="padding:6px; font-size:0.7rem;">⭐ PRIMARY</a>
+                        <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary" style="padding:6px; font-size:0.7rem;">⚡ SECONDARY</a>
+                    </div>
+                `
+            },
             
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="4">4</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="5">5</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="6">6</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="×">×</button>
-            
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="1">1</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="2">2</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="3">3</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="-">−</button>
-            
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="0">0</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num=".">.</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-clear="C">C</button>
-            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="+">+</button>
-        </div>
-        
-        <!-- Memory + Backspace + Calculate -->
-        <div class="button-row" style="gap: 4px; margin: 4px 0;">
-            <span class="memory-bar" style="display:flex; gap:4px; flex:2;">
-                <span id="memory-clear-${id}" style="padding:4px 6px;">MC</span>
-                <span id="memory-recall-${id}" style="padding:4px 6px;">MR</span>
-                <span id="memory-add-${id}" style="padding:4px 6px;">M+</span>
-                <span id="memory-subtract-${id}" style="padding:4px 6px;">M-</span>
-            </span>
-            <button class="btn" style="padding:6px 8px; flex:1;" data-calc="${id}" data-back="⌫">⌫</button>
-            <button class="btn-action" style="padding:6px 8px; flex:2;" data-calc="${id}" data-calculate="=">=</button>
-        </div>
-        
-        <!-- AFFILIATE LINKS - Explicitly included -->
-        <div class="affiliate-section" style="margin-top: 6px; padding-top: 6px; border-top: 1px solid #2a4055;">
-            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary" style="padding:6px; font-size:0.7rem; text-align:center; flex:1;">⭐ PRIMARY</a>
-            <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary" style="padding:6px; font-size:0.7rem; text-align:center; flex:1;">⚡ SECONDARY</a>
-        </div>
-    `
-}    
-                      
             {   // 2. Age Calculator
                 icon: '📅', 
                 title: 'Age Calculator', 
@@ -841,6 +874,40 @@
                 });
             }
         }
+
+        // Keyboard support for calculator
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            const key = e.key;
+            const activeCalc = document.querySelector('[data-calc]');
+            if (!activeCalc) return;
+            
+            const cardId = activeCalc.dataset.calc;
+            const display = document.getElementById(`calc-display-${cardId}`);
+            if (!display) return;
+            
+            if (key >= '0' && key <= '9') {
+                document.querySelector(`[data-calc="${cardId}"][data-num="${key}"]`)?.click();
+            } else if (key === '.') {
+                document.querySelector(`[data-calc="${cardId}"][data-num="."]`)?.click();
+            } else if (key === '+') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="+"]`)?.click();
+            } else if (key === '-') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="-"]`)?.click();
+            } else if (key === '*') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="×"]`)?.click();
+            } else if (key === '/') {
+                document.querySelector(`[data-calc="${cardId}"][data-op="÷"]`)?.click();
+            } else if (key === 'Enter' || key === '=') {
+                e.preventDefault();
+                document.querySelector(`[data-calc="${cardId}"][data-calculate="="]`)?.click();
+            } else if (key === 'Escape') {
+                document.querySelector(`[data-calc="${cardId}"][data-clear="C"]`)?.click();
+            } else if (key === 'Backspace') {
+                document.querySelector(`[data-calc="${cardId}"][data-back="⌫"]`)?.click();
+            }
+        });
     </script>
 </body>
 </html>
