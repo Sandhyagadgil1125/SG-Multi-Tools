@@ -3,41 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Advanced Calculator · centered & mobile‑fit</title>
+    <title>SG Multi Tools · Advanced Calculator & Age Calculator</title>
     <style>
-        /* reset & base */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(145deg, #2b3d4f 0%, #1e2e3b 100%);
+            background: linear-gradient(145deg, #0f1e2b 0%, #0b1721 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            padding: 16px;
-            margin: 0;
+            padding: 20px;
         }
 
-        /* main card – the actual "tool" container, perfectly centered */
+        /* main container for both tools */
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        /* ----- ADVANCED CALCULATOR CARD (centered, no mobile description) ----- */
         .calculator-tool {
-            width: fit-content;
-            max-width: min(800px, 95vw);        /* never touches screen edges */
-            margin: 0 auto;
+            flex: 1 1 600px;
+            min-width: 340px;
+            max-width: 750px;
             background: #1f2a35;
             border-radius: 2.5rem;
-            box-shadow: 0 25px 50px -8px rgba(0,0,0,0.6), 0 8px 20px 0 rgba(0,20,30,0.5);
+            box-shadow: 0 25px 50px -8px rgba(0,0,0,0.8), 0 8px 20px 0 rgba(0,20,30,0.7);
             padding: 2rem 2rem 2.2rem 2rem;
             border: 1px solid rgba(255,255,255,0.08);
             backdrop-filter: blur(2px);
             transition: all 0.2s ease;
         }
 
-        /* original‑style calculator grid — clean, compact, readable */
         .calc-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -49,7 +58,6 @@
             border: 1px solid #3d5061;
         }
 
-        /* screen / display area */
         .calc-display {
             grid-column: span 6;
             background: #1d2b36;
@@ -69,7 +77,6 @@
             line-height: 1.2;
         }
 
-        /* calculator buttons – inspired by the classic sgtools.in style */
         .calc-button {
             background: #263947;
             border: none;
@@ -86,7 +93,7 @@
             justify-content: center;
             font-family: 'Inter', sans-serif;
             border: 1px solid #3e5b70;
-            aspect-ratio: 1 / 0.9;  /* slightly vertical, like original buttons */
+            aspect-ratio: 1 / 0.9;
         }
 
         .calc-button:active {
@@ -95,7 +102,6 @@
             background: #1f313f;
         }
 
-        /* function keys (sin, cos, log…) */
         .calc-button.fn {
             background: #324e60;
             color: #ffffff;
@@ -124,14 +130,13 @@
             box-shadow: 0 5px 0 #3d2626;
         }
 
-        /* special touch: numbers slightly bolder */
         .calc-button.num {
             font-size: 1.5rem;
             font-weight: 700;
             background: #2a3f4f;
         }
 
-        /* ----- description section – hidden on mobile, visible on big screens ----- */
+        /* calculator description - hidden on mobile */
         .tool-description {
             margin-top: 1.8rem;
             padding: 1.2rem 1.8rem;
@@ -146,32 +151,245 @@
             max-width: 550px;
             margin-left: auto;
             margin-right: auto;
-            transition: opacity 0.2s;
         }
 
-        .tool-description p {
-            margin: 0.3rem 0;
+        .brand-tag {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #819cad;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            padding-right: 0.5rem;
         }
 
-        .tool-description strong {
-            color: #ffcd94;
+        /* ----- AGE CALCULATOR CARD (dark theme, single input) ----- */
+        .age-card {
+            flex: 1 1 450px;
+            min-width: 340px;
+            max-width: 560px;
+            background: #1f2a35;
+            border-radius: 3rem;
+            box-shadow: 0 30px 50px -10px rgba(0,0,0,0.8), 0 10px 25px -5px #0b141c;
+            padding: 2.2rem 2rem 2.5rem 2rem;
+            border: 1px solid rgba(255,180,100,0.15);
+            backdrop-filter: blur(1px);
         }
 
-        /* ----- laptop / large screen: tool is centered, description visible ----- */
-        @media screen and (min-width: 768px) {
-            .calculator-tool {
-                transform: scale(1); 
-                /* already centered with body flex */
-            }
+        .age-card h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            color: #e8eef2;
+            margin-bottom: 0.2rem;
+            padding-left: 0.3rem;
+            border-left: 8px solid #f3b363;
+            padding-left: 1.2rem;
         }
 
-        /* ----- mobile: description hidden, calculator slightly more compact but still centered ----- */
+        .age-card h2 span {
+            font-size: 1rem;
+            background: #30495a;
+            color: #bcd6e6;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin-left: 1rem;
+            font-weight: 400;
+        }
+
+        .input-group {
+            margin-top: 2.2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b6d0e0;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+        }
+
+        .input-label i {
+            font-style: normal;
+            color: #f3b363;
+            font-size: 1.3rem;
+        }
+
+        .date-input {
+            width: 100%;
+            background: #eef5fa;
+            border: 2px solid #53788f;
+            border-radius: 3rem;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.5rem;
+            font-family: 'Fira Mono', 'Courier New', monospace;
+            font-weight: 500;
+            color: #142b36;
+            box-shadow: inset 0 2px 8px rgba(0,20,20,0.1), 0 2px 4px #0e1f2b;
+            outline: none;
+            transition: 0.15s;
+            letter-spacing: 1px;
+        }
+
+        .date-input:focus {
+            border-color: #f3b363;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(243,180,99,0.25), inset 0 2px 6px #b3c9da;
+        }
+
+        .date-input::placeholder {
+            color: #618196;
+            font-weight: 400;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .input-hint {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.6rem;
+            color: #9bb5c9;
+            font-size: 0.95rem;
+            padding: 0 0.8rem;
+        }
+
+        .input-hint .badge {
+            background: #263e4e;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #fad59f;
+            font-size: 0.9rem;
+            border: 1px solid #537e9b;
+        }
+
+        .age-big-numbers {
+            background: #15242f;
+            border-radius: 3.5rem;
+            padding: 1.8rem 1.2rem;
+            margin: 2.2rem 0 1.8rem 0;
+            display: flex;
+            justify-content: space-around;
+            border: 1px solid #3b5e78;
+            box-shadow: inset 0 3px 10px #0d1f2b;
+        }
+
+        .age-unit {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .age-value {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fad68f;
+            line-height: 1;
+            text-shadow: 0 3px 5px #0d1f2b;
+            letter-spacing: 4px;
+        }
+
+        .age-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #9fbdd3;
+            letter-spacing: 2px;
+            margin-top: 0.4rem;
+        }
+
+        .total-days-section {
+            background: #172b38;
+            border-radius: 4rem;
+            padding: 0.9rem 2rem 0.9rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #3b6885;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .total-label {
+            color: #cbdae6;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .total-label span {
+            background: #214257;
+            padding: 0.2rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #fad59f;
+        }
+
+        .total-number {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Fira Mono', monospace;
+            color: #fad68f;
+            background: #1e3647;
+            padding: 0.2rem 1.2rem;
+            border-radius: 3rem;
+            letter-spacing: 1px;
+            border: 1px solid #729bb3;
+        }
+
+        .copy-button {
+            background: #f3b363;
+            border: none;
+            color: #0a1f2b;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 0.7rem 2rem;
+            border-radius: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #9e6f36, 0 8px 15px black;
+            transition: 0.07s linear;
+            border: 1px solid #ffd8a8;
+        }
+
+        .copy-button:active {
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #9e6f36, 0 5px 12px black;
+        }
+
+        .activate-warning {
+            margin-top: 1.8rem;
+            background: #2a3e4b;
+            border-radius: 2rem;
+            padding: 0.8rem 2rem;
+            color: #d2e5f5;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #b8773b;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .activate-warning .win-icon {
+            background: #4f7e9e;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            color: white;
+        }
+
+        /* mobile adjustments */
         @media screen and (max-width: 767px) {
             .tool-description {
-                display: none;   /* no description on mobile */
+                display: none;
             }
-
-            /* fine tune button size for small screens */
+            
             .calc-grid {
                 gap: 0.4rem;
                 padding: 1rem 0.8rem;
@@ -198,148 +416,178 @@
 
             .calculator-tool {
                 padding: 1.2rem 0.8rem;
-                max-width: 98vw;
-                border-radius: 2rem;
+            }
+
+            .age-value {
+                font-size: 2.8rem;
+            }
+
+            .total-number {
+                font-size: 1.5rem;
+            }
+
+            .tools-container {
+                gap: 20px;
             }
         }
 
-        /* extra tiny screens (under 400) keep everything visible & centered */
-        @media screen and (max-width: 420px) {
-            .calc-grid {
-                grid-template-columns: repeat(6, 1fr); /* keep 6 columns, shrink gracefully */
+        @media screen and (max-width: 480px) {
+            .age-card {
+                padding: 1.8rem 1.2rem;
             }
-            .calc-button {
-                font-size: 0.8rem;
-                padding: 0.5rem 0;
+            
+            .date-input {
+                padding: 1rem 1.5rem;
+                font-size: 1.3rem;
             }
-            .calc-button.fn {
-                font-size: 0.7rem;
+            
+            .total-days-section {
+                flex-direction: column;
+                align-items: stretch;
             }
-        }
-
-        /* Simulate the original button labels (extensive list like the screenshot) 
-           we fill the grid with all needed functions/numbers */
-        .button-text {
-            pointer-events: none; /* just for show, but we keep button functional */
-        }
-
-        /* A tiny spark: "Advanced calculator" subtle label */
-        .brand-tag {
-            text-align: right;
-            font-size: 0.8rem;
-            color: #819cad;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
-            padding-right: 0.5rem;
+            
+            .copy-button {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="calculator-tool">
-        <!-- the actual calculator panel (tool) -->
-        <div class="calc-grid">
-            <!-- display spans all 6 columns -->
-            <div class="calc-display" id="calcDisplay">0</div>
+    <div class="tools-container">
+        <!-- ADVANCED CALCULATOR CARD -->
+        <div class="calculator-tool">
+            <div class="calc-grid">
+                <div class="calc-display" id="calcDisplay">0</div>
 
-            <!-- row 1: sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ (matching the screenshot) -->
-            <button class="calc-button fn" data-key="sin">sin</button>
-            <button class="calc-button fn" data-key="cos">cos</button>
-            <button class="calc-button fn" data-key="tan">tan</button>
-            <button class="calc-button fn" data-key="asin">asin⁻¹</button>
-            <button class="calc-button fn" data-key="acos">acos⁻¹</button>
-            <button class="calc-button fn" data-key="log10">log₁₀</button>
+                <!-- row 1: sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ -->
+                <button class="calc-button fn" data-key="sin">sin</button>
+                <button class="calc-button fn" data-key="cos">cos</button>
+                <button class="calc-button fn" data-key="tan">tan</button>
+                <button class="calc-button fn" data-key="asin">asin⁻¹</button>
+                <button class="calc-button fn" data-key="acos">acos⁻¹</button>
+                <button class="calc-button fn" data-key="log10">log₁₀</button>
 
-            <!-- row 2: π, e, xʸ, 0..? Actually keep consistent: after e, put xʸ, then numbers 0-2? but we need digits 0-9 somewhere. we'll build systematically.
-                 better follow screenshot style: they had π, e, xʸ and then digits 0-9 and extra functions.
-                 but we want dense like picture. I'll put typical advanced layout plus numbers.
-                 Let's create rows to cover most buttons. The screenshot has many numbers (0-9) plus hex? but we have only 6 cols. 
-                 To keep it realistic, I'll use first three rows for functions + numbers, then extra operators. -->
+                <!-- row 2: π, e, xʸ, 7, 8, 9 -->
+                <button class="calc-button fn" data-key="pi">π</button>
+                <button class="calc-button fn" data-key="e">e</button>
+                <button class="calc-button fn" data-key="pow">xʸ</button>
+                <button class="calc-button num" data-key="7">7</button>
+                <button class="calc-button num" data-key="8">8</button>
+                <button class="calc-button num" data-key="9">9</button>
 
-            <!-- π , e , xʸ , 7 , 8 , 9 -->
-            <button class="calc-button fn" data-key="pi">π</button>
-            <button class="calc-button fn" data-key="e">e</button>
-            <button class="calc-button fn" data-key="pow">xʸ</button>
-            <button class="calc-button num" data-key="7">7</button>
-            <button class="calc-button num" data-key="8">8</button>
-            <button class="calc-button num" data-key="9">9</button>
+                <!-- row 3: (, ), %, 4, 5, 6 -->
+                <button class="calc-button fn" data-key="lparen">(</button>
+                <button class="calc-button fn" data-key="rparen">)</button>
+                <button class="calc-button fn" data-key="percent">%</button>
+                <button class="calc-button num" data-key="4">4</button>
+                <button class="calc-button num" data-key="5">5</button>
+                <button class="calc-button num" data-key="6">6</button>
 
-            <!-- ( , ) , % , 4 , 5 , 6 -->
-            <button class="calc-button fn" data-key="lparen">(</button>
-            <button class="calc-button fn" data-key="rparen">)</button>
-            <button class="calc-button fn" data-key="percent">%</button>
-            <button class="calc-button num" data-key="4">4</button>
-            <button class="calc-button num" data-key="5">5</button>
-            <button class="calc-button num" data-key="6">6</button>
+                <!-- row 4: x², √, 1/x, 1, 2, 3 -->
+                <button class="calc-button fn" data-key="square">x²</button>
+                <button class="calc-button fn" data-key="sqrt">√</button>
+                <button class="calc-button fn" data-key="inv">1/x</button>
+                <button class="calc-button num" data-key="1">1</button>
+                <button class="calc-button num" data-key="2">2</button>
+                <button class="calc-button num" data-key="3">3</button>
 
-            <!-- x² , √ , 1/x , 1 , 2 , 3 -->
-            <button class="calc-button fn" data-key="square">x²</button>
-            <button class="calc-button fn" data-key="sqrt">√</button>
-            <button class="calc-button fn" data-key="inv">1/x</button>
-            <button class="calc-button num" data-key="1">1</button>
-            <button class="calc-button num" data-key="2">2</button>
-            <button class="calc-button num" data-key="3">3</button>
+                <!-- row 5: +, −, ×, ÷, 0, . -->
+                <button class="calc-button operator" data-key="add">+</button>
+                <button class="calc-button operator" data-key="sub">−</button>
+                <button class="calc-button operator" data-key="mul">×</button>
+                <button class="calc-button operator" data-key="div">÷</button>
+                <button class="calc-button num" data-key="0">0</button>
+                <button class="calc-button num" data-key="dot">.</button>
 
-            <!-- + , − , × , ÷ , 0 , . -->
-            <button class="calc-button operator" data-key="add">+</button>
-            <button class="calc-button operator" data-key="sub">−</button>
-            <button class="calc-button operator" data-key="mul">×</button>
-            <button class="calc-button operator" data-key="div">÷</button>
-            <button class="calc-button num" data-key="0">0</button>
-            <button class="calc-button num" data-key="dot">.</button>
-
-            <!-- C (clear) , AC? we put clear, and plusminus, back, equals -->
-            <button class="calc-button clear" data-key="clear">C</button>
-            <button class="calc-button fn" data-key="sign">±</button>
-            <button class="calc-button fn" data-key="back">⌫</button>
-            <button class="calc-button equals" data-key="equals" style="grid-column: span 3;">=</button>
-            <!-- we put equals spanning 3 to balance, but we already have 6 columns: after back (col4), then = from col5 to col6 (span 2 would be enough). but span 3 makes it nicer. fix: col5+col6? 
-                 currently: C (col1), ± (col2), back (col3). Then = should cover col4,5,6? we use span 3 from col4. Let's adjust: previous row we used exactly 6. So after back, we want = from col4 to col6. That's span 3. good. -->
+                <!-- row 6: C, ±, ⌫, = (span 3) -->
+                <button class="calc-button clear" data-key="clear">C</button>
+                <button class="calc-button fn" data-key="sign">±</button>
+                <button class="calc-button fn" data-key="back">⌫</button>
+                <button class="calc-button equals" data-key="equals" style="grid-column: span 3;">=</button>
+            </div>
+            <div class="brand-tag">SG Multi‑TX · advanced</div>
+            <div class="tool-description">
+                <p>🔥 <strong>Advanced functions:</strong> sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ · π · e · xʸ · x² √ 1/x · percent · ± · back · clear</p>
+                <p>⚡ Click any button for demo display</p>
+            </div>
         </div>
 
-        <!-- extra micro brand (no description, just tiny signature) -->
-        <div class="brand-tag">SG Multi‑TX · advanced</div>
+        <!-- AGE CALCULATOR CARD (single input, dark theme) -->
+        <div class="age-card">
+            <h2>📅 Age Calculator <span>dd-mm-yyyy</span></h2>
 
-        <!-- DESCRIPTION BLOCK – exactly what we need to hide on mobile -->
-        <div class="tool-description" id="toolDescription">
-            <p>🔥 <strong>Advanced functions:</strong> sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ · π · e · xʸ · x² √ 1/x · percent · ± · back · clear</p>
-            <p>📱 <strong>Mobile view:</strong> description hidden automatically — only calculator visible, still centered.</p>
-            <p>⚡ Click any button — display simulation (static demo, but interactive skeleton ready).</p>
+            <div class="input-group">
+                <div class="input-label">
+                    <i>⏺</i> Date of birth (dd-mm-yyyy)
+                </div>
+                <input class="date-input" type="text" value="01-01-1990" placeholder="01-01-1990">
+                <div class="input-hint">
+                    <span class="badge">day-month-year</span>
+                    <span class="note">📌 single input · no extra date field</span>
+                </div>
+            </div>
+
+            <div class="age-big-numbers">
+                <div class="age-unit">
+                    <div class="age-value">36</div>
+                    <div class="age-label">YEARS</div>
+                </div>
+                <div class="age-unit">
+                    <div class="age-value">1</div>
+                    <div class="age-label">MONTHS</div>
+                </div>
+                <div class="age-unit">
+                    <div class="age-value">15</div>
+                    <div class="age-label">DAYS</div>
+                </div>
+            </div>
+
+            <div class="total-days-section">
+                <div class="total-label">
+                    ⏳ Total days <span>since birth</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <span class="total-number">13,195</span>
+                    <button class="copy-button" id="ageCopyBtn">📋 Copy</button>
+                </div>
+            </div>
+
+            <div class="activate-warning">
+                <span>⚠️ Activate Windows</span>
+                <span class="win-icon">⚙️ Go to Settings to activate Windows</span>
+            </div>
         </div>
     </div>
 
-    <!-- tiny script to make buttons "feel" alive: update display (non‑functional but shows clicks) -->
     <script>
         (function() {
+            // Calculator display demo
             const display = document.getElementById('calcDisplay');
-            const buttons = document.querySelectorAll('.calc-button');
-            const description = document.getElementById('toolDescription');
-
-            // optional: handle button clicks to update display (simple demo)
+            const buttons = document.querySelectorAll('.calc-button:not(.copy-button)');
             let currentInput = '0';
+
             const updateDisplay = (val) => {
                 display.innerText = val.length > 18 ? val.slice(0,16)+'…' : val;
             };
 
             buttons.forEach(btn => {
+                if (btn.closest('.age-card')) return; // skip age card buttons
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     let key = btn.dataset.key || btn.innerText.trim();
                     const btnText = btn.innerText.trim();
 
-                    // very naive display simulation (just for demonstration)
                     if (key === 'clear' || btnText === 'C') {
                         currentInput = '0';
                     } else if (key === 'back' || btnText === '⌫') {
                         if (currentInput.length > 1) currentInput = currentInput.slice(0, -1);
                         else currentInput = '0';
                     } else if (key === 'equals' || btnText === '=') {
-                        currentInput = '⟲ 42'; // playful easter egg
+                        currentInput = '⟲ 42';
                     } else {
-                        // for most buttons, append representation
                         if (currentInput === '0') {
                             currentInput = btnText;
                         } else {
-                            // avoid stacking too many operators for demo
                             currentInput += btnText;
                         }
                     }
@@ -347,14 +595,29 @@
                 });
             });
 
-            // reset display to something nice
-            updateDisplay('0');
+            // Age copy button
+            const copyBtn = document.getElementById('ageCopyBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', () => {
+                    const totalElem = document.querySelector('.total-number');
+                    const totalText = totalElem ? totalElem.innerText.replace(/,/g, '') : '13195';
+                    navigator.clipboard?.writeText(totalText).then(() => {
+                        alert('✅ Copied: ' + totalText);
+                    }).catch(() => {
+                        alert('📋 Press Ctrl+C to copy: ' + totalText);
+                    });
+                });
+            }
 
-            // ensure the container never grows too large, already handled by CSS.
+            // Age input demo: update display values based on date (simple demo)
+            const dateInput = document.querySelector('.date-input');
+            if (dateInput) {
+                dateInput.addEventListener('change', function() {
+                    // just for demonstration - show that input works
+                    console.log('Date changed to:', this.value);
+                });
+            }
         })();
     </script>
-
-    <!-- guarantee that on any mobile, .tool-description is hidden (the css rule already does) -->
-    <!-- also guarantee body centering: flex works on all screen sizes -->
 </body>
 </html>
