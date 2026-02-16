@@ -49,71 +49,67 @@
 <script>
     // ========== TOOL DEFINITIONS - ALL 20 TOOLS WITH CONSISTENT CLASSES ==========
     const tools = [
-        {   // 1. Advanced Calculator (COMPACT VERSION)
-            icon: '🧮', 
-            title: 'Advanced Calculator', 
-            badge: 'sci',
-            html: (id) => `
-                <div class="display-field text-right" id="calc-display-${id}" style="font-size:1.3rem; padding:10px;">0</div>
-                
-                <!-- Scientific Functions - Compact 4x5 grid -->
-                <div class="button-grid" style="grid-template-columns: repeat(4, 1fr); gap: 5px;">
-                    <button class="btn" data-calc="${id}" data-fn="sin">sin</button>
-                    <button class="btn" data-calc="${id}" data-fn="cos">cos</button>
-                    <button class="btn" data-calc="${id}" data-fn="tan">tan</button>
-                    <button class="btn" data-calc="${id}" data-fn="log">log</button>
-                    <button class="btn" data-calc="${id}" data-fn="π">π</button>
-                    <button class="btn" data-calc="${id}" data-fn="e">e</button>
-                    <button class="btn" data-calc="${id}" data-fn="x²">x²</button>
-                    <button class="btn" data-calc="${id}" data-fn="√">√</button>
-                    <button class="btn" data-calc="${id}" data-fn="xʸ">xʸ</button>
-                    <button class="btn" data-calc="${id}" data-fn="|x|">|x|</button>
-                    <button class="btn" data-calc="${id}" data-fn="1/x">1/x</button>
-                    <button class="btn" data-calc="${id}" data-fn="(">(</button>
-                    <button class="btn" data-calc="${id}" data-fn=")">)</button>
-                    <button class="btn" data-calc="${id}" data-fn="%">%</button>
-                    <button class="btn" data-calc="${id}" data-fn="±">±</button>
-                    <button class="btn" data-calc="${id}" data-clear="C">C</button>
-                </div>
-                
-                <!-- Number Pad - Compact -->
-                <div class="button-grid" style="grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 5px;">
-                    <button class="btn" data-calc="${id}" data-num="7">7</button>
-                    <button class="btn" data-calc="${id}" data-num="8">8</button>
-                    <button class="btn" data-calc="${id}" data-num="9">9</button>
-                    <button class="btn" data-calc="${id}" data-op="÷">÷</button>
-                    <button class="btn" data-calc="${id}" data-num="4">4</button>
-                    <button class="btn" data-calc="${id}" data-num="5">5</button>
-                    <button class="btn" data-calc="${id}" data-num="6">6</button>
-                    <button class="btn" data-calc="${id}" data-op="×">×</button>
-                    <button class="btn" data-calc="${id}" data-num="1">1</button>
-                    <button class="btn" data-calc="${id}" data-num="2">2</button>
-                    <button class="btn" data-calc="${id}" data-num="3">3</button>
-                    <button class="btn" data-calc="${id}" data-op="-">−</button>
-                    <button class="btn" data-calc="${id}" data-num="0">0</button>
-                    <button class="btn" data-calc="${id}" data-num=".">.</button>
-                    <button class="btn" data-calc="${id}" data-back="⌫">⌫</button>
-                    <button class="btn" data-calc="${id}" data-op="+">+</button>
-                </div>
-                
-                <!-- Memory Bar and Calculate in one row -->
-                <div class="button-row" style="gap: 5px; margin: 5px 0;">
-                    <span class="memory-bar" style="flex:2; display:flex; gap:5px;">
-                        <span id="memory-clear-${id}">MC</span>
-                        <span id="memory-recall-${id}">MR</span>
-                        <span id="memory-add-${id}">M+</span>
-                        <span id="memory-subtract-${id}">M-</span>
-                    </span>
-                    <button class="btn-action" style="flex:3; padding:8px;" data-calc="${id}" data-calculate="=">CALCULATE</button>
-                </div>
-                
-                <!-- Affiliate Links (Unique to Advanced Calculator) -->
-                <div class="affiliate-section" style="margin-top: 8px; padding-top: 8px;">
-                    <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary">⭐ PRIMARY</a>
-                    <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary">⚡ SECONDARY</a>
-                </div>
-            `
-        },
+        {   // 1. Advanced Calculator (ULTRA COMPACT - same size as all others)
+    icon: '🧮', 
+    title: 'Advanced Calculator', 
+    badge: 'sci',
+    html: (id) => `
+        <div class="display-field text-right" id="calc-display-${id}" style="font-size:1.2rem; padding:8px;">0</div>
+        
+        <!-- Scientific Functions - Single row of essential functions -->
+        <div class="button-row" style="gap: 4px; margin: 4px 0;">
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="sin">sin</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="cos">cos</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="tan">tan</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="log">log</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="π">π</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="e">e</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="x²">x²</button>
+            <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="√">√</button>
+        </div>
+        
+        <!-- Number Pad - Standard 4x4 grid -->
+        <div class="button-grid" style="grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 4px 0;">
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="7">7</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="8">8</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="9">9</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="÷">÷</button>
+            
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="4">4</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="5">5</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="6">6</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="×">×</button>
+            
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="1">1</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="2">2</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="3">3</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="-">−</button>
+            
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="0">0</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num=".">.</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-clear="C">C</button>
+            <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="+">+</button>
+        </div>
+        
+        <!-- Bottom Row: Memory + Backspace + Calculate -->
+        <div class="button-row" style="gap: 4px; margin: 4px 0;">
+            <span class="memory-bar" style="display:flex; gap:4px; flex:2;">
+                <span id="memory-clear-${id}" style="padding:4px 6px;">MC</span>
+                <span id="memory-recall-${id}" style="padding:4px 6px;">MR</span>
+                <span id="memory-add-${id}" style="padding:4px 6px;">M+</span>
+                <span id="memory-subtract-${id}" style="padding:4px 6px;">M-</span>
+            </span>
+            <button class="btn" style="padding:6px 8px; flex:1;" data-calc="${id}" data-back="⌫">⌫</button>
+            <button class="btn-action" style="padding:6px 8px; flex:2;" data-calc="${id}" data-calculate="=">=</button>
+        </div>
+        
+        <!-- Affiliate Links (Smaller) -->
+        <div class="affiliate-section" style="margin-top: 6px; padding-top: 6px;">
+            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary" style="padding:6px;">⭐ PRIMARY</a>
+            <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary" style="padding:6px;">⚡ SECONDARY</a>
+        </div>
+    `
+}
         
         {   // 2. Age Calculator (continues...)
             icon: '📅', 
