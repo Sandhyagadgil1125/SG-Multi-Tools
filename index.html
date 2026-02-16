@@ -1,314 +1,360 @@
-i<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG Multi Tools For Daily Use · Home</title>
-    <meta name="description" content="Reliable, free online tools, no installation, no sign-ups.">
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Advanced Calculator · centered & mobile‑fit</title>
     <style>
-        @media (min-width: 1024px) {
-            .tools-grid {
-                grid-template-columns: repeat(4, 1fr) !important;
-            }
+        /* reset & base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        <!-- Updated on Feb 15, 2026 -->
-        /* Footer links in one row */
-        .footer-links-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem 2rem;
-            margin-bottom: 1.5rem;
-            padding: 0 1rem;
-        }
-        
-        .footer-links-row a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-        
-        .footer-links-row a:hover {
-            color: var(--primary-accent);
-        }
-        
-        .footer-email {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-email i {
-            color: var(--primary-accent);
-            margin-right: 0.5rem;
-        }
-        
-        .footer-email a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-email a:hover {
-            color: var(--primary-accent);
-        }
-        
-        @media (max-width: 768px) {
-            .footer-links-row {
-                gap: 1rem;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .footer-links-row a {
-                font-size: 0.85rem;
-                white-space: nowrap;
-            }
-        }
-        <!-- Updated on Feb 16, 2026 -->
 
-        @media (max-width: 480px) {
-            .footer-links-row {
-                gap: 0.8rem;
+        body {
+            background: linear-gradient(145deg, #2b3d4f 0%, #1e2e3b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 16px;
+            margin: 0;
+        }
+
+        /* main card – the actual "tool" container, perfectly centered */
+        .calculator-tool {
+            width: fit-content;
+            max-width: min(800px, 95vw);        /* never touches screen edges */
+            margin: 0 auto;
+            background: #1f2a35;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -8px rgba(0,0,0,0.6), 0 8px 20px 0 rgba(0,20,30,0.5);
+            padding: 2rem 2rem 2.2rem 2rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(2px);
+            transition: all 0.2s ease;
+        }
+
+        /* original‑style calculator grid — clean, compact, readable */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            background: #16222c;
+            padding: 1.8rem 1.5rem;
+            border-radius: 2rem;
+            box-shadow: inset 0 2px 5px #0f171f, 0 8px 12px rgba(0,0,0,0.4);
+            border: 1px solid #3d5061;
+        }
+
+        /* screen / display area */
+        .calc-display {
+            grid-column: span 6;
+            background: #1d2b36;
+            border: 2px solid #3c5a6b;
+            border-radius: 2rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 0.5rem;
+            font-size: 2.4rem;
+            font-weight: 500;
+            text-align: right;
+            color: #b3f0ff;
+            letter-spacing: 2px;
+            box-shadow: inset 0 0 12px #0d1a22;
+            font-family: 'Fira Mono', 'Courier New', monospace;
+            word-break: break-all;
+            min-height: 5rem;
+            line-height: 1.2;
+        }
+
+        /* calculator buttons – inspired by the classic sgtools.in style */
+        .calc-button {
+            background: #263947;
+            border: none;
+            border-radius: 1.2rem;
+            padding: 1rem 0.2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e4f2fe;
+            box-shadow: 0 5px 0 #14212b, 0 6px 10px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.05s linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid #3e5b70;
+            aspect-ratio: 1 / 0.9;  /* slightly vertical, like original buttons */
+        }
+
+        .calc-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #14212b, 0 6px 10px rgba(0,0,0,0.5);
+            background: #1f313f;
+        }
+
+        /* function keys (sin, cos, log…) */
+        .calc-button.fn {
+            background: #324e60;
+            color: #ffffff;
+            border-color: #538cad;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .calc-button.operator {
+            background: #3b4f5e;
+            color: #ffd966;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .calc-button.equals {
+            background: #c57c1e;
+            color: white;
+            box-shadow: 0 5px 0 #6e4510;
+            font-size: 1.8rem;
+        }
+
+        .calc-button.clear {
+            background: #5f3e3e;
+            color: #ffbcbc;
+            box-shadow: 0 5px 0 #3d2626;
+        }
+
+        /* special touch: numbers slightly bolder */
+        .calc-button.num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: #2a3f4f;
+        }
+
+        /* ----- description section – hidden on mobile, visible on big screens ----- */
+        .tool-description {
+            margin-top: 1.8rem;
+            padding: 1.2rem 1.8rem;
+            background: #15232e;
+            border-radius: 3rem;
+            border-left: 6px solid #f3b363;
+            color: #cbdbe9;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: center;
+            box-shadow: inset 0 2px 5px #0e1a24;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: opacity 0.2s;
+        }
+
+        .tool-description p {
+            margin: 0.3rem 0;
+        }
+
+        .tool-description strong {
+            color: #ffcd94;
+        }
+
+        /* ----- laptop / large screen: tool is centered, description visible ----- */
+        @media screen and (min-width: 768px) {
+            .calculator-tool {
+                transform: scale(1); 
+                /* already centered with body flex */
             }
-            
-            .footer-links-row a {
+        }
+
+        /* ----- mobile: description hidden, calculator slightly more compact but still centered ----- */
+        @media screen and (max-width: 767px) {
+            .tool-description {
+                display: none;   /* no description on mobile */
+            }
+
+            /* fine tune button size for small screens */
+            .calc-grid {
+                gap: 0.4rem;
+                padding: 1rem 0.8rem;
+            }
+
+            .calc-button {
+                padding: 0.7rem 0.1rem;
+                font-size: 1rem;
+                border-radius: 0.9rem;
+            }
+
+            .calc-button.fn {
+                font-size: 0.85rem;
+            }
+
+            .calc-button.operator {
+                font-size: 1.2rem;
+            }
+
+            .calc-display {
+                padding: 1rem 1.2rem;
+                font-size: 1.8rem;
+            }
+
+            .calculator-tool {
+                padding: 1.2rem 0.8rem;
+                max-width: 98vw;
+                border-radius: 2rem;
+            }
+        }
+
+        /* extra tiny screens (under 400) keep everything visible & centered */
+        @media screen and (max-width: 420px) {
+            .calc-grid {
+                grid-template-columns: repeat(6, 1fr); /* keep 6 columns, shrink gracefully */
+            }
+            .calc-button {
                 font-size: 0.8rem;
+                padding: 0.5rem 0;
             }
+            .calc-button.fn {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Simulate the original button labels (extensive list like the screenshot) 
+           we fill the grid with all needed functions/numbers */
+        .button-text {
+            pointer-events: none; /* just for show, but we keep button functional */
+        }
+
+        /* A tiny spark: "Advanced calculator" subtle label */
+        .brand-tag {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #819cad;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+            padding-right: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER SECTION -->
-    <header class="main-header">
-        <div class="container header-content">
-            <div class="logo-section">
-                <div class="logo-square">SG</div>
-                <div class="logo-text">
-                    <span class="logo-title">SG Multi Tools</span>
-                    <span class="logo-subtitle">Essential utilities</span>
-                </div>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="tools.html"><i class="fas fa-tools"></i> Tools</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="calculator-tool">
+        <!-- the actual calculator panel (tool) -->
+        <div class="calc-grid">
+            <!-- display spans all 6 columns -->
+            <div class="calc-display" id="calcDisplay">0</div>
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-        <div class="container">
-            <!-- HERO SECTION (UPDATED) -->
-            <div class="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title">SG Multi Tools For Daily Use</h1>
-        <p class="hero-description">Reliable, free online Tools, no installation, no sign-ups</p>
+            <!-- row 1: sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ (matching the screenshot) -->
+            <button class="calc-button fn" data-key="sin">sin</button>
+            <button class="calc-button fn" data-key="cos">cos</button>
+            <button class="calc-button fn" data-key="tan">tan</button>
+            <button class="calc-button fn" data-key="asin">asin⁻¹</button>
+            <button class="calc-button fn" data-key="acos">acos⁻¹</button>
+            <button class="calc-button fn" data-key="log10">log₁₀</button>
+
+            <!-- row 2: π, e, xʸ, 0..? Actually keep consistent: after e, put xʸ, then numbers 0-2? but we need digits 0-9 somewhere. we'll build systematically.
+                 better follow screenshot style: they had π, e, xʸ and then digits 0-9 and extra functions.
+                 but we want dense like picture. I'll put typical advanced layout plus numbers.
+                 Let's create rows to cover most buttons. The screenshot has many numbers (0-9) plus hex? but we have only 6 cols. 
+                 To keep it realistic, I'll use first three rows for functions + numbers, then extra operators. -->
+
+            <!-- π , e , xʸ , 7 , 8 , 9 -->
+            <button class="calc-button fn" data-key="pi">π</button>
+            <button class="calc-button fn" data-key="e">e</button>
+            <button class="calc-button fn" data-key="pow">xʸ</button>
+            <button class="calc-button num" data-key="7">7</button>
+            <button class="calc-button num" data-key="8">8</button>
+            <button class="calc-button num" data-key="9">9</button>
+
+            <!-- ( , ) , % , 4 , 5 , 6 -->
+            <button class="calc-button fn" data-key="lparen">(</button>
+            <button class="calc-button fn" data-key="rparen">)</button>
+            <button class="calc-button fn" data-key="percent">%</button>
+            <button class="calc-button num" data-key="4">4</button>
+            <button class="calc-button num" data-key="5">5</button>
+            <button class="calc-button num" data-key="6">6</button>
+
+            <!-- x² , √ , 1/x , 1 , 2 , 3 -->
+            <button class="calc-button fn" data-key="square">x²</button>
+            <button class="calc-button fn" data-key="sqrt">√</button>
+            <button class="calc-button fn" data-key="inv">1/x</button>
+            <button class="calc-button num" data-key="1">1</button>
+            <button class="calc-button num" data-key="2">2</button>
+            <button class="calc-button num" data-key="3">3</button>
+
+            <!-- + , − , × , ÷ , 0 , . -->
+            <button class="calc-button operator" data-key="add">+</button>
+            <button class="calc-button operator" data-key="sub">−</button>
+            <button class="calc-button operator" data-key="mul">×</button>
+            <button class="calc-button operator" data-key="div">÷</button>
+            <button class="calc-button num" data-key="0">0</button>
+            <button class="calc-button num" data-key="dot">.</button>
+
+            <!-- C (clear) , AC? we put clear, and plusminus, back, equals -->
+            <button class="calc-button clear" data-key="clear">C</button>
+            <button class="calc-button fn" data-key="sign">±</button>
+            <button class="calc-button fn" data-key="back">⌫</button>
+            <button class="calc-button equals" data-key="equals" style="grid-column: span 3;">=</button>
+            <!-- we put equals spanning 3 to balance, but we already have 6 columns: after back (col4), then = from col5 to col6 (span 2 would be enough). but span 3 makes it nicer. fix: col5+col6? 
+                 currently: C (col1), ± (col2), back (col3). Then = should cover col4,5,6? we use span 3 from col4. Let's adjust: previous row we used exactly 6. So after back, we want = from col4 to col6. That's span 3. good. -->
+        </div>
+
+        <!-- extra micro brand (no description, just tiny signature) -->
+        <div class="brand-tag">SG Multi‑TX · advanced</div>
+
+        <!-- DESCRIPTION BLOCK – exactly what we need to hide on mobile -->
+        <div class="tool-description" id="toolDescription">
+            <p>🔥 <strong>Advanced functions:</strong> sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ · π · e · xʸ · x² √ 1/x · percent · ± · back · clear</p>
+            <p>📱 <strong>Mobile view:</strong> description hidden automatically — only calculator visible, still centered.</p>
+            <p>⚡ Click any button — display simulation (static demo, but interactive skeleton ready).</p>
+        </div>
     </div>
-</div>
 
-            <!-- TOOLS GRID -->
-            <div class="tools-grid">
-                <!-- Advanced Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-calculator"></i></div>
-                    <h3 class="tool-title">Advanced Calculator</h3>
-                    <p class="tool-description">Scientific & basic calculations with history and memory functions.</p>
-                    <a href="advanced-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Age Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-birthday-cake"></i></div>
-                    <h3 class="tool-title">Age Calculator</h3>
-                    <p class="tool-description">Exact age in years, months, days – find birthdays & differences.</p>
-                    <a href="age-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Case Changer -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-text-height"></i></div>
-                    <h3 class="tool-title">Case Changer</h3>
-                    <p class="tool-description">Convert text to uppercase, lowercase, title case, sentence case.</p>
-                    <a href="case-changer.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Color Picker -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-eye-dropper"></i></div>
-                    <h3 class="tool-title">Color Picker</h3>
-                    <p class="tool-description">Pick colors, generate palettes, convert HEX, RGB, HSL, CMYK.</p>
-                    <a href="color-picker.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Currency Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-coins"></i></div>
-                    <h3 class="tool-title">Currency Converter</h3>
-                    <p class="tool-description">Live exchange rates (client‑side) – 160+ currencies.</p>
-                    <a href="currency-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Date Difference -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <h3 class="tool-title">Date Difference</h3>
-                    <p class="tool-description">Calculate days, weeks, months between two dates.</p>
-                    <a href="date-difference.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- EMI Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-home"></i></div>
-                    <h3 class="tool-title">EMI Calculator</h3>
-                    <p class="tool-description">Loan EMI, principal, interest – monthly payment breakdown.</p>
-                    <a href="emi-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- File Size Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-file"></i></div>
-                    <h3 class="tool-title">File Size Converter</h3>
-                    <p class="tool-description">Convert between B, KB, MB, GB, TB, and more.</p>
-                    <a href="file-size-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Image Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-image"></i></div>
-                    <h3 class="tool-title">Image Converter</h3>
-                    <p class="tool-description">Convert JPG, PNG, WebP – resize and compress.</p>
-                    <a href="image-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Note Text Saver -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-sticky-note"></i></div>
-                    <h3 class="tool-title">Note Text Saver</h3>
-                    <p class="tool-description">Save notes locally in your browser – no login.</p>
-                    <a href="note-saver.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Password Generator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-lock"></i></div>
-                    <h3 class="tool-title">Password Generator</h3>
-                    <p class="tool-description">Strong, customisable passwords – random or memorable.</p>
-                    <a href="password-generator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Percentage Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-percent"></i></div>
-                    <h3 class="tool-title">Percentage Calculator</h3>
-                    <p class="tool-description">Find percentages, increases, decreases, and ratios.</p>
-                    <a href="percentage-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- QR Code Generator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-qrcode"></i></div>
-                    <h3 class="tool-title">QR Code Generator</h3>
-                    <p class="tool-description">Create custom QR codes for URLs, text, and more.</p>
-                    <a href="qr-generator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- SIP Calculator -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="tool-title">SIP Calculator</h3>
-                    <p class="tool-description">Systematic Investment Plan returns & wealth growth.</p>
-                    <a href="sip-calculator.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Speech to Text -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-microphone"></i></div>
-                    <h3 class="tool-title">Speech to Text</h3>
-                    <p class="tool-description">Real‑time voice transcription – 25+ languages.</p>
-                    <a href="speech-to-text.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Text to Speech -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-volume-up"></i></div>
-                    <h3 class="tool-title">Text to Speech</h3>
-                    <p class="tool-description">Natural voices, adjustable speed and pitch.</p>
-                    <a href="text-to-speech.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Timer & Stopwatch -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-stopwatch"></i></div>
-                    <h3 class="tool-title">Timer & Stopwatch</h3>
-                    <p class="tool-description">Countdown timer, lap times, interval tracking.</p>
-                    <a href="timer-stopwatch.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Unit Converter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-weight-hanging"></i></div>
-                    <h3 class="tool-title">Unit Converter</h3>
-                    <p class="tool-description">12 categories: length, mass, temperature, area, speed…</p>
-                    <a href="unit-converter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- URL Encoder/Decoder -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-link"></i></div>
-                    <h3 class="tool-title">URL Encoder/Decoder</h3>
-                    <p class="tool-description">Encode or decode URLs and special characters.</p>
-                    <a href="url-encoder-decoder.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Word Counter -->
-                <div class="tool-card">
-                    <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
-                    <h3 class="tool-title">Word Counter</h3>
-                    <p class="tool-description">Words, characters, sentences, reading time.</p>
-                    <a href="word-counter.html" class="tool-link">Open tool <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </main>
+    <!-- tiny script to make buttons "feel" alive: update display (non‑functional but shows clicks) -->
+    <script>
+        (function() {
+            const display = document.getElementById('calcDisplay');
+            const buttons = document.querySelectorAll('.calc-button');
+            const description = document.getElementById('toolDescription');
 
-    <!-- FOOTER SECTION (UPDATED) -->
-    <footer class="main-footer">
-        <div class="container">
-            <!-- Footer Links in One Row -->
-            <div class="footer-links-row">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="disclaimer.html">Disclaimer</a>
-                <a href="terms-and-conditions.html">Terms and Conditions</a>
-                <a href="sitemap.html">Sitemap</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            
-            <!-- Email Address -->
-            <div class="footer-email">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-            </div>
-            
-            <!-- Copyright -->
-            <div class="footer-bottom">
-                <div>© 2026 SG Multi Tools. All client‑side, no tracking.</div>
-            </div>
-        </div>
-    </footer>
+            // optional: handle button clicks to update display (simple demo)
+            let currentInput = '0';
+            const updateDisplay = (val) => {
+                display.innerText = val.length > 18 ? val.slice(0,16)+'…' : val;
+            };
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let key = btn.dataset.key || btn.innerText.trim();
+                    const btnText = btn.innerText.trim();
+
+                    // very naive display simulation (just for demonstration)
+                    if (key === 'clear' || btnText === 'C') {
+                        currentInput = '0';
+                    } else if (key === 'back' || btnText === '⌫') {
+                        if (currentInput.length > 1) currentInput = currentInput.slice(0, -1);
+                        else currentInput = '0';
+                    } else if (key === 'equals' || btnText === '=') {
+                        currentInput = '⟲ 42'; // playful easter egg
+                    } else {
+                        // for most buttons, append representation
+                        if (currentInput === '0') {
+                            currentInput = btnText;
+                        } else {
+                            // avoid stacking too many operators for demo
+                            currentInput += btnText;
+                        }
+                    }
+                    updateDisplay(currentInput);
+                });
+            });
+
+            // reset display to something nice
+            updateDisplay('0');
+
+            // ensure the container never grows too large, already handled by CSS.
+        })();
+    </script>
+
+    <!-- guarantee that on any mobile, .tool-description is hidden (the css rule already does) -->
+    <!-- also guarantee body centering: flex works on all screen sizes -->
 </body>
 </html>
