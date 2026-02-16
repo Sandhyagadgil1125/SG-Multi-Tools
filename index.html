@@ -2,18 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>SG Multi Tools - 20 Free Online Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SG Multi Tools · Professional Suite</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
-        /* ============================================
-           MASTER STYLES - SG MULTI TOOLS
-           Dark Cards, Light Inputs, Uniform Layout
-           ============================================ */
-        
-        /* --------------------------------------------
-           GLOBAL RESET & BASE STYLES
-           -------------------------------------------- */
+        /* ========== MASTER STYLE.CSS - SG MULTI TOOLS ========== */
+        /* Dark theme with cyan accent - Professional & Uniform */
+
         * {
             margin: 0;
             padding: 0;
@@ -21,38 +16,34 @@
         }
 
         body {
-            background: #c0cbd6;
-            background: linear-gradient(145deg, #d0dbe8 0%, #b0c0d0 100%);
+            background: #e8eef4;  /* Soft silver background */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            padding: 0;
-            margin: 0;
         }
 
-        /* --------------------------------------------
-           NAVBAR STYLES - #1c222d with SG Logo
-           -------------------------------------------- */
+        /* ========== NAVBAR - Consistent #1c222d ========== */
         .navbar {
             background: #1c222d;
             width: 100%;
-            padding: 12px 30px;
+            padding: 0 5%;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border-bottom: 2px solid #42f8f5;
+            border-bottom: 3px solid #42f8f5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
 
-        .logo-container {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .logo-sg {
@@ -60,19 +51,18 @@
             color: #1c222d;
             font-weight: 800;
             font-size: 1.8rem;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.6);
-            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
         }
 
         .logo-text {
-            color: #ffffff;
-            font-size: 1.5rem;
+            color: white;
+            font-size: 1.4rem;
             font-weight: 600;
             letter-spacing: -0.5px;
         }
@@ -84,254 +74,287 @@
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
-        .nav-link {
+        .nav-links a {
             color: #e0e0e0;
             text-decoration: none;
             font-weight: 500;
+            font-size: 1rem;
             padding: 8px 16px;
             border-radius: 30px;
-            background: #12151a;
-            border: 1px solid #42f8f5;
             transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             background: #42f8f5;
-            color: #12151a;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
+            color: #1c222d;
+            border-color: #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
         }
 
-        /* --------------------------------------------
-           HERO SECTION
-           -------------------------------------------- */
+        /* ========== HERO SECTION ========== */
         .hero {
             width: 100%;
             max-width: 1400px;
-            margin: 30px auto 20px auto;
+            margin: 40px auto 30px;
             padding: 0 20px;
             text-align: center;
         }
 
         .hero h1 {
-            color: #1c222d;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
+            color: #1c222d;
             margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+            letter-spacing: -1px;
         }
 
         .hero h1 span {
-            background: #1c222d;
             color: #42f8f5;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
+            background: #1c222d;
+            padding: 5px 20px;
+            border-radius: 50px;
             font-size: 1.8rem;
+            margin-left: 15px;
             border: 2px solid #42f8f5;
-            margin-left: 10px;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
         }
 
         .hero-description {
-            color: #1c222d;
             font-size: 1.2rem;
-            font-weight: 500;
-            background: rgba(255,255,255,0.3);
+            color: #2c3e50;
+            background: rgba(255,255,255,0.6);
             backdrop-filter: blur(5px);
             padding: 12px 30px;
             border-radius: 50px;
             display: inline-block;
             border: 1px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* --------------------------------------------
-           GRID LAYOUT - 4x5 for 20 tools
-           -------------------------------------------- */
+        /* ========== MAIN GRID - 4x5 UNIFORM CARDS ========== */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: 25px;
             max-width: 1400px;
             width: 100%;
-            margin: 20px auto 40px auto;
+            margin: 20px auto 50px;
             padding: 0 20px;
         }
 
-        /* --------------------------------------------
-           UNIFORM TOOL CARDS - Dark Background
-           -------------------------------------------- */
+        /* ========== UNIFORM TOOL CARD ========== */
         .tool-card {
-            background: #1e2b37;
-            background: linear-gradient(145deg, #243340 0%, #1a2530 100%);
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.4);
-            padding: 1.2rem 1rem;
+            background: #1c222d;  /* Solid dark background */
+            border-radius: 20px;
+            overflow: hidden;
             border: 1px solid #42f8f5;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            min-height: 320px;
-            color: #ffffff;
-            position: relative;
+            height: 100%;
+            min-height: 340px;
         }
 
         .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 22px 30px -8px rgba(66, 248, 245, 0.4), 0 0 20px rgba(66, 248, 245, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(66, 248, 245, 0.4);
             border-color: #42f8f5;
         }
 
+        /* Card Header - Uniform for all cards */
         .card-header {
+            background: #12151a;
+            padding: 15px 18px;
+            border-bottom: 2px solid #42f8f5;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 0.5rem;
-            background: #1c222d;
-            margin: -1.2rem -1rem 1rem -1rem;
-            padding: 0.8rem 1rem;
-            border-radius: 1.5rem 1.5rem 0 0;
-            border-bottom: 2px solid #42f8f5;
+            justify-content: space-between;
         }
 
         .card-title {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .card-icon {
-            font-size: 1.3rem;
             color: #42f8f5;
+            font-size: 1.3rem;
         }
 
         .card-badge {
-            background: #12151a;
+            background: #1c222d;
             color: #42f8f5;
-            font-size: 0.65rem;
-            font-weight: 500;
-            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
-            box-shadow: 0 0 8px rgba(66, 248, 245, 0.3);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
+        /* Card Content - Uniform spacing */
         .card-content {
+            padding: 18px;
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
+            background: #1c222d;
         }
 
-        /* --------------------------------------------
-           FORM ELEMENTS - Light Inputs
-           -------------------------------------------- */
-        .tool-input, .tool-textarea, .tool-select {
-            background: #eef5fa;
-            border: 2px solid #3d6b8c;
-            border-radius: 1.5rem;
-            padding: 0.7rem 1rem;
-            font-size: 0.85rem;
+        /* ========== UNIFORM FORM ELEMENTS ========== */
+        .input-field {
+            background: white;
+            border: 2px solid #3d5a73;
+            border-radius: 12px;
+            padding: 12px 15px;
+            font-size: 0.95rem;
             color: #1c222d;
-            font-family: 'Fira Mono', 'Courier New', monospace;
             width: 100%;
             outline: none;
-            transition: all 0.15s ease;
+            transition: all 0.2s ease;
+            font-family: 'Fira Mono', monospace;
+            font-weight: 500;
         }
 
-        .tool-input:focus, .tool-textarea:focus, .tool-select:focus {
+        .input-field:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.3);
-            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(66, 248, 245, 0.2);
         }
 
-        .tool-textarea {
-            border-radius: 1.2rem;
+        .textarea-field {
+            background: white;
+            border: 2px solid #3d5a73;
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            color: #1c222d;
+            width: 100%;
             min-height: 70px;
             resize: vertical;
+            font-family: 'Fira Mono', monospace;
         }
 
-        .tool-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 16px;
-        }
-
-        .tool-display {
-            background: #1c222d;
-            border-radius: 1rem;
-            padding: 0.7rem 1rem;
+        .display-field {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 12px 15px;
             color: #42f8f5;
-            text-align: center;
             font-size: 1rem;
             font-weight: 600;
+            text-align: center;
             border: 1px solid #42f8f5;
-            word-break: break-all;
             font-family: 'Fira Mono', monospace;
-            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.2);
+            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
+        }
+
+        /* Button Grid - Uniform button sizes */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 5px 0;
         }
 
         .button-row {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 5px;
         }
 
-        .tool-btn {
-            background: #1c222d;
+        .btn {
+            background: #12151a;
             border: 1px solid #42f8f5;
-            border-radius: 2rem;
-            padding: 0.5rem 0.8rem;
-            font-size: 0.75rem;
+            border-radius: 30px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: #ffffff;
+            color: white;
             cursor: pointer;
-            flex: 1 0 auto;
-            min-width: 55px;
+            transition: all 0.2s ease;
             text-align: center;
-            transition: all 0.1s ease;
-            box-shadow: 0 0 8px rgba(66, 248, 245, 0.2);
+            flex: 1 1 auto;
+            min-width: 50px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        .tool-btn:hover {
+        .btn:hover {
             background: #42f8f5;
             color: #12151a;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.5);
         }
 
-        .tool-btn.primary {
+        .btn-primary {
             background: #42f8f5;
             color: #12151a;
             font-weight: 700;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.6);
+            border-color: #42f8f5;
+            box-shadow: 0 2px 10px rgba(66, 248, 245, 0.4);
         }
 
-        .grid-mini {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        .btn-primary:hover {
+            background: #3ff0ed;
+            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.7);
+        }
+
+        /* Select dropdown */
+        .select-field {
+            background: white;
+            border: 2px solid #3d5a73;
+            border-radius: 12px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            color: #1c222d;
+            width: 100%;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+        }
+
+        /* Checkbox styling */
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
             gap: 5px;
+            cursor: pointer;
         }
 
-        /* --------------------------------------------
-           FOOTER STYLES
-           -------------------------------------------- */
+        .checkbox-group input[type="checkbox"] {
+            accent-color: #42f8f5;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ========== FOOTER ========== */
         .footer {
             background: #1c222d;
             width: 100%;
-            padding: 25px 20px 20px 20px;
-            margin-top: 30px;
+            padding: 30px 20px;
             border-top: 3px solid #42f8f5;
+            margin-top: 30px;
         }
 
         .footer-content {
@@ -347,23 +370,21 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             list-style: none;
         }
 
-        .footer-links li a {
+        .footer-links a {
             color: #e0e0e0;
             text-decoration: none;
             font-size: 0.9rem;
             padding: 5px 10px;
             border-radius: 20px;
             transition: all 0.2s ease;
-            border: 1px solid transparent;
         }
 
-        .footer-links li a:hover {
+        .footer-links a:hover {
             color: #42f8f5;
-            border-color: #42f8f5;
             background: #12151a;
         }
 
@@ -371,11 +392,10 @@
             color: #42f8f5;
             font-size: 1.1rem;
             font-weight: 500;
-            padding: 8px 20px;
+            padding: 8px 25px;
             background: #12151a;
             border-radius: 40px;
             border: 1px solid #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
         }
 
         .footer-email a {
@@ -383,62 +403,42 @@
             text-decoration: none;
         }
 
-        .footer-email a:hover {
-            text-decoration: underline;
-        }
-
         .copyright {
-            color: #a0b8cc;
-            font-size: 0.8rem;
-            margin-top: 10px;
+            color: #8a9eb0;
+            font-size: 0.85rem;
         }
 
-        /* --------------------------------------------
-           RESPONSIVE GRID
-           -------------------------------------------- */
-        @media screen and (max-width: 1000px) {
+        /* ========== RESPONSIVE ========== */
+        @media screen and (max-width: 1100px) {
             .tools-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 800px) {
             .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
             .navbar {
+                height: auto;
+                padding: 15px 5%;
                 flex-direction: column;
-                gap: 10px;
-                padding: 12px 15px;
+                gap: 15px;
             }
             
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .hero h1 span {
-                font-size: 1.2rem;
                 display: block;
-                margin: 10px 0 0 0;
-            }
-            
-            .hero-description {
-                font-size: 1rem;
-                padding: 10px 20px;
-            }
-            
-            .footer-links {
-                gap: 10px;
-            }
-            
-            .footer-links li a {
-                font-size: 0.8rem;
-                padding: 3px 8px;
+                margin: 10px 0 0;
+                font-size: 1.3rem;
             }
         }
 
-        @media screen and (max-width: 450px) {
+        @media screen and (max-width: 500px) {
             .tools-grid {
                 grid-template-columns: 1fr;
             }
@@ -446,43 +446,36 @@
             .footer-links {
                 flex-direction: column;
                 align-items: center;
-                gap: 8px;
-            }
-        }
-
-        /* Hide descriptions on mobile */
-        @media screen and (max-width: 767px) {
-            .mobile-hide {
-                display: none;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar with SG Logo -->
+    <!-- Navbar -->
     <div class="navbar">
-        <div class="logo-container">
+        <div class="logo">
             <div class="logo-sg">SG</div>
             <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
         <div class="nav-links">
-            <a href="#" class="nav-link active">Home</a>
-            <a href="#" class="nav-link">Tools</a>
-            <a href="#" class="nav-link">About</a>
-            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="active">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <div class="hero">
         <h1>SG Multi Tools <span>For Daily Use</span></h1>
-        <div class="hero-description">🔧 Reliable free online tools, no installation, no sign-ups</div>
+        <div class="hero-description">⚡ Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- 20 Tools Grid -->
+    <!-- Tools Grid (20 cards) -->
     <div class="tools-grid" id="toolsGrid"></div>
 
-    <!-- Footer with all tabs -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <ul class="footer-links">
@@ -503,658 +496,340 @@
     </footer>
 
     <script>
-        (function() {
-            // Tool definitions - 20 tools exactly as specified
-            const tools = [
-                {
-                    icon: '🧮',
-                    title: 'Advanced Calc',
-                    badge: 'sci',
-                    html: (id) => `
-                        <div class="grid-mini">
-                            <div class="tool-btn" data-calc="${id}" data-val="sin">sin</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="cos">cos</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="tan">tan</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="log">log</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="π">π</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="e">e</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="x²">x²</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="√">√</div>
-                            <div class="tool-btn" data-calc="${id}" data-val="1/x">1/x</div>
-                        </div>
-                        <div class="tool-display" id="calc-display-${id}">0</div>
-                        <div class="button-row">
-                            <div class="tool-btn" data-calc="${id}" data-clear="C">C</div>
-                            <div class="tool-btn" data-calc="${id}" data-back="⌫">⌫</div>
-                            <div class="tool-btn primary" data-calc="${id}" data-equals="=">=</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '📅',
-                    title: 'Age Calculator',
-                    badge: 'age',
-                    html: (id) => `
-                        <input class="tool-input" id="age-input-${id}" type="text" value="01-01-1990" placeholder="Enter date of birth (DD-MM-YYYY)">
-                        <div class="tool-display" id="age-result-${id}">36 years 1 months 15 days</div>
-                        <div class="button-row">
-                            <div class="tool-btn primary" id="calc-age-${id}">Calculate</div>
-                            <div class="tool-btn" id="copy-age-${id}">Copy</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '🔤',
-                    title: 'Case Changer',
-                    badge: 'text',
-                    html: (id) => `
-                        <textarea class="tool-textarea" id="case-input-${id}" placeholder="Enter text...">The quick brown fox</textarea>
-                        <div class="button-row">
-                            <div class="tool-btn" id="upper-${id}">UPPER</div>
-                            <div class="tool-btn" id="lower-${id}">lower</div>
-                            <div class="tool-btn" id="title-${id}">Title</div>
-                        </div>
-                        <textarea class="tool-textarea" id="case-output-${id}" placeholder="Output" readonly>THE QUICK BROWN FOX</textarea>
-                    `
-                },
-                {
-                    icon: '🎨',
-                    title: 'Color Picker',
-                    badge: 'hex',
-                    html: (id) => `
-                        <input class="tool-input" type="color" id="color-${id}" value="#42f8f5" style="height: 50px; background: #eef5fa;">
-                        <div class="tool-display" id="color-hex-${id}">#42f8f5</div>
-                        <div class="tool-btn primary" id="copy-color-${id}">Copy HEX</div>
-                    `
-                },
-                {
-                    icon: '💰',
-                    title: 'Currency Conv',
-                    badge: 'USD/EUR',
-                    html: (id) => `
-                        <input class="tool-input" id="currency-amount-${id}" type="number" value="100" placeholder="Amount">
-                        <select class="tool-input" id="currency-from-${id}">
-                            <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option>
-                        </select>
-                        <select class="tool-input" id="currency-to-${id}">
-                            <option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option>
-                        </select>
-                        <div class="tool-display" id="currency-result-${id}">85.00 EUR</div>
-                        <div class="tool-btn primary" id="convert-currency-${id}">Convert</div>
-                    `
-                },
-                {
-                    icon: '📆',
-                    title: 'Date Difference',
-                    badge: 'days',
-                    html: (id) => `
-                        <input class="tool-input" id="date1-${id}" type="text" value="15-03-2023" placeholder="Start date (DD-MM-YYYY)">
-                        <input class="tool-input" id="date2-${id}" type="text" value="16-02-2026" placeholder="End date (DD-MM-YYYY)">
-                        <div class="tool-display" id="datediff-result-${id}">1070 days</div>
-                        <div class="tool-btn primary" id="calc-datediff-${id}">Calculate</div>
-                    `
-                },
-                {
-                    icon: '🏦',
-                    title: 'EMI Calculator',
-                    badge: 'loan',
-                    html: (id) => `
-                        <input class="tool-input" id="emi-amount-${id}" type="number" value="100000" placeholder="Loan amount">
-                        <input class="tool-input" id="emi-rate-${id}" type="number" value="9" placeholder="Rate %">
-                        <input class="tool-input" id="emi-years-${id}" type="number" value="5" placeholder="Years">
-                        <div class="tool-display" id="emi-result-${id}">₹ 2,075 /month</div>
-                        <div class="tool-btn primary" id="calc-emi-${id}">Calculate</div>
-                    `
-                },
-                {
-                    icon: '💾',
-                    title: 'File Size Conv',
-                    badge: 'MB/GB',
-                    html: (id) => `
-                        <input class="tool-input" id="filesize-input-${id}" type="number" value="1024" placeholder="Size">
-                        <select class="tool-input" id="filesize-from-${id}">
-                            <option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option>
-                        </select>
-                        <select class="tool-input" id="filesize-to-${id}">
-                            <option value="MB">MB</option><option value="GB">GB</option><option value="KB">KB</option>
-                        </select>
-                        <div class="tool-display" id="filesize-result-${id}">1.00 MB</div>
-                        <div class="tool-btn primary" id="convert-filesize-${id}">Convert</div>
-                    `
-                },
-                {
-                    icon: '🖼️',
-                    title: 'Image Converter',
-                    badge: 'png/jpg',
-                    html: (id) => `
-                        <input class="tool-input" type="file" accept="image/*" id="image-input-${id}" style="background: #eef5fa; color: #1c222d;">
-                        <div class="tool-display" id="image-info-${id}">No file</div>
-                        <div class="button-row">
-                            <div class="tool-btn" id="to-png-${id}">To PNG</div>
-                            <div class="tool-btn" id="to-jpg-${id}">To JPG</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '📝',
-                    title: 'Note Text Saver',
-                    badge: 'local',
-                    html: (id) => `
-                        <textarea class="tool-textarea" id="note-${id}" placeholder="Write note..." rows="2"></textarea>
-                        <div class="button-row">
-                            <div class="tool-btn primary" id="save-note-${id}">Save</div>
-                            <div class="tool-btn" id="load-note-${id}">Load</div>
-                            <div class="tool-btn" id="clear-note-${id}">Clear</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '🔐',
-                    title: 'Password Gen',
-                    badge: 'secure',
-                    html: (id) => `
-                        <div class="tool-display" id="password-${id}">P@ssw0rd123</div>
-                        <div class="button-row">
-                            <div class="tool-btn primary" id="generate-pw-${id}">Generate</div>
-                            <div class="tool-btn" id="copy-pw-${id}">Copy</div>
-                        </div>
-                        <div style="display:flex; gap:8px; font-size:0.7rem; color: #ffffff;">
-                            <label><input type="checkbox" id="uppercase-${id}" checked> A-Z</label>
-                            <label><input type="checkbox" id="numbers-${id}" checked> 0-9</label>
-                        </div>
-                    `
-                },
-                {
-                    icon: '%',
-                    title: 'Percentage',
-                    badge: '%',
-                    html: (id) => `
-                        <div style="display:flex; gap:5px;">
-                            <input class="tool-input" id="perc-value-${id}" type="number" value="20" placeholder="%">
-                            <input class="tool-input" id="perc-of-${id}" type="number" value="250" placeholder="of">
-                        </div>
-                        <div class="tool-display" id="perc-result-${id}">50</div>
-                        <div class="tool-btn primary" id="calc-perc-${id}">Calculate</div>
-                    `
-                },
-                {
-                    icon: '📱',
-                    title: 'QR Generator',
-                    badge: 'qr',
-                    html: (id) => `
-                        <input class="tool-input" id="qr-text-${id}" type="text" value="Hello World">
-                        <div class="tool-display" id="qr-result-${id}">QR: Hello World</div>
-                        <div class="tool-btn primary" id="generate-qr-${id}">Generate</div>
-                    `
-                },
-                {
-                    icon: '📈',
-                    title: 'SIP Calculator',
-                    badge: 'mutual fund',
-                    html: (id) => `
-                        <input class="tool-input" id="sip-amount-${id}" type="number" value="5000" placeholder="Monthly SIP">
-                        <input class="tool-input" id="sip-years-${id}" type="number" value="10" placeholder="Years">
-                        <input class="tool-input" id="sip-return-${id}" type="number" value="12" placeholder="Return %">
-                        <div class="tool-display" id="sip-result-${id}">₹ 11,61,695</div>
-                        <div class="tool-btn primary" id="calc-sip-${id}">Calculate</div>
-                    `
-                },
-                {
-                    icon: '🎤',
-                    title: 'Speech to Text',
-                    badge: 'voice',
-                    html: (id) => `
-                        <div class="tool-display" id="speech-result-${id}">Click Start</div>
-                        <div class="button-row">
-                            <div class="tool-btn primary" id="start-speech-${id}">Start</div>
-                            <div class="tool-btn" id="stop-speech-${id}">Stop</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '🔊',
-                    title: 'Text to Speech',
-                    badge: 'listen',
-                    html: (id) => `
-                        <textarea class="tool-textarea" id="tts-text-${id}" placeholder="Text to speak">Hello</textarea>
-                        <div class="button-row">
-                            <div class="tool-btn primary" id="speak-${id}">Speak</div>
-                            <div class="tool-btn" id="stop-speak-${id}">Stop</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '⏱️',
-                    title: 'Timer',
-                    badge: 'stopwatch',
-                    html: (id) => `
-                        <div class="tool-display" id="timer-display-${id}">00:00:00</div>
-                        <div class="button-row">
-                            <div class="tool-btn primary" id="timer-start-${id}">Start</div>
-                            <div class="tool-btn" id="timer-pause-${id}">Pause</div>
-                            <div class="tool-btn" id="timer-reset-${id}">Reset</div>
-                        </div>
-                    `
-                },
-                {
-                    icon: '📐',
-                    title: 'Unit Converter',
-                    badge: 'metric',
-                    html: (id) => `
-                        <input class="tool-input" id="unit-value-${id}" type="number" value="1">
-                        <select class="tool-input" id="unit-category-${id}">
-                            <option value="length">Length</option>
-                            <option value="weight">Weight</option>
-                        </select>
-                        <div class="tool-display" id="unit-result-${id}">1 m = 3.28 ft</div>
-                        <div class="tool-btn primary" id="convert-unit-${id}">Convert</div>
-                    `
-                },
-                {
-                    icon: '🔗',
-                    title: 'URL Encoder',
-                    badge: 'encode',
-                    html: (id) => `
-                        <textarea class="tool-textarea" id="url-input-${id}" placeholder="URL">hello world</textarea>
-                        <div class="button-row">
-                            <div class="tool-btn" id="url-encode-${id}">Encode</div>
-                            <div class="tool-btn" id="url-decode-${id}">Decode</div>
-                        </div>
-                        <textarea class="tool-textarea" id="url-output-${id}" placeholder="Output" readonly></textarea>
-                    `
-                },
-                {
-                    icon: '🔢',
-                    title: 'Word Counter',
-                    badge: 'count',
-                    html: (id) => `
-                        <textarea class="tool-textarea" id="wordcount-input-${id}" placeholder="Type text...">The quick brown fox</textarea>
-                        <div class="tool-display" id="wordcount-result-${id}">Words: 4, Chars: 18</div>
-                        <div class="tool-btn primary" id="count-words-${id}">Count</div>
-                    `
-                }
-            ];
-
-            const grid = document.getElementById('toolsGrid');
-            
-            // Generate all 20 cards
-            tools.forEach((tool, index) => {
-                const cardId = `tool-${index}`;
-                const card = document.createElement('div');
-                card.className = 'tool-card';
-                card.innerHTML = `
-                    <div class="card-header">
-                        <div class="card-title"><span class="card-icon">${tool.icon}</span> ${tool.title}</div>
-                        <div class="card-badge">${tool.badge}</div>
+        // ========== TOOL DEFINITIONS - UNIFORM LAYOUT ==========
+        const tools = [
+            {   // 1. Advanced Calculator
+                icon: '🧮', title: 'Advanced Calc', badge: 'sci',
+                html: (id) => `
+                    <div class="button-grid">
+                        <button class="btn" data-calc="${id}" data-val="sin">sin</button>
+                        <button class="btn" data-calc="${id}" data-val="cos">cos</button>
+                        <button class="btn" data-calc="${id}" data-val="tan">tan</button>
+                        <button class="btn" data-calc="${id}" data-val="log">log</button>
+                        <button class="btn" data-calc="${id}" data-val="π">π</button>
+                        <button class="btn" data-calc="${id}" data-val="e">e</button>
+                        <button class="btn" data-calc="${id}" data-val="x²">x²</button>
+                        <button class="btn" data-calc="${id}" data-val="√">√</button>
+                        <button class="btn" data-calc="${id}" data-val="1/x">1/x</button>
                     </div>
-                    <div class="card-content" id="${cardId}-content">
-                        ${tool.html(cardId)}
+                    <div class="display-field" id="calc-display-${id}">0</div>
+                    <div class="button-row">
+                        <button class="btn" data-calc="${id}" data-clear="C">C</button>
+                        <button class="btn" data-calc="${id}" data-back="⌫">⌫</button>
+                        <button class="btn btn-primary" data-calc="${id}" data-equals="=">=</button>
                     </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            // ============= TOOL FUNCTIONALITY =============
-            
-            function parseDMY(dateStr) {
-                const parts = dateStr.split('-');
-                return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
+                `
+            },
+            {   // 2. Age Calculator
+                icon: '📅', title: 'Age Calculator', badge: 'age',
+                html: (id) => `
+                    <input class="input-field" id="age-input-${id}" type="text" value="01-01-1990" placeholder="DD-MM-YYYY">
+                    <div class="display-field" id="age-result-${id}">36 years 1 months 15 days</div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="calc-age-${id}">Calculate</button>
+                        <button class="btn" id="copy-age-${id}">Copy</button>
+                    </div>
+                `
+            },
+            {   // 3. Case Changer
+                icon: '🔤', title: 'Case Changer', badge: 'text',
+                html: (id) => `
+                    <textarea class="textarea-field" id="case-input-${id}" placeholder="Enter text...">The quick brown fox</textarea>
+                    <div class="button-row">
+                        <button class="btn" id="upper-${id}">UPPER</button>
+                        <button class="btn" id="lower-${id}">lower</button>
+                        <button class="btn" id="title-${id}">Title</button>
+                    </div>
+                    <textarea class="textarea-field" id="case-output-${id}" placeholder="Output" readonly>THE QUICK BROWN FOX</textarea>
+                `
+            },
+            {   // 4. Color Picker
+                icon: '🎨', title: 'Color Picker', badge: 'hex',
+                html: (id) => `
+                    <input class="input-field" type="color" id="color-${id}" value="#42f8f5" style="height: 50px;">
+                    <div class="display-field" id="color-hex-${id}">#42f8f5</div>
+                    <button class="btn btn-primary" id="copy-color-${id}">Copy HEX</button>
+                `
+            },
+            {   // 5. Currency Converter
+                icon: '💰', title: 'Currency Conv', badge: 'USD/EUR',
+                html: (id) => `
+                    <input class="input-field" id="currency-amount-${id}" type="number" value="100" placeholder="Amount">
+                    <select class="select-field" id="currency-from-${id}">
+                        <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option>
+                    </select>
+                    <select class="select-field" id="currency-to-${id}">
+                        <option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option>
+                    </select>
+                    <div class="display-field" id="currency-result-${id}">85.00 EUR</div>
+                    <button class="btn btn-primary" id="convert-currency-${id}">Convert</button>
+                `
+            },
+            {   // 6. Date Difference
+                icon: '📆', title: 'Date Difference', badge: 'days',
+                html: (id) => `
+                    <input class="input-field" id="date1-${id}" type="text" value="15-03-2023" placeholder="Start date">
+                    <input class="input-field" id="date2-${id}" type="text" value="16-02-2026" placeholder="End date">
+                    <div class="display-field" id="datediff-result-${id}">1070 days</div>
+                    <button class="btn btn-primary" id="calc-datediff-${id}">Calculate</button>
+                `
+            },
+            {   // 7. EMI Calculator
+                icon: '🏦', title: 'EMI Calculator', badge: 'loan',
+                html: (id) => `
+                    <input class="input-field" id="emi-amount-${id}" type="number" value="100000" placeholder="Loan amount">
+                    <input class="input-field" id="emi-rate-${id}" type="number" value="9" placeholder="Rate %">
+                    <input class="input-field" id="emi-years-${id}" type="number" value="5" placeholder="Years">
+                    <div class="display-field" id="emi-result-${id}">₹ 2,075 /month</div>
+                    <button class="btn btn-primary" id="calc-emi-${id}">Calculate</button>
+                `
+            },
+            {   // 8. File Size Converter
+                icon: '💾', title: 'File Size Conv', badge: 'MB/GB',
+                html: (id) => `
+                    <input class="input-field" id="filesize-input-${id}" type="number" value="1024" placeholder="Size">
+                    <select class="select-field" id="filesize-from-${id}">
+                        <option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option>
+                    </select>
+                    <select class="select-field" id="filesize-to-${id}">
+                        <option value="MB">MB</option><option value="GB">GB</option><option value="KB">KB</option>
+                    </select>
+                    <div class="display-field" id="filesize-result-${id}">1.00 MB</div>
+                    <button class="btn btn-primary" id="convert-filesize-${id}">Convert</button>
+                `
+            },
+            {   // 9. Image Converter
+                icon: '🖼️', title: 'Image Converter', badge: 'png/jpg',
+                html: (id) => `
+                    <input class="input-field" type="file" accept="image/*" id="image-input-${id}">
+                    <div class="display-field" id="image-info-${id}">No file selected</div>
+                    <div class="button-row">
+                        <button class="btn" id="to-png-${id}">To PNG</button>
+                        <button class="btn" id="to-jpg-${id}">To JPG</button>
+                    </div>
+                `
+            },
+            {   // 10. Note Text Saver
+                icon: '📝', title: 'Note Text Saver', badge: 'local',
+                html: (id) => `
+                    <textarea class="textarea-field" id="note-${id}" placeholder="Write note..." rows="2"></textarea>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="save-note-${id}">Save</button>
+                        <button class="btn" id="load-note-${id}">Load</button>
+                        <button class="btn" id="clear-note-${id}">Clear</button>
+                    </div>
+                `
+            },
+            {   // 11. Password Generator
+                icon: '🔐', title: 'Password Gen', badge: 'secure',
+                html: (id) => `
+                    <div class="display-field" id="password-${id}">P@ssw0rd123</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="uppercase-${id}" checked> A-Z</label>
+                        <label><input type="checkbox" id="numbers-${id}" checked> 0-9</label>
+                        <label><input type="checkbox" id="symbols-${id}"> !@#</label>
+                    </div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="generate-pw-${id}">Generate</button>
+                        <button class="btn" id="copy-pw-${id}">Copy</button>
+                    </div>
+                `
+            },
+            {   // 12. Percentage Calculator
+                icon: '%', title: 'Percentage', badge: '%',
+                html: (id) => `
+                    <div style="display:flex; gap:8px;">
+                        <input class="input-field" id="perc-value-${id}" type="number" value="20" placeholder="%">
+                        <input class="input-field" id="perc-of-${id}" type="number" value="250" placeholder="of">
+                    </div>
+                    <div class="display-field" id="perc-result-${id}">50.00</div>
+                    <button class="btn btn-primary" id="calc-perc-${id}">Calculate</button>
+                `
+            },
+            {   // 13. QR Generator
+                icon: '📱', title: 'QR Generator', badge: 'qr',
+                html: (id) => `
+                    <input class="input-field" id="qr-text-${id}" type="text" value="Hello World">
+                    <div class="display-field" id="qr-result-${id}">QR: Hello World</div>
+                    <button class="btn btn-primary" id="generate-qr-${id}">Generate</button>
+                `
+            },
+            {   // 14. SIP Calculator
+                icon: '📈', title: 'SIP Calculator', badge: 'mutual fund',
+                html: (id) => `
+                    <input class="input-field" id="sip-amount-${id}" type="number" value="5000" placeholder="Monthly SIP">
+                    <input class="input-field" id="sip-years-${id}" type="number" value="10" placeholder="Years">
+                    <input class="input-field" id="sip-return-${id}" type="number" value="12" placeholder="Return %">
+                    <div class="display-field" id="sip-result-${id}">₹ 11,61,695</div>
+                    <button class="btn btn-primary" id="calc-sip-${id}">Calculate</button>
+                `
+            },
+            {   // 15. Speech to Text
+                icon: '🎤', title: 'Speech to Text', badge: 'voice',
+                html: (id) => `
+                    <div class="display-field" id="speech-result-${id}">Click Start & speak</div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="start-speech-${id}">Start</button>
+                        <button class="btn" id="stop-speech-${id}">Stop</button>
+                        <button class="btn" id="copy-speech-${id}">Copy</button>
+                    </div>
+                `
+            },
+            {   // 16. Text to Speech
+                icon: '🔊', title: 'Text to Speech', badge: 'listen',
+                html: (id) => `
+                    <textarea class="textarea-field" id="tts-text-${id}" placeholder="Text to speak">Hello, this is a test.</textarea>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="speak-${id}">Speak</button>
+                        <button class="btn" id="stop-speak-${id}">Stop</button>
+                    </div>
+                `
+            },
+            {   // 17. Timer/Stopwatch
+                icon: '⏱️', title: 'Timer', badge: 'stopwatch',
+                html: (id) => `
+                    <div class="display-field" style="font-size:1.4rem;" id="timer-display-${id}">00:00:00</div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="timer-start-${id}">Start</button>
+                        <button class="btn" id="timer-pause-${id}">Pause</button>
+                        <button class="btn" id="timer-reset-${id}">Reset</button>
+                    </div>
+                `
+            },
+            {   // 18. Unit Converter
+                icon: '📐', title: 'Unit Converter', badge: 'metric',
+                html: (id) => `
+                    <input class="input-field" id="unit-value-${id}" type="number" value="1">
+                    <select class="select-field" id="unit-category-${id}">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                    </select>
+                    <div class="display-field" id="unit-result-${id}">1 m = 3.28 ft</div>
+                    <button class="btn btn-primary" id="convert-unit-${id}">Convert</button>
+                `
+            },
+            {   // 19. URL Encoder/Decoder
+                icon: '🔗', title: 'URL Encoder', badge: 'encode',
+                html: (id) => `
+                    <textarea class="textarea-field" id="url-input-${id}" placeholder="URL">hello world</textarea>
+                    <div class="button-row">
+                        <button class="btn" id="url-encode-${id}">Encode</button>
+                        <button class="btn" id="url-decode-${id}">Decode</button>
+                    </div>
+                    <textarea class="textarea-field" id="url-output-${id}" placeholder="Output" readonly></textarea>
+                `
+            },
+            {   // 20. Word Counter
+                icon: '🔢', title: 'Word Counter', badge: 'count',
+                html: (id) => `
+                    <textarea class="textarea-field" id="wordcount-input-${id}" placeholder="Type text...">The quick brown fox jumps over the lazy dog.</textarea>
+                    <div class="display-field" id="wordcount-result-${id}">Words: 9, Characters: 41</div>
+                    <button class="btn btn-primary" id="count-words-${id}">Count</button>
+                `
             }
+        ];
 
-            // 1. Advanced Calculator
-            document.querySelectorAll('[data-calc]').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const cardId = this.dataset.calc;
-                    const display = document.getElementById(`calc-display-${cardId}`);
-                    if (!display) return;
+        // Generate all 20 cards
+        const grid = document.getElementById('toolsGrid');
+        tools.forEach((tool, index) => {
+            const cardId = `tool-${index}`;
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-title"><span class="card-icon">${tool.icon}</span> ${tool.title}</div>
+                    <div class="card-badge">${tool.badge}</div>
+                </div>
+                <div class="card-content" id="${cardId}">
+                    ${tool.html(cardId)}
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // ========== TOOL FUNCTIONALITY ==========
+        
+        function parseDMY(dateStr) {
+            const parts = dateStr.split('-');
+            return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
+        }
+
+        // Advanced Calculator
+        document.querySelectorAll('[data-calc]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const cardId = this.dataset.calc;
+                const display = document.getElementById(`calc-display-${cardId}`);
+                if (!display) return;
+                
+                if (this.dataset.clear) display.innerText = '0';
+                else if (this.dataset.back) {
+                    let txt = display.innerText;
+                    display.innerText = txt.length > 1 ? txt.slice(0, -1) : '0';
+                } else if (this.dataset.equals) display.innerText = '42';
+                else {
+                    let current = display.innerText;
+                    if (current === '0') current = '';
+                    display.innerText = current + this.innerText;
+                }
+            });
+        });
+
+        // Age Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const calcBtn = document.getElementById(`calc-age-${id}`);
+            if (calcBtn) {
+                calcBtn.addEventListener('click', function() {
+                    const input = document.getElementById(`age-input-${id}`).value;
+                    const birthDate = parseDMY(input);
+                    const today = new Date();
                     
-                    if (this.dataset.clear !== undefined) display.innerText = '0';
-                    else if (this.dataset.back !== undefined) {
-                        let txt = display.innerText;
-                        display.innerText = txt.length > 1 ? txt.slice(0, -1) : '0';
-                    } else if (this.dataset.equals !== undefined) display.innerText = '42';
-                    else {
-                        let current = display.innerText;
-                        if (current === '0') current = '';
-                        display.innerText = current + this.innerText;
-                    }
+                    let years = today.getFullYear() - birthDate.getFullYear();
+                    let months = today.getMonth() - birthDate.getMonth();
+                    let days = today.getDate() - birthDate.getDate();
+                    
+                    if (days < 0) { months--; days += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+                    if (months < 0) { years--; months += 12; }
+                    
+                    document.getElementById(`age-result-${id}`).innerText = `${years} years ${months} months ${days} days`;
                 });
-            });
-
-            // 2. Age Calculator (UPDATED - single input, no extra text)
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const calcBtn = document.getElementById(`calc-age-${id}`);
-                if (calcBtn) {
-                    calcBtn.addEventListener('click', function() {
-                        const input = document.getElementById(`age-input-${id}`).value;
-                        if (!input) return;
-                        
-                        const birthDate = parseDMY(input);
-                        const today = new Date();
-                        
-                        let years = today.getFullYear() - birthDate.getFullYear();
-                        let months = today.getMonth() - birthDate.getMonth();
-                        let days = today.getDate() - birthDate.getDate();
-                        
-                        if (days < 0) { 
-                            months--; 
-                            const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                            days += lastMonth.getDate();
-                        }
-                        if (months < 0) { 
-                            years--; 
-                            months += 12; 
-                        }
-                        
-                        document.getElementById(`age-result-${id}`).innerText = `${years} years ${months} months ${days} days`;
-                    });
-                    
-                    document.getElementById(`copy-age-${id}`)?.addEventListener('click', function() {
-                        const text = document.getElementById(`age-result-${id}`).innerText;
-                        navigator.clipboard?.writeText(text).then(() => alert('Copied!'));
-                    });
-                }
+                
+                document.getElementById(`copy-age-${id}`)?.addEventListener('click', function() {
+                    const text = document.getElementById(`age-result-${id}`).innerText;
+                    navigator.clipboard?.writeText(text).then(() => alert('Copied!'));
+                });
             }
+        }
 
-            // 3. Case Changer
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const input = document.getElementById(`case-input-${id}`);
-                const output = document.getElementById(`case-output-${id}`);
-                if (input && output) {
-                    document.getElementById(`upper-${id}`).addEventListener('click', () => output.value = input.value.toUpperCase());
-                    document.getElementById(`lower-${id}`).addEventListener('click', () => output.value = input.value.toLowerCase());
-                    document.getElementById(`title-${id}`).addEventListener('click', () => {
-                        output.value = input.value.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
-                    });
-                }
+        // Case Changer
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const input = document.getElementById(`case-input-${id}`);
+            const output = document.getElementById(`case-output-${id}`);
+            if (input && output) {
+                document.getElementById(`upper-${id}`).addEventListener('click', () => output.value = input.value.toUpperCase());
+                document.getElementById(`lower-${id}`).addEventListener('click', () => output.value = input.value.toLowerCase());
+                document.getElementById(`title-${id}`).addEventListener('click', () => {
+                    output.value = input.value.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                });
             }
+        }
 
-            // 4. Color Picker
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const picker = document.getElementById(`color-${id}`);
-                const hex = document.getElementById(`color-hex-${id}`);
-                const copy = document.getElementById(`copy-color-${id}`);
-                if (picker && hex) {
-                    picker.addEventListener('input', () => hex.innerText = picker.value);
-                    copy.addEventListener('click', () => {
-                        navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
-                    });
-                }
+        // Color Picker
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const picker = document.getElementById(`color-${id}`);
+            const hex = document.getElementById(`color-hex-${id}`);
+            const copy = document.getElementById(`copy-color-${id}`);
+            if (picker && hex) {
+                picker.addEventListener('input', () => hex.innerText = picker.value);
+                copy.addEventListener('click', () => {
+                    navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
+                });
             }
+        }
 
-            // 5. Currency Converter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`convert-currency-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
-                        const from = document.getElementById(`currency-from-${id}`).value;
-                        const to = document.getElementById(`currency-to-${id}`).value;
-                        const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
-                        const result = amount * rates[to] / rates[from];
-                        document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                    });
-                }
-            }
-
-            // 6. Date Difference
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-datediff-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
-                        const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
-                        const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
-                        document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
-                    });
-                }
-            }
-
-            // 7. EMI Calculator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-emi-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
-                        const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
-                        const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
-                        const months = years * 12;
-                        const monthlyRate = rate / 12 / 100;
-                        const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-                        document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
-                    });
-                }
-            }
-
-            // 8. File Size Converter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`convert-filesize-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
-                        const from = document.getElementById(`filesize-from-${id}`).value;
-                        const to = document.getElementById(`filesize-to-${id}`).value;
-                        const units = { KB: 1, MB: 1024, GB: 1048576 };
-                        const result = size * units[from] / units[to];
-                        document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                    });
-                }
-            }
-
-            // 9. Image Converter (simulated)
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const input = document.getElementById(`image-input-${id}`);
-                const info = document.getElementById(`image-info-${id}`);
-                if (input) {
-                    input.addEventListener('change', function() {
-                        if (this.files?.[0]) info.innerText = this.files[0].name;
-                    });
-                    document.getElementById(`to-png-${id}`).addEventListener('click', () => alert('Demo: Convert to PNG'));
-                    document.getElementById(`to-jpg-${id}`).addEventListener('click', () => alert('Demo: Convert to JPG'));
-                }
-            }
-
-            // 10. Note Text Saver
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const note = document.getElementById(`note-${id}`);
-                if (note) {
-                    document.getElementById(`save-note-${id}`).addEventListener('click', () => {
-                        localStorage.setItem(`note-${id}`, note.value);
-                        alert('Saved!');
-                    });
-                    document.getElementById(`load-note-${id}`).addEventListener('click', () => {
-                        const saved = localStorage.getItem(`note-${id}`);
-                        if (saved) note.value = saved;
-                    });
-                    document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
-                }
-            }
-
-            // 11. Password Generator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`generate-pw-${id}`);
-                const display = document.getElementById(`password-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const upper = document.getElementById(`uppercase-${id}`)?.checked;
-                        const nums = document.getElementById(`numbers-${id}`)?.checked;
-                        let chars = 'abcdefghijklmnopqrstuvwxyz';
-                        if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        if (nums) chars += '0123456789';
-                        let pw = '';
-                        for (let i = 0; i < 10; i++) pw += chars[Math.floor(Math.random() * chars.length)];
-                        display.innerText = pw;
-                    });
-                    document.getElementById(`copy-pw-${id}`)?.addEventListener('click', () => {
-                        navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
-                    });
-                }
-            }
-
-            // 12. Percentage Calculator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-perc-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
-                        const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
-                        document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
-                    });
-                }
-            }
-
-            // 13. QR Generator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`generate-qr-${id}`);
-                const display = document.getElementById(`qr-result-${id}`);
-                const input = document.getElementById(`qr-text-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        display.innerText = 'QR: ' + (input.value || 'Hello');
-                    });
-                }
-            }
-
-            // 14. SIP Calculator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-sip-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
-                        const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
-                        const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
-                        const months = years * 12;
-                        const monthlyRate = rate / 12 / 100;
-                        const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-                        document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString();
-                    });
-                }
-            }
-
-            // 15. Speech to Text
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const start = document.getElementById(`start-speech-${id}`);
-                const stop = document.getElementById(`stop-speech-${id}`);
-                const display = document.getElementById(`speech-result-${id}`);
-                if (start && 'webkitSpeechRecognition' in window) {
-                    const recognition = new webkitSpeechRecognition();
-                    recognition.continuous = true;
-                    recognition.interimResults = true;
-                    recognition.onresult = (e) => {
-                        display.innerText = e.results[e.results.length-1][0].transcript;
-                    };
-                    start.addEventListener('click', () => recognition.start());
-                    stop.addEventListener('click', () => recognition.stop());
-                } else if (start) {
-                    start.addEventListener('click', () => display.innerText = 'Not supported');
-                }
-            }
-
-            // 16. Text to Speech
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const speak = document.getElementById(`speak-${id}`);
-                const stop = document.getElementById(`stop-speak-${id}`);
-                const textarea = document.getElementById(`tts-text-${id}`);
-                if (speak) {
-                    speak.addEventListener('click', () => {
-                        if ('speechSynthesis' in window) {
-                            window.speechSynthesis.cancel();
-                            const utter = new SpeechSynthesisUtterance(textarea.value);
-                            window.speechSynthesis.speak(utter);
-                        }
-                    });
-                    stop.addEventListener('click', () => window.speechSynthesis?.cancel());
-                }
-            }
-
-            // 17. Timer
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const display = document.getElementById(`timer-display-${id}`);
-                const start = document.getElementById(`timer-start-${id}`);
-                const pause = document.getElementById(`timer-pause-${id}`);
-                const reset = document.getElementById(`timer-reset-${id}`);
-                if (display) {
-                    let seconds = 0, interval = null;
-                    function update() {
-                        const h = Math.floor(seconds / 3600);
-                        const m = Math.floor((seconds % 3600) / 60);
-                        const s = seconds % 60;
-                        display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                    }
-                    start.addEventListener('click', () => {
-                        if (interval) clearInterval(interval);
-                        interval = setInterval(() => { seconds++; update(); }, 1000);
-                    });
-                    pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
-                    reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; update(); });
-                }
-            }
-
-            // 18. Unit Converter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`convert-unit-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
-                        const cat = document.getElementById(`unit-category-${id}`).value;
-                        let result = '';
-                        if (cat === 'length') result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
-                        else if (cat === 'weight') result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
-                        document.getElementById(`unit-result-${id}`).innerText = result;
-                    });
-                }
-            }
-
-            // 19. URL Encoder/Decoder
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const input = document.getElementById(`url-input-${id}`);
-                const output = document.getElementById(`url-output-${id}`);
-                if (input) {
-                    document.getElementById(`url-encode-${id}`).addEventListener('click', () => {
-                        output.value = encodeURIComponent(input.value);
-                    });
-                    document.getElementById(`url-decode-${id}`).addEventListener('click', () => {
-                        try { output.value = decodeURIComponent(input.value); }
-                        catch { output.value = 'Invalid'; }
-                    });
-                }
-            }
-
-            // 20. Word Counter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`count-words-${id}`);
-                const input = document.getElementById(`wordcount-input-${id}`);
-                const display = document.getElementById(`wordcount-result-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        const text = input.value || '';
-                        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-                        const chars = text.length;
-                        display.innerText = `Words: ${words}, Chars: ${chars}`;
-                    });
-                    btn.click();
-                }
-            }
-        })();
-    </script>
-</body>
-</html>
+        // Currency Converter
+        for (let i = 0; i < 20; i++) {
+            const
