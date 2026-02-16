@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>SG Multi Tools · Advanced Calculator & Age Calculator</title>
+    <title>SG Multi Tools · Full Centered Cards · No Mobile Desc</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        <!-- Updated on Feb 16, 2026 -->
 
         body {
             background: linear-gradient(145deg, #0f1e2b 0%, #0b1721 100%);
@@ -23,29 +22,30 @@
             padding: 20px;
         }
 
-        /* main container for both tools */
+        /* main container - centers cards both horizontally and vertically */
         .tools-container {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             max-width: 1400px;
             width: 100%;
+            margin: auto;
         }
 
-        /* ----- ADVANCED CALCULATOR CARD (centered, no mobile description) ----- */
+        /* ----- ADVANCED CALCULATOR CARD ----- */
         .calculator-tool {
-            flex: 1 1 600px;
-            min-width: 340px;
-            max-width: 750px;
+            flex: 0 1 auto;
+            width: fit-content;
+            max-width: min(800px, 95vw);
             background: #1f2a35;
             border-radius: 2.5rem;
             box-shadow: 0 25px 50px -8px rgba(0,0,0,0.8), 0 8px 20px 0 rgba(0,20,30,0.7);
             padding: 2rem 2rem 2.2rem 2rem;
             border: 1px solid rgba(255,255,255,0.08);
             backdrop-filter: blur(2px);
-            transition: all 0.2s ease;
+            margin: 0 auto;
         }
 
         .calc-grid {
@@ -163,9 +163,10 @@
             padding-right: 0.5rem;
         }
 
-        /* ----- AGE CALCULATOR CARD (dark theme, single input) ----- */
+        /* ----- AGE CALCULATOR CARD ----- */
         .age-card {
-            flex: 1 1 450px;
+            flex: 0 1 auto;
+            width: fit-content;
             min-width: 340px;
             max-width: 560px;
             background: #1f2a35;
@@ -174,6 +175,7 @@
             padding: 2.2rem 2rem 2.5rem 2rem;
             border: 1px solid rgba(255,180,100,0.15);
             backdrop-filter: blur(1px);
+            margin: 0 auto;
         }
 
         .age-card h2 {
@@ -385,12 +387,140 @@
             color: white;
         }
 
-        /* mobile adjustments */
+        /* ----- CASE CHANGER CARD (new, with full output box) ----- */
+        .case-card {
+            flex: 0 1 auto;
+            width: fit-content;
+            min-width: 340px;
+            max-width: 560px;
+            background: #1f2a35;
+            border-radius: 3rem;
+            box-shadow: 0 30px 50px -10px rgba(0,0,0,0.8), 0 10px 25px -5px #0b141c;
+            padding: 2.2rem 2rem 2.5rem 2rem;
+            border: 1px solid rgba(255,180,100,0.15);
+            backdrop-filter: blur(1px);
+            margin: 0 auto;
+        }
+
+        .case-card h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #e8eef2;
+            margin-bottom: 1.5rem;
+            padding-left: 0.3rem;
+            border-left: 8px solid #f3b363;
+            padding-left: 1.2rem;
+        }
+
+        .case-card h2 span {
+            font-size: 1rem;
+            background: #30495a;
+            color: #bcd6e6;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin-left: 1rem;
+            font-weight: 400;
+        }
+
+        .case-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .case-label {
+            color: #b6d0e0;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .case-label i {
+            color: #f3b363;
+            font-style: normal;
+        }
+
+        .case-input, .case-output {
+            width: 100%;
+            background: #eef5fa;
+            border: 2px solid #53788f;
+            border-radius: 2rem;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.2rem;
+            font-family: 'Fira Mono', monospace;
+            color: #142b36;
+            outline: none;
+            transition: 0.15s;
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        .case-output {
+            background: #f5faff;
+            border-color: #f3b363;
+            cursor: default;
+            min-height: 120px;
+            overflow-y: auto;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .case-input:focus {
+            border-color: #f3b363;
+            box-shadow: 0 0 0 3px rgba(243,180,99,0.3);
+        }
+
+        .button-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .case-btn {
+            background: #263947;
+            border: none;
+            color: #e4f2fe;
+            padding: 0.8rem 1.8rem;
+            border-radius: 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #14212b;
+            transition: 0.05s linear;
+            flex: 1 0 auto;
+            min-width: 100px;
+            border: 1px solid #3e5b70;
+        }
+
+        .case-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #14212b;
+        }
+
+        .case-btn.primary {
+            background: #f3b363;
+            color: #0a1f2b;
+            box-shadow: 0 4px 0 #9e6f36;
+        }
+
+        /* mobile overrides - hide all descriptions */
         @media screen and (max-width: 767px) {
             .tool-description {
-                display: none;
+                display: none !important;
             }
             
+            /* ensure cards are centered and full width */
+            .calculator-tool,
+            .age-card,
+            .case-card {
+                max-width: 98vw;
+                margin: 0 auto;
+            }
+
             .calc-grid {
                 gap: 0.4rem;
                 padding: 1rem 0.8rem;
@@ -399,15 +529,6 @@
             .calc-button {
                 padding: 0.7rem 0.1rem;
                 font-size: 1rem;
-                border-radius: 0.9rem;
-            }
-
-            .calc-button.fn {
-                font-size: 0.85rem;
-            }
-
-            .calc-button.operator {
-                font-size: 1.2rem;
             }
 
             .calc-display {
@@ -415,40 +536,31 @@
                 font-size: 1.8rem;
             }
 
-            .calculator-tool {
-                padding: 1.2rem 0.8rem;
-            }
-
             .age-value {
                 font-size: 2.8rem;
             }
 
-            .total-number {
-                font-size: 1.5rem;
-            }
-
             .tools-container {
                 gap: 20px;
+                align-items: center;
             }
         }
 
         @media screen and (max-width: 480px) {
-            .age-card {
-                padding: 1.8rem 1.2rem;
+            .case-input, .case-output {
+                padding: 1rem;
+                font-size: 1rem;
+                min-height: 80px;
             }
             
-            .date-input {
-                padding: 1rem 1.5rem;
-                font-size: 1.3rem;
+            .button-grid {
+                gap: 8px;
             }
             
-            .total-days-section {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .copy-button {
-                justify-content: center;
+            .case-btn {
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+                min-width: 70px;
             }
         }
     </style>
@@ -459,52 +571,46 @@
         <div class="calculator-tool">
             <div class="calc-grid">
                 <div class="calc-display" id="calcDisplay">0</div>
-
-                <!-- row 1: sin, cos, tan, asin⁻¹, acos⁻¹, log₁₀ -->
-                <button class="calc-button fn" data-key="sin">sin</button>
-                <button class="calc-button fn" data-key="cos">cos</button>
-                <button class="calc-button fn" data-key="tan">tan</button>
-                <button class="calc-button fn" data-key="asin">asin⁻¹</button>
-                <button class="calc-button fn" data-key="acos">acos⁻¹</button>
-                <button class="calc-button fn" data-key="log10">log₁₀</button>
-
-                <!-- row 2: π, e, xʸ, 7, 8, 9 -->
-                <button class="calc-button fn" data-key="pi">π</button>
-                <button class="calc-button fn" data-key="e">e</button>
-                <button class="calc-button fn" data-key="pow">xʸ</button>
-                <button class="calc-button num" data-key="7">7</button>
-                <button class="calc-button num" data-key="8">8</button>
-                <button class="calc-button num" data-key="9">9</button>
-
-                <!-- row 3: (, ), %, 4, 5, 6 -->
-                <button class="calc-button fn" data-key="lparen">(</button>
-                <button class="calc-button fn" data-key="rparen">)</button>
-                <button class="calc-button fn" data-key="percent">%</button>
-                <button class="calc-button num" data-key="4">4</button>
-                <button class="calc-button num" data-key="5">5</button>
-                <button class="calc-button num" data-key="6">6</button>
-
-                <!-- row 4: x², √, 1/x, 1, 2, 3 -->
-                <button class="calc-button fn" data-key="square">x²</button>
-                <button class="calc-button fn" data-key="sqrt">√</button>
-                <button class="calc-button fn" data-key="inv">1/x</button>
-                <button class="calc-button num" data-key="1">1</button>
-                <button class="calc-button num" data-key="2">2</button>
-                <button class="calc-button num" data-key="3">3</button>
-
-                <!-- row 5: +, −, ×, ÷, 0, . -->
-                <button class="calc-button operator" data-key="add">+</button>
-                <button class="calc-button operator" data-key="sub">−</button>
-                <button class="calc-button operator" data-key="mul">×</button>
-                <button class="calc-button operator" data-key="div">÷</button>
-                <button class="calc-button num" data-key="0">0</button>
-                <button class="calc-button num" data-key="dot">.</button>
-
-                <!-- row 6: C, ±, ⌫, = (span 3) -->
-                <button class="calc-button clear" data-key="clear">C</button>
-                <button class="calc-button fn" data-key="sign">±</button>
-                <button class="calc-button fn" data-key="back">⌫</button>
-                <button class="calc-button equals" data-key="equals" style="grid-column: span 3;">=</button>
+                <!-- row 1 -->
+                <button class="calc-button fn">sin</button>
+                <button class="calc-button fn">cos</button>
+                <button class="calc-button fn">tan</button>
+                <button class="calc-button fn">asin⁻¹</button>
+                <button class="calc-button fn">acos⁻¹</button>
+                <button class="calc-button fn">log₁₀</button>
+                <!-- row 2 -->
+                <button class="calc-button fn">π</button>
+                <button class="calc-button fn">e</button>
+                <button class="calc-button fn">xʸ</button>
+                <button class="calc-button num">7</button>
+                <button class="calc-button num">8</button>
+                <button class="calc-button num">9</button>
+                <!-- row 3 -->
+                <button class="calc-button fn">(</button>
+                <button class="calc-button fn">)</button>
+                <button class="calc-button fn">%</button>
+                <button class="calc-button num">4</button>
+                <button class="calc-button num">5</button>
+                <button class="calc-button num">6</button>
+                <!-- row 4 -->
+                <button class="calc-button fn">x²</button>
+                <button class="calc-button fn">√</button>
+                <button class="calc-button fn">1/x</button>
+                <button class="calc-button num">1</button>
+                <button class="calc-button num">2</button>
+                <button class="calc-button num">3</button>
+                <!-- row 5 -->
+                <button class="calc-button operator">+</button>
+                <button class="calc-button operator">−</button>
+                <button class="calc-button operator">×</button>
+                <button class="calc-button operator">÷</button>
+                <button class="calc-button num">0</button>
+                <button class="calc-button num">.</button>
+                <!-- row 6 -->
+                <button class="calc-button clear">C</button>
+                <button class="calc-button fn">±</button>
+                <button class="calc-button fn">⌫</button>
+                <button class="calc-button equals" style="grid-column: span 3;">=</button>
             </div>
             <div class="brand-tag">SG Multi‑TX · advanced</div>
             <div class="tool-description">
@@ -513,10 +619,9 @@
             </div>
         </div>
 
-        <!-- AGE CALCULATOR CARD (single input, dark theme) -->
+        <!-- AGE CALCULATOR CARD -->
         <div class="age-card">
             <h2>📅 Age Calculator <span>dd-mm-yyyy</span></h2>
-
             <div class="input-group">
                 <div class="input-label">
                     <i>⏺</i> Date of birth (dd-mm-yyyy)
@@ -524,39 +629,48 @@
                 <input class="date-input" type="text" value="01-01-1990" placeholder="01-01-1990">
                 <div class="input-hint">
                     <span class="badge">day-month-year</span>
-                    <span class="note">📌 single input · no extra date field</span>
+                    <span class="note">📌 single input</span>
                 </div>
             </div>
-
             <div class="age-big-numbers">
-                <div class="age-unit">
-                    <div class="age-value">36</div>
-                    <div class="age-label">YEARS</div>
-                </div>
-                <div class="age-unit">
-                    <div class="age-value">1</div>
-                    <div class="age-label">MONTHS</div>
-                </div>
-                <div class="age-unit">
-                    <div class="age-value">15</div>
-                    <div class="age-label">DAYS</div>
-                </div>
+                <div class="age-unit"><div class="age-value">36</div><div class="age-label">YEARS</div></div>
+                <div class="age-unit"><div class="age-value">1</div><div class="age-label">MONTHS</div></div>
+                <div class="age-unit"><div class="age-value">15</div><div class="age-label">DAYS</div></div>
             </div>
-
             <div class="total-days-section">
-                <div class="total-label">
-                    ⏳ Total days <span>since birth</span>
-                </div>
+                <div class="total-label">⏳ Total days <span>since birth</span></div>
                 <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                     <span class="total-number">13,195</span>
                     <button class="copy-button" id="ageCopyBtn">📋 Copy</button>
                 </div>
             </div>
-
             <div class="activate-warning">
                 <span>⚠️ Activate Windows</span>
-                <span class="win-icon">⚙️ Go to Settings to activate Windows</span>
+                <span class="win-icon">⚙️ Settings</span>
             </div>
+        </div>
+
+        <!-- CASE CHANGER CARD - full output box, no description on mobile -->
+        <div class="case-card">
+            <h2>🔤 Case Changer <span>transform text</span></h2>
+            
+            <div class="case-input-group">
+                <div class="case-label"><i>📝</i> Input text</div>
+                <textarea class="case-input" id="caseInput" placeholder="Type or paste text here...">The quick brown fox jumps over the lazy dog.</textarea>
+            </div>
+
+            <div class="button-grid">
+                <button class="case-btn" id="upperBtn">UPPER CASE</button>
+                <button class="case-btn" id="lowerBtn">lower case</button>
+                <button class="case-btn" id="titleBtn">Title Case</button>
+                <button class="case-btn primary" id="clearBtn">Clear</button>
+            </div>
+
+            <div class="case-input-group">
+                <div class="case-label"><i>📤</i> Output (full visible)</div>
+                <textarea class="case-output" id="caseOutput" readonly placeholder="Result will appear here..." wrap="soft">THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.</textarea>
+            </div>
+            <div class="brand-tag">real‑time case conversion</div>
         </div>
     </div>
 
@@ -564,26 +678,24 @@
         (function() {
             // Calculator display demo
             const display = document.getElementById('calcDisplay');
-            const buttons = document.querySelectorAll('.calc-button:not(.copy-button)');
+            const calcButtons = document.querySelectorAll('.calculator-tool .calc-button');
             let currentInput = '0';
 
             const updateDisplay = (val) => {
-                display.innerText = val.length > 18 ? val.slice(0,16)+'…' : val;
+                if (display) display.innerText = val.length > 18 ? val.slice(0,16)+'…' : val;
             };
 
-            buttons.forEach(btn => {
-                if (btn.closest('.age-card')) return; // skip age card buttons
+            calcButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    let key = btn.dataset.key || btn.innerText.trim();
                     const btnText = btn.innerText.trim();
 
-                    if (key === 'clear' || btnText === 'C') {
+                    if (btnText === 'C') {
                         currentInput = '0';
-                    } else if (key === 'back' || btnText === '⌫') {
+                    } else if (btnText === '⌫') {
                         if (currentInput.length > 1) currentInput = currentInput.slice(0, -1);
                         else currentInput = '0';
-                    } else if (key === 'equals' || btnText === '=') {
+                    } else if (btnText === '=') {
                         currentInput = '⟲ 42';
                     } else {
                         if (currentInput === '0') {
@@ -605,18 +717,41 @@
                     navigator.clipboard?.writeText(totalText).then(() => {
                         alert('✅ Copied: ' + totalText);
                     }).catch(() => {
-                        alert('📋 Press Ctrl+C to copy: ' + totalText);
+                        alert('📋 Copy manually: ' + totalText);
                     });
                 });
             }
 
-            // Age input demo: update display values based on date (simple demo)
-            const dateInput = document.querySelector('.date-input');
-            if (dateInput) {
-                dateInput.addEventListener('change', function() {
-                    // just for demonstration - show that input works
-                    console.log('Date changed to:', this.value);
+            // Case changer functionality
+            const inputText = document.getElementById('caseInput');
+            const outputText = document.getElementById('caseOutput');
+
+            if (inputText && outputText) {
+                const upperBtn = document.getElementById('upperBtn');
+                const lowerBtn = document.getElementById('lowerBtn');
+                const titleBtn = document.getElementById('titleBtn');
+                const clearBtn = document.getElementById('clearBtn');
+
+                upperBtn.addEventListener('click', () => {
+                    outputText.value = inputText.value.toUpperCase();
                 });
+
+                lowerBtn.addEventListener('click', () => {
+                    outputText.value = inputText.value.toLowerCase();
+                });
+
+                titleBtn.addEventListener('click', () => {
+                    const str = inputText.value.toLowerCase();
+                    outputText.value = str.replace(/\b\w/g, l => l.toUpperCase());
+                });
+
+                clearBtn.addEventListener('click', () => {
+                    inputText.value = '';
+                    outputText.value = '';
+                });
+
+                // initial demo
+                outputText.value = inputText.value.toUpperCase();
             }
         })();
     </script>
