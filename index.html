@@ -832,4 +832,309 @@
 
         // Currency Converter
         for (let i = 0; i < 20; i++) {
-            const
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`convert-currency-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
+                    const from = document.getElementById(`currency-from-${id}`).value;
+                    const to = document.getElementById(`currency-to-${id}`).value;
+                    const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
+                    const result = amount * rates[to] / rates[from];
+                    document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                });
+            }
+        }
+
+        // Date Difference
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-datediff-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
+                    const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
+                    const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
+                    document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
+                });
+            }
+        }
+
+        // EMI Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-emi-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
+                    const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
+                    const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
+                    const months = years * 12;
+                    const monthlyRate = rate / 12 / 100;
+                    const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+                    document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
+                });
+            }
+        }
+
+        // File Size Converter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`convert-filesize-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
+                    const from = document.getElementById(`filesize-from-${id}`).value;
+                    const to = document.getElementById(`filesize-to-${id}`).value;
+                    const units = { KB: 1, MB: 1024, GB: 1048576 };
+                    const result = size * units[from] / units[to];
+                    document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                });
+            }
+        }
+
+        // Image Converter (simulated)
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const input = document.getElementById(`image-input-${id}`);
+            const info = document.getElementById(`image-info-${id}`);
+            if (input) {
+                input.addEventListener('change', function() {
+                    if (this.files?.[0]) info.innerText = this.files[0].name;
+                });
+                document.getElementById(`to-png-${id}`)?.addEventListener('click', () => alert('Demo: Convert to PNG'));
+                document.getElementById(`to-jpg-${id}`)?.addEventListener('click', () => alert('Demo: Convert to JPG'));
+            }
+        }
+
+        // Note Text Saver
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const note = document.getElementById(`note-${id}`);
+            if (note) {
+                document.getElementById(`save-note-${id}`).addEventListener('click', () => {
+                    localStorage.setItem(`note-${id}`, note.value);
+                    alert('Saved!');
+                });
+                document.getElementById(`load-note-${id}`).addEventListener('click', () => {
+                    const saved = localStorage.getItem(`note-${id}`);
+                    if (saved) note.value = saved;
+                });
+                document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
+            }
+        }
+
+        // Password Generator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`generate-pw-${id}`);
+            const display = document.getElementById(`password-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const upper = document.getElementById(`uppercase-${id}`)?.checked;
+                    const nums = document.getElementById(`numbers-${id}`)?.checked;
+                    const symbols = document.getElementById(`symbols-${id}`)?.checked;
+                    
+                    let chars = 'abcdefghijklmnopqrstuvwxyz';
+                    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    if (nums) chars += '0123456789';
+                    if (symbols) chars += '!@#$%^&*()_+';
+                    
+                    let pw = '';
+                    for (let i = 0; i < 12; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+                    display.innerText = pw;
+                });
+                
+                document.getElementById(`copy-pw-${id}`)?.addEventListener('click', () => {
+                    navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
+                });
+            }
+        }
+
+        // Percentage Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-perc-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
+                    const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
+                    document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
+                });
+            }
+        }
+
+        // QR Generator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`generate-qr-${id}`);
+            const display = document.getElementById(`qr-result-${id}`);
+            const input = document.getElementById(`qr-text-${id}`);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    display.innerText = 'QR: ' + (input.value || 'Hello World');
+                });
+            }
+        }
+
+        // SIP Calculator
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`calc-sip-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
+                    const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
+                    const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
+                    const months = years * 12;
+                    const monthlyRate = rate / 12 / 100;
+                    const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+                    document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString('en-IN');
+                });
+            }
+        }
+
+        // Speech to Text
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const start = document.getElementById(`start-speech-${id}`);
+            const stop = document.getElementById(`stop-speech-${id}`);
+            const copy = document.getElementById(`copy-speech-${id}`);
+            const display = document.getElementById(`speech-result-${id}`);
+            
+            if (start && 'webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.onresult = (e) => {
+                    display.innerText = e.results[e.results.length-1][0].transcript;
+                };
+                start.addEventListener('click', () => recognition.start());
+                stop.addEventListener('click', () => recognition.stop());
+                copy?.addEventListener('click', () => {
+                    navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
+                });
+            } else if (start) {
+                start.addEventListener('click', () => display.innerText = 'Speech recognition not supported');
+            }
+        }
+
+        // Text to Speech
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const speak = document.getElementById(`speak-${id}`);
+            const stop = document.getElementById(`stop-speak-${id}`);
+            const textarea = document.getElementById(`tts-text-${id}`);
+            if (speak) {
+                speak.addEventListener('click', () => {
+                    if ('speechSynthesis' in window) {
+                        window.speechSynthesis.cancel();
+                        const utterance = new SpeechSynthesisUtterance(textarea.value);
+                        window.speechSynthesis.speak(utterance);
+                    }
+                });
+                stop.addEventListener('click', () => window.speechSynthesis?.cancel());
+            }
+        }
+
+        // Timer
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const display = document.getElementById(`timer-display-${id}`);
+            const start = document.getElementById(`timer-start-${id}`);
+            const pause = document.getElementById(`timer-pause-${id}`);
+            const reset = document.getElementById(`timer-reset-${id}`);
+            
+            if (display) {
+                let seconds = 0;
+                let interval = null;
+                
+                function updateDisplay() {
+                    const hrs = Math.floor(seconds / 3600);
+                    const mins = Math.floor((seconds % 3600) / 60);
+                    const secs = seconds % 60;
+                    display.innerText = `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+                }
+                
+                start.addEventListener('click', () => {
+                    if (interval) clearInterval(interval);
+                    interval = setInterval(() => { seconds++; updateDisplay(); }, 1000);
+                });
+                
+                pause.addEventListener('click', () => {
+                    if (interval) clearInterval(interval);
+                    interval = null;
+                });
+                
+                reset.addEventListener('click', () => {
+                    if (interval) clearInterval(interval);
+                    interval = null;
+                    seconds = 0;
+                    updateDisplay();
+                });
+            }
+        }
+
+        // Unit Converter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`convert-unit-${id}`);
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
+                    const cat = document.getElementById(`unit-category-${id}`).value;
+                    let result = '';
+                    
+                    if (cat === 'length') {
+                        result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
+                    } else if (cat === 'weight') {
+                        result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
+                    } else if (cat === 'temperature') {
+                        result = val + ' °C = ' + (val * 9/5 + 32).toFixed(1) + ' °F';
+                    }
+                    
+                    document.getElementById(`unit-result-${id}`).innerText = result;
+                });
+            }
+        }
+
+        // URL Encoder/Decoder
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const input = document.getElementById(`url-input-${id}`);
+            const output = document.getElementById(`url-output-${id}`);
+            if (input && output) {
+                document.getElementById(`url-encode-${id}`).addEventListener('click', () => {
+                    output.value = encodeURIComponent(input.value);
+                });
+                document.getElementById(`url-decode-${id}`).addEventListener('click', () => {
+                    try {
+                        output.value = decodeURIComponent(input.value);
+                    } catch {
+                        output.value = 'Invalid encoding';
+                    }
+                });
+            }
+        }
+
+        // Word Counter
+        for (let i = 0; i < 20; i++) {
+            const id = `tool-${i}`;
+            const btn = document.getElementById(`count-words-${id}`);
+            const input = document.getElementById(`wordcount-input-${id}`);
+            const display = document.getElementById(`wordcount-result-${id}`);
+            
+            if (btn && input && display) {
+                btn.addEventListener('click', () => {
+                    const text = input.value || '';
+                    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                    const chars = text.length;
+                    display.innerText = `Words: ${words}, Characters: ${chars}`;
+                });
+                // Initial count
+                btn.click();
+            }
+        }
+    </script>
+</body>
+</html>
