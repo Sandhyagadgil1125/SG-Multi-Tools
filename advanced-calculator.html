@@ -154,13 +154,18 @@
             font-size: 0.95rem;
         }
 
-        .btn-equals {
+        .btn-calculate {
             background: #42f8f5;
             color: #12151a;
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             border-color: #42f8f5;
             grid-column: span 2;
+        }
+
+        .btn-calculate:hover {
+            background: #3ff0ed;
+            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
         }
 
         .btn-clear {
@@ -171,6 +176,14 @@
 
         .btn-zero {
             grid-column: span 2;
+        }
+
+        /* Calculate button row special */
+        .calculate-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) 2fr;
+            gap: 8px;
+            margin-top: 5px;
         }
 
         /* Responsive */
@@ -273,13 +286,13 @@
                 <button class="btn btn-function" data-sign="±">±</button>
             </div>
 
-            <!-- Row 8: Numbers Row 4 -->
-            <div class="row">
-                <button class="btn btn-number btn-zero" data-num="0" colspan="2">0</button>
+            <!-- Row 8: Numbers Row 4 with CALCULATE button -->
+            <div class="calculate-row">
+                <button class="btn btn-number btn-zero" data-num="0">0</button>
                 <button class="btn btn-number" data-num="00">00</button>
                 <button class="btn btn-number" data-num=".">.</button>
                 <button class="btn btn-operator" data-op="+">+</button>
-                <button class="btn btn-equals" data-equals="=">=</button>
+                <button class="btn btn-calculate" data-calculate="=">CALCULATE</button>
             </div>
         </div>
     </div>
@@ -474,8 +487,8 @@
                 });
             });
 
-            // Equals button - with full mathematical evaluation
-            document.querySelector('[data-equals="="]').addEventListener('click', () => {
+            // CALCULATE button - evaluates the expression
+            document.querySelector('[data-calculate="="]').addEventListener('click', () => {
                 try {
                     let expr = currentInput
                         .replace(/×/g, '*')
@@ -532,7 +545,7 @@
                     document.querySelector('[data-op="÷"]')?.click();
                 } else if (key === 'Enter' || key === '=') {
                     e.preventDefault();
-                    document.querySelector('[data-equals="="]')?.click();
+                    document.querySelector('[data-calculate="="]')?.click();
                 } else if (key === 'Escape' || key === 'c' || key === 'C') {
                     document.querySelector('[data-clear="C"]')?.click();
                 } else if (key === 'Backspace') {
