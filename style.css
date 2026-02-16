@@ -1,519 +1,799 @@
-:root {
-    --primary-accent: #42f8f5;
-    --accent-shade: #3ff7f3;
-    --main-bg: #e0e5ec;  /* Light silver/grey background */
-    --button-bg: #1c222d;
-    --button-bg-alt: #12151a;
-    --text-primary: #ffffff;
-    --text-secondary: #c5d1de;
-    --text-muted: #6c7a8a;
-    --dark-border: #2a3548;
-    --glow-shadow: rgba(66, 248, 245, 0.6);
-    --danger-color: #ff6b6b;
-    --success-color: #51cf66;
-    --warning-color: #ffd43b;
-    --transition: all 0.25s ease;
-}
+/* ============================================
+   MASTER STYLE.CSS - SG MULTI TOOLS
+   All Tools Uniform Design System
+   Silver/Light Grey Background with Cyan Accent
+   ============================================ */
 
+/* --------------------------------------------
+   GLOBAL RESET & BASE STYLES
+   -------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--main-bg) !important;
-    color: var(--text-primary);
-    line-height: 1.6;
+    background: #c0cbd6;  /* Silver/Light grey main background */
+    background: linear-gradient(145deg, #d0dbe8 0%, #b0c0d0 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 30px;
+/* --------------------------------------------
+   TYPOGRAPHY - Primary Text Colors
+   -------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+    color: #1c222d;
+    font-weight: 600;
+}
+
+p, span, div {
+    color: #1c222d;
+}
+
+.text-primary {
+    color: #ffffff;
+}
+
+.text-secondary {
+    color: #c5d1de;
+}
+
+.text-accent {
+    color: #42f8f5;
+}
+
+/* --------------------------------------------
+   NAVBAR STYLES - #1c222d
+   -------------------------------------------- */
+.navbar {
+    background: #1c222d;
     width: 100%;
-}
-
-/* Header Styles */
-.main-header {
-    background: var(--button-bg);
-    border-bottom: 1px solid var(--dark-border);
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    border-bottom: 2px solid #42f8f5;
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 15px 0;
 }
 
-.header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-square {
-    width: 45px;
-    height: 45px;
-    background: linear-gradient(135deg, var(--primary-accent), var(--accent-shade));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--main-bg);
-    box-shadow: 0 5px 15px var(--glow-shadow);
-    transition: var(--transition);
-}
-
-.logo-square:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px var(--glow-shadow);
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.logo-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.2;
-}
-
-.logo-subtitle {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.main-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-.main-nav a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0;
-    position: relative;
-    transition: var(--transition);
-}
-
-.main-nav a i {
-    font-size: 1rem;
-    color: var(--text-muted);
-    transition: var(--transition);
-}
-
-.main-nav a:hover,
-.main-nav a.active {
-    color: var(--primary-accent);
-}
-
-.main-nav a:hover i,
-.main-nav a.active i {
-    color: var(--primary-accent);
-}
-
-.main-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary-accent), var(--accent-shade));
-    transition: var(--transition);
-}
-
-.main-nav a:hover::after,
-.main-nav a.active::after {
-    width: 100%;
-}
-
-/* Main Content */
-.main-content {
-    flex: 1;
-    padding: 30px 0 60px;
-}
-
-/* Hero Section */
-.hero-section {
-    margin-bottom: 50px;
-}
-
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto 30px;
-    text-align: center;
-}
-
-.hero-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 8px;
-    color: var(--primary-accent);
-    letter-spacing: -0.5px;
-}
-
-.hero-description {
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Tools Grid */
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-@media (max-width: 768px) {
-    .tools-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .tools-grid {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-.tool-card {
-    background: var(--button-bg-alt);
-    border-radius: 24px;
-    padding: 30px;
-    border: 1px solid var(--dark-border);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.tool-card:hover {
-    border-color: var(--primary-accent);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px var(--glow-shadow);
-}
-
-.tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 0;
-    background: linear-gradient(180deg, var(--primary-accent), var(--accent-shade));
-    transition: var(--transition);
-}
-
-.tool-card:hover::before {
-    height: 100%;
-}
-
-.tool-icon {
-    width: 70px;
-    height: 70px;
-    background: rgba(66, 248, 245, 0.1);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    color: var(--primary-accent);
-    font-size: 2rem;
-    transition: var(--transition);
-}
-
-.tool-card:hover .tool-icon {
-    background: rgba(66, 248, 245, 0.2);
-    transform: scale(1.1);
-}
-
-.tool-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 10px;
-}
-
-.tool-description {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    flex: 1;
-}
-
-.tool-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--primary-accent);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 12px 0;
-    transition: var(--transition);
-    margin-top: auto;
-    border-top: 1px solid var(--dark-border);
-    padding-top: 20px;
-}
-
-.tool-link i {
-    transition: var(--transition);
-}
-
-.tool-link:hover i {
-    transform: translateX(8px);
-}
-
-/* Footer */
-.main-footer {
-    background: var(--button-bg);
-    border-top: 1px solid var(--dark-border);
-    padding: 50px 0 30px;
-    margin-top: auto;
-}
-
-.footer-links-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
-}
-
-.footer-links-row a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: var(--transition);
-    white-space: nowrap;
-}
-
-.footer-links-row a:hover {
-    color: var(--primary-accent);
-}
-
-.footer-email {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-}
-
-.footer-email i {
-    color: var(--primary-accent);
-    margin-right: 0.5rem;
-}
-
-.footer-email a {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.footer-email a:hover {
-    color: var(--primary-accent);
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 30px;
-    border-top: 1px solid var(--dark-border);
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.contact-info {
+.navbar .logo {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.contact-info i {
-    color: var(--primary-accent);
+.navbar .logo h1 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin: 0;
 }
 
-/* Page Header */
-.calculator-header {
-    text-align: center;
-    margin-bottom: 50px;
+.navbar .logo span {
+    color: #42f8f5;
+    font-size: 1rem;
+    background: #12151a;
+    padding: 0.3rem 1.2rem;
+    border-radius: 40px;
+    border: 1px solid #42f8f5;
+    box-shadow: 0 0 8px rgba(66, 248, 245, 0.3);
 }
 
-.calculator-header-icon {
-    width: 80px;
-    height: 80px;
-    background: rgba(66, 248, 245, 0.1);
-    border-radius: 30px;
+.nav-links {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 25px;
-    color: var(--primary-accent);
-    font-size: 2.5rem;
-    border: 1px solid rgba(66, 248, 245, 0.3);
+    gap: 20px;
 }
 
-.section-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 15px;
-}
-
-.section-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ===== Global Close Button for Tool Pages ===== */
-.tool-standalone {
-    position: relative;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--button-bg);
-    border: 1px solid var(--dark-border);
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-    z-index: 10;
+.nav-link {
+    color: #e0e0e0;
     text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: #12151a;
+    border: 1px solid #42f8f5;
+    transition: all 0.2s ease;
 }
 
-.close-btn:hover {
-    background: var(--danger-color);
-    color: white;
-    border-color: var(--danger-color);
-    transform: scale(1.1);
+.nav-link:hover {
+    background: #42f8f5;
+    color: #12151a;
+    box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
 }
 
-.close-btn i {
-    font-size: 0.9rem;
+.nav-link.active {
+    background: #42f8f5;
+    color: #12151a;
+    box-shadow: 0 0 20px rgba(66, 248, 245, 0.8);
 }
 
-/* Hide description on mobile */
-@media (max-width: 768px) {
-    body > div:not(.tool-standalone) {
-        display: none !important;
+/* --------------------------------------------
+   PAGE HEADERS
+   -------------------------------------------- */
+.page-header {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+}
+
+.page-header h1 {
+    color: #1c222d;
+    margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    border-left: 8px solid #42f8f5;
+    padding-left: 20px;
+    font-size: 2rem;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+}
+
+.page-header h1 span {
+    font-size: 1rem;
+    background: #1c222d;
+    color: #42f8f5;
+    padding: 0.3rem 1.2rem;
+    border-radius: 40px;
+    margin-left: 1rem;
+    font-weight: 400;
+    border: 1px solid #42f8f5;
+}
+
+/* --------------------------------------------
+   GRID LAYOUTS - Common for all tool pages
+   -------------------------------------------- */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px 30px 20px;
+}
+
+.tools-grid-3col {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tools-grid-2col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.tools-grid-1col {
+    grid-template-columns: 1fr;
+}
+
+/* --------------------------------------------
+   UNIFORM TOOL CARDS - Silver/Light Grey
+   -------------------------------------------- */
+.tool-card {
+    background: #d8e2f0;
+    background: linear-gradient(145deg, #e0eaf5 0%, #c5d3e5 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 15px 25px -8px rgba(0,0,0,0.3), 0 5px 10px rgba(0,0,0,0.2);
+    padding: 1.2rem 1rem;
+    border: 1px solid #42f8f5;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    color: #1c222d;
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 30px -8px rgba(66, 248, 245, 0.4), 0 0 20px rgba(66, 248, 245, 0.3);
+    border-color: #42f8f5;
+}
+
+/* Card Header - Dark background with cyan accent */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #42f8f5;
+    padding-bottom: 0.5rem;
+    background: #1c222d;
+    margin: -1.2rem -1rem 1rem -1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+    border-bottom: 2px solid #42f8f5;
+}
+
+.card-title {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-icon {
+    font-size: 1.3rem;
+    color: #42f8f5;
+}
+
+.card-badge {
+    background: #12151a;
+    color: #42f8f5;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 30px;
+    border: 1px solid #42f8f5;
+    box-shadow: 0 0 8px rgba(66, 248, 245, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* --------------------------------------------
+   FORM ELEMENTS - Uniform styling
+   -------------------------------------------- */
+.tool-input {
+    background: #1c222d;
+    border: 1px solid #42f8f5;
+    border-radius: 1.5rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    color: #ffffff;
+    font-family: 'Fira Mono', 'Courier New', monospace;
+    width: 100%;
+    outline: none;
+    box-shadow: 0 0 5px rgba(66, 248, 245, 0.2);
+    transition: all 0.15s ease;
+}
+
+.tool-input::placeholder {
+    color: #c5d1de;
+    opacity: 0.7;
+}
+
+.tool-input:focus {
+    border-color: #42f8f5;
+    box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
+    background: #12151a;
+}
+
+.tool-textarea {
+    background: #1c222d;
+    border: 1px solid #42f8f5;
+    border-radius: 1.2rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    color: #ffffff;
+    font-family: 'Fira Mono', 'Courier New', monospace;
+    width: 100%;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+    box-shadow: 0 0 5px rgba(66, 248, 245, 0.2);
+}
+
+.tool-textarea:focus {
+    border-color: #42f8f5;
+    box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
+    background: #12151a;
+}
+
+.tool-select {
+    background: #1c222d;
+    border: 1px solid #42f8f5;
+    border-radius: 1.5rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    color: #ffffff;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2342f8f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+}
+
+.tool-select option {
+    background: #1c222d;
+    color: #ffffff;
+}
+
+/* --------------------------------------------
+   DISPLAY / OUTPUT AREAS
+   -------------------------------------------- */
+.tool-display {
+    background: #1c222d;
+    border-radius: 1rem;
+    padding: 0.7rem 1rem;
+    color: #42f8f5;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 1px solid #42f8f5;
+    word-break: break-all;
+    box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
+    font-family: 'Fira Mono', 'Courier New', monospace;
+}
+
+.tool-display-left {
+    text-align: left;
+}
+
+.tool-display-right {
+    text-align: right;
+}
+
+.tool-display-large {
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.tool-display-small {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* --------------------------------------------
+   BUTTONS - Uniform styling
+   -------------------------------------------- */
+.button-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 5px 0;
+}
+
+.tool-btn {
+    background: #1c222d;
+    border: 1px solid #42f8f5;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    flex: 1 0 auto;
+    min-width: 60px;
+    text-align: center;
+    transition: all 0.1s ease;
+    box-shadow: 0 0 8px rgba(66, 248, 245, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tool-btn:hover {
+    background: #42f8f5;
+    color: #12151a;
+    box-shadow: 0 0 20px rgba(66, 248, 245, 0.8);
+}
+
+.tool-btn:active {
+    transform: translateY(2px);
+}
+
+.tool-btn.primary {
+    background: #42f8f5;
+    color: #12151a;
+    border-color: #42f8f5;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(66, 248, 245, 0.6);
+}
+
+.tool-btn.primary:hover {
+    background: #3ff7f3;
+    box-shadow: 0 0 30px rgba(66, 248, 245, 0.9);
+}
+
+.tool-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.tool-btn.small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+}
+
+.tool-btn.large {
+    padding: 0.7rem 1.4rem;
+    font-size: 1rem;
+}
+
+/* --------------------------------------------
+   MINI GRIDS (for calculator buttons etc)
+   -------------------------------------------- */
+.grid-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin: 5px 0;
+}
+
+.grid-mini-4col {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-mini-2col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* --------------------------------------------
+   CHECKBOX & RADIO STYLES
+   -------------------------------------------- */
+.tool-checkbox-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    color: #1c222d;
+}
+
+.tool-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #1c222d;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.tool-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #42f8f5;
+    cursor: pointer;
+}
+
+.tool-radio-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tool-radio {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #1c222d;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.tool-radio input[type="radio"] {
+    accent-color: #42f8f5;
+    width: 16px;
+    height: 16px;
+}
+
+/* --------------------------------------------
+   PROGRESS BARS & LOADERS
+   -------------------------------------------- */
+.tool-progress {
+    background: #1c222d;
+    border-radius: 1rem;
+    height: 20px;
+    overflow: hidden;
+    border: 1px solid #42f8f5;
+}
+
+.tool-progress-bar {
+    background: #42f8f5;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(66, 248, 245, 0.6);
+}
+
+/* --------------------------------------------
+   TABLES
+   -------------------------------------------- */
+.tool-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #1c222d;
+    font-size: 0.85rem;
+}
+
+.tool-table th {
+    background: #1c222d;
+    color: #42f8f5;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 2px solid #42f8f5;
+}
+
+.tool-table td {
+    padding: 8px;
+    border-bottom: 1px solid #42f8f5;
+}
+
+.tool-table tr:hover {
+    background: rgba(66, 248, 245, 0.1);
+}
+
+/* --------------------------------------------
+   ALERTS & NOTIFICATIONS
+   -------------------------------------------- */
+.tool-alert {
+    background: #1c222d;
+    border: 1px solid #42f8f5;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #ffffff;
+    margin: 10px 0;
+    box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
+}
+
+.tool-alert.success {
+    border-color: #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.tool-alert.error {
+    border-color: #ff4444;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+}
+
+.tool-alert.warning {
+    border-color: #ffbb33;
+    box-shadow: 0 0 15px rgba(255, 187, 51, 0.3);
+}
+
+/* --------------------------------------------
+   TOOL SPECIFIC LAYOUTS
+   -------------------------------------------- */
+
+/* Calculator specific */
+.calc-button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+/* Color picker specific */
+.color-preview {
+    width: 100%;
+    height: 50px;
+    border-radius: 1rem;
+    border: 2px solid #42f8f5;
+    margin: 10px 0;
+}
+
+/* Timer/Stopwatch specific */
+.timer-display {
+    font-size: 2rem;
+    text-align: center;
+    font-family: 'Fira Mono', monospace;
+    color: #42f8f5;
+    background: #1c222d;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 2px solid #42f8f5;
+}
+
+/* QR Code specific */
+.qr-container {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+/* --------------------------------------------
+   RESPONSIVE DESIGN
+   -------------------------------------------- */
+
+/* Large Desktop */
+@media screen and (max-width: 1200px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-    .footer-links-row {
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 0 20px;
+/* Tablet Landscape */
+@media screen and (max-width: 900px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
     
-    .header-content {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .main-nav ul {
-        gap: 20px;
-    }
-    
-    .hero-title {
-        font-size: 1.8rem;
-    }
-    
-    .hero-description {
-        font-size: 1rem;
-    }
-    
-    .footer-links-row {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .footer-links-row a {
-        font-size: 0.85rem;
-    }
-    
-    .footer-bottom {
+    .navbar {
         flex-direction: column;
         gap: 15px;
         text-align: center;
     }
+    
+    .navbar .logo h1 {
+        font-size: 1.5rem;
+    }
 }
 
-@media (max-width: 480px) {
-    .main-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
+/* Tablet Portrait */
+@media screen and (max-width: 700px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
     
-    .hero-title {
+    .page-header h1 {
         font-size: 1.5rem;
     }
     
+    .page-header h1 span {
+        display: block;
+        margin-left: 0;
+        margin-top: 10px;
+        width: fit-content;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Mobile Landscape */
+@media screen and (max-width: 500px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    body {
+        padding: 0;
+    }
+    
+    .navbar {
+        border-radius: 0;
+        padding: 12px 15px;
+    }
+    
+    .page-header {
+        padding: 0 15px;
+    }
+    
+    .tools-grid {
+        padding: 0 15px 20px 15px;
+    }
+    
     .tool-card {
-        padding: 25px;
+        min-height: auto;
     }
     
-    .tool-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.6rem;
+    /* Hide tool descriptions on mobile */
+    .tool-description-mobile {
+        display: none;
+    }
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 380px) {
+    .button-row {
+        flex-direction: column;
     }
     
-    .footer-links-row a {
-        font-size: 0.8rem;
+    .tool-btn {
+        width: 100%;
+    }
+}
+
+/* --------------------------------------------
+   UTILITY CLASSES
+   -------------------------------------------- */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 5px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 20px; }
+.mt-5 { margin-top: 25px; }
+
+.mb-1 { margin-bottom: 5px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 15px; }
+.mb-4 { margin-bottom: 20px; }
+.mb-5 { margin-bottom: 25px; }
+
+.ml-1 { margin-left: 5px; }
+.mr-1 { margin-right: 5px; }
+
+.p-1 { padding: 5px; }
+.p-2 { padding: 10px; }
+.p-3 { padding: 15px; }
+
+.w-100 { width: 100%; }
+.h-100 { height: 100%; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: 5px; }
+.gap-2 { gap: 10px; }
+.gap-3 { gap: 15px; }
+
+/* Hide on mobile */
+.hide-mobile {
+    display: block;
+}
+
+@media screen and (max-width: 767px) {
+    .hide-mobile {
+        display: none;
+    }
+}
+
+/* Show only on mobile */
+.show-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .show-mobile {
+        display: block;
+    }
+}
+
+/* --------------------------------------------
+   ANIMATIONS
+   -------------------------------------------- */
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px rgba(66, 248, 245, 0.6); }
+    50% { box-shadow: 0 0 20px rgba(66, 248, 245, 0.9); }
+    100% { box-shadow: 0 0 5px rgba(66, 248, 245, 0.6); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* --------------------------------------------
+   PRINT STYLES
+   -------------------------------------------- */
+@media print {
+    .navbar, .tool-btn, .button-row {
+        display: none;
+    }
+    
+    .tool-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
     }
 }
