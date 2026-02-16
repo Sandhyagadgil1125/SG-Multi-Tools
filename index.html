@@ -533,9 +533,9 @@
                 {
                     icon: '📅',
                     title: 'Age Calculator',
-                    badge: 'dd-mm-yyyy',
+                    badge: 'age',
                     html: (id) => `
-                        <input class="tool-input" id="age-input-${id}" type="text" value="01-01-1990" placeholder="DD-MM-YYYY">
+                        <input class="tool-input" id="age-input-${id}" type="text" value="01-01-1990" placeholder="Enter date of birth (DD-MM-YYYY)">
                         <div class="tool-display" id="age-result-${id}">36 years 1 months 15 days</div>
                         <div class="button-row">
                             <div class="tool-btn primary" id="calc-age-${id}">Calculate</div>
@@ -588,8 +588,8 @@
                     title: 'Date Difference',
                     badge: 'days',
                     html: (id) => `
-                        <input class="tool-input" id="date1-${id}" type="text" value="15-03-2023" placeholder="DD-MM-YYYY">
-                        <input class="tool-input" id="date2-${id}" type="text" value="16-02-2026" placeholder="DD-MM-YYYY">
+                        <input class="tool-input" id="date1-${id}" type="text" value="15-03-2023" placeholder="Start date (DD-MM-YYYY)">
+                        <input class="tool-input" id="date2-${id}" type="text" value="16-02-2026" placeholder="End date (DD-MM-YYYY)">
                         <div class="tool-display" id="datediff-result-${id}">1070 days</div>
                         <div class="tool-btn primary" id="calc-datediff-${id}">Calculate</div>
                     `
@@ -821,13 +821,15 @@
                 });
             });
 
-            // 2. Age Calculator
+            // 2. Age Calculator (UPDATED - single input, no extra text)
             for (let i = 0; i < 20; i++) {
                 const id = `tool-${i}`;
                 const calcBtn = document.getElementById(`calc-age-${id}`);
                 if (calcBtn) {
                     calcBtn.addEventListener('click', function() {
                         const input = document.getElementById(`age-input-${id}`).value;
+                        if (!input) return;
+                        
                         const birthDate = parseDMY(input);
                         const today = new Date();
                         
@@ -835,16 +837,22 @@
                         let months = today.getMonth() - birthDate.getMonth();
                         let days = today.getDate() - birthDate.getDate();
                         
-                        if (days < 0) { months--; days += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
-                        if (months < 0) { years--; months += 12; }
+                        if (days < 0) { 
+                            months--; 
+                            const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                            days += lastMonth.getDate();
+                        }
+                        if (months < 0) { 
+                            years--; 
+                            months += 12; 
+                        }
                         
-                        document.getElementById(`age-result-${id}`).innerText = `${years}y ${months}m ${days}d`;
+                        document.getElementById(`age-result-${id}`).innerText = `${years} years ${months} months ${days} days`;
                     });
                     
                     document.getElementById(`copy-age-${id}`)?.addEventListener('click', function() {
                         const text = document.getElementById(`age-result-${id}`).innerText;
-                        navigator.clipboard?.writeText(text);
-                        alert('Copied!');
+                        navigator.clipboard?.writeText(text).then(() => alert('Copied!'));
                     });
                 }
             }
@@ -870,4 +878,283 @@
                 const hex = document.getElementById(`color-hex-${id}`);
                 const copy = document.getElementById(`copy-color-${id}`);
                 if (picker && hex) {
-                    picker.addEventListener('input', () =>
+                    picker.addEventListener('input', () => hex.innerText = picker.value);
+                    copy.addEventListener('click', () => {
+                        navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
+                    });
+                }
+            }
+
+            // 5. Currency Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`convert-currency-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
+                        const from = document.getElementById(`currency-from-${id}`).value;
+                        const to = document.getElementById(`currency-to-${id}`).value;
+                        const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
+                        const result = amount * rates[to] / rates[from];
+                        document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                    });
+                }
+            }
+
+            // 6. Date Difference
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-datediff-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
+                        const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
+                        const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
+                        document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
+                    });
+                }
+            }
+
+            // 7. EMI Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-emi-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
+                        const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
+                        const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
+                        const months = years * 12;
+                        const monthlyRate = rate / 12 / 100;
+                        const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+                        document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
+                    });
+                }
+            }
+
+            // 8. File Size Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`convert-filesize-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
+                        const from = document.getElementById(`filesize-from-${id}`).value;
+                        const to = document.getElementById(`filesize-to-${id}`).value;
+                        const units = { KB: 1, MB: 1024, GB: 1048576 };
+                        const result = size * units[from] / units[to];
+                        document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                    });
+                }
+            }
+
+            // 9. Image Converter (simulated)
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const input = document.getElementById(`image-input-${id}`);
+                const info = document.getElementById(`image-info-${id}`);
+                if (input) {
+                    input.addEventListener('change', function() {
+                        if (this.files?.[0]) info.innerText = this.files[0].name;
+                    });
+                    document.getElementById(`to-png-${id}`).addEventListener('click', () => alert('Demo: Convert to PNG'));
+                    document.getElementById(`to-jpg-${id}`).addEventListener('click', () => alert('Demo: Convert to JPG'));
+                }
+            }
+
+            // 10. Note Text Saver
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const note = document.getElementById(`note-${id}`);
+                if (note) {
+                    document.getElementById(`save-note-${id}`).addEventListener('click', () => {
+                        localStorage.setItem(`note-${id}`, note.value);
+                        alert('Saved!');
+                    });
+                    document.getElementById(`load-note-${id}`).addEventListener('click', () => {
+                        const saved = localStorage.getItem(`note-${id}`);
+                        if (saved) note.value = saved;
+                    });
+                    document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
+                }
+            }
+
+            // 11. Password Generator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`generate-pw-${id}`);
+                const display = document.getElementById(`password-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const upper = document.getElementById(`uppercase-${id}`)?.checked;
+                        const nums = document.getElementById(`numbers-${id}`)?.checked;
+                        let chars = 'abcdefghijklmnopqrstuvwxyz';
+                        if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        if (nums) chars += '0123456789';
+                        let pw = '';
+                        for (let i = 0; i < 10; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+                        display.innerText = pw;
+                    });
+                    document.getElementById(`copy-pw-${id}`)?.addEventListener('click', () => {
+                        navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
+                    });
+                }
+            }
+
+            // 12. Percentage Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-perc-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
+                        const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
+                        document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
+                    });
+                }
+            }
+
+            // 13. QR Generator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`generate-qr-${id}`);
+                const display = document.getElementById(`qr-result-${id}`);
+                const input = document.getElementById(`qr-text-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        display.innerText = 'QR: ' + (input.value || 'Hello');
+                    });
+                }
+            }
+
+            // 14. SIP Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-sip-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
+                        const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
+                        const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
+                        const months = years * 12;
+                        const monthlyRate = rate / 12 / 100;
+                        const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+                        document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString();
+                    });
+                }
+            }
+
+            // 15. Speech to Text
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const start = document.getElementById(`start-speech-${id}`);
+                const stop = document.getElementById(`stop-speech-${id}`);
+                const display = document.getElementById(`speech-result-${id}`);
+                if (start && 'webkitSpeechRecognition' in window) {
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.continuous = true;
+                    recognition.interimResults = true;
+                    recognition.onresult = (e) => {
+                        display.innerText = e.results[e.results.length-1][0].transcript;
+                    };
+                    start.addEventListener('click', () => recognition.start());
+                    stop.addEventListener('click', () => recognition.stop());
+                } else if (start) {
+                    start.addEventListener('click', () => display.innerText = 'Not supported');
+                }
+            }
+
+            // 16. Text to Speech
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const speak = document.getElementById(`speak-${id}`);
+                const stop = document.getElementById(`stop-speak-${id}`);
+                const textarea = document.getElementById(`tts-text-${id}`);
+                if (speak) {
+                    speak.addEventListener('click', () => {
+                        if ('speechSynthesis' in window) {
+                            window.speechSynthesis.cancel();
+                            const utter = new SpeechSynthesisUtterance(textarea.value);
+                            window.speechSynthesis.speak(utter);
+                        }
+                    });
+                    stop.addEventListener('click', () => window.speechSynthesis?.cancel());
+                }
+            }
+
+            // 17. Timer
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const display = document.getElementById(`timer-display-${id}`);
+                const start = document.getElementById(`timer-start-${id}`);
+                const pause = document.getElementById(`timer-pause-${id}`);
+                const reset = document.getElementById(`timer-reset-${id}`);
+                if (display) {
+                    let seconds = 0, interval = null;
+                    function update() {
+                        const h = Math.floor(seconds / 3600);
+                        const m = Math.floor((seconds % 3600) / 60);
+                        const s = seconds % 60;
+                        display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                    }
+                    start.addEventListener('click', () => {
+                        if (interval) clearInterval(interval);
+                        interval = setInterval(() => { seconds++; update(); }, 1000);
+                    });
+                    pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
+                    reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; update(); });
+                }
+            }
+
+            // 18. Unit Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`convert-unit-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
+                        const cat = document.getElementById(`unit-category-${id}`).value;
+                        let result = '';
+                        if (cat === 'length') result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
+                        else if (cat === 'weight') result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
+                        document.getElementById(`unit-result-${id}`).innerText = result;
+                    });
+                }
+            }
+
+            // 19. URL Encoder/Decoder
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const input = document.getElementById(`url-input-${id}`);
+                const output = document.getElementById(`url-output-${id}`);
+                if (input) {
+                    document.getElementById(`url-encode-${id}`).addEventListener('click', () => {
+                        output.value = encodeURIComponent(input.value);
+                    });
+                    document.getElementById(`url-decode-${id}`).addEventListener('click', () => {
+                        try { output.value = decodeURIComponent(input.value); }
+                        catch { output.value = 'Invalid'; }
+                    });
+                }
+            }
+
+            // 20. Word Counter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`count-words-${id}`);
+                const input = document.getElementById(`wordcount-input-${id}`);
+                const display = document.getElementById(`wordcount-result-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        const text = input.value || '';
+                        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                        const chars = text.length;
+                        display.innerText = `Words: ${words}, Chars: ${chars}`;
+                    });
+                    btn.click();
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
