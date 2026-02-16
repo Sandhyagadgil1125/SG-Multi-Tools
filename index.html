@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>SG Multi Tools - 20 Free Online Tools</title>
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%2342f8f5'>⚡</text></svg>">
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         /* ============================================
            MASTER STYLES - SG MULTI TOOLS
-           Silver/Light Grey Background with Cyan Accent
+           Dark Cards, Light Inputs, Uniform Layout
            ============================================ */
         
         /* --------------------------------------------
@@ -98,7 +98,7 @@
             transition: all 0.2s ease;
         }
 
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             background: #42f8f5;
             color: #12151a;
             box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
@@ -160,22 +160,21 @@
         }
 
         /* --------------------------------------------
-           UNIFORM TOOL CARDS - Silver/Light Grey
+           UNIFORM TOOL CARDS - Dark Background
            -------------------------------------------- */
         .tool-card {
-            background: #d8e2f0;
-            background: linear-gradient(145deg, #e0eaf5 0%, #c5d3e5 100%);
+            background: #1e2b37;
+            background: linear-gradient(145deg, #243340 0%, #1a2530 100%);
             border-radius: 1.5rem;
-            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.3), 0 5px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.4);
             padding: 1.2rem 1rem;
             border: 1px solid #42f8f5;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
             display: flex;
             flex-direction: column;
-            min-height: 300px;
-            color: #1c222d;
+            min-height: 320px;
+            color: #ffffff;
             position: relative;
-            overflow: hidden;
         }
 
         .tool-card:hover {
@@ -228,49 +227,49 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         /* --------------------------------------------
-           FORM ELEMENTS
+           FORM ELEMENTS - Light Inputs
            -------------------------------------------- */
-        .tool-input {
-            background: #1c222d;
-            border: 1px solid #42f8f5;
+        .tool-input, .tool-textarea, .tool-select {
+            background: #eef5fa;
+            border: 2px solid #3d6b8c;
             border-radius: 1.5rem;
-            padding: 0.6rem 1rem;
-            font-size: 0.8rem;
-            color: #ffffff;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+            color: #1c222d;
             font-family: 'Fira Mono', 'Courier New', monospace;
             width: 100%;
             outline: none;
-            box-shadow: 0 0 5px rgba(66, 248, 245, 0.2);
+            transition: all 0.15s ease;
         }
 
-        .tool-input:focus {
+        .tool-input:focus, .tool-textarea:focus, .tool-select:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
-            background: #12151a;
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.3);
+            background: #ffffff;
         }
 
         .tool-textarea {
-            background: #1c222d;
-            border: 1px solid #42f8f5;
-            border-radius: 1rem;
-            padding: 0.6rem 1rem;
-            font-size: 0.8rem;
-            color: #ffffff;
-            font-family: 'Fira Mono', 'Courier New', monospace;
-            width: 100%;
+            border-radius: 1.2rem;
+            min-height: 70px;
             resize: vertical;
-            min-height: 60px;
-            outline: none;
+        }
+
+        .tool-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
         }
 
         .tool-display {
             background: #1c222d;
             border-radius: 1rem;
-            padding: 0.5rem 0.8rem;
+            padding: 0.7rem 1rem;
             color: #42f8f5;
             text-align: center;
             font-size: 1rem;
@@ -278,11 +277,12 @@
             border: 1px solid #42f8f5;
             word-break: break-all;
             font-family: 'Fira Mono', monospace;
+            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.2);
         }
 
         .button-row {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             flex-wrap: wrap;
             margin-top: 5px;
         }
@@ -290,17 +290,18 @@
         .tool-btn {
             background: #1c222d;
             border: 1px solid #42f8f5;
-            border-radius: 1.8rem;
-            padding: 0.4rem 0.6rem;
-            font-size: 0.7rem;
+            border-radius: 2rem;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #ffffff;
             cursor: pointer;
             flex: 1 0 auto;
-            min-width: 50px;
+            min-width: 55px;
             text-align: center;
             transition: all 0.1s ease;
             box-shadow: 0 0 8px rgba(66, 248, 245, 0.2);
+            text-transform: uppercase;
         }
 
         .tool-btn:hover {
@@ -319,12 +320,77 @@
         .grid-mini {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
+            gap: 5px;
         }
 
-        select.tool-input {
-            color: #ffffff;
+        /* --------------------------------------------
+           FOOTER STYLES
+           -------------------------------------------- */
+        .footer {
             background: #1c222d;
+            width: 100%;
+            padding: 25px 20px 20px 20px;
+            margin-top: 30px;
+            border-top: 3px solid #42f8f5;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .footer-links li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .footer-links li a:hover {
+            color: #42f8f5;
+            border-color: #42f8f5;
+            background: #12151a;
+        }
+
+        .footer-email {
+            color: #42f8f5;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            background: #12151a;
+            border-radius: 40px;
+            border: 1px solid #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
+        }
+
+        .footer-email a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a0b8cc;
+            font-size: 0.8rem;
+            margin-top: 10px;
         }
 
         /* --------------------------------------------
@@ -361,11 +427,26 @@
                 font-size: 1rem;
                 padding: 10px 20px;
             }
+            
+            .footer-links {
+                gap: 10px;
+            }
+            
+            .footer-links li a {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
         }
 
         @media screen and (max-width: 450px) {
             .tools-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
             }
         }
 
@@ -385,8 +466,9 @@
             <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
         <div class="nav-links">
-            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link active">Home</a>
             <a href="#" class="nav-link">Tools</a>
+            <a href="#" class="nav-link">About</a>
             <a href="#" class="nav-link">Contact</a>
         </div>
     </div>
@@ -399,6 +481,26 @@
 
     <!-- 20 Tools Grid -->
     <div class="tools-grid" id="toolsGrid"></div>
+
+    <!-- Footer with all tabs -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Disclaimer</a></li>
+                <li><a href="#">Terms and Conditions</a></li>
+                <li><a href="#">Sitemap</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="footer-email">
+                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            <div class="copyright">
+                © 2026 SG Multi Tools. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
     <script>
         (function() {
@@ -452,7 +554,7 @@
                             <div class="tool-btn" id="lower-${id}">lower</div>
                             <div class="tool-btn" id="title-${id}">Title</div>
                         </div>
-                        <textarea class="tool-textarea" id="case-output-${id}" placeholder="Output" readonly></textarea>
+                        <textarea class="tool-textarea" id="case-output-${id}" placeholder="Output" readonly>THE QUICK BROWN FOX</textarea>
                     `
                 },
                 {
@@ -460,7 +562,7 @@
                     title: 'Color Picker',
                     badge: 'hex',
                     html: (id) => `
-                        <input class="tool-input" type="color" id="color-${id}" value="#42f8f5" style="height: 50px;">
+                        <input class="tool-input" type="color" id="color-${id}" value="#42f8f5" style="height: 50px; background: #eef5fa;">
                         <div class="tool-display" id="color-hex-${id}">#42f8f5</div>
                         <div class="tool-btn primary" id="copy-color-${id}">Copy HEX</div>
                     `
@@ -525,7 +627,7 @@
                     title: 'Image Converter',
                     badge: 'png/jpg',
                     html: (id) => `
-                        <input class="tool-input" type="file" accept="image/*" id="image-input-${id}">
+                        <input class="tool-input" type="file" accept="image/*" id="image-input-${id}" style="background: #eef5fa; color: #1c222d;">
                         <div class="tool-display" id="image-info-${id}">No file</div>
                         <div class="button-row">
                             <div class="tool-btn" id="to-png-${id}">To PNG</div>
@@ -556,7 +658,7 @@
                             <div class="tool-btn primary" id="generate-pw-${id}">Generate</div>
                             <div class="tool-btn" id="copy-pw-${id}">Copy</div>
                         </div>
-                        <div style="display:flex; gap:5px; font-size:0.6rem;">
+                        <div style="display:flex; gap:8px; font-size:0.7rem; color: #ffffff;">
                             <label><input type="checkbox" id="uppercase-${id}" checked> A-Z</label>
                             <label><input type="checkbox" id="numbers-${id}" checked> 0-9</label>
                         </div>
@@ -567,7 +669,7 @@
                     title: 'Percentage',
                     badge: '%',
                     html: (id) => `
-                        <div style="display:flex; gap:4px;">
+                        <div style="display:flex; gap:5px;">
                             <input class="tool-input" id="perc-value-${id}" type="number" value="20" placeholder="%">
                             <input class="tool-input" id="perc-of-${id}" type="number" value="250" placeholder="of">
                         </div>
@@ -753,7 +855,6 @@
                 const input = document.getElementById(`case-input-${id}`);
                 const output = document.getElementById(`case-output-${id}`);
                 if (input && output) {
-                    output.value = input.value.toUpperCase();
                     document.getElementById(`upper-${id}`).addEventListener('click', () => output.value = input.value.toUpperCase());
                     document.getElementById(`lower-${id}`).addEventListener('click', () => output.value = input.value.toLowerCase());
                     document.getElementById(`title-${id}`).addEventListener('click', () => {
@@ -769,284 +870,4 @@
                 const hex = document.getElementById(`color-hex-${id}`);
                 const copy = document.getElementById(`copy-color-${id}`);
                 if (picker && hex) {
-                    picker.addEventListener('input', () => hex.innerText = picker.value);
-                    copy.addEventListener('click', () => {
-                        navigator.clipboard?.writeText(hex.innerText);
-                        alert('Copied!');
-                    });
-                }
-            }
-
-            // 5. Currency Converter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`convert-currency-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
-                        const from = document.getElementById(`currency-from-${id}`).value;
-                        const to = document.getElementById(`currency-to-${id}`).value;
-                        const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
-                        const result = amount * rates[to] / rates[from];
-                        document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                    });
-                }
-            }
-
-            // 6. Date Difference
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-datediff-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
-                        const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
-                        const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
-                        document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
-                    });
-                }
-            }
-
-            // 7. EMI Calculator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-emi-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
-                        const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
-                        const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
-                        const months = years * 12;
-                        const monthlyRate = rate / 12 / 100;
-                        const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-                        document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
-                    });
-                }
-            }
-
-            // 8. File Size Converter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`convert-filesize-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
-                        const from = document.getElementById(`filesize-from-${id}`).value;
-                        const to = document.getElementById(`filesize-to-${id}`).value;
-                        const units = { KB: 1, MB: 1024, GB: 1048576 };
-                        const result = size * units[from] / units[to];
-                        document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                    });
-                }
-            }
-
-            // 9. Image Converter (simulated)
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const input = document.getElementById(`image-input-${id}`);
-                const info = document.getElementById(`image-info-${id}`);
-                if (input) {
-                    input.addEventListener('change', function() {
-                        if (this.files?.[0]) info.innerText = this.files[0].name;
-                    });
-                    document.getElementById(`to-png-${id}`).addEventListener('click', () => alert('Demo: Convert to PNG'));
-                    document.getElementById(`to-jpg-${id}`).addEventListener('click', () => alert('Demo: Convert to JPG'));
-                }
-            }
-
-            // 10. Note Text Saver
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const note = document.getElementById(`note-${id}`);
-                if (note) {
-                    document.getElementById(`save-note-${id}`).addEventListener('click', () => {
-                        localStorage.setItem(`note-${id}`, note.value);
-                        alert('Saved!');
-                    });
-                    document.getElementById(`load-note-${id}`).addEventListener('click', () => {
-                        const saved = localStorage.getItem(`note-${id}`);
-                        if (saved) note.value = saved;
-                    });
-                    document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
-                }
-            }
-
-            // 11. Password Generator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`generate-pw-${id}`);
-                const display = document.getElementById(`password-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const upper = document.getElementById(`uppercase-${id}`).checked;
-                        const nums = document.getElementById(`numbers-${id}`).checked;
-                        let chars = 'abcdefghijklmnopqrstuvwxyz';
-                        if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        if (nums) chars += '0123456789';
-                        let pw = '';
-                        for (let i = 0; i < 10; i++) pw += chars[Math.floor(Math.random() * chars.length)];
-                        display.innerText = pw;
-                    });
-                    document.getElementById(`copy-pw-${id}`).addEventListener('click', () => {
-                        navigator.clipboard?.writeText(display.innerText);
-                        alert('Copied!');
-                    });
-                }
-            }
-
-            // 12. Percentage Calculator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-perc-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
-                        const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
-                        document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
-                    });
-                }
-            }
-
-            // 13. QR Generator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`generate-qr-${id}`);
-                const display = document.getElementById(`qr-result-${id}`);
-                const input = document.getElementById(`qr-text-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        display.innerText = 'QR: ' + (input.value || 'Hello');
-                    });
-                }
-            }
-
-            // 14. SIP Calculator
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`calc-sip-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
-                        const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
-                        const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
-                        const months = years * 12;
-                        const monthlyRate = rate / 12 / 100;
-                        const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-                        document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString();
-                    });
-                }
-            }
-
-            // 15. Speech to Text
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const start = document.getElementById(`start-speech-${id}`);
-                const stop = document.getElementById(`stop-speech-${id}`);
-                const display = document.getElementById(`speech-result-${id}`);
-                if (start && 'webkitSpeechRecognition' in window) {
-                    const recognition = new webkitSpeechRecognition();
-                    recognition.continuous = true;
-                    recognition.onresult = (e) => {
-                        display.innerText = e.results[e.results.length-1][0].transcript;
-                    };
-                    start.addEventListener('click', () => recognition.start());
-                    stop.addEventListener('click', () => recognition.stop());
-                } else if (start) {
-                    start.addEventListener('click', () => display.innerText = 'Not supported');
-                }
-            }
-
-            // 16. Text to Speech
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const speak = document.getElementById(`speak-${id}`);
-                const stop = document.getElementById(`stop-speak-${id}`);
-                const textarea = document.getElementById(`tts-text-${id}`);
-                if (speak) {
-                    speak.addEventListener('click', () => {
-                        if ('speechSynthesis' in window) {
-                            window.speechSynthesis.cancel();
-                            const utter = new SpeechSynthesisUtterance(textarea.value);
-                            window.speechSynthesis.speak(utter);
-                        }
-                    });
-                    stop.addEventListener('click', () => window.speechSynthesis?.cancel());
-                }
-            }
-
-            // 17. Timer
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const display = document.getElementById(`timer-display-${id}`);
-                const start = document.getElementById(`timer-start-${id}`);
-                const pause = document.getElementById(`timer-pause-${id}`);
-                const reset = document.getElementById(`timer-reset-${id}`);
-                if (display) {
-                    let seconds = 0, interval = null;
-                    function update() {
-                        const h = Math.floor(seconds / 3600);
-                        const m = Math.floor((seconds % 3600) / 60);
-                        const s = seconds % 60;
-                        display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                    }
-                    start.addEventListener('click', () => {
-                        if (interval) clearInterval(interval);
-                        interval = setInterval(() => { seconds++; update(); }, 1000);
-                    });
-                    pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
-                    reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; update(); });
-                }
-            }
-
-            // 18. Unit Converter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`convert-unit-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', function() {
-                        const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
-                        const cat = document.getElementById(`unit-category-${id}`).value;
-                        let result = '';
-                        if (cat === 'length') result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
-                        else if (cat === 'weight') result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
-                        document.getElementById(`unit-result-${id}`).innerText = result;
-                    });
-                }
-            }
-
-            // 19. URL Encoder/Decoder
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const input = document.getElementById(`url-input-${id}`);
-                const output = document.getElementById(`url-output-${id}`);
-                if (input) {
-                    document.getElementById(`url-encode-${id}`).addEventListener('click', () => {
-                        output.value = encodeURIComponent(input.value);
-                    });
-                    document.getElementById(`url-decode-${id}`).addEventListener('click', () => {
-                        try { output.value = decodeURIComponent(input.value); }
-                        catch { output.value = 'Invalid'; }
-                    });
-                }
-            }
-
-            // 20. Word Counter
-            for (let i = 0; i < 20; i++) {
-                const id = `tool-${i}`;
-                const btn = document.getElementById(`count-words-${id}`);
-                const input = document.getElementById(`wordcount-input-${id}`);
-                const display = document.getElementById(`wordcount-result-${id}`);
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        const text = input.value || '';
-                        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-                        const chars = text.length;
-                        display.innerText = `Words: ${words}, Chars: ${chars}`;
-                    });
-                    btn.click();
-                }
-            }
-        })();
-    </script>
-</body>
-</html>
+                    picker.addEventListener('input', () =>
