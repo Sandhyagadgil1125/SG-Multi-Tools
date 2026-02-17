@@ -3,978 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG Multi Tools - 20 Professional Tools</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <title>All Tools - SG Multi Tools</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Additional inline styles to ensure uniformity */
-        .tool-card {
-            min-height: 380px;
-            height: auto;
+        /* Page-specific tweaks matching About page */
+        body {
+            background: #e8eef4;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-        }
-        
-        .card-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .btn, .btn-action, .input-field, .textarea-field, .select-field, .display-field {
-            margin-bottom: 0;
-        }
-        
-        .button-row {
-            margin: 2px 0;
-        }
-        
-        .button-grid {
-            margin: 2px 0;
-        }
-        
-        /* Ensure all cards have equal height */
-        .tools-grid {
-            align-items: stretch;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 15px;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Contact page styles - small square with neon border */
-        .contact-page {
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .contact-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
-            text-align: center;
-        }
-
-        .contact-card h1 {
-            color: #1c222d;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 15px;
-        }
-
-        .contact-card p {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .contact-info {
+        .tools-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.5rem;
             background: #1c222d;
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
+            border-radius: 20px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 0 25px rgba(66, 248, 245, 0.3);
+        }
+        
+        .tools-container h1 {
+            color: #42f8f5;
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 12px;
+        }
+        
+        .tools-container .subtitle {
+            color: #6d8ba0;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
 
-        .contact-info a {
+        /* Tools Grid - 4 columns */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Tool Card */
+        .tool-card {
+            background: #1e2b37;
+            border-radius: 16px;
+            border: 1px solid #2a4055;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 240px;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: #42f8f5;
+            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.2);
+        }
+
+        .tool-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            color: #42f8f5;
+        }
+
+        .tool-card h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            color: #b0c4de;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .tool-badge {
+            display: inline-block;
+            background: #12151a;
+            color: #42f8f5;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+            align-self: flex-start;
+        }
+
+        /* Open Tool Button */
+        .open-tool-btn {
+            display: inline-block;
+            background: transparent;
             color: #42f8f5;
             text-decoration: none;
+            font-size: 0.8rem;
             font-weight: 600;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        .back-home {
-            display: inline-block;
-            background: #1c222d;
-            color: white;
-            padding: 12px 30px;
+            padding: 8px 16px;
+            border: 2px solid #42f8f5;
             border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid #42f8f5;
             transition: all 0.2s ease;
+            text-align: center;
+            margin-top: auto;
+            cursor: pointer;
         }
 
-        .back-home:hover {
+        .open-tool-btn:hover {
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
+
+        .open-tool-btn i {
+            margin-left: 6px;
+            font-size: 0.7rem;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #42f8f5;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 25px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .footer-email {
+            margin-top: 1.5rem;
+            color: #6d8ba0;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-email a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tools-container h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar with working links -->
-    <div class="navbar">
-        <div class="logo">
-            <div class="logo-sg">SG</div>
-            <div class="logo-text">SG <span>Multi Tools</span></div>
+    <!-- ===== TOOLS PAGE - WITH CLICKABLE BUTTONS ===== -->
+    <div class="tools-container">
+        <h1>All Tools</h1>
+        <div class="subtitle">Click any tool button below to open</div>
+
+        <!-- Tools Grid - 20 tools with Open buttons -->
+        <div class="tools-grid">
+            <!-- 1. Advanced Calculator -->
+            <div class="tool-card">
+                <span class="tool-badge">sci</span>
+                <div class="tool-icon">🧮</div>
+                <h3>Advanced Calculator</h3>
+                <p>Scientific & basic calculations with memory functions</p>
+                <a href="index.html#advanced-calc" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 2. Age Calculator -->
+            <div class="tool-card">
+                <span class="tool-badge">age</span>
+                <div class="tool-icon">📅</div>
+                <h3>Age Calculator</h3>
+                <p>Exact age in years, months, days from your birth date</p>
+                <a href="index.html#age-calc" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 3. Case Changer -->
+            <div class="tool-card">
+                <span class="tool-badge">text</span>
+                <div class="tool-icon">🔤</div>
+                <h3>Case Changer</h3>
+                <p>Convert text to uppercase, lowercase, title case</p>
+                <a href="index.html#case-changer" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 4. Color Picker -->
+            <div class="tool-card">
+                <span class="tool-badge">hex</span>
+                <div class="tool-icon">🎨</div>
+                <h3>Color Picker</h3>
+                <p>Pick colors and copy HEX, RGB values</p>
+                <a href="index.html#color-picker" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 5. Currency Converter -->
+            <div class="tool-card">
+                <span class="tool-badge">USD/EUR</span>
+                <div class="tool-icon">💰</div>
+                <h3>Currency Converter</h3>
+                <p>Convert between USD, EUR, GBP and more</p>
+                <a href="index.html#currency" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 6. Date Difference -->
+            <div class="tool-card">
+                <span class="tool-badge">days</span>
+                <div class="tool-icon">📆</div>
+                <h3>Date Difference</h3>
+                <p>Calculate days between two dates</p>
+                <a href="index.html#date-diff" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 7. EMI Calculator -->
+            <div class="tool-card">
+                <span class="tool-badge">loan</span>
+                <div class="tool-icon">🏦</div>
+                <h3>EMI Calculator</h3>
+                <p>Calculate loan EMIs with interest rate</p>
+                <a href="index.html#emi" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 8. File Size Converter -->
+            <div class="tool-card">
+                <span class="tool-badge">MB/GB</span>
+                <div class="tool-icon">💾</div>
+                <h3>File Size Converter</h3>
+                <p>Convert between KB, MB, GB, TB</p>
+                <a href="index.html#filesize" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 9. Image Converter -->
+            <div class="tool-card">
+                <span class="tool-badge">png/jpg</span>
+                <div class="tool-icon">🖼️</div>
+                <h3>Image Converter</h3>
+                <p>Convert images between formats</p>
+                <a href="index.html#image" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 10. Note Text Saver -->
+            <div class="tool-card">
+                <span class="tool-badge">local</span>
+                <div class="tool-icon">📝</div>
+                <h3>Note Text Saver</h3>
+                <p>Save and load notes locally</p>
+                <a href="index.html#note" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 11. Password Generator -->
+            <div class="tool-card">
+                <span class="tool-badge">secure</span>
+                <div class="tool-icon">🔐</div>
+                <h3>Password Generator</h3>
+                <p>Generate strong secure passwords</p>
+                <a href="index.html#password" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 12. Percentage Calculator -->
+            <div class="tool-card">
+                <span class="tool-badge">%</span>
+                <div class="tool-icon">%</div>
+                <h3>Percentage Calculator</h3>
+                <p>Calculate percentages easily</p>
+                <a href="index.html#percentage" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 13. QR Generator -->
+            <div class="tool-card">
+                <span class="tool-badge">qr</span>
+                <div class="tool-icon">📱</div>
+                <h3>QR Generator</h3>
+                <p>Generate QR codes for text/URLs</p>
+                <a href="index.html#qr" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 14. SIP Calculator -->
+            <div class="tool-card">
+                <span class="tool-badge">mutual fund</span>
+                <div class="tool-icon">📈</div>
+                <h3>SIP Calculator</h3>
+                <p>Calculate SIP returns and future value</p>
+                <a href="index.html#sip" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 15. Speech to Text -->
+            <div class="tool-card">
+                <span class="tool-badge">voice</span>
+                <div class="tool-icon">🎤</div>
+                <h3>Speech to Text</h3>
+                <p>Convert speech to text in real-time</p>
+                <a href="index.html#speech" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 16. Text to Speech -->
+            <div class="tool-card">
+                <span class="tool-badge">listen</span>
+                <div class="tool-icon">🔊</div>
+                <h3>Text to Speech</h3>
+                <p>Convert text to natural speech</p>
+                <a href="index.html#tts" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 17. Timer/Stopwatch -->
+            <div class="tool-card">
+                <span class="tool-badge">stopwatch</span>
+                <div class="tool-icon">⏱️</div>
+                <h3>Timer</h3>
+                <p>Simple timer and stopwatch</p>
+                <a href="index.html#timer" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 18. Unit Converter -->
+            <div class="tool-card">
+                <span class="tool-badge">metric</span>
+                <div class="tool-icon">📐</div>
+                <h3>Unit Converter</h3>
+                <p>Convert length, weight, temperature</p>
+                <a href="index.html#unit" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 19. URL Encoder/Decoder -->
+            <div class="tool-card">
+                <span class="tool-badge">encode</span>
+                <div class="tool-icon">🔗</div>
+                <h3>URL Encoder/Decoder</h3>
+                <p>Encode and decode URLs safely</p>
+                <a href="index.html#url" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 20. Word Counter -->
+            <div class="tool-card">
+                <span class="tool-badge">count</span>
+                <div class="tool-icon">🔢</div>
+                <h3>Word Counter</h3>
+                <p>Count words and characters</p>
+                <a href="index.html#word" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="tools.html">Tools</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+
+        <div class="footer-email">
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
-
-    <!-- Hero Section with corrected title and description -->
-    <div class="hero">
-        <h1>SG Multi Tools <span>For Daily Use</span></h1>
-        <div class="hero-description">🔧 Reliable free online smart tools, no installation, no sign-ups</div>
-    </div>
-
-    <!-- Tools Grid -->
-    <div class="tools-grid" id="toolsGrid"></div>
-
-    <!-- Footer with all tabs linked to HTML files -->
-    <footer class="footer">
-        <div class="footer-content">
-            <ul class="footer-links">
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
-            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
-        </div>
-    </footer>
-
-    <script>
-        // ========== TOOL DEFINITIONS - ALL 20 TOOLS WITH UNIFORM SIZE ==========
-        const tools = [
-            {   // 1. Advanced Calculator (COMPACT with AFFILIATE LINKS)
-                icon: '🧮', 
-                title: 'Advanced Calculator', 
-                badge: 'sci',
-                html: (id) => `
-                    <div class="display-field text-right" id="calc-display-${id}" style="font-size:1.2rem; padding:8px;">0</div>
-                    
-                    <!-- Scientific Functions -->
-                    <div class="button-row" style="gap: 4px; margin: 4px 0;">
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="sin">sin</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="cos">cos</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="tan">tan</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="log">log</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="π">π</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="e">e</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="x²">x²</button>
-                        <button class="btn" style="padding:6px 4px;" data-calc="${id}" data-fn="√">√</button>
-                    </div>
-                    
-                    <!-- Number Pad -->
-                    <div class="button-grid" style="grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 4px 0;">
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="7">7</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="8">8</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="9">9</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="÷">÷</button>
-                        
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="4">4</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="5">5</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="6">6</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="×">×</button>
-                        
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="1">1</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="2">2</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="3">3</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="-">−</button>
-                        
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num="0">0</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-num=".">.</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-clear="C">C</button>
-                        <button class="btn" style="padding:8px 4px;" data-calc="${id}" data-op="+">+</button>
-                    </div>
-                    
-                    <!-- Memory + Backspace + Calculate -->
-                    <div class="button-row" style="gap: 4px; margin: 4px 0;">
-                        <span class="memory-bar" style="display:flex; gap:4px; flex:2;">
-                            <span id="memory-clear-${id}" style="padding:4px 6px;">MC</span>
-                            <span id="memory-recall-${id}" style="padding:4px 6px;">MR</span>
-                            <span id="memory-add-${id}" style="padding:4px 6px;">M+</span>
-                            <span id="memory-subtract-${id}" style="padding:4px 6px;">M-</span>
-                        </span>
-                        <button class="btn" style="padding:6px 8px; flex:1;" data-calc="${id}" data-back="⌫">⌫</button>
-                        <button class="btn-action" style="padding:6px 8px; flex:2;" data-calc="${id}" data-calculate="=">=</button>
-                    </div>
-                    
-                    <!-- AFFILIATE LINKS -->
-                    <div class="affiliate-section" style="margin-top: 6px; padding-top: 6px; border-top: 1px solid #2a4055;">
-                        <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" class="affiliate-link primary" style="padding:6px; font-size:0.7rem;">⭐ PRIMARY</a>
-                        <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" class="affiliate-link secondary" style="padding:6px; font-size:0.7rem;">⚡ SECONDARY</a>
-                    </div>
-                `
-            },
-            
-            {   // 2. Age Calculator
-                icon: '📅', 
-                title: 'Age Calculator', 
-                badge: 'age',
-                html: (id) => `
-                    <input class="input-field" id="age-input-${id}" type="text" value="01-01-1990" placeholder="DD-MM-YYYY">
-                    <div class="display-field" id="age-result-${id}">Not calculated</div>
-                    <button class="btn-action" id="calc-age-${id}">🎂 CALCULATE AGE</button>
-                `
-            },
-            
-            {   // 3. Case Changer
-                icon: '🔤', 
-                title: 'Case Changer', 
-                badge: 'text',
-                html: (id) => `
-                    <textarea class="textarea-field" id="case-input-${id}" placeholder="Enter text..." rows="2">The quick brown fox</textarea>
-                    <select class="select-field" id="case-type-${id}">
-                        <option value="upper">UPPER CASE</option>
-                        <option value="lower">lower case</option>
-                        <option value="title">Title Case</option>
-                    </select>
-                    <textarea class="textarea-field" id="case-output-${id}" placeholder="Result" rows="2" readonly></textarea>
-                    <button class="btn-action" id="apply-case-${id}">🔤 APPLY CASE</button>
-                `
-            },
-            
-            {   // 4. Color Picker
-                icon: '🎨', 
-                title: 'Color Picker', 
-                badge: 'hex',
-                html: (id) => `
-                    <input class="input-field" type="color" id="color-${id}" value="#42f8f5" style="height: 50px;">
-                    <div class="display-field" id="color-hex-${id}">#42f8f5</div>
-                    <button class="btn-action" id="copy-color-${id}">🎨 COPY COLOR</button>
-                `
-            },
-            
-            {   // 5. Currency Converter
-                icon: '💰', 
-                title: 'Currency Converter', 
-                badge: 'USD/EUR',
-                html: (id) => `
-                    <input class="input-field" id="currency-amount-${id}" type="number" value="100" placeholder="Amount">
-                    <select class="select-field" id="currency-from-${id}">
-                        <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option>
-                    </select>
-                    <select class="select-field" id="currency-to-${id}">
-                        <option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option>
-                    </select>
-                    <div class="display-field" id="currency-result-${id}">Enter amount</div>
-                    <button class="btn-action" id="convert-currency-${id}">💰 CONVERT</button>
-                `
-            },
-            
-            {   // 6. Date Difference
-                icon: '📆', 
-                title: 'Date Difference', 
-                badge: 'days',
-                html: (id) => `
-                    <input class="input-field" id="date1-${id}" type="text" value="15-03-2023" placeholder="Start date (DD-MM-YYYY)">
-                    <input class="input-field" id="date2-${id}" type="text" value="16-02-2026" placeholder="End date (DD-MM-YYYY)">
-                    <div class="display-field" id="datediff-result-${id}">Enter dates</div>
-                    <button class="btn-action" id="calc-datediff-${id}">📆 CALCULATE</button>
-                `
-            },
-            
-            {   // 7. EMI Calculator
-                icon: '🏦', 
-                title: 'EMI Calculator', 
-                badge: 'loan',
-                html: (id) => `
-                    <input class="input-field" id="emi-amount-${id}" type="number" value="100000" placeholder="Loan amount">
-                    <input class="input-field" id="emi-rate-${id}" type="number" value="9" placeholder="Rate %">
-                    <input class="input-field" id="emi-years-${id}" type="number" value="5" placeholder="Years">
-                    <div class="display-field" id="emi-result-${id}">Enter values</div>
-                    <button class="btn-action" id="calc-emi-${id}">🏦 CALCULATE EMI</button>
-                `
-            },
-            
-            {   // 8. File Size Converter
-                icon: '💾', 
-                title: 'File Size Converter', 
-                badge: 'MB/GB',
-                html: (id) => `
-                    <input class="input-field" id="filesize-input-${id}" type="number" value="1024" placeholder="Size">
-                    <select class="select-field" id="filesize-from-${id}">
-                        <option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option>
-                    </select>
-                    <select class="select-field" id="filesize-to-${id}">
-                        <option value="MB">MB</option><option value="GB">GB</option><option value="KB">KB</option>
-                    </select>
-                    <div class="display-field" id="filesize-result-${id}">Enter size</div>
-                    <button class="btn-action" id="convert-filesize-${id}">💾 CONVERT</button>
-                `
-            },
-            
-            {   // 9. Image Converter
-                icon: '🖼️', 
-                title: 'Image Converter', 
-                badge: 'png/jpg',
-                html: (id) => `
-                    <input class="input-field" type="file" accept="image/*" id="image-input-${id}">
-                    <div class="display-field" id="image-info-${id}">No file selected</div>
-                    <select class="select-field" id="image-format-${id}">
-                        <option value="png">PNG</option>
-                        <option value="jpg">JPG</option>
-                    </select>
-                    <button class="btn-action" id="convert-image-${id}">🖼️ CONVERT</button>
-                `
-            },
-            
-            {   // 10. Note Text Saver
-                icon: '📝', 
-                title: 'Note Text Saver', 
-                badge: 'local',
-                html: (id) => `
-                    <textarea class="textarea-field" id="note-${id}" placeholder="Write note..." rows="2"></textarea>
-                    <div class="button-row">
-                        <button class="btn btn-primary" id="save-note-${id}">SAVE</button>
-                        <button class="btn" id="load-note-${id}">LOAD</button>
-                        <button class="btn" id="clear-note-${id}">CLEAR</button>
-                    </div>
-                `
-            },
-            
-            {   // 11. Password Generator
-                icon: '🔐', 
-                title: 'Password Generator', 
-                badge: 'secure',
-                html: (id) => `
-                    <div class="display-field" id="password-${id}">Click Generate</div>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" id="uppercase-${id}" checked> A-Z</label>
-                        <label><input type="checkbox" id="numbers-${id}" checked> 0-9</label>
-                        <label><input type="checkbox" id="symbols-${id}"> !@#</label>
-                    </div>
-                    <button class="btn-action" id="generate-pw-${id}">🔐 GENERATE</button>
-                `
-            },
-            
-            {   // 12. Percentage Calculator
-                icon: '%', 
-                title: 'Percentage Calculator', 
-                badge: '%',
-                html: (id) => `
-                    <div class="button-row">
-                        <input class="input-field" id="perc-value-${id}" type="number" value="20" placeholder="%">
-                        <input class="input-field" id="perc-of-${id}" type="number" value="250" placeholder="of">
-                    </div>
-                    <div class="display-field" id="perc-result-${id}">Enter values</div>
-                    <button class="btn-action" id="calc-perc-${id}">% CALCULATE</button>
-                `
-            },
-            
-            {   // 13. QR Generator
-                icon: '📱', 
-                title: 'QR Generator', 
-                badge: 'qr',
-                html: (id) => `
-                    <input class="input-field" id="qr-text-${id}" type="text" value="Hello World">
-                    <div class="display-field" id="qr-result-${id}">Click Generate</div>
-                    <button class="btn-action" id="generate-qr-${id}">📱 GENERATE QR</button>
-                `
-            },
-            
-            {   // 14. SIP Calculator
-                icon: '📈', 
-                title: 'SIP Calculator', 
-                badge: 'mutual fund',
-                html: (id) => `
-                    <input class="input-field" id="sip-amount-${id}" type="number" value="5000" placeholder="Monthly SIP">
-                    <input class="input-field" id="sip-years-${id}" type="number" value="10" placeholder="Years">
-                    <input class="input-field" id="sip-return-${id}" type="number" value="12" placeholder="Return %">
-                    <div class="display-field" id="sip-result-${id}">Enter values</div>
-                    <button class="btn-action" id="calc-sip-${id}">📈 CALCULATE</button>
-                `
-            },
-            
-            {   // 15. Speech to Text
-                icon: '🎤', 
-                title: 'Speech to Text', 
-                badge: 'voice',
-                html: (id) => `
-                    <div class="display-field" id="speech-result-${id}">Click Start</div>
-                    <div class="button-row">
-                        <button class="btn btn-primary" id="start-speech-${id}">START</button>
-                        <button class="btn" id="stop-speech-${id}">STOP</button>
-                        <button class="btn" id="copy-speech-${id}">COPY</button>
-                    </div>
-                `
-            },
-            
-            {   // 16. Text to Speech
-                icon: '🔊', 
-                title: 'Text to Speech', 
-                badge: 'listen',
-                html: (id) => `
-                    <textarea class="textarea-field" id="tts-text-${id}" placeholder="Text to speak" rows="2">Hello, this is a test.</textarea>
-                    <button class="btn-action" id="speak-${id}">🔊 SPEAK</button>
-                `
-            },
-            
-            {   // 17. Timer/Stopwatch
-                icon: '⏱️', 
-                title: 'Timer', 
-                badge: 'stopwatch',
-                html: (id) => `
-                    <div class="display-field" style="font-size:1.5rem;" id="timer-display-${id}">00:00:00</div>
-                    <div class="button-row">
-                        <button class="btn btn-primary" id="timer-start-${id}">START</button>
-                        <button class="btn" id="timer-pause-${id}">PAUSE</button>
-                        <button class="btn" id="timer-reset-${id}">RESET</button>
-                    </div>
-                `
-            },
-            
-            {   // 18. Unit Converter
-                icon: '📐', 
-                title: 'Unit Converter', 
-                badge: 'metric',
-                html: (id) => `
-                    <input class="input-field" id="unit-value-${id}" type="number" value="1">
-                    <select class="select-field" id="unit-category-${id}">
-                        <option value="length">Length</option>
-                        <option value="weight">Weight</option>
-                        <option value="temperature">Temperature</option>
-                    </select>
-                    <div class="display-field" id="unit-result-${id}">Enter value</div>
-                    <button class="btn-action" id="convert-unit-${id}">📐 CONVERT</button>
-                `
-            },
-            
-            {   // 19. URL Encoder/Decoder
-                icon: '🔗', 
-                title: 'URL Encoder/Decoder', 
-                badge: 'encode',
-                html: (id) => `
-                    <textarea class="textarea-field" id="url-input-${id}" placeholder="URL" rows="2">hello world</textarea>
-                    <select class="select-field" id="url-action-${id}">
-                        <option value="encode">ENCODE</option>
-                        <option value="decode">DECODE</option>
-                    </select>
-                    <textarea class="textarea-field" id="url-output-${id}" placeholder="Result" rows="2" readonly></textarea>
-                    <button class="btn-action" id="process-url-${id}">🔗 PROCESS</button>
-                `
-            },
-            
-            {   // 20. Word Counter
-                icon: '🔢', 
-                title: 'Word Counter', 
-                badge: 'count',
-                html: (id) => `
-                    <textarea class="textarea-field" id="wordcount-input-${id}" placeholder="Type text..." rows="2">The quick brown fox jumps over the lazy dog.</textarea>
-                    <div class="display-field" id="wordcount-result-${id}">Click Count</div>
-                    <button class="btn-action" id="count-words-${id}">🔢 COUNT</button>
-                `
-            }
-        ];
-
-        // ========== GENERATE ALL 20 CARDS ==========
-        const grid = document.getElementById('toolsGrid');
-        
-        tools.forEach((tool, index) => {
-            const cardId = `tool-${index}`;
-            const card = document.createElement('div');
-            card.className = 'tool-card';
-            card.innerHTML = `
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon">${tool.icon}</span> ${tool.title}
-                    </div>
-                    <div class="card-badge">${tool.badge}</div>
-                </div>
-                <div class="card-content" id="${cardId}">
-                    ${tool.html(cardId)}
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-
-        // ========== TOOL FUNCTIONALITY ==========
-        
-        // Helper function for date parsing
-        function parseDMY(dateStr) {
-            const parts = dateStr.split('-');
-            return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
-        }
-
-        // 1. Advanced Calculator Functionality
-        document.querySelectorAll('[data-calc]').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const cardId = this.dataset.calc;
-                const display = document.getElementById(`calc-display-${cardId}`);
-                if (!display) return;
-                
-                if (this.dataset.num) {
-                    display.innerText = display.innerText === '0' ? this.dataset.num : display.innerText + this.dataset.num;
-                } else if (this.dataset.op) {
-                    display.innerText += this.dataset.op;
-                } else if (this.dataset.clear) {
-                    display.innerText = '0';
-                } else if (this.dataset.back) {
-                    display.innerText = display.innerText.length > 1 ? display.innerText.slice(0, -1) : '0';
-                } else if (this.dataset.fn) {
-                    const fn = this.dataset.fn;
-                    if (fn === 'π') display.innerText += Math.PI.toFixed(6);
-                    else if (fn === 'e') display.innerText += Math.E.toFixed(6);
-                    else if (fn === 'x²') {
-                        try {
-                            let val = eval(display.innerText) || 0;
-                            display.innerText = (val * val).toString();
-                        } catch { display.innerText = 'Error'; }
-                    } else if (fn === '√') {
-                        display.innerText += '√(';
-                    } else {
-                        display.innerText += fn + '(';
-                    }
-                } else if (this.dataset.calculate) {
-                    try {
-                        let expr = display.innerText
-                            .replace(/×/g, '*')
-                            .replace(/÷/g, '/')
-                            .replace(/π/g, Math.PI.toString())
-                            .replace(/e/g, Math.E.toString())
-                            .replace(/√\(/g, 'Math.sqrt(')
-                            .replace(/sin\(/g, 'Math.sin(')
-                            .replace(/cos\(/g, 'Math.cos(')
-                            .replace(/tan\(/g, 'Math.tan(')
-                            .replace(/log\(/g, 'Math.log10(');
-                        
-                        const result = new Function('return ' + expr)();
-                        display.innerText = (isNaN(result) || !isFinite(result)) ? 'Error' : result.toString();
-                    } catch {
-                        display.innerText = 'Error';
-                    }
-                }
-            });
-        });
-
-        // Memory functions for calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            let memory = 0;
-            
-            const mc = document.getElementById(`memory-clear-${id}`);
-            const mr = document.getElementById(`memory-recall-${id}`);
-            const mplus = document.getElementById(`memory-add-${id}`);
-            const mminus = document.getElementById(`memory-subtract-${id}`);
-            
-            if (mc) {
-                mc.addEventListener('click', () => { memory = 0; });
-                mr.addEventListener('click', () => {
-                    const display = document.getElementById(`calc-display-${id}`);
-                    if (display) display.innerText = memory.toString();
-                });
-                mplus.addEventListener('click', () => {
-                    const display = document.getElementById(`calc-display-${id}`);
-                    try { memory += parseFloat(eval(display.innerText) || 0); } catch {}
-                });
-                mminus.addEventListener('click', () => {
-                    const display = document.getElementById(`calc-display-${id}`);
-                    try { memory -= parseFloat(eval(display.innerText) || 0); } catch {}
-                });
-            }
-        }
-
-        // 2. Age Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const calcBtn = document.getElementById(`calc-age-${id}`);
-            if (calcBtn) {
-                calcBtn.addEventListener('click', function() {
-                    const input = document.getElementById(`age-input-${id}`).value;
-                    const birthDate = parseDMY(input);
-                    const today = new Date();
-                    
-                    let years = today.getFullYear() - birthDate.getFullYear();
-                    let months = today.getMonth() - birthDate.getMonth();
-                    let days = today.getDate() - birthDate.getDate();
-                    
-                    if (days < 0) { 
-                        months--; 
-                        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-                    }
-                    if (months < 0) { 
-                        years--; 
-                        months += 12; 
-                    }
-                    
-                    document.getElementById(`age-result-${id}`).innerText = 
-                        `${years} years ${months} months ${days} days`;
-                });
-            }
-        }
-
-        // 3. Case Changer
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const applyBtn = document.getElementById(`apply-case-${id}`);
-            if (applyBtn) {
-                applyBtn.addEventListener('click', function() {
-                    const input = document.getElementById(`case-input-${id}`).value;
-                    const type = document.getElementById(`case-type-${id}`).value;
-                    let output = input;
-                    
-                    if (type === 'upper') output = input.toUpperCase();
-                    else if (type === 'lower') output = input.toLowerCase();
-                    else if (type === 'title') {
-                        output = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
-                    }
-                    
-                    document.getElementById(`case-output-${id}`).value = output;
-                });
-            }
-        }
-
-        // 4. Color Picker
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const picker = document.getElementById(`color-${id}`);
-            const hex = document.getElementById(`color-hex-${id}`);
-            const copy = document.getElementById(`copy-color-${id}`);
-            
-            if (picker && hex) {
-                picker.addEventListener('input', () => hex.innerText = picker.value);
-                copy.addEventListener('click', () => {
-                    navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
-                });
-            }
-        }
-
-        // 5. Currency Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`convert-currency-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
-                    const from = document.getElementById(`currency-from-${id}`).value;
-                    const to = document.getElementById(`currency-to-${id}`).value;
-                    const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
-                    const result = amount * rates[to] / rates[from];
-                    document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                });
-            }
-        }
-
-        // 6. Date Difference
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-datediff-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
-                    const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
-                    const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
-                    document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
-                });
-            }
-        }
-
-        // 7. EMI Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-emi-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
-                    const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
-                    const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
-                    const months = years * 12;
-                    const monthlyRate = rate / 12 / 100;
-                    const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-                    document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
-                });
-            }
-        }
-
-        // 8. File Size Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`convert-filesize-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
-                    const from = document.getElementById(`filesize-from-${id}`).value;
-                    const to = document.getElementById(`filesize-to-${id}`).value;
-                    const units = { KB: 1, MB: 1024, GB: 1048576 };
-                    const result = size * units[from] / units[to];
-                    document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                });
-            }
-        }
-
-        // 9. Image Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const input = document.getElementById(`image-input-${id}`);
-            const info = document.getElementById(`image-info-${id}`);
-            const convertBtn = document.getElementById(`convert-image-${id}`);
-            
-            if (input) {
-                input.addEventListener('change', function() {
-                    if (this.files?.[0]) info.innerText = this.files[0].name;
-                });
-                
-                convertBtn.addEventListener('click', function() {
-                    const format = document.getElementById(`image-format-${id}`).value;
-                    alert(`Demo: Converting to ${format.toUpperCase()}`);
-                });
-            }
-        }
-
-        // 10. Note Text Saver
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const note = document.getElementById(`note-${id}`);
-            if (note) {
-                document.getElementById(`save-note-${id}`).addEventListener('click', () => {
-                    localStorage.setItem(`note-${id}`, note.value);
-                    alert('Note saved!');
-                });
-                document.getElementById(`load-note-${id}`).addEventListener('click', () => {
-                    const saved = localStorage.getItem(`note-${id}`);
-                    if (saved) note.value = saved;
-                });
-                document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
-            }
-        }
-
-        // 11. Password Generator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`generate-pw-${id}`);
-            const display = document.getElementById(`password-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const upper = document.getElementById(`uppercase-${id}`)?.checked;
-                    const nums = document.getElementById(`numbers-${id}`)?.checked;
-                    const symbols = document.getElementById(`symbols-${id}`)?.checked;
-                    
-                    let chars = 'abcdefghijklmnopqrstuvwxyz';
-                    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    if (nums) chars += '0123456789';
-                    if (symbols) chars += '!@#$%^&*';
-                    
-                    let pw = '';
-                    for (let i = 0; i < 12; i++) pw += chars[Math.floor(Math.random() * chars.length)];
-                    display.innerText = pw;
-                });
-            }
-        }
-
-        // 12. Percentage Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-perc-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
-                    const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
-                    document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
-                });
-            }
-        }
-
-        // 13. QR Generator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`generate-qr-${id}`);
-            const display = document.getElementById(`qr-result-${id}`);
-            const input = document.getElementById(`qr-text-${id}`);
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    display.innerText = 'QR: ' + (input.value || 'Hello World');
-                });
-            }
-        }
-
-        // 14. SIP Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-sip-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
-                    const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
-                    const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
-                    const months = years * 12;
-                    const monthlyRate = rate / 12 / 100;
-                    const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-                    document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString('en-IN');
-                });
-            }
-        }
-
-        // 15. Speech to Text
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const start = document.getElementById(`start-speech-${id}`);
-            const stop = document.getElementById(`stop-speech-${id}`);
-            const copy = document.getElementById(`copy-speech-${id}`);
-            const display = document.getElementById(`speech-result-${id}`);
-            
-            if (start && 'webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                recognition.continuous = true;
-                recognition.interimResults = true;
-                recognition.onresult = (e) => {
-                    display.innerText = e.results[e.results.length-1][0].transcript;
-                };
-                start.addEventListener('click', () => recognition.start());
-                stop.addEventListener('click', () => recognition.stop());
-                copy.addEventListener('click', () => {
-                    navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
-                });
-            } else if (start) {
-                start.addEventListener('click', () => display.innerText = 'Not supported');
-            }
-        }
-
-        // 16. Text to Speech
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const speak = document.getElementById(`speak-${id}`);
-            const textarea = document.getElementById(`tts-text-${id}`);
-            if (speak) {
-                speak.addEventListener('click', () => {
-                    if ('speechSynthesis' in window) {
-                        window.speechSynthesis.cancel();
-                        const utterance = new SpeechSynthesisUtterance(textarea.value);
-                        window.speechSynthesis.speak(utterance);
-                    }
-                });
-            }
-        }
-
-        // 17. Timer
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const display = document.getElementById(`timer-display-${id}`);
-            const start = document.getElementById(`timer-start-${id}`);
-            const pause = document.getElementById(`timer-pause-${id}`);
-            const reset = document.getElementById(`timer-reset-${id}`);
-            
-            if (display) {
-                let seconds = 0;
-                let interval = null;
-                
-                function updateDisplay() {
-                    const h = Math.floor(seconds / 3600);
-                    const m = Math.floor((seconds % 3600) / 60);
-                    const s = seconds % 60;
-                    display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                }
-                
-                start.addEventListener('click', () => {
-                    if (interval) clearInterval(interval);
-                    interval = setInterval(() => { seconds++; updateDisplay(); }, 1000);
-                });
-                
-                pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
-                reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; updateDisplay(); });
-            }
-        }
-
-        // 18. Unit Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`convert-unit-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
-                    const cat = document.getElementById(`unit-category-${id}`).value;
-                    let result = '';
-                    
-                    if (cat === 'length') {
-                        result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
-                    } else if (cat === 'weight') {
-                        result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
-                    } else if (cat === 'temperature') {
-                        result = val + ' °C = ' + (val * 9/5 + 32).toFixed(1) + ' °F';
-                    }
-                    
-                    document.getElementById(`unit-result-${id}`).innerText = result;
-                });
-            }
-        }
-
-        // 19. URL Encoder/Decoder
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`process-url-${id}`);
-            const input = document.getElementById(`url-input-${id}`);
-            const output = document.getElementById(`url-output-${id}`);
-            const action = document.getElementById(`url-action-${id}`);
-            
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    if (action.value === 'encode') {
-                        output.value = encodeURIComponent(input.value);
-                    } else {
-                        try {
-                            output.value = decodeURIComponent(input.value);
-                        } catch {
-                            output.value = 'Invalid encoding';
-                        }
-                    }
-                });
-            }
-        }
-
-        // 20. Word Counter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`count-words-${id}`);
-            const input = document.getElementById(`wordcount-input-${id}`);
-            const display = document.getElementById(`wordcount-result-${id}`);
-            
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    const text = input.value || '';
-                    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-                    const chars = text.length;
-                    display.innerText = `Words: ${words}, Characters: ${chars}`;
-                });
-            }
-        }
-
-        // Keyboard support for calculator
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            
-            const key = e.key;
-            const activeCalc = document.querySelector('[data-calc]');
-            if (!activeCalc) return;
-            
-            const cardId = activeCalc.dataset.calc;
-            const display = document.getElementById(`calc-display-${cardId}`);
-            if (!display) return;
-            
-            if (key >= '0' && key <= '9') {
-                document.querySelector(`[data-calc="${cardId}"][data-num="${key}"]`)?.click();
-            } else if (key === '.') {
-                document.querySelector(`[data-calc="${cardId}"][data-num="."]`)?.click();
-            } else if (key === '+') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="+"]`)?.click();
-            } else if (key === '-') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="-"]`)?.click();
-            } else if (key === '*') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="×"]`)?.click();
-            } else if (key === '/') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="÷"]`)?.click();
-            } else if (key === 'Enter' || key === '=') {
-                e.preventDefault();
-                document.querySelector(`[data-calc="${cardId}"][data-calculate="="]`)?.click();
-            } else if (key === 'Escape') {
-                document.querySelector(`[data-calc="${cardId}"][data-clear="C"]`)?.click();
-            } else if (key === 'Backspace') {
-                document.querySelector(`[data-calc="${cardId}"][data-back="⌫"]`)?.click();
-            }
-        });
-    </script>
 </body>
 </html>
