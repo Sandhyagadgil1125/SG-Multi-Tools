@@ -125,13 +125,17 @@
             text-align: center;
             margin-top: auto;
             cursor: pointer;
+            border: none;
+            background: #42f8f5;
+            color: #1c222d;
         }
 
         .open-tool-btn:hover {
-            background: #42f8f5;
-            color: #1c222d;
+            background: transparent;
+            color: #42f8f5;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            border: 2px solid #42f8f5;
         }
 
         .open-tool-btn i {
@@ -174,6 +178,33 @@
         .footer-email a:hover {
             text-decoration: underline;
         }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #42f8f5;
+            color: #1c222d;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 2px solid #42f8f5;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-to-top:hover {
+            background: transparent;
+            color: #42f8f5;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
+        }
         
         /* Responsive */
         @media (max-width: 1000px) {
@@ -196,6 +227,14 @@
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -205,7 +244,7 @@
         <h1>All Tools</h1>
         <div class="subtitle">Click any tool button below to open</div>
 
-        <!-- Tools Grid - 20 tools with Open buttons -->
+        <!-- Tools Grid - 20 tools with Open buttons that go to homepage -->
         <div class="tools-grid">
             <!-- 1. Advanced Calculator -->
             <div class="tool-card">
@@ -213,7 +252,7 @@
                 <div class="tool-icon">🧮</div>
                 <h3>Advanced Calculator</h3>
                 <p>Scientific & basic calculations with memory functions</p>
-                <a href="index.html#advanced-calc" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 2. Age Calculator -->
@@ -222,7 +261,7 @@
                 <div class="tool-icon">📅</div>
                 <h3>Age Calculator</h3>
                 <p>Exact age in years, months, days from your birth date</p>
-                <a href="index.html#age-calc" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 3. Case Changer -->
@@ -231,7 +270,7 @@
                 <div class="tool-icon">🔤</div>
                 <h3>Case Changer</h3>
                 <p>Convert text to uppercase, lowercase, title case</p>
-                <a href="index.html#case-changer" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 4. Color Picker -->
@@ -240,7 +279,7 @@
                 <div class="tool-icon">🎨</div>
                 <h3>Color Picker</h3>
                 <p>Pick colors and copy HEX, RGB values</p>
-                <a href="index.html#color-picker" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 5. Currency Converter -->
@@ -249,7 +288,7 @@
                 <div class="tool-icon">💰</div>
                 <h3>Currency Converter</h3>
                 <p>Convert between USD, EUR, GBP and more</p>
-                <a href="index.html#currency" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 6. Date Difference -->
@@ -258,7 +297,7 @@
                 <div class="tool-icon">📆</div>
                 <h3>Date Difference</h3>
                 <p>Calculate days between two dates</p>
-                <a href="index.html#date-diff" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 7. EMI Calculator -->
@@ -267,7 +306,7 @@
                 <div class="tool-icon">🏦</div>
                 <h3>EMI Calculator</h3>
                 <p>Calculate loan EMIs with interest rate</p>
-                <a href="index.html#emi" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 8. File Size Converter -->
@@ -276,7 +315,7 @@
                 <div class="tool-icon">💾</div>
                 <h3>File Size Converter</h3>
                 <p>Convert between KB, MB, GB, TB</p>
-                <a href="index.html#filesize" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 9. Image Converter -->
@@ -285,7 +324,7 @@
                 <div class="tool-icon">🖼️</div>
                 <h3>Image Converter</h3>
                 <p>Convert images between formats</p>
-                <a href="index.html#image" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 10. Note Text Saver -->
@@ -294,7 +333,7 @@
                 <div class="tool-icon">📝</div>
                 <h3>Note Text Saver</h3>
                 <p>Save and load notes locally</p>
-                <a href="index.html#note" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 11. Password Generator -->
@@ -303,7 +342,7 @@
                 <div class="tool-icon">🔐</div>
                 <h3>Password Generator</h3>
                 <p>Generate strong secure passwords</p>
-                <a href="index.html#password" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 12. Percentage Calculator -->
@@ -312,7 +351,7 @@
                 <div class="tool-icon">%</div>
                 <h3>Percentage Calculator</h3>
                 <p>Calculate percentages easily</p>
-                <a href="index.html#percentage" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 13. QR Generator -->
@@ -321,7 +360,7 @@
                 <div class="tool-icon">📱</div>
                 <h3>QR Generator</h3>
                 <p>Generate QR codes for text/URLs</p>
-                <a href="index.html#qr" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 14. SIP Calculator -->
@@ -330,7 +369,7 @@
                 <div class="tool-icon">📈</div>
                 <h3>SIP Calculator</h3>
                 <p>Calculate SIP returns and future value</p>
-                <a href="index.html#sip" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 15. Speech to Text -->
@@ -339,7 +378,7 @@
                 <div class="tool-icon">🎤</div>
                 <h3>Speech to Text</h3>
                 <p>Convert speech to text in real-time</p>
-                <a href="index.html#speech" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 16. Text to Speech -->
@@ -348,7 +387,7 @@
                 <div class="tool-icon">🔊</div>
                 <h3>Text to Speech</h3>
                 <p>Convert text to natural speech</p>
-                <a href="index.html#tts" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 17. Timer/Stopwatch -->
@@ -357,7 +396,7 @@
                 <div class="tool-icon">⏱️</div>
                 <h3>Timer</h3>
                 <p>Simple timer and stopwatch</p>
-                <a href="index.html#timer" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 18. Unit Converter -->
@@ -366,7 +405,7 @@
                 <div class="tool-icon">📐</div>
                 <h3>Unit Converter</h3>
                 <p>Convert length, weight, temperature</p>
-                <a href="index.html#unit" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 19. URL Encoder/Decoder -->
@@ -375,7 +414,7 @@
                 <div class="tool-icon">🔗</div>
                 <h3>URL Encoder/Decoder</h3>
                 <p>Encode and decode URLs safely</p>
-                <a href="index.html#url" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
 
             <!-- 20. Word Counter -->
@@ -384,19 +423,74 @@
                 <div class="tool-icon">🔢</div>
                 <h3>Word Counter</h3>
                 <p>Count words and characters</p>
-                <a href="index.html#word" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
+                <button class="open-tool-btn" onclick="goToHomepage()">Open Tool <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
         <div style="text-align: center;">
-            <a href="index.html" class="home-link">
+            <button class="home-link" onclick="goToHomepage()">
                 <i class="fas fa-home"></i> Back to Home
-            </a>
+            </button>
         </div>
 
         <div class="footer-email">
             📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" onclick="scrollToTop(); return false;">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Function to go to homepage with multiple fallback methods
+        function goToHomepage() {
+            // Try multiple methods to ensure navigation works
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                // Local development
+                window.location.href = 'index.html';
+            } else {
+                // Live server - try different paths
+                const paths = [
+                    'index.html',
+                    './index.html',
+                    '/index.html',
+                    window.location.origin + '/index.html'
+                ];
+                
+                // Try the first path
+                window.location.href = paths[0];
+            }
+        }
+
+        // Alternative method using a click handler on all open tool buttons
+        document.querySelectorAll('.open-tool-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'index.html';
+            });
+        });
+
+        // Smooth scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Back to top button handler
+        document.querySelector('.back-to-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Log for debugging
+        console.log('Tools page loaded. Current URL:', window.location.href);
+    </script>
 </body>
 </html>
