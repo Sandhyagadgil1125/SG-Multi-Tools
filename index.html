@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>SG Multi Tools - 20 Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -15,7 +15,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        <!-- Updated on Feb 17, 2026 -->
 
         body {
             background: #e8eef4;
@@ -129,7 +128,7 @@
             border: 1px solid #42f8f5;
         }
 
-        /* Tools Grid - 4 columns matching tools page */
+        /* Tools Grid */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -140,7 +139,7 @@
             padding: 0 20px;
         }
 
-        /* Tool Card - EXACTLY matching tools page professional style */
+        /* Tool Card */
         .tool-card {
             background: #1e2b37;
             border-radius: 16px;
@@ -151,7 +150,7 @@
             flex-direction: column;
             height: 100%;
             min-height: 260px;
-            position: relative;
+            cursor: pointer;
         }
 
         .tool-card:hover {
@@ -182,7 +181,6 @@
             border: 1px solid #42f8f5;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            align-self: flex-start;
         }
 
         .tool-card h3 {
@@ -200,7 +198,6 @@
             flex-grow: 1;
         }
 
-        /* Open Tool Button - matching tools page */
         .open-tool-btn {
             display: inline-block;
             background: transparent;
@@ -214,11 +211,11 @@
             transition: all 0.2s ease;
             text-align: center;
             margin-top: auto;
-            cursor: pointer;
             align-self: flex-start;
+            pointer-events: none;
         }
 
-        .open-tool-btn:hover {
+        .tool-card:hover .open-tool-btn {
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
@@ -321,33 +318,6 @@
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #42f8f5;
-            color: #1c222d;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border: 2px solid #42f8f5;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .back-to-top:hover {
-            background: transparent;
-            color: #42f8f5;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
-        }
     </style>
 </head>
 <body>
@@ -371,228 +341,8 @@
         <div class="hero-description">🔧 Reliable free online smart tools, no installation, no sign-ups</div>
     </div>
 
-    <!-- Tools Grid - 20 cards matching professional tools page style -->
-    <div class="tools-grid">
-        <!-- 1. Advanced Calculator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🧮</div>
-                <span class="tool-badge">SCI</span>
-            </div>
-            <h3>Advanced Calculator</h3>
-            <div class="tool-description">Scientific & basic calculations with memory functions</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 2. Age Calculator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">📅</div>
-                <span class="tool-badge">AGE</span>
-            </div>
-            <h3>Age Calculator</h3>
-            <div class="tool-description">Exact age in years, months, days from your birth date</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 3. Case Changer -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🔤</div>
-                <span class="tool-badge">TEXT</span>
-            </div>
-            <h3>Case Changer</h3>
-            <div class="tool-description">Convert text to uppercase, lowercase, title case</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 4. Color Picker -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🎨</div>
-                <span class="tool-badge">HEX</span>
-            </div>
-            <h3>Color Picker</h3>
-            <div class="tool-description">Pick colors and copy HEX, RGB values</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 5. Currency Converter -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">💰</div>
-                <span class="tool-badge">USD/EUR</span>
-            </div>
-            <h3>Currency Converter</h3>
-            <div class="tool-description">Convert between USD, EUR, GBP and more</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 6. Date Difference -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">📆</div>
-                <span class="tool-badge">DAYS</span>
-            </div>
-            <h3>Date Difference</h3>
-            <div class="tool-description">Calculate days between two dates</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 7. EMI Calculator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🏦</div>
-                <span class="tool-badge">LOAN</span>
-            </div>
-            <h3>EMI Calculator</h3>
-            <div class="tool-description">Calculate loan EMIs with interest rate</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 8. File Size Converter -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">💾</div>
-                <span class="tool-badge">MB/GB</span>
-            </div>
-            <h3>File Size Converter</h3>
-            <div class="tool-description">Convert between KB, MB, GB, TB</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 9. Image Converter -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🖼️</div>
-                <span class="tool-badge">PNG/JPG</span>
-            </div>
-            <h3>Image Converter</h3>
-            <div class="tool-description">Convert images between formats</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 10. Note Text Saver -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">📝</div>
-                <span class="tool-badge">LOCAL</span>
-            </div>
-            <h3>Note Text Saver</h3>
-            <div class="tool-description">Save and load notes locally</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 11. Password Generator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🔐</div>
-                <span class="tool-badge">SECURE</span>
-            </div>
-            <h3>Password Generator</h3>
-            <div class="tool-description">Generate strong secure passwords</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 12. Percentage Calculator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">%</div>
-                <span class="tool-badge">%</span>
-            </div>
-            <h3>Percentage Calculator</h3>
-            <div class="tool-description">Calculate percentages easily</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 13. QR Generator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">📱</div>
-                <span class="tool-badge">QR</span>
-            </div>
-            <h3>QR Generator</h3>
-            <div class="tool-description">Generate QR codes for text/URLs</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 14. SIP Calculator -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">📈</div>
-                <span class="tool-badge">MF</span>
-            </div>
-            <h3>SIP Calculator</h3>
-            <div class="tool-description">Calculate SIP returns and future value</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 15. Speech to Text -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🎤</div>
-                <span class="tool-badge">VOICE</span>
-            </div>
-            <h3>Speech to Text</h3>
-            <div class="tool-description">Convert speech to text in real-time</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 16. Text to Speech -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🔊</div>
-                <span class="tool-badge">LISTEN</span>
-            </div>
-            <h3>Text to Speech</h3>
-            <div class="tool-description">Convert text to natural speech</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 17. Timer/Stopwatch -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">⏱️</div>
-                <span class="tool-badge">TIMER</span>
-            </div>
-            <h3>Timer</h3>
-            <div class="tool-description">Simple timer and stopwatch</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 18. Unit Converter -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">📐</div>
-                <span class="tool-badge">METRIC</span>
-            </div>
-            <h3>Unit Converter</h3>
-            <div class="tool-description">Convert length, weight, temperature</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 19. URL Encoder/Decoder -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🔗</div>
-                <span class="tool-badge">ENCODE</span>
-            </div>
-            <h3>URL Encoder/Decoder</h3>
-            <div class="tool-description">Encode and decode URLs safely</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 20. Word Counter -->
-        <div class="tool-card">
-            <div class="card-header">
-                <div class="tool-icon">🔢</div>
-                <span class="tool-badge">COUNT</span>
-            </div>
-            <h3>Word Counter</h3>
-            <div class="tool-description">Count words and characters</div>
-            <a href="#" class="open-tool-btn" onclick="alert('Tool opened!')">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </div>
+    <!-- Tools Grid -->
+    <div class="tools-grid" id="toolsGrid"></div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -610,34 +360,562 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" onclick="scrollToTop(); return false;">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
     <script>
-        // Smooth scroll to top function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+        // ========== TOOL DEFINITIONS ==========
+        const tools = [
+            {   // 1. Advanced Calculator
+                icon: '🧮', title: 'Advanced Calculator', badge: 'SCI',
+                desc: 'Scientific & basic calculations with memory functions',
+                html: (id) => `
+                    <div class="display-field" id="calc-display-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:right;">0</div>
+                    <div class="button-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:5px;">
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '7'">7</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '8'">8</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '9'">9</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '+'">+</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '4'">4</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '5'">5</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '6'">6</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '-'">-</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '1'">1</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '2'">2</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '3'">3</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '*'">×</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText = '0'">C</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '0'">0</button>
+                        <button class="btn" onclick="event.stopPropagation(); document.getElementById('calc-display-${id}').innerText += '.'">.</button>
+                        <button class="btn" onclick="event.stopPropagation(); try { document.getElementById('calc-display-${id}').innerText = eval(document.getElementById('calc-display-${id}').innerText.replace(/×/g,'*')); } catch { document.getElementById('calc-display-${id}').innerText = 'Error'; }">=</button>
+                    </div>
+                `
+            },
+            {   // 2. Age Calculator
+                icon: '📅', title: 'Age Calculator', badge: 'AGE',
+                desc: 'Exact age in years, months, days from your birth date',
+                html: (id) => `
+                    <input class="tool-input" id="age-input-${id}" type="text" value="01-01-1990" placeholder="DD-MM-YYYY" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <div class="display-field" id="age-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter date</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); calculateAge('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Calculate Age</button>
+                `
+            },
+            {   // 3. Case Changer
+                icon: '🔤', title: 'Case Changer', badge: 'TEXT',
+                desc: 'Convert text to uppercase, lowercase, title case',
+                html: (id) => `
+                    <textarea class="tool-textarea" id="case-input-${id}" rows="2" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">The quick brown fox</textarea>
+                    <select class="tool-select" id="case-type-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="upper">UPPER CASE</option>
+                        <option value="lower">lower case</option>
+                        <option value="title">Title Case</option>
+                    </select>
+                    <textarea class="tool-textarea" id="case-output-${id}" rows="2" readonly style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#f5faff;"></textarea>
+                    <button class="btn-action" onclick="event.stopPropagation(); applyCase('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Apply Case</button>
+                `
+            },
+            {   // 4. Color Picker
+                icon: '🎨', title: 'Color Picker', badge: 'HEX',
+                desc: 'Pick colors and copy HEX, RGB values',
+                html: (id) => `
+                    <input class="tool-input" type="color" id="color-${id}" value="#42f8f5" style="width:100%; height:50px; margin-bottom:10px; border-radius:8px; border:2px solid #42f8f5;">
+                    <div class="display-field" id="color-hex-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">#42f8f5</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); copyColor('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Copy Color</button>
+                `
+            },
+            {   // 5. Currency Converter
+                icon: '💰', title: 'Currency Converter', badge: 'USD/EUR',
+                desc: 'Convert between USD, EUR, GBP and more',
+                html: (id) => `
+                    <input class="tool-input" id="currency-amount-${id}" type="number" value="100" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <select class="tool-select" id="currency-from-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option>
+                    </select>
+                    <select class="tool-select" id="currency-to-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option>
+                    </select>
+                    <div class="display-field" id="currency-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter amount</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); convertCurrency('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Convert</button>
+                `
+            },
+            {   // 6. Date Difference
+                icon: '📆', title: 'Date Difference', badge: 'DAYS',
+                desc: 'Calculate days between two dates',
+                html: (id) => `
+                    <input class="tool-input" id="date1-${id}" type="text" value="15-03-2023" placeholder="DD-MM-YYYY" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <input class="tool-input" id="date2-${id}" type="text" value="16-02-2026" placeholder="DD-MM-YYYY" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <div class="display-field" id="datediff-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter dates</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); calculateDateDiff('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Calculate</button>
+                `
+            },
+            {   // 7. EMI Calculator
+                icon: '🏦', title: 'EMI Calculator', badge: 'LOAN',
+                desc: 'Calculate loan EMIs with interest rate',
+                html: (id) => `
+                    <input class="tool-input" id="emi-amount-${id}" type="number" value="100000" placeholder="Loan amount" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <input class="tool-input" id="emi-rate-${id}" type="number" value="9" placeholder="Rate %" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <input class="tool-input" id="emi-years-${id}" type="number" value="5" placeholder="Years" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <div class="display-field" id="emi-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter values</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); calculateEMI('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Calculate EMI</button>
+                `
+            },
+            {   // 8. File Size Converter
+                icon: '💾', title: 'File Size Converter', badge: 'MB/GB',
+                desc: 'Convert between KB, MB, GB, TB',
+                html: (id) => `
+                    <input class="tool-input" id="filesize-input-${id}" type="number" value="1024" placeholder="Size" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <select class="tool-select" id="filesize-from-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option>
+                    </select>
+                    <select class="tool-select" id="filesize-to-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="MB">MB</option><option value="GB">GB</option><option value="KB">KB</option>
+                    </select>
+                    <div class="display-field" id="filesize-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter size</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); convertFileSize('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Convert</button>
+                `
+            },
+            {   // 9. Image Converter
+                icon: '🖼️', title: 'Image Converter', badge: 'PNG/JPG',
+                desc: 'Convert images between formats',
+                html: (id) => `
+                    <input class="tool-input" type="file" accept="image/*" id="image-input-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <div class="display-field" id="image-info-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">No file selected</div>
+                    <select class="tool-select" id="image-format-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="png">PNG</option>
+                        <option value="jpg">JPG</option>
+                    </select>
+                    <button class="btn-action" onclick="event.stopPropagation(); convertImage('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Convert</button>
+                `
+            },
+            {   // 10. Note Text Saver
+                icon: '📝', title: 'Note Text Saver', badge: 'LOCAL',
+                desc: 'Save and load notes locally',
+                html: (id) => `
+                    <textarea class="tool-textarea" id="note-${id}" placeholder="Write note..." rows="2" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;"></textarea>
+                    <div style="display:flex; gap:5px;">
+                        <button class="btn-action" onclick="event.stopPropagation(); saveNote('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Save</button>
+                        <button class="btn-action" onclick="event.stopPropagation(); loadNote('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Load</button>
+                        <button class="btn-action" onclick="event.stopPropagation(); clearNote('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Clear</button>
+                    </div>
+                `
+            },
+            {   // 11. Password Generator
+                icon: '🔐', title: 'Password Generator', badge: 'SECURE',
+                desc: 'Generate strong secure passwords',
+                html: (id) => `
+                    <div class="display-field" id="password-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Click Generate</div>
+                    <div style="display:flex; gap:10px; margin-bottom:10px; color:white;">
+                        <label><input type="checkbox" id="uppercase-${id}" checked> A-Z</label>
+                        <label><input type="checkbox" id="numbers-${id}" checked> 0-9</label>
+                        <label><input type="checkbox" id="symbols-${id}"> !@#</label>
+                    </div>
+                    <button class="btn-action" onclick="event.stopPropagation(); generatePassword('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Generate</button>
+                `
+            },
+            {   // 12. Percentage Calculator
+                icon: '%', title: 'Percentage Calculator', badge: '%',
+                desc: 'Calculate percentages easily',
+                html: (id) => `
+                    <div style="display:flex; gap:5px; margin-bottom:10px;">
+                        <input class="tool-input" id="perc-value-${id}" type="number" value="20" placeholder="%" style="flex:1; padding:8px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <input class="tool-input" id="perc-of-${id}" type="number" value="250" placeholder="of" style="flex:1; padding:8px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    </div>
+                    <div class="display-field" id="perc-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter values</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); calculatePercentage('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Calculate</button>
+                `
+            },
+            {   // 13. QR Generator
+                icon: '📱', title: 'QR Generator', badge: 'QR',
+                desc: 'Generate QR codes for text/URLs',
+                html: (id) => `
+                    <input class="tool-input" id="qr-text-${id}" type="text" value="Hello World" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <div class="display-field" id="qr-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Click Generate</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); generateQR('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Generate QR</button>
+                `
+            },
+            {   // 14. SIP Calculator
+                icon: '📈', title: 'SIP Calculator', badge: 'MF',
+                desc: 'Calculate SIP returns and future value',
+                html: (id) => `
+                    <input class="tool-input" id="sip-amount-${id}" type="number" value="5000" placeholder="Monthly SIP" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <input class="tool-input" id="sip-years-${id}" type="number" value="10" placeholder="Years" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <input class="tool-input" id="sip-return-${id}" type="number" value="12" placeholder="Return %" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <div class="display-field" id="sip-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter values</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); calculateSIP('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Calculate</button>
+                `
+            },
+            {   // 15. Speech to Text
+                icon: '🎤', title: 'Speech to Text', badge: 'VOICE',
+                desc: 'Convert speech to text in real-time',
+                html: (id) => `
+                    <div class="display-field" id="speech-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Click Start</div>
+                    <div style="display:flex; gap:5px;">
+                        <button class="btn-action" onclick="event.stopPropagation(); startSpeech('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Start</button>
+                        <button class="btn-action" onclick="event.stopPropagation(); stopSpeech('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Stop</button>
+                    </div>
+                `
+            },
+            {   // 16. Text to Speech
+                icon: '🔊', title: 'Text to Speech', badge: 'LISTEN',
+                desc: 'Convert text to natural speech',
+                html: (id) => `
+                    <textarea class="tool-textarea" id="tts-text-${id}" placeholder="Text to speak" rows="2" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">Hello, this is a test.</textarea>
+                    <button class="btn-action" onclick="event.stopPropagation(); speak('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Speak</button>
+                `
+            },
+            {   // 17. Timer/Stopwatch
+                icon: '⏱️', title: 'Timer', badge: 'TIMER',
+                desc: 'Simple timer and stopwatch',
+                html: (id) => `
+                    <div class="display-field" style="font-size:1.5rem; background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;" id="timer-display-${id}">00:00:00</div>
+                    <div style="display:flex; gap:5px;">
+                        <button class="btn-action" onclick="event.stopPropagation(); startTimer('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Start</button>
+                        <button class="btn-action" onclick="event.stopPropagation(); pauseTimer('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Pause</button>
+                        <button class="btn-action" onclick="event.stopPropagation(); resetTimer('${id}')" style="flex:1; padding:8px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Reset</button>
+                    </div>
+                `
+            },
+            {   // 18. Unit Converter
+                icon: '📐', title: 'Unit Converter', badge: 'METRIC',
+                desc: 'Convert length, weight, temperature',
+                html: (id) => `
+                    <input class="tool-input" id="unit-value-${id}" type="number" value="1" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                    <select class="tool-select" id="unit-category-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                    </select>
+                    <div class="display-field" id="unit-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Enter value</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); convertUnit('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Convert</button>
+                `
+            },
+            {   // 19. URL Encoder/Decoder
+                icon: '🔗', title: 'URL Encoder/Decoder', badge: 'ENCODE',
+                desc: 'Encode and decode URLs safely',
+                html: (id) => `
+                    <textarea class="tool-textarea" id="url-input-${id}" placeholder="URL" rows="2" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">hello world</textarea>
+                    <select class="tool-select" id="url-action-${id}" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">
+                        <option value="encode">ENCODE</option>
+                        <option value="decode">DECODE</option>
+                    </select>
+                    <textarea class="tool-textarea" id="url-output-${id}" placeholder="Result" rows="2" readonly style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#f5faff;"></textarea>
+                    <button class="btn-action" onclick="event.stopPropagation(); processURL('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Process</button>
+                `
+            },
+            {   // 20. Word Counter
+                icon: '🔢', title: 'Word Counter', badge: 'COUNT',
+                desc: 'Count words and characters',
+                html: (id) => `
+                    <textarea class="tool-textarea" id="wordcount-input-${id}" placeholder="Type text..." rows="2" style="width:100%; padding:8px; margin-bottom:10px; border-radius:8px; border:1px solid #42f8f5; background:#eef5fa;">The quick brown fox jumps over the lazy dog.</textarea>
+                    <div class="display-field" id="wordcount-result-${id}" style="background:#12151a; color:#42f8f5; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center;">Click Count</div>
+                    <button class="btn-action" onclick="event.stopPropagation(); countWords('${id}')" style="width:100%; padding:10px; background:#42f8f5; color:#1c222d; border:none; border-radius:30px; font-weight:600; cursor:pointer;">Count</button>
+                `
+            }
+        ];
 
-        // Back to top button handler
-        document.querySelector('.back-to-top').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        // ========== GENERATE TOOL CARDS ==========
+        const grid = document.getElementById('toolsGrid');
+        
+        tools.forEach((tool, index) => {
+            const cardId = `tool-${index}`;
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.setAttribute('data-tool', index);
+            
+            // Create card structure matching professional style
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="tool-icon">${tool.icon}</div>
+                    <span class="tool-badge">${tool.badge}</span>
+                </div>
+                <h3>${tool.title}</h3>
+                <div class="tool-description">${tool.desc}</div>
+                <div class="tool-content" id="${cardId}-content" style="display: none; margin-top: 10px;"></div>
+                <button class="open-tool-btn" onclick="event.stopPropagation(); toggleTool('${cardId}', ${index})">
+                    Open Tool <i class="fas fa-arrow-right"></i>
+                </button>
+            `;
+            
+            grid.appendChild(card);
         });
 
-        // Open tool function (replace with actual tool functionality)
-        function openTool(toolName) {
-            alert(`Opening ${toolName}...`);
-            // Add actual tool opening logic here
+        // ========== TOGGLE TOOL FUNCTION ==========
+        function toggleTool(cardId, toolIndex) {
+            const contentDiv = document.getElementById(`${cardId}-content`);
+            const card = contentDiv.closest('.tool-card');
+            const openBtn = card.querySelector('.open-tool-btn');
+            const title = card.querySelector('h3');
+            const description = card.querySelector('.tool-description');
+            
+            if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
+                // Load and show tool content
+                contentDiv.innerHTML = tools[toolIndex].html(cardId);
+                contentDiv.style.display = 'block';
+                title.style.display = 'none';
+                description.style.display = 'none';
+                openBtn.innerHTML = 'Close Tool <i class="fas fa-times"></i>';
+                
+                // Increase card height
+                card.style.minHeight = 'auto';
+            } else {
+                // Hide tool content
+                contentDiv.style.display = 'none';
+                title.style.display = 'block';
+                description.style.display = 'block';
+                openBtn.innerHTML = 'Open Tool <i class="fas fa-arrow-right"></i>';
+                
+                // Reset card height
+                card.style.minHeight = '260px';
+            }
         }
+
+        // ========== TOOL FUNCTIONS ==========
+        
+        // Date parsing helper
+        function parseDMY(dateStr) {
+            const parts = dateStr.split('-');
+            return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
+        }
+
+        // Age Calculator
+        window.calculateAge = function(id) {
+            const input = document.getElementById(`age-input-${id}`).value;
+            const birthDate = parseDMY(input);
+            const today = new Date();
+            
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+            
+            if (days < 0) { 
+                months--; 
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (months < 0) { 
+                years--; 
+                months += 12; 
+            }
+            
+            document.getElementById(`age-result-${id}`).innerText = 
+                `${years} years ${months} months ${days} days`;
+        };
+
+        // Case Changer
+        window.applyCase = function(id) {
+            const input = document.getElementById(`case-input-${id}`).value;
+            const type = document.getElementById(`case-type-${id}`).value;
+            let output = input;
+            
+            if (type === 'upper') output = input.toUpperCase();
+            else if (type === 'lower') output = input.toLowerCase();
+            else if (type === 'title') {
+                output = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+            }
+            
+            document.getElementById(`case-output-${id}`).value = output;
+        };
+
+        // Color Picker
+        window.copyColor = function(id) {
+            const color = document.getElementById(`color-${id}`).value;
+            navigator.clipboard?.writeText(color).then(() => alert('Color copied!'));
+        };
+
+        // Currency Converter
+        window.convertCurrency = function(id) {
+            const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
+            const from = document.getElementById(`currency-from-${id}`).value;
+            const to = document.getElementById(`currency-to-${id}`).value;
+            const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
+            const result = amount * rates[to] / rates[from];
+            document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+        };
+
+        // Date Difference
+        window.calculateDateDiff = function(id) {
+            const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
+            const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
+            const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
+            document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
+        };
+
+        // EMI Calculator
+        window.calculateEMI = function(id) {
+            const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
+            const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
+            const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
+            const months = years * 12;
+            const monthlyRate = rate / 12 / 100;
+            const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+            document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
+        };
+
+        // File Size Converter
+        window.convertFileSize = function(id) {
+            const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
+            const from = document.getElementById(`filesize-from-${id}`).value;
+            const to = document.getElementById(`filesize-to-${id}`).value;
+            const units = { KB: 1, MB: 1024, GB: 1048576 };
+            const result = size * units[from] / units[to];
+            document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+        };
+
+        // Image Converter
+        window.convertImage = function(id) {
+            const format = document.getElementById(`image-format-${id}`).value;
+            alert(`Demo: Converting to ${format.toUpperCase()}`);
+        };
+
+        // Note Text Saver
+        window.saveNote = function(id) {
+            const note = document.getElementById(`note-${id}`).value;
+            localStorage.setItem(`note-${id}`, note);
+            alert('Note saved!');
+        };
+
+        window.loadNote = function(id) {
+            const saved = localStorage.getItem(`note-${id}`);
+            if (saved) document.getElementById(`note-${id}`).value = saved;
+        };
+
+        window.clearNote = function(id) {
+            document.getElementById(`note-${id}`).value = '';
+        };
+
+        // Password Generator
+        window.generatePassword = function(id) {
+            const upper = document.getElementById(`uppercase-${id}`)?.checked;
+            const nums = document.getElementById(`numbers-${id}`)?.checked;
+            const symbols = document.getElementById(`symbols-${id}`)?.checked;
+            
+            let chars = 'abcdefghijklmnopqrstuvwxyz';
+            if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (nums) chars += '0123456789';
+            if (symbols) chars += '!@#$%^&*';
+            
+            let pw = '';
+            for (let i = 0; i < 12; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+            document.getElementById(`password-${id}`).innerText = pw;
+        };
+
+        // Percentage Calculator
+        window.calculatePercentage = function(id) {
+            const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
+            const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
+            document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
+        };
+
+        // QR Generator
+        window.generateQR = function(id) {
+            const text = document.getElementById(`qr-text-${id}`).value || 'Hello World';
+            document.getElementById(`qr-result-${id}`).innerText = 'QR: ' + text;
+        };
+
+        // SIP Calculator
+        window.calculateSIP = function(id) {
+            const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
+            const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
+            const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
+            const months = years * 12;
+            const monthlyRate = rate / 12 / 100;
+            const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+            document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString('en-IN');
+        };
+
+        // Speech to Text
+        window.startSpeech = function(id) {
+            const display = document.getElementById(`speech-result-${id}`);
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;
+                recognition.onresult = (e) => {
+                    display.innerText = e.results[e.results.length-1][0].transcript;
+                };
+                recognition.start();
+                window.recognition = recognition;
+            } else {
+                display.innerText = 'Not supported';
+            }
+        };
+
+        window.stopSpeech = function(id) {
+            if (window.recognition) window.recognition.stop();
+        };
+
+        // Text to Speech
+        window.speak = function(id) {
+            const text = document.getElementById(`tts-text-${id}`).value;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            }
+        };
+
+        // Timer
+        const timers = {};
+        
+        window.startTimer = function(id) {
+            if (timers[id]) clearInterval(timers[id]);
+            const display = document.getElementById(`timer-display-${id}`);
+            let seconds = 0;
+            
+            timers[id] = setInterval(() => {
+                seconds++;
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            }, 1000);
+        };
+
+        window.pauseTimer = function(id) {
+            if (timers[id]) clearInterval(timers[id]);
+        };
+
+        window.resetTimer = function(id) {
+            if (timers[id]) clearInterval(timers[id]);
+            document.getElementById(`timer-display-${id}`).innerText = '00:00:00';
+        };
+
+        // Unit Converter
+        window.convertUnit = function(id) {
+            const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
+            const cat = document.getElementById(`unit-category-${id}`).value;
+            let result = '';
+            
+            if (cat === 'length') {
+                result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
+            } else if (cat === 'weight') {
+                result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
+            } else if (cat === 'temperature') {
+                result = val + ' °C = ' + (val * 9/5 + 32).toFixed(1) + ' °F';
+            }
+            
+            document.getElementById(`unit-result-${id}`).innerText = result;
+        };
+
+        // URL Encoder/Decoder
+        window.processURL = function(id) {
+            const input = document.getElementById(`url-input-${id}`).value;
+            const action = document.getElementById(`url-action-${id}`).value;
+            const output = document.getElementById(`url-output-${id}`);
+            
+            if (action === 'encode') {
+                output.value = encodeURIComponent(input);
+            } else {
+                try {
+                    output.value = decodeURIComponent(input);
+                } catch {
+                    output.value = 'Invalid encoding';
+                }
+            }
+        };
+
+        // Word Counter
+        window.countWords = function(id) {
+            const text = document.getElementById(`wordcount-input-${id}`).value || '';
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const chars = text.length;
+            document.getElementById(`wordcount-result-${id}`).innerText = `Words: ${words}, Characters: ${chars}`;
+        };
     </script>
 </body>
 </html>
