@@ -38,6 +38,166 @@
         .tools-grid {
             align-items: stretch;
         }
+
+        /* Page Content Styles (for About, Tools, etc.) */
+        .page-content {
+            max-width: 1200px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 15px;
+        }
+
+        .page-header h1 {
+            color: #1c222d;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .page-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+
+        .page-section h2 {
+            color: #1c222d;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-left: 5px solid #42f8f5;
+            padding-left: 15px;
+        }
+
+        .page-section h3 {
+            color: #1c222d;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 20px 0 10px;
+        }
+
+        .page-section p {
+            color: #2c3e50;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .page-section ul, .page-section ol {
+            margin: 15px 0 15px 20px;
+            color: #2c3e50;
+        }
+
+        .page-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .tools-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tool-item {
+            background: #f8fafd;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.2);
+            border-color: #42f8f5;
+        }
+
+        .tool-item h4 {
+            color: #1c222d;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-item p {
+            color: #4a5f73;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .tool-link {
+            display: inline-block;
+            background: #1c222d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 1px solid #42f8f5;
+        }
+
+        .tool-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .legal-text {
+            background: #f8fafd;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #4a5f73;
+            border: 1px solid #e0e0e0;
+        }
+
+        .highlight {
+            color: #42f8f5;
+            background: #1c222d;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background: #1c222d;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .contact-info p {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: #42f8f5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -49,31 +209,30 @@
         </div>
         <div class="nav-links">
             <a href="index.html" class="active">Home</a>
-            <a href="tools.html">Tools</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+            <a href="?page=tools">Tools</a>
+            <a href="?page=about">About</a>
+            <a href="?page=contact">Contact</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>SG Multi Tools <span>For Daily Use</span></h1>
-        <div class="hero-description">⚡ Click any tool button to start · No installation · No sign-ups</div>
+    <!-- Dynamic Page Content -->
+    <div class="page-content" id="pageContent">
+        <!-- Content will be loaded here based on URL parameter -->
     </div>
 
-    <!-- Tools Grid -->
-    <div class="tools-grid" id="toolsGrid"></div>
+    <!-- Tools Grid (hidden by default, shown only on home) -->
+    <div class="tools-grid" id="toolsGrid" style="display: none;"></div>
 
     <!-- Footer with all tabs linked to HTML files -->
     <footer class="footer">
         <div class="footer-content">
             <ul class="footer-links">
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="?page=privacy">Privacy Policy</a></li>
+                <li><a href="?page=disclaimer">Disclaimer</a></li>
+                <li><a href="?page=terms">Terms and Conditions</a></li>
+                <li><a href="?page=sitemap">Sitemap</a></li>
+                <li><a href="?page=about">About</a></li>
+                <li><a href="?page=contact">Contact</a></li>
             </ul>
             <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
             <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
@@ -81,6 +240,337 @@
     </footer>
 
     <script>
+        // ========== PAGE ROUTING ==========
+        function getPageFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('page') || 'home';
+        }
+
+        function loadPageContent() {
+            const page = getPageFromURL();
+            const pageContent = document.getElementById('pageContent');
+            const toolsGrid = document.getElementById('toolsGrid');
+            
+            // Hide/show appropriate containers
+            if (page === 'home') {
+                pageContent.style.display = 'none';
+                toolsGrid.style.display = 'grid';
+                loadTools();
+            } else {
+                pageContent.style.display = 'block';
+                toolsGrid.style.display = 'none';
+                
+                // Load appropriate page content
+                switch(page) {
+                    case 'about':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>About SG Multi Tools</h1>
+                            </div>
+                            <div class="page-section">
+                                <p>SG Multi Tools is a free online multi-tool platform designed to make everyday digital tasks simple, fast, and accessible.</p>
+                                
+                                <h2>What We Offer</h2>
+                                <ul>
+                                    <li><strong>Calculators & financial tools</strong> - EMI, SIP, Percentage, Age calculators</li>
+                                    <li><strong>Text & productivity utilities</strong> - Case changer, Word counter, Note saver</li>
+                                    <li><strong>Image & file tools</strong> - Image converter, File size converter</li>
+                                    <li><strong>Conversion & web utilities</strong> - Currency, Unit, URL encoder/decoder</li>
+                                </ul>
+                                
+                                <h2>Our Mission</h2>
+                                <p>To provide reliable, free online tools that require no installation or sign-ups. Every tool is designed with simplicity and efficiency in mind.</p>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'tools':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>SG Multi Tools</h1>
+                                <p style="color: #4a5f73; font-size: 1.2rem;">Essential utilities for everyday tasks</p>
+                            </div>
+                            
+                            <div class="page-section">
+                                <p style="font-size: 1.1rem; margin-bottom: 30px;">Reliable, free online tools, no installation or sign-ups.</p>
+                                
+                                <div class="tools-list">
+                                    <div class="tool-item">
+                                        <h4>🧮 Advanced Calculator</h4>
+                                        <p>Scientific & basic calculations with history and memory functions.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>📅 Age Calculator</h4>
+                                        <p>Exact age in years, months, days – find birthdays & differences.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🔤 Case Changer</h4>
+                                        <p>Convert text to uppercase, lowercase, title case, sentence case.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🎨 Color Picker</h4>
+                                        <p>Pick colors, generate palettes, convert HEX, RGB, HSL, CMYK.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>💰 Currency Converter</h4>
+                                        <p>Convert between USD, EUR, GBP and other major currencies.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>📆 Date Difference</h4>
+                                        <p>Calculate days between two dates accurately.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🏦 EMI Calculator</h4>
+                                        <p>Calculate loan EMIs with principal, rate and tenure.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>💾 File Size Converter</h4>
+                                        <p>Convert between KB, MB, GB, TB effortlessly.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🖼️ Image Converter</h4>
+                                        <p>Convert images between PNG, JPG formats.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>📝 Note Text Saver</h4>
+                                        <p>Save and load notes locally in your browser.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🔐 Password Generator</h4>
+                                        <p>Generate strong, secure passwords instantly.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>% Percentage Calculator</h4>
+                                        <p>Calculate percentages easily and accurately.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>📱 QR Generator</h4>
+                                        <p>Generate QR codes for text and URLs.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>📈 SIP Calculator</h4>
+                                        <p>Calculate SIP returns and future value.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🎤 Speech to Text</h4>
+                                        <p>Convert speech to text in real-time.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🔊 Text to Speech</h4>
+                                        <p>Convert text to natural-sounding speech.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>⏱️ Timer</h4>
+                                        <p>Simple timer and stopwatch functionality.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>📐 Unit Converter</h4>
+                                        <p>Convert length, weight, temperature units.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🔗 URL Encoder/Decoder</h4>
+                                        <p>Encode and decode URLs safely.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h4>🔢 Word Counter</h4>
+                                        <p>Count words, characters in your text.</p>
+                                        <a href="index.html" class="tool-link">Open tool →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'contact':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>Contact Us</h1>
+                            </div>
+                            <div class="page-section">
+                                <p>Have questions or suggestions? We'd love to hear from you.</p>
+                                
+                                <div class="contact-info">
+                                    <p><strong>Email:</strong> <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></p>
+                                    <p><strong>Response Time:</strong> Within 24-48 hours</p>
+                                    <p><strong>Address:</strong> SG Multi Tools, Digital Platform</p>
+                                </div>
+                                
+                                <h2>Report an Issue</h2>
+                                <p>If you encounter any bugs or issues with our tools, please email us with details about the problem and we'll fix it as soon as possible.</p>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'privacy':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>Privacy Policy</h1>
+                            </div>
+                            <div class="page-section">
+                                <div class="legal-text">
+                                    <p><strong>Last Updated:</strong> February 2026</p>
+                                    
+                                    <h3>1. Information We Collect</h3>
+                                    <p>SG Multi Tools does not collect any personal information. All calculations and conversions are performed locally in your browser. We do not use cookies or tracking scripts.</p>
+                                    
+                                    <h3>2. Third-Party Links</h3>
+                                    <p>Our Advanced Calculator contains affiliate links to Digistore24. These links are clearly marked and you will be redirected to their site. Please review their privacy policy separately.</p>
+                                    
+                                    <h3>3. Data Security</h3>
+                                    <p>Since we don't collect any data, there is no risk of data breach. Your information never leaves your device.</p>
+                                    
+                                    <h3>4. Changes to Policy</h3>
+                                    <p>We may update this policy occasionally. The latest version will always be available on this page.</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'terms':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>Terms and Conditions</h1>
+                            </div>
+                            <div class="page-section">
+                                <div class="legal-text">
+                                    <p><strong>Last Updated:</strong> February 2026</p>
+                                    
+                                    <h3>1. Acceptance of Terms</h3>
+                                    <p>By using SG Multi Tools, you agree to these terms. If you disagree, please do not use our services.</p>
+                                    
+                                    <h3>2. Free Usage</h3>
+                                    <p>All tools are completely free to use. No payment or registration is required.</p>
+                                    
+                                    <h3>3. Affiliate Disclosure</h3>
+                                    <p>The Advanced Calculator contains affiliate links. If you purchase through these links, we may earn a commission at no extra cost to you.</p>
+                                    
+                                    <h3>4. No Warranty</h3>
+                                    <p>Tools are provided "as is" without any warranties. While we strive for accuracy, we cannot guarantee error-free calculations.</p>
+                                    
+                                    <h3>5. Limitation of Liability</h3>
+                                    <p>We are not liable for any damages arising from the use of our tools.</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'disclaimer':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>Disclaimer</h1>
+                            </div>
+                            <div class="page-section">
+                                <div class="legal-text">
+                                    <p><strong>Last Updated:</strong> February 2026</p>
+                                    
+                                    <h3>General Information</h3>
+                                    <p>The information provided by SG Multi Tools is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability or completeness of any information.</p>
+                                    
+                                    <h3>External Links Disclaimer</h3>
+                                    <p>The Advanced Calculator may contain affiliate links to external websites that are not provided or maintained by or in any way affiliated with us. Please note that we do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.</p>
+                                    
+                                    <h3>Professional Disclaimer</h3>
+                                    <p>The calculators and tools should not be considered as professional financial, legal, or technical advice. You should consult with a qualified professional for advice tailored to your situation.</p>
+                                    
+                                    <h3>Errors and Omissions</h3>
+                                    <p>While we strive to keep the information accurate and up to date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'sitemap':
+                        pageContent.innerHTML = `
+                            <div class="page-header">
+                                <h1>Sitemap</h1>
+                            </div>
+                            <div class="page-section">
+                                <h2>Main Pages</h2>
+                                <ul>
+                                    <li><a href="index.html" style="color: #1c222d; text-decoration: none; font-weight: 600;">Home</a> - Main tools dashboard</li>
+                                    <li><a href="?page=tools" style="color: #1c222d; text-decoration: none; font-weight: 600;">All Tools</a> - Complete list of all tools</li>
+                                    <li><a href="?page=about" style="color: #1c222d; text-decoration: none; font-weight: 600;">About</a> - About SG Multi Tools</li>
+                                    <li><a href="?page=contact" style="color: #1c222d; text-decoration: none; font-weight: 600;">Contact</a> - Contact information</li>
+                                </ul>
+                                
+                                <h2>Legal Pages</h2>
+                                <ul>
+                                    <li><a href="?page=privacy" style="color: #1c222d; text-decoration: none; font-weight: 600;">Privacy Policy</a> - Our privacy practices</li>
+                                    <li><a href="?page=terms" style="color: #1c222d; text-decoration: none; font-weight: 600;">Terms and Conditions</a> - Terms of use</li>
+                                    <li><a href="?page=disclaimer" style="color: #1c222d; text-decoration: none; font-weight: 600;">Disclaimer</a> - Legal disclaimer</li>
+                                </ul>
+                                
+                                <h2>All Tools (20)</h2>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
+                                    <div>🧮 Advanced Calculator</div>
+                                    <div>📅 Age Calculator</div>
+                                    <div>🔤 Case Changer</div>
+                                    <div>🎨 Color Picker</div>
+                                    <div>💰 Currency Converter</div>
+                                    <div>📆 Date Difference</div>
+                                    <div>🏦 EMI Calculator</div>
+                                    <div>💾 File Size Converter</div>
+                                    <div>🖼️ Image Converter</div>
+                                    <div>📝 Note Text Saver</div>
+                                    <div>🔐 Password Generator</div>
+                                    <div>% Percentage Calculator</div>
+                                    <div>📱 QR Generator</div>
+                                    <div>📈 SIP Calculator</div>
+                                    <div>🎤 Speech to Text</div>
+                                    <div>🔊 Text to Speech</div>
+                                    <div>⏱️ Timer</div>
+                                    <div>📐 Unit Converter</div>
+                                    <div>🔗 URL Encoder/Decoder</div>
+                                    <div>🔢 Word Counter</div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    default:
+                        window.location.href = 'index.html';
+                }
+            }
+        }
+
         // ========== TOOL DEFINITIONS - ALL 20 TOOLS WITH UNIFORM SIZE ==========
         const tools = [
             {   // 1. Advanced Calculator (COMPACT with AFFILIATE LINKS)
@@ -405,509 +895,522 @@
             }
         ];
 
-        // ========== GENERATE ALL 20 CARDS ==========
-        const grid = document.getElementById('toolsGrid');
-        
-        tools.forEach((tool, index) => {
-            const cardId = `tool-${index}`;
-            const card = document.createElement('div');
-            card.className = 'tool-card';
-            card.innerHTML = `
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon">${tool.icon}</span> ${tool.title}
+        // ========== LOAD TOOLS ON HOME PAGE ==========
+        function loadTools() {
+            const grid = document.getElementById('toolsGrid');
+            if (grid.children.length > 0) return; // Already loaded
+            
+            tools.forEach((tool, index) => {
+                const cardId = `tool-${index}`;
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">${tool.icon}</span> ${tool.title}
+                        </div>
+                        <div class="card-badge">${tool.badge}</div>
                     </div>
-                    <div class="card-badge">${tool.badge}</div>
-                </div>
-                <div class="card-content" id="${cardId}">
-                    ${tool.html(cardId)}
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-
-        // ========== TOOL FUNCTIONALITY ==========
-        
-        // Helper function for date parsing
-        function parseDMY(dateStr) {
-            const parts = dateStr.split('-');
-            return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
-        }
-
-        // 1. Advanced Calculator Functionality
-        document.querySelectorAll('[data-calc]').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const cardId = this.dataset.calc;
-                const display = document.getElementById(`calc-display-${cardId}`);
-                if (!display) return;
-                
-                if (this.dataset.num) {
-                    display.innerText = display.innerText === '0' ? this.dataset.num : display.innerText + this.dataset.num;
-                } else if (this.dataset.op) {
-                    display.innerText += this.dataset.op;
-                } else if (this.dataset.clear) {
-                    display.innerText = '0';
-                } else if (this.dataset.back) {
-                    display.innerText = display.innerText.length > 1 ? display.innerText.slice(0, -1) : '0';
-                } else if (this.dataset.fn) {
-                    const fn = this.dataset.fn;
-                    if (fn === 'π') display.innerText += Math.PI.toFixed(6);
-                    else if (fn === 'e') display.innerText += Math.E.toFixed(6);
-                    else if (fn === 'x²') {
-                        try {
-                            let val = eval(display.innerText) || 0;
-                            display.innerText = (val * val).toString();
-                        } catch { display.innerText = 'Error'; }
-                    } else if (fn === '√') {
-                        display.innerText += '√(';
-                    } else {
-                        display.innerText += fn + '(';
-                    }
-                } else if (this.dataset.calculate) {
-                    try {
-                        let expr = display.innerText
-                            .replace(/×/g, '*')
-                            .replace(/÷/g, '/')
-                            .replace(/π/g, Math.PI.toString())
-                            .replace(/e/g, Math.E.toString())
-                            .replace(/√\(/g, 'Math.sqrt(')
-                            .replace(/sin\(/g, 'Math.sin(')
-                            .replace(/cos\(/g, 'Math.cos(')
-                            .replace(/tan\(/g, 'Math.tan(')
-                            .replace(/log\(/g, 'Math.log10(');
-                        
-                        const result = new Function('return ' + expr)();
-                        display.innerText = (isNaN(result) || !isFinite(result)) ? 'Error' : result.toString();
-                    } catch {
-                        display.innerText = 'Error';
-                    }
-                }
+                    <div class="card-content" id="${cardId}">
+                        ${tool.html(cardId)}
+                    </div>
+                `;
+                grid.appendChild(card);
             });
-        });
 
-        // Memory functions for calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            let memory = 0;
-            
-            const mc = document.getElementById(`memory-clear-${id}`);
-            const mr = document.getElementById(`memory-recall-${id}`);
-            const mplus = document.getElementById(`memory-add-${id}`);
-            const mminus = document.getElementById(`memory-subtract-${id}`);
-            
-            if (mc) {
-                mc.addEventListener('click', () => { memory = 0; });
-                mr.addEventListener('click', () => {
-                    const display = document.getElementById(`calc-display-${id}`);
-                    if (display) display.innerText = memory.toString();
-                });
-                mplus.addEventListener('click', () => {
-                    const display = document.getElementById(`calc-display-${id}`);
-                    try { memory += parseFloat(eval(display.innerText) || 0); } catch {}
-                });
-                mminus.addEventListener('click', () => {
-                    const display = document.getElementById(`calc-display-${id}`);
-                    try { memory -= parseFloat(eval(display.innerText) || 0); } catch {}
-                });
-            }
+            // Initialize all tool functionality after loading
+            initializeTools();
         }
 
-        // 2. Age Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const calcBtn = document.getElementById(`calc-age-${id}`);
-            if (calcBtn) {
-                calcBtn.addEventListener('click', function() {
-                    const input = document.getElementById(`age-input-${id}`).value;
-                    const birthDate = parseDMY(input);
-                    const today = new Date();
+        // ========== INITIALIZE TOOL FUNCTIONALITY ==========
+        function initializeTools() {
+            // Helper function for date parsing
+            function parseDMY(dateStr) {
+                const parts = dateStr.split('-');
+                return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]) : new Date();
+            }
+
+            // 1. Advanced Calculator Functionality
+            document.querySelectorAll('[data-calc]').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const cardId = this.dataset.calc;
+                    const display = document.getElementById(`calc-display-${cardId}`);
+                    if (!display) return;
                     
-                    let years = today.getFullYear() - birthDate.getFullYear();
-                    let months = today.getMonth() - birthDate.getMonth();
-                    let days = today.getDate() - birthDate.getDate();
-                    
-                    if (days < 0) { 
-                        months--; 
-                        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-                    }
-                    if (months < 0) { 
-                        years--; 
-                        months += 12; 
-                    }
-                    
-                    document.getElementById(`age-result-${id}`).innerText = 
-                        `${years} years ${months} months ${days} days`;
-                });
-            }
-        }
-
-        // 3. Case Changer
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const applyBtn = document.getElementById(`apply-case-${id}`);
-            if (applyBtn) {
-                applyBtn.addEventListener('click', function() {
-                    const input = document.getElementById(`case-input-${id}`).value;
-                    const type = document.getElementById(`case-type-${id}`).value;
-                    let output = input;
-                    
-                    if (type === 'upper') output = input.toUpperCase();
-                    else if (type === 'lower') output = input.toLowerCase();
-                    else if (type === 'title') {
-                        output = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
-                    }
-                    
-                    document.getElementById(`case-output-${id}`).value = output;
-                });
-            }
-        }
-
-        // 4. Color Picker
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const picker = document.getElementById(`color-${id}`);
-            const hex = document.getElementById(`color-hex-${id}`);
-            const copy = document.getElementById(`copy-color-${id}`);
-            
-            if (picker && hex) {
-                picker.addEventListener('input', () => hex.innerText = picker.value);
-                copy.addEventListener('click', () => {
-                    navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
-                });
-            }
-        }
-
-        // 5. Currency Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`convert-currency-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
-                    const from = document.getElementById(`currency-from-${id}`).value;
-                    const to = document.getElementById(`currency-to-${id}`).value;
-                    const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
-                    const result = amount * rates[to] / rates[from];
-                    document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                });
-            }
-        }
-
-        // 6. Date Difference
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-datediff-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
-                    const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
-                    const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
-                    document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
-                });
-            }
-        }
-
-        // 7. EMI Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-emi-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
-                    const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
-                    const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
-                    const months = years * 12;
-                    const monthlyRate = rate / 12 / 100;
-                    const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-                    document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
-                });
-            }
-        }
-
-        // 8. File Size Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`convert-filesize-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
-                    const from = document.getElementById(`filesize-from-${id}`).value;
-                    const to = document.getElementById(`filesize-to-${id}`).value;
-                    const units = { KB: 1, MB: 1024, GB: 1048576 };
-                    const result = size * units[from] / units[to];
-                    document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
-                });
-            }
-        }
-
-        // 9. Image Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const input = document.getElementById(`image-input-${id}`);
-            const info = document.getElementById(`image-info-${id}`);
-            const convertBtn = document.getElementById(`convert-image-${id}`);
-            
-            if (input) {
-                input.addEventListener('change', function() {
-                    if (this.files?.[0]) info.innerText = this.files[0].name;
-                });
-                
-                convertBtn.addEventListener('click', function() {
-                    const format = document.getElementById(`image-format-${id}`).value;
-                    alert(`Demo: Converting to ${format.toUpperCase()}`);
-                });
-            }
-        }
-
-        // 10. Note Text Saver
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const note = document.getElementById(`note-${id}`);
-            if (note) {
-                document.getElementById(`save-note-${id}`).addEventListener('click', () => {
-                    localStorage.setItem(`note-${id}`, note.value);
-                    alert('Note saved!');
-                });
-                document.getElementById(`load-note-${id}`).addEventListener('click', () => {
-                    const saved = localStorage.getItem(`note-${id}`);
-                    if (saved) note.value = saved;
-                });
-                document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
-            }
-        }
-
-        // 11. Password Generator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`generate-pw-${id}`);
-            const display = document.getElementById(`password-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const upper = document.getElementById(`uppercase-${id}`)?.checked;
-                    const nums = document.getElementById(`numbers-${id}`)?.checked;
-                    const symbols = document.getElementById(`symbols-${id}`)?.checked;
-                    
-                    let chars = 'abcdefghijklmnopqrstuvwxyz';
-                    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    if (nums) chars += '0123456789';
-                    if (symbols) chars += '!@#$%^&*';
-                    
-                    let pw = '';
-                    for (let i = 0; i < 12; i++) pw += chars[Math.floor(Math.random() * chars.length)];
-                    display.innerText = pw;
-                });
-            }
-        }
-
-        // 12. Percentage Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-perc-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
-                    const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
-                    document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
-                });
-            }
-        }
-
-        // 13. QR Generator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`generate-qr-${id}`);
-            const display = document.getElementById(`qr-result-${id}`);
-            const input = document.getElementById(`qr-text-${id}`);
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    display.innerText = 'QR: ' + (input.value || 'Hello World');
-                });
-            }
-        }
-
-        // 14. SIP Calculator
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`calc-sip-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
-                    const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
-                    const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
-                    const months = years * 12;
-                    const monthlyRate = rate / 12 / 100;
-                    const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-                    document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString('en-IN');
-                });
-            }
-        }
-
-        // 15. Speech to Text
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const start = document.getElementById(`start-speech-${id}`);
-            const stop = document.getElementById(`stop-speech-${id}`);
-            const copy = document.getElementById(`copy-speech-${id}`);
-            const display = document.getElementById(`speech-result-${id}`);
-            
-            if (start && 'webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                recognition.continuous = true;
-                recognition.interimResults = true;
-                recognition.onresult = (e) => {
-                    display.innerText = e.results[e.results.length-1][0].transcript;
-                };
-                start.addEventListener('click', () => recognition.start());
-                stop.addEventListener('click', () => recognition.stop());
-                copy.addEventListener('click', () => {
-                    navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
-                });
-            } else if (start) {
-                start.addEventListener('click', () => display.innerText = 'Not supported');
-            }
-        }
-
-        // 16. Text to Speech
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const speak = document.getElementById(`speak-${id}`);
-            const textarea = document.getElementById(`tts-text-${id}`);
-            if (speak) {
-                speak.addEventListener('click', () => {
-                    if ('speechSynthesis' in window) {
-                        window.speechSynthesis.cancel();
-                        const utterance = new SpeechSynthesisUtterance(textarea.value);
-                        window.speechSynthesis.speak(utterance);
-                    }
-                });
-            }
-        }
-
-        // 17. Timer
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const display = document.getElementById(`timer-display-${id}`);
-            const start = document.getElementById(`timer-start-${id}`);
-            const pause = document.getElementById(`timer-pause-${id}`);
-            const reset = document.getElementById(`timer-reset-${id}`);
-            
-            if (display) {
-                let seconds = 0;
-                let interval = null;
-                
-                function updateDisplay() {
-                    const h = Math.floor(seconds / 3600);
-                    const m = Math.floor((seconds % 3600) / 60);
-                    const s = seconds % 60;
-                    display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                }
-                
-                start.addEventListener('click', () => {
-                    if (interval) clearInterval(interval);
-                    interval = setInterval(() => { seconds++; updateDisplay(); }, 1000);
-                });
-                
-                pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
-                reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; updateDisplay(); });
-            }
-        }
-
-        // 18. Unit Converter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`convert-unit-${id}`);
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
-                    const cat = document.getElementById(`unit-category-${id}`).value;
-                    let result = '';
-                    
-                    if (cat === 'length') {
-                        result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
-                    } else if (cat === 'weight') {
-                        result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
-                    } else if (cat === 'temperature') {
-                        result = val + ' °C = ' + (val * 9/5 + 32).toFixed(1) + ' °F';
-                    }
-                    
-                    document.getElementById(`unit-result-${id}`).innerText = result;
-                });
-            }
-        }
-
-        // 19. URL Encoder/Decoder
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`process-url-${id}`);
-            const input = document.getElementById(`url-input-${id}`);
-            const output = document.getElementById(`url-output-${id}`);
-            const action = document.getElementById(`url-action-${id}`);
-            
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    if (action.value === 'encode') {
-                        output.value = encodeURIComponent(input.value);
-                    } else {
+                    if (this.dataset.num) {
+                        display.innerText = display.innerText === '0' ? this.dataset.num : display.innerText + this.dataset.num;
+                    } else if (this.dataset.op) {
+                        display.innerText += this.dataset.op;
+                    } else if (this.dataset.clear) {
+                        display.innerText = '0';
+                    } else if (this.dataset.back) {
+                        display.innerText = display.innerText.length > 1 ? display.innerText.slice(0, -1) : '0';
+                    } else if (this.dataset.fn) {
+                        const fn = this.dataset.fn;
+                        if (fn === 'π') display.innerText += Math.PI.toFixed(6);
+                        else if (fn === 'e') display.innerText += Math.E.toFixed(6);
+                        else if (fn === 'x²') {
+                            try {
+                                let val = eval(display.innerText) || 0;
+                                display.innerText = (val * val).toString();
+                            } catch { display.innerText = 'Error'; }
+                        } else if (fn === '√') {
+                            display.innerText += '√(';
+                        } else {
+                            display.innerText += fn + '(';
+                        }
+                    } else if (this.dataset.calculate) {
                         try {
-                            output.value = decodeURIComponent(input.value);
+                            let expr = display.innerText
+                                .replace(/×/g, '*')
+                                .replace(/÷/g, '/')
+                                .replace(/π/g, Math.PI.toString())
+                                .replace(/e/g, Math.E.toString())
+                                .replace(/√\(/g, 'Math.sqrt(')
+                                .replace(/sin\(/g, 'Math.sin(')
+                                .replace(/cos\(/g, 'Math.cos(')
+                                .replace(/tan\(/g, 'Math.tan(')
+                                .replace(/log\(/g, 'Math.log10(');
+                            
+                            const result = new Function('return ' + expr)();
+                            display.innerText = (isNaN(result) || !isFinite(result)) ? 'Error' : result.toString();
                         } catch {
-                            output.value = 'Invalid encoding';
+                            display.innerText = 'Error';
                         }
                     }
                 });
+            });
+
+            // Memory functions for calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                let memory = 0;
+                
+                const mc = document.getElementById(`memory-clear-${id}`);
+                const mr = document.getElementById(`memory-recall-${id}`);
+                const mplus = document.getElementById(`memory-add-${id}`);
+                const mminus = document.getElementById(`memory-subtract-${id}`);
+                
+                if (mc) {
+                    mc.addEventListener('click', () => { memory = 0; });
+                    mr.addEventListener('click', () => {
+                        const display = document.getElementById(`calc-display-${id}`);
+                        if (display) display.innerText = memory.toString();
+                    });
+                    mplus.addEventListener('click', () => {
+                        const display = document.getElementById(`calc-display-${id}`);
+                        try { memory += parseFloat(eval(display.innerText) || 0); } catch {}
+                    });
+                    mminus.addEventListener('click', () => {
+                        const display = document.getElementById(`calc-display-${id}`);
+                        try { memory -= parseFloat(eval(display.innerText) || 0); } catch {}
+                    });
+                }
             }
+
+            // 2. Age Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const calcBtn = document.getElementById(`calc-age-${id}`);
+                if (calcBtn) {
+                    calcBtn.addEventListener('click', function() {
+                        const input = document.getElementById(`age-input-${id}`).value;
+                        const birthDate = parseDMY(input);
+                        const today = new Date();
+                        
+                        let years = today.getFullYear() - birthDate.getFullYear();
+                        let months = today.getMonth() - birthDate.getMonth();
+                        let days = today.getDate() - birthDate.getDate();
+                        
+                        if (days < 0) { 
+                            months--; 
+                            days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                        }
+                        if (months < 0) { 
+                            years--; 
+                            months += 12; 
+                        }
+                        
+                        document.getElementById(`age-result-${id}`).innerText = 
+                            `${years} years ${months} months ${days} days`;
+                    });
+                }
+            }
+
+            // 3. Case Changer
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const applyBtn = document.getElementById(`apply-case-${id}`);
+                if (applyBtn) {
+                    applyBtn.addEventListener('click', function() {
+                        const input = document.getElementById(`case-input-${id}`).value;
+                        const type = document.getElementById(`case-type-${id}`).value;
+                        let output = input;
+                        
+                        if (type === 'upper') output = input.toUpperCase();
+                        else if (type === 'lower') output = input.toLowerCase();
+                        else if (type === 'title') {
+                            output = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                        }
+                        
+                        document.getElementById(`case-output-${id}`).value = output;
+                    });
+                }
+            }
+
+            // 4. Color Picker
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const picker = document.getElementById(`color-${id}`);
+                const hex = document.getElementById(`color-hex-${id}`);
+                const copy = document.getElementById(`copy-color-${id}`);
+                
+                if (picker && hex) {
+                    picker.addEventListener('input', () => hex.innerText = picker.value);
+                    copy.addEventListener('click', () => {
+                        navigator.clipboard?.writeText(hex.innerText).then(() => alert('Copied!'));
+                    });
+                }
+            }
+
+            // 5. Currency Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`convert-currency-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = parseFloat(document.getElementById(`currency-amount-${id}`).value) || 0;
+                        const from = document.getElementById(`currency-from-${id}`).value;
+                        const to = document.getElementById(`currency-to-${id}`).value;
+                        const rates = { USD: 1, EUR: 0.85, GBP: 0.73 };
+                        const result = amount * rates[to] / rates[from];
+                        document.getElementById(`currency-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                    });
+                }
+            }
+
+            // 6. Date Difference
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-datediff-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const d1 = parseDMY(document.getElementById(`date1-${id}`).value);
+                        const d2 = parseDMY(document.getElementById(`date2-${id}`).value);
+                        const diff = Math.abs(d2 - d1) / (1000 * 60 * 60 * 24);
+                        document.getElementById(`datediff-result-${id}`).innerText = Math.ceil(diff) + ' days';
+                    });
+                }
+            }
+
+            // 7. EMI Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-emi-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = parseFloat(document.getElementById(`emi-amount-${id}`).value) || 0;
+                        const rate = parseFloat(document.getElementById(`emi-rate-${id}`).value) || 0;
+                        const years = parseFloat(document.getElementById(`emi-years-${id}`).value) || 0;
+                        const months = years * 12;
+                        const monthlyRate = rate / 12 / 100;
+                        const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+                        document.getElementById(`emi-result-${id}`).innerText = '₹ ' + Math.round(emi).toLocaleString() + '/month';
+                    });
+                }
+            }
+
+            // 8. File Size Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`convert-filesize-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const size = parseFloat(document.getElementById(`filesize-input-${id}`).value) || 0;
+                        const from = document.getElementById(`filesize-from-${id}`).value;
+                        const to = document.getElementById(`filesize-to-${id}`).value;
+                        const units = { KB: 1, MB: 1024, GB: 1048576 };
+                        const result = size * units[from] / units[to];
+                        document.getElementById(`filesize-result-${id}`).innerText = result.toFixed(2) + ' ' + to;
+                    });
+                }
+            }
+
+            // 9. Image Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const input = document.getElementById(`image-input-${id}`);
+                const info = document.getElementById(`image-info-${id}`);
+                const convertBtn = document.getElementById(`convert-image-${id}`);
+                
+                if (input) {
+                    input.addEventListener('change', function() {
+                        if (this.files?.[0]) info.innerText = this.files[0].name;
+                    });
+                    
+                    convertBtn.addEventListener('click', function() {
+                        const format = document.getElementById(`image-format-${id}`).value;
+                        alert(`Demo: Converting to ${format.toUpperCase()}`);
+                    });
+                }
+            }
+
+            // 10. Note Text Saver
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const note = document.getElementById(`note-${id}`);
+                if (note) {
+                    document.getElementById(`save-note-${id}`).addEventListener('click', () => {
+                        localStorage.setItem(`note-${id}`, note.value);
+                        alert('Note saved!');
+                    });
+                    document.getElementById(`load-note-${id}`).addEventListener('click', () => {
+                        const saved = localStorage.getItem(`note-${id}`);
+                        if (saved) note.value = saved;
+                    });
+                    document.getElementById(`clear-note-${id}`).addEventListener('click', () => note.value = '');
+                }
+            }
+
+            // 11. Password Generator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`generate-pw-${id}`);
+                const display = document.getElementById(`password-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const upper = document.getElementById(`uppercase-${id}`)?.checked;
+                        const nums = document.getElementById(`numbers-${id}`)?.checked;
+                        const symbols = document.getElementById(`symbols-${id}`)?.checked;
+                        
+                        let chars = 'abcdefghijklmnopqrstuvwxyz';
+                        if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        if (nums) chars += '0123456789';
+                        if (symbols) chars += '!@#$%^&*';
+                        
+                        let pw = '';
+                        for (let i = 0; i < 12; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+                        display.innerText = pw;
+                    });
+                }
+            }
+
+            // 12. Percentage Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-perc-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const perc = parseFloat(document.getElementById(`perc-value-${id}`).value) || 0;
+                        const of = parseFloat(document.getElementById(`perc-of-${id}`).value) || 0;
+                        document.getElementById(`perc-result-${id}`).innerText = ((perc / 100) * of).toFixed(2);
+                    });
+                }
+            }
+
+            // 13. QR Generator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`generate-qr-${id}`);
+                const display = document.getElementById(`qr-result-${id}`);
+                const input = document.getElementById(`qr-text-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        display.innerText = 'QR: ' + (input.value || 'Hello World');
+                    });
+                }
+            }
+
+            // 14. SIP Calculator
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`calc-sip-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const amount = parseFloat(document.getElementById(`sip-amount-${id}`).value) || 0;
+                        const years = parseFloat(document.getElementById(`sip-years-${id}`).value) || 0;
+                        const rate = parseFloat(document.getElementById(`sip-return-${id}`).value) || 0;
+                        const months = years * 12;
+                        const monthlyRate = rate / 12 / 100;
+                        const fv = amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+                        document.getElementById(`sip-result-${id}`).innerText = '₹ ' + Math.round(fv).toLocaleString('en-IN');
+                    });
+                }
+            }
+
+            // 15. Speech to Text
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const start = document.getElementById(`start-speech-${id}`);
+                const stop = document.getElementById(`stop-speech-${id}`);
+                const copy = document.getElementById(`copy-speech-${id}`);
+                const display = document.getElementById(`speech-result-${id}`);
+                
+                if (start && 'webkitSpeechRecognition' in window) {
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.continuous = true;
+                    recognition.interimResults = true;
+                    recognition.onresult = (e) => {
+                        display.innerText = e.results[e.results.length-1][0].transcript;
+                    };
+                    start.addEventListener('click', () => recognition.start());
+                    stop.addEventListener('click', () => recognition.stop());
+                    copy.addEventListener('click', () => {
+                        navigator.clipboard?.writeText(display.innerText).then(() => alert('Copied!'));
+                    });
+                } else if (start) {
+                    start.addEventListener('click', () => display.innerText = 'Not supported');
+                }
+            }
+
+            // 16. Text to Speech
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const speak = document.getElementById(`speak-${id}`);
+                const textarea = document.getElementById(`tts-text-${id}`);
+                if (speak) {
+                    speak.addEventListener('click', () => {
+                        if ('speechSynthesis' in window) {
+                            window.speechSynthesis.cancel();
+                            const utterance = new SpeechSynthesisUtterance(textarea.value);
+                            window.speechSynthesis.speak(utterance);
+                        }
+                    });
+                }
+            }
+
+            // 17. Timer
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const display = document.getElementById(`timer-display-${id}`);
+                const start = document.getElementById(`timer-start-${id}`);
+                const pause = document.getElementById(`timer-pause-${id}`);
+                const reset = document.getElementById(`timer-reset-${id}`);
+                
+                if (display) {
+                    let seconds = 0;
+                    let interval = null;
+                    
+                    function updateDisplay() {
+                        const h = Math.floor(seconds / 3600);
+                        const m = Math.floor((seconds % 3600) / 60);
+                        const s = seconds % 60;
+                        display.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                    }
+                    
+                    start.addEventListener('click', () => {
+                        if (interval) clearInterval(interval);
+                        interval = setInterval(() => { seconds++; updateDisplay(); }, 1000);
+                    });
+                    
+                    pause.addEventListener('click', () => { clearInterval(interval); interval = null; });
+                    reset.addEventListener('click', () => { clearInterval(interval); interval = null; seconds = 0; updateDisplay(); });
+                }
+            }
+
+            // 18. Unit Converter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`convert-unit-${id}`);
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        const val = parseFloat(document.getElementById(`unit-value-${id}`).value) || 0;
+                        const cat = document.getElementById(`unit-category-${id}`).value;
+                        let result = '';
+                        
+                        if (cat === 'length') {
+                            result = val + ' m = ' + (val * 3.28084).toFixed(2) + ' ft';
+                        } else if (cat === 'weight') {
+                            result = val + ' kg = ' + (val * 2.20462).toFixed(2) + ' lb';
+                        } else if (cat === 'temperature') {
+                            result = val + ' °C = ' + (val * 9/5 + 32).toFixed(1) + ' °F';
+                        }
+                        
+                        document.getElementById(`unit-result-${id}`).innerText = result;
+                    });
+                }
+            }
+
+            // 19. URL Encoder/Decoder
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`process-url-${id}`);
+                const input = document.getElementById(`url-input-${id}`);
+                const output = document.getElementById(`url-output-${id}`);
+                const action = document.getElementById(`url-action-${id}`);
+                
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        if (action.value === 'encode') {
+                            output.value = encodeURIComponent(input.value);
+                        } else {
+                            try {
+                                output.value = decodeURIComponent(input.value);
+                            } catch {
+                                output.value = 'Invalid encoding';
+                            }
+                        }
+                    });
+                }
+            }
+
+            // 20. Word Counter
+            for (let i = 0; i < 20; i++) {
+                const id = `tool-${i}`;
+                const btn = document.getElementById(`count-words-${id}`);
+                const input = document.getElementById(`wordcount-input-${id}`);
+                const display = document.getElementById(`wordcount-result-${id}`);
+                
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        const text = input.value || '';
+                        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                        const chars = text.length;
+                        display.innerText = `Words: ${words}, Characters: ${chars}`;
+                    });
+                }
+            }
+
+            // Keyboard support for calculator
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                
+                const key = e.key;
+                const activeCalc = document.querySelector('[data-calc]');
+                if (!activeCalc) return;
+                
+                const cardId = activeCalc.dataset.calc;
+                const display = document.getElementById(`calc-display-${cardId}`);
+                if (!display) return;
+                
+                if (key >= '0' && key <= '9') {
+                    document.querySelector(`[data-calc="${cardId}"][data-num="${key}"]`)?.click();
+                } else if (key === '.') {
+                    document.querySelector(`[data-calc="${cardId}"][data-num="."]`)?.click();
+                } else if (key === '+') {
+                    document.querySelector(`[data-calc="${cardId}"][data-op="+"]`)?.click();
+                } else if (key === '-') {
+                    document.querySelector(`[data-calc="${cardId}"][data-op="-"]`)?.click();
+                } else if (key === '*') {
+                    document.querySelector(`[data-calc="${cardId}"][data-op="×"]`)?.click();
+                } else if (key === '/') {
+                    document.querySelector(`[data-calc="${cardId}"][data-op="÷"]`)?.click();
+                } else if (key === 'Enter' || key === '=') {
+                    e.preventDefault();
+                    document.querySelector(`[data-calc="${cardId}"][data-calculate="="]`)?.click();
+                } else if (key === 'Escape') {
+                    document.querySelector(`[data-calc="${cardId}"][data-clear="C"]`)?.click();
+                } else if (key === 'Backspace') {
+                    document.querySelector(`[data-calc="${cardId}"][data-back="⌫"]`)?.click();
+                }
+            });
         }
 
-        // 20. Word Counter
-        for (let i = 0; i < 20; i++) {
-            const id = `tool-${i}`;
-            const btn = document.getElementById(`count-words-${id}`);
-            const input = document.getElementById(`wordcount-input-${id}`);
-            const display = document.getElementById(`wordcount-result-${id}`);
-            
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    const text = input.value || '';
-                    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-                    const chars = text.length;
-                    display.innerText = `Words: ${words}, Characters: ${chars}`;
-                });
-            }
-        }
+        // Initialize page based on URL
+        loadPageContent();
 
-        // Keyboard support for calculator
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            
-            const key = e.key;
-            const activeCalc = document.querySelector('[data-calc]');
-            if (!activeCalc) return;
-            
-            const cardId = activeCalc.dataset.calc;
-            const display = document.getElementById(`calc-display-${cardId}`);
-            if (!display) return;
-            
-            if (key >= '0' && key <= '9') {
-                document.querySelector(`[data-calc="${cardId}"][data-num="${key}"]`)?.click();
-            } else if (key === '.') {
-                document.querySelector(`[data-calc="${cardId}"][data-num="."]`)?.click();
-            } else if (key === '+') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="+"]`)?.click();
-            } else if (key === '-') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="-"]`)?.click();
-            } else if (key === '*') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="×"]`)?.click();
-            } else if (key === '/') {
-                document.querySelector(`[data-calc="${cardId}"][data-op="÷"]`)?.click();
-            } else if (key === 'Enter' || key === '=') {
-                e.preventDefault();
-                document.querySelector(`[data-calc="${cardId}"][data-calculate="="]`)?.click();
-            } else if (key === 'Escape') {
-                document.querySelector(`[data-calc="${cardId}"][data-clear="C"]`)?.click();
-            } else if (key === 'Backspace') {
-                document.querySelector(`[data-calc="${cardId}"][data-back="⌫"]`)?.click();
-            }
-        });
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', loadPageContent);
     </script>
 </body>
 </html>
