@@ -3,551 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Percentage Calculator · SG Multi Tools</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Percentage Calculator - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE ===== */
-        body {
-            background: var(--main-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            padding: 10px;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        .tool-standalone {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            padding: 1.2rem;
-            width: 100%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            margin: auto;
-            position: relative;
-        }
-
-        .tool-standalone h1 {
-            font-size: 1.3rem !important;
-            margin-bottom: 0.3rem !important;
+        body {
+            background: #e8eef4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Close button styles */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 10;
-            text-decoration: none;
-        }
-
-        .close-btn:hover {
-            background: var(--danger-color);
-            color: white;
-            border-color: var(--danger-color);
-            transform: scale(1.1);
-        }
-
-        .close-btn i {
-            font-size: 0.9rem;
-        }
-
-        /* Percentage specific styles */
-        .mode-selector {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .mode-btn {
-            flex: 1;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            border-radius: 100px;
-            padding: 0.5rem 0.3rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-            transition: var(--transition);
-            cursor: pointer;
-            white-space: nowrap;
+            padding: 20px;
         }
 
-        .mode-btn i {
-            font-size: 0.7rem;
-        }
-
-        .mode-btn.active {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-
-        .input-group {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .input-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .input-label i {
-            color: var(--primary-accent);
-            width: 18px;
-            text-align: center;
-        }
-
-        .input-field {
+        .percentage-card {
+            background: #1c222d;
+            border-radius: 30px;
+            padding: 25px;
             width: 100%;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 0.7rem 1rem;
-            color: var(--text-primary);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
-            transition: var(--transition);
+            max-width: 450px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .input-field:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px var(--glow-shadow);
-        }
-
-        .input-hint {
-            color: var(--text-muted);
-            font-size: 0.65rem;
-            text-align: right;
-            margin-top: 0.2rem;
-        }
-
-        .result-card {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 20px;
-            padding: 1.2rem;
-            margin: 1rem 0 0.8rem;
-            text-align: center;
-        }
-
-        .result-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-accent);
-            line-height: 1.2;
-            margin-bottom: 0.2rem;
-            word-break: break-word;
-        }
-
-        .result-description {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        .result-details {
-            background: rgba(10,15,30,0.6);
-            border-radius: 14px;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 1rem 0 0.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #42f8f5;
         }
 
-        .copy-btn {
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 14px;
-            padding: 0.5rem 1rem;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
+        .card-title {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-
-        .copy-btn.copied {
-            background: var(--success-color);
-            border-color: var(--success-color);
-            color: var(--main-bg);
-        }
-
-        .generate-btn {
-            width: 100%;
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border: none;
-            border-radius: 16px;
-            padding: 0.7rem;
-            font-size: 0.95rem;
+            gap: 10px;
+            color: white;
+            font-size: 1.5rem;
             font-weight: 600;
+        }
+
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.8rem;
+        }
+
+        .card-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Form Elements */
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            background: white;
+            border: 2px solid #3d5a73;
+            border-radius: 12px;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            color: #1c222d;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: 'Fira Mono', monospace;
+        }
+
+        .input-field:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 0 4px rgba(66, 248, 245, 0.2);
+        }
+
+        .input-field.small {
+            width: 40%;
+        }
+
+        .input-field.large {
+            width: 60%;
+        }
+
+        .display-field {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 15px;
+            color: #42f8f5;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #42f8f5;
+            font-family: 'Fira Mono', monospace;
+            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
+            margin: 20px 0;
+        }
+
+        .btn-action {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 14px;
+            border-radius: 40px;
+            border: 2px solid #42f8f5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-action:hover {
+            background: #3ff0ed;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
+        }
+
+        /* Affiliate Link */
+        .affiliate-link {
+            display: block;
+            background: #ffd700;
+            color: #1c222d;
+            text-align: center;
+            padding: 12px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid #ffd700;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .affiliate-link:hover {
+            background: transparent;
+            color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .affiliate-link i {
+            margin-right: 8px;
+        }
+
+        .footer-note {
+            margin-top: 15px;
+            text-align: center;
+            color: #6d8ba0;
+            font-size: 0.75rem;
+        }
+
+        .footer-note a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            color: white;
+            justify-content: center;
+        }
+
+        .radio-group label {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            transition: var(--transition);
+            gap: 5px;
             cursor: pointer;
-            margin-top: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        .generate-btn:hover {
-            background: var(--accent-shade);
-            box-shadow: 0 0 20px var(--glow-shadow);
-            transform: translateY(-2px);
+        .radio-group input[type="radio"] {
+            accent-color: #42f8f5;
+            width: 16px;
+            height: 16px;
         }
 
-        /* Affiliate link style */
-        .affiliate-link {
-            margin-top: 1rem;
-            text-align: center;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--dark-border);
-        }
-        .affiliate-link a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--button-bg);
-            color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 100px;
-            border: 1px solid var(--dark-border);
-            font-size: 0.75rem;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .affiliate-link a:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-        .affiliate-link i {
-            color: var(--primary-accent);
-        }
-        .affiliate-link a:hover i {
-            color: var(--main-bg);
-        }
-
-        /* Hide description on mobile */
-        @media (max-width: 768px) {
-            body > div:not(.tool-standalone) {
-                display: none !important;
+        @media (max-width: 500px) {
+            .percentage-card {
+                padding: 20px;
             }
-        }
-
-        @media (max-width: 480px) {
-            .tool-standalone {
-                max-width: 100%;
-                padding: 1rem;
+            
+            .card-title {
+                font-size: 1.3rem;
             }
-            .mode-selector {
-                flex-wrap: wrap;
+            
+            .input-row {
+                flex-direction: column;
+                gap: 10px;
             }
-            .mode-btn {
-                flex: 1 0 calc(50% - 0.25rem);
-                white-space: normal;
-                padding: 0.5rem 0.2rem;
-            }
-            .result-value {
-                font-size: 1.6rem;
+            
+            .input-field.small,
+            .input-field.large {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-standalone">
-        <!-- Close button -->
-        <a href="index.html" class="close-btn" title="Close tool">
-            <i class="fas fa-times"></i>
-        </a>
-
-        <!-- Header with icon -->
-        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
-            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
-                <i class="fas fa-percent"></i>
+    <div class="percentage-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">%</span> Percentage Calculator
             </div>
-            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Percentage Calculator</h1>
+            <div class="card-badge">%</div>
         </div>
 
-        <!-- Mode Selection -->
-        <div class="mode-selector">
-            <button id="modePercentOf" class="mode-btn active">
-                <i class="fas fa-calculator"></i> % of
-            </button>
-            <button id="modeChange" class="mode-btn">
-                <i class="fas fa-chart-line"></i> % change
-            </button>
-            <button id="modeFind" class="mode-btn">
-                <i class="fas fa-question"></i> find %
-            </button>
+        <!-- Calculation Type Selection -->
+        <div class="radio-group">
+            <label>
+                <input type="radio" name="calc-type" value="percentage" checked> Percentage of
+            </label>
+            <label>
+                <input type="radio" name="calc-type" value="what-percent"> What % is
+            </label>
+            <label>
+                <input type="radio" name="calc-type" value="change"> % Change
+            </label>
         </div>
 
-        <!-- Input Panel -->
-        <div class="input-group">
-            <div id="input1Label" class="input-label">
-                <i class="fas fa-dollar-sign"></i>
-                <span>Number</span>
+        <!-- Input Fields - Dynamic based on selection -->
+        <div id="percentage-inputs">
+            <div class="input-row">
+                <input class="input-field small" id="perc-value" type="number" value="20" placeholder="%">
+                <span style="color: white; align-self: center;">of</span>
+                <input class="input-field large" id="perc-of" type="number" value="250" placeholder="number">
             </div>
-            <input type="number" id="input1" class="input-field" value="100" step="any">
-            
-            <div id="input2Label" class="input-label" style="margin-top: 0.8rem;">
-                <i class="fas fa-percent"></i>
-                <span>Percentage</span>
+        </div>
+
+        <div id="what-percent-inputs" style="display: none;">
+            <div class="input-row">
+                <input class="input-field large" id="what-num1" type="number" value="25" placeholder="first number">
+                <span style="color: white; align-self: center;">is what % of</span>
+                <input class="input-field large" id="what-num2" type="number" value="100" placeholder="second number">
             </div>
-            <input type="number" id="input2" class="input-field" value="20" step="any">
-            
-            <div id="inputHint" class="input-hint">
-                Enter values above
+        </div>
+
+        <div id="change-inputs" style="display: none;">
+            <div class="input-row">
+                <input class="input-field large" id="change-from" type="number" value="50" placeholder="from">
+                <span style="color: white; align-self: center;">to</span>
+                <input class="input-field large" id="change-to" type="number" value="75" placeholder="to">
             </div>
         </div>
 
         <!-- Result Display -->
-        <div class="result-card">
-            <div id="resultValue" class="result-value">20</div>
-            <div id="resultDescription" class="result-description">20% of 100 = 20</div>
-        </div>
-
-        <!-- Details + Copy -->
-        <div class="result-details">
-            <span><i class="fas fa-info-circle" style="color: var(--primary-accent);"></i> Calculation</span>
-            <span id="calculationSummary" style="font-weight: 600; color: var(--text-primary);">100 × 0.20 = 20</span>
-            <button id="copyResultBtn" class="copy-btn">
-                <i class="fas fa-copy"></i> Copy
-            </button>
-        </div>
+        <div class="display-field" id="percentage-result">50.00</div>
 
         <!-- Calculate Button -->
-        <button id="calculateBtn" class="generate-btn">
-            <i class="fas fa-sync-alt"></i> Calculate
-        </button>
-        <!-- Updated on Feb 15, 2026 -->
-        <!-- Affiliate Link -->
-<div class="affiliate-link">
-    <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-star"></i>
-        <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
-        <i class="fas fa-external-link-alt"></i>
-    </a>
-</div>
+        <button class="btn-action" id="calc-percentage">% CALCULATE</button>
 
-    <!-- Additional content for AdSense -->
-    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
-        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            <i class="fas fa-percent"></i> About the Percentage Calculator
-        </h3>
-        <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Our Percentage Calculator handles three common percentage problems in one simple tool. Whether you need to find a percentage of a number, calculate percentage change, or determine what percentage one number is of another, this tool gives you instant answers with clear explanations.
-        </p>
+        <!-- Single Affiliate Link -->
+        <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" class="affiliate-link">
+            <i class="fas fa-chart-pie"></i> PERSONAL BUDGET PLANNER
+        </a>
 
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
-        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Three modes:</strong> “% of” (X% of Y), “% change” (from A to B), and “find %” (X is what % of Y).</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Real‑time calculation:</strong> Results update instantly as you type or change modes.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Clear formula display:</strong> Shows the underlying calculation so you understand how the result was derived.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Copy result:</strong> One‑click copy of the full descriptive result.</span>
-            </li>
-        </ul>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
-        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li>Select the desired mode using the buttons above the input fields.</li>
-            <li>Enter the required numbers (the field labels change based on mode).</li>
-            <li>The result and the formula appear instantly below.</li>
-            <li>Click <strong>"Copy"</strong> to copy the descriptive result (e.g., “20% of 100 = 20”).</li>
-        </ol>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 Common Use Cases</h4>
-        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li><strong>Shopping:</strong> Calculate discounts (e.g., 20% off ₹500).</li>
-            <li><strong>Finance:</strong> Find percentage increase in investments or salaries.</li>
-            <li><strong>Academics:</strong> Determine what percentage you scored on a test (e.g., 45 out of 60).</li>
-            <li><strong>Business:</strong> Compute tax, tips, profit margins.</li>
-        </ul>
-
-        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
-                "Three percentage problems, one simple tool – no math degree required."
-            </p>
+        <div class="footer-note">
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 
     <script>
-        (function() {
-            "use strict";
+        // Radio button toggle
+        const radioButtons = document.querySelectorAll('input[name="calc-type"]');
+        const percentageDiv = document.getElementById('percentage-inputs');
+        const whatPercentDiv = document.getElementById('what-percent-inputs');
+        const changeDiv = document.getElementById('change-inputs');
 
-            const modePercentOf = document.getElementById('modePercentOf');
-            const modeChange = document.getElementById('modeChange');
-            const modeFind = document.getElementById('modeFind');
-            const input1Label = document.getElementById('input1Label');
-            const input2Label = document.getElementById('input2Label');
-            const inputHint = document.getElementById('inputHint');
-            const input1 = document.getElementById('input1');
-            const input2 = document.getElementById('input2');
-            const resultValue = document.getElementById('resultValue');
-            const resultDescription = document.getElementById('resultDescription');
-            const calculationSummary = document.getElementById('calculationSummary');
-            const calculateBtn = document.getElementById('calculateBtn');
-            const copyBtn = document.getElementById('copyResultBtn');
-
-            let currentMode = 'percentOf';
-
-            function setActiveMode(mode) {
-                currentMode = mode;
-                modePercentOf.classList.toggle('active', mode === 'percentOf');
-                modeChange.classList.toggle('active', mode === 'change');
-                modeFind.classList.toggle('active', mode === 'find');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                percentageDiv.style.display = 'none';
+                whatPercentDiv.style.display = 'none';
+                changeDiv.style.display = 'none';
                 
-                if (mode === 'percentOf') {
-                    input1Label.innerHTML = '<i class="fas fa-dollar-sign"></i> Number';
-                    input2Label.innerHTML = '<i class="fas fa-percent"></i> Percentage';
-                    input2.placeholder = 'e.g., 20';
-                    inputHint.textContent = 'Enter number and percentage';
-                } else if (mode === 'change') {
-                    input1Label.innerHTML = '<i class="fas fa-arrow-up"></i> From value';
-                    input2Label.innerHTML = '<i class="fas fa-arrow-down"></i> To value';
-                    input2.placeholder = 'e.g., 150';
-                    inputHint.textContent = 'Enter original and new value';
-                } else if (mode === 'find') {
-                    input1Label.innerHTML = '<i class="fas fa-puzzle-piece"></i> Part';
-                    input2Label.innerHTML = '<i class="fas fa-circle"></i> Whole';
-                    input2.placeholder = 'e.g., 200';
-                    inputHint.textContent = 'Enter part and whole';
+                if (this.value === 'percentage') {
+                    percentageDiv.style.display = 'block';
+                } else if (this.value === 'what-percent') {
+                    whatPercentDiv.style.display = 'block';
+                } else if (this.value === 'change') {
+                    changeDiv.style.display = 'block';
                 }
+                
+                // Calculate with new values
                 calculatePercentage();
-            }
+            });
+        });
 
-            function formatNumber(num) {
-                if (num === 0) return '0';
-                if (Math.abs(num) < 0.0001) return num.toExponential(2);
-                const rounded = Math.round(num * 100) / 100;
-                return rounded.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-            }
-
-            function calculatePercentage() {
-                let val1 = parseFloat(input1.value);
-                let val2 = parseFloat(input2.value);
-                let result = 0;
-                let description = '';
-                let summary = '';
-
-                if (isNaN(val1)) val1 = 0;
-                if (isNaN(val2)) val2 = 0;
-
-                if (currentMode === 'percentOf') {
-                    result = (val2 / 100) * val1;
-                    description = `${val2}% of ${formatNumber(val1)} = ${formatNumber(result)}`;
-                    summary = `${formatNumber(val1)} × ${val2/100} = ${formatNumber(result)}`;
-                } else if (currentMode === 'change') {
-                    if (val1 !== 0) {
-                        result = ((val2 - val1) / val1) * 100;
-                    } else {
-                        result = 0;
-                    }
-                    const sign = result >= 0 ? 'increase' : 'decrease';
-                    description = `Change from ${formatNumber(val1)} to ${formatNumber(val2)} = ${formatNumber(Math.abs(result))}% ${sign}`;
-                    summary = `((${formatNumber(val2)} - ${formatNumber(val1)}) / ${formatNumber(val1)}) × 100 = ${formatNumber(result)}%`;
-                } else if (currentMode === 'find') {
-                    if (val2 !== 0) {
-                        result = (val1 / val2) * 100;
-                    } else {
-                        result = 0;
-                    }
-                    description = `${formatNumber(val1)} is ${formatNumber(result)}% of ${formatNumber(val2)}`;
-                    summary = `(${formatNumber(val1)} / ${formatNumber(val2)}) × 100 = ${formatNumber(result)}%`;
+        // Calculate function
+        function calculatePercentage() {
+            const calcType = document.querySelector('input[name="calc-type"]:checked').value;
+            let result = 0;
+            
+            if (calcType === 'percentage') {
+                const perc = parseFloat(document.getElementById('perc-value').value) || 0;
+                const of = parseFloat(document.getElementById('perc-of').value) || 0;
+                result = (perc / 100) * of;
+            } else if (calcType === 'what-percent') {
+                const num1 = parseFloat(document.getElementById('what-num1').value) || 0;
+                const num2 = parseFloat(document.getElementById('what-num2').value) || 0;
+                if (num2 !== 0) {
+                    result = (num1 / num2) * 100;
                 }
-
-                resultValue.textContent = formatNumber(result) + (currentMode !== 'percentOf' ? '%' : '');
-                resultDescription.textContent = description;
-                calculationSummary.textContent = summary;
+            } else if (calcType === 'change') {
+                const from = parseFloat(document.getElementById('change-from').value) || 0;
+                const to = parseFloat(document.getElementById('change-to').value) || 0;
+                if (from !== 0) {
+                    result = ((to - from) / from) * 100;
+                }
             }
+            
+            document.getElementById('percentage-result').innerText = result.toFixed(2);
+        }
 
-            function copyResult() {
-                const text = resultDescription.textContent;
-                navigator.clipboard.writeText(text).then(() => {
-                    copyBtn.classList.add('copied');
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = originalHTML;
-                    }, 2000);
-                }).catch(() => {
-                    alert('Failed to copy. Please copy manually.');
-                });
-            }
+        // Calculate button click
+        document.getElementById('calc-percentage').addEventListener('click', calculatePercentage);
 
-            modePercentOf.addEventListener('click', () => setActiveMode('percentOf'));
-            modeChange.addEventListener('click', () => setActiveMode('change'));
-            modeFind.addEventListener('click', () => setActiveMode('find'));
+        // Calculate on input change
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', calculatePercentage);
+        });
 
-            input1.addEventListener('input', calculatePercentage);
-            input2.addEventListener('input', calculatePercentage);
-            calculateBtn.addEventListener('click', calculatePercentage);
-            copyBtn.addEventListener('click', copyResult);
-
-            setActiveMode('percentOf');
-        })();
+        // Calculate on page load with default values
+        window.addEventListener('load', calculatePercentage);
     </script>
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 </body>
 </html>
