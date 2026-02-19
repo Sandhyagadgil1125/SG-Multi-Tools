@@ -3,527 +3,570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Size Converter · SG Multi Tools</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+    <title>File Size Converter - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE ===== */
-        body {
-            background: var(--main-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            padding: 10px;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        .tool-standalone {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            padding: 1.2rem;
-            width: 100%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            margin: auto;
-            position: relative;
-        }
-
-        .tool-standalone h1 {
-            font-size: 1.3rem !important;
-            margin-bottom: 0.3rem !important;
+        body {
+            background: #e8eef4;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Close button styles */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 10;
-            text-decoration: none;
+            align-items: center;
+            padding: 20px;
         }
 
-        .close-btn:hover {
-            background: var(--danger-color);
-            color: white;
-            border-color: var(--danger-color);
-            transform: scale(1.1);
+        .tool-container {
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.3rem;
+            background: #1c222d;
+            border-radius: 18px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
         }
-
-        .close-btn i {
-            font-size: 0.9rem;
-        }
-
-        /* File Size Converter specific styles */
-        .input-group {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .input-label {
+        
+        .tool-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
+            gap: 10px;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 10px;
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            color: #42f8f5;
+        }
+        
+        .tool-header h1 {
+            color: #42f8f5;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .tool-badge {
+            background: #12151a;
+            color: #42f8f5;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        /* Form Elements - Matching theme */
+        .input-label {
+            display: block;
+            color: #ffffff;
             font-size: 0.85rem;
-            margin-bottom: 0.5rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
         }
 
         .input-label i {
-            color: var(--primary-accent);
+            color: #42f8f5;
+            margin-right: 6px;
             width: 18px;
-            text-align: center;
         }
 
-        #sizeInput {
+        .tool-input {
             width: 100%;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
+            padding: 0.8rem 1rem;
+            background: #eef5fa;
+            border: 2px solid #3d5a73;
             border-radius: 12px;
-            padding: 0.7rem 1rem;
-            color: var(--text-primary);
+            font-size: 0.9rem;
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        .tool-input:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
             outline: none;
-            transition: var(--transition);
+            background: #ffffff;
         }
 
-        #sizeInput:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px var(--glow-shadow);
+        .tool-input::placeholder {
+            color: #6d8ba0;
+            opacity: 0.6;
         }
 
+        .tool-select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: #eef5fa;
+            border: 2px solid #3d5a73;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1c222d;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+        }
+
+        .tool-select:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+            outline: none;
+            background: #ffffff;
+        }
+
+        .display-field {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 1.2rem;
+            color: #42f8f5;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #42f8f5;
+            font-family: monospace;
+            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
+            margin: 1rem 0;
+        }
+
+        .display-field small {
+            display: block;
+            color: #b0c4de;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            font-weight: normal;
+        }
+
+        /* Unit row layout */
         .unit-row {
             display: flex;
+            gap: 10px;
             align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        .unit-select {
+        .unit-row .tool-input {
             flex: 1;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 0.7rem 1rem;
-            color: var(--text-primary);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
-            transition: var(--transition);
-            cursor: pointer;
+            margin-bottom: 0;
         }
 
-        .unit-select:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px var(--glow-shadow);
+        .unit-row .tool-select {
+            flex: 1;
+            margin-bottom: 0;
         }
 
+        /* Swap button */
         .swap-btn {
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            width: 42px;
-            height: 42px;
+            width: 50px;
+            height: 50px;
+            background: #1c222d;
+            border: 2px solid #42f8f5;
+            border-radius: 50%;
+            color: #42f8f5;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 0 auto 1rem auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            cursor: pointer;
-            flex-shrink: 0;
         }
 
         .swap-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
+            background: #42f8f5;
+            color: #1c222d;
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .swap-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .swap-btn:hover i {
             transform: rotate(180deg);
         }
 
-        .result-card {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
+        /* Unit Categories */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .category-btn {
+            background: #12151a;
+            border: 1px solid #2a4055;
             border-radius: 20px;
-            padding: 1.2rem;
-            margin: 1rem 0 0.8rem;
+            padding: 8px 4px;
+            font-size: 0.75rem;
+            color: #b0c4de;
+            cursor: pointer;
+            transition: all 0.2s ease;
             text-align: center;
         }
 
-        .result-amount {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-accent);
-            line-height: 1.2;
-            margin-bottom: 0.2rem;
-            word-break: break-word;
+        .category-btn:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            border-color: #42f8f5;
         }
 
-        .result-unit {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .result-details {
-            background: rgba(10,15,30,0.6);
-            border-radius: 14px;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 1rem 0 0.5rem;
-        }
-
-        .copy-btn {
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 14px;
-            padding: 0.4rem 0.9rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-
-        .copy-btn.copied {
-            background: var(--success-color);
-            border-color: var(--success-color);
-            color: var(--main-bg);
-        }
-
-        .generate-btn {
-            width: 100%;
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border: none;
-            border-radius: 16px;
-            padding: 0.7rem;
-            font-size: 0.95rem;
+        .category-btn.active {
+            background: #42f8f5;
+            color: #1c222d;
+            border-color: #42f8f5;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            transition: var(--transition);
+        }
+
+        /* Button Grid */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 1rem 0;
+        }
+
+        .tool-btn {
+            background: #1c222d;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
             cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-btn:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .tool-btn:active {
+            transform: translateY(0);
+        }
+
+        .tool-btn.primary {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 700;
+        }
+
+        .tool-btn.primary:hover {
+            background: transparent;
+            color: #42f8f5;
+        }
+
+        .action-btn {
+            width: 100%;
+            background: #42f8f5;
+            color: #1c222d;
+            border: none;
+            padding: 12px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #42f8f5;
+            letter-spacing: 0.5px;
             margin-top: 0.5rem;
         }
 
-        .generate-btn:hover {
-            background: var(--accent-shade);
-            box-shadow: 0 0 20px var(--glow-shadow);
+        .action-btn:hover {
+            background: transparent;
+            color: #42f8f5;
             transform: translateY(-2px);
-        }
-        <!-- Updated on Feb 16, 2026 -->
-      
-        /* Hide description on mobile */
-        @media (max-width: 768px) {
-            body > div:not(.tool-standalone) {
-                display: none !important;
-            }
+            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
         }
 
-        @media (max-width: 480px) {
-            .tool-standalone {
-                max-width: 100%;
+        .action-btn i {
+            margin-right: 8px;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: #42f8f5;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 22px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .footer-email {
+            margin-top: 1.5rem;
+            color: #6d8ba0;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-email a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
+        /* Unit symbols */
+        .unit-symbol {
+            color: #42f8f5;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        /* Hide description on mobile */
+        .mobile-hide {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+            
+            .tool-container {
                 padding: 1rem;
+                max-width: 95%;
             }
-            .result-amount {
-                font-size: 1.5rem;
+            
+            .tool-header h1 {
+                font-size: 1.4rem;
             }
+            
             .unit-row {
                 flex-direction: column;
+                gap: 10px;
             }
-            .swap-btn {
-                transform: rotate(90deg);
+            
+            .unit-row .tool-input,
+            .unit-row .tool-select {
+                width: 100%;
             }
-            .swap-btn:hover {
-                transform: rotate(270deg);
+            
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-standalone">
-        <!-- Close button -->
-        <a href="index.html" class="close-btn" title="Close tool">
-            <i class="fas fa-times"></i>
-        </a>
-
-        <!-- Header with icon -->
-        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
-            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
-                <i class="fas fa-file"></i>
-            </div>
-            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">File Size Converter</h1>
+    <div class="tool-container">
+        <!-- Header with icon and badge -->
+        <div class="tool-header">
+            <span class="tool-icon">💾</span>
+            <h1>File Size Converter</h1>
+            <span class="tool-badge mobile-hide">MB/GB</span>
         </div>
 
-        <!-- Input: Number -->
-        <div class="input-group">
-            <div class="input-label">
-                <i class="fas fa-calculator"></i>
-                <span>Enter size</span>
-            </div>
-            <input type="number" id="sizeInput" value="1" step="any" min="0">
+        <!-- Description - Hidden on mobile -->
+        <div class="mobile-hide" style="color: #b0c4de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+            Convert between different file size units: bytes, KB, MB, GB, TB.
         </div>
 
-        <!-- Unit Selection -->
-        <div class="input-group" style="margin-bottom: 0.5rem;">
-            <div class="input-label">
+        <!-- Value Input -->
+        <label class="input-label"><i class="fas fa-calculator"></i> Value</label>
+        <input class="tool-input" id="value" type="number" value="1024" placeholder="Enter value" step="any" min="0">
+
+        <!-- From Unit -->
+        <label class="input-label"><i class="fas fa-arrow-right"></i> From</label>
+        <select class="tool-select" id="fromUnit">
+            <option value="B">Bytes (B)</option>
+            <option value="KB" selected>Kilobytes (KB)</option>
+            <option value="MB">Megabytes (MB)</option>
+            <option value="GB">Gigabytes (GB)</option>
+            <option value="TB">Terabytes (TB)</option>
+            <option value="PB">Petabytes (PB)</option>
+        </select>
+
+        <!-- Swap Button -->
+        <div style="display: flex; justify-content: center;">
+            <button class="swap-btn" onclick="swapUnits()">
                 <i class="fas fa-exchange-alt"></i>
-                <span>From → To</span>
-            </div>
-            
-            <!-- From Unit -->
-            <select id="fromUnit" class="unit-select">
-                <option value="B">Bytes (B)</option>
-                <option value="KB" selected>Kilobytes (KB)</option>
-                <option value="MB">Megabytes (MB)</option>
-                <option value="GB">Gigabytes (GB)</option>
-                <option value="TB">Terabytes (TB)</option>
-                <option value="PB">Petabytes (PB)</option>
-                <option value="EB">Exabytes (EB)</option>
-                <option value="ZB">Zettabytes (ZB)</option>
-            </select>
-            
-            <!-- Swap Button -->
-            <div style="display: flex; justify-content: center; margin: 0.3rem 0;">
-                <button id="swapBtn" class="swap-btn">
-                    <i class="fas fa-arrow-down"></i>
-                </button>
-            </div>
-            
-            <!-- To Unit -->
-            <select id="toUnit" class="unit-select">
-                <option value="B">Bytes (B)</option>
-                <option value="KB">Kilobytes (KB)</option>
-                <option value="MB" selected>Megabytes (MB)</option>
-                <option value="GB">Gigabytes (GB)</option>
-                <option value="TB">Terabytes (TB)</option>
-                <option value="PB">Petabytes (PB)</option>
-                <option value="EB">Exabytes (EB)</option>
-                <option value="ZB">Zettabytes (ZB)</option>
-            </select>
-        </div>
-
-        <!-- Result Display -->
-        <div class="result-card">
-            <div id="resultValue" class="result-amount">0.0009765625</div>
-            <div id="resultUnitLabel" class="result-unit">MB</div>
-        </div>
-
-        <!-- Details + Copy Button -->
-        <div class="result-details">
-            <span><i class="fas fa-info-circle" style="color: var(--primary-accent);"></i> 1 KB = 1024 B</span>
-            <span id="conversionSummary" style="font-weight: 600; color: var(--text-primary);">1 KB = 0.0009765625 MB</span>
-            <button id="copyResultBtn" class="copy-btn" aria-label="Copy conversion">
-                <i class="fas fa-copy"></i>
-                <span>Copy</span>
             </button>
         </div>
 
-        <!-- Convert Button -->
-        <button id="convertBtn" class="generate-btn">
-            <i class="fas fa-sync-alt"></i> Convert
+        <!-- To Unit -->
+        <label class="input-label"><i class="fas fa-arrow-left"></i> To</label>
+        <select class="tool-select" id="toUnit">
+            <option value="B">Bytes (B)</option>
+            <option value="KB">Kilobytes (KB)</option>
+            <option value="MB" selected>Megabytes (MB)</option>
+            <option value="GB">Gigabytes (GB)</option>
+            <option value="TB">Terabytes (TB)</option>
+            <option value="PB">Petabytes (PB)</option>
+        </select>
+
+        <!-- Result Display -->
+        <div class="display-field" id="result">
+            1.00 MB
+            <small>1 KB = 0.001 MB</small>
+        </div>
+
+        <!-- Common Conversions Grid -->
+        <div class="category-grid">
+            <button class="category-btn" onclick="setValue(1, 'KB', 'B')">1 KB to B</button>
+            <button class="category-btn" onclick="setValue(1, 'MB', 'KB')">1 MB to KB</button>
+            <button class="category-btn" onclick="setValue(1, 'GB', 'MB')">1 GB to MB</button>
+            <button class="category-btn" onclick="setValue(1, 'TB', 'GB')">1 TB to GB</button>
+            <button class="category-btn" onclick="setValue(1024, 'KB', 'MB')">1024 KB to MB</button>
+            <button class="category-btn" onclick="setValue(1024, 'MB', 'GB')">1024 MB to GB</button>
+            <button class="category-btn" onclick="setValue(1024, 'GB', 'TB')">1024 GB to TB</button>
+            <button class="category-btn" onclick="setValue(1, 'GB', 'B')">1 GB to B</button>
+        </div>
+
+        <!-- Button Grid -->
+        <div class="button-grid">
+            <button class="tool-btn" onclick="resetToDefault()">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+            <button class="tool-btn primary" onclick="copyResult()">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Action Button -->
+        <button class="action-btn" onclick="convert()">
+            <i class="fas fa-sync-alt"></i> CONVERT
         </button>
 
-        <!-- Affiliate Link -->
-        <div class="affiliate-link">
-            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-star"></i>
-                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
-                <i class="fas fa-external-link-alt"></i>
+        <!-- Navigation -->
+        <div style="text-align: center;">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
             </a>
         </div>
-    </div>
 
-    <!-- Additional content for AdSense -->
-    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
-        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            <i class="fas fa-file"></i> About the File Size Converter
-        </h3>
-        <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Our File Size Converter helps you quickly convert between different units of digital storage. Whether you're a developer estimating server space, a photographer managing image sizes, or just curious about how many gigabytes are in a terabyte, this tool gives you accurate results instantly.
-        </p>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
-        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>8 units:</strong> Convert between Bytes (B), Kilobytes (KB), Megabytes (MB), Gigabytes (GB), Terabytes (TB), Petabytes (PB), Exabytes (EB), and Zettabytes (ZB).</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Binary conversion:</strong> Uses 1 KB = 1024 B (the standard for file sizes, not the decimal 1000).</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Swap units:</strong> Instantly reverse the conversion with a single click.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Copy result:</strong> One‑click copy of the converted value and the conversion ratio.</span>
-            </li>
-        </ul>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
-        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li>Enter the number you want to convert.</li>
-            <li>Select the unit you're converting from (e.g., KB).</li>
-            <li>Select the unit you're converting to (e.g., MB).</li>
-            <li>Click the swap button (↕️) to quickly reverse the direction.</li>
-            <li>The result appears instantly, along with the conversion ratio (e.g., 1 KB = 0.00098 MB).</li>
-            <li>Click <strong>"Copy"</strong> to copy the full conversion summary.</li>
-        </ol>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 When to Use</h4>
-        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li><strong>Web development:</strong> Check image sizes, plan bandwidth usage.</li>
-            <li><strong>Storage planning:</strong> Convert between hard drive capacities, cloud storage limits.</li>
-            <li><strong>File transfers:</strong> Estimate time to upload/download based on file size.</li>
-            <li><strong>Learning:</strong> Understand the relationship between different units of digital data.</li>
-        </ul>
-
-        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
-                "From bytes to zettabytes – master your digital storage with ease."
-            </p>
+        <div class="footer-email">
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 
     <script>
-        (function() {
-            "use strict";
+        // Conversion factors to bytes
+        const toBytes = {
+            'B': 1,
+            'KB': 1024,
+            'MB': 1024 * 1024,
+            'GB': 1024 * 1024 * 1024,
+            'TB': 1024 * 1024 * 1024 * 1024,
+            'PB': 1024 * 1024 * 1024 * 1024 * 1024
+        };
 
-            const sizeInput = document.getElementById('sizeInput');
-            const fromUnit = document.getElementById('fromUnit');
-            const toUnit = document.getElementById('toUnit');
-            const swapBtn = document.getElementById('swapBtn');
-            const convertBtn = document.getElementById('convertBtn');
-            const resultValue = document.getElementById('resultValue');
-            const resultUnitLabel = document.getElementById('resultUnitLabel');
-            const conversionSummary = document.getElementById('conversionSummary');
-            const copyBtn = document.getElementById('copyResultBtn');
-
-            const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB'];
-            const base = 1024;
-
-            function convert(value, from, to) {
-                if (value === '' || isNaN(value) || value < 0) return 0;
-                const fromIndex = units.indexOf(from);
-                const toIndex = units.indexOf(to);
-                if (fromIndex === -1 || toIndex === -1) return 0;
-                
-                let bytes = value * Math.pow(base, fromIndex);
-                return bytes / Math.pow(base, toIndex);
+        function convert() {
+            const value = parseFloat(document.getElementById('value').value) || 0;
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            
+            // Convert to bytes first, then to target unit
+            const bytes = value * toBytes[fromUnit];
+            const result = bytes / toBytes[toUnit];
+            
+            // Format result
+            let formattedResult;
+            if (result < 0.001) {
+                formattedResult = result.toExponential(4);
+            } else if (result > 999999) {
+                formattedResult = result.toExponential(4);
+            } else {
+                formattedResult = result.toFixed(4).replace(/\.?0+$/, '');
             }
+            
+            // Calculate conversion rate
+            const rate = (toBytes[toUnit] / toBytes[fromUnit]).toFixed(6);
+            
+            // Update display
+            document.getElementById('result').innerHTML = `
+                ${formattedResult} ${toUnit}
+                <small>1 ${fromUnit} = ${rate} ${toUnit}</small>
+            `;
+        }
 
-            function formatNumber(num) {
-                if (num === 0) return '0';
-                if (Math.abs(num) < 0.000001) return num.toExponential(4);
-                if (Math.abs(num) >= 1000) return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                if (Math.abs(num) >= 1) return num.toFixed(4).replace(/\.?0+$/, '');
-                return num.toFixed(6).replace(/\.?0+$/, '');
-            }
+        function swapUnits() {
+            const fromSelect = document.getElementById('fromUnit');
+            const toSelect = document.getElementById('toUnit');
+            
+            // Swap values
+            const fromValue = fromSelect.value;
+            const toValue = toSelect.value;
+            
+            fromSelect.value = toValue;
+            toSelect.value = fromValue;
+            
+            convert();
+        }
 
-            function updateConversion() {
-                let value = parseFloat(sizeInput.value);
-                if (isNaN(value)) value = 0;
-                if (value < 0) value = 0;
-                
-                const from = fromUnit.value;
-                const to = toUnit.value;
-                
-                const result = convert(value, from, to);
-                const formattedResult = formatNumber(result);
-                
-                resultValue.textContent = formattedResult;
-                resultUnitLabel.textContent = to;
-                
-                const fromIndex = units.indexOf(from);
-                const toIndex = units.indexOf(to);
-                const ratio = Math.pow(base, fromIndex - toIndex);
-                const formattedRatio = formatNumber(ratio);
-                conversionSummary.textContent = `1 ${from} = ${formattedRatio} ${to}`;
-            }
+        function resetToDefault() {
+            document.getElementById('value').value = '1024';
+            document.getElementById('fromUnit').value = 'KB';
+            document.getElementById('toUnit').value = 'MB';
+            convert();
+        }
 
-            function swapUnits() {
-                const fromValue = fromUnit.value;
-                const toValue = toUnit.value;
-                fromUnit.value = toValue;
-                toUnit.value = fromValue;
-                updateConversion();
-            }
+        function copyResult() {
+            const resultText = document.getElementById('result').childNodes[0].nodeValue.trim();
+            navigator.clipboard.writeText(resultText).then(() => {
+                alert('Result copied to clipboard!');
+            }).catch(() => {
+                alert('Press Ctrl+C to copy');
+            });
+        }
 
-            function copyResult() {
-                const value = parseFloat(sizeInput.value) || 0;
-                const from = fromUnit.value;
-                const to = toUnit.value;
-                const result = resultValue.textContent;
-                const ratioText = conversionSummary.textContent;
-                
-                const summary = `${value} ${from} = ${result} ${to} • ${ratioText}`;
-                
-                navigator.clipboard.writeText(summary).then(() => {
-                    copyBtn.classList.add('copied');
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = originalHTML;
-                    }, 2000);
-                }).catch(() => {
-                    alert('Failed to copy. Please copy manually.');
-                });
-            }
+        function setValue(val, from, to) {
+            document.getElementById('value').value = val;
+            document.getElementById('fromUnit').value = from;
+            document.getElementById('toUnit').value = to;
+            convert();
+        }
 
-            sizeInput.addEventListener('input', updateConversion);
-            fromUnit.addEventListener('change', updateConversion);
-            toUnit.addEventListener('change', updateConversion);
-            swapBtn.addEventListener('click', swapUnits);
-            convertBtn.addEventListener('click', updateConversion);
-            copyBtn.addEventListener('click', copyResult);
+        // Auto-convert on input change
+        document.getElementById('value').addEventListener('input', convert);
+        document.getElementById('fromUnit').addEventListener('change', convert);
+        document.getElementById('toUnit').addEventListener('change', convert);
 
-            updateConversion();
-        })();
+        // Initial conversion
+        window.addEventListener('load', convert);
     </script>
 </body>
 </html>
