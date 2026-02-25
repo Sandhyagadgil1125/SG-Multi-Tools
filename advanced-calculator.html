@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-
     <style>
         * {
             margin: 0;
@@ -29,7 +28,7 @@
             border-radius: 30px;
             padding: 25px;
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             border: 2px solid #42f8f5;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
@@ -99,59 +98,80 @@
         .button-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn {
             background: #12151a;
             border: 1px solid #42f8f5;
-            border-radius: 12px;
-            padding: 15px 5px;
-            font-size: 1.1rem;
+            border-radius: 10px;
+            padding: 12px 3px;
+            font-size: 1rem;
             font-weight: 600;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
+            text-align: center;
         }
 
         .btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
-        .btn-number { background: #1e2b37; font-size: 1.3rem; }
-        .btn-operator { background: #2a3f55; font-size: 1.3rem; }
-        .btn-function { background: #1e3347; }
-        .btn-clear { background: #3d2a2a; border-color: #ff6b6b; color: #ffb3b3; }
+        .btn-number {
+            background: #1e2b37;
+            font-size: 1.2rem;
+        }
+        
+        .btn-operator {
+            background: #2a3f55;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .btn-function {
+            background: #1e3347;
+            font-size: 0.9rem;
+        }
+        
+        .btn-clear {
+            background: #3d2a2a;
+            border-color: #ff6b6b;
+            color: #ffb3b3;
+        }
 
         .btn-calculate {
             background: #42f8f5;
             color: #12151a;
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             border-color: #42f8f5;
             grid-column: span 2;
         }
 
-        .btn-zero { grid-column: span 2; }
+        .btn-zero {
+            grid-column: span 2;
+        }
 
         .calculate-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr) 2fr;
-            gap: 8px;
+            gap: 6px;
+            margin-top: 5px;
         }
 
         /* Affiliate box */
         .affiliate-box {
-            margin-top: 20px;
+            margin-top: 25px;
             background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 20px;
@@ -163,6 +183,7 @@
         .affiliate-box h3 {
             color: #42f8f5;
             margin-bottom: 10px;
+            font-size: 1.3rem;
         }
 
         .affiliate-box p {
@@ -173,29 +194,33 @@
 
         .aff-btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 12px 30px;
             background: #42f8f5;
             color: #12151a;
             font-weight: 700;
-            border-radius: 30px;
+            border-radius: 40px;
             text-decoration: none;
             transition: 0.3s;
+            border: 2px solid #42f8f5;
         }
 
         .aff-btn:hover {
-            background: white;
+            background: transparent;
+            color: #42f8f5;
             transform: scale(1.05);
         }
 
         @media screen and (max-width: 500px) {
+            .calculator-card { padding: 15px; }
             #calc-display { font-size: 2rem; }
+            .row { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
 <body>
 
 <div class="calculator-card">
-
+    <!-- Header -->
     <div class="card-header">
         <div class="card-title">
             <span class="card-icon">🧮</span> Advanced Calculator
@@ -203,59 +228,276 @@
         <div class="card-badge">SCIENTIFIC</div>
     </div>
 
+    <!-- Display -->
     <div class="display">
         <input type="text" id="calc-display" value="0" readonly>
         <div class="memory-indicator" id="memory-indicator"></div>
     </div>
 
-    <!-- Calculator buttons remain unchanged -->
-    <!-- (Keeping your exact original calculator logic intact) -->
+    <!-- Calculator Buttons -->
+    <div class="button-container">
+        <!-- Row 1: Scientific Functions -->
+        <div class="row">
+            <button class="btn btn-function" data-fn="sin">sin</button>
+            <button class="btn btn-function" data-fn="cos">cos</button>
+            <button class="btn btn-function" data-fn="tan">tan</button>
+            <button class="btn btn-function" data-fn="log">log</button>
+            <button class="btn btn-function" data-fn="ln">ln</button>
+        </div>
+
+        <!-- Row 2: More Scientific -->
+        <div class="row">
+            <button class="btn btn-function" data-fn="π">π</button>
+            <button class="btn btn-function" data-fn="e">e</button>
+            <button class="btn btn-function" data-fn="x²">x²</button>
+            <button class="btn btn-function" data-fn="√">√</button>
+            <button class="btn btn-function" data-fn="∛">∛</button>
+        </div>
+
+        <!-- Row 3: Advanced Functions -->
+        <div class="row">
+            <button class="btn btn-function" data-fn="xʸ">xʸ</button>
+            <button class="btn btn-function" data-fn="10ˣ">10ˣ</button>
+            <button class="btn btn-function" data-fn="|x|">|x|</button>
+            <button class="btn btn-function" data-fn="x!">x!</button>
+            <button class="btn btn-function" data-fn="1/x">1/x</button>
+        </div>
+
+        <!-- Row 4: Parentheses and Memory -->
+        <div class="row">
+            <button class="btn btn-function" data-fn="(">(</button>
+            <button class="btn btn-function" data-fn=")">)</button>
+            <button class="btn btn-function" data-fn="%">%</button>
+            <button class="btn btn-function" data-mem="M+">M+</button>
+            <button class="btn btn-function" data-mem="MR">MR</button>
+        </div>
+
+        <!-- Row 5: Numbers Row 1 -->
+        <div class="row">
+            <button class="btn btn-number" data-num="7">7</button>
+            <button class="btn btn-number" data-num="8">8</button>
+            <button class="btn btn-number" data-num="9">9</button>
+            <button class="btn btn-operator" data-op="÷">÷</button>
+            <button class="btn btn-clear" data-clear="C">C</button>
+        </div>
+
+        <!-- Row 6: Numbers Row 2 -->
+        <div class="row">
+            <button class="btn btn-number" data-num="4">4</button>
+            <button class="btn btn-number" data-num="5">5</button>
+            <button class="btn btn-number" data-num="6">6</button>
+            <button class="btn btn-operator" data-op="×">×</button>
+            <button class="btn" data-back="⌫">⌫</button>
+        </div>
+
+        <!-- Row 7: Numbers Row 3 -->
+        <div class="row">
+            <button class="btn btn-number" data-num="1">1</button>
+            <button class="btn btn-number" data-num="2">2</button>
+            <button class="btn btn-number" data-num="3">3</button>
+            <button class="btn btn-operator" data-op="-">−</button>
+            <button class="btn btn-function" data-sign="±">±</button>
+        </div>
+
+        <!-- Row 8: Numbers Row 4 with Calculate -->
+        <div class="calculate-row">
+            <button class="btn btn-number btn-zero" data-num="0">0</button>
+            <button class="btn btn-number" data-num="00">00</button>
+            <button class="btn btn-number" data-num=".">.</button>
+            <button class="btn btn-operator" data-op="+">+</button>
+            <button class="btn btn-calculate" data-calculate="=">=</button>
+        </div>
+    </div>
 
     <!-- Affiliate Promotion -->
     <div class="affiliate-box">
         <h3>💰 Want to earn money online?</h3>
         <p>Discover how people are building passive income using simple online systems.</p>
-        <a href="../income.html" class="aff-btn">Learn More</a>
+        <a href="income.html" class="aff-btn">Learn More</a>
     </div>
-
 </div>
 
 <script>
-/* KEEPING YOUR FULL ORIGINAL SCRIPT EXACTLY SAME */
 (function() {
-const display = document.getElementById('calc-display');
-let currentInput='0';let memory=0;let isNewCalculation=true;
-function updateDisplay(){display.value=currentInput;}
-document.querySelectorAll('[data-num]').forEach(btn=>{
-btn.addEventListener('click',()=>{
-const num=btn.dataset.num;
-if(currentInput==='0'||currentInput==='Error'||isNewCalculation){
-currentInput=num;isNewCalculation=false;
-}else{currentInput+=num;}
-updateDisplay();
-});});
-document.querySelectorAll('[data-op]').forEach(btn=>{
-btn.addEventListener('click',()=>{
-const op=btn.dataset.op;
-const lastChar=currentInput[currentInput.length-1];
-const operators=['+','-','×','÷','^'];
-if(operators.includes(lastChar)){
-currentInput=currentInput.slice(0,-1)+op;
-}else{currentInput+=op;}
-updateDisplay();
-});});
-document.querySelector('[data-clear="C"]').addEventListener('click',()=>{
-currentInput='0';isNewCalculation=true;updateDisplay();
-});
-document.querySelector('[data-calculate="="]').addEventListener('click',()=>{
-try{
-let expr=currentInput.replace(/×/g,'*').replace(/÷/g,'/');
-const result=new Function('return '+expr)();
-currentInput=result.toString();
-}catch{currentInput='Error';}
-updateDisplay();
-});
-updateDisplay();
+    const display = document.getElementById('calc-display');
+    const memoryIndicator = document.getElementById('memory-indicator');
+    let currentInput = '0';
+    let memory = 0;
+    let isNewCalculation = false;
+
+    function updateDisplay() {
+        display.value = currentInput;
+    }
+
+    // Number buttons
+    document.querySelectorAll('[data-num]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const num = btn.dataset.num;
+            if (currentInput === '0' || currentInput === 'Error' || isNewCalculation) {
+                currentInput = num;
+                isNewCalculation = false;
+            } else {
+                currentInput += num;
+            }
+            updateDisplay();
+        });
+    });
+
+    // Operator buttons
+    document.querySelectorAll('[data-op]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const op = btn.dataset.op;
+            if (currentInput === 'Error') currentInput = '0';
+            
+            const lastChar = currentInput[currentInput.length - 1];
+            const operators = ['+', '-', '×', '÷', '^'];
+            
+            if (operators.includes(lastChar)) {
+                currentInput = currentInput.slice(0, -1) + op;
+            } else {
+                currentInput += op;
+            }
+            updateDisplay();
+        });
+    });
+
+    // Function buttons
+    document.querySelectorAll('[data-fn]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const fn = btn.dataset.fn;
+            if (currentInput === 'Error') currentInput = '0';
+
+            switch(fn) {
+                case 'π':
+                    currentInput += Math.PI.toString();
+                    break;
+                case 'e':
+                    currentInput += Math.E.toString();
+                    break;
+                case 'x²':
+                    try {
+                        let val = eval(currentInput) || 0;
+                        currentInput = (val * val).toString();
+                    } catch { currentInput = 'Error'; }
+                    break;
+                case '√':
+                    currentInput = 'Math.sqrt(' + currentInput + ')';
+                    break;
+                case '∛':
+                    currentInput = 'Math.cbrt(' + currentInput + ')';
+                    break;
+                case 'xʸ':
+                    currentInput += '**';
+                    break;
+                case '10ˣ':
+                    currentInput = '10**' + currentInput;
+                    break;
+                case '|x|':
+                    currentInput = 'Math.abs(' + currentInput + ')';
+                    break;
+                case 'x!':
+                    currentInput += '!';
+                    break;
+                case '1/x':
+                    try {
+                        let val = eval(currentInput) || 0;
+                        currentInput = val !== 0 ? (1/val).toString() : 'Error';
+                    } catch { currentInput = 'Error'; }
+                    break;
+                case 'log':
+                    currentInput = 'Math.log10(' + currentInput + ')';
+                    break;
+                case 'ln':
+                    currentInput = 'Math.log(' + currentInput + ')';
+                    break;
+                case 'sin':
+                    currentInput = 'Math.sin(' + currentInput + ')';
+                    break;
+                case 'cos':
+                    currentInput = 'Math.cos(' + currentInput + ')';
+                    break;
+                case 'tan':
+                    currentInput = 'Math.tan(' + currentInput + ')';
+                    break;
+                default:
+                    currentInput += fn;
+            }
+            updateDisplay();
+        });
+    });
+
+    // Clear button
+    document.querySelector('[data-clear="C"]').addEventListener('click', () => {
+        currentInput = '0';
+        isNewCalculation = true;
+        updateDisplay();
+    });
+
+    // Backspace button
+    document.querySelector('[data-back="⌫"]').addEventListener('click', () => {
+        if (currentInput.length > 1) {
+            currentInput = currentInput.slice(0, -1);
+        } else {
+            currentInput = '0';
+            isNewCalculation = true;
+        }
+        updateDisplay();
+    });
+
+    // Sign change
+    document.querySelector('[data-sign="±"]').addEventListener('click', () => {
+        if (currentInput !== '0' && currentInput !== 'Error') {
+            if (currentInput.startsWith('-')) {
+                currentInput = currentInput.substring(1);
+            } else if (!isNaN(parseFloat(currentInput))) {
+                currentInput = '-' + currentInput;
+            }
+            updateDisplay();
+        }
+    });
+
+    // Memory functions
+    document.querySelectorAll('[data-mem]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const memFn = btn.dataset.mem;
+            
+            try {
+                if (memFn === 'M+') {
+                    memory += parseFloat(eval(currentInput) || 0);
+                    memoryIndicator.textContent = 'M';
+                } else if (memFn === 'MR') {
+                    currentInput = memory.toString();
+                    updateDisplay();
+                }
+            } catch {}
+        });
+    });
+
+    // Calculate button
+    document.querySelector('[data-calculate="="]').addEventListener('click', () => {
+        try {
+            let expr = currentInput
+                .replace(/×/g, '*')
+                .replace(/÷/g, '/');
+            
+            // Handle factorial
+            expr = expr.replace(/(\d+)!/g, (_, n) => {
+                let fact = 1;
+                for (let i = 2; i <= parseInt(n); i++) fact *= i;
+                return fact;
+            });
+
+            const result = new Function('return ' + expr)();
+            currentInput = (isNaN(result) || !isFinite(result)) ? 'Error' : result.toString();
+            isNewCalculation = true;
+        } catch {
+            currentInput = 'Error';
+        }
+        updateDisplay();
+    });
+
+    // Initial display
+    updateDisplay();
 })();
 </script>
 
