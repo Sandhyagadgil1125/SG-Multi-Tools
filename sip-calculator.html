@@ -1,566 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIP Calculator - SG Multi Tools</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Calculator | SG Multi Tools</title>
+<link rel="icon" type="image/png" href="favicon.png">
 
-        body {
-            background: #e8eef4;
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --accent:#42f8f5;
+  --text:#e2e8f0;
+  --muted:#94a3b8;
+}
 
-        .tool-container {
-            max-width: 520px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #1c222d;
-            border-radius: 18px;
-            border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
-        }
-        
-        .tool-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #42f8f5;
-            font-size: 1.6rem;
-            font-weight: 600;
-        }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+}
 
-        .tool-badge {
-            background: #12151a;
-            color: #42f8f5;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
-            text-transform: uppercase;
-        }
+body{
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+}
 
-        /* Form Elements - Matching theme */
-        .input-label {
-            display: block;
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-        }
+.tool-card{
+  background:var(--card);
+  border:2px solid var(--accent);
+  border-radius:16px;
+  padding:20px;
+  width:100%;
+  max-width:420px;
+  box-shadow:0 0 20px rgba(66,248,245,0.15);
+}
 
-        .input-label i {
-            color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
-        }
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
 
-        .tool-input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
-        }
+.title{
+  font-size:1.3rem;
+  font-weight:700;
+}
 
-        .tool-input:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
+.close{
+  text-decoration:none;
+  color:var(--accent);
+  font-weight:bold;
+  font-size:1.2rem;
+}
 
-        .tool-input::placeholder {
-            color: #6d8ba0;
-            opacity: 0.6;
-        }
+.input-group{
+  margin-bottom:12px;
+}
 
-        .display-field {
-            background: #12151a;
-            border-radius: 12px;
-            padding: 1.2rem;
-            color: #42f8f5;
-            font-size: 1.8rem;
-            font-weight: 600;
-            text-align: center;
-            border: 1px solid #42f8f5;
-            font-family: monospace;
-            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
-            margin: 1rem 0;
-        }
+label{
+  font-size:0.9rem;
+  color:var(--muted);
+}
 
-        .display-field small {
-            display: block;
-            color: #b0c4de;
-            font-size: 0.8rem;
-            margin-top: 8px;
-            font-weight: normal;
-        }
+input{
+  width:100%;
+  padding:10px;
+  margin-top:4px;
+  border-radius:8px;
+  border:1px solid var(--accent);
+  background:#0f172a;
+  color:white;
+  font-size:1rem;
+}
 
-        /* Results Grid */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 1.5rem 0;
-        }
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:var(--accent);
+  color:#0f172a;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:1rem;
+}
 
-        .result-card {
-            background: #12151a;
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            border: 1px solid #2a4055;
-        }
+button:hover{
+  opacity:0.9;
+}
 
-        .result-card .label {
-            color: #b0c4de;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
-        }
+.result{
+  margin-top:15px;
+  padding:12px;
+  border:1px solid var(--accent);
+  border-radius:10px;
+  text-align:center;
+}
 
-        .result-card .value {
-            color: #42f8f5;
-            font-size: 1.3rem;
-            font-weight: 600;
-            font-family: monospace;
-        }
+.result div{
+  margin:5px 0;
+}
 
-        .result-card .sub-value {
-            color: #6d8ba0;
-            font-size: 0.7rem;
-            margin-top: 0.2rem;
-        }
+/* Affiliate box */
+.affiliate-box{
+  margin-top:18px;
+  padding:15px;
+  border:1px solid var(--accent);
+  border-radius:12px;
+  text-align:center;
+  background:#0f172a;
+}
 
-        /* Slider */
-        .slider-container {
-            margin: 1rem 0;
-        }
+.affiliate-title{
+  color:var(--accent);
+  font-weight:600;
+  margin-bottom:6px;
+}
 
-        .slider-header {
-            display: flex;
-            justify-content: space-between;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
+.affiliate-text{
+  font-size:0.85rem;
+  color:var(--muted);
+  margin-bottom:10px;
+}
 
-        .slider-value {
-            color: #42f8f5;
-            font-weight: 600;
-        }
+.aff-btn{
+  display:inline-block;
+  padding:10px 20px;
+  background:var(--accent);
+  color:#0f172a;
+  border-radius:20px;
+  text-decoration:none;
+  font-weight:bold;
+}
 
-        .slider {
-            width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: #2a4055;
-            outline: none;
-            -webkit-appearance: none;
-            margin-bottom: 1rem;
-        }
+.aff-btn:hover{
+  background:white;
+}
 
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #42f8f5;
-            cursor: pointer;
-            border: 2px solid #1c222d;
-            box-shadow: 0 0 10px rgba(66, 248, 245, 0.4);
-            transition: all 0.2s ease;
-        }
-
-        .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.6);
-        }
-
-        /* Investment Summary */
-        .summary-box {
-            background: #12151a;
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-            border: 1px solid #42f8f5;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #2a4055;
-        }
-
-        .summary-row:last-child {
-            border-bottom: none;
-        }
-
-        .summary-label {
-            color: #b0c4de;
-            font-size: 0.85rem;
-        }
-
-        .summary-value {
-            color: #42f8f5;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: monospace;
-        }
-
-        .summary-value.total {
-            color: #42f8f5;
-            font-size: 1.2rem;
-        }
-
-        /* Button Grid */
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        .tool-btn {
-            background: #1c222d;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            padding: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .tool-btn:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .tool-btn:active {
-            transform: translateY(0);
-        }
-
-        .tool-btn.primary {
-            background: #42f8f5;
-            color: #1c222d;
-            font-weight: 700;
-        }
-
-        .tool-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
-        }
-
-        .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #1c222d;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
-        }
-
-        .action-btn:hover {
-            background: transparent;
-            color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
-        }
-
-        .action-btn i {
-            margin-right: 8px;
-        }
-
-        .home-link {
-            display: inline-block;
-            margin-top: 1.2rem;
-            color: #42f8f5;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 22px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .home-link:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .footer-email {
-            margin-top: 1.5rem;
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
-        }
-
-        .footer-email a {
-            color: #42f8f5;
-            text-decoration: none;
-        }
-
-        .footer-email a:hover {
-            text-decoration: underline;
-        }
-
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-            
-            .tool-container {
-                padding: 1rem;
-                max-width: 95%;
-            }
-            
-            .tool-header h1 {
-                font-size: 1.4rem;
-            }
-            
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .button-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+.footer{
+  margin-top:15px;
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--muted);
+}
+</style>
 </head>
+
 <body>
-    <div class="tool-container">
-        <!-- Header with icon and badge -->
-        <div class="tool-header">
-            <span class="tool-icon">📈</span>
-            <h1>SIP Calculator</h1>
-            <span class="tool-badge mobile-hide">MF</span>
-        </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #b0c4de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
-            Calculate the future value of your Systematic Investment Plan (SIP) investments.
-        </div>
+<div class="tool-card">
 
-        <!-- Monthly Investment -->
-        <label class="input-label"><i class="fas fa-rupee-sign"></i> Monthly Investment (₹)</label>
-        <input class="tool-input" id="monthlyInvestment" type="number" value="5000" placeholder="Enter monthly SIP amount" step="100" min="0">
+<div class="header">
+<div class="title">💰 SIP Calculator</div>
+<a href="index.html" class="close">✕</a>
+</div>
 
-        <!-- Investment Period -->
-        <label class="input-label"><i class="fas fa-clock"></i> Investment Period (Years)</label>
-        <input class="tool-input" id="investmentYears" type="number" value="10" placeholder="Enter number of years" step="1" min="1" max="40">
+<div class="input-group">
+<label>Monthly Investment (₹)</label>
+<input type="number" id="investment" value="5000">
+</div>
 
-        <!-- Expected Return -->
-        <label class="input-label"><i class="fas fa-chart-line"></i> Expected Return (% p.a.)</label>
-        <input class="tool-input" id="expectedReturn" type="number" value="12" placeholder="Enter expected return" step="0.1" min="0" max="30">
+<div class="input-group">
+<label>Expected Annual Return (%)</label>
+<input type="number" id="return" value="12">
+</div>
 
-        <!-- Results Grid -->
-        <div class="results-grid">
-            <div class="result-card">
-                <div class="label">Total Investment</div>
-                <div class="value" id="totalInvestment">₹ 6,00,000</div>
-                <div class="sub-value">Amount invested</div>
-            </div>
-            <div class="result-card">
-                <div class="label">Est. Returns</div>
-                <div class="value" id="estimatedReturns">₹ 5,61,695</div>
-                <div class="sub-value">Gains earned</div>
-            </div>
-        </div>
+<div class="input-group">
+<label>Time Period (Years)</label>
+<input type="number" id="years" value="10">
+</div>
 
-        <!-- Main Result Display -->
-        <div class="display-field" id="totalValue">
-            ₹ 11,61,695
-            <small>Total Corpus Value</small>
-        </div>
+<button onclick="calculateSIP()">Calculate</button>
 
-        <!-- Investment Summary -->
-        <div class="summary-box">
-            <div class="summary-row">
-                <span class="summary-label"><i class="fas fa-fw fa-calendar-alt" style="color: #42f8f5;"></i> Monthly SIP</span>
-                <span class="summary-value" id="summaryMonthly">₹ 5,000</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label"><i class="fas fa-fw fa-clock" style="color: #42f8f5;"></i> Duration</span>
-                <span class="summary-value" id="summaryDuration">10 years (120 months)</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label"><i class="fas fa-fw fa-percent" style="color: #42f8f5;"></i> Annual Return</span>
-                <span class="summary-value" id="summaryReturn">12% p.a.</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label"><i class="fas fa-fw fa-chart-pie" style="color: #42f8f5;"></i> Total Value</span>
-                <span class="summary-value total" id="summaryTotal">₹ 11,61,695</span>
-            </div>
-        </div>
+<div class="result" id="result" style="display:none;">
+<div>Invested Amount: ₹<span id="invested"></span></div>
+<div>Estimated Returns: ₹<span id="returns"></span></div>
+<div><strong>Total Value: ₹<span id="total"></span></strong></div>
+</div>
 
-        <!-- Quick Presets -->
-        <label class="input-label"><i class="fas fa-bolt"></i> Quick Presets</label>
-        <div class="button-grid">
-            <button class="tool-btn" onclick="setPreset(5000, 10, 12)">5K × 10Y @12%</button>
-            <button class="tool-btn" onclick="setPreset(10000, 15, 15)">10K × 15Y @15%</button>
-            <button class="tool-btn" onclick="setPreset(2500, 20, 10)">2.5K × 20Y @10%</button>
-            <button class="tool-btn" onclick="setPreset(15000, 5, 18)">15K × 5Y @18%</button>
-        </div>
+<!-- Affiliate Section -->
+<div class="affiliate-box">
 
-        <!-- Action Buttons -->
-        <div class="button-grid">
-            <button class="tool-btn primary" onclick="calculateSIP()">
-                <i class="fas fa-calculator"></i> Calculate
-            </button>
-            <button class="tool-btn" onclick="resetToDefault()">
-                <i class="fas fa-undo"></i> Reset
-            </button>
-        </div>
+<div class="affiliate-title">
+🚀 Want to Increase Your Income?
+</div>
 
-        <!-- Navigation -->
-        <div style="text-align: center;">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-        </div>
+<div class="affiliate-text">
+Discover proven online income methods used by thousands to build passive income streams.
+</div>
 
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-        </div>
-    </div>
+<a href="income.html" class="aff-btn">
+Learn More
+</a>
 
-    <script>
-        function calculateSIP() {
-            // Get input values
-            const monthlyInvestment = parseFloat(document.getElementById('monthlyInvestment').value) || 0;
-            const years = parseFloat(document.getElementById('investmentYears').value) || 0;
-            const annualReturn = parseFloat(document.getElementById('expectedReturn').value) || 0;
+</div>
 
-            // Validate inputs
-            if (monthlyInvestment <= 0 || years <= 0 || annualReturn <= 0) {
-                alert('Please enter valid positive values');
-                return;
-            }
+<div class="footer">
+SG Multi Tools • Free Online Financial Tools
+</div>
 
-            // Calculate SIP
-            const months = years * 12;
-            const monthlyRate = annualReturn / 12 / 100;
+</div>
 
-            // Future Value of SIP = P × ((1 + r)^n - 1) / r × (1 + r)
-            // where P = monthly investment, r = monthly rate, n = number of months
-            const futureValue = monthlyInvestment * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
-            
-            // Total investment
-            const totalInvestment = monthlyInvestment * months;
-            
-            // Estimated returns
-            const estimatedReturns = futureValue - totalInvestment;
+<script>
+function calculateSIP(){
 
-            // Format numbers with Indian number formatting
-            const formatIndian = (num) => {
-                return '₹ ' + Math.round(num).toLocaleString('en-IN');
-            };
+let monthly = parseFloat(document.getElementById("investment").value);
+let annualRate = parseFloat(document.getElementById("return").value);
+let years = parseFloat(document.getElementById("years").value);
 
-            // Update displays
-            document.getElementById('totalInvestment').textContent = formatIndian(totalInvestment);
-            document.getElementById('estimatedReturns').textContent = formatIndian(estimatedReturns);
-            document.getElementById('totalValue').innerHTML = `
-                ${formatIndian(futureValue)}
-                <small>Total Corpus Value</small>
-            `;
+let months = years * 12;
+let rate = annualRate / 12 / 100;
 
-            // Update summary
-            document.getElementById('summaryMonthly').textContent = formatIndian(monthlyInvestment);
-            document.getElementById('summaryDuration').textContent = `${years} years (${months} months)`;
-            document.getElementById('summaryReturn').textContent = `${annualReturn}% p.a.`;
-            document.getElementById('summaryTotal').textContent = formatIndian(futureValue);
-        }
+let futureValue =
+monthly *
+((Math.pow(1+rate, months)-1)/rate) *
+(1+rate);
 
-        function setPreset(monthly, years, returnRate) {
-            document.getElementById('monthlyInvestment').value = monthly;
-            document.getElementById('investmentYears').value = years;
-            document.getElementById('expectedReturn').value = returnRate;
-            calculateSIP();
-        }
+let invested = monthly * months;
+let returns = futureValue - invested;
 
-        function resetToDefault() {
-            document.getElementById('monthlyInvestment').value = 5000;
-            document.getElementById('investmentYears').value = 10;
-            document.getElementById('expectedReturn').value = 12;
-            calculateSIP();
-        }
+document.getElementById("invested").innerText =
+invested.toFixed(0);
 
-        // Calculate on input change with debounce
-        let timeout;
-        document.getElementById('monthlyInvestment').addEventListener('input', () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(calculateSIP, 300);
-        });
-        document.getElementById('investmentYears').addEventListener('input', () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(calculateSIP, 300);
-        });
-        document.getElementById('expectedReturn').addEventListener('input', () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(calculateSIP, 300);
-        });
+document.getElementById("returns").innerText =
+returns.toFixed(0);
 
-        // Calculate on page load
-        window.addEventListener('load', calculateSIP);
-    </script>
+document.getElementById("total").innerText =
+futureValue.toFixed(0);
+
+document.getElementById("result").style.display =
+"block";
+}
+</script>
+
 </body>
 </html>
