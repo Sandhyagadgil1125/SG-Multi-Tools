@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Percentage Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <style>
         * {
             margin: 0;
@@ -14,7 +13,7 @@
         }
 
         body {
-            background: #e8eef4;
+            background: #0d0f14;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -23,12 +22,12 @@
             padding: 20px;
         }
 
-        .percentage-card {
+        .calculator-card {
             background: #1c222d;
             border-radius: 30px;
             padding: 25px;
             width: 100%;
-            max-width: 450px;
+            max-width: 520px;
             border: 2px solid #42f8f5;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
@@ -68,6 +67,20 @@
         }
 
         /* Form Elements */
+        .input-label {
+            display: block;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .input-label i {
+            color: #42f8f5;
+            margin-right: 6px;
+            width: 18px;
+        }
+
         .input-row {
             display: flex;
             gap: 10px;
@@ -75,7 +88,7 @@
         }
 
         .input-field {
-            background: white;
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             padding: 12px 15px;
@@ -84,7 +97,7 @@
             width: 100%;
             outline: none;
             transition: all 0.2s ease;
-            font-family: 'Fira Mono', monospace;
+            font-family: monospace;
         }
 
         .input-field:focus {
@@ -109,7 +122,7 @@
             font-weight: 600;
             text-align: center;
             border: 1px solid #42f8f5;
-            font-family: 'Fira Mono', monospace;
+            font-family: monospace;
             box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
             margin: 20px 0;
         }
@@ -132,54 +145,10 @@
         }
 
         .btn-action:hover {
-            background: #3ff0ed;
+            background: transparent;
+            color: #42f8f5;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
-        }
-
-        /* Affiliate Link */
-        .affiliate-link {
-            display: block;
-            background: #ffd700;
-            color: #1c222d;
-            text-align: center;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 2px solid #ffd700;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .affiliate-link:hover {
-            background: transparent;
-            color: #ffd700;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .affiliate-link i {
-            margin-right: 8px;
-        }
-
-        .footer-note {
-            margin-top: 15px;
-            text-align: center;
-            color: #6d8ba0;
-            font-size: 0.75rem;
-        }
-
-        .footer-note a {
-            color: #42f8f5;
-            text-decoration: none;
-        }
-
-        .footer-note a:hover {
-            text-decoration: underline;
         }
 
         .radio-group {
@@ -204,8 +173,93 @@
             height: 16px;
         }
 
+        /* Affiliate Link Section - Exactly matching EMI Calculator */
+        .affiliate-section {
+            margin-top: 25px;
+        }
+
+        .affiliate-link {
+            display: block;
+            background: #12151a;
+            border: 2px solid #42f8f5;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .affiliate-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
+            background: #1e2b37;
+        }
+
+        .affiliate-link h3 {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .affiliate-link p {
+            color: #c5d1de;
+            font-size: 0.9rem;
+        }
+
+        .affiliate-link span {
+            display: inline-block;
+            margin-top: 10px;
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .affiliate-link:hover span {
+            background: white;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: #42f8f5;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 22px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .footer-email {
+            margin-top: 1.5rem;
+            color: #6d8ba0;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-email a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 500px) {
-            .percentage-card {
+            .calculator-card {
                 padding: 20px;
             }
             
@@ -226,7 +280,8 @@
     </style>
 </head>
 <body>
-    <div class="percentage-card">
+    <div class="calculator-card">
+        <!-- Header -->
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">%</span> Percentage Calculator
@@ -247,7 +302,7 @@
             </label>
         </div>
 
-        <!-- Input Fields - Dynamic based on selection -->
+        <!-- Input Fields - Percentage of -->
         <div id="percentage-inputs">
             <div class="input-row">
                 <input class="input-field small" id="perc-value" type="number" value="20" placeholder="%">
@@ -256,6 +311,7 @@
             </div>
         </div>
 
+        <!-- Input Fields - What % is (hidden by default) -->
         <div id="what-percent-inputs" style="display: none;">
             <div class="input-row">
                 <input class="input-field large" id="what-num1" type="number" value="25" placeholder="first number">
@@ -264,6 +320,7 @@
             </div>
         </div>
 
+        <!-- Input Fields - % Change (hidden by default) -->
         <div id="change-inputs" style="display: none;">
             <div class="input-row">
                 <input class="input-field large" id="change-from" type="number" value="50" placeholder="from">
@@ -278,12 +335,23 @@
         <!-- Calculate Button -->
         <button class="btn-action" id="calc-percentage">% CALCULATE</button>
 
-        <!-- Single Affiliate Link -->
-        <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" class="affiliate-link">
-            <i class="fas fa-chart-pie"></i> PERSONAL BUDGET PLANNER
-        </a>
+        <!-- AFFILIATE LINK - Budget Planner (Exactly matching EMI Calculator) -->
+        <div class="affiliate-section">
+            <a href="budget-planner.html" class="affiliate-link">
+                <h3>📊 Personal Budget Planner</h3>
+                <p>Take control of your finances with this smart Google Sheets budget planner</p>
+                <span>Learn More →</span>
+            </a>
+        </div>
 
-        <div class="footer-note">
+        <!-- Navigation -->
+        <div style="text-align: center;">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+
+        <div class="footer-email">
             📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
@@ -309,7 +377,6 @@
                     changeDiv.style.display = 'block';
                 }
                 
-                // Calculate with new values
                 calculatePercentage();
             });
         });
@@ -348,7 +415,7 @@
             input.addEventListener('input', calculatePercentage);
         });
 
-        // Calculate on page load with default values
+        // Calculate on page load
         window.addEventListener('load', calculatePercentage);
     </script>
     <!-- Font Awesome for icons -->
