@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMI Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <style>
         * {
             margin: 0;
@@ -14,7 +13,7 @@
         }
 
         body {
-            background: #e8eef4;
+            background: #0d0f14;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -23,12 +22,12 @@
             padding: 20px;
         }
 
-        .emi-card {
+        .calculator-card {
             background: #1c222d;
             border-radius: 30px;
             padding: 25px;
             width: 100%;
-            max-width: 450px;
+            max-width: 520px;
             border: 2px solid #42f8f5;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
@@ -68,37 +67,65 @@
         }
 
         /* Form Elements */
+        .input-label {
+            display: block;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .input-label i {
+            color: #42f8f5;
+            margin-right: 6px;
+            width: 18px;
+        }
+
         .input-field {
-            background: white;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
-            padding: 12px 15px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #1c222d;
-            width: 100%;
-            outline: none;
+            font-family: monospace;
             transition: all 0.2s ease;
-            font-family: 'Fira Mono', monospace;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         .input-field:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 0 4px rgba(66, 248, 245, 0.2);
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+            outline: none;
+            background: #ffffff;
+        }
+
+        .input-field::placeholder {
+            color: #6d8ba0;
+            opacity: 0.6;
         }
 
         .display-field {
             background: #12151a;
             border-radius: 12px;
-            padding: 15px;
+            padding: 1.2rem;
             color: #42f8f5;
-            font-size: 1.3rem;
+            font-size: 1.8rem;
             font-weight: 600;
             text-align: center;
             border: 1px solid #42f8f5;
-            font-family: 'Fira Mono', monospace;
+            font-family: monospace;
             box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
-            margin: 20px 0;
+            margin: 1rem 0;
+        }
+
+        .display-field small {
+            display: block;
+            color: #b0c4de;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            font-weight: normal;
         }
 
         .btn-action {
@@ -115,73 +142,188 @@
             transition: all 0.2s ease;
             width: 100%;
             text-align: center;
-            margin-bottom: 15px;
+            margin: 1rem 0;
         }
 
         .btn-action:hover {
-            background: #3ff0ed;
+            background: transparent;
+            color: #42f8f5;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
         }
 
-        /* Affiliate Link */
-        .affiliate-link {
-            display: block;
-            background: #ffd700;
-            color: #1c222d;
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .result-card {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 1rem;
             text-align: center;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
+            border: 1px solid #2a4055;
+        }
+
+        .result-card .label {
+            color: #b0c4de;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border: 2px solid #ffd700;
+            margin-bottom: 0.3rem;
+        }
+
+        .result-card .value {
+            color: #42f8f5;
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #42f8f5;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #2a4055;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #b0c4de;
+            font-size: 0.85rem;
+        }
+
+        .summary-value {
+            color: #42f8f5;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .summary-value.total {
+            color: #42f8f5;
+            font-size: 1.2rem;
+        }
+
+        /* Affiliate Link Section - Matching Percentage Calculator */
+        .affiliate-section {
+            margin-top: 25px;
+        }
+
+        .affiliate-link {
+            display: block;
+            background: #12151a;
+            border: 2px solid #42f8f5;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
             transition: all 0.3s ease;
-            width: 100%;
         }
 
         .affiliate-link:hover {
-            background: transparent;
-            color: #ffd700;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
+            background: #1e2b37;
+        }
+
+        .affiliate-link h3 {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .affiliate-link p {
+            color: #c5d1de;
+            font-size: 0.9rem;
+        }
+
+        .affiliate-link span {
+            display: inline-block;
+            margin-top: 10px;
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .affiliate-link:hover span {
+            background: white;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: #42f8f5;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 22px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
-        .affiliate-link i {
-            margin-right: 8px;
-        }
-
-        .footer-note {
-            margin-top: 15px;
-            text-align: center;
+        .footer-email {
+            margin-top: 1.5rem;
             color: #6d8ba0;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
+            text-align: center;
         }
 
-        .footer-note a {
+        .footer-email a {
             color: #42f8f5;
             text-decoration: none;
         }
 
-        .footer-note a:hover {
+        .footer-email a:hover {
             text-decoration: underline;
         }
 
         @media (max-width: 500px) {
-            .emi-card {
+            .calculator-card {
                 padding: 20px;
             }
             
             .card-title {
                 font-size: 1.3rem;
             }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="emi-card">
+    <div class="calculator-card">
+        <!-- Header -->
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">🏦</span> EMI Calculator
@@ -190,57 +332,142 @@
         </div>
 
         <!-- Input Fields -->
-        <input class="input-field" id="emi-amount" type="number" value="100000" placeholder="Loan amount (₹)">
-        <input class="input-field" id="emi-rate" type="number" value="9" placeholder="Interest rate (%)">
-        <input class="input-field" id="emi-years" type="number" value="5" placeholder="Loan tenure (years)">
+        <label class="input-label"><i class="fas fa-rupee-sign"></i> Loan Amount (₹)</label>
+        <input class="input-field" id="emi-amount" type="number" value="100000" placeholder="Enter loan amount">
 
-        <!-- Result Display -->
-        <div class="display-field" id="emi-result">Enter values above</div>
+        <label class="input-label"><i class="fas fa-percent"></i> Interest Rate (%)</label>
+        <input class="input-field" id="emi-rate" type="number" value="9" placeholder="Enter interest rate" step="0.1">
+
+        <label class="input-label"><i class="fas fa-clock"></i> Loan Tenure (Years)</label>
+        <input class="input-field" id="emi-years" type="number" value="5" placeholder="Enter loan tenure" step="1" min="1">
+
+        <!-- Results Grid -->
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="label">Monthly EMI</div>
+                <div class="value" id="emi-monthly">₹ 2,075</div>
+            </div>
+            <div class="result-card">
+                <div class="label">Total Interest</div>
+                <div class="value" id="total-interest">₹ 24,500</div>
+            </div>
+        </div>
+
+        <!-- Main Result Display -->
+        <div class="display-field" id="total-payment">
+            ₹ 1,24,500
+            <small>Total Payment (Principal + Interest)</small>
+        </div>
+
+        <!-- Summary Box -->
+        <div class="summary-box">
+            <div class="summary-row">
+                <span class="summary-label"><i class="fas fa-fw fa-rupee-sign" style="color: #42f8f5;"></i> Principal Amount</span>
+                <span class="summary-value" id="summary-principal">₹ 1,00,000</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label"><i class="fas fa-fw fa-percent" style="color: #42f8f5;"></i> Interest Rate</span>
+                <span class="summary-value" id="summary-rate">9% p.a.</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label"><i class="fas fa-fw fa-clock" style="color: #42f8f5;"></i> Tenure</span>
+                <span class="summary-value" id="summary-tenure">5 years (60 months)</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label"><i class="fas fa-fw fa-calculator" style="color: #42f8f5;"></i> Total EMI</span>
+                <span class="summary-value total" id="summary-total">₹ 2,075 × 60</span>
+            </div>
+        </div>
 
         <!-- Calculate Button -->
         <button class="btn-action" id="calc-emi">🏦 CALCULATE EMI</button>
 
-       <!-- Add this after your calculator buttons/result section -->
-<div class="affiliate-section" style="margin-top: 25px;">
-    <a href="budget-planner.html" class="affiliate-link" style="display: block; background: #12151a; border: 2px solid #42f8f5; border-radius: 20px; padding: 18px; text-align: center; text-decoration: none; transition: all 0.3s ease;">
-        <h3 style="color: #42f8f5; font-size: 1.2rem; margin-bottom: 6px;">📊 Personal Budget Planner</h3>
-        <p style="color: #c5d1de; font-size: 0.9rem;">Take control of your finances with this smart Google Sheets budget planner</p>
-        <span style="display: inline-block; margin-top: 10px; background: #42f8f5; color: #12151a; font-weight: 700; padding: 6px 18px; border-radius: 30px; font-size: 0.8rem;">Learn More →</span>
-    </a>
-</div>
+        <!-- AFFILIATE LINK - Budget Planner Landing Page -->
+        <div class="affiliate-section">
+            <a href="budget-planner.html" class="affiliate-link">
+                <h3>📊 Personal Budget Planner</h3>
+                <p>Take control of your finances with this smart Google Sheets budget planner</p>
+                <span>Learn More →</span>
+            </a>
+        </div>
 
-        <div class="footer-note">
+        <!-- Navigation -->
+        <div style="text-align: center;">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+
+        <div class="footer-email">
             📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 
     <script>
-        document.getElementById('calc-emi').addEventListener('click', function() {
+        function calculateEMI() {
             // Get input values
             const amount = parseFloat(document.getElementById('emi-amount').value) || 0;
             const rate = parseFloat(document.getElementById('emi-rate').value) || 0;
             const years = parseFloat(document.getElementById('emi-years').value) || 0;
-            
-            // Calculate EMI
-            if (amount > 0 && rate > 0 && years > 0) {
-                const months = years * 12;
-                const monthlyRate = rate / 12 / 100;
-                
-                // EMI formula: P * r * (1 + r)^n / ((1 + r)^n - 1)
-                const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-                
-                // Format result
-                const formattedEmi = '₹ ' + Math.round(emi).toLocaleString('en-IN') + '/month';
-                document.getElementById('emi-result').innerText = formattedEmi;
-            } else {
-                document.getElementById('emi-result').innerText = 'Please enter valid values';
+
+            if (amount <= 0 || rate <= 0 || years <= 0) {
+                alert('Please enter valid positive values');
+                return;
             }
+
+            // Calculate EMI
+            const months = years * 12;
+            const monthlyRate = rate / 12 / 100;
+            
+            // EMI formula: P * r * (1 + r)^n / ((1 + r)^n - 1)
+            const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+            
+            // Total payment
+            const totalPayment = emi * months;
+            
+            // Total interest
+            const totalInterest = totalPayment - amount;
+
+            // Format numbers
+            const formatIndian = (num) => {
+                return '₹ ' + Math.round(num).toLocaleString('en-IN');
+            };
+
+            // Update displays
+            document.getElementById('emi-monthly').textContent = formatIndian(emi);
+            document.getElementById('total-interest').textContent = formatIndian(totalInterest);
+            document.getElementById('total-payment').innerHTML = `
+                ${formatIndian(totalPayment)}
+                <small>Total Payment (Principal + Interest)</small>
+            `;
+
+            // Update summary
+            document.getElementById('summary-principal').textContent = formatIndian(amount);
+            document.getElementById('summary-rate').textContent = rate + '% p.a.';
+            document.getElementById('summary-tenure').textContent = years + ' years (' + months + ' months)';
+            document.getElementById('summary-total').innerHTML = formatIndian(emi) + ' × ' + months;
+        }
+
+        // Calculate on button click
+        document.getElementById('calc-emi').addEventListener('click', calculateEMI);
+
+        // Calculate on input change with debounce
+        let timeout;
+        document.getElementById('emi-amount').addEventListener('input', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(calculateEMI, 300);
+        });
+        document.getElementById('emi-rate').addEventListener('input', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(calculateEMI, 300);
+        });
+        document.getElementById('emi-years').addEventListener('input', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(calculateEMI, 300);
         });
 
-        // Calculate on page load with default values
-        window.addEventListener('load', function() {
-            document.getElementById('calc-emi').click();
-        });
+        // Calculate on page load
+        window.addEventListener('load', calculateEMI);
     </script>
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
