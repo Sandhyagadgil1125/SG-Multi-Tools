@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-       <!-- Updated on Feb 25, 2026 -->
 
         body {
             background: #0d0f14;
@@ -83,7 +82,8 @@
             border-radius: 20px;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #1c222d;
             background: #42f8f5;
             box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
@@ -108,7 +108,40 @@
             color: #42f8f5;
         }
 
-  
+        .hero-description {
+            color: #c5d1de;
+            font-size: 1.1rem;
+        }
+
+        /* Tools Grid - FIXED: 4 columns on desktop */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);  /* FORCES 4 COLUMNS */
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto 50px;
+            padding: 0 20px;
+        }
+
+        /* Responsive - adjusts for smaller screens */
+        @media screen and (max-width: 1000px) {
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr);  /* 3 columns on tablets */
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);  /* 2 columns on small tablets */
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .tools-grid {
+                grid-template-columns: 1fr;  /* 1 column on mobile */
+            }
+        }
 
         /* Tool Card */
         .tool-card {
@@ -120,6 +153,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
 
         .tool-card:hover {
@@ -195,13 +229,13 @@
             font-size: 0.7rem;
         }
 
-        /* Footer */
+        /* Footer - IMPROVED EMAIL VISIBILITY */
         .footer {
             background: #1c222d;
             width: 100%;
             padding: 30px 20px;
+            border-top: 3px solid #42f8f5;
             margin-top: 30px;
-            border-top: 2px solid #42f8f5;
         }
 
         .footer-content {
@@ -217,24 +251,88 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .footer-links a {
-            color: #e0e0e0;
+        .footer-links li a {
+            color: #ffffff;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: color 0.2s;
+            font-weight: 500;
         }
 
-        .footer-links a:hover {
+        .footer-links li a:hover {
             color: #42f8f5;
         }
 
+        /* EMAIL - ULTRA READABLE */
+        .footer-email {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .footer-email span {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .footer-email a {
+            color: #ffffff !important;  /* Pure white */
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            color: #42f8f5 !important;
+        }
+
         .copyright {
+            color: #ffffff;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Adsterra Ad Container */
+        .ad-container {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 15px;
+            background: #12151a;
+            border-radius: 10px;
+            border: 1px solid #2a4055;
+        }
+
+        .ad-container p {
             color: #c5d1de;
-            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .ad-link {
+            display: inline-block;
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 2px solid #42f8f5;
+            transition: all 0.3s ease;
+        }
+
+        .ad-link:hover {
+            background: transparent;
+            color: #42f8f5;
         }
 
         @media (max-width: 768px) {
@@ -265,7 +363,7 @@
             <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="tools.html">Tools</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
@@ -274,11 +372,11 @@
 
     <!-- Hero Section -->
     <div class="hero">
-        <h1>SG <span> SG Multi Tools</span></h1>
+        <h1>SG <span>Multi Tools</span></h1>
         <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- Tools Grid -->
+    <!-- Tools Grid - 20 tools in 4 columns -->
     <div class="tools-grid">
         <!-- Age Calculator -->
         <div class="tool-card">
@@ -501,40 +599,37 @@
         </div>
     </div>
 
-    <!-- Footer -->
-<!-- Footer -->
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <ul class="footer-links">
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="disclaimer.html">Disclaimer</a></li>
-            <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
-            <li><a href="sitemap.html">Sitemap</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        
-        <!-- >>> ADD ADSTERRA SMARTLINK HERE <<< -->
-        <div style="margin: 20px auto; max-width: 600px; text-align: center; padding: 15px; background: #12151a; border-radius: 10px; border: 1px solid #2a4055;">
-            <p style="color: #c5d1de; margin-bottom: 8px; font-size: 0.9rem;">🚀 Support Our Free Tools</p>
-            <a href="https://progressmagnify.com/de4yhwv04?key=ee04cfe3e08eba4b6d01a34aad9dd3e5" 
-               target="_blank" 
-               rel="noopener"
-               style="display: inline-block; background: #42f8f5; color: #12151a; font-weight: 600; padding: 10px 25px; border-radius: 40px; text-decoration: none; font-size: 0.95rem; border: 2px solid #42f8f5; transition: all 0.3s ease;">
-                ⚡ Check Partner Offers
-            </a>
+    <!-- Footer with Adsterra Ad -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <!-- Adsterra Smartlink Ad -->
+            <div class="ad-container">
+                <p>🚀 Support Our Free Tools</p>
+                <a href="https://progressmagnify.com/de4yhwv04?key=ee04cfe3e08eba4b6d01a34aad9dd3e5" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="ad-link">
+                    ⚡ Check Partner Offers
+                </a>
+            </div>
+            
+            <!-- Email - Ultra readable -->
+            <div class="footer-email">
+                <span>📧</span>
+                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
         </div>
-        
-        <!-- Email section -->
-        <div class="footer-email">
-            <span>📧</span>
-            <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-        </div>
-        
-        <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
-    </div>
-</footer>
-               
+    </footer>
 </body>
 </html>
