@@ -16,7 +16,7 @@
         }
 
         body {
-            background: #e8eef4;
+            background: #0d0f14;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -81,6 +81,31 @@
             color: #42f8f5;
             margin-right: 6px;
             width: 18px;
+        }
+
+        .tool-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: #eef5fa;
+            border: 2px solid #3d5a73;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1c222d;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        .tool-input:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+            outline: none;
+            background: #ffffff;
+        }
+
+        .tool-input::placeholder {
+            color: #6d8ba0;
+            opacity: 0.6;
         }
 
         .tool-textarea {
@@ -248,23 +273,24 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #6d8ba0;
+            color: #ffffff;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #ffffff;
             text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5;
             text-decoration: underline;
         }
 
         /* Last saved indicator */
         .last-saved {
-            color: #6d8ba0;
+            color: #c5d1de;
             font-size: 0.75rem;
             text-align: right;
             margin-top: 0.3rem;
@@ -317,7 +343,7 @@
         </div>
 
         <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #b0c4de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide" style="color: #c5d1de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
             Save and load notes locally in your browser. Your data stays on your device.
         </div>
 
@@ -430,7 +456,7 @@
             alert('Note saved successfully!');
         }
 
-        // Load note from localStorage
+        // Load note from localStorage (SILENT - NO ALERT)
         function loadNote() {
             const title = localStorage.getItem('savedNoteTitle');
             const content = localStorage.getItem('savedNoteContent');
@@ -448,9 +474,12 @@
                 }
                 
                 updateStats();
-                alert('Note loaded successfully!');
+                // NO ALERT - loads silently
             } else {
-                alert('No saved note found');
+                document.getElementById('lastSaved').innerHTML = `
+                    <i class="fas fa-info-circle"></i> No saved note found
+                `;
+                // NO ALERT - just updates the status text
             }
         }
 
@@ -542,9 +571,9 @@
         // Update stats on input
         document.getElementById('noteContent').addEventListener('input', updateStats);
 
-        // Load any existing note on page load
+        // Load any existing note on page load - SILENTLY (NO ALERT)
         window.addEventListener('load', () => {
-            loadNote();
+            loadNote(); // This now loads silently with no alert
         });
 
         // Cleanup interval on page unload
