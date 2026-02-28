@@ -90,22 +90,20 @@
             box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
         }
 
-     .hero {
+   /* Hero Section - PERFECTLY CENTERED */
+.hero {
     width: 100%;
     max-width: 1200px;
-    min-height: 300px;  /* Give it enough height */
-    margin: 0 auto;
+    margin: 20px auto 20px;  /* Reduced gap - was 40px 30px */
     padding: 0 20px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* This centers vertically */
 }
 
 .hero h1 {
     font-size: 2.5rem;
     color: #ffffff;
-    margin: 0 0 10px 0;  /* Remove top margin */
+    margin: 0 0 5px 0;  /* Reduced bottom margin */
+    line-height: 1.2;
 }
 
 .hero h1 span {
@@ -117,7 +115,48 @@
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0;
-}   
+    line-height: 1.4;
+}
+
+/* Tools Grid - RESTORED ORIGINAL SPACING */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 10px auto 50px;  /* Reduced top margin from 20px to 10px */
+    padding: 0 20px;
+}
+
+/* Responsive - adjusts for smaller screens */
+@media screen and (max-width: 1000px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+}
+
+
 
 
 
