@@ -6,31 +6,29 @@
     <title>SG Multi Tools - Free Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     
     <style>
-        /* TEST - Remove after fixing */
-.tools-grid {
-    border: 3px solid red !important;
-    background: rgba(255,0,0,0.1) !important;
-}
         * {
-            margin: 0 !important;
-            padding: 0 !important;
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0 !important;
-            padding: 0 !important;
+            background: #E8DE99;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Navbar */
         .navbar {
             background: #1c222d;
             width: 100%;
-            padding: 0 5% !important;
-            height: 50px !important;
+            padding: 0 5%;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -38,36 +36,31 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            margin: 0 !important;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin: 0 !important;
-            padding: 0 !important;
+            gap: 10px;
         }
 
         .logo-sg {
             background: #42f8f5;
             color: #1c222d;
             font-weight: 800;
-            font-size: 1.2rem;
-            width: 32px;
-            height: 32px;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 6px;
-            margin: 0 !important;
+            border-radius: 8px;
         }
 
         .logo-text {
             color: #ffffff;
-            font-size: 1rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin: 0 !important;
         }
 
         .logo-text span {
@@ -76,19 +69,16 @@
 
         .nav-links {
             display: flex;
-            gap: 10px;
-            margin: 0 !important;
-            padding: 0 !important;
+            gap: 25px;
         }
 
         .nav-links a {
             color: #e0e0e0;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.85rem;
-            padding: 4px 8px !important;
-            border-radius: 16px;
-            margin: 0 !important;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
         }
 
         .nav-links a:hover,
@@ -97,20 +87,19 @@
             background: #42f8f5;
         }
 
-        /* HERO SECTION - FORCED ZERO SPACE */
+        /* Hero Section */
         .hero {
             width: 100%;
             max-width: 1200px;
-            margin: 0 auto !important;
-            padding: 2px 20px !important;
+            margin: 5px auto 0;
+            padding: 0 20px;
             text-align: center;
         }
 
         .hero h1 {
             color: #1c222d;
-            font-size: 1.8rem;
-            margin: 0 !important;
-            padding: 0 !important;
+            font-size: 2.2rem;
+            margin: 0 0 2px 0;
             line-height: 1.1;
         }
 
@@ -120,72 +109,72 @@
 
         .hero-description {
             color: #4A3B2C;
-            font-size: 0.9rem;
-            margin: 0 !important;
-            padding: 0 !important;
-            line-height: 1.2;
+            font-size: 1rem;
+            margin: 0 0 5px 0;
         }
 
-        /* TOOLS GRID - ZERO TOP SPACE */
+        /* Tools Grid - 4 columns */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
+            gap: 20px;
             max-width: 1200px;
             width: 100%;
-            margin: 0 auto 40px !important;
-            padding: 0 20px !important;
+            margin: 0 auto 40px;
+            padding: 0 20px;
         }
 
         /* Tool Card */
         .tool-card {
             background: #1c222d;
-            border-radius: 12px;
-            padding: 12px !important;
+            border-radius: 16px;
+            padding: 20px;
             border: 1px solid #42f8f5;
+            transition: transform 0.2s;
             display: flex;
             flex-direction: column;
             height: 100%;
-            margin: 0 !important;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: #42f8f5;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px !important;
-            padding: 0 !important;
+            margin-bottom: 10px;
         }
 
         .tool-icon {
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #42f8f5;
-            margin: 0 !important;
         }
 
         .tool-badge {
             background: #12151a;
             color: #42f8f5;
-            font-size: 0.6rem;
-            padding: 2px 6px !important;
-            border-radius: 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
             border: 1px solid #42f8f5;
-            margin: 0 !important;
+            text-transform: uppercase;
         }
 
         .tool-card h3 {
             color: #ffffff;
-            font-size: 0.95rem;
-            margin: 0 0 4px 0 !important;
-            padding: 0 !important;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
 
         .tool-description {
             color: #c5d1de;
-            font-size: 0.75rem;
-            line-height: 1.3;
-            margin: 0 0 10px 0 !important;
-            padding: 0 !important;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
             flex-grow: 1;
         }
 
@@ -194,18 +183,20 @@
             background: transparent;
             color: #42f8f5;
             text-decoration: none;
-            font-size: 0.75rem;
-            padding: 4px 0 !important;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 0;
             border-top: 1px solid #2a4055;
             width: 100%;
-            margin: 0 !important;
+            text-align: left;
+            transition: all 0.2s;
         }
 
         .open-tool-btn:hover {
             color: #1c222d;
             background: #42f8f5;
-            padding: 4px 8px !important;
-            border-radius: 20px;
+            padding: 8px 12px;
+            border-radius: 30px;
             border-top: none;
         }
 
@@ -236,51 +227,57 @@
         .footer {
             background: #1c222d;
             width: 100%;
-            padding: 20px !important;
-            border-top: 2px solid #42f8f5;
-            margin-top: 20px !important;
+            padding: 30px 20px;
+            border-top: 3px solid #42f8f5;
+            margin-top: 30px;
         }
 
         .footer-content {
             max-width: 1200px;
-            margin: 0 auto !important;
-            text-align: center;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
         .footer-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 25px;
             list-style: none;
-            margin: 0 0 10px 0 !important;
-            padding: 0 !important;
         }
 
         .footer-links a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #42f8f5;
         }
 
         .footer-email {
-            margin: 0 0 10px 0 !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .footer-email a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.9rem;
         }
 
         .ad-container {
-            margin: 10px 0 !important;
+            width: 100%;
+            text-align: center;
         }
 
         .copyright {
             color: #ffffff;
-            font-size: 0.8rem;
-            margin-top: 10px !important;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -299,15 +296,15 @@
         </div>
     </div>
 
-    <!-- Hero Section - ZERO SPACE -->
+    <!-- Hero Section -->
     <div class="hero">
         <h1>SG <span>Multi Tools For Daily Use</span></h1>
         <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- Tools Grid - ALL 20 TOOLS -->
+    <!-- Tools Grid - 20 tools in 4 columns -->
     <div class="tools-grid">
-        <!-- Row 1 -->
+        <!-- ROW 1 -->
         <div class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📅</span>
@@ -348,7 +345,7 @@
             <a href="advanced-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Row 2 -->
+        <!-- ROW 2 -->
         <div class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">💰</span>
@@ -389,7 +386,7 @@
             <a href="file-size-converter.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Row 3 -->
+        <!-- ROW 3 -->
         <div class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🖼️</span>
@@ -430,7 +427,7 @@
             <a href="percentage-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Row 4 -->
+        <!-- ROW 4 -->
         <div class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📱</span>
@@ -471,7 +468,7 @@
             <a href="text-to-speech.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Row 5 -->
+        <!-- ROW 5 -->
         <div class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">⏱️</span>
@@ -517,9 +514,9 @@
     <footer class="footer">
         <div class="footer-content">
             <ul class="footer-links">
-                <li><a href="privacy-policy.html">Privacy</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
                 <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="terms-and-conditions.html">Terms</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
                 <li><a href="sitemap.html">Sitemap</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
