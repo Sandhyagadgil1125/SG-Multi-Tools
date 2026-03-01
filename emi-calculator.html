@@ -6,6 +6,8 @@
     <title>EMI Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,23 +16,23 @@
         }
 
         body {
-            background: #e8eef4;  /* Silver base - matching homepage */
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            /* Background from style.css */
         }
 
         .calculator-card {
-            background: #1c222d;
+            background: #E8DE99;  /* Champagne background */
             border-radius: 30px;
             padding: 25px;
             width: 100%;
             max-width: 520px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .card-header {
@@ -46,7 +48,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: white;
+            color: #1c222d;  /* Dark text */
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -57,8 +59,8 @@
         }
 
         .card-badge {
-            background: #12151a;
-            color: #42f8f5;
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
             padding: 5px 15px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
@@ -70,7 +72,7 @@
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;
+            color: #1c222d;  /* Dark text */
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -90,7 +92,7 @@
             border-radius: 12px;
             font-size: 0.9rem;
             color: #1c222d;
-            font-family: monospace;
+            font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
             margin-bottom: 1rem;
         }
@@ -108,7 +110,7 @@
         }
 
         .display-field {
-            background: #12151a;
+            background: #1c222d;  /* Dark background for contrast */
             border-radius: 12px;
             padding: 1.2rem;
             color: #42f8f5;
@@ -129,30 +131,6 @@
             font-weight: normal;
         }
 
-        .btn-action {
-            background: #42f8f5;
-            color: #12151a;
-            font-weight: 800;
-            font-size: 1.1rem;
-            padding: 14px;
-            border-radius: 40px;
-            border: 2px solid #42f8f5;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .btn-action:hover {
-            background: transparent;
-            color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
-        }
-
         /* Results Grid */
         .results-grid {
             display: grid;
@@ -162,11 +140,11 @@
         }
 
         .result-card {
-            background: #12151a;
+            background: #1c222d;  /* Dark background */
             border-radius: 12px;
             padding: 1rem;
             text-align: center;
-            border: 1px solid #2a4055;
+            border: 1px solid #42f8f5;
         }
 
         .result-card .label {
@@ -186,7 +164,7 @@
 
         /* Summary Box */
         .summary-box {
-            background: #12151a;
+            background: #1c222d;  /* Dark background */
             border-radius: 12px;
             padding: 1rem;
             margin: 1rem 0;
@@ -222,14 +200,41 @@
             font-size: 1.2rem;
         }
 
-        /* Affiliate Link Section - Matching Percentage Calculator */
+        /* Button */
+        .btn-action {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 14px;
+            border-radius: 40px;
+            border: 2px solid #42f8f5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .btn-action:hover {
+            background: transparent;
+            color: #42f8f5;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.7);
+        }
+
+        /* Affiliate Link Section */
         .affiliate-section {
-            margin-top: 25px;
+            margin-top: 20px;
+            border-top: 1px solid #2a4055;
+            padding-top: 20px;
         }
 
         .affiliate-link {
             display: block;
-            background: #12151a;
+            background: #1c222d;  /* Dark background for contrast */
             border: 2px solid #42f8f5;
             border-radius: 20px;
             padding: 18px;
@@ -241,7 +246,7 @@
         .affiliate-link:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
-            background: #1e2b37;
+            background: #2a3f55;
         }
 
         .affiliate-link h3 {
@@ -259,7 +264,7 @@
             display: inline-block;
             margin-top: 10px;
             background: #42f8f5;
-            color: #12151a;
+            color: #1c222d;
             font-weight: 700;
             padding: 6px 18px;
             border-radius: 30px;
@@ -274,7 +279,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -293,17 +298,18 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #6d8ba0;
+            color: #1c222d;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5;
             text-decoration: underline;
         }
 
@@ -383,7 +389,7 @@
         <!-- Calculate Button -->
         <button class="btn-action" id="calc-emi">🏦 CALCULATE EMI</button>
 
-        <!-- AFFILIATE LINK - Budget Planner Landing Page -->
+        <!-- AFFILIATE LINK - Budget Planner (SINGLE AFFILIATE LINK) -->
         <div class="affiliate-section">
             <a href="budget-planner.html" class="affiliate-link">
                 <h3>📊 Personal Budget Planner</h3>
@@ -470,7 +476,5 @@
         // Calculate on page load
         window.addEventListener('load', calculateEMI);
     </script>
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 </body>
 </html>
