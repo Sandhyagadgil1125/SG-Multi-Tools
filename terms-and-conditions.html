@@ -4,84 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms and Conditions - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific tweaks matching About page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-           background: #e8eef4;  /* Silver base - matching homepage */
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 15px;
-            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            /* Background from style.css */
         }
 
         .terms-container {
             max-width: 640px;
             width: 100%;
             margin: 0 auto;
-            padding: 1.6rem;
-            background: #1c222d;
-            border-radius: 20px;
+            padding: 2rem;
+            background: #E8DE99;  /* Champagne background */
+            border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 25px rgba(66, 248, 245, 0.3);
         }
         
-        .terms-container h1 {
-            color: #42f8f5;
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 12px;
-        }
-        
-        .terms-container .last-updated {
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            font-style: italic;
-        }
-        
-        .terms-container h2 {
-            color: #ffffff;
-            font-size: 1.2rem;
-            margin: 1.2rem 0 0.8rem;
-        }
-        
-        .terms-container p {
-            color: #e0e0e0;
-            line-height: 1.5;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-        
-        .terms-container ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .terms-container li {
-            color: #e0e0e0;
-            margin-bottom: 0.4rem;
+        .terms-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
+            gap: 10px;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 10px;
         }
         
-        .terms-container li i {
+        .terms-icon {
+            font-size: 2rem;
             color: #42f8f5;
-            width: 20px;
-            font-size: 0.9rem;
         }
         
-        .terms-container .highlight-box {
-            background: rgba(66,248,245,0.1);
+        .terms-header h1 {
+            color: #1c222d;  /* Dark text */
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .terms-badge {
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        .last-updated {
+            color: #4A3B2C;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .terms-section {
+            margin: 1.5rem 0;
+        }
+
+        .terms-section h2 {
+            color: #1c222d;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .terms-section p {
+            color: #4A3B2C;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .terms-section ul {
+            margin: 0.8rem 0 0.8rem 1.5rem;
+            color: #4A3B2C;
+        }
+
+        .terms-section li {
+            color: #4A3B2C;
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+
+        .highlight-box {
+            background: #1c222d;  /* Dark background for contrast */
             border-left: 4px solid #42f8f5;
             padding: 1rem;
             border-radius: 6px;
@@ -90,10 +114,15 @@
             font-size: 0.95rem;
         }
 
+        .highlight-box i {
+            color: #42f8f5;
+            margin-right: 8px;
+        }
+
         .home-link {
             display: inline-block;
             margin-top: 1.5rem;
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -112,89 +141,103 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #6d8ba0;
+            color: #1c222d;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5;
             text-decoration: underline;
         }
-        
-        @media (max-width: 768px) {
+
+        @media (max-width: 500px) {
             .terms-container {
-                margin: 1rem auto;
-                padding: 1.2rem;
-                max-width: 90%;
+                padding: 1.5rem;
             }
             
-            .terms-container h1 {
-                font-size: 1.6rem;
+            .terms-header h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== TERMS AND CONDITIONS CONTENT - NO HEADER OR FOOTER TABS ===== -->
     <div class="terms-container">
-        <h1>Terms and Conditions</h1>
+        <!-- Header -->
+        <div class="terms-header">
+            <span class="terms-icon">📜</span>
+            <h1>Terms and Conditions</h1>
+            <span class="terms-badge">LEGAL</span>
+        </div>
+
         <div class="last-updated">Last updated: February 15, 2026</div>
-        
-        <h2>1. Acceptance of Terms</h2>
-        <p>
-            By accessing or using SG Multi Tools, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not access our services.
-        </p>
+
+        <!-- Section 1 -->
+        <div class="terms-section">
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing or using SG Multi Tools, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not access our services.</p>
+        </div>
 
         <div class="highlight-box">
-            <i class="fas fa-gavel" style="color: #42f8f5; margin-right: 8px;"></i>
+            <i class="fas fa-gavel"></i>
             <strong>Free to use.</strong> By using our tools, you agree to these terms.
         </div>
 
-        <h2>2. Free Usage</h2>
-        <p>
-            All tools on SG Multi Tools are completely free to use. No payment, registration, or personal information is required to access any of our utilities.
-        </p>
+        <!-- Section 2 -->
+        <div class="terms-section">
+            <h2>2. Free Usage</h2>
+            <p>All tools on SG Multi Tools are completely free to use. No payment, registration, or personal information is required to access any of our utilities.</p>
+        </div>
 
-        <h2>3. Affiliate Disclosure</h2>
-        <p>
-            The Advanced Calculator contains affiliate links to Digistore24. If you make a purchase through these links, we may earn a commission at no additional cost to you. These links are clearly marked and you will be redirected to their site.
-        </p>
+        <!-- Section 3 -->
+        <div class="terms-section">
+            <h2>3. Affiliate Disclosure</h2>
+            <p>The Advanced Calculator contains affiliate links to Digistore24. If you make a purchase through these links, we may earn a commission at no additional cost to you. These links are clearly marked and you will be redirected to their site.</p>
+        </div>
 
-        <h2>4. No Warranty</h2>
-        <p>
-            Our tools are provided "as is" without any warranties, express or implied. While we strive for accuracy, we do not guarantee that the results from our calculators and tools will be error-free or reliable.
-        </p>
+        <!-- Section 4 -->
+        <div class="terms-section">
+            <h2>4. No Warranty</h2>
+            <p>Our tools are provided "as is" without any warranties, express or implied. While we strive for accuracy, we do not guarantee that the results from our calculators and tools will be error-free or reliable.</p>
+        </div>
 
-        <h2>5. Limitation of Liability</h2>
-        <p>
-            In no event shall SG Multi Tools be liable for any damages arising out of the use or inability to use our tools, even if advised of the possibility of such damages.
-        </p>
+        <!-- Section 5 -->
+        <div class="terms-section">
+            <h2>5. Limitation of Liability</h2>
+            <p>In no event shall SG Multi Tools be liable for any damages arising out of the use or inability to use our tools, even if advised of the possibility of such damages.</p>
+        </div>
 
-        <h2>6. User Responsibilities</h2>
-        <p>
-            You are responsible for how you use the information provided by our tools. Financial calculators should not be considered professional financial advice. Always consult with a qualified professional for important decisions.
-        </p>
+        <!-- Section 6 -->
+        <div class="terms-section">
+            <h2>6. User Responsibilities</h2>
+            <p>You are responsible for how you use the information provided by our tools. Financial calculators should not be considered professional financial advice. Always consult with a qualified professional for important decisions.</p>
+        </div>
 
-        <h2>7. Intellectual Property</h2>
-        <p>
-            All content, design, and code on SG Multi Tools are our property or used with permission. You may not reproduce, distribute, or modify any part of our website without explicit permission.
-        </p>
+        <!-- Section 7 -->
+        <div class="terms-section">
+            <h2>7. Intellectual Property</h2>
+            <p>All content, design, and code on SG Multi Tools are our property or used with permission. You may not reproduce, distribute, or modify any part of our website without explicit permission.</p>
+        </div>
 
-        <h2>8. Changes to Terms</h2>
-        <p>
-            We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting. Your continued use of the website after changes constitutes acceptance of the new terms.
-        </p>
+        <!-- Section 8 -->
+        <div class="terms-section">
+            <h2>8. Changes to Terms</h2>
+            <p>We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting. Your continued use of the website after changes constitutes acceptance of the new terms.</p>
+        </div>
 
-        <h2>9. Governing Law</h2>
-        <p>
-            These terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions.
-        </p>
+        <!-- Section 9 -->
+        <div class="terms-section">
+            <h2>9. Governing Law</h2>
+            <p>These terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions.</p>
+        </div>
 
+        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
