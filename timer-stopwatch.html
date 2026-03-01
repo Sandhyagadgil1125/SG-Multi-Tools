@@ -3,828 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer & Stopwatch · SG Multi Tools</title>
-    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Timer - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== ULTRA-COMPACT STANDALONE ===== */
-:root {
-    --main-bg: #e8eef4;  /* Silver background */
-    --card-bg: #1c222d;  /* Dark card background */
-    --accent: #42f8f5;    /* Cyan accent */
-}
-
-body {
-    background: var(--main-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Rest of your timer styles... */
-
-        .tool-standalone {
-            background: var(--button-bg-alt);
-            border-radius: 20px;
-            border: 1px solid var(--dark-border);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            padding: 1.2rem;
-            width: 100%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            margin: auto;
-            position: relative;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .tool-standalone h1 {
-            font-size: 1.3rem !important;
-            margin-bottom: 0.3rem !important;
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Close button styles */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 10;
-            text-decoration: none;
+            align-items: center;
+            padding: 20px;
+            /* Background from style.css */
         }
 
-        .close-btn:hover {
-            background: var(--danger-color);
-            color: white;
-            border-color: var(--danger-color);
-            transform: scale(1.1);
+        .tool-container {
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.3rem;
+            background: #E8DE99;  /* Champagne background */
+            border-radius: 18px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
         }
-
-        .close-btn i {
-            font-size: 0.9rem;
-        }
-
-        /* Timer/Stopwatch specific styles */
-        .mode-selector {
+        
+        .tool-header {
             display: flex;
-            gap: 0.5rem;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 1.2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 10px;
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            color: #42f8f5;
+        }
+        
+        .tool-header h1 {
+            color: #1c222d;  /* Dark text */
+            font-size: 1.6rem;
+            font-weight: 600;
         }
 
-        .mode-btn {
-            flex: 1;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            border-radius: 100px;
-            padding: 0.5rem 0.3rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-            transition: var(--transition);
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .mode-btn i {
+        .tool-badge {
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
             font-size: 0.7rem;
-        }
-
-        .mode-btn.active {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-
-        .time-display {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 20px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        #timeValue {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--primary-accent);
-            line-height: 1.2;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 4px;
-        }
-
-        .timer-inputs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .time-field {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .time-label {
-            color: var(--text-secondary);
-            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
             text-transform: uppercase;
-            margin-bottom: 0.2rem;
         }
 
-        .time-number {
-            width: 100%;
-            background: var(--button-bg-alt);
-            border: 1px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 0.5rem;
-            color: var(--text-primary);
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            font-weight: 600;
+        /* Timer Display */
+        .timer-display {
+            background: #1c222d;  /* Dark background for contrast */
+            border-radius: 20px;
+            padding: 2rem 1rem;
+            margin: 1.5rem 0;
+            border: 2px solid #42f8f5;
+            box-shadow: inset 0 0 20px rgba(66, 248, 245, 0.2);
             text-align: center;
-            outline: none;
-            transition: var(--transition);
         }
 
-        .time-number:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 0 3px var(--glow-shadow);
+        #timer {
+            font-size: 3.5rem;
+            font-weight: 700;
+            font-family: monospace;
+            color: #42f8f5;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
         }
 
-        .preset-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+        .timer-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 1.5rem 0;
         }
 
-        .preset-btn {
-            flex: 1;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 100px;
-            padding: 0.4rem 0.2rem;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 500;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .preset-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--glow-shadow);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .primary-btn {
-            flex: 1;
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border: none;
-            border-radius: 16px;
-            padding: 0.7rem;
-            font-size: 0.9rem;
+        .btn {
+            background: #1c222d;  /* Dark button */
+            border: 2px solid #42f8f5;
+            border-radius: 40px;
+            padding: 14px;
+            font-size: 1rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            transition: var(--transition);
+            color: white;
             cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .primary-btn:hover {
-            background: var(--accent-shade);
-            box-shadow: 0 0 20px var(--glow-shadow);
+        .btn:hover {
+            background: #42f8f5;
+            color: #1c222d;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
-        .secondary-btn {
-            flex: 1;
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 0.7rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            transition: var(--transition);
-            cursor: pointer;
+        .btn.primary {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 700;
         }
 
-        .secondary-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
+        .btn.primary:hover {
+            background: transparent;
+            color: #42f8f5;
         }
 
-        .secondary-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
+        .btn.warning {
+            background: #5f3e3e;
+            border-color: #ff6b6b;
+            color: #ffb3b3;
         }
 
-        .lap-section {
-            background: var(--main-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 16px;
-            padding: 0.8rem;
-            margin-top: 1rem;
+        .btn.warning:hover {
+            background: #ff6b6b;
+            color: #1c222d;
+            border-color: #ff6b6b;
         }
 
-        .lap-header {
+        .lap-times {
+            margin: 1.5rem 0;
+            background: #1c222d;  /* Dark background */
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid #42f8f5;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .lap-title {
+            color: #42f8f5;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
+        }
+
+        .lap-title button {
+            background: transparent;
+            border: 1px solid #42f8f5;
+            color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lap-title button:hover {
+            background: #42f8f5;
+            color: #1c222d;
         }
 
         .lap-list {
-            max-height: 120px;
-            overflow-y: auto;
-            padding-right: 0.2rem;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
         .lap-item {
             display: flex;
             justify-content: space-between;
-            color: var(--text-primary);
-            font-size: 0.8rem;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid var(--dark-border);
+            padding: 6px 10px;
+            background: #1c222d;
+            border-radius: 6px;
+            font-family: monospace;
+            color: #c5d1de;
+            border-left: 3px solid #42f8f5;
         }
 
-        .lap-item:last-child {
-            border-bottom: none;
-        }
-
-        .lap-number {
-            color: var(--text-muted);
-        }
-
-        .lap-time {
-            font-family: 'Courier New', monospace;
+        .lap-item span:first-child {
+            color: #42f8f5;
             font-weight: 600;
-            color: var(--primary-accent);
         }
 
-        .copy-btn {
-            background: var(--button-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 14px;
-            padding: 0.4rem 0.8rem;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: var(--transition);
-            cursor: pointer;
-            margin-left: auto;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-
-        .copy-btn.copied {
-            background: var(--success-color);
-            border-color: var(--success-color);
-            color: var(--main-bg);
-        }
-
-        /* Affiliate link style */
-        .affiliate-link {
-            margin-top: 1rem;
-            text-align: center;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--dark-border);
-        }
-        .affiliate-link a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--button-bg);
-            color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 100px;
-            border: 1px solid var(--dark-border);
-            font-size: 0.75rem;
+        .home-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: #1c222d;
             text-decoration: none;
-            transition: var(--transition);
-        }
-        .affiliate-link a:hover {
-            background: var(--primary-accent);
-            color: var(--main-bg);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px var(--glow-shadow);
-        }
-        .affiliate-link i {
-            color: var(--primary-accent);
-        }
-        .affiliate-link a:hover i {
-            color: var(--main-bg);
+            font-weight: 600;
+            padding: 8px 22px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
 
-        /* Hide description on mobile */
-        @media (max-width: 768px) {
-            body > div:not(.tool-standalone) {
-                display: none !important;
-            }
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
-        @media (max-width: 480px) {
-            .tool-standalone {
-                max-width: 100%;
+        .footer-email {
+            margin-top: 1.5rem;
+            color: #1c222d;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-email a {
+            color: #1c222d;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            color: #42f8f5;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .tool-container {
                 padding: 1rem;
             }
-            #timeValue {
-                font-size: 2.2rem;
+            
+            #timer {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
             }
-            .action-buttons {
-                flex-wrap: wrap;
-            }
-            .primary-btn, .secondary-btn {
-                flex: 1 0 calc(50% - 0.4rem);
+            
+            .timer-controls {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-standalone">
-        <!-- Close button -->
-        <a href="index.html" class="close-btn" title="Close tool">
-            <i class="fas fa-times"></i>
-        </a>
-
-        <!-- Header with icon -->
-        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
-            <div style="background: var(--primary-accent); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--main-bg); font-size: 1.1rem;">
-                <i class="fas fa-stopwatch"></i>
-            </div>
-            <h1 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin: 0;">Timer & Stopwatch</h1>
+    <div class="tool-container">
+        <!-- Header -->
+        <div class="tool-header">
+            <span class="tool-icon">⏱️</span>
+            <h1>Timer</h1>
+            <span class="tool-badge">TIMER</span>
         </div>
 
-        <!-- Mode Selection -->
-        <div class="mode-selector">
-            <button id="modeStopwatch" class="mode-btn active">
-                <i class="fas fa-stopwatch"></i> Stopwatch
-            </button>
-            <button id="modeTimer" class="mode-btn">
-                <i class="fas fa-hourglass-half"></i> Timer
-            </button>
+        <!-- Description - Hidden on mobile -->
+        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+            Simple timer and stopwatch with lap functionality.
         </div>
 
-        <!-- Time Display -->
-        <div class="time-display">
-            <div id="timeValue">00:00.00</div>
-            <button id="copyTimeBtn" class="copy-btn" style="margin-top: 0.3rem;">
-                <i class="fas fa-copy"></i> Copy Time
-            </button>
-        </div>
-
-        <!-- Timer Inputs (hidden in stopwatch mode) -->
-        <div id="timerInputsContainer" class="timer-inputs" style="display: none;">
-            <div class="time-field">
-                <span class="time-label">Hours</span>
-                <input type="number" id="hoursInput" class="time-number" value="0" min="0" max="23">
-            </div>
-            <div class="time-field">
-                <span class="time-label">Minutes</span>
-                <input type="number" id="minutesInput" class="time-number" value="1" min="0" max="59">
-            </div>
-            <div class="time-field">
-                <span class="time-label">Seconds</span>
-                <input type="number" id="secondsInput" class="time-number" value="0" min="0" max="59">
-            </div>
-        </div>
-
-        <!-- Preset Buttons (timer only) -->
-        <div id="presetContainer" class="preset-buttons" style="display: none;">
-            <button id="preset1m" class="preset-btn">1 min</button>
-            <button id="preset5m" class="preset-btn">5 min</button>
-            <button id="preset10m" class="preset-btn">10 min</button>
+        <!-- Timer Display -->
+        <div class="timer-display">
+            <div id="timer">00:00:00</div>
         </div>
 
         <!-- Control Buttons -->
-        <div class="action-buttons">
-            <button id="startBtn" class="primary-btn">
-                <i class="fas fa-play"></i> Start
-            </button>
-            <button id="pauseBtn" class="secondary-btn" disabled>
-                <i class="fas fa-pause"></i> Pause
-            </button>
-            <button id="resetBtn" class="secondary-btn">
-                <i class="fas fa-undo-alt"></i> Reset
-            </button>
-            <button id="lapBtn" class="secondary-btn">
-                <i class="fas fa-flag"></i> Lap
-            </button>
+        <div class="timer-controls">
+            <button class="btn primary" id="startBtn"><i class="fas fa-play"></i> Start</button>
+            <button class="btn" id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
+            <button class="btn warning" id="resetBtn"><i class="fas fa-stop"></i> Reset</button>
+            <button class="btn" id="lapBtn"><i class="fas fa-flag"></i> Lap</button>
         </div>
 
-        <!-- Lap Section (stopwatch only) -->
-        <div id="lapSection" class="lap-section">
-            <div class="lap-header">
-                <span><i class="fas fa-flag" style="color: var(--primary-accent);"></i> Lap Times</span>
-                <button id="clearLapsBtn" class="copy-btn" style="margin: 0;">
-                    <i class="fas fa-trash-alt"></i> Clear
-                </button>
+        <!-- Lap Times -->
+        <div class="lap-times">
+            <div class="lap-title">
+                <span><i class="fas fa-history" style="color: #42f8f5;"></i> Lap Times</span>
+                <button id="clearLapsBtn" onclick="clearLaps()">Clear</button>
             </div>
-            <div id="lapList" class="lap-list">
-                <div class="lap-item">
-                    <span class="lap-number">No laps</span>
-                </div>
-            </div>
+            <ul class="lap-list" id="lapList">
+                <li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">
+                    Click "Lap" to record times
+                </li>
+            </ul>
         </div>
 
-        <!-- Affiliate Link -->
-        <div class="affiliate-link">
-            <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-star"></i>
-                <span>Get the <strong>Ultimate Trading Course</strong> – 90% OFF</span>
-                <i class="fas fa-external-link-alt"></i>
+        <!-- Navigation -->
+        <div style="text-align: center;">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
             </a>
         </div>
-    </div>
 
-    <!-- Additional content for AdSense -->
-    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--main-bg); border: 1px solid var(--dark-border); border-radius: 16px; color: var(--text-secondary);">
-        <h3 style="color: var(--primary-accent); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            <i class="fas fa-stopwatch"></i> About the Timer & Stopwatch
-        </h3>
-        <p style="margin-bottom: 1rem; line-height: 1.6;">
-            Our Timer & Stopwatch is a versatile time‑tracking tool that combines a full‑featured stopwatch with a countdown timer. Whether you're timing a workout, cooking, tracking laps, or managing a presentation, this tool gives you precise control with an easy‑to‑read display and intuitive controls.
-        </p>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">✨ Key Features</h4>
-        <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Two modes:</strong> Stopwatch (counts up) and Timer (counts down) – switch instantly.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Large, clear display:</strong> Shows minutes, seconds, and hundredths of a second.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Lap tracking:</strong> Record lap times in stopwatch mode with lap differentials.</span>
-            </li>
-            <li style="margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fas fa-check-circle" style="color: var(--primary-accent); margin-top: 0.2rem;"></i>
-                <span><strong>Timer presets:</strong> Quick 1‑, 5‑, and 10‑minute buttons for common intervals.</span>
-            </li>
-        </ul>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">📝 How to Use</h4>
-        <ol style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li>Select Stopwatch or Timer using the mode buttons.</li>
-            <li><strong>Stopwatch:</strong> Click Start to begin; use Lap to record splits; Pause/Reset as needed.</li>
-            <li><strong>Timer:</strong> Set hours, minutes, seconds manually or use preset buttons; Start begins countdown.</li>
-            <li>When the timer reaches zero, you'll hear an alert (browser dependent).</li>
-            <li>Click <strong>"Copy Time"</strong> to copy the current displayed time to your clipboard.</li>
-        </ol>
-
-        <h4 style="color: var(--text-primary); font-size: 1rem; margin: 1.5rem 0 0.5rem;">💡 When to Use</h4>
-        <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-            <li><strong>Fitness:</strong> Time your runs, sets, or HIIT intervals with lap tracking.</li>
-            <li><strong>Cooking:</strong> Set precise timers for recipes.</li>
-            <li><strong>Work/Study:</strong> Use the Pomodoro technique (timer) for focused sessions.</li>
-            <li><strong>Presentations:</strong> Keep track of speaking time with the stopwatch.</li>
-        </ul>
-
-        <div style="background: rgba(66,248,245,0.1); border-left: 4px solid var(--primary-accent); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-            <p style="font-style: italic; margin: 0; color: var(--text-primary);">
-                “Time what matters – from seconds to hours, with style and precision.”
-            </p>
+        <div class="footer-email">
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 
     <script>
-        (function() {
-            "use strict";
+        let timer;
+        let isRunning = false;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+        let lapCount = 1;
 
-            const modeStopwatch = document.getElementById('modeStopwatch');
-            const modeTimer = document.getElementById('modeTimer');
-            const timeValue = document.getElementById('timeValue');
-            const timerInputsContainer = document.getElementById('timerInputsContainer');
-            const presetContainer = document.getElementById('presetContainer');
-            const hoursInput = document.getElementById('hoursInput');
-            const minutesInput = document.getElementById('minutesInput');
-            const secondsInput = document.getElementById('secondsInput');
-            const startBtn = document.getElementById('startBtn');
-            const pauseBtn = document.getElementById('pauseBtn');
-            const resetBtn = document.getElementById('resetBtn');
-            const lapBtn = document.getElementById('lapBtn');
-            const lapSection = document.getElementById('lapSection');
-            const lapList = document.getElementById('lapList');
-            const clearLapsBtn = document.getElementById('clearLapsBtn');
-            const copyTimeBtn = document.getElementById('copyTimeBtn');
-            const preset1m = document.getElementById('preset1m');
-            const preset5m = document.getElementById('preset5m');
-            const preset10m = document.getElementById('preset10m');
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const lapBtn = document.getElementById('lapBtn');
+        const lapList = document.getElementById('lapList');
 
-            let currentMode = 'stopwatch';
-            let timerInterval = null;
-            let stopwatchTime = 0;
-            let timerTime = 60;
-            let isRunning = false;
-            let isPaused = false;
-            let laps = [];
+        function updateDisplay() {
+            let displayHours = hours < 10 ? '0' + hours : hours;
+            let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            timerDisplay.textContent = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+        }
 
-            function formatTime(seconds, showMilliseconds = true) {
-                const hrs = Math.floor(seconds / 3600);
-                const mins = Math.floor((seconds % 3600) / 60);
-                const secs = Math.floor(seconds % 60);
-                const ms = Math.floor((seconds - Math.floor(seconds)) * 100);
-                if (hrs > 0) {
-                    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}` +
-                           (showMilliseconds ? `.${ms.toString().padStart(2, '0')}` : '');
-                } else {
-                    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}` +
-                           (showMilliseconds ? `.${ms.toString().padStart(2, '0')}` : '');
-                }
-            }
-
-            function updateDisplay() {
-                if (currentMode === 'stopwatch') {
-                    timeValue.textContent = formatTime(stopwatchTime);
-                } else {
-                    timeValue.textContent = formatTime(timerTime);
-                }
-            }
-
-            function startStopwatch() {
-                if (isRunning) return;
+        function startTimer() {
+            if (!isRunning) {
                 isRunning = true;
-                isPaused = false;
-                const startTime = Date.now() - stopwatchTime * 1000;
-                timerInterval = setInterval(() => {
-                    stopwatchTime = (Date.now() - startTime) / 1000;
-                    updateDisplay();
-                }, 10);
-            }
-
-            function pauseStopwatch() {
-                if (isRunning && !isPaused) {
-                    clearInterval(timerInterval);
-                    isRunning = false;
-                    isPaused = true;
-                }
-            }
-
-            function resetStopwatch() {
-                clearInterval(timerInterval);
-                isRunning = false;
-                isPaused = false;
-                stopwatchTime = 0;
-                updateDisplay();
-                laps = [];
-                renderLaps();
-            }
-
-            function startTimer() {
-                if (isRunning) return;
-                if (timerTime <= 0) {
-                    resetTimer();
-                    return;
-                }
-                isRunning = true;
-                isPaused = false;
-                const startTime = Date.now() - (timerTime * 1000);
-                timerInterval = setInterval(() => {
-                    timerTime = Math.max(0, (Date.now() - startTime) / 1000);
-                    updateDisplay();
-                    if (timerTime <= 0) {
-                        clearInterval(timerInterval);
-                        isRunning = false;
-                        isPaused = false;
-                        timerTime = 0;
-                        updateDisplay();
-                        alert('⏰ Timer finished!');
+                timer = setInterval(() => {
+                    seconds++;
+                    if (seconds === 60) {
+                        seconds = 0;
+                        minutes++;
+                        if (minutes === 60) {
+                            minutes = 0;
+                            hours++;
+                        }
                     }
-                }, 10);
-            }
-
-            function pauseTimer() {
-                if (isRunning && !isPaused) {
-                    clearInterval(timerInterval);
-                    isRunning = false;
-                    isPaused = true;
-                }
-            }
-
-            function resetTimer() {
-                clearInterval(timerInterval);
-                isRunning = false;
-                isPaused = false;
-                const hours = parseInt(hoursInput.value) || 0;
-                const minutes = parseInt(minutesInput.value) || 0;
-                const seconds = parseInt(secondsInput.value) || 0;
-                timerTime = hours * 3600 + minutes * 60 + seconds;
-                updateDisplay();
-            }
-
-            function setTimerFromInputs() {
-                if (currentMode === 'timer' && !isRunning) {
-                    const hours = parseInt(hoursInput.value) || 0;
-                    const minutes = parseInt(minutesInput.value) || 0;
-                    const seconds = parseInt(secondsInput.value) || 0;
-                    timerTime = hours * 3600 + minutes * 60 + seconds;
                     updateDisplay();
-                }
+                }, 1000);
             }
+        }
 
-            function setActiveMode(mode) {
-                currentMode = mode;
-                modeStopwatch.classList.toggle('active', mode === 'stopwatch');
-                modeTimer.classList.toggle('active', mode === 'timer');
-                timerInputsContainer.style.display = mode === 'timer' ? 'flex' : 'none';
-                presetContainer.style.display = mode === 'timer' ? 'flex' : 'none';
-                lapSection.style.display = mode === 'stopwatch' ? 'block' : 'none';
-                clearInterval(timerInterval);
-                isRunning = false;
-                isPaused = false;
-                if (mode === 'stopwatch') {
-                    stopwatchTime = 0;
-                    laps = [];
-                    renderLaps();
-                } else {
-                    hoursInput.value = 0;
-                    minutesInput.value = 1;
-                    secondsInput.value = 0;
-                    timerTime = 60;
+        function pauseTimer() {
+            clearInterval(timer);
+            isRunning = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            isRunning = false;
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            updateDisplay();
+            
+            // Clear laps on reset
+            lapList.innerHTML = '<li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">Click "Lap" to record times</li>';
+            lapCount = 1;
+        }
+
+        function recordLap() {
+            if (isRunning) {
+                let displayHours = hours < 10 ? '0' + hours : hours;
+                let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+                let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+                
+                const lapTime = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+                
+                if (lapList.children[0] && lapList.children[0].textContent.includes('Click "Lap"')) {
+                    lapList.innerHTML = '';
                 }
-                updateDisplay();
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
-                lapBtn.disabled = mode === 'timer';
-                pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                
+                const lapItem = document.createElement('li');
+                lapItem.className = 'lap-item';
+                lapItem.innerHTML = `<span>Lap ${lapCount}</span> <span>${lapTime}</span>`;
+                lapList.appendChild(lapItem);
+                
+                lapCount++;
+                lapList.scrollTop = lapList.scrollHeight;
+            } else {
+                alert('Start the timer first to record laps');
             }
+        }
 
-            function addLap() {
-                if (currentMode === 'stopwatch' && isRunning) {
-                    const lapTime = stopwatchTime;
-                    laps.push(lapTime);
-                    renderLaps();
-                }
-            }
+        function clearLaps() {
+            lapList.innerHTML = '<li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">Click "Lap" to record times</li>';
+            lapCount = 1;
+        }
 
-            function renderLaps() {
-                if (laps.length === 0) {
-                    lapList.innerHTML = '<div class="lap-item"><span class="lap-number">No laps</span></div>';
-                    return;
-                }
-                let html = '';
-                laps.forEach((lap, index) => {
-                    const lapDiff = index === 0 ? lap : lap - laps[index - 1];
-                    html += `
-                        <div class="lap-item">
-                            <span class="lap-number">Lap ${index + 1}</span>
-                            <span class="lap-time">${formatTime(lap)}</span>
-                            <span class="lap-diff" style="color: var(--text-muted); margin-left: 0.5rem;">+${formatTime(lapDiff)}</span>
-                        </div>
-                    `;
-                });
-                lapList.innerHTML = html;
-            }
+        // Event listeners
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+        lapBtn.addEventListener('click', recordLap);
 
-            function clearLaps() {
-                laps = [];
-                renderLaps();
-            }
-
-            function copyTime() {
-                const text = timeValue.textContent;
-                navigator.clipboard.writeText(text).then(() => {
-                    copyTimeBtn.classList.add('copied');
-                    const originalHTML = copyTimeBtn.innerHTML;
-                    copyTimeBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                    setTimeout(() => {
-                        copyTimeBtn.classList.remove('copied');
-                        copyTimeBtn.innerHTML = originalHTML;
-                    }, 2000);
-                }).catch(() => {
-                    alert('Failed to copy. Please copy manually.');
-                });
-            }
-
-            modeStopwatch.addEventListener('click', () => setActiveMode('stopwatch'));
-            modeTimer.addEventListener('click', () => setActiveMode('timer'));
-
-            hoursInput.addEventListener('input', setTimerFromInputs);
-            minutesInput.addEventListener('input', setTimerFromInputs);
-            secondsInput.addEventListener('input', setTimerFromInputs);
-
-            preset1m.addEventListener('click', () => {
-                hoursInput.value = 0;
-                minutesInput.value = 1;
-                secondsInput.value = 0;
-                setTimerFromInputs();
-            });
-            preset5m.addEventListener('click', () => {
-                hoursInput.value = 0;
-                minutesInput.value = 5;
-                secondsInput.value = 0;
-                setTimerFromInputs();
-            });
-            preset10m.addEventListener('click', () => {
-                hoursInput.value = 0;
-                minutesInput.value = 10;
-                secondsInput.value = 0;
-                setTimerFromInputs();
-            });
-
-            startBtn.addEventListener('click', function() {
-                if (currentMode === 'stopwatch') {
-                    startStopwatch();
-                } else {
-                    if (timerTime <= 0) resetTimer();
-                    startTimer();
-                }
-                startBtn.disabled = true;
-                pauseBtn.disabled = false;
-                lapBtn.disabled = currentMode === 'timer' || !isRunning;
-            });
-
-            pauseBtn.addEventListener('click', function() {
-                if (currentMode === 'stopwatch') {
-                    pauseStopwatch();
-                } else {
-                    pauseTimer();
-                }
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
-                if (currentMode === 'timer' && timerTime <= 0) {
-                    resetTimer();
-                }
-                if (isPaused) {
-                    pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
-                } else {
-                    pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
-                }
-            });
-
-            resetBtn.addEventListener('click', function() {
-                if (currentMode === 'stopwatch') {
-                    resetStopwatch();
-                } else {
-                    resetTimer();
-                }
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
-                pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
-            });
-
-            lapBtn.addEventListener('click', addLap);
-            clearLapsBtn.addEventListener('click', clearLaps);
-            copyTimeBtn.addEventListener('click', copyTime);
-
-            setActiveMode('stopwatch');
-        })();
+        // Initialize display
+        updateDisplay();
     </script>
 </body>
 </html>
