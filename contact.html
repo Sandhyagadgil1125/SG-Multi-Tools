@@ -9,16 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific tweaks matching About page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-             background: #e8eef4;  /* Silver base - matching homepage */
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 15px;
-            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            /* Background from style.css */
         }
 
         .contact-container {
@@ -26,62 +30,86 @@
             width: 100%;
             margin: 0 auto;
             padding: 1.3rem;
-            background: #1c222d;
+            background: #E8DE99;  /* Champagne background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
         }
         
-        .contact-container h1 {
-            color: #42f8f5;
-            font-size: 1.6rem;
-            margin-bottom: 0.3rem;
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.2rem;
             border-bottom: 2px solid #42f8f5;
             padding-bottom: 10px;
         }
         
-        .contact-container .subtitle {
-            color: #6d8ba0;
+        .contact-icon {
+            font-size: 2rem;
+            color: #42f8f5;
+        }
+        
+        .contact-header h1 {
+            color: #1c222d;  /* Dark text */
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .contact-badge {
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #4A3B2C;
             font-size: 0.85rem;
             margin-bottom: 1.2rem;
             line-height: 1.4;
         }
 
-        /* Contact Form Styles */
-        .contact-form {
-            margin: 1.2rem 0;
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
         }
 
-        .form-group {
-            margin-bottom: 0.8rem;
-        }
-
-        .form-label {
+        /* Form Elements */
+        .input-label {
             display: block;
-            color: #ffffff;
-            font-size: 0.8rem;
+            color: #1c222d;  /* Dark text */
+            font-size: 0.85rem;
             font-weight: 500;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
         }
 
-        .form-label i {
+        .input-label i {
             color: #42f8f5;
-            margin-right: 5px;
-            width: 16px;
-            font-size: 0.8rem;
+            margin-right: 6px;
+            width: 18px;
         }
 
         .form-input,
         .form-textarea {
             width: 100%;
-            padding: 0.6rem 0.9rem;
+            padding: 0.8rem 1rem;
             background: #eef5fa;
             border: 2px solid #3d5a73;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
             color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
+            margin-bottom: 1rem;
         }
 
         .form-input:focus,
@@ -93,75 +121,98 @@
         }
 
         .form-textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
         .submit-btn {
+            width: 100%;
             background: #42f8f5;
             color: #1c222d;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 12px;
             border-radius: 40px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            width: 100%;
             transition: all 0.3s ease;
             border: 2px solid #42f8f5;
             letter-spacing: 0.5px;
-            margin-top: 0.3rem;
+            margin-top: 0.5rem;
         }
 
         .submit-btn:hover {
             background: transparent;
             color: #42f8f5;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
         }
 
         .submit-btn i {
-            margin-right: 6px;
+            margin-right: 8px;
         }
 
-        .home-link {
-            display: inline-block;
-            margin-top: 1.2rem;
+        .contact-info {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #1c222d;  /* Dark background for contrast */
+            border-radius: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a4055;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            background: #1c222d;
+            border: 1px solid #42f8f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #42f8f5;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 6px 18px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
-        .home-link:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        .info-text {
+            flex: 1;
         }
 
-        .footer-email {
-            margin-top: 1.2rem;
-            color: #6d8ba0;
+        .info-label {
+            color: #b0c4de;
             font-size: 0.75rem;
-            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .footer-email a {
+        .info-value {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .info-value a {
             color: #42f8f5;
             text-decoration: none;
         }
 
-        .footer-email a:hover {
+        .info-value a:hover {
             text-decoration: underline;
         }
 
         .success-message {
-            background: rgba(66,248,245,0.1);
+            background: rgba(66, 248, 245, 0.1);
             border: 1px solid #42f8f5;
             border-radius: 8px;
             padding: 0.8rem;
@@ -170,10 +221,6 @@
             text-align: center;
             display: none;
             font-size: 0.8rem;
-        }
-
-        .success-message i {
-            margin-right: 6px;
         }
 
         .error-message {
@@ -187,25 +234,73 @@
             display: none;
             font-size: 0.8rem;
         }
-        
-        @media (max-width: 768px) {
+
+        .home-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: #1c222d;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 22px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .footer-email {
+            margin-top: 1.5rem;
+            color: #1c222d;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-email a {
+            color: #1c222d;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            color: #42f8f5;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
             .contact-container {
-                margin: 1rem auto;
                 padding: 1rem;
-                max-width: 95%;
             }
             
-            .contact-container h1 {
+            .contact-header h1 {
                 font-size: 1.4rem;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== CONTACT PAGE - NO HEADER OR FOOTER TABS ===== -->
     <div class="contact-container">
-        <h1>Contact Us</h1>
-        <div class="subtitle">Get in touch. Have questions or suggestions? Fill out the form below</div>
+        <!-- Header -->
+        <div class="contact-header">
+            <span class="contact-icon">📧</span>
+            <h1>Contact Us</h1>
+            <span class="contact-badge mobile-hide">SUPPORT</span>
+        </div>
+
+        <!-- Description - Hidden on mobile -->
+        <div class="mobile-hide">
+            Have questions or suggestions? Fill out the form below and we'll get back to you.
+        </div>
 
         <!-- Success/Error Messages -->
         <div id="successMessage" class="success-message">
@@ -217,26 +312,42 @@
 
         <!-- Contact Form -->
         <form id="contactForm" class="contact-form">
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-user"></i> Your Name *</label>
-                <input type="text" class="form-input" id="name" required placeholder="John Doe">
-            </div>
+            <label class="input-label"><i class="fas fa-user"></i> Your Name *</label>
+            <input type="text" class="form-input" id="name" required placeholder="John Doe">
 
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-envelope"></i> Email *</label>
-                <input type="email" class="form-input" id="email" required placeholder="your@email.com">
-            </div>
+            <label class="input-label"><i class="fas fa-envelope"></i> Email *</label>
+            <input type="email" class="form-input" id="email" required placeholder="your@email.com">
 
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-comment"></i> Message *</label>
-                <textarea class="form-textarea" id="message" required placeholder="Your message here..."></textarea>
-            </div>
+            <label class="input-label"><i class="fas fa-tag"></i> Subject</label>
+            <input type="text" class="form-input" id="subject" placeholder="What's this about?">
+
+            <label class="input-label"><i class="fas fa-comment"></i> Message *</label>
+            <textarea class="form-textarea" id="message" required placeholder="Your message here..."></textarea>
 
             <button type="submit" class="submit-btn">
                 <i class="fas fa-paper-plane"></i> Send Message
             </button>
         </form>
 
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <div class="info-row">
+                <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                <div class="info-text">
+                    <div class="info-label">Email</div>
+                    <div class="info-value"><a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon"><i class="fas fa-globe"></i></div>
+                <div class="info-text">
+                    <div class="info-label">Website</div>
+                    <div class="info-value"><a href="index.html">www.sgtools.in</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -256,6 +367,7 @@
             // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
             // Validate
