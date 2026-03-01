@@ -4,84 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disclaimer - SG Multi Tools</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific tweaks matching About page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #e8eef4;  /* Silver base - matching homepage */background: #e8eef4;
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 15px;
-            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            /* Background from style.css */
         }
 
         .disclaimer-container {
             max-width: 640px;
             width: 100%;
             margin: 0 auto;
-            padding: 1.6rem;
-            background: #1c222d;
-            border-radius: 20px;
+            padding: 2rem;
+            background: #E8DE99;  /* Champagne background */
+            border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 25px rgba(66, 248, 245, 0.3);
         }
         
-        .disclaimer-container h1 {
-            color: #42f8f5;
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 12px;
-        }
-        
-        .disclaimer-container .last-updated {
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            font-style: italic;
-        }
-        
-        .disclaimer-container h2 {
-            color: #ffffff;
-            font-size: 1.2rem;
-            margin: 1.2rem 0 0.8rem;
-        }
-        
-        .disclaimer-container p {
-            color: #e0e0e0;
-            line-height: 1.5;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-        
-        .disclaimer-container ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .disclaimer-container li {
-            color: #e0e0e0;
-            margin-bottom: 0.4rem;
+        .disclaimer-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
+            gap: 10px;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 10px;
         }
         
-        .disclaimer-container li i {
+        .disclaimer-icon {
+            font-size: 2rem;
             color: #42f8f5;
-            width: 20px;
-            font-size: 0.9rem;
         }
         
-        .disclaimer-container .highlight-box {
-            background: rgba(66,248,245,0.1);
+        .disclaimer-header h1 {
+            color: #1c222d;  /* Dark text */
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .disclaimer-badge {
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        .last-updated {
+            color: #4A3B2C;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .disclaimer-section {
+            margin: 1.5rem 0;
+        }
+
+        .disclaimer-section h2 {
+            color: #1c222d;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .disclaimer-section p {
+            color: #4A3B2C;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight-box {
+            background: #1c222d;  /* Dark background for contrast */
             border-left: 4px solid #42f8f5;
             padding: 1rem;
             border-radius: 6px;
@@ -90,10 +103,15 @@
             font-size: 0.95rem;
         }
 
+        .highlight-box i {
+            color: #42f8f5;
+            margin-right: 8px;
+        }
+
         .home-link {
             display: inline-block;
             margin-top: 1.5rem;
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -112,84 +130,97 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #6d8ba0;
+            color: #1c222d;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5;
             text-decoration: underline;
         }
-        
-        @media (max-width: 768px) {
+
+        @media (max-width: 500px) {
             .disclaimer-container {
-                margin: 1rem auto;
-                padding: 1.2rem;
-                max-width: 90%;
+                padding: 1.5rem;
             }
             
-            .disclaimer-container h1 {
-                font-size: 1.6rem;
+            .disclaimer-header h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== DISCLAIMER CONTENT - NO HEADER OR FOOTER TABS ===== -->
     <div class="disclaimer-container">
-        <h1>Disclaimer</h1>
+        <!-- Header -->
+        <div class="disclaimer-header">
+            <span class="disclaimer-icon">⚖️</span>
+            <h1>Disclaimer</h1>
+            <span class="disclaimer-badge">LEGAL</span>
+        </div>
+
         <div class="last-updated">Last updated: February 15, 2026</div>
-        
-        <h2>General Information</h2>
-        <p>
-            The information provided by SG Multi Tools is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability or completeness of any information.
-        </p>
+
+        <!-- General Information -->
+        <div class="disclaimer-section">
+            <h2>General Information</h2>
+            <p>The information provided by SG Multi Tools is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability or completeness of any information.</p>
+        </div>
 
         <div class="highlight-box">
-            <i class="fas fa-exclamation-triangle" style="color: #42f8f5; margin-right: 8px;"></i>
+            <i class="fas fa-exclamation-triangle"></i>
             <strong>Not professional advice.</strong> Our tools are for general use only and should not be considered professional advice.
         </div>
 
-        <h2>External Links Disclaimer</h2>
-        <p>
-            The Advanced Calculator may contain affiliate links to external websites that are not provided or maintained by or in any way affiliated with us. Please note that we do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.
-        </p>
+        <!-- External Links Disclaimer -->
+        <div class="disclaimer-section">
+            <h2>External Links Disclaimer</h2>
+            <p>The Advanced Calculator may contain affiliate links to external websites that are not provided or maintained by or in any way affiliated with us. Please note that we do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.</p>
+        </div>
 
-        <h2>Affiliate Disclosure</h2>
-        <p>
-            Some links on this site, specifically in the Advanced Calculator, are affiliate links. This means if you click on the link and purchase an item, we may receive an affiliate commission at no extra cost to you. We only recommend products or services we believe will add value to our users.
-        </p>
+        <!-- Affiliate Disclosure -->
+        <div class="disclaimer-section">
+            <h2>Affiliate Disclosure</h2>
+            <p>Some links on this site, specifically in the Advanced Calculator, are affiliate links. This means if you click on the link and purchase an item, we may receive an affiliate commission at no extra cost to you. We only recommend products or services we believe will add value to our users.</p>
+        </div>
 
-        <h2>Professional Disclaimer</h2>
-        <p>
-            The calculators and tools on this website should not be considered as professional financial, legal, technical, or medical advice. You should consult with a qualified professional for advice tailored to your specific situation. We are not liable for any losses or damages arising from the use of our tools.
-        </p>
+        <!-- Professional Disclaimer -->
+        <div class="disclaimer-section">
+            <h2>Professional Disclaimer</h2>
+            <p>The calculators and tools on this website should not be considered as professional financial, legal, technical, or medical advice. You should consult with a qualified professional for advice tailored to your specific situation. We are not liable for any losses or damages arising from the use of our tools.</p>
+        </div>
 
-        <h2>Errors and Omissions</h2>
-        <p>
-            While we strive to keep the information accurate and up to date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.
-        </p>
+        <!-- Errors and Omissions -->
+        <div class="disclaimer-section">
+            <h2>Errors and Omissions</h2>
+            <p>While we strive to keep the information accurate and up to date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
+        </div>
 
-        <h2>Fair Use Disclaimer</h2>
-        <p>
-            Our tools are provided for personal, non-commercial use. You may not use our tools for any illegal or unauthorized purpose. We reserve the right to refuse service to anyone for any reason at any time.
-        </p>
+        <!-- Fair Use Disclaimer -->
+        <div class="disclaimer-section">
+            <h2>Fair Use Disclaimer</h2>
+            <p>Our tools are provided for personal, non-commercial use. You may not use our tools for any illegal or unauthorized purpose. We reserve the right to refuse service to anyone for any reason at any time.</p>
+        </div>
 
-        <h2>No Responsibility</h2>
-        <p>
-            In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
-        </p>
+        <!-- No Responsibility -->
+        <div class="disclaimer-section">
+            <h2>No Responsibility</h2>
+            <p>In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.</p>
+        </div>
 
-        <h2>Changes to Disclaimer</h2>
-        <p>
-            We may update our Disclaimer from time to time. We will notify you of any changes by posting the new Disclaimer on this page. Changes are effective immediately after they are posted.
-        </p>
+        <!-- Changes to Disclaimer -->
+        <div class="disclaimer-section">
+            <h2>Changes to Disclaimer</h2>
+            <p>We may update our Disclaimer from time to time. We will notify you of any changes by posting the new Disclaimer on this page. Changes are effective immediately after they are posted.</p>
+        </div>
 
+        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
