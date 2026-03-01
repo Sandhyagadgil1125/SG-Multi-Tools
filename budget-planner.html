@@ -1,317 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Budget Planner in Google Sheets</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget Planner - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background: #0b0e14; /* Deep dark background from your theme */
-      font-family: 'Inter', sans-serif;
-      color: #eef2f6;
-      line-height: 1.5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #E8DE99;  /* Champagne background */
+        }
 
-    /* Simple header matching the style */
-    .site-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 5%;
-      border-bottom: 1px solid #1f2a36;
-    }
+        .landing-container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #E8DE99;  /* Champagne background */
+            border-radius: 30px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 0 30px rgba(66, 248, 245, 0.3);
+        }
 
-    .logo {
-      font-weight: 700;
-      font-size: 1.3rem;
-      background: linear-gradient(135deg, #a0e9ff, #5f9ea0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .header-icon {
+            font-size: 3rem;
+            color: #42f8f5;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-    .header-cta {
-      background: transparent;
-      border: 1px solid #3a4a5c;
-      color: #eef2f6;
-      padding: 0.6rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
+        h1 {
+            color: #1c222d;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
 
-    .header-cta:hover {
-      border-color: #5f9ea0;
-      color: #ffffff;
-    }
+        .subtitle {
+            color: #4A3B2C;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 1rem;
+        }
 
-    /* Main container - mimics the card style from your screenshot */
-    .main-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem 5%;
-    }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
 
-    .content-card {
-      max-width: 1000px;
-      width: 100%;
-      background: #111823; /* Slightly lighter dark card background */
-      border-radius: 32px;
-      padding: 3.5rem 3rem;
-      border: 1px solid #253140;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+        .feature-item {
+            background: #1c222d;  /* Dark background */
+            border: 1px solid #42f8f5;
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
 
-    /* Tagline style */
-    .content-tag {
-      display: inline-block;
-      background: rgba(95, 158, 160, 0.15);
-      color: #a0d6d8;
-      font-weight: 600;
-      font-size: 0.8rem;
-      letter-spacing: 0.5px;
-      padding: 0.4rem 1rem;
-      border-radius: 30px;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(95, 158, 160, 0.3);
-    }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(66, 248, 245, 0.2);
+        }
 
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 850px;
-      color: #ffffff;
-      margin-bottom: 1rem;
-    }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #42f8f5;
+            margin-bottom: 1rem;
+        }
 
-    .subheadline {
-      font-size: 1.2rem;
-      color: #b0c4de;
-      max-width: 650px;
-      margin-bottom: 2.5rem;
-    }
+        .feature-item h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
 
-    /* Feature grid - 3 columns, matches the clean look */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin: 3rem 0 2.5rem;
-    }
+        .feature-item p {
+            color: #c5d1de;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
 
-    .feature-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+        .divider {
+            height: 1px;
+            background: #2a4055;
+            margin: 2rem 0;
+        }
 
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 0.3rem;
-    }
+        .bottom-cta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
 
-    .feature-item strong {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
+        .left-text p {
+            color: #4A3B2C;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
 
-    .feature-item p {
-      font-size: 0.9rem;
-      color: #9aaebb;
-      line-height: 1.5;
-    }
+        .left-text .tutorial-link {
+            color: #1c222d;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #42f8f5;
+            padding-bottom: 2px;
+        }
 
-    /* Horizontal divider */
-    .divider {
-      height: 1px;
-      background: #253140;
-      margin: 2rem 0;
-    }
+        .left-text .tutorial-link:hover {
+            color: #42f8f5;
+        }
 
-    /* Bottom CTA section - two columns */
-    .bottom-cta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
+        .right-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
 
-    .left-text p {
-      color: #b0c4de;
-      margin-bottom: 0.5rem;
-    }
+        .price-badge {
+            color: #42f8f5;
+            font-weight: 600;
+            background: #1c222d;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid #42f8f5;
+        }
 
-    .left-text .tutorial-link {
-      color: #a0d6d8;
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px dashed #3f5e60;
-      padding-bottom: 2px;
-    }
+        .primary-button {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 8px 20px -5px rgba(66, 248, 245, 0.3);
+        }
 
-    .left-text .tutorial-link:hover {
-      color: #d0f0f2;
-    }
+        .primary-button:hover {
+            background: transparent;
+            color: #42f8f5;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -5px rgba(66, 248, 245, 0.5);
+        }
 
-    .right-cta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.8rem;
-    }
+        .guarantee-text {
+            font-size: 0.8rem;
+            color: #4A3B2C;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
 
-    .price-badge {
-      color: #a0d6d8;
-      font-weight: 600;
-      background: rgba(95, 158, 160, 0.1);
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      border: 1px solid #2e4950;
-    }
+        .guarantee-text i {
+            color: #42f8f5;
+        }
 
-    .primary-button {
-      background: #5f9ea0;
-      color: #0b0e14;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 1rem 3rem;
-      border-radius: 50px;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.2s;
-      border: none;
-      box-shadow: 0 8px 20px -5px rgba(95, 158, 160, 0.3);
-      letter-spacing: 0.3px;
-    }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1c222d;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 22px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
 
-    .primary-button:hover {
-      background: #6fbcbe;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px -5px rgba(95, 158, 160, 0.5);
-    }
+        .back-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
+        }
 
-    .guarantee-text {
-      font-size: 0.8rem;
-      color: #6d839a;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
+        @media (max-width: 700px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bottom-cta {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .right-cta {
+                align-items: center;
+            }
+        }
 
-    .guarantee-text i {
-      font-style: normal;
-      color: #5f9ea0;
-    }
-
-    /* Footer disclaimer - minimal */
-    .footer-disclaimer {
-      margin-top: 2rem;
-      font-size: 0.75rem;
-      color: #4a5e74;
-      text-align: center;
-      border-top: 1px solid #1f2a36;
-      padding-top: 2rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 750px) {
-      .content-card {
-        padding: 2rem 1.5rem;
-      }
-      .feature-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .bottom-cta {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .right-cta {
-        align-items: center;
-      }
-    }
-  </style>
+        @media (max-width: 500px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Simple header matching the screenshot style -->
-  <header class="site-header">
-    <div class="logo">SG Multi Tools</div>
-    <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener" class="header-cta">Get Access →</a>
-  </header>
+    <div class="landing-container">
+        <div class="header-icon">📊</div>
+        <h1>Personal Budget Planner</h1>
+        <div class="subtitle">in Google Sheets</div>
 
-  <main class="main-container">
-    <div class="content-card">
-      <!-- Tag / Badge -->
-      <div class="content-tag">📊 New Tool Available</div>
-
-      <!-- Main headline -->
-      <h1>Personal Budget Planner in Google Sheets</h1>
-      <p class="subheadline">Take full control of your finances with a smart, automated budgeting system. Perfect for beginners and pros alike.</p>
-
-      <!-- Feature grid (3 columns) -->
-      <div class="feature-grid">
-        <div class="feature-item">
-          <span class="feature-icon">📌</span>
-          <strong>Smart Income Allocation</strong>
-          <p>Automatically distribute your income across expenses and savings with zero manual work.</p>
+        <!-- Feature Grid -->
+        <div class="feature-grid">
+            <div class="feature-item">
+                <div class="feature-icon">📌</div>
+                <h3>Smart Income Allocation</h3>
+                <p>Easily plan and track how your income is distributed across expenses and savings</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📈</div>
+                <h3>Automated Insights</h3>
+                <p>Get a clear breakdown of your budget performance for every month and year</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <h3>Interactive Dashboard</h3>
+                <p>Instantly visualize your financial trends with an auto-generated dashboard</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📁</div>
+                <h3>Full History & Analysis</h3>
+                <p>Store and analyze past months and years with dynamic spreadsheets</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚙️</div>
+                <h3>Easy to Use</h3>
+                <p>Designed for simplicity and flexibility, adapts to your needs</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your data stays in your Google Sheets, completely private</p>
+            </div>
         </div>
-        <div class="feature-item">
-          <span class="feature-icon">📈</span>
-          <strong>Automated Insights</strong>
-          <p>Get a crystal-clear breakdown of your budget performance month by month.</p>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">📊</span>
-          <strong>Interactive Dashboard</strong>
-          <p>Visualize your financial trends instantly with an auto‑generated summary dashboard.</p>
-        </div>
-      </div>
 
-      <!-- Divider -->
-      <div class="divider"></div>
+        <!-- Divider -->
+        <div class="divider"></div>
 
-      <!-- Bottom CTA section with two columns -->
-      <div class="bottom-cta">
-        <div class="left-text">
-          <p>📁 Includes full history & analysis spreadsheets.</p>
-          <p>🎥 <a href="https://youtu.be/qpv_1BepeJM" target="_blank" rel="noopener" class="tutorial-link">Watch step‑by‑step tutorial →</a></p>
+        <!-- Bottom CTA -->
+        <div class="bottom-cta">
+            <div class="left-text">
+                <p>📁 Includes full history & analysis spreadsheets.</p>
+                <p>🎥 <a href="https://youtu.be/qpv_1BepeJM" target="_blank" class="tutorial-link">Watch step-by-step tutorial →</a></p>
+            </div>
+            <div class="right-cta">
+                <span class="price-badge">⭐ Instant PDF download</span>
+                <a href="#" class="primary-button">Get the Planner →</a>
+                <span class="guarantee-text"><i class="fas fa-check-circle"></i> Secure checkout · 123KB PDF</span>
+            </div>
         </div>
-        <div class="right-cta">
-          <span class="price-badge">⭐ Instant PDF download</span>
-          <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener" class="primary-button">Get the Planner →</a>
-          <span class="guarantee-text"><i>✓</i> Secure checkout · 123KB PDF</span>
-        </div>
-      </div>
 
-      <!-- Simple footer disclaimer (light) -->
-      <div class="footer-disclaimer">
-        <p>Personal Budget Planner in Google Sheets · Easy to use & customizable. Start making smarter financial decisions today.</p>
-      </div>
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 2rem; color: #4A3B2C; font-size: 0.8rem;">
+            <p>Personal Budget Planner in Google Sheets · Easy to use & customizable</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-home"></i> Back to SG Multi Tools
+            </a>
+        </div>
     </div>
-  </main>
-
-  <!-- Optional: very simple footer (matching your site style) -->
-  <footer style="text-align: center; padding: 1.5rem; color: #4a5e74; font-size: 0.75rem; border-top: 1px solid #1f2a36;">
-    <p>© SG Multi Tools · This page contains an affiliate link</p>
-  </footer>
 </body>
 </html>
