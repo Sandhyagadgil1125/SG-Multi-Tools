@@ -4,84 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - SG Multi Tools</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific tweaks matching About page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #e8eef4;  /* Silver base - matching homepage */
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 15px;
-            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            /* Background from style.css */
         }
 
         .privacy-container {
             max-width: 640px;
             width: 100%;
             margin: 0 auto;
-            padding: 1.6rem;
-            background: #1c222d;
-            border-radius: 20px;
+            padding: 2rem;
+            background: #E8DE99;  /* Champagne background */
+            border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 25px rgba(66, 248, 245, 0.3);
         }
         
-        .privacy-container h1 {
-            color: #42f8f5;
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 12px;
-        }
-        
-        .privacy-container .last-updated {
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            font-style: italic;
-        }
-        
-        .privacy-container h2 {
-            color: #ffffff;
-            font-size: 1.2rem;
-            margin: 1.2rem 0 0.8rem;
-        }
-        
-        .privacy-container p {
-            color: #e0e0e0;
-            line-height: 1.5;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-        
-        .privacy-container ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .privacy-container li {
-            color: #e0e0e0;
-            margin-bottom: 0.4rem;
+        .privacy-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
+            gap: 10px;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #42f8f5;
+            padding-bottom: 10px;
         }
         
-        .privacy-container li i {
+        .privacy-icon {
+            font-size: 2rem;
             color: #42f8f5;
-            width: 20px;
-            font-size: 0.9rem;
         }
         
-        .privacy-container .highlight-box {
-            background: rgba(66,248,245,0.1);
+        .privacy-header h1 {
+            color: #1c222d;  /* Dark text */
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .privacy-badge {
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        .last-updated {
+            color: #4A3B2C;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .privacy-section {
+            margin: 1.5rem 0;
+        }
+
+        .privacy-section h2 {
+            color: #1c222d;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .privacy-section p {
+            color: #4A3B2C;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .privacy-section ul {
+            margin: 0.8rem 0 0.8rem 1.5rem;
+            color: #4A3B2C;
+        }
+
+        .privacy-section li {
+            color: #4A3B2C;
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+
+        .highlight-box {
+            background: #1c222d;  /* Dark background for contrast */
             border-left: 4px solid #42f8f5;
             padding: 1rem;
             border-radius: 6px;
@@ -90,10 +114,15 @@
             font-size: 0.95rem;
         }
 
+        .highlight-box i {
+            color: #42f8f5;
+            margin-right: 8px;
+        }
+
         .home-link {
             display: inline-block;
             margin-top: 1.5rem;
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -112,74 +141,85 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #6d8ba0;
+            color: #1c222d;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5;
             text-decoration: underline;
         }
-        
-        @media (max-width: 768px) {
+
+        @media (max-width: 500px) {
             .privacy-container {
-                margin: 1rem auto;
-                padding: 1.2rem;
-                max-width: 90%;
+                padding: 1.5rem;
             }
             
-            .privacy-container h1 {
-                font-size: 1.6rem;
+            .privacy-header h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== PRIVACY POLICY CONTENT - NO HEADER OR FOOTER TABS ===== -->
     <div class="privacy-container">
-        <h1>Privacy Policy</h1>
+        <!-- Header -->
+        <div class="privacy-header">
+            <span class="privacy-icon">🔒</span>
+            <h1>Privacy Policy</h1>
+            <span class="privacy-badge">LEGAL</span>
+        </div>
+
         <div class="last-updated">Last updated: February 15, 2026</div>
-        
-        <h2>1. Information We Don't Collect</h2>
-        <p>
-            SG Multi Tools is designed with your privacy in mind. We do not collect, store, or process any personal information. All tools run entirely in your browser – no data is sent to any server.
-        </p>
+
+        <!-- Section 1 -->
+        <div class="privacy-section">
+            <h2>1. Information We Don't Collect</h2>
+            <p>SG Multi Tools is designed with your privacy in mind. We do not collect, store, or process any personal information. All tools run entirely in your browser – no data is sent to any server.</p>
+        </div>
 
         <div class="highlight-box">
-            <i class="fas fa-shield-alt" style="color: #42f8f5; margin-right: 8px;"></i>
+            <i class="fas fa-shield-alt"></i>
             <strong>Your data stays on your device.</strong> We never see it, store it, or share it.
         </div>
 
-        <h2>2. Local Storage</h2>
-        <p>
-            Some tools (like Note Text Saver) use your browser's local storage to save your notes. This data stays on your device and is never transmitted to us. You can clear this data at any time through your browser settings.
-        </p>
+        <!-- Section 2 -->
+        <div class="privacy-section">
+            <h2>2. Local Storage</h2>
+            <p>Some tools (like Note Text Saver) use your browser's local storage to save your notes. This data stays on your device and is never transmitted to us. You can clear this data at any time through your browser settings.</p>
+        </div>
 
-        <h2>3. Affiliate Links</h2>
-        <p>
-            The Advanced Calculator contains affiliate links to Digistore24. If you click these links and make a purchase, we may earn a commission at no extra cost to you. These links are clearly marked and you will be redirected to their site. Please review their privacy policy separately.
-        </p>
+        <!-- Section 3 -->
+        <div class="privacy-section">
+            <h2>3. Affiliate Links</h2>
+            <p>The Advanced Calculator contains affiliate links to Digistore24. If you click these links and make a purchase, we may earn a commission at no extra cost to you. These links are clearly marked and you will be redirected to their site. Please review their privacy policy separately.</p>
+        </div>
 
-        <h2>4. Cookies</h2>
-        <p>
-            We do not use tracking cookies or any form of analytics. The only local storage used is for saving your notes (as mentioned above), which you can delete anytime.
-        </p>
+        <!-- Section 4 -->
+        <div class="privacy-section">
+            <h2>4. Cookies</h2>
+            <p>We do not use tracking cookies or any form of analytics. The only local storage used is for saving your notes (as mentioned above), which you can delete anytime.</p>
+        </div>
 
-        <h2>5. Third-Party Links</h2>
-        <p>
-            Our website contains affiliate links to Digistore24. We are not responsible for the privacy practices or content of external sites. We encourage you to read their privacy policies before providing any information.
-        </p>
+        <!-- Section 5 -->
+        <div class="privacy-section">
+            <h2>5. Third-Party Links</h2>
+            <p>Our website contains affiliate links to Digistore24. We are not responsible for the privacy practices or content of external sites. We encourage you to read their privacy policies before providing any information.</p>
+        </div>
 
-        <h2>6. Changes to This Policy</h2>
-        <p>
-            We may update this privacy policy occasionally. The latest version will always be available on this page. Continued use of our tools after changes means you accept the updated policy.
-        </p>
+        <!-- Section 6 -->
+        <div class="privacy-section">
+            <h2>6. Changes to This Policy</h2>
+            <p>We may update this privacy policy occasionally. The latest version will always be available on this page. Continued use of our tools after changes means you accept the updated policy.</p>
+        </div>
 
+        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -187,7 +227,7 @@
         </div>
 
         <div class="footer-email">
-            📧 <a href="mailto:hello@sgtools.in">contact@sgtools.in</a>
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 </body>
