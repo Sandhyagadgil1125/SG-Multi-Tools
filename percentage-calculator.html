@@ -6,6 +6,8 @@
     <title>Percentage Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,23 +16,23 @@
         }
 
         body {
-            background: #e8eef4;  /* Silver base - matching homepage */
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            /* Background from style.css */
         }
 
         .calculator-card {
-            background: #1c222d;
+            background: #E8DE99;  /* Champagne background */
             border-radius: 30px;
             padding: 25px;
             width: 100%;
             max-width: 520px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .card-header {
@@ -46,7 +48,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: white;
+            color: #1c222d;  /* Dark text */
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -57,8 +59,8 @@
         }
 
         .card-badge {
-            background: #12151a;
-            color: #42f8f5;
+            background: #E8DE99;  /* Match card background */
+            color: #1c222d;       /* Dark text */
             padding: 5px 15px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
@@ -70,7 +72,7 @@
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;
+            color: #1c222d;  /* Dark text */
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -115,7 +117,7 @@
         }
 
         .display-field {
-            background: #12151a;
+            background: #1c222d;  /* Dark background for contrast */
             border-radius: 12px;
             padding: 15px;
             color: #42f8f5;
@@ -130,7 +132,7 @@
 
         .btn-action {
             background: #42f8f5;
-            color: #12151a;
+            color: #1c222d;
             font-weight: 800;
             font-size: 1.1rem;
             padding: 14px;
@@ -156,7 +158,7 @@
             display: flex;
             gap: 15px;
             margin: 15px 0;
-            color: white;
+            color: #1c222d;  /* Dark text */
             justify-content: center;
         }
 
@@ -174,14 +176,16 @@
             height: 16px;
         }
 
-        /* Affiliate Link Section - Exactly matching EMI Calculator */
+        /* Affiliate Link Section */
         .affiliate-section {
             margin-top: 25px;
+            border-top: 1px solid #2a4055;
+            padding-top: 20px;
         }
 
         .affiliate-link {
             display: block;
-            background: #12151a;
+            background: #1c222d;  /* Dark background for contrast */
             border: 2px solid #42f8f5;
             border-radius: 20px;
             padding: 18px;
@@ -193,7 +197,7 @@
         .affiliate-link:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
-            background: #1e2b37;
+            background: #2a3f55;
         }
 
         .affiliate-link h3 {
@@ -211,7 +215,7 @@
             display: inline-block;
             margin-top: 10px;
             background: #42f8f5;
-            color: #12151a;
+            color: #1c222d;
             font-weight: 700;
             padding: 6px 18px;
             border-radius: 30px;
@@ -226,7 +230,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -245,17 +249,18 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #6d8ba0;
+            color: #1c222d;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #1c222d;
             text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5;
             text-decoration: underline;
         }
 
@@ -276,6 +281,11 @@
             .input-field.small,
             .input-field.large {
                 width: 100%;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -307,7 +317,7 @@
         <div id="percentage-inputs">
             <div class="input-row">
                 <input class="input-field small" id="perc-value" type="number" value="20" placeholder="%">
-                <span style="color: white; align-self: center;">of</span>
+                <span style="color: #1c222d; align-self: center;">of</span>
                 <input class="input-field large" id="perc-of" type="number" value="250" placeholder="number">
             </div>
         </div>
@@ -316,7 +326,7 @@
         <div id="what-percent-inputs" style="display: none;">
             <div class="input-row">
                 <input class="input-field large" id="what-num1" type="number" value="25" placeholder="first number">
-                <span style="color: white; align-self: center;">is what % of</span>
+                <span style="color: #1c222d; align-self: center;">is what % of</span>
                 <input class="input-field large" id="what-num2" type="number" value="100" placeholder="second number">
             </div>
         </div>
@@ -325,7 +335,7 @@
         <div id="change-inputs" style="display: none;">
             <div class="input-row">
                 <input class="input-field large" id="change-from" type="number" value="50" placeholder="from">
-                <span style="color: white; align-self: center;">to</span>
+                <span style="color: #1c222d; align-self: center;">to</span>
                 <input class="input-field large" id="change-to" type="number" value="75" placeholder="to">
             </div>
         </div>
@@ -336,7 +346,7 @@
         <!-- Calculate Button -->
         <button class="btn-action" id="calc-percentage">% CALCULATE</button>
 
-        <!-- AFFILIATE LINK - Budget Planner (Exactly matching EMI Calculator) -->
+        <!-- AFFILIATE LINK - Budget Planner -->
         <div class="affiliate-section">
             <a href="budget-planner.html" class="affiliate-link">
                 <h3>📊 Personal Budget Planner</h3>
@@ -419,7 +429,5 @@
         // Calculate on page load
         window.addEventListener('load', calculatePercentage);
     </script>
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
 </body>
 </html>
