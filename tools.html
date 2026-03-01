@@ -4,113 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Tools - SG Multi Tools</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific tweaks matching About page */
-        body {
-            background: #e8eef4;  /* Silver base - matching homepage */
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        * {
             margin: 0;
-            padding: 15px;
-            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .tools-container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 1.5rem;
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #E8DE99;  /* Champagne background */
+        }
+
+        /* Navbar */
+        .navbar {
             background: #1c222d;
-            border-radius: 20px;
-            border: 2px solid #42f8f5;
-            box-shadow: 0 0 25px rgba(66, 248, 245, 0.3);
-        }
-        
-        .tools-container h1 {
-            color: #42f8f5;
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
+            width: 100%;
+            padding: 0 5%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             border-bottom: 2px solid #42f8f5;
-            padding-bottom: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        
-        .tools-container .subtitle {
-            color: #6d8ba0;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-sg {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 800;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .logo-text span {
+            color: #42f8f5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
             font-size: 1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #1c222d;
+            background: #42f8f5;
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100%;
+            max-width: 1200px;
+            margin: 30px auto 20px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: #1c222d;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #4A3B2C;
+            font-size: 1.1rem;
         }
 
         /* Tools Grid - 4 columns */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.2rem;
-            margin: 1.5rem 0;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto 50px;
+            padding: 0 20px;
         }
 
         /* Tool Card */
         .tool-card {
-            background: #1e2b37;
+            background: #1c222d;  /* Dark card background for contrast */
             border-radius: 16px;
-            border: 1px solid #2a4055;
-            padding: 1.2rem;
-            transition: all 0.3s ease;
+            padding: 20px;
+            border: 1px solid #42f8f5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             height: 100%;
-            min-height: 240px;
-            position: relative;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
         }
 
         .tool-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(66, 248, 245, 0.3);
             border-color: #42f8f5;
-            box-shadow: 0 8px 20px rgba(66, 248, 245, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
         .tool-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.8rem;
+            font-size: 2rem;
             color: #42f8f5;
+        }
+
+        .tool-badge {
+            background: #12151a;
+            color: #42f8f5;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #42f8f5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .tool-card h3 {
             color: #ffffff;
             font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
 
-        .tool-card p {
-            color: #b0c4de;
+        .tool-description {
+            color: #c5d1de;
             font-size: 0.8rem;
             line-height: 1.4;
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
             flex-grow: 1;
         }
 
-        .tool-badge {
-            display: inline-block;
-            background: #12151a;
-            color: #42f8f5;
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.8rem;
-            align-self: flex-start;
-        }
-
-        /* Open Tool Button */
         .open-tool-btn {
             display: inline-block;
             background: transparent;
@@ -118,19 +188,19 @@
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 600;
-            padding: 8px 16px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            transition: all 0.2s ease;
-            text-align: center;
-            margin-top: auto;
-            cursor: pointer;
+            padding: 8px 0;
+            border-top: 1px solid #2a4055;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
         }
 
-        .open-tool-btn:hover {
-            background: #42f8f5;
+        .tool-card:hover .open-tool-btn {
             color: #1c222d;
-            transform: translateY(-2px);
+            background: #42f8f5;
+            padding: 8px 12px;
+            border-radius: 30px;
+            border-top: none;
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
@@ -139,323 +209,364 @@
             font-size: 0.7rem;
         }
 
-        .home-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: #42f8f5;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 25px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .home-link:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .footer-email {
-            margin-top: 1.5rem;
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
-        }
-
-        .footer-email a {
-            color: #42f8f5;
-            text-decoration: none;
-        }
-
-        .footer-email a:hover {
-            text-decoration: underline;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #42f8f5;
-            color: #1c222d;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border: 2px solid #42f8f5;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .back-to-top:hover {
-            background: transparent;
-            color: #42f8f5;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
-        }
-        
         /* Responsive */
-        @media (max-width: 1000px) {
+        @media screen and (max-width: 1000px) {
             .tools-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media (max-width: 700px) {
+        @media screen and (max-width: 700px) {
             .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .tools-container h1 {
-                font-size: 1.6rem;
+            .page-header h1 {
+                font-size: 2rem;
             }
         }
 
-        @media (max-width: 450px) {
+        @media screen and (max-width: 500px) {
             .tools-grid {
                 grid-template-columns: 1fr;
             }
             
-            .back-to-top {
-                bottom: 15px;
-                right: 15px;
-                width: 40px;
-                height: 40px;
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-header p {
                 font-size: 1rem;
             }
+        }
+
+        /* Footer */
+        .footer {
+            background: #1c222d;
+            width: 100%;
+            padding: 30px 20px;
+            border-top: 3px solid #42f8f5;
+            margin-top: 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #42f8f5;
+        }
+
+        .footer-email {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .footer-email span {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .footer-email a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .footer-email a:hover {
+            color: #42f8f5;
+        }
+
+        .copyright {
+            color: #ffffff;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- ===== TOOLS PAGE - WITH CLICKABLE BUTTONS ===== -->
-    <div class="tools-container">
-        <h1>All Tools</h1>
-        <div class="subtitle">Reliable free online tools. No installatio. No sign-ups</div>
-
-        <!-- Tools Grid - 20 tools with Open buttons that go to homepage -->
-        <div class="tools-grid">
-            <!-- 1. Advanced Calculator -->
-            <div class="tool-card">
-                <span class="tool-badge">sci</span>
-                <div class="tool-icon">🧮</div>
-                <h3>Advanced Calculator</h3>
-                <p>Scientific & basic calculations with memory functions</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 2. Age Calculator -->
-            <div class="tool-card">
-                <span class="tool-badge">age</span>
-                <div class="tool-icon">📅</div>
-                <h3>Age Calculator</h3>
-                <p>Exact age in years, months, days from your birth date</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 3. Case Changer -->
-            <div class="tool-card">
-                <span class="tool-badge">text</span>
-                <div class="tool-icon">🔤</div>
-                <h3>Case Changer</h3>
-                <p>Convert text to uppercase, lowercase, title case</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 4. Color Picker -->
-            <div class="tool-card">
-                <span class="tool-badge">hex</span>
-                <div class="tool-icon">🎨</div>
-                <h3>Color Picker</h3>
-                <p>Pick colors and copy HEX, RGB values</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 5. Currency Converter -->
-            <div class="tool-card">
-                <span class="tool-badge">USD/EUR</span>
-                <div class="tool-icon">💰</div>
-                <h3>Currency Converter</h3>
-                <p>Convert between USD, EUR, GBP and more</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 6. Date Difference -->
-            <div class="tool-card">
-                <span class="tool-badge">days</span>
-                <div class="tool-icon">📆</div>
-                <h3>Date Difference</h3>
-                <p>Calculate days between two dates</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 7. EMI Calculator -->
-            <div class="tool-card">
-                <span class="tool-badge">loan</span>
-                <div class="tool-icon">🏦</div>
-                <h3>EMI Calculator</h3>
-                <p>Calculate loan EMIs with interest rate</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 8. File Size Converter -->
-            <div class="tool-card">
-                <span class="tool-badge">MB/GB</span>
-                <div class="tool-icon">💾</div>
-                <h3>File Size Converter</h3>
-                <p>Convert between KB, MB, GB, TB</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 9. Image Converter -->
-            <div class="tool-card">
-                <span class="tool-badge">png/jpg</span>
-                <div class="tool-icon">🖼️</div>
-                <h3>Image Converter</h3>
-                <p>Convert images between formats</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 10. Note Text Saver -->
-            <div class="tool-card">
-                <span class="tool-badge">local</span>
-                <div class="tool-icon">📝</div>
-                <h3>Note Text Saver</h3>
-                <p>Save and load notes locally</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 11. Password Generator -->
-            <div class="tool-card">
-                <span class="tool-badge">secure</span>
-                <div class="tool-icon">🔐</div>
-                <h3>Password Generator</h3>
-                <p>Generate strong secure passwords</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 12. Percentage Calculator -->
-            <div class="tool-card">
-                <span class="tool-badge">%</span>
-                <div class="tool-icon">%</div>
-                <h3>Percentage Calculator</h3>
-                <p>Calculate percentages easily</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 13. QR Generator -->
-            <div class="tool-card">
-                <span class="tool-badge">qr</span>
-                <div class="tool-icon">📱</div>
-                <h3>QR Generator</h3>
-                <p>Generate QR codes for text/URLs</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 14. SIP Calculator -->
-            <div class="tool-card">
-                <span class="tool-badge">mutual fund</span>
-                <div class="tool-icon">📈</div>
-                <h3>SIP Calculator</h3>
-                <p>Calculate SIP returns and future value</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 15. Speech to Text -->
-            <div class="tool-card">
-                <span class="tool-badge">voice</span>
-                <div class="tool-icon">🎤</div>
-                <h3>Speech to Text</h3>
-                <p>Convert speech to text in real-time</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 16. Text to Speech -->
-            <div class="tool-card">
-                <span class="tool-badge">listen</span>
-                <div class="tool-icon">🔊</div>
-                <h3>Text to Speech</h3>
-                <p>Convert text to natural speech</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 17. Timer/Stopwatch -->
-            <div class="tool-card">
-                <span class="tool-badge">stopwatch</span>
-                <div class="tool-icon">⏱️</div>
-                <h3>Timer</h3>
-                <p>Simple timer and stopwatch</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 18. Unit Converter -->
-            <div class="tool-card">
-                <span class="tool-badge">metric</span>
-                <div class="tool-icon">📐</div>
-                <h3>Unit Converter</h3>
-                <p>Convert length, weight, temperature</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 19. URL Encoder/Decoder -->
-            <div class="tool-card">
-                <span class="tool-badge">encode</span>
-                <div class="tool-icon">🔗</div>
-                <h3>URL Encoder/Decoder</h3>
-                <p>Encode and decode URLs safely</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- 20. Word Counter -->
-            <div class="tool-card">
-                <span class="tool-badge">count</span>
-                <div class="tool-icon">🔢</div>
-                <h3>Word Counter</h3>
-                <p>Count words and characters</p>
-                <a href="index.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <div class="logo-sg">SG</div>
+            <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
-
-        <div style="text-align: center;">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-        </div>
-
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">Tools</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
         </div>
     </div>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" onclick="scrollToTop(); return false;">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>All Tools</h1>
+        <p>Reliable, free online tools, no installation, no sign-ups</p>
+    </div>
 
-    <script>
-        // Smooth scroll to top function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+    <!-- Tools Grid - 20 tools in 4 columns -->
+    <div class="tools-grid">
+        <!-- 1. Advanced Calculator -->
+        <a href="advanced-calculator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🧮</span>
+                <span class="tool-badge">SCI</span>
+            </div>
+            <h3>Advanced Calculator</h3>
+            <div class="tool-description">Scientific & basic calculations with memory functions</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        // Alternative method if the above doesn't work
-        document.querySelector('.back-to-top').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
+        <!-- 2. Age Calculator -->
+        <a href="age-calculator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">📅</span>
+                <span class="tool-badge">AGE</span>
+            </div>
+            <h3>Age Calculator</h3>
+            <div class="tool-description">Exact age in years, months, days from your birth date</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 3. Case Changer -->
+        <a href="case-changer.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🔤</span>
+                <span class="tool-badge">TEXT</span>
+            </div>
+            <h3>Case Changer</h3>
+            <div class="tool-description">Convert text to uppercase, lowercase, title case</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 4. Color Picker -->
+        <a href="color-picker.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🎨</span>
+                <span class="tool-badge">HEX</span>
+            </div>
+            <h3>Color Picker</h3>
+            <div class="tool-description">Pick colors and copy HEX, RGB values</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 5. Currency Converter -->
+        <a href="currency-converter.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">💰</span>
+                <span class="tool-badge">USD/EUR</span>
+            </div>
+            <h3>Currency Converter</h3>
+            <div class="tool-description">Convert between USD, EUR, GBP and more</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 6. Date Difference -->
+        <a href="date-difference.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">📆</span>
+                <span class="tool-badge">DAYS</span>
+            </div>
+            <h3>Date Difference</h3>
+            <div class="tool-description">Calculate days between two dates</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 7. EMI Calculator -->
+        <a href="emi-calculator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🏦</span>
+                <span class="tool-badge">LOAN</span>
+            </div>
+            <h3>EMI Calculator</h3>
+            <div class="tool-description">Calculate loan EMIs with interest rate</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 8. File Size Converter -->
+        <a href="file-size-converter.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">💾</span>
+                <span class="tool-badge">MB/GB</span>
+            </div>
+            <h3>File Size Converter</h3>
+            <div class="tool-description">Convert between KB, MB, GB, TB</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 9. Image Converter -->
+        <a href="image-converter.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🖼️</span>
+                <span class="tool-badge">PNG/JPG</span>
+            </div>
+            <h3>Image Converter</h3>
+            <div class="tool-description">Convert images between formats</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 10. Note Text Saver -->
+        <a href="note-text-saver.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">📝</span>
+                <span class="tool-badge">LOCAL</span>
+            </div>
+            <h3>Note Text Saver</h3>
+            <div class="tool-description">Save and load notes locally</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 11. Password Generator -->
+        <a href="password-generator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🔐</span>
+                <span class="tool-badge">SECURE</span>
+            </div>
+            <h3>Password Generator</h3>
+            <div class="tool-description">Generate strong secure passwords</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 12. Percentage Calculator -->
+        <a href="percentage-calculator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">%</span>
+                <span class="tool-badge">%</span>
+            </div>
+            <h3>Percentage Calculator</h3>
+            <div class="tool-description">Calculate percentages easily</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 13. QR Code Generator -->
+        <a href="qr-code-generator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">📱</span>
+                <span class="tool-badge">QR</span>
+            </div>
+            <h3>QR Code Generator</h3>
+            <div class="tool-description">Generate QR codes for text/URLs</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 14. SIP Calculator -->
+        <a href="sip-calculator.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">📈</span>
+                <span class="tool-badge">MF</span>
+            </div>
+            <h3>SIP Calculator</h3>
+            <div class="tool-description">Calculate SIP returns and future value</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 15. Speech to Text -->
+        <a href="speech-to-text.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🎤</span>
+                <span class="tool-badge">VOICE</span>
+            </div>
+            <h3>Speech to Text</h3>
+            <div class="tool-description">Convert speech to text in real-time</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 16. Text to Speech -->
+        <a href="text-to-speech.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🔊</span>
+                <span class="tool-badge">LISTEN</span>
+            </div>
+            <h3>Text to Speech</h3>
+            <div class="tool-description">Convert text to natural speech</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 17. Timer/Stopwatch -->
+        <a href="timer-stopwatch.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">⏱️</span>
+                <span class="tool-badge">TIMER</span>
+            </div>
+            <h3>Timer</h3>
+            <div class="tool-description">Simple timer and stopwatch</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 18. Unit Converter -->
+        <a href="unit-converter.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">📐</span>
+                <span class="tool-badge">METRIC</span>
+            </div>
+            <h3>Unit Converter</h3>
+            <div class="tool-description">Convert length, weight, temperature</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 19. URL Encoder/Decoder -->
+        <a href="url-encoder-decoder.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🔗</span>
+                <span class="tool-badge">ENCODE</span>
+            </div>
+            <h3>URL Encoder/Decoder</h3>
+            <div class="tool-description">Encode and decode URLs safely</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <!-- 20. Word Counter -->
+        <a href="word-counter.html" class="tool-card">
+            <div class="card-header">
+                <span class="tool-icon">🔢</span>
+                <span class="tool-badge">COUNT</span>
+            </div>
+            <h3>Word Counter</h3>
+            <div class="tool-description">Count words and characters</div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="footer-email">
+                <span>📧</span>
+                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
+        </div>
+    </footer>
 </body>
 </html>
