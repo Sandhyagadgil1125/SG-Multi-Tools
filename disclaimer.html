@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Disclaimer - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,229 +14,413 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
-            font-family: 'Poppins', sans-serif;
+            background: #E8DE99;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
-        .disclaimer-container {
-            max-width: 700px;
+        /* Navbar */
+        .navbar {
+            background: #1c222d;
             width: 100%;
-            background: #1c222d;  /* Dark card background */
-            border-radius: 18px;
-            padding: 2rem;
-            border: 2px solid #42f8f5;  /* Cyan border */
-            box-shadow: 0 0 25px rgba(66, 248, 245, 0.2);
-            margin: 0 auto;
+            padding: 0 5%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #42f8f5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .disclaimer-header {
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-sg {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 800;
+            font-size: 1.8rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .logo-text span {
+            color: #42f8f5;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #42f8f5;
+            color: #1c222d;
+            border-color: #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
+        }
+
+        /* Main Content */
+        .content-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: #1c222d;
+            border-radius: 30px;
+            padding: 40px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .page-icon {
+            font-size: 2.5rem;
+            color: #42f8f5;
+        }
+
+        .page-header h1 {
+            color: #42f8f5;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .page-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #42f8f5;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .disclaimer-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-        
-        .disclaimer-header h1 {
-            color: #42f8f5;  /* Cyan heading */
-            font-size: 1.8rem;
-            font-weight: 600;
         }
 
-        .disclaimer-badge {
+        .content-section h2 i {
+            font-size: 1.1rem;
+        }
+
+        .content-section p {
+            color: #c5d1de;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            color: #c5d1de;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
             background: #12151a;
-            color: #42f8f5;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
-            text-transform: uppercase;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #ff6b6b;
+            margin: 20px 0;
+        }
+
+        .warning-box p {
+            color: #ffb3b3;
+            margin-bottom: 0;
+        }
+
+        .warning-box i {
+            color: #ff6b6b;
+            margin-right: 10px;
         }
 
         .last-updated {
-            color: #c5d1de;
+            color: #6d8ba0;
             font-size: 0.85rem;
-            margin-bottom: 1.5rem;
+            text-align: right;
+            margin-top: 30px;
             font-style: italic;
         }
 
-        .disclaimer-section {
-            margin: 1.5rem 0;
+        /* Footer */
+        .footer {
+            background: #1c222d;
+            width: 100%;
+            padding: 40px 20px 30px;
+            border-top: 3px solid #42f8f5;
+            margin-top: 30px;
         }
 
-        .disclaimer-section h2 {
-            color: #ffffff;  /* White subheading */
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
         }
 
-        .disclaimer-section p {
-            color: #c5d1de;  /* Light grey text */
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 0.8rem;
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
         }
 
-        .disclaimer-section ul {
-            margin: 0.8rem 0 0.8rem 1.5rem;
-        }
-
-        .disclaimer-section li {
-            color: #c5d1de;
-            margin-bottom: 0.4rem;
-            line-height: 1.5;
-        }
-
-        .highlight-box {
-            background: #12151a;  /* Dark background */
-            border-left: 4px solid #42f8f5;
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1.2rem 0;
+        .footer-links li a {
             color: #ffffff;
-            font-size: 0.95rem;
-        }
-
-        .highlight-box i {
-            color: #42f8f5;
-            margin-right: 8px;
-        }
-
-        .home-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: #42f8f5;
             text-decoration: none;
-            font-weight: 600;
-            padding: 8px 22px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            font-weight: 500;
         }
 
-        .home-link:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        .footer-links li a:hover,
+        .footer-links li a.active {
+            color: #42f8f5;
         }
 
         .footer-email {
-            margin-top: 1.5rem;
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-email span {
+            color: #ffffff;
+            font-size: 1.2rem;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 500;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            text-decoration: underline;
+            color: #42f8f5;
         }
 
-        @media (max-width: 500px) {
-            .disclaimer-container {
-                padding: 1.5rem;
+        .copyright {
+            color: #ffffff;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 700px) {
+            .navbar {
+                height: auto;
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .disclaimer-header h1 {
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .content-card {
+                padding: 25px;
+            }
+            
+            .page-header {
+                flex-wrap: wrap;
+            }
+            
+            .page-header h1 {
                 font-size: 1.5rem;
+            }
+            
+            .page-badge {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .content-container {
+                margin: 20px auto;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .page-icon {
+                font-size: 2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="disclaimer-container">
-        <!-- Header -->
-        <div class="disclaimer-header">
-            <span class="disclaimer-icon">⚖️</span>
-            <h1>Disclaimer</h1>
-            <span class="disclaimer-badge">LEGAL</span>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <div class="logo-sg">SG</div>
+            <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
-
-        <div class="last-updated">Last updated: February 15, 2026</div>
-
-        <!-- General Information -->
-        <div class="disclaimer-section">
-            <h2>General Information</h2>
-            <p>The information provided by SG Multi Tools is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability or completeness of any information.</p>
-        </div>
-
-        <div class="highlight-box">
-            <i class="fas fa-exclamation-triangle"></i>
-            <strong>Not professional advice.</strong> Our tools are for general use only and should not be considered professional advice.
-        </div>
-
-        <!-- External Links Disclaimer -->
-        <div class="disclaimer-section">
-            <h2>External Links Disclaimer</h2>
-            <p>The Advanced Calculator may contain affiliate links to external websites that are not provided or maintained by or in any way affiliated with us. Please note that we do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.</p>
-        </div>
-
-        <!-- Affiliate Disclosure -->
-        <div class="disclaimer-section">
-            <h2>Affiliate Disclosure</h2>
-            <p>Some links on this site, specifically in the Advanced Calculator, are affiliate links. This means if you click on the link and purchase an item, we may receive an affiliate commission at no extra cost to you. We only recommend products or services we believe will add value to our users.</p>
-        </div>
-
-        <!-- Professional Disclaimer -->
-        <div class="disclaimer-section">
-            <h2>Professional Disclaimer</h2>
-            <p>The calculators and tools on this website should not be considered as professional financial, legal, technical, or medical advice. You should consult with a qualified professional for advice tailored to your specific situation. We are not liable for any losses or damages arising from the use of our tools.</p>
-        </div>
-
-        <!-- Errors and Omissions -->
-        <div class="disclaimer-section">
-            <h2>Errors and Omissions</h2>
-            <p>While we strive to keep the information accurate and up to date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
-        </div>
-
-        <!-- Fair Use Disclaimer -->
-        <div class="disclaimer-section">
-            <h2>Fair Use Disclaimer</h2>
-            <p>Our tools are provided for personal, non-commercial use. You may not use our tools for any illegal or unauthorized purpose. We reserve the right to refuse service to anyone for any reason at any time.</p>
-        </div>
-
-        <!-- No Responsibility -->
-        <div class="disclaimer-section">
-            <h2>No Responsibility</h2>
-            <p>In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.</p>
-        </div>
-
-        <!-- Changes to Disclaimer -->
-        <div class="disclaimer-section">
-            <h2>Changes to Disclaimer</h2>
-            <p>We may update our Disclaimer from time to time. We will notify you of any changes by posting the new Disclaimer on this page. Changes are effective immediately after they are posted.</p>
-        </div>
-
-        <!-- Navigation -->
-        <div style="text-align: center;">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-        </div>
-
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">Tools</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
         </div>
     </div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="content-card">
+            <div class="page-header">
+                <span class="page-icon">⚠️</span>
+                <h1>Disclaimer</h1>
+                <span class="page-badge">LEGAL</span>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-info-circle"></i> General Information</h2>
+                <p>The information provided by SG Multi Tools ("we," "us," or "our") on sgtools.in (the "Site") is for general informational purposes only. All information on the Site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.</p>
+            </div>
+
+            <div class="warning-box">
+                <p><i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> The tools and calculators provided on this website are for informational and educational purposes only. They should not be considered as professional financial, legal, or medical advice.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-calculator"></i> Tool Accuracy</h2>
+                <p>While we strive to ensure that all calculators and tools on SG Multi Tools are accurate and reliable, we cannot guarantee that every calculation is error-free. Results from our tools should be verified independently before making any decisions based on them. We are not liable for any losses or damages arising from the use of our tools.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-external-link-alt"></i> External Links Disclaimer</h2>
+                <p>The Site may contain (or you may be sent through the Site) links to other websites or content belonging to or originating from third parties or links to websites and features. Such external links are not investigated, monitored, or checked for accuracy, adequacy, validity, reliability, availability, or completeness by us.</p>
+                <p>We do not warrant, endorse, guarantee, or assume responsibility for the accuracy or reliability of any information offered by third-party websites linked through the site or any website or feature linked in any banner or other advertising. We will not be a party to or in any way be responsible for monitoring any transaction between you and third-party providers of products or services.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-ad"></i> Affiliate Links Disclosure</h2>
+                <p>Some of the links on SG Multi Tools are "affiliate links." This means if you click on the link and purchase an item, we may receive an affiliate commission at no additional cost to you. We only recommend products or services that we believe will add value to our users.</p>
+                <p>SG Multi Tools is a participant in various affiliate marketing programs designed to provide a means for sites to earn advertising fees by advertising and linking to partner sites.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-ad"></i> Advertising Disclaimer</h2>
+                <p>We use Adsterra to display advertisements on our website. These ads are served by third-party advertising companies and may use cookies to serve ads based on a user's prior visits to our website or other websites. The display of these ads does not constitute an endorsement or recommendation by SG Multi Tools.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-gavel"></i> Professional Disclaimer</h2>
+                <p>The Site cannot and does not contain financial, legal, or medical advice. The information is provided for general informational and educational purposes only and is not a substitute for professional advice.</p>
+                <p>Accordingly, before taking any actions based upon such information, we encourage you to consult with the appropriate professionals. We do not provide any kind of financial, legal, or medical advice. The use or reliance of any information contained on this site is solely at your own risk.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-file-contract"></i> Fair Use Disclaimer</h2>
+                <p>This site may contain copyrighted material the use of which has not always been specifically authorized by the copyright owner. We are making such material available in our efforts to advance understanding of environmental, political, human rights, economic, democracy, scientific, and social justice issues, etc.</p>
+                <p>We believe this constitutes a 'fair use' of any such copyrighted material as provided for in section 107 of the US Copyright Law. In accordance with Title 17 U.S.C. Section 107, the material on this site is distributed without profit to those who have expressed a prior interest in receiving the included information for research and educational purposes.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-sync-alt"></i> Updates to This Disclaimer</h2>
+                <p>We may update this disclaimer from time to time. We will notify you of any changes by posting the new disclaimer on this page and updating the "Last Updated" date at the bottom of this page.</p>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-clock"></i> Last Updated: March 2, 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="disclaimer.html" class="active">Disclaimer</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="footer-email">
+                <span>📧</span>
+                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
+        </div>
+    </footer>
 </body>
 </html>
