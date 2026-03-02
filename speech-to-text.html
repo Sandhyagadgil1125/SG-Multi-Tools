@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Speech to Text - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,13 +16,13 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
         .tool-container {
@@ -30,7 +30,7 @@
             width: 100%;
             margin: 0 auto;
             padding: 1.3rem;
-            background: #E8DE99;  /* Champagne background */
+            background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
@@ -51,14 +51,14 @@
         }
         
         .tool-header h1 {
-            color: #1c222d;  /* Dark text */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
 
         .tool-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
+            background: #12151a;
+            color: #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
             padding: 4px 12px;
@@ -68,10 +68,25 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #1c222d;  /* Dark text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -116,7 +131,7 @@
         }
 
         .display-field {
-            background: #1c222d;  /* Dark background for contrast */
+            background: #1c222d;
             border-radius: 12px;
             padding: 1rem;
             color: #42f8f5;
@@ -134,7 +149,7 @@
             align-items: center;
             gap: 10px;
             padding: 0.8rem;
-            background: #1c222d;  /* Dark background */
+            background: #12151a;
             border-radius: 30px;
             margin: 1rem 0;
             border: 1px solid #42f8f5;
@@ -209,7 +224,7 @@
         }
 
         .tool-btn {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 12px 8px;
@@ -225,14 +240,14 @@
 
         .tool-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
         .tool-btn.primary {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 700;
         }
 
@@ -266,7 +281,7 @@
         .action-btn {
             width: 100%;
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             border: none;
             padding: 12px;
             border-radius: 40px;
@@ -299,7 +314,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -318,18 +333,17 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
@@ -339,7 +353,7 @@
             justify-content: flex-end;
             gap: 15px;
             margin-top: 0.3rem;
-            color: #1c222d;
+            color: #ffffff;
             font-size: 0.75rem;
         }
 
@@ -348,59 +362,127 @@
             font-weight: 600;
         }
 
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
+                max-width: 100%;
             }
             
             .tool-header h1 {
                 font-size: 1.4rem;
             }
             
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .tool-textarea {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+                min-height: 120px;
+            }
+            
+            .status-indicator {
+                padding: 0.6rem;
+            }
+            
+            .status-text {
+                font-size: 0.8rem;
+            }
+            
             .button-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            
+            .tool-btn {
+                padding: 10px 6px;
+                font-size: 0.7rem;
+            }
+            
+            .action-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .word-count {
+                font-size: 0.7rem;
+                gap: 10px;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
             }
         }
 
-        @media (max-width: 480px) {
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
             .button-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            .status-indicator {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .word-count {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 5px;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">🎤</span>
             <h1>Speech to Text</h1>
-            <span class="tool-badge mobile-hide">VOICE</span>
+            <span class="tool-badge">VOICE</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Convert your speech to text in real-time. Click Start and begin speaking.
         </div>
 
-        <!-- Status Indicator -->
         <div class="status-indicator">
             <div class="status-light" id="statusLight"></div>
             <div class="status-text" id="statusText">Ready to start</div>
             <div id="timerDisplay" style="color: #42f8f5; font-family: monospace;">00:00</div>
         </div>
 
-        <!-- Language Selector -->
         <div class="language-selector">
             <label class="input-label"><i class="fas fa-language"></i> Language</label>
             <select class="tool-select" id="languageSelect">
@@ -419,17 +501,14 @@
             </select>
         </div>
 
-        <!-- Output Textarea -->
         <label class="input-label"><i class="fas fa-file-alt"></i> Recognized Text</label>
         <textarea class="tool-textarea" id="speechOutput" placeholder="Your speech will appear here..." readonly></textarea>
 
-        <!-- Word Count -->
         <div class="word-count">
             <div>Words: <span id="wordCount">0</span></div>
             <div>Chars: <span id="charCount">0</span></div>
         </div>
 
-        <!-- Button Grid -->
         <div class="button-grid">
             <button class="tool-btn success" id="startBtn" onclick="startSpeechRecognition()">
                 <i class="fas fa-play"></i> Start
@@ -451,12 +530,10 @@
             </button>
         </div>
 
-        <!-- Action Button -->
         <button class="action-btn" onclick="saveText()">
             <i class="fas fa-save"></i> SAVE TO FILE
         </button>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -477,19 +554,16 @@
         let seconds = 0;
         let currentLanguage = 'en-US';
 
-        // Check for browser support
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
             document.getElementById('statusText').innerHTML = '⚠️ Speech recognition not supported in this browser. Try Chrome or Edge.';
             document.getElementById('startBtn').disabled = true;
         } else {
-            // Initialize speech recognition
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
             recognition.continuous = true;
             recognition.interimResults = true;
             recognition.lang = currentLanguage;
 
-            // Handle results
             recognition.onresult = (event) => {
                 let interimTranscript = '';
                 
@@ -502,15 +576,12 @@
                     }
                 }
                 
-                // Update display
                 document.getElementById('speechOutput').value = finalTranscript + interimTranscript;
                 updateWordCount();
             };
 
-            // Handle end of speech
             recognition.onend = () => {
                 if (isListening && !isPaused) {
-                    // Restart if still listening
                     recognition.start();
                 } else {
                     stopTimer();
@@ -518,7 +589,6 @@
                 }
             };
 
-            // Handle errors
             recognition.onerror = (event) => {
                 console.error('Speech recognition error:', event.error);
                 updateStatus('error', event.error);
@@ -530,7 +600,6 @@
             };
         }
 
-        // Start speech recognition
         function startSpeechRecognition() {
             if (!recognition) return;
             
@@ -540,20 +609,17 @@
                 isListening = true;
                 isPaused = false;
                 
-                // Update UI
                 updateStatus('listening');
                 document.getElementById('startBtn').disabled = true;
                 document.getElementById('stopBtn').disabled = false;
                 document.getElementById('pauseBtn').disabled = false;
                 
-                // Start timer
                 startTimer();
             } catch (error) {
                 console.error('Failed to start:', error);
             }
         }
 
-        // Stop speech recognition
         function stopSpeechRecognition() {
             if (!recognition) return;
             
@@ -561,33 +627,27 @@
             isListening = false;
             isPaused = false;
             
-            // Update UI
             updateStatus('stopped');
             document.getElementById('startBtn').disabled = false;
             document.getElementById('stopBtn').disabled = true;
             document.getElementById('pauseBtn').disabled = true;
             
-            // Stop timer
             stopTimer();
         }
 
-        // Pause speech recognition
         function pauseSpeechRecognition() {
             if (!recognition) return;
             
             recognition.stop();
             isPaused = true;
             
-            // Update UI
             updateStatus('paused');
             document.getElementById('pauseBtn').disabled = true;
             document.getElementById('startBtn').disabled = false;
             
-            // Pause timer
             stopTimer();
         }
 
-        // Update status indicator
         function updateStatus(status, error = '') {
             const light = document.getElementById('statusLight');
             const text = document.getElementById('statusText');
@@ -617,7 +677,6 @@
             }
         }
 
-        // Timer functions
         function startTimer() {
             seconds = 0;
             updateTimer();
@@ -641,7 +700,6 @@
                 `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // Update word and character count
         function updateWordCount() {
             const text = document.getElementById('speechOutput').value;
             const words = text.trim() ? text.trim().split(/\s+/).length : 0;
@@ -651,7 +709,6 @@
             document.getElementById('charCount').textContent = chars;
         }
 
-        // Copy text to clipboard
         function copyText() {
             const text = document.getElementById('speechOutput').value;
             if (!text) {
@@ -666,7 +723,6 @@
             });
         }
 
-        // Download text as file
         function downloadText() {
             const text = document.getElementById('speechOutput').value;
             if (!text) {
@@ -683,7 +739,6 @@
             URL.revokeObjectURL(url);
         }
 
-        // Clear all text
         function clearText() {
             if (document.getElementById('speechOutput').value) {
                 if (confirm('Clear all text?')) {
@@ -694,7 +749,6 @@
             }
         }
 
-        // Save text (simulated)
         function saveText() {
             const text = document.getElementById('speechOutput').value;
             if (!text) {
@@ -702,12 +756,10 @@
                 return;
             }
             
-            // Simulate save
             alert('Text saved to local storage');
             localStorage.setItem('savedSpeech', text);
         }
 
-        // Load saved text on page load
         window.addEventListener('load', () => {
             const saved = localStorage.getItem('savedSpeech');
             if (saved) {
@@ -717,7 +769,6 @@
             }
         });
 
-        // Clean up on page unload
         window.addEventListener('beforeunload', () => {
             if (recognition && isListening) {
                 recognition.stop();
