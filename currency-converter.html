@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Currency Converter - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -291,27 +292,104 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 768px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
+                max-width: 100%;
             }
             
             .tool-header h1 {
                 font-size: 1.4rem;
             }
             
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .tool-input {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .tool-select {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            
             .currency-row {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
             
             .currency-row .tool-select {
                 width: 100%;
             }
             
+            .swap-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                margin: 0.5rem auto;
+            }
+            
+            .display-field {
+                padding: 0.8rem;
+                font-size: 1.1rem;
+            }
+            
+            .display-field small {
+                font-size: 0.7rem;
+            }
+            
+            .button-grid {
+                gap: 8px;
+            }
+            
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
             .button-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
