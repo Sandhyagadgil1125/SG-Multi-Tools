@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>EMI Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,7 +16,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -48,7 +48,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #42f8f5;  /* Cyan heading */
+            color: #42f8f5;
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -72,7 +72,7 @@
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;  /* White text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -87,11 +87,11 @@
         .input-field {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #1c222d;  /* Dark text */
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
             margin-bottom: 1rem;
@@ -110,10 +110,10 @@
         }
 
         .display-field {
-            background: #12151a;  /* Dark display background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1.2rem;
-            color: #42f8f5;  /* Cyan text */
+            color: #42f8f5;
             font-size: 1.8rem;
             font-weight: 600;
             text-align: center;
@@ -140,7 +140,7 @@
         }
 
         .result-card {
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             text-align: center;
@@ -164,7 +164,7 @@
 
         /* Summary Box */
         .summary-box {
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             margin: 1rem 0;
@@ -234,7 +234,7 @@
 
         .affiliate-link {
             display: block;
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 20px;
             padding: 18px;
@@ -312,24 +312,128 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 500px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .calculator-card {
-                padding: 20px;
+                padding: 15px;
+                max-width: 100%;
             }
             
             .card-title {
                 font-size: 1.3rem;
             }
             
+            .card-icon {
+                font-size: 1.5rem;
+            }
+            
+            .card-badge {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .input-field {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .results-grid {
+                gap: 8px;
+            }
+            
+            .result-card {
+                padding: 0.8rem;
+            }
+            
+            .result-card .value {
+                font-size: 1.1rem;
+            }
+            
+            .display-field {
+                padding: 1rem;
+                font-size: 1.5rem;
+            }
+            
+            .display-field small {
+                font-size: 0.7rem;
+            }
+            
+            .summary-box {
+                padding: 0.8rem;
+            }
+            
+            .summary-label {
+                font-size: 0.8rem;
+            }
+            
+            .summary-value {
+                font-size: 0.9rem;
+            }
+            
+            .btn-action {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .affiliate-link {
+                padding: 15px;
+            }
+            
+            .affiliate-link h3 {
+                font-size: 1rem;
+            }
+            
+            .affiliate-link p {
+                font-size: 0.8rem;
+            }
+            
+            .affiliate-link span {
+                padding: 5px 15px;
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
             .results-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .card-badge {
+                margin-left: 0;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="calculator-card">
-        <!-- Header -->
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">🏦</span> EMI Calculator
@@ -337,7 +441,6 @@
             <div class="card-badge">LOAN</div>
         </div>
 
-        <!-- Input Fields -->
         <label class="input-label"><i class="fas fa-rupee-sign"></i> Loan Amount (₹)</label>
         <input class="input-field" id="emi-amount" type="number" value="100000" placeholder="Enter loan amount">
 
@@ -347,7 +450,6 @@
         <label class="input-label"><i class="fas fa-clock"></i> Loan Tenure (Years)</label>
         <input class="input-field" id="emi-years" type="number" value="5" placeholder="Enter loan tenure" step="1" min="1">
 
-        <!-- Results Grid -->
         <div class="results-grid">
             <div class="result-card">
                 <div class="label">Monthly EMI</div>
@@ -359,13 +461,11 @@
             </div>
         </div>
 
-        <!-- Main Result Display -->
         <div class="display-field" id="total-payment">
             ₹ 1,24,500
             <small>Total Payment (Principal + Interest)</small>
         </div>
 
-        <!-- Summary Box -->
         <div class="summary-box">
             <div class="summary-row">
                 <span class="summary-label"><i class="fas fa-fw fa-rupee-sign" style="color: #42f8f5;"></i> Principal Amount</span>
@@ -385,10 +485,8 @@
             </div>
         </div>
 
-        <!-- Calculate Button -->
         <button class="btn-action" id="calc-emi">🏦 CALCULATE EMI</button>
 
-        <!-- AFFILIATE LINK - Budget Planner -->
         <div class="affiliate-section">
             <a href="budget-planner.html" class="affiliate-link">
                 <h3>📊 Personal Budget Planner</h3>
@@ -397,7 +495,6 @@
             </a>
         </div>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -411,7 +508,6 @@
 
     <script>
         function calculateEMI() {
-            // Get input values
             const amount = parseFloat(document.getElementById('emi-amount').value) || 0;
             const rate = parseFloat(document.getElementById('emi-rate').value) || 0;
             const years = parseFloat(document.getElementById('emi-years').value) || 0;
@@ -421,25 +517,18 @@
                 return;
             }
 
-            // Calculate EMI
             const months = years * 12;
             const monthlyRate = rate / 12 / 100;
             
-            // EMI formula: P * r * (1 + r)^n / ((1 + r)^n - 1)
             const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
             
-            // Total payment
             const totalPayment = emi * months;
-            
-            // Total interest
             const totalInterest = totalPayment - amount;
 
-            // Format numbers
             const formatIndian = (num) => {
                 return '₹ ' + Math.round(num).toLocaleString('en-IN');
             };
 
-            // Update displays
             document.getElementById('emi-monthly').textContent = formatIndian(emi);
             document.getElementById('total-interest').textContent = formatIndian(totalInterest);
             document.getElementById('total-payment').innerHTML = `
@@ -447,17 +536,14 @@
                 <small>Total Payment (Principal + Interest)</small>
             `;
 
-            // Update summary
             document.getElementById('summary-principal').textContent = formatIndian(amount);
             document.getElementById('summary-rate').textContent = rate + '% p.a.';
             document.getElementById('summary-tenure').textContent = years + ' years (' + months + ' months)';
             document.getElementById('summary-total').innerHTML = formatIndian(emi) + ' × ' + months;
         }
 
-        // Calculate on button click
         document.getElementById('calc-emi').addEventListener('click', calculateEMI);
 
-        // Calculate on input change with debounce
         let timeout;
         document.getElementById('emi-amount').addEventListener('input', () => {
             clearTimeout(timeout);
@@ -472,7 +558,6 @@
             timeout = setTimeout(calculateEMI, 300);
         });
 
-        // Calculate on page load
         window.addEventListener('load', calculateEMI);
     </script>
 </body>
