@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer - SG Multi Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Timer-Stopwatch - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,13 +16,13 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
         .tool-container {
@@ -30,7 +30,7 @@
             width: 100%;
             margin: 0 auto;
             padding: 1.3rem;
-            background: #E8DE99;  /* Champagne background */
+            background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
@@ -51,14 +51,14 @@
         }
         
         .tool-header h1 {
-            color: #1c222d;  /* Dark text */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
 
         .tool-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
+            background: #12151a;
+            color: #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
             padding: 4px 12px;
@@ -68,9 +68,24 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Timer Display */
         .timer-display {
-            background: #1c222d;  /* Dark background for contrast */
+            background: #12151a;
             border-radius: 20px;
             padding: 2rem 1rem;
             margin: 1.5rem 0;
@@ -96,7 +111,7 @@
         }
 
         .btn {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 40px;
             padding: 14px;
@@ -112,14 +127,14 @@
 
         .btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
         .btn.primary {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 700;
         }
 
@@ -136,13 +151,13 @@
 
         .btn.warning:hover {
             background: #ff6b6b;
-            color: #1c222d;
+            color: #12151a;
             border-color: #ff6b6b;
         }
 
         .lap-times {
             margin: 1.5rem 0;
-            background: #1c222d;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             border: 1px solid #42f8f5;
@@ -172,7 +187,7 @@
 
         .lap-title button:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
         }
 
         .lap-list {
@@ -201,7 +216,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -220,57 +235,135 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
-        @media (max-width: 500px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .tool-container {
                 padding: 1rem;
+                max-width: 100%;
+            }
+            
+            .tool-header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .timer-display {
+                padding: 1.5rem 0.5rem;
+                margin: 1rem 0;
             }
             
             #timer {
                 font-size: 2.5rem;
-                letter-spacing: 2px;
+                letter-spacing: 3px;
             }
             
             .timer-controls {
+                gap: 8px;
+                margin: 1rem 0;
+            }
+            
+            .btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .lap-times {
+                margin: 1rem 0;
+                padding: 0.8rem;
+                max-height: 150px;
+            }
+            
+            .lap-title {
+                font-size: 0.9rem;
+            }
+            
+            .lap-title button {
+                padding: 3px 10px;
+                font-size: 0.65rem;
+            }
+            
+            .lap-item {
+                padding: 5px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
+            .timer-controls {
                 grid-template-columns: 1fr;
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            #timer {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header -->
         <div class="tool-header">
             <span class="tool-icon">⏱️</span>
             <h1>Timer</h1>
             <span class="tool-badge">TIMER</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Simple timer and stopwatch with lap functionality.
         </div>
 
-        <!-- Timer Display -->
         <div class="timer-display">
             <div id="timer">00:00:00</div>
         </div>
 
-        <!-- Control Buttons -->
         <div class="timer-controls">
             <button class="btn primary" id="startBtn"><i class="fas fa-play"></i> Start</button>
             <button class="btn" id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
@@ -278,7 +371,6 @@
             <button class="btn" id="lapBtn"><i class="fas fa-flag"></i> Lap</button>
         </div>
 
-        <!-- Lap Times -->
         <div class="lap-times">
             <div class="lap-title">
                 <span><i class="fas fa-history" style="color: #42f8f5;"></i> Lap Times</span>
@@ -291,7 +383,6 @@
             </ul>
         </div>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -357,7 +448,6 @@
             hours = 0;
             updateDisplay();
             
-            // Clear laps on reset
             lapList.innerHTML = '<li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">Click "Lap" to record times</li>';
             lapCount = 1;
         }
@@ -391,13 +481,11 @@
             lapCount = 1;
         }
 
-        // Event listeners
         startBtn.addEventListener('click', startTimer);
         pauseBtn.addEventListener('click', pauseTimer);
         resetBtn.addEventListener('click', resetTimer);
         lapBtn.addEventListener('click', recordLap);
 
-        // Initialize display
         updateDisplay();
     </script>
 </body>
