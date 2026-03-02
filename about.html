@@ -5,39 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">  <!-- ← CSS MUST BE HERE in head -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific styles only */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0d0f14;  /* Dark theme background */
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
         .about-container {
             max-width: 640px;
             width: 100%;
+            background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             padding: 2.5rem;
-            border: 2px solid #42f8f5;
+            border: 2px solid #42f8f5;  /* Cyan border */
             box-shadow: 0 0 25px rgba(66, 248, 245, 0.2);
+            margin: 0 auto;  /* Center horizontally */
         }
 
-        .about-container h1 {
-            color: #42f8f5;
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
             border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
-        .about-container h2 {
-            color: #ffffff;
+        .about-icon {
+            font-size: 2rem;
+            color: #42f8f5;
+        }
+
+        .about-header h1 {
+            color: #42f8f5;  /* Cyan heading */
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .about-badge {
+            background: #12151a;
+            color: #42f8f5;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        .about-content {
+            color: #c5d1de;  /* Light grey text */
+            line-height: 1.6;
+        }
+
+        .about-content p {
+            color: #c5d1de;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content h2 {
+            color: #ffffff;  /* White subheading */
             font-size: 1.3rem;
             margin: 1.5rem 0 1rem;
         }
 
-        .about-container p, .about-container ul {
+        .about-content ul {
             color: #c5d1de;
-            line-height: 1.6;
+            margin-left: 1.5rem;
+            line-height: 1.8;
         }
 
-        .about-container li {
+        .about-content li {
+            color: #c5d1de;
             margin-bottom: 0.5rem;
         }
 
@@ -60,12 +116,32 @@
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
+        .footer-email {
+            margin-top: 1.5rem;
+            color: #6d8ba0;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-email a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 500px) {
+            body {
+                padding: 15px;
+            }
+            
             .about-container {
                 padding: 1.5rem;
             }
             
-            .about-container h1 {
+            .about-header h1 {
                 font-size: 1.6rem;
             }
         }
@@ -73,19 +149,30 @@
 </head>
 <body>
     <div class="about-container">
-        <h1>About SG Multi Tools</h1>
-        <p>SG Multi Tools is a free online multi-tool platform designed to make everyday digital tasks simple, fast, and accessible.</p>
-        
-        <h2>What We Offer</h2>
-        <ul>
-            <li>Calculators & financial tools</li>
-            <li>Text & productivity utilities</li>
-            <li>Image & file tools</li>
-            <li>Conversion & web utilities</li>
-        </ul>
+        <div class="about-header">
+            <span class="about-icon">ℹ️</span>
+            <h1>About SG Multi Tools</h1>
+            <span class="about-badge">INFO</span>
+        </div>
+
+        <div class="about-content">
+            <p>SG Multi Tools is a free online multi-tool platform designed to make everyday digital tasks simple, fast, and accessible.</p>
+            
+            <h2>What We Offer</h2>
+            <ul>
+                <li>Calculators & financial tools</li>
+                <li>Text & productivity utilities</li>
+                <li>Image & file tools</li>
+                <li>Conversion & web utilities</li>
+            </ul>
+        </div>
 
         <div style="text-align: center;">
             <a href="index.html" class="back-home">← Back to Home</a>
+        </div>
+
+        <div class="footer-email">
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 </body>
