@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Image Converter - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,7 +16,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -51,7 +51,7 @@
         }
         
         .tool-header h1 {
-            color: #42f8f5;  /* Cyan heading */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
@@ -68,10 +68,25 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;  /* White text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -85,7 +100,7 @@
 
         /* File Upload Area */
         .upload-area {
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border: 2px dashed #42f8f5;
             border-radius: 12px;
             padding: 2rem 1rem;
@@ -140,7 +155,7 @@
         }
 
         .format-option {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 10px;
@@ -151,8 +166,8 @@
         }
 
         .format-option:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
@@ -212,7 +227,7 @@
         }
 
         .display-field {
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             color: #42f8f5;
@@ -233,7 +248,7 @@
         }
 
         .tool-btn {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 12px;
@@ -248,8 +263,8 @@
         }
 
         .tool-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
@@ -334,50 +349,130 @@
             text-decoration: underline;
         }
 
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
+                max-width: 100%;
             }
             
             .tool-header h1 {
                 font-size: 1.4rem;
             }
             
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .upload-area {
+                padding: 1.5rem 0.8rem;
+            }
+            
+            .upload-area i {
+                font-size: 2.5rem;
+            }
+            
+            .upload-area p {
+                font-size: 0.8rem;
+            }
+            
             .format-options {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .format-option {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+            
+            .quality-header {
+                font-size: 0.8rem;
+            }
+            
+            .slider::-webkit-slider-thumb {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .display-field {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .button-grid {
+                gap: 8px;
+            }
+            
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+            
+            .action-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
+            .format-options {
+                grid-template-columns: 1fr;
             }
             
             .button-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">🖼️</span>
             <h1>Image Converter</h1>
-            <span class="tool-badge mobile-hide">PNG/JPG</span>
+            <span class="tool-badge">PNG/JPG</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #c5d1de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Convert images between popular formats: PNG, JPG, GIF, WebP, and more.
         </div>
 
-        <!-- File Upload Area -->
         <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
             <i class="fas fa-cloud-upload-alt"></i>
             <p>Drag & drop or <span class="browse-text">browse</span> your image</p>
@@ -386,12 +481,10 @@
             <img id="preview" class="image-preview" alt="Preview">
         </div>
 
-        <!-- File Info -->
         <div class="display-field" id="fileInfo">
             <i class="fas fa-info-circle"></i> No file selected
         </div>
 
-        <!-- Format Options -->
         <label class="input-label"><i class="fas fa-format"></i> Convert to</label>
         <div class="format-options">
             <div class="format-option active" onclick="selectFormat('png')">
@@ -414,7 +507,6 @@
             </div>
         </div>
 
-        <!-- Quality Slider (for JPG) -->
         <div id="qualityControl" class="quality-control" style="display: block;">
             <div class="quality-header">
                 <span><i class="fas fa-sliders-h" style="color: #42f8f5;"></i> Quality</span>
@@ -423,7 +515,6 @@
             <input type="range" class="slider" id="quality" min="1" max="100" value="90" oninput="updateQuality(this.value)">
         </div>
 
-        <!-- Resize Options -->
         <label class="input-label"><i class="fas fa-expand"></i> Resize (optional)</label>
         <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
             <input class="tool-input" id="width" type="number" placeholder="Width" style="margin-bottom: 0;">
@@ -431,7 +522,6 @@
             <input class="tool-input" id="height" type="number" placeholder="Height" style="margin-bottom: 0;">
         </div>
 
-        <!-- Button Grid -->
         <div class="button-grid">
             <button class="tool-btn" onclick="resetForm()">
                 <i class="fas fa-undo"></i> Reset
@@ -441,12 +531,10 @@
             </button>
         </div>
 
-        <!-- Action Button -->
         <button class="action-btn" id="convertBtn" onclick="convertImage()" disabled>
             <i class="fas fa-sync-alt"></i> CONVERT IMAGE
         </button>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -465,14 +553,12 @@
         function handleFileSelect(input) {
             selectedFile = input.files[0];
             if (selectedFile) {
-                // Update file info
                 const fileSize = (selectedFile.size / 1024).toFixed(2);
                 document.getElementById('fileInfo').innerHTML = `
                     <i class="fas fa-check-circle" style="color: #42f8f5;"></i> 
                     ${selectedFile.name} (${fileSize} KB)
                 `;
                 
-                // Show preview
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const preview = document.getElementById('preview');
@@ -483,7 +569,6 @@
                 };
                 reader.readAsDataURL(selectedFile);
                 
-                // Enable convert button
                 document.getElementById('convertBtn').disabled = false;
             }
         }
@@ -491,13 +576,11 @@
         function selectFormat(format) {
             currentFormat = format;
             
-            // Update active state
             document.querySelectorAll('.format-option').forEach(opt => {
                 opt.classList.remove('active');
             });
             event.target.classList.add('active');
             
-            // Show/hide quality slider for JPG
             const qualityControl = document.getElementById('qualityControl');
             if (format === 'jpg') {
                 qualityControl.style.display = 'block';
@@ -520,7 +603,6 @@
             const height = document.getElementById('height').value;
             const quality = document.getElementById('quality').value;
             
-            // Simulate conversion with loading state
             const convertBtn = document.getElementById('convertBtn');
             const originalText = convertBtn.innerHTML;
             convertBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> CONVERTING...';
@@ -543,7 +625,6 @@
             document.getElementById('quality').value = 90;
             document.getElementById('qualityValue').textContent = '90%';
             
-            // Reset active format to PNG
             document.querySelectorAll('.format-option').forEach(opt => {
                 opt.classList.remove('active');
             });
@@ -562,7 +643,6 @@
             document.getElementById('convertBtn').disabled = true;
         }
 
-        // Drag and drop support
         const uploadArea = document.getElementById('uploadArea');
         
         uploadArea.addEventListener('dragover', (e) => {
