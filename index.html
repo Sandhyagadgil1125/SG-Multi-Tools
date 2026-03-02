@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>SG Multi Tools - Free Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         * {
             margin: 0;
@@ -15,7 +15,7 @@
         }
 
         body {
-            background: #E8DE99;
+            background: #E8DE99;  /* Light gold background */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
             display: flex;
@@ -55,6 +55,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
         }
 
         .logo-text {
@@ -85,13 +86,14 @@
         .nav-links a.active {
             color: #1c222d;
             background: #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
         }
 
         /* Hero Section */
         .hero {
             width: 100%;
             max-width: 1200px;
-            margin: 5px auto 0;
+            margin: 30px auto 20px;
             padding: 0 20px;
             text-align: center;
         }
@@ -99,8 +101,7 @@
         .hero h1 {
             color: #1c222d;
             font-size: 2.2rem;
-            margin: 0 0 2px 0;
-            line-height: 1.1;
+            margin-bottom: 5px;
         }
 
         .hero h1 span {
@@ -110,34 +111,38 @@
         .hero-description {
             color: #4A3B2C;
             font-size: 1rem;
-            margin: 0 0 5px 0;
         }
 
-        /* Tools Grid - 4 columns */
+        /* Tools Grid */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             max-width: 1200px;
             width: 100%;
-            margin: 0 auto 40px;
+            margin: 20px auto 50px;
             padding: 0 20px;
         }
 
-        /* Tool Card */
+        /* Tool Card - DARK on LIGHT background */
         .tool-card {
             background: #1c222d;
             border-radius: 16px;
             padding: 20px;
             border: 1px solid #42f8f5;
-            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             height: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
         }
 
         .tool-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(66, 248, 245, 0.3);
             border-color: #42f8f5;
         }
 
@@ -145,7 +150,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .tool-icon {
@@ -156,7 +161,7 @@
         .tool-badge {
             background: #12151a;
             color: #42f8f5;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 20px;
@@ -167,12 +172,13 @@
         .tool-card h3 {
             color: #ffffff;
             font-size: 1.1rem;
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
         .tool-description {
             color: #c5d1de;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             line-height: 1.4;
             margin-bottom: 15px;
             flex-grow: 1;
@@ -183,7 +189,7 @@
             background: transparent;
             color: #42f8f5;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             padding: 8px 0;
             border-top: 1px solid #2a4055;
@@ -192,35 +198,17 @@
             transition: all 0.2s;
         }
 
-        .open-tool-btn:hover {
+        .tool-card:hover .open-tool-btn {
             color: #1c222d;
             background: #42f8f5;
             padding: 8px 12px;
             border-radius: 30px;
             border-top: none;
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
         .open-tool-btn i {
             margin-left: 6px;
-        }
-
-        /* Responsive */
-        @media screen and (max-width: 1000px) {
-            .tools-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media screen and (max-width: 700px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         /* Footer */
@@ -263,21 +251,167 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            margin: 10px 0;
+        }
+
+        .footer-email span {
+            color: #ffffff;
+            font-size: 1.2rem;
         }
 
         .footer-email a {
             color: #ffffff;
             text-decoration: none;
+            font-size: 1.2rem;
         }
 
-        .ad-container {
-            width: 100%;
-            text-align: center;
+        .footer-email a:hover {
+            color: #42f8f5;
         }
 
         .copyright {
             color: #ffffff;
             font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        
+        /* Tablet Landscape (4 columns → 3 columns) */
+        @media screen and (max-width: 1000px) {
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Tablet Portrait (3 columns → 2 columns) */
+        @media screen and (max-width: 700px) {
+            .navbar {
+                height: auto;
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-description {
+                font-size: 0.9rem;
+            }
+            
+            .footer-links {
+                gap: 15px;
+            }
+            
+            .footer-links a {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Mobile Landscape (2 columns → 1 column) */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 0;
+            }
+            
+            .navbar {
+                border-radius: 0;
+                padding: 12px 15px;
+            }
+            
+            .logo-sg {
+                width: 35px;
+                height: 35px;
+                font-size: 1.3rem;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            
+            .hero {
+                margin: 20px auto 15px;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 15px;
+                margin: 15px auto 30px;
+            }
+            
+            .tool-card {
+                padding: 15px;
+            }
+            
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card h3 {
+                font-size: 1rem;
+            }
+            
+            .tool-description {
+                font-size: 0.75rem;
+            }
+            
+            .footer {
+                padding: 20px 15px;
+            }
+            
+            .footer-email a {
+                font-size: 1rem;
+            }
+            
+            .footer-email span {
+                font-size: 1rem;
+            }
+            
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Small Mobile */
+        @media screen and (max-width: 350px) {
+            .nav-links {
+                gap: 8px;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 5px 8px;
+            }
+            
+            .hero h1 {
+                font-size: 1.3rem;
+            }
+            
+            .tool-card {
+                padding: 12px;
+            }
         }
     </style>
 </head>
@@ -302,212 +436,227 @@
         <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- Tools Grid - 20 tools in 4 columns -->
+    <!-- Tools Grid - 20 tools -->
     <div class="tools-grid">
-        <!-- ROW 1 -->
-        <div class="tool-card">
+        <!-- Age Calculator -->
+        <a href="age-calculator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📅</span>
                 <span class="tool-badge">AGE</span>
             </div>
             <h3>Age Calculator</h3>
             <div class="tool-description">Exact age in years, months, days from your birth date</div>
-            <a href="age-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Case Changer -->
+        <a href="case-changer.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🔤</span>
                 <span class="tool-badge">TEXT</span>
             </div>
             <h3>Case Changer</h3>
             <div class="tool-description">Convert text to uppercase, lowercase, title case</div>
-            <a href="case-changer.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Color Picker -->
+        <a href="color-picker.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🎨</span>
                 <span class="tool-badge">HEX</span>
             </div>
             <h3>Color Picker</h3>
             <div class="tool-description">Pick colors and copy HEX, RGB values</div>
-            <a href="color-picker.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Advanced Calculator -->
+        <a href="advanced-calculator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🧮</span>
                 <span class="tool-badge">SCI</span>
             </div>
             <h3>Advanced Calculator</h3>
             <div class="tool-description">Scientific & basic calculations with memory functions</div>
-            <a href="advanced-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <!-- ROW 2 -->
-        <div class="tool-card">
+        <!-- Currency Converter -->
+        <a href="currency-converter.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">💰</span>
                 <span class="tool-badge">USD/EUR</span>
             </div>
             <h3>Currency Converter</h3>
             <div class="tool-description">Convert between USD, EUR, GBP and more</div>
-            <a href="currency-converter.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Date Difference -->
+        <a href="date-difference.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📆</span>
                 <span class="tool-badge">DAYS</span>
             </div>
             <h3>Date Difference</h3>
             <div class="tool-description">Calculate days between two dates</div>
-            <a href="date-difference.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- EMI Calculator -->
+        <a href="emi-calculator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🏦</span>
                 <span class="tool-badge">LOAN</span>
             </div>
             <h3>EMI Calculator</h3>
             <div class="tool-description">Calculate loan EMIs with interest rate</div>
-            <a href="emi-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- File Size Converter -->
+        <a href="file-size-converter.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">💾</span>
                 <span class="tool-badge">MB/GB</span>
             </div>
             <h3>File Size Converter</h3>
             <div class="tool-description">Convert between KB, MB, GB, TB</div>
-            <a href="file-size-converter.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <!-- ROW 3 -->
-        <div class="tool-card">
+        <!-- Image Converter -->
+        <a href="image-converter.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🖼️</span>
                 <span class="tool-badge">PNG/JPG</span>
             </div>
             <h3>Image Converter</h3>
             <div class="tool-description">Convert images between formats</div>
-            <a href="image-converter.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Note Text Saver -->
+        <a href="note-text-saver.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📝</span>
                 <span class="tool-badge">LOCAL</span>
             </div>
             <h3>Note Text Saver</h3>
             <div class="tool-description">Save and load notes locally</div>
-            <a href="note-text-saver.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Password Generator -->
+        <a href="password-generator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🔐</span>
                 <span class="tool-badge">SECURE</span>
             </div>
             <h3>Password Generator</h3>
             <div class="tool-description">Generate strong secure passwords</div>
-            <a href="password-generator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Percentage Calculator -->
+        <a href="percentage-calculator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">%</span>
                 <span class="tool-badge">%</span>
             </div>
             <h3>Percentage Calculator</h3>
             <div class="tool-description">Calculate percentages easily</div>
-            <a href="percentage-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <!-- ROW 4 -->
-        <div class="tool-card">
+        <!-- QR Code Generator -->
+        <a href="qr-code-generator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📱</span>
                 <span class="tool-badge">QR</span>
             </div>
             <h3>QR Code Generator</h3>
             <div class="tool-description">Generate QR codes for text/URLs</div>
-            <a href="qr-code-generator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- SIP Calculator -->
+        <a href="sip-calculator.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📈</span>
                 <span class="tool-badge">MF</span>
             </div>
             <h3>SIP Calculator</h3>
             <div class="tool-description">Calculate SIP returns and future value</div>
-            <a href="sip-calculator.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Speech to Text -->
+        <a href="speech-to-text.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🎤</span>
                 <span class="tool-badge">VOICE</span>
             </div>
             <h3>Speech to Text</h3>
             <div class="tool-description">Convert speech to text in real-time</div>
-            <a href="speech-to-text.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Text to Speech -->
+        <a href="text-to-speech.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🔊</span>
                 <span class="tool-badge">LISTEN</span>
             </div>
             <h3>Text to Speech</h3>
             <div class="tool-description">Convert text to natural speech</div>
-            <a href="text-to-speech.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <!-- ROW 5 -->
-        <div class="tool-card">
+        <!-- Timer/Stopwatch -->
+        <a href="timer-stopwatch.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">⏱️</span>
                 <span class="tool-badge">TIMER</span>
             </div>
             <h3>Timer</h3>
             <div class="tool-description">Simple timer and stopwatch</div>
-            <a href="timer-stopwatch.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Unit Converter -->
+        <a href="unit-converter.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">📐</span>
                 <span class="tool-badge">METRIC</span>
             </div>
             <h3>Unit Converter</h3>
             <div class="tool-description">Convert length, weight, temperature</div>
-            <a href="unit-converter.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- URL Encoder/Decoder -->
+        <a href="url-encoder-decoder.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🔗</span>
                 <span class="tool-badge">ENCODE</span>
             </div>
             <h3>URL Encoder/Decoder</h3>
             <div class="tool-description">Encode and decode URLs safely</div>
-            <a href="url-encoder-decoder.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="tool-card">
+        <!-- Word Counter -->
+        <a href="word-counter.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">🔢</span>
                 <span class="tool-badge">COUNT</span>
             </div>
             <h3>Word Counter</h3>
             <div class="tool-description">Count words and characters</div>
-            <a href="word-counter.html" class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></a>
-        </div>
+            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
+        </a>
     </div>
 
     <!-- Footer -->
@@ -516,7 +665,7 @@
             <ul class="footer-links">
                 <li><a href="privacy-policy.html">Privacy Policy</a></li>
                 <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+                <li><a href="terms-and-conditions.html">Terms</a></li>
                 <li><a href="sitemap.html">Sitemap</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -525,11 +674,6 @@
             <div class="footer-email">
                 <span>📧</span>
                 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-            </div>
-            
-            <div class="ad-container">
-                <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
-                <div id="container-ea58333732a8a42313578cba2aad5256"></div>
             </div>
             
             <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
