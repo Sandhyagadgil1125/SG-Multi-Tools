@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Privacy Policy - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,219 +14,434 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            background: #E8DE99;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px;
-            /* Background from style.css */
         }
 
-        .privacy-container {
-            max-width: 640px;
+        /* Navbar */
+        .navbar {
+            background: #1c222d;
             width: 100%;
-            margin: 0 auto;
-            padding: 2rem;
-            background: #E8DE99;  /* Champagne background */
-            border-radius: 18px;
-            border: 2px solid #42f8f5;
-            box-shadow: 0 0 25px rgba(66, 248, 245, 0.3);
+            padding: 0 5%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #42f8f5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .privacy-header {
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-sg {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 800;
+            font-size: 1.8rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .logo-text span {
+            color: #42f8f5;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #42f8f5;
+            color: #1c222d;
+            border-color: #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
+        }
+
+        /* Main Content */
+        .content-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: #1c222d;
+            border-radius: 30px;
+            padding: 40px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .page-icon {
+            font-size: 2.5rem;
+            color: #42f8f5;
+        }
+
+        .page-header h1 {
+            color: #42f8f5;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .page-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #42f8f5;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .privacy-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-        
-        .privacy-header h1 {
-            color: #1c222d;  /* Dark text */
-            font-size: 1.8rem;
-            font-weight: 600;
         }
 
-        .privacy-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
-            text-transform: uppercase;
+        .content-section h2 i {
+            font-size: 1.1rem;
         }
 
-        .last-updated {
-            color: #4A3B2C;
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .privacy-section {
-            margin: 1.5rem 0;
-        }
-
-        .privacy-section h2 {
-            color: #1c222d;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .privacy-section p {
-            color: #4A3B2C;
+        .content-section p {
+            color: #c5d1de;
             font-size: 0.95rem;
             line-height: 1.6;
-            margin-bottom: 0.8rem;
+            margin-bottom: 15px;
         }
 
-        .privacy-section ul {
-            margin: 0.8rem 0 0.8rem 1.5rem;
-            color: #4A3B2C;
+        .content-section ul, .content-section ol {
+            color: #c5d1de;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-left: 20px;
+            margin-bottom: 15px;
         }
 
-        .privacy-section li {
-            color: #4A3B2C;
-            margin-bottom: 0.4rem;
-            line-height: 1.5;
+        .content-section li {
+            margin-bottom: 8px;
         }
 
         .highlight-box {
-            background: #1c222d;  /* Dark background for contrast */
-            border-left: 4px solid #42f8f5;
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1.2rem 0;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #42f8f5;
+            margin: 20px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .last-updated {
+            color: #6d8ba0;
+            font-size: 0.85rem;
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1c222d;
+            width: 100%;
+            padding: 40px 20px 30px;
+            border-top: 3px solid #42f8f5;
+            margin-top: 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .footer-links li a {
             color: #ffffff;
-            font-size: 0.95rem;
-        }
-
-        .highlight-box i {
-            color: #42f8f5;
-            margin-right: 8px;
-        }
-
-        .home-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: #1c222d;
             text-decoration: none;
-            font-weight: 600;
-            padding: 8px 22px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            font-weight: 500;
         }
 
-        .home-link:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        .footer-links li a:hover,
+        .footer-links li a.active {
+            color: #42f8f5;
         }
 
         .footer-email {
-            margin-top: 1.5rem;
-            color: #1c222d;
-            font-size: 0.85rem;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-email span {
+            color: #ffffff;
+            font-size: 1.2rem;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 500;
             text-decoration: none;
         }
 
         .footer-email a:hover {
             color: #42f8f5;
-            text-decoration: underline;
         }
 
-        @media (max-width: 500px) {
-            .privacy-container {
-                padding: 1.5rem;
+        .copyright {
+            color: #ffffff;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 700px) {
+            .navbar {
+                height: auto;
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .privacy-header h1 {
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .content-card {
+                padding: 25px;
+            }
+            
+            .page-header {
+                flex-wrap: wrap;
+            }
+            
+            .page-header h1 {
                 font-size: 1.5rem;
+            }
+            
+            .page-badge {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .content-container {
+                margin: 20px auto;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .page-icon {
+                font-size: 2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            .footer-links {
+                gap: 15px;
+            }
+            
+            .footer-links li a {
+                font-size: 0.85rem;
+            }
+            
+            .footer-email a {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="privacy-container">
-        <!-- Header -->
-        <div class="privacy-header">
-            <span class="privacy-icon">🔒</span>
-            <h1>Privacy Policy</h1>
-            <span class="privacy-badge">LEGAL</span>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <div class="logo-sg">SG</div>
+            <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
-
-        <div class="last-updated">Last updated: February 15, 2026</div>
-
-        <!-- Section 1 -->
-        <div class="privacy-section">
-            <h2>1. Information We Don't Collect</h2>
-            <p>SG Multi Tools is designed with your privacy in mind. We do not collect, store, or process any personal information. All tools run entirely in your browser – no data is sent to any server.</p>
-        </div>
-
-        <div class="highlight-box">
-            <i class="fas fa-shield-alt"></i>
-            <strong>Your data stays on your device.</strong> We never see it, store it, or share it.
-        </div>
-
-        <!-- Section 2 -->
-        <div class="privacy-section">
-            <h2>2. Local Storage</h2>
-            <p>Some tools (like Note Text Saver) use your browser's local storage to save your notes. This data stays on your device and is never transmitted to us. You can clear this data at any time through your browser settings.</p>
-        </div>
-
-        <!-- Section 3 -->
-        <div class="privacy-section">
-            <h2>3. Affiliate Links</h2>
-            <p>The Advanced Calculator contains affiliate links to Digistore24. If you click these links and make a purchase, we may earn a commission at no extra cost to you. These links are clearly marked and you will be redirected to their site. Please review their privacy policy separately.</p>
-        </div>
-
-        <!-- Section 4 -->
-        <div class="privacy-section">
-            <h2>4. Cookies</h2>
-            <p>We do not use tracking cookies or any form of analytics. The only local storage used is for saving your notes (as mentioned above), which you can delete anytime.</p>
-        </div>
-
-        <!-- Section 5 -->
-        <div class="privacy-section">
-            <h2>5. Third-Party Links</h2>
-            <p>Our website contains affiliate links to Digistore24. We are not responsible for the privacy practices or content of external sites. We encourage you to read their privacy policies before providing any information.</p>
-        </div>
-
-        <!-- Section 6 -->
-        <div class="privacy-section">
-            <h2>6. Changes to This Policy</h2>
-            <p>We may update this privacy policy occasionally. The latest version will always be available on this page. Continued use of our tools after changes means you accept the updated policy.</p>
-        </div>
-
-        <!-- Navigation -->
-        <div style="text-align: center;">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-        </div>
-
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">Tools</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
         </div>
     </div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="content-card">
+            <div class="page-header">
+                <span class="page-icon">🔒</span>
+                <h1>Privacy Policy</h1>
+                <span class="page-badge">LEGAL</span>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                <p>At SG Multi Tools, accessible from sgtools.in, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by SG Multi Tools and how we use it.</p>
+                <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at contact@sgtools.in.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-database"></i> Information We Collect</h2>
+                <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
+                <ul>
+                    <li><strong>Log Files:</strong> SG Multi Tools follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks.</li>
+                    <li><strong>Cookies:</strong> Like any other website, SG Multi Tools uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited.</li>
+                    <li><strong>Contact Information:</strong> If you contact us via email, we may collect your name and email address to respond to your inquiry.</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-arrow-right"></i> How We Use Your Information</h2>
+                <p>We use the information we collect in various ways, including to:</p>
+                <ul>
+                    <li>Provide, operate, and maintain our website</li>
+                    <li>Improve, personalize, and expand our website</li>
+                    <li>Understand and analyze how you use our website</li>
+                    <li>Develop new products, services, features, and functionality</li>
+                    <li>Respond to your comments, questions, and requests</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-cookie"></i> Cookies and Web Beacons</h2>
+                <p>SG Multi Tools uses 'cookies' to enhance user experience. Your web browser places cookies on your hard drive for record-keeping purposes and sometimes to track information about you. You may choose to set your web browser to refuse cookies or to alert you when cookies are being sent. If you do so, note that some parts of the website may not function properly.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-ad"></i> Advertising Partners</h2>
+                <p>Some of our advertising partners may use cookies and web beacons on our site. Our advertising partners are listed below. Each of our advertising partners has their own Privacy Policy for their policies on user data.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Adsterra:</strong> We use Adsterra to display advertisements on our website. Adsterra may use cookies and similar technologies to serve personalized ads. You can learn more about Adsterra's privacy practices at their official website.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-user-shield"></i> Third Party Privacy Policies</h2>
+                <p>SG Multi Tools's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-child"></i> Children's Information</h2>
+                <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
+                <p>SG Multi Tools does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-check-circle"></i> Consent</h2>
+                <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-sync-alt"></i> Updates to This Policy</h2>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the bottom of this page.</p>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-clock"></i> Last Updated: March 2, 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="privacy-policy.html" class="active">Privacy Policy</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="footer-email">
+                <span>📧</span>
+                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
+        </div>
+    </footer>
 </body>
 </html>
