@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Word Counter - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,98 +15,130 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
-        .tool-container {
-            max-width: 520px;
+        .counter-card {
+            background: #1c222d;  /* Dark card background */
+            border-radius: 30px;
+            padding: 25px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #E8DE99;  /* Champagne background */
-            border-radius: 18px;
+            max-width: 600px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
             color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #1c222d;  /* Dark text */
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
-        .tool-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.8rem;
+        }
+
+        .card-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
-            margin-left: auto;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-transform: uppercase;
         }
 
-        /* Form Elements */
+        /* Sample buttons */
+        .samples {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .sample-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .sample-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
+        }
+
+        /* Input Section */
+        .input-section {
+            background: #12151a;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #42f8f5;
+        }
+
         .input-label {
+            color: #b0c4de;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
             display: block;
-            color: #1c222d;  /* Dark text */
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
         }
 
         .input-label i {
             color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
+            margin-right: 5px;
         }
 
         .tool-textarea {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
             border-radius: 12px;
+            padding: 15px;
+            color: white;
             font-size: 0.9rem;
-            color: #1c222d;
             font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
+            outline: none;
             resize: vertical;
-            min-height: 200px;
+            min-height: 150px;
         }
 
         .tool-textarea:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
         }
 
         .tool-textarea::placeholder {
             color: #6d8ba0;
-            opacity: 0.6;
         }
 
         /* Stats Grid */
@@ -115,15 +146,22 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            margin: 1.5rem 0;
+            margin: 20px 0;
         }
 
         .stat-card {
-            background: #1c222d;  /* Dark background for contrast */
-            border-radius: 12px;
-            padding: 1rem 0.5rem;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px 5px;
             text-align: center;
             border: 1px solid #42f8f5;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.2);
+            border-color: #42f8f5;
         }
 
         .stat-value {
@@ -146,22 +184,36 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            margin: 1rem 0;
+            margin: 15px 0;
         }
 
         .detail-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.6rem;
-            background: #1c222d;  /* Dark background */
-            border-radius: 8px;
+            padding: 10px 12px;
+            background: #12151a;
+            border-radius: 12px;
             border: 1px solid #42f8f5;
+            transition: all 0.2s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.2);
         }
 
         .detail-label {
             color: #b0c4de;
             font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .detail-label i {
+            color: #42f8f5;
+            width: 16px;
         }
 
         .detail-value {
@@ -173,14 +225,14 @@
 
         /* Reading Time */
         .reading-time {
-            background: #1c222d;  /* Dark background */
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 15px 0;
             border: 1px solid #42f8f5;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
 
         .time-item {
@@ -203,36 +255,35 @@
         .button-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 1rem 0;
+            gap: 8px;
+            margin: 15px 0;
         }
 
         .tool-btn {
-            background: #1c222d;  /* Dark button */
-            border: 2px solid #42f8f5;
+            background: #12151a;
+            border: 1px solid #42f8f5;
             border-radius: 30px;
             padding: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 500;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .tool-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
         }
 
         .tool-btn.primary {
             background: #42f8f5;
-            color: #1c222d;
-            font-weight: 700;
+            color: #12151a;
+            font-weight: 600;
+            border-color: #42f8f5;
         }
 
         .tool-btn.primary:hover {
@@ -240,20 +291,24 @@
             color: #42f8f5;
         }
 
+        .tool-btn i {
+            margin-right: 5px;
+        }
+
+        /* Action Button */
         .action-btn {
             width: 100%;
             background: #42f8f5;
-            color: #1c222d;
-            border: none;
-            padding: 12px;
+            color: #12151a;
+            border: 2px solid #42f8f5;
             border-radius: 40px;
+            padding: 14px;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
             letter-spacing: 0.5px;
-            margin-top: 0.5rem;
+            margin: 10px 0;
         }
 
         .action-btn:hover {
@@ -267,13 +322,65 @@
             margin-right: 8px;
         }
 
+        /* Landing Page Links - Preserved from Advanced Calculator */
+        .landing-links {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .landing-link {
+            display: block;
+            background: #12151a;
+            border: 2px solid #42f8f5;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .landing-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
+            background: #1e2b37;
+        }
+
+        .landing-link h3 {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .landing-link p {
+            color: #c5d1de;
+            font-size: 0.9rem;
+        }
+
+        .landing-badge {
+            display: inline-block;
+            margin-top: 10px;
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .landing-link:hover .landing-badge {
+            background: white;
+        }
+
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
-            color: #1c222d;
+            margin-top: 1.5rem;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 10px 25px;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             font-size: 0.9rem;
@@ -289,103 +396,168 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
-        /* Sample buttons */
-        .samples {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .sample-btn {
-            background: #1c222d;  /* Dark button */
-            border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 0.7rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex: 1;
-            min-width: 70px;
-            text-align: center;
-        }
-
-        .sample-btn:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            border-color: #42f8f5;
-        }
-
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* Responsive Design */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 95%;
+            .counter-card {
+                padding: 15px;
+                max-width: 100%;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.2rem;
             }
             
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .card-icon {
+                font-size: 1.5rem;
             }
             
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .reading-time {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .button-grid {
-                grid-template-columns: 1fr;
+            .card-badge {
+                padding: 4px 10px;
+                font-size: 0.65rem;
             }
             
             .samples {
                 flex-direction: column;
+                gap: 5px;
+            }
+            
+            .sample-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .tool-textarea {
+                padding: 12px;
+                font-size: 0.85rem;
+                min-height: 120px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .detail-item {
+                padding: 8px 12px;
+            }
+            
+            .reading-time {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 12px;
+            }
+            
+            .time-item {
+                padding: 5px 0;
+            }
+            
+            .time-value {
+                font-size: 1rem;
+            }
+            
+            .time-label {
+                font-size: 0.65rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.85rem;
+            }
+            
+            .action-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .landing-link {
+                padding: 12px;
+            }
+            
+            .landing-link h3 {
+                font-size: 1rem;
+            }
+            
+            .landing-link p {
+                font-size: 0.8rem;
+            }
+            
+            .landing-badge {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            .card-title {
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sample-btn {
+                font-size: 0.7rem;
+            }
+            
+            .detail-label {
+                font-size: 0.7rem;
+            }
+            
+            .detail-value {
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <!-- Header with icon and badge -->
-        <div class="tool-header">
-            <span class="tool-icon">🔢</span>
-            <h1>Word Counter</h1>
-            <span class="tool-badge mobile-hide">COUNT</span>
-        </div>
-
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
-            Count words, characters, sentences, and more in your text.
+    <div class="counter-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">🔢</span> Word Counter
+            </div>
+            <div class="card-badge">COUNT</div>
         </div>
 
         <!-- Sample buttons -->
@@ -393,12 +565,14 @@
             <button class="sample-btn" onclick="setSample('lorem')">Lorem Ipsum</button>
             <button class="sample-btn" onclick="setSample('paragraph')">Paragraph</button>
             <button class="sample-btn" onclick="setSample('essay')">Essay</button>
-            <button class="sample-btn" onclick="setSample('clear')">Clear</button>
+            <button class="sample-btn" onclick="clearText()">Clear</button>
         </div>
 
         <!-- Input Textarea -->
-        <label class="input-label"><i class="fas fa-pencil-alt"></i> Enter Your Text</label>
-        <textarea class="tool-textarea" id="textInput" placeholder="Type or paste your text here...">The quick brown fox jumps over the lazy dog.</textarea>
+        <div class="input-section">
+            <label class="input-label"><i class="fas fa-pencil-alt"></i> Enter Your Text</label>
+            <textarea class="tool-textarea" id="textInput" placeholder="Type or paste your text here...">The quick brown fox jumps over the lazy dog.</textarea>
+        </div>
 
         <!-- Main Stats Grid -->
         <div class="stats-grid">
@@ -419,27 +593,27 @@
         <!-- Detailed Stats -->
         <div class="details-grid">
             <div class="detail-item">
-                <span class="detail-label"><i class="fas fa-fw fa-paragraph" style="color: #42f8f5;"></i> Sentences</span>
+                <span class="detail-label"><i class="fas fa-fw fa-paragraph"></i> Sentences</span>
                 <span class="detail-value" id="sentenceCount">1</span>
             </div>
             <div class="detail-item">
-                <span class="detail-label"><i class="fas fa-fw fa-comma" style="color: #42f8f5;"></i> Paragraphs</span>
+                <span class="detail-label"><i class="fas fa-fw fa-comma"></i> Paragraphs</span>
                 <span class="detail-value" id="paragraphCount">1</span>
             </div>
             <div class="detail-item">
-                <span class="detail-label"><i class="fas fa-fw fa-clock" style="color: #42f8f5;"></i> Unique Words</span>
+                <span class="detail-label"><i class="fas fa-fw fa-clock"></i> Unique Words</span>
                 <span class="detail-value" id="uniqueWords">8</span>
             </div>
             <div class="detail-item">
-                <span class="detail-label"><i class="fas fa-fw fa-book-open" style="color: #42f8f5;"></i> Avg Word Length</span>
+                <span class="detail-label"><i class="fas fa-fw fa-book-open"></i> Avg Word Length</span>
                 <span class="detail-value" id="avgLength">4.6</span>
             </div>
             <div class="detail-item">
-                <span class="detail-label"><i class="fas fa-fw fa-long-arrow-alt-right" style="color: #42f8f5;"></i> Longest Word</span>
+                <span class="detail-label"><i class="fas fa-fw fa-long-arrow-alt-right"></i> Longest Word</span>
                 <span class="detail-value" id="longestWord">jumps</span>
             </div>
             <div class="detail-item">
-                <span class="detail-label"><i class="fas fa-fw fa-volume-up" style="color: #42f8f5;"></i> Syllables</span>
+                <span class="detail-label"><i class="fas fa-fw fa-volume-up"></i> Syllables</span>
                 <span class="detail-value" id="syllableCount">12</span>
             </div>
         </div>
@@ -480,6 +654,20 @@
         <button class="action-btn" onclick="analyzeText()">
             <i class="fas fa-chart-bar"></i> ANALYZE TEXT
         </button>
+
+        <!-- Landing Page Links - Preserved from Advanced Calculator -->
+        <div class="landing-links">
+            <a href="income.html" class="landing-link">
+                <h3>📚 Road to Successful Investing</h3>
+                <p>Stock Investing Guide Book - Master the stock market with proven strategies</p>
+                <span class="landing-badge">Learn More →</span>
+            </a>
+            <a href="cashflow-secrets.html" class="landing-link">
+                <h3>⚡ Cashflow Secrets</h3>
+                <p>Member Area & Video Courses - Exclusive access to complete video training library</p>
+                <span class="landing-badge">View Courses →</span>
+            </a>
+        </div>
 
         <!-- Navigation -->
         <div style="text-align: center;">
