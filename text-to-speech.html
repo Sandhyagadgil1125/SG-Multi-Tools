@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Text to Speech - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,13 +16,13 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
         .tool-container {
@@ -30,7 +30,7 @@
             width: 100%;
             margin: 0 auto;
             padding: 1.3rem;
-            background: #E8DE99;  /* Champagne background */
+            background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
             box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
@@ -51,14 +51,14 @@
         }
         
         .tool-header h1 {
-            color: #1c222d;  /* Dark text */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
 
         .tool-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
+            background: #12151a;
+            color: #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
             padding: 4px 12px;
@@ -68,10 +68,25 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #1c222d;  /* Dark text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -140,7 +155,7 @@
             align-items: center;
             gap: 10px;
             padding: 0.8rem;
-            background: #1c222d;  /* Dark background */
+            background: #12151a;
             border-radius: 30px;
             margin: 1rem 0;
             border: 1px solid #42f8f5;
@@ -197,7 +212,7 @@
         .speed-header {
             display: flex;
             justify-content: space-between;
-            color: #1c222d;
+            color: #ffffff;
             margin-bottom: 0.5rem;
         }
 
@@ -240,7 +255,7 @@
         .pitch-header {
             display: flex;
             justify-content: space-between;
-            color: #1c222d;
+            color: #ffffff;
             margin-bottom: 0.5rem;
         }
 
@@ -258,7 +273,7 @@
         }
 
         .tool-btn {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 12px;
@@ -274,14 +289,14 @@
 
         .tool-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
         .tool-btn.primary {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 700;
         }
 
@@ -315,7 +330,7 @@
         .action-btn {
             width: 100%;
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             border: none;
             padding: 12px;
             border-radius: 40px;
@@ -348,7 +363,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -367,18 +382,17 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
@@ -387,7 +401,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 0.3rem;
-            color: #1c222d;
+            color: #ffffff;
             font-size: 0.75rem;
         }
 
@@ -405,7 +419,7 @@
         }
 
         .sample-btn {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 20px;
             padding: 6px 12px;
@@ -420,33 +434,106 @@
 
         .sample-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             border-color: #42f8f5;
         }
 
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
+                max-width: 100%;
             }
             
             .tool-header h1 {
                 font-size: 1.4rem;
             }
             
-            .control-row {
-                flex-direction: column;
+            .tool-icon {
+                font-size: 1.8rem;
             }
             
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .tool-textarea {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+                min-height: 120px;
+            }
+            
+            .status-indicator {
+                padding: 0.6rem;
+            }
+            
+            .status-text {
+                font-size: 0.8rem;
+            }
+            
+            .control-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .speed-header, .pitch-header {
+                font-size: 0.8rem;
+            }
+            
+            .slider::-webkit-slider-thumb {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .button-grid {
+                gap: 8px;
+            }
+            
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+            
+            .action-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .word-count {
+                font-size: 0.7rem;
+            }
+            
+            .samples {
+                gap: 5px;
+            }
+            
+            .sample-btn {
+                padding: 5px 8px;
+                font-size: 0.65rem;
+                min-width: 60px;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
             .button-grid {
                 grid-template-columns: 1fr;
             }
@@ -454,30 +541,48 @@
             .samples {
                 flex-direction: column;
             }
+            
+            .sample-btn {
+                width: 100%;
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            .word-count {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">🔊</span>
             <h1>Text to Speech</h1>
-            <span class="tool-badge mobile-hide">LISTEN</span>
+            <span class="tool-badge">LISTEN</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Convert text to natural-sounding speech with customizable voice options.
         </div>
 
-        <!-- Status Indicator -->
         <div class="status-indicator">
             <div class="status-light" id="statusLight"></div>
             <div class="status-text" id="statusText">Ready</div>
         </div>
 
-        <!-- Sample Texts -->
         <div class="samples">
             <button class="sample-btn" onclick="setSample('hello')">Hello</button>
             <button class="sample-btn" onclick="setSample('welcome')">Welcome</button>
@@ -485,18 +590,15 @@
             <button class="sample-btn" onclick="setSample('paragraph')">Paragraph</button>
         </div>
 
-        <!-- Text Input -->
         <label class="input-label"><i class="fas fa-pencil-alt"></i> Text to Speak</label>
         <textarea class="tool-textarea" id="textInput" placeholder="Enter text to speak...">Hello, welcome to SG Multi Tools. This text will be converted to speech.</textarea>
 
-        <!-- Word Count -->
         <div class="word-count">
             <div>Words: <span id="wordCount">7</span></div>
             <div>Characters: <span id="charCount">58</span></div>
             <div>Est. time: <span id="estTime">15s</span></div>
         </div>
 
-        <!-- Voice Selection -->
         <label class="input-label"><i class="fas fa-microphone-alt"></i> Voice</label>
         <div class="control-row">
             <select class="tool-select" id="voiceSelect">
@@ -504,7 +606,6 @@
             </select>
         </div>
 
-        <!-- Speed Control -->
         <div class="speed-control">
             <div class="speed-header">
                 <span><i class="fas fa-tachometer-alt" style="color: #42f8f5;"></i> Speed</span>
@@ -513,7 +614,6 @@
             <input type="range" class="slider" id="speedSlider" min="0.5" max="2" step="0.1" value="1.0" oninput="updateSpeed(this.value)">
         </div>
 
-        <!-- Pitch Control -->
         <div class="pitch-control">
             <div class="pitch-header">
                 <span><i class="fas fa-chart-line" style="color: #42f8f5;"></i> Pitch</span>
@@ -522,7 +622,6 @@
             <input type="range" class="slider" id="pitchSlider" min="0.5" max="2" step="0.1" value="1.0" oninput="updatePitch(this.value)">
         </div>
 
-        <!-- Button Grid -->
         <div class="button-grid">
             <button class="tool-btn success" id="speakBtn" onclick="speak()">
                 <i class="fas fa-play"></i> Speak
@@ -538,7 +637,6 @@
             </button>
         </div>
 
-        <!-- Action Buttons -->
         <div class="button-grid">
             <button class="tool-btn" onclick="copyText()">
                 <i class="fas fa-copy"></i> Copy
@@ -548,12 +646,10 @@
             </button>
         </div>
 
-        <!-- Action Button -->
         <button class="action-btn" onclick="downloadAudio()">
             <i class="fas fa-download"></i> DOWNLOAD AUDIO
         </button>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -572,7 +668,6 @@
         let isSpeaking = false;
         let isPaused = false;
 
-        // Initialize voices
         function loadVoices() {
             voices = synth.getVoices();
             const voiceSelect = document.getElementById('voiceSelect');
@@ -593,7 +688,6 @@
             speechSynthesis.onvoiceschanged = loadVoices;
         }
 
-        // Update word count
         function updateWordCount() {
             const text = document.getElementById('textInput').value;
             const words = text.trim() ? text.trim().split(/\s+/).length : 0;
@@ -602,13 +696,11 @@
             document.getElementById('wordCount').textContent = words;
             document.getElementById('charCount').textContent = chars;
             
-            // Estimate speaking time (approx 150 words per minute)
             const minutes = words / 150;
             const seconds = Math.round(minutes * 60);
             document.getElementById('estTime').textContent = seconds + 's';
         }
 
-        // Set sample text
         function setSample(type) {
             const samples = {
                 hello: "Hello, how are you today?",
@@ -621,7 +713,6 @@
             updateWordCount();
         }
 
-        // Update speed display
         function updateSpeed(value) {
             document.getElementById('speedValue').textContent = value + 'x';
             if (utterance) {
@@ -629,7 +720,6 @@
             }
         }
 
-        // Update pitch display
         function updatePitch(value) {
             document.getElementById('pitchValue').textContent = value;
             if (utterance) {
@@ -637,7 +727,6 @@
             }
         }
 
-        // Speak function
         function speak() {
             const text = document.getElementById('textInput').value;
             if (!text) {
@@ -645,23 +734,18 @@
                 return;
             }
 
-            // Stop any ongoing speech
             synth.cancel();
 
-            // Create new utterance
             utterance = new SpeechSynthesisUtterance(text);
             
-            // Set voice
             const voiceIndex = document.getElementById('voiceSelect').value;
             if (voiceIndex !== '') {
                 utterance.voice = voices[voiceIndex];
             }
             
-            // Set rate and pitch
             utterance.rate = parseFloat(document.getElementById('speedSlider').value);
             utterance.pitch = parseFloat(document.getElementById('pitchSlider').value);
 
-            // Event handlers
             utterance.onstart = () => {
                 isSpeaking = true;
                 isPaused = false;
@@ -707,11 +791,9 @@
                 document.getElementById('resumeBtn').disabled = true;
             };
 
-            // Start speaking
             synth.speak(utterance);
         }
 
-        // Stop speaking
         function stop() {
             synth.cancel();
             isSpeaking = false;
@@ -723,21 +805,18 @@
             document.getElementById('resumeBtn').disabled = true;
         }
 
-        // Pause speaking
         function pause() {
             if (synth.speaking && !synth.paused) {
                 synth.pause();
             }
         }
 
-        // Resume speaking
         function resume() {
             if (synth.paused) {
                 synth.resume();
             }
         }
 
-        // Copy text
         function copyText() {
             const text = document.getElementById('textInput').value;
             if (!text) {
@@ -752,7 +831,6 @@
             });
         }
 
-        // Clear text
         function clearText() {
             if (document.getElementById('textInput').value) {
                 if (confirm('Clear all text?')) {
@@ -762,7 +840,6 @@
             }
         }
 
-        // Download audio (simulated)
         function downloadAudio() {
             const text = document.getElementById('textInput').value;
             if (!text) {
@@ -773,10 +850,8 @@
             alert('Demo: Audio download would start here.\nIn a production environment, this would generate an MP3 file.');
         }
 
-        // Update word count on input
         document.getElementById('textInput').addEventListener('input', updateWordCount);
 
-        // Initial word count
         updateWordCount();
     </script>
 </body>
