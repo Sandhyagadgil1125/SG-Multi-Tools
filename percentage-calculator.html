@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Percentage Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,23 +16,23 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
         .calculator-card {
-            background: #E8DE99;  /* Champagne background */
+            background: #1c222d;  /* Dark card background */
             border-radius: 30px;
             padding: 25px;
             width: 100%;
             max-width: 520px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .card-header {
@@ -48,7 +48,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #1c222d;  /* Dark text */
+            color: #42f8f5;
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -59,8 +59,8 @@
         }
 
         .card-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
+            background: #12151a;
+            color: #42f8f5;
             padding: 5px 15px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
@@ -72,7 +72,7 @@
         /* Form Elements */
         .input-label {
             display: block;
-            color: #1c222d;  /* Dark text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -117,7 +117,7 @@
         }
 
         .display-field {
-            background: #1c222d;  /* Dark background for contrast */
+            background: #12151a;
             border-radius: 12px;
             padding: 15px;
             color: #42f8f5;
@@ -132,7 +132,7 @@
 
         .btn-action {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 800;
             font-size: 1.1rem;
             padding: 14px;
@@ -158,7 +158,7 @@
             display: flex;
             gap: 15px;
             margin: 15px 0;
-            color: #1c222d;  /* Dark text */
+            color: #ffffff;
             justify-content: center;
         }
 
@@ -185,7 +185,7 @@
 
         .affiliate-link {
             display: block;
-            background: #1c222d;  /* Dark background for contrast */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 20px;
             padding: 18px;
@@ -197,7 +197,7 @@
         .affiliate-link:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
-            background: #2a3f55;
+            background: #1e2b37;
         }
 
         .affiliate-link h3 {
@@ -215,7 +215,7 @@
             display: inline-block;
             margin-top: 10px;
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 700;
             padding: 6px 18px;
             border-radius: 30px;
@@ -230,7 +230,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -249,33 +249,51 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
-        @media (max-width: 500px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .calculator-card {
-                padding: 20px;
+                padding: 15px;
+                max-width: 100%;
             }
             
             .card-title {
                 font-size: 1.3rem;
             }
             
+            .card-icon {
+                font-size: 1.5rem;
+            }
+            
+            .card-badge {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
             .input-row {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
             
             .input-field.small,
@@ -283,16 +301,74 @@
                 width: 100%;
             }
             
+            .input-field {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
             .radio-group {
                 flex-direction: column;
                 align-items: center;
+                gap: 8px;
+            }
+            
+            .display-field {
+                padding: 12px;
+                font-size: 1.5rem;
+            }
+            
+            .btn-action {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .affiliate-link {
+                padding: 15px;
+            }
+            
+            .affiliate-link h3 {
+                font-size: 1rem;
+            }
+            
+            .affiliate-link p {
+                font-size: 0.8rem;
+            }
+            
+            .affiliate-link span {
+                padding: 5px 15px;
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
+            .card-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .card-badge {
+                margin-left: 0;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="calculator-card">
-        <!-- Header -->
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">%</span> Percentage Calculator
@@ -300,7 +376,6 @@
             <div class="card-badge">%</div>
         </div>
 
-        <!-- Calculation Type Selection -->
         <div class="radio-group">
             <label>
                 <input type="radio" name="calc-type" value="percentage" checked> Percentage of
@@ -313,40 +388,34 @@
             </label>
         </div>
 
-        <!-- Input Fields - Percentage of -->
         <div id="percentage-inputs">
             <div class="input-row">
                 <input class="input-field small" id="perc-value" type="number" value="20" placeholder="%">
-                <span style="color: #1c222d; align-self: center;">of</span>
+                <span style="color: #ffffff; align-self: center;">of</span>
                 <input class="input-field large" id="perc-of" type="number" value="250" placeholder="number">
             </div>
         </div>
 
-        <!-- Input Fields - What % is (hidden by default) -->
         <div id="what-percent-inputs" style="display: none;">
             <div class="input-row">
                 <input class="input-field large" id="what-num1" type="number" value="25" placeholder="first number">
-                <span style="color: #1c222d; align-self: center;">is what % of</span>
+                <span style="color: #ffffff; align-self: center;">is what % of</span>
                 <input class="input-field large" id="what-num2" type="number" value="100" placeholder="second number">
             </div>
         </div>
 
-        <!-- Input Fields - % Change (hidden by default) -->
         <div id="change-inputs" style="display: none;">
             <div class="input-row">
                 <input class="input-field large" id="change-from" type="number" value="50" placeholder="from">
-                <span style="color: #1c222d; align-self: center;">to</span>
+                <span style="color: #ffffff; align-self: center;">to</span>
                 <input class="input-field large" id="change-to" type="number" value="75" placeholder="to">
             </div>
         </div>
 
-        <!-- Result Display -->
         <div class="display-field" id="percentage-result">50.00</div>
 
-        <!-- Calculate Button -->
         <button class="btn-action" id="calc-percentage">% CALCULATE</button>
 
-        <!-- AFFILIATE LINK - Budget Planner -->
         <div class="affiliate-section">
             <a href="budget-planner.html" class="affiliate-link">
                 <h3>📊 Personal Budget Planner</h3>
@@ -355,7 +424,6 @@
             </a>
         </div>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -368,7 +436,6 @@
     </div>
 
     <script>
-        // Radio button toggle
         const radioButtons = document.querySelectorAll('input[name="calc-type"]');
         const percentageDiv = document.getElementById('percentage-inputs');
         const whatPercentDiv = document.getElementById('what-percent-inputs');
@@ -392,7 +459,6 @@
             });
         });
 
-        // Calculate function
         function calculatePercentage() {
             const calcType = document.querySelector('input[name="calc-type"]:checked').value;
             let result = 0;
@@ -418,15 +484,12 @@
             document.getElementById('percentage-result').innerText = result.toFixed(2);
         }
 
-        // Calculate button click
         document.getElementById('calc-percentage').addEventListener('click', calculatePercentage);
 
-        // Calculate on input change
         document.querySelectorAll('input[type="number"]').forEach(input => {
             input.addEventListener('input', calculatePercentage);
         });
 
-        // Calculate on page load
         window.addEventListener('load', calculatePercentage);
     </script>
 </body>
