@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>URL Encoder/Decoder - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,149 +15,147 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
-        .tool-container {
-            max-width: 520px;
+        .encoder-card {
+            background: #1c222d;  /* Dark card background */
+            border-radius: 30px;
+            padding: 25px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #E8DE99;  /* Champagne background */
-            border-radius: 18px;
+            max-width: 600px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
             color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #1c222d;  /* Dark text */
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
         }
 
-        .tool-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.8rem;
+        }
+
+        .card-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
-            margin-left: auto;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-transform: uppercase;
         }
 
-        /* Form Elements */
+        /* Example buttons */
+        .examples {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .example-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .example-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
+        }
+
+        /* Input Section */
+        .input-section {
+            background: #12151a;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #42f8f5;
+        }
+
         .input-label {
+            color: #b0c4de;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
             display: block;
-            color: #1c222d;  /* Dark text */
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
         }
 
         .input-label i {
             color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
+            margin-right: 5px;
         }
 
         .tool-textarea {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
             border-radius: 12px;
+            padding: 15px;
+            color: white;
             font-size: 0.9rem;
-            color: #1c222d;
             font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
+            outline: none;
             resize: vertical;
             min-height: 100px;
+            margin-bottom: 10px;
         }
 
         .tool-textarea:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
         }
 
         .tool-textarea::placeholder {
             color: #6d8ba0;
-            opacity: 0.6;
         }
 
         .tool-textarea[readonly] {
-            background: #f5faff;
-            cursor: default;
-        }
-
-        .tool-select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-        }
-
-        .tool-select:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
-
-        .display-field {
-            background: #1c222d;  /* Dark background for contrast */
-            border-radius: 12px;
-            padding: 0.8rem;
+            background: #1e2b37;
             color: #42f8f5;
-            font-size: 0.9rem;
-            text-align: center;
-            border: 1px solid #42f8f5;
-            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
-            margin: 1rem 0;
-            word-break: break-all;
+            cursor: default;
         }
 
         /* Stats Row */
         .stats-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            color: #1c222d;
-            font-size: 0.75rem;
+            color: #b0c4de;
+            font-size: 0.8rem;
+            padding: 0 5px;
+            margin-bottom: 5px;
         }
 
         .stats-row span {
@@ -166,40 +163,67 @@
             font-weight: 600;
         }
 
-        /* Action Buttons Grid */
+        /* Select Dropdown */
+        .tool-select {
+            width: 100%;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 12px;
+            padding: 12px 15px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2342f8f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            margin-bottom: 15px;
+        }
+
+        .tool-select:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
+        }
+
+        .tool-select option {
+            background: #1c222d;
+            color: white;
+        }
+
+        /* Action Grid */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 1rem 0;
+            gap: 8px;
+            margin: 20px 0;
         }
 
         .tool-btn {
-            background: #1c222d;  /* Dark button */
-            border: 2px solid #42f8f5;
+            background: #12151a;
+            border: 1px solid #42f8f5;
             border-radius: 30px;
             padding: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 500;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .tool-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
         }
 
         .tool-btn.primary {
             background: #42f8f5;
-            color: #1c222d;
-            font-weight: 700;
+            color: #12151a;
+            font-weight: 600;
+            border-color: #42f8f5;
         }
 
         .tool-btn.primary:hover {
@@ -207,40 +231,109 @@
             color: #42f8f5;
         }
 
-        .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #1c222d;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
+        .tool-btn i {
+            margin-right: 5px;
+        }
+
+        /* Checkbox Options */
+        .options-row {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        .options-row label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
         }
 
-        .action-btn:hover {
-            background: transparent;
+        .options-row input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #42f8f5;
+            cursor: pointer;
+        }
+
+        /* Info Display */
+        .info-display {
+            background: #12151a;
+            border-radius: 30px;
+            padding: 12px 18px;
+            margin: 15px 0;
+            border: 1px solid #42f8f5;
+            color: #b0c4de;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .info-display i {
             color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
+            margin-right: 5px;
         }
 
-        .action-btn i {
-            margin-right: 8px;
+        /* Landing Page Links - Preserved from Advanced Calculator */
+        .landing-links {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .landing-link {
+            display: block;
+            background: #12151a;
+            border: 2px solid #42f8f5;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .landing-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
+            background: #1e2b37;
+        }
+
+        .landing-link h3 {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .landing-link p {
+            color: #c5d1de;
+            font-size: 0.9rem;
+        }
+
+        .landing-badge {
+            display: inline-block;
+            margin-top: 10px;
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .landing-link:hover .landing-badge {
+            background: white;
         }
 
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
-            color: #1c222d;
+            margin-top: 1.5rem;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 10px 25px;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             font-size: 0.9rem;
@@ -256,90 +349,137 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
-        /* Example buttons */
-        .examples {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .example-btn {
-            background: #1c222d;  /* Dark button */
-            border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 0.7rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex: 1;
-            min-width: 70px;
-            text-align: center;
-        }
-
-        .example-btn:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            border-color: #42f8f5;
-        }
-
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* Responsive Design */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 95%;
+            .encoder-card {
+                padding: 15px;
+                max-width: 100%;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.2rem;
             }
             
-            .action-grid {
-                grid-template-columns: 1fr;
+            .card-icon {
+                font-size: 1.5rem;
+            }
+            
+            .card-badge {
+                padding: 4px 10px;
+                font-size: 0.65rem;
             }
             
             .examples {
                 flex-direction: column;
+                gap: 5px;
+            }
+            
+            .example-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .tool-textarea {
+                padding: 12px;
+                font-size: 0.85rem;
+                min-height: 80px;
+            }
+            
+            .stats-row {
+                font-size: 0.7rem;
+            }
+            
+            .tool-select {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.85rem;
+            }
+            
+            .options-row {
+                flex-direction: column;
+                gap: 8px;
+                font-size: 0.8rem;
+            }
+            
+            .info-display {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+            
+            .landing-link {
+                padding: 12px;
+            }
+            
+            .landing-link h3 {
+                font-size: 1rem;
+            }
+            
+            .landing-link p {
+                font-size: 0.8rem;
+            }
+            
+            .landing-badge {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            .card-title {
+                font-size: 1rem;
+            }
+            
+            .example-btn {
+                font-size: 0.7rem;
+            }
+            
+            .stats-row {
+                flex-direction: column;
+                gap: 3px;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <!-- Header with icon and badge -->
-        <div class="tool-header">
-            <span class="tool-icon">🔗</span>
-            <h1>URL Encoder/Decoder</h1>
-            <span class="tool-badge mobile-hide">ENCODE</span>
-        </div>
-
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
-            Encode or decode URLs and special characters for safe web usage.
+    <div class="encoder-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">🔗</span> URL Encoder/Decoder
+            </div>
+            <div class="card-badge">ENCODE</div>
         </div>
 
         <!-- Example buttons -->
@@ -351,13 +491,15 @@
         </div>
 
         <!-- Input Textarea -->
-        <label class="input-label"><i class="fas fa-pencil-alt"></i> Input</label>
-        <textarea class="tool-textarea" id="inputText" placeholder="Enter text to encode/decode...">https://example.com/search?q=hello world&page=1</textarea>
+        <div class="input-section">
+            <label class="input-label"><i class="fas fa-pencil-alt"></i> Input</label>
+            <textarea class="tool-textarea" id="inputText" placeholder="Enter text to encode/decode...">https://example.com/search?q=hello world&page=1</textarea>
 
-        <!-- Stats Row -->
-        <div class="stats-row">
-            <div>Characters: <span id="charCount">44</span></div>
-            <div>Encoded length: <span id="encodedLength">62</span></div>
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div>Characters: <span id="charCount">44</span></div>
+                <div>Encoded length: <span id="encodedLength">62</span></div>
+            </div>
         </div>
 
         <!-- Action Mode Select -->
@@ -368,8 +510,10 @@
         </select>
 
         <!-- Output Textarea -->
-        <label class="input-label"><i class="fas fa-file-alt"></i> Output</label>
-        <textarea class="tool-textarea" id="outputText" placeholder="Result will appear here..." readonly></textarea>
+        <div class="input-section">
+            <label class="input-label"><i class="fas fa-file-alt"></i> Output</label>
+            <textarea class="tool-textarea" id="outputText" placeholder="Result will appear here..." readonly></textarea>
+        </div>
 
         <!-- Action Grid -->
         <div class="action-grid">
@@ -388,7 +532,7 @@
         </div>
 
         <!-- Additional Options -->
-        <div style="display: flex; gap: 15px; margin: 1rem 0; color: #1c222d; font-size: 0.8rem;">
+        <div class="options-row">
             <label>
                 <input type="checkbox" id="encodeAll" checked> Encode all characters
             </label>
@@ -398,8 +542,22 @@
         </div>
 
         <!-- Info Display -->
-        <div class="display-field" id="infoDisplay">
+        <div class="info-display" id="infoDisplay">
             <i class="fas fa-info-circle"></i> Ready to process
+        </div>
+
+        <!-- Landing Page Links - Preserved from Advanced Calculator -->
+        <div class="landing-links">
+            <a href="income.html" class="landing-link">
+                <h3>📚 Road to Successful Investing</h3>
+                <p>Stock Investing Guide Book - Master the stock market with proven strategies</p>
+                <span class="landing-badge">Learn More →</span>
+            </a>
+            <a href="cashflow-secrets.html" class="landing-link">
+                <h3>⚡ Cashflow Secrets</h3>
+                <p>Member Area & Video Courses - Exclusive access to complete video training library</p>
+                <span class="landing-badge">View Courses →</span>
+            </a>
         </div>
 
         <!-- Navigation -->
