@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Difference - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +15,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -26,10 +25,10 @@
         }
 
         .tool-container {
-            max-width: 520px;
+            max-width: 480px;  /* REDUCED from 520px to 480px */
             width: 100%;
             margin: 0 auto;
-            padding: 1.3rem;
+            padding: 1.2rem;  /* REDUCED padding */
             background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
@@ -39,61 +38,76 @@
         .tool-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1.2rem;
+            gap: 8px;  /* REDUCED gap */
+            margin-bottom: 1rem;  /* REDUCED margin */
             border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
+            padding-bottom: 8px;  /* REDUCED padding */
         }
         
         .tool-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;  /* SLIGHTLY SMALLER */
             color: #42f8f5;
         }
         
         .tool-header h1 {
-            color: #42f8f5;  /* Cyan heading */
-            font-size: 1.6rem;
+            color: #42f8f5;
+            font-size: 1.4rem;  /* SLIGHTLY SMALLER */
             font-weight: 600;
         }
 
         .tool-badge {
             background: #12151a;
             color: #42f8f5;
-            font-size: 0.7rem;
+            font-size: 0.65rem;  /* SLIGHTLY SMALLER */
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 3px 10px;  /* REDUCED padding */
             border-radius: 30px;
             border: 1px solid #42f8f5;
             margin-left: auto;
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.8rem;  /* SLIGHTLY SMALLER */
+            margin-bottom: 1rem;  /* REDUCED margin */
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;  /* White text */
-            font-size: 0.85rem;
+            color: #ffffff;
+            font-size: 0.8rem;  /* SLIGHTLY SMALLER */
             font-weight: 500;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;  /* REDUCED margin */
         }
 
         .input-label i {
             color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
+            margin-right: 5px;
+            width: 16px;
         }
 
         .tool-input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            padding: 0.7rem 1rem;  /* REDUCED padding */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;  /* Dark text */
+            border-radius: 10px;  /* SLIGHTLY SMALLER radius */
+            font-size: 0.85rem;  /* SLIGHTLY SMALLER */
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;  /* REDUCED margin */
         }
 
         .tool-input:focus {
@@ -109,33 +123,35 @@
         }
 
         .display-field {
-            background: #12151a;  /* Dark display background */
-            border-radius: 12px;
-            padding: 1.2rem;
-            color: #42f8f5;  /* Cyan text */
-            font-size: 1.5rem;
+            background: #12151a;
+            border-radius: 10px;  /* SLIGHTLY SMALLER radius */
+            padding: 1rem;  /* REDUCED padding */
+            color: #42f8f5;
+            font-size: 1.3rem;  /* SLIGHTLY SMALLER */
             font-weight: 600;
             text-align: center;
             border: 1px solid #42f8f5;
             font-family: monospace;
             box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
-            margin: 1rem 0;
+            margin: 0.8rem 0;  /* REDUCED margin */
         }
 
         .display-field small {
             display: block;
             color: #b0c4de;
-            font-size: 0.8rem;
-            margin-top: 8px;
+            font-size: 0.75rem;  /* SLIGHTLY SMALLER */
+            margin-top: 5px;
             font-weight: normal;
         }
 
         .result-detail {
             display: flex;
             justify-content: space-around;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #2a4055;
+            margin: 0.8rem 0;  /* REDUCED margin */
+            padding: 0.5rem;  /* REDUCED padding */
+            background: #12151a;
+            border-radius: 10px;
+            border: 1px solid #42f8f5;
         }
 
         .detail-item {
@@ -144,14 +160,14 @@
 
         .detail-value {
             color: #42f8f5;
-            font-size: 1.8rem;
+            font-size: 1.5rem;  /* SLIGHTLY SMALLER */
             font-weight: 700;
             line-height: 1.2;
         }
 
         .detail-label {
             color: #b0c4de;
-            font-size: 0.7rem;
+            font-size: 0.65rem;  /* SLIGHTLY SMALLER */
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -159,45 +175,44 @@
         /* Quick select buttons */
         .quick-select {
             display: flex;
-            gap: 8px;
-            margin-bottom: 1rem;
+            gap: 6px;  /* REDUCED gap */
+            margin-bottom: 0.8rem;  /* REDUCED margin */
             flex-wrap: wrap;
         }
 
         .quick-btn {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
+            padding: 5px 10px;  /* REDUCED padding */
+            font-size: 0.7rem;  /* SLIGHTLY SMALLER */
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             flex: 1;
-            min-width: 70px;
+            min-width: 60px;  /* REDUCED min-width */
             text-align: center;
         }
 
         .quick-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
-            border-color: #42f8f5;
+            background: #42f8f5;
+            color: #12151a;
         }
 
         /* Button Grid */
         .button-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 1rem 0;
+            gap: 8px;  /* REDUCED gap */
+            margin: 0.8rem 0;  /* REDUCED margin */
         }
 
         .tool-btn {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
-            padding: 12px;
-            font-size: 0.85rem;
+            padding: 10px;  /* REDUCED padding */
+            font-size: 0.8rem;  /* SLIGHTLY SMALLER */
             font-weight: 600;
             color: white;
             cursor: pointer;
@@ -208,21 +223,10 @@
         }
 
         .tool-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .tool-btn.primary {
             background: #42f8f5;
             color: #12151a;
-            font-weight: 700;
-        }
-
-        .tool-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
         .action-btn {
@@ -230,15 +234,15 @@
             background: #42f8f5;
             color: #12151a;
             border: none;
-            padding: 12px;
+            padding: 10px;  /* REDUCED padding */
             border-radius: 40px;
-            font-size: 1rem;
+            font-size: 0.9rem;  /* SLIGHTLY SMALLER */
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid #42f8f5;
             letter-spacing: 0.5px;
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;  /* REDUCED margin */
         }
 
         .action-btn:hover {
@@ -248,20 +252,16 @@
             box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
         }
 
-        .action-btn i {
-            margin-right: 8px;
-        }
-
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
+            margin-top: 1rem;  /* REDUCED margin */
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 6px 20px;  /* REDUCED padding */
             border: 2px solid #42f8f5;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;  /* SLIGHTLY SMALLER */
             transition: all 0.3s ease;
         }
 
@@ -273,9 +273,9 @@
         }
 
         .footer-email {
-            margin-top: 1.5rem;
+            margin-top: 1rem;  /* REDUCED margin */
             color: #6d8ba0;
-            font-size: 0.85rem;
+            font-size: 0.8rem;  /* SLIGHTLY SMALLER */
             text-align: center;
         }
 
@@ -284,32 +284,14 @@
             text-decoration: none;
         }
 
-        .footer-email a:hover {
-            text-decoration: underline;
-        }
-
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-            
+        @media (max-width: 500px) {
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
-            }
-            
-            .tool-header h1 {
-                font-size: 1.4rem;
             }
             
             .result-detail {
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
             }
             
             .quick-select {
@@ -324,19 +306,16 @@
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">📆</span>
             <h1>Date Difference</h1>
-            <span class="tool-badge mobile-hide">DAYS</span>
+            <span class="tool-badge">DAYS</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #c5d1de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Calculate the exact difference between two dates in years, months, and days.
         </div>
 
-        <!-- Quick Select Buttons -->
         <div class="quick-select">
             <button class="quick-btn" onclick="setToday('start')">📅 Today</button>
             <button class="quick-btn" onclick="setToday('end')">📅 Today</button>
@@ -345,21 +324,17 @@
             <button class="quick-btn" onclick="setNextYear()">📅 Next Year</button>
         </div>
 
-        <!-- Start Date -->
         <label class="input-label"><i class="fas fa-calendar-alt"></i> Start Date</label>
         <input class="tool-input" id="startDate" type="text" value="15-03-2023" placeholder="DD-MM-YYYY">
 
-        <!-- End Date -->
         <label class="input-label"><i class="fas fa-calendar-check"></i> End Date</label>
         <input class="tool-input" id="endDate" type="text" value="16-02-2026" placeholder="DD-MM-YYYY">
 
-        <!-- Main Result Display -->
         <div class="display-field" id="mainResult">
             1070 days
             <small>Total days between dates</small>
         </div>
 
-        <!-- Detailed Result -->
         <div class="result-detail" id="detailResult">
             <div class="detail-item">
                 <div class="detail-value" id="years">2</div>
@@ -375,7 +350,6 @@
             </div>
         </div>
 
-        <!-- Button Grid -->
         <div class="button-grid">
             <button class="tool-btn" onclick="swapDates()">
                 <i class="fas fa-exchange-alt"></i> Swap
@@ -385,12 +359,10 @@
             </button>
         </div>
 
-        <!-- Action Button -->
         <button class="action-btn" onclick="calculateDifference()">
             <i class="fas fa-calculator"></i> CALCULATE
         </button>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -433,11 +405,9 @@
                 return;
             }
             
-            // Calculate total days
             const diffTime = Math.abs(endDate - startDate);
             const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             
-            // Calculate years, months, days
             let years = endDate.getFullYear() - startDate.getFullYear();
             let months = endDate.getMonth() - startDate.getMonth();
             let days = endDate.getDate() - startDate.getDate();
@@ -453,7 +423,6 @@
                 months += 12;
             }
             
-            // Update displays
             document.getElementById('mainResult').innerHTML = `
                 ${totalDays.toLocaleString()} days
                 <small>Total days between dates</small>
@@ -518,11 +487,9 @@
             calculateDifference();
         }
 
-        // Auto-calculate on input change
         document.getElementById('startDate').addEventListener('input', calculateDifference);
         document.getElementById('endDate').addEventListener('input', calculateDifference);
 
-        // Initial calculation
         window.addEventListener('load', calculateDifference);
     </script>
 </body>
