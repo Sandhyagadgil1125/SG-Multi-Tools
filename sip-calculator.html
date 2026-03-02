@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>SIP Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,23 +16,23 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
         .calculator-card {
-            background: #E8DE99;  /* Champagne background */
+            background: #1c222d;  /* Dark card background */
             border-radius: 30px;
             padding: 25px;
             width: 100%;
             max-width: 520px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .card-header {
@@ -48,7 +48,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #1c222d;  /* Dark text */
+            color: #42f8f5;
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -59,8 +59,8 @@
         }
 
         .card-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
+            background: #12151a;
+            color: #42f8f5;
             padding: 5px 15px;
             border-radius: 30px;
             border: 1px solid #42f8f5;
@@ -72,7 +72,7 @@
         /* Form Elements */
         .input-label {
             display: block;
-            color: #1c222d;  /* Dark text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -110,7 +110,7 @@
         }
 
         .display-field {
-            background: #1c222d;  /* Dark background for contrast */
+            background: #12151a;
             border-radius: 12px;
             padding: 1.2rem;
             color: #42f8f5;
@@ -140,7 +140,7 @@
         }
 
         .result-card {
-            background: #1c222d;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             text-align: center;
@@ -170,7 +170,7 @@
 
         /* Investment Summary */
         .summary-box {
-            background: #1c222d;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             margin: 1rem 0;
@@ -215,7 +215,7 @@
         }
 
         .tool-btn {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 12px;
@@ -231,14 +231,14 @@
 
         .tool-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
         .tool-btn.primary {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 700;
         }
 
@@ -250,7 +250,7 @@
         .action-btn {
             width: 100%;
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             border: none;
             padding: 12px;
             border-radius: 40px;
@@ -283,7 +283,7 @@
 
         .affiliate-link {
             display: block;
-            background: #1c222d;  /* Dark background for contrast */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 20px;
             padding: 18px;
@@ -295,7 +295,7 @@
         .affiliate-link:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
-            background: #2a3f55;
+            background: #1e2b37;
         }
 
         .affiliate-link h3 {
@@ -313,7 +313,7 @@
             display: inline-block;
             margin-top: 10px;
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             font-weight: 700;
             padding: 6px 18px;
             border-radius: 30px;
@@ -328,7 +328,7 @@
         .home-link {
             display: inline-block;
             margin-top: 1.2rem;
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 22px;
@@ -347,39 +347,146 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
-        @media (max-width: 500px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .calculator-card {
-                padding: 20px;
+                padding: 15px;
+                max-width: 100%;
             }
             
             .card-title {
                 font-size: 1.3rem;
             }
             
+            .card-icon {
+                font-size: 1.5rem;
+            }
+            
+            .card-badge {
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .tool-input {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .results-grid {
+                gap: 8px;
+            }
+            
+            .result-card {
+                padding: 0.8rem;
+            }
+            
+            .result-card .value {
+                font-size: 1.1rem;
+            }
+            
+            .display-field {
+                padding: 1rem;
+                font-size: 1.5rem;
+            }
+            
+            .display-field small {
+                font-size: 0.7rem;
+            }
+            
+            .summary-box {
+                padding: 0.8rem;
+            }
+            
+            .summary-label {
+                font-size: 0.8rem;
+            }
+            
+            .summary-value {
+                font-size: 0.9rem;
+            }
+            
+            .button-grid {
+                gap: 8px;
+            }
+            
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+            
+            .action-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .affiliate-link {
+                padding: 12px;
+            }
+            
+            .affiliate-link h3 {
+                font-size: 1rem;
+            }
+            
+            .affiliate-link p {
+                font-size: 0.8rem;
+            }
+            
+            .affiliate-link span {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
             .results-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .card-badge {
+                margin-left: 0;
             }
         }
     </style>
 </head>
 <body>
     <div class="calculator-card">
-        <!-- Header -->
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">📈</span> SIP Calculator
@@ -387,19 +494,15 @@
             <div class="card-badge">MF</div>
         </div>
 
-        <!-- Monthly Investment -->
         <label class="input-label"><i class="fas fa-rupee-sign"></i> Monthly Investment (₹)</label>
         <input class="tool-input" id="monthlyInvestment" type="number" value="5000" placeholder="Enter monthly SIP amount" step="100" min="0">
 
-        <!-- Investment Period -->
         <label class="input-label"><i class="fas fa-clock"></i> Investment Period (Years)</label>
         <input class="tool-input" id="investmentYears" type="number" value="10" placeholder="Enter number of years" step="1" min="1" max="40">
 
-        <!-- Expected Return -->
         <label class="input-label"><i class="fas fa-chart-line"></i> Expected Return (% p.a.)</label>
         <input class="tool-input" id="expectedReturn" type="number" value="12" placeholder="Enter expected return" step="0.1" min="0" max="30">
 
-        <!-- Results Grid -->
         <div class="results-grid">
             <div class="result-card">
                 <div class="label">Total Investment</div>
@@ -413,13 +516,11 @@
             </div>
         </div>
 
-        <!-- Main Result Display -->
         <div class="display-field" id="totalValue">
             ₹ 11,61,695
             <small>Total Corpus Value</small>
         </div>
 
-        <!-- Investment Summary -->
         <div class="summary-box">
             <div class="summary-row">
                 <span class="summary-label"><i class="fas fa-fw fa-calendar-alt" style="color: #42f8f5;"></i> Monthly SIP</span>
@@ -439,7 +540,6 @@
             </div>
         </div>
 
-        <!-- Quick Presets -->
         <label class="input-label"><i class="fas fa-bolt"></i> Quick Presets</label>
         <div class="button-grid">
             <button class="tool-btn" onclick="setPreset(5000, 10, 12)">5K × 10Y @12%</button>
@@ -448,7 +548,6 @@
             <button class="tool-btn" onclick="setPreset(15000, 5, 18)">15K × 5Y @18%</button>
         </div>
 
-        <!-- Action Buttons -->
         <div class="button-grid">
             <button class="tool-btn primary" onclick="calculateSIP()">
                 <i class="fas fa-calculator"></i> Calculate
@@ -458,7 +557,7 @@
             </button>
         </div>
 
-        <!-- AFFILIATE LINK - Budget Planner -->
+        <!-- AFFILIATE LINK - PRESERVED -->
         <div class="affiliate-section">
             <a href="budget-planner.html" class="affiliate-link">
                 <h3>📊 Personal Budget Planner</h3>
@@ -467,7 +566,6 @@
             </a>
         </div>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -481,37 +579,27 @@
 
     <script>
         function calculateSIP() {
-            // Get input values
             const monthlyInvestment = parseFloat(document.getElementById('monthlyInvestment').value) || 0;
             const years = parseFloat(document.getElementById('investmentYears').value) || 0;
             const annualReturn = parseFloat(document.getElementById('expectedReturn').value) || 0;
 
-            // Validate inputs
             if (monthlyInvestment <= 0 || years <= 0 || annualReturn <= 0) {
                 alert('Please enter valid positive values');
                 return;
             }
 
-            // Calculate SIP
             const months = years * 12;
             const monthlyRate = annualReturn / 12 / 100;
 
-            // Future Value of SIP = P × ((1 + r)^n - 1) / r × (1 + r)
-            // where P = monthly investment, r = monthly rate, n = number of months
             const futureValue = monthlyInvestment * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
             
-            // Total investment
             const totalInvestment = monthlyInvestment * months;
-            
-            // Estimated returns
             const estimatedReturns = futureValue - totalInvestment;
 
-            // Format numbers with Indian number formatting
             const formatIndian = (num) => {
                 return '₹ ' + Math.round(num).toLocaleString('en-IN');
             };
 
-            // Update displays
             document.getElementById('totalInvestment').textContent = formatIndian(totalInvestment);
             document.getElementById('estimatedReturns').textContent = formatIndian(estimatedReturns);
             document.getElementById('totalValue').innerHTML = `
@@ -519,7 +607,6 @@
                 <small>Total Corpus Value</small>
             `;
 
-            // Update summary
             document.getElementById('summaryMonthly').textContent = formatIndian(monthlyInvestment);
             document.getElementById('summaryDuration').textContent = `${years} years (${months} months)`;
             document.getElementById('summaryReturn').textContent = `${annualReturn}% p.a.`;
@@ -540,7 +627,6 @@
             calculateSIP();
         }
 
-        // Calculate on input change with debounce
         let timeout;
         document.getElementById('monthlyInvestment').addEventListener('input', () => {
             clearTimeout(timeout);
@@ -555,7 +641,6 @@
             timeout = setTimeout(calculateSIP, 300);
         });
 
-        // Calculate on page load
         window.addEventListener('load', calculateSIP);
     </script>
 </body>
