@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Converter - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +15,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -29,7 +28,7 @@
             max-width: 520px;
             width: 100%;
             margin: 0 auto;
-            padding: 1.3rem;
+            padding: 1.5rem;
             background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
@@ -51,7 +50,7 @@
         }
         
         .tool-header h1 {
-            color: #42f8f5;  /* Cyan heading */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
@@ -68,10 +67,25 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;  /* White text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -86,11 +100,11 @@
         .tool-input {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #1c222d;  /* Dark text */
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
             margin-bottom: 1rem;
@@ -111,7 +125,7 @@
         .tool-select {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
@@ -133,10 +147,10 @@
         }
 
         .display-field {
-            background: #12151a;  /* Dark display background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
-            color: #42f8f5;  /* Cyan text */
+            color: #42f8f5;
             font-size: 1.3rem;
             font-weight: 600;
             text-align: center;
@@ -159,7 +173,7 @@
         .swap-btn {
             width: 50px;
             height: 50px;
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 50%;
             color: #42f8f5;
@@ -173,8 +187,8 @@
         }
 
         .swap-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: rotate(180deg) scale(1.1);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
@@ -200,10 +214,6 @@
             margin-bottom: 0;
         }
 
-        .amount-input {
-            flex: 1;
-        }
-
         /* Button Grid */
         .button-grid {
             display: grid;
@@ -213,7 +223,7 @@
         }
 
         .tool-btn {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 12px;
@@ -228,8 +238,8 @@
         }
 
         .tool-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
@@ -243,33 +253,6 @@
         .tool-btn.primary:hover {
             background: transparent;
             color: #42f8f5;
-        }
-
-        .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #12151a;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
-        }
-
-        .action-btn:hover {
-            background: transparent;
-            color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
-        }
-
-        .action-btn i {
-            margin-right: 8px;
         }
 
         .home-link {
@@ -308,16 +291,7 @@
             text-decoration: underline;
         }
 
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
         @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-            
             .tool-container {
                 padding: 1rem;
                 max-width: 95%;
@@ -344,23 +318,19 @@
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">💰</span>
             <h1>Currency Converter</h1>
-            <span class="tool-badge mobile-hide">USD/EUR</span>
+            <span class="tool-badge">USD/EUR</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #c5d1de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Convert between major world currencies with real-time exchange rates.
         </div>
 
-        <!-- Amount Input -->
         <label class="input-label"><i class="fas fa-coins"></i> Amount</label>
         <input class="tool-input" id="amount" type="number" value="100" placeholder="Enter amount" step="0.01" min="0">
 
-        <!-- From Currency Row -->
         <label class="input-label"><i class="fas fa-arrow-right"></i> From</label>
         <div class="currency-row">
             <select class="tool-select" id="fromCurrency">
@@ -376,14 +346,12 @@
             </select>
         </div>
 
-        <!-- Swap Button -->
         <div style="display: flex; justify-content: center;">
             <button class="swap-btn" onclick="swapCurrencies()">
                 <i class="fas fa-exchange-alt"></i>
             </button>
         </div>
 
-        <!-- To Currency Row -->
         <label class="input-label"><i class="fas fa-arrow-left"></i> To</label>
         <div class="currency-row">
             <select class="tool-select" id="toCurrency">
@@ -399,13 +367,11 @@
             </select>
         </div>
 
-        <!-- Result Display -->
         <div class="display-field" id="result">
             85.00 EUR
             <small>1 USD = 0.85 EUR</small>
         </div>
 
-        <!-- Button Grid -->
         <div class="button-grid">
             <button class="tool-btn primary" onclick="convertCurrency()">
                 <i class="fas fa-sync-alt"></i> CONVERT
@@ -415,7 +381,6 @@
             </button>
         </div>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -428,7 +393,6 @@
     </div>
 
     <script>
-        // Exchange rates relative to USD
         const exchangeRates = {
             USD: 1,
             EUR: 0.85,
@@ -446,17 +410,12 @@
             const fromCurrency = document.getElementById('fromCurrency').value;
             const toCurrency = document.getElementById('toCurrency').value;
             
-            // Convert to USD first, then to target currency
             const amountInUSD = amount / exchangeRates[fromCurrency];
             const result = amountInUSD * exchangeRates[toCurrency];
             
-            // Format result
             const formattedResult = result.toFixed(2);
-            
-            // Calculate exchange rate
             const rate = (exchangeRates[toCurrency] / exchangeRates[fromCurrency]).toFixed(4);
             
-            // Update display
             document.getElementById('result').innerHTML = `
                 ${formattedResult} ${toCurrency}
                 <small>1 ${fromCurrency} = ${rate} ${toCurrency}</small>
@@ -467,25 +426,19 @@
             const fromSelect = document.getElementById('fromCurrency');
             const toSelect = document.getElementById('toCurrency');
             
-            // Swap values
             const fromValue = fromSelect.value;
             const toValue = toSelect.value;
             
             fromSelect.value = toValue;
             toSelect.value = fromValue;
             
-            // Recalculate
             convertCurrency();
         }
 
-        // Convert on amount change
         document.getElementById('amount').addEventListener('input', convertCurrency);
-        
-        // Convert on currency change
         document.getElementById('fromCurrency').addEventListener('change', convertCurrency);
         document.getElementById('toCurrency').addEventListener('change', convertCurrency);
 
-        // Initial conversion
         window.addEventListener('load', convertCurrency);
     </script>
 </body>
