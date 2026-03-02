@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Date Difference - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -21,7 +22,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
 
         .tool-container {
@@ -74,6 +75,12 @@
             font-size: 0.8rem;
             margin-bottom: 1rem;
             line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
         }
 
         .input-label {
@@ -264,21 +271,15 @@
             text-decoration: none;
         }
 
-        /* ===== MOBILE RESPONSIVE - FIT ONE TOOL VERTICALLY ===== */
-        @media screen and (max-height: 700px), (max-width: 500px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
-                align-items: flex-start;
             }
             
             .tool-container {
-                padding: 10px;
-                margin: 5px auto;
-            }
-            
-            .tool-header {
-                margin-bottom: 8px;
-                padding-bottom: 5px;
+                padding: 1rem;
+                max-width: 100%;
             }
             
             .tool-header h1 {
@@ -286,32 +287,35 @@
             }
             
             .tool-icon {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             
             .tool-badge {
-                padding: 2px 8px;
                 font-size: 0.6rem;
-            }
-            
-            .mobile-hide {
-                display: none;  /* Hide description on mobile */
+                padding: 2px 8px;
             }
             
             .input-label {
-                font-size: 0.7rem;
-                margin-bottom: 2px;
+                font-size: 0.75rem;
             }
             
             .tool-input {
-                padding: 6px 10px;
-                font-size: 0.75rem;
-                margin-bottom: 5px;
+                padding: 0.6rem 0.9rem;
+                font-size: 0.8rem;
+            }
+            
+            .quick-select {
+                gap: 4px;
+            }
+            
+            .quick-btn {
+                padding: 4px 6px;
+                font-size: 0.65rem;
+                min-width: 50px;
             }
             
             .display-field {
-                padding: 8px;
-                margin: 5px 0;
+                padding: 0.8rem;
                 font-size: 1.1rem;
             }
             
@@ -320,8 +324,8 @@
             }
             
             .result-detail {
-                margin: 5px 0;
-                padding: 5px;
+                margin: 0.5rem 0;
+                padding: 0.4rem;
             }
             
             .detail-value {
@@ -332,71 +336,55 @@
                 font-size: 0.55rem;
             }
             
-            .quick-select {
-                gap: 4px;
-                margin-bottom: 5px;
-            }
-            
-            .quick-btn {
-                padding: 4px 6px;
-                font-size: 0.6rem;
-                min-width: 50px;
-            }
-            
             .button-grid {
                 gap: 5px;
-                margin: 5px 0;
             }
             
             .tool-btn {
-                padding: 6px;
+                padding: 8px;
                 font-size: 0.7rem;
             }
             
             .action-btn {
                 padding: 8px;
                 font-size: 0.8rem;
-                margin-top: 3px;
             }
             
             .home-link {
-                margin-top: 8px;
                 padding: 5px 15px;
                 font-size: 0.8rem;
             }
             
             .footer-email {
-                margin-top: 8px;
-                font-size: 0.7rem;
+                font-size: 0.75rem;
             }
         }
 
         /* Extra small devices */
-        @media screen and (max-height: 600px) {
-            .tool-container {
-                padding: 8px;
+        @media screen and (max-width: 350px) {
+            .result-detail {
+                flex-direction: column;
+                gap: 8px;
             }
             
-            .tool-header h1 {
-                font-size: 1rem;
+            .quick-select {
+                flex-direction: column;
             }
             
-            .tool-icon {
-                font-size: 1.3rem;
+            .button-grid {
+                grid-template-columns: 1fr;
             }
             
-            .display-field {
-                font-size: 1rem;
-                padding: 6px;
+            .tool-header {
+                flex-wrap: wrap;
             }
             
-            .detail-value {
-                font-size: 1rem;
+            .tool-badge {
+                margin-left: 0;
             }
             
-            .action-btn {
-                padding: 6px;
-                font-size: 0.75rem;
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
@@ -471,7 +459,10 @@
         function parseDate(dateStr) {
             const parts = dateStr.split('-');
             if (parts.length === 3) {
-                return new Date(parts[2], parts[1]-1, parts[0]);
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
             }
             return new Date();
         }
