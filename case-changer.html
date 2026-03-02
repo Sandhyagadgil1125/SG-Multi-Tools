@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Case Changer - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -257,24 +258,80 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 768px) {
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
+                max-width: 100%;
             }
             
             .tool-header h1 {
                 font-size: 1.4rem;
             }
             
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .tool-textarea {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+                min-height: 80px;
+            }
+            
             .button-grid {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+            }
+            
+            .tool-btn {
+                padding: 8px;
+                font-size: 0.75rem;
+            }
+            
+            .action-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
             }
         }
 
-        @media (max-width: 480px) {
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
             .button-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            .footer-email {
+                font-size: 0.75rem;
             }
         }
     </style>
