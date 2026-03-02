@@ -27,99 +27,107 @@
             background: #1c222d;
             width: 100%;
             padding: 0 5%;
-            height: 60px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid #42f8f5;
+            border-bottom: 3px solid #42f8f5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
         .logo-sg {
             background: #42f8f5;
             color: #1c222d;
             font-weight: 800;
-            font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
+            font-size: 1.8rem;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
         }
 
         .logo-text {
-            color: #ffffff;
-            font-size: 1.3rem;
+            color: white;
+            font-size: 1.4rem;
             font-weight: 600;
         }
 
         .logo-text span {
             color: #42f8f5;
+            font-weight: 700;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
         }
 
         .nav-links a {
             color: #e0e0e0;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.2s;
-            padding: 8px 12px;
-            border-radius: 20px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: #1c222d;
             background: #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
+            color: #1c222d;
+            border-color: #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
         }
 
-        /* Hero Section */
+        /* Hero Section - REDUCED HEIGHT */
         .hero {
             width: 100%;
             max-width: 1200px;
-            margin: 40px auto 30px;
+            margin: 15px auto 10px;  /* Reduced from 40px 30px to 15px 10px */
             padding: 0 20px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            color: #1c222d;
-            margin-bottom: 10px;
+            font-size: 2.5rem;  /* Kept same size */
+            font-weight: 700;
+            color: #1c222d;  /* Changed to dark color like "SG" in logo */
+            margin-bottom: 5px;  /* Reduced from 10px to 5px */
         }
 
         .hero h1 span {
-            color: #42f8f5;
+            color: #1c222d;  /* Changed from cyan to dark color */
+            font-weight: 700;
         }
 
         .hero-description {
+            font-size: 1.1rem;  /* Kept same size */
             color: #4A3B2C;
-            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Tools Grid - 4 columns on desktop */
+        /* Tools Grid - MOVED UP */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             max-width: 1200px;
             width: 100%;
-            margin: 20px auto 50px;
+            margin: 10px auto 50px;  /* Reduced top margin from 20px to 10px */
             padding: 0 20px;
         }
 
@@ -216,7 +224,7 @@
         .footer {
             background: #1c222d;
             width: 100%;
-            padding: 30px 20px;
+            padding: 40px 20px 30px;
             border-top: 3px solid #42f8f5;
             margin-top: 30px;
         }
@@ -227,33 +235,36 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
         }
 
         .footer-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .footer-links a {
+        .footer-links li a {
             color: #ffffff;
             text-decoration: none;
             font-size: 0.95rem;
             transition: color 0.2s;
+            font-weight: 500;
         }
 
-        .footer-links a:hover {
+        .footer-links li a:hover {
             color: #42f8f5;
         }
 
         .footer-email {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            margin: 10px 0;
         }
 
         .footer-email span {
@@ -262,24 +273,54 @@
         }
 
         .footer-email a {
-            color: #ffffff;
-            text-decoration: none;
+            color: #ffffff !important;
             font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
         }
 
         .footer-email a:hover {
+            color: #42f8f5 !important;
+        }
+
+        /* Adsterra Link */
+        .ad-link {
+            text-align: center;
+            margin: 5px 0 10px 0;
+        }
+
+        .ad-link a {
             color: #42f8f5;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid #42f8f5;
+            padding: 8px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .ad-link a:hover {
+            background: #42f8f5;
+            color: #1c222d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        }
+
+        .ad-link i {
+            margin-right: 8px;
         }
 
         .copyright {
             color: #ffffff;
             font-size: 0.9rem;
             opacity: 0.9;
+            margin-top: 5px;
         }
 
-        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
-        
-        /* Tablet Landscape - 3 columns */
+        /* Responsive Media Queries */
         @media screen and (max-width: 1000px) {
             .tools-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -290,13 +331,12 @@
             }
         }
 
-        /* Tablet Portrait - 2 columns */
         @media screen and (max-width: 700px) {
             .navbar {
                 height: auto;
-                padding: 15px;
+                padding: 15px 5%;
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
             }
             
             .nav-links {
@@ -307,6 +347,11 @@
             
             .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
+                margin-top: 5px;  /* Even smaller on mobile */
+            }
+            
+            .hero {
+                margin: 10px auto 5px;  /* Smaller on mobile */
             }
             
             .hero h1 {
@@ -318,11 +363,10 @@
             }
             
             .footer-links {
-                gap: 20px;
+                gap: 15px;
             }
         }
 
-        /* Mobile - 1 column */
         @media screen and (max-width: 500px) {
             body {
                 padding: 0;
@@ -333,63 +377,46 @@
             }
             
             .logo-sg {
-                width: 35px;
-                height: 35px;
-                font-size: 1.3rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
             }
             
             .logo-text {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .hero {
-                margin: 30px auto 20px;
+                margin: 8px auto 3px;  /* Minimal on small mobile */
             }
             
             .hero h1 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             
             .hero-description {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
             
             .tools-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
-                padding: 0 15px;
+                margin-top: 5px;
             }
             
             .tool-card {
                 padding: 15px;
             }
             
-            .tool-icon {
-                font-size: 1.8rem;
-            }
-            
-            .tool-badge {
-                font-size: 0.65rem;
-                padding: 3px 8px;
-            }
-            
-            .tool-card h3 {
-                font-size: 1rem;
-            }
-            
-            .tool-description {
-                font-size: 0.8rem;
-            }
-            
             .footer {
-                padding: 20px 15px;
+                padding: 30px 15px 20px;
             }
             
             .footer-links {
-                gap: 15px;
+                gap: 12px;
             }
             
-            .footer-links a {
+            .footer-links li a {
                 font-size: 0.85rem;
             }
             
@@ -401,12 +428,16 @@
                 font-size: 1rem;
             }
             
+            .ad-link a {
+                padding: 6px 20px;
+                font-size: 0.8rem;
+            }
+            
             .copyright {
                 font-size: 0.8rem;
             }
         }
 
-        /* Small Mobile */
         @media screen and (max-width: 350px) {
             .nav-links {
                 gap: 8px;
@@ -414,19 +445,19 @@
             
             .nav-links a {
                 font-size: 0.8rem;
-                padding: 5px 8px;
+                padding: 5px 10px;
             }
             
             .hero h1 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
             
-            .hero-description {
-                font-size: 0.8rem;
+            .footer-links {
+                gap: 8px;
             }
             
-            .tool-card {
-                padding: 12px;
+            .footer-links li a {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -446,13 +477,13 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - WITH DARKER TEXT AND REDUCED HEIGHT -->
     <div class="hero">
-        <h1>SG <span>Multi Tools For Daily Use</span></h1>
+        <h1>SG Multi Tools For Daily Use</h1>  <!-- Removed span, now all dark -->
         <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- Tools Grid - 20 tools in 4 columns -->
+    <!-- Tools Grid - 20 tools in 4 columns (MOVED UP) -->
     <div class="tools-grid">
         <!-- Age Calculator -->
         <a href="age-calculator.html" class="tool-card">
@@ -690,6 +721,13 @@
             <div class="footer-email">
                 <span>📧</span>
                 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+
+            <!-- Adsterra Link -->
+            <div class="ad-link">
+                <a href="https://progressmagnify.com/de4yhwv04?key=ee04cfe3e08eba4b6d01a34aad9dd3e5" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-ad"></i> Advertisement
+                </a>
             </div>
             
             <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
