@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unit Converter - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,142 +15,57 @@
         }
 
         body {
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            /* Background from style.css */
         }
 
-        .tool-container {
-            max-width: 520px;
+        .converter-card {
+            background: #1c222d;  /* Dark card background */
+            border-radius: 30px;
+            padding: 25px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #E8DE99;  /* Champagne background */
-            border-radius: 18px;
+            max-width: 600px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #1c222d;  /* Dark text */
-            font-size: 1.6rem;
-            font-weight: 600;
-        }
-
-        .tool-badge {
-            background: #E8DE99;  /* Match card background */
-            color: #1c222d;       /* Dark text */
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
-            text-transform: uppercase;
-        }
-
-        /* Form Elements */
-        .input-label {
-            display: block;
-            color: #1c222d;  /* Dark text */
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-        }
-
-        .input-label i {
-            color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
-        }
-
-        .tool-input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
-        }
-
-        .tool-input:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
-
-        .tool-input::placeholder {
-            color: #6d8ba0;
-            opacity: 0.6;
-        }
-
-        .tool-select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-        }
-
-        .tool-select:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
-
-        .display-field {
-            background: #1c222d;  /* Dark background for contrast */
-            border-radius: 12px;
-            padding: 1.2rem;
             color: #42f8f5;
             font-size: 1.5rem;
             font-weight: 600;
-            text-align: center;
-            border: 1px solid #42f8f5;
-            font-family: monospace;
-            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
-            margin: 1rem 0;
         }
 
-        .display-field small {
-            display: block;
-            color: #b0c4de;
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.8rem;
+        }
+
+        .card-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
             font-size: 0.8rem;
-            margin-top: 8px;
-            font-weight: normal;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         /* Category Tabs */
@@ -159,104 +73,195 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
 
         .category-tab {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 30px;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
         .category-tab:hover {
-            border-color: #42f8f5;
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
         }
 
         .category-tab.active {
             background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             border-color: #42f8f5;
             font-weight: 600;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
         }
 
         .category-tab i {
             margin-right: 5px;
         }
 
-        /* Unit row layout */
+        /* Input Section */
+        .input-section {
+            background: #12151a;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #42f8f5;
+            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
+        }
+
+        .input-label {
+            color: #b0c4de;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-label i {
+            color: #42f8f5;
+            margin-right: 5px;
+        }
+
+        .value-input {
+            width: 100%;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 12px;
+            padding: 15px;
+            color: #42f8f5;
+            font-size: 1.5rem;
+            font-family: 'Fira Mono', monospace;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .value-input:focus {
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
+        }
+
+        /* Unit Selection Row */
         .unit-row {
             display: flex;
             gap: 10px;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 10px;
         }
 
-        .unit-row .tool-input {
+        .unit-select {
             flex: 1;
-            margin-bottom: 0;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2342f8f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
         }
 
-        .unit-row .tool-select {
-            flex: 1;
-            margin-bottom: 0;
+        .unit-select:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
-        /* Swap button */
         .swap-btn {
-            width: 50px;
-            height: 50px;
-            background: #1c222d;  /* Dark button */
+            width: 45px;
+            height: 45px;
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 50%;
             color: #42f8f5;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.2s ease;
-            margin: 0 auto 1rem auto;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 10px auto;
         }
 
         .swap-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
-            transform: rotate(180deg) scale(1.1);
+            color: #12151a;
+            transform: rotate(180deg);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
 
-        .swap-btn i {
-            transition: transform 0.3s ease;
+        /* Result Display */
+        .result-display {
+            background: #12151a;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #42f8f5;
+            text-align: center;
+            box-shadow: inset 0 0 20px rgba(66, 248, 245, 0.2);
         }
 
-        .swap-btn:hover i {
-            transform: rotate(180deg);
+        .result-value {
+            color: #42f8f5;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Fira Mono', monospace;
+            line-height: 1.2;
         }
 
-        /* Common conversions */
-        .common-conversions {
+        .result-unit {
+            color: #b0c4de;
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .formula-text {
+            color: #6d8ba0;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Common Conversions */
+        .common-section {
+            margin: 20px 0;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .section-title i {
+            color: #42f8f5;
+        }
+
+        .common-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 8px;
-            margin: 1rem 0;
         }
 
         .common-btn {
-            background: #1c222d;  /* Dark button */
+            background: #12151a;
             border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 8px;
-            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 10px;
             color: white;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
@@ -264,85 +269,114 @@
 
         .common-btn:hover {
             background: #42f8f5;
-            color: #1c222d;
-            border-color: #42f8f5;
-        }
-
-        /* Button Grid */
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        .tool-btn {
-            background: #1c222d;  /* Dark button */
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            padding: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .tool-btn:hover {
-            background: #42f8f5;
-            color: #1c222d;
+            color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
         }
 
-        .tool-btn.primary {
-            background: #42f8f5;
-            color: #1c222d;
-            font-weight: 700;
-        }
-
-        .tool-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
+        /* Action Buttons */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 20px 0;
         }
 
         .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #1c222d;
-            border: none;
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 30px;
             padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
         .action-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
+        }
+
+        .action-btn.primary {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+            border-color: #42f8f5;
+        }
+
+        .action-btn.primary:hover {
             background: transparent;
             color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
         }
 
         .action-btn i {
-            margin-right: 8px;
+            margin-right: 5px;
+        }
+
+        /* Landing Page Links - Preserved from Advanced Calculator */
+        .landing-links {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .landing-link {
+            display: block;
+            background: #12151a;
+            border: 2px solid #42f8f5;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .landing-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
+            background: #1e2b37;
+        }
+
+        .landing-link h3 {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .landing-link p {
+            color: #c5d1de;
+            font-size: 0.9rem;
+        }
+
+        .landing-badge {
+            display: inline-block;
+            margin-top: 10px;
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .landing-link:hover .landing-badge {
+            background: white;
         }
 
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
-            color: #1c222d;
+            margin-top: 1.5rem;
+            color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 10px 25px;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             font-size: 0.9rem;
@@ -358,85 +392,140 @@
 
         .footer-email {
             margin-top: 1.5rem;
-            color: #1c222d;
+            color: #6d8ba0;
             font-size: 0.85rem;
             text-align: center;
         }
 
         .footer-email a {
-            color: #1c222d;
+            color: #42f8f5;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            color: #42f8f5;
             text-decoration: underline;
         }
 
-        /* Formula display */
-        .formula {
-            color: #1c222d;
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 0.3rem;
-            font-style: italic;
-        }
-
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* Responsive Design */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 95%;
+            .converter-card {
+                padding: 15px;
+                max-width: 100%;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.2rem;
+            }
+            
+            .card-icon {
+                font-size: 1.5rem;
+            }
+            
+            .card-badge {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+            }
+            
+            .category-tabs {
+                gap: 5px;
+            }
+            
+            .category-tab {
+                padding: 8px 5px;
+                font-size: 0.8rem;
+            }
+            
+            .value-input {
+                padding: 12px;
+                font-size: 1.2rem;
             }
             
             .unit-row {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
             
-            .unit-row .tool-input,
-            .unit-row .tool-select {
+            .unit-select {
                 width: 100%;
+                padding: 10px;
             }
             
-            .category-tabs {
+            .swap-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                margin: 5px auto;
+            }
+            
+            .result-value {
+                font-size: 1.8rem;
+            }
+            
+            .result-unit {
+                font-size: 1rem;
+            }
+            
+            .common-grid {
                 grid-template-columns: 1fr;
             }
             
-            .common-conversions {
+            .action-grid {
                 grid-template-columns: 1fr;
             }
             
-            .button-grid {
-                grid-template-columns: 1fr;
+            .action-btn {
+                padding: 10px;
+            }
+            
+            .landing-link {
+                padding: 12px;
+            }
+            
+            .landing-link h3 {
+                font-size: 1rem;
+            }
+            
+            .landing-link p {
+                font-size: 0.8rem;
+            }
+            
+            .landing-badge {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            .category-tab {
+                font-size: 0.7rem;
+            }
+            
+            .category-tab i {
+                margin-right: 2px;
+            }
+            
+            .value-input {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <!-- Header with icon and badge -->
-        <div class="tool-header">
-            <span class="tool-icon">📐</span>
-            <h1>Unit Converter</h1>
-            <span class="tool-badge mobile-hide">METRIC</span>
-        </div>
-
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #4A3B2C; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
-            Convert between different units of measurement: length, weight, temperature, and more.
+    <div class="converter-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">📐</span> Unit Converter
+            </div>
+            <div class="card-badge">METRIC</div>
         </div>
 
         <!-- Category Tabs -->
@@ -452,53 +541,63 @@
             </div>
         </div>
 
-        <!-- Value Input -->
-        <label class="input-label"><i class="fas fa-calculator"></i> Value</label>
-        <input class="tool-input" id="value" type="number" value="1" placeholder="Enter value" step="any">
+        <!-- Input Section -->
+        <div class="input-section">
+            <label class="input-label"><i class="fas fa-pencil-alt"></i> Enter Value</label>
+            <input class="value-input" id="value" type="number" value="1" placeholder="0" step="any">
 
-        <!-- From Unit -->
-        <label class="input-label"><i class="fas fa-arrow-right"></i> From</label>
-        <select class="tool-select" id="fromUnit"></select>
+            <label class="input-label"><i class="fas fa-arrow-right"></i> From</label>
+            <select class="unit-select" id="fromUnit"></select>
 
-        <!-- Swap Button -->
-        <div style="display: flex; justify-content: center;">
+            <!-- Swap Button -->
             <button class="swap-btn" onclick="swapUnits()">
                 <i class="fas fa-exchange-alt"></i>
             </button>
-        </div>
 
-        <!-- To Unit -->
-        <label class="input-label"><i class="fas fa-arrow-left"></i> To</label>
-        <select class="tool-select" id="toUnit"></select>
+            <label class="input-label"><i class="fas fa-arrow-left"></i> To</label>
+            <select class="unit-select" id="toUnit"></select>
+        </div>
 
         <!-- Result Display -->
-        <div class="display-field" id="result">
-            1 m = 3.28084 ft
-            <small>Conversion Result</small>
-        </div>
-
-        <!-- Formula Display -->
-        <div class="formula" id="formula">
-            Multiply by 3.28084
+        <div class="result-display">
+            <div class="result-value" id="result">3.28084</div>
+            <div class="result-unit" id="resultUnit">ft</div>
+            <div class="formula-text" id="formula">1 m = 3.28084 ft</div>
         </div>
 
         <!-- Common Conversions -->
-        <div class="common-conversions" id="commonConversions"></div>
+        <div class="common-section">
+            <div class="section-title">
+                <i class="fas fa-star"></i> Common Conversions
+            </div>
+            <div class="common-grid" id="commonConversions"></div>
+        </div>
 
-        <!-- Button Grid -->
-        <div class="button-grid">
-            <button class="tool-btn primary" onclick="convert()">
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn primary" onclick="convert()">
                 <i class="fas fa-sync-alt"></i> Convert
             </button>
-            <button class="tool-btn" onclick="swapUnits()">
-                <i class="fas fa-exchange-alt"></i> Swap
-            </button>
-            <button class="tool-btn" onclick="copyResult()">
+            <button class="action-btn" onclick="copyResult()">
                 <i class="fas fa-copy"></i> Copy
             </button>
-            <button class="tool-btn" onclick="resetToDefault()">
+            <button class="action-btn" onclick="resetToDefault()">
                 <i class="fas fa-undo"></i> Reset
             </button>
+        </div>
+
+        <!-- Landing Page Links - Preserved from Advanced Calculator -->
+        <div class="landing-links">
+            <a href="income.html" class="landing-link">
+                <h3>📚 Road to Successful Investing</h3>
+                <p>Stock Investing Guide Book - Master the stock market with proven strategies</p>
+                <span class="landing-badge">Learn More →</span>
+            </a>
+            <a href="cashflow-secrets.html" class="landing-link">
+                <h3>⚡ Cashflow Secrets</h3>
+                <p>Member Area & Video Courses - Exclusive access to complete video training library</p>
+                <span class="landing-badge">View Courses →</span>
+            </a>
         </div>
 
         <!-- Navigation -->
@@ -643,12 +742,10 @@
             }
             
             // Update display
-            document.getElementById('result').innerHTML = `
-                ${formattedResult} ${toUnit}
-                <small>${value} ${fromUnit} = ${formattedResult} ${toUnit}</small>
-            `;
-            
-            document.getElementById('formula').textContent = formula;
+            document.getElementById('result').textContent = formattedResult;
+            document.getElementById('resultUnit').textContent = toUnit;
+            document.getElementById('formula').textContent = 
+                `${value} ${fromUnit} = ${formattedResult} ${toUnit}`;
         }
 
         // Swap units
@@ -667,8 +764,14 @@
 
         // Copy result
         function copyResult() {
-            const resultText = document.getElementById('result').innerText.split('\n')[0].trim();
-            navigator.clipboard.writeText(resultText).then(() => {
+            const resultValue = document.getElementById('result').textContent;
+            const resultUnit = document.getElementById('resultUnit').textContent;
+            const fromValue = document.getElementById('value').value;
+            const fromUnit = document.getElementById('fromUnit').value;
+            
+            const text = `${fromValue} ${fromUnit} = ${resultValue} ${resultUnit}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
                 alert('Result copied to clipboard!');
             }).catch(() => {
                 alert('Press Ctrl+C to copy');
@@ -710,7 +813,7 @@
             conversions[currentCategory].forEach(item => {
                 const btn = document.createElement('button');
                 btn.className = 'common-btn';
-                btn.textContent = item.label;
+                btn.innerHTML = item.label;
                 btn.onclick = () => {
                     document.getElementById('value').value = item.val;
                     document.getElementById('fromUnit').value = item.from;
