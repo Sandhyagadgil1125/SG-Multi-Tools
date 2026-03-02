@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +15,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -48,7 +47,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #42f8f5;  /* Cyan text */
+            color: #42f8f5;
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -70,7 +69,7 @@
         }
 
         .display {
-            background: #12151a;  /* Dark display background */
+            background: #12151a;
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
@@ -82,7 +81,7 @@
             width: 100%;
             background: transparent;
             border: none;
-            color: #42f8f5;  /* Cyan text */
+            color: #42f8f5;
             font-size: 2.5rem;
             font-family: 'Fira Mono', monospace;
             text-align: right;
@@ -91,7 +90,7 @@
         }
 
         .memory-indicator {
-            color: #6d8ba0;
+            color: #b0c4de;
             font-size: 0.8rem;
             text-align: right;
             margin-top: 5px;
@@ -110,21 +109,21 @@
         }
 
         .btn {
-            background: #12151a;  /* Dark button background */
+            background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 10px;
             padding: 12px 3px;
             font-size: 1rem;
             font-weight: 600;
-            color: white;  /* White text */
+            color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
         }
 
         .btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
@@ -176,7 +175,6 @@
             margin-top: 5px;
         }
 
-        /* Landing Page Links Section */
         .landing-links {
             margin-top: 25px;
             display: flex;
@@ -186,7 +184,7 @@
 
         .landing-link {
             display: block;
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 20px;
             padding: 18px;
@@ -273,7 +271,6 @@
 </head>
 <body>
     <div class="calculator-card">
-        <!-- Header -->
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">🧮</span> Advanced Calculator
@@ -281,15 +278,12 @@
             <div class="card-badge">SCIENTIFIC</div>
         </div>
 
-        <!-- Display -->
         <div class="display">
             <input type="text" id="calc-display" value="0" readonly>
             <div class="memory-indicator" id="memory-indicator"></div>
         </div>
 
-        <!-- Calculator Buttons -->
         <div class="button-container">
-            <!-- Row 1: Scientific Functions -->
             <div class="row">
                 <button class="btn btn-function" data-fn="sin">sin</button>
                 <button class="btn btn-function" data-fn="cos">cos</button>
@@ -298,7 +292,6 @@
                 <button class="btn btn-function" data-fn="ln">ln</button>
             </div>
 
-            <!-- Row 2: More Scientific -->
             <div class="row">
                 <button class="btn btn-function" data-fn="π">π</button>
                 <button class="btn btn-function" data-fn="e">e</button>
@@ -307,7 +300,6 @@
                 <button class="btn btn-function" data-fn="∛">∛</button>
             </div>
 
-            <!-- Row 3: Advanced Functions -->
             <div class="row">
                 <button class="btn btn-function" data-fn="xʸ">xʸ</button>
                 <button class="btn btn-function" data-fn="10ˣ">10ˣ</button>
@@ -316,7 +308,6 @@
                 <button class="btn btn-function" data-fn="1/x">1/x</button>
             </div>
 
-            <!-- Row 4: Parentheses and Memory -->
             <div class="row">
                 <button class="btn btn-function" data-fn="(">(</button>
                 <button class="btn btn-function" data-fn=")">)</button>
@@ -325,7 +316,6 @@
                 <button class="btn btn-function" data-mem="MR">MR</button>
             </div>
 
-            <!-- Row 5: Numbers Row 1 -->
             <div class="row">
                 <button class="btn btn-number" data-num="7">7</button>
                 <button class="btn btn-number" data-num="8">8</button>
@@ -334,7 +324,6 @@
                 <button class="btn btn-clear" data-clear="C">C</button>
             </div>
 
-            <!-- Row 6: Numbers Row 2 -->
             <div class="row">
                 <button class="btn btn-number" data-num="4">4</button>
                 <button class="btn btn-number" data-num="5">5</button>
@@ -343,7 +332,6 @@
                 <button class="btn" data-back="⌫">⌫</button>
             </div>
 
-            <!-- Row 7: Numbers Row 3 -->
             <div class="row">
                 <button class="btn btn-number" data-num="1">1</button>
                 <button class="btn btn-number" data-num="2">2</button>
@@ -352,7 +340,6 @@
                 <button class="btn btn-function" data-sign="±">±</button>
             </div>
 
-            <!-- Row 8: Numbers Row 4 with Calculate -->
             <div class="calculate-row">
                 <button class="btn btn-number btn-zero" data-num="0">0</button>
                 <button class="btn btn-number" data-num="00">00</button>
@@ -362,7 +349,6 @@
             </div>
         </div>
 
-        <!-- Landing Page Links -->
         <div class="landing-links">
             <a href="income.html" class="landing-link">
                 <h3>📚 Road to Successful Investing</h3>
@@ -377,7 +363,6 @@
             </a>
         </div>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -401,7 +386,6 @@
                 display.value = currentInput;
             }
 
-            // Number buttons
             document.querySelectorAll('[data-num]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const num = btn.dataset.num;
@@ -415,7 +399,6 @@
                 });
             });
 
-            // Operator buttons
             document.querySelectorAll('[data-op]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const op = btn.dataset.op;
@@ -433,7 +416,6 @@
                 });
             });
 
-            // Function buttons
             document.querySelectorAll('[data-fn]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const fn = btn.dataset.fn;
@@ -498,14 +480,12 @@
                 });
             });
 
-            // Clear button
             document.querySelector('[data-clear="C"]').addEventListener('click', () => {
                 currentInput = '0';
                 isNewCalculation = true;
                 updateDisplay();
             });
 
-            // Backspace button
             document.querySelector('[data-back="⌫"]').addEventListener('click', () => {
                 if (currentInput.length > 1) {
                     currentInput = currentInput.slice(0, -1);
@@ -516,7 +496,6 @@
                 updateDisplay();
             });
 
-            // Sign change
             document.querySelector('[data-sign="±"]').addEventListener('click', () => {
                 if (currentInput !== '0' && currentInput !== 'Error') {
                     if (currentInput.startsWith('-')) {
@@ -528,7 +507,6 @@
                 }
             });
 
-            // Memory functions
             document.querySelectorAll('[data-mem]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const memFn = btn.dataset.mem;
@@ -545,14 +523,12 @@
                 });
             });
 
-            // Calculate button
             document.querySelector('[data-calculate="="]').addEventListener('click', () => {
                 try {
                     let expr = currentInput
                         .replace(/×/g, '*')
                         .replace(/÷/g, '/');
                     
-                    // Handle factorial
                     expr = expr.replace(/(\d+)!/g, (_, n) => {
                         let fact = 1;
                         for (let i = 2; i <= parseInt(n); i++) fact *= i;
@@ -568,7 +544,6 @@
                 updateDisplay();
             });
 
-            // Initial display
             updateDisplay();
         })();
     </script>
