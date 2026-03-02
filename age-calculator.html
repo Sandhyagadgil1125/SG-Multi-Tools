@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG Multi Tools - Free Professional Tools</title>
+    <title>Age Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,135 +16,23 @@
         }
 
         body {
-            background: #E8DE99;  /* Light champagne/gold background */
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0d0f14;
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: #1c222d;
-            width: 100%;
-            padding: 0 5%;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #42f8f5;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-sg {
-            background: #42f8f5;
-            color: #1c222d;
-            font-weight: 800;
-            font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
+            align-items: center;
+            padding: 20px;
         }
 
-        .logo-text {
-            color: #ffffff;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .logo-text span {
-            color: #42f8f5;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: #e0e0e0;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #1c222d;
-            background: #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
-        }
-
-        /* Hero Section */
-        .hero {
-            width: 100%;
-            max-width: 1200px;
-            margin: 30px auto 20px;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            color: #1c222d;  /* Dark text for light background */
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-        }
-
-        .hero h1 span {
-            color: #1c222d;
-        }
-
-        .hero-description {
-            color: #4A3B2C;  /* Warm brown for light background */
-            font-size: 1rem;
-        }
-
-        /* Tools Grid */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-            margin: 20px auto 50px;
-            padding: 0 20px;
-        }
-
-        /* Tool Card - DARK on LIGHT background */
-        .tool-card {
-            background: #1c222d;  /* DARK card */
+        .age-card {
+            background: #1c222d;
             border-radius: 16px;
             padding: 20px;
             border: 1px solid #42f8f5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(66, 248, 245, 0.3);
-            border-color: #42f8f5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
         }
 
         .card-header {
@@ -152,12 +42,22 @@
             margin-bottom: 12px;
         }
 
-        .tool-icon {
-            font-size: 2rem;
-            color: #42f8f5;  /* Cyan icon */
+        .card-header h1 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .tool-badge {
+        .card-header h1 i {
+            color: #42f8f5;
+            font-size: 1.3rem;
+        }
+
+        .badge {
             background: #12151a;
             color: #42f8f5;
             font-size: 0.65rem;
@@ -168,224 +68,209 @@
             text-transform: uppercase;
         }
 
-        .tool-card h3 {
-            color: #ffffff;  /* White text on dark card */
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .tool-description {
-            color: #c5d1de;  /* Light grey on dark card */
-            font-size: 0.8rem;
-            line-height: 1.4;
+        .input-group {
             margin-bottom: 15px;
-            flex-grow: 1;
         }
 
-        .open-tool-btn {
-            display: inline-block;
+        .input-label {
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .input-label i {
+            color: #42f8f5;
+        }
+
+        .tool-input {
+            width: 100%;
+            padding: 10px 15px;
+            background: #eef5fa;
+            border: 2px solid #3d5a73;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #1c222d;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .tool-input:focus {
+            border-color: #42f8f5;
+            outline: none;
+        }
+
+        .display-field {
+            background: #12151a;
+            border-radius: 8px;
+            padding: 12px;
+            color: #42f8f5;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 1px solid #42f8f5;
+            margin: 15px 0;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tool-btn {
+            flex: 1;
             background: transparent;
             color: #42f8f5;
-            text-decoration: none;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 8px 0;
             font-size: 0.8rem;
             font-weight: 600;
-            padding: 8px 0;
-            border-top: 1px solid #2a4055;
-            width: 100%;
-            text-align: left;
+            cursor: pointer;
             transition: all 0.2s;
+            text-transform: uppercase;
         }
 
-        .tool-card:hover .open-tool-btn {
-            color: #1c222d;
+        .tool-btn:hover {
             background: #42f8f5;
-            padding: 8px 12px;
-            border-radius: 30px;
-            border-top: none;
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            color: #1c222d;
         }
 
-        .open-tool-btn i {
-            margin-left: 6px;
+        .tool-btn.primary {
+            background: #42f8f5;
+            color: #1c222d;
         }
 
-        /* Responsive */
-        @media screen and (max-width: 1000px) {
-            .tools-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .footer-note {
+            margin-top: 15px;
+            text-align: center;
+            color: #c5d1de;
+            font-size: 0.75rem;
         }
 
-        @media screen and (max-width: 700px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* Footer */
-        .footer {
-            background: #1c222d;
-            width: 100%;
-            padding: 30px 20px;
-            border-top: 3px solid #42f8f5;
-            margin-top: 30px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .footer-links a:hover {
+        .home-link {
+            display: inline-block;
+            margin-top: 15px;
             color: #42f8f5;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 20px;
+            border: 2px solid #42f8f5;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .home-link:hover {
+            background: #42f8f5;
+            color: #1c222d;
         }
 
         .footer-email {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 10px 0;
-        }
-
-        .footer-email span {
-            color: #ffffff;
-            font-size: 1.2rem;
+            margin-top: 15px;
+            color: #6d8ba0;
+            font-size: 0.75rem;
+            text-align: center;
         }
 
         .footer-email a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        .footer-email a:hover {
             color: #42f8f5;
-        }
-
-        .copyright {
-            color: #ffffff;
-            font-size: 0.9rem;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">
-            <div class="logo-sg">SG</div>
-            <div class="logo-text">SG <span>Multi Tools</span></div>
+    <div class="age-card">
+        <div class="card-header">
+            <h1>
+                <i class="fas fa-calendar-alt"></i> Age Calculator
+            </h1>
+            <span class="badge">AGE</span>
         </div>
-        <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="tools.html">Tools</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+
+        <div class="input-group">
+            <div class="input-label">
+                <i class="fas fa-calendar"></i> Date of birth
+            </div>
+            <input class="tool-input" id="ageInput" type="text" value="01-01-1990" placeholder="DD-MM-YYYY">
+        </div>
+
+        <div class="display-field" id="ageResult">36 years 1 months 15 days</div>
+
+        <div class="button-row">
+            <button class="tool-btn primary" id="calculateBtn">CALCULATE</button>
+            <button class="tool-btn" id="copyBtn">COPY</button>
+        </div>
+
+        <div class="footer-note">
+            Enter date in DD-MM-YYYY format
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="home-link">← Back to Home</a>
+        </div>
+
+        <div class="footer-email">
+            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>SG <span>Multi Tools For Daily Use</span></h1>
-        <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
-    </div>
+    <script>
+        const ageInput = document.getElementById('ageInput');
+        const ageResult = document.getElementById('ageResult');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const copyBtn = document.getElementById('copyBtn');
 
-    <!-- Tools Grid - 20 tools -->
-    <div class="tools-grid">
-        <!-- Age Calculator -->
-        <a href="age-calculator.html" class="tool-card">
-            <div class="card-header">
-                <span class="tool-icon">📅</span>
-                <span class="tool-badge">AGE</span>
-            </div>
-            <h3>Age Calculator</h3>
-            <div class="tool-description">Exact age in years, months, days from your birth date</div>
-            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
-        </a>
+        function parseDMY(dateStr) {
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                return new Date(parts[2], parts[1]-1, parts[0]);
+            }
+            return new Date();
+        }
 
-        <!-- Case Changer -->
-        <a href="case-changer.html" class="tool-card">
-            <div class="card-header">
-                <span class="tool-icon">🔤</span>
-                <span class="tool-badge">TEXT</span>
-            </div>
-            <h3>Case Changer</h3>
-            <div class="tool-description">Convert text to uppercase, lowercase, title case</div>
-            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
-        </a>
+        function calculateAge() {
+            const input = ageInput.value.trim();
+            if (!input) {
+                ageResult.innerText = 'Please enter a date';
+                return;
+            }
 
-        <!-- Color Picker -->
-        <a href="color-picker.html" class="tool-card">
-            <div class="card-header">
-                <span class="tool-icon">🎨</span>
-                <span class="tool-badge">HEX</span>
-            </div>
-            <h3>Color Picker</h3>
-            <div class="tool-description">Pick colors and copy HEX, RGB values</div>
-            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
-        </a>
+            const birthDate = parseDMY(input);
+            if (isNaN(birthDate.getTime())) {
+                ageResult.innerText = 'Invalid date format';
+                return;
+            }
 
-        <!-- Advanced Calculator -->
-        <a href="advanced-calculator.html" class="tool-card">
-            <div class="card-header">
-                <span class="tool-icon">🧮</span>
-                <span class="tool-badge">SCI</span>
-            </div>
-            <h3>Advanced Calculator</h3>
-            <div class="tool-description">Scientific & basic calculations with memory functions</div>
-            <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
-        </a>
-
-        <!-- Continue with remaining 16 tools... -->
-        <!-- (Add all 20 tools following same pattern) -->
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <ul class="footer-links">
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+            const today = new Date();
             
-            <div class="footer-email">
-                <span>📧</span>
-                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-            </div>
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
             
-            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
-        </div>
-    </footer>
+            if (days < 0) { 
+                months--; 
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (months < 0) { 
+                years--; 
+                months += 12; 
+            }
+
+            ageResult.innerText = `${years} years ${months} months ${days} days`;
+        }
+
+        calculateBtn.addEventListener('click', calculateAge);
+
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard?.writeText(ageResult.innerText).then(() => {
+                alert('Age copied!');
+            });
+        });
+
+        calculateAge();
+    </script>
 </body>
 </html>
