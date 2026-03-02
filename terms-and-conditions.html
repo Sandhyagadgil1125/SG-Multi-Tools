@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Terms and Conditions - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,235 +14,458 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
-            font-family: 'Poppins', sans-serif;
+            background: #E8DE99;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
-        .terms-container {
-            max-width: 700px;
+        /* Navbar */
+        .navbar {
+            background: #1c222d;
             width: 100%;
-            background: #1c222d;  /* Dark card background */
-            border-radius: 18px;
-            padding: 2rem;
-            border: 2px solid #42f8f5;  /* Cyan border */
-            box-shadow: 0 0 25px rgba(66, 248, 245, 0.2);
-            margin: 0 auto;
+            padding: 0 5%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #42f8f5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .terms-header {
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-sg {
+            background: #42f8f5;
+            color: #1c222d;
+            font-weight: 800;
+            font-size: 1.8rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .logo-text span {
+            color: #42f8f5;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #42f8f5;
+            color: #1c222d;
+            border-color: #42f8f5;
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
+        }
+
+        /* Main Content */
+        .content-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: #1c222d;
+            border-radius: 30px;
+            padding: 40px;
+            border: 2px solid #42f8f5;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .page-icon {
+            font-size: 2.5rem;
+            color: #42f8f5;
+        }
+
+        .page-header h1 {
+            color: #42f8f5;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .page-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #42f8f5;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #42f8f5;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .terms-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-        
-        .terms-header h1 {
-            color: #42f8f5;  /* Cyan heading */
-            font-size: 1.8rem;
-            font-weight: 600;
         }
 
-        .terms-badge {
+        .content-section h2 i {
+            font-size: 1.1rem;
+        }
+
+        .content-section p {
+            color: #c5d1de;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul, .content-section ol {
+            color: #c5d1de;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .terms-box {
             background: #12151a;
-            color: #42f8f5;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
+            border-radius: 16px;
+            padding: 20px;
             border: 1px solid #42f8f5;
-            margin-left: auto;
-            text-transform: uppercase;
+            margin: 20px 0;
+        }
+
+        .terms-box h3 {
+            color: #42f8f5;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .terms-box p {
+            margin-bottom: 0;
         }
 
         .last-updated {
-            color: #c5d1de;
+            color: #6d8ba0;
             font-size: 0.85rem;
-            margin-bottom: 1.5rem;
+            text-align: right;
+            margin-top: 30px;
             font-style: italic;
         }
 
-        .terms-section {
-            margin: 1.5rem 0;
+        /* Footer */
+        .footer {
+            background: #1c222d;
+            width: 100%;
+            padding: 40px 20px 30px;
+            border-top: 3px solid #42f8f5;
+            margin-top: 30px;
         }
 
-        .terms-section h2 {
-            color: #ffffff;  /* White subheading */
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
         }
 
-        .terms-section p {
-            color: #c5d1de;  /* Light grey text */
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 0.8rem;
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
         }
 
-        .terms-section ul {
-            margin: 0.8rem 0 0.8rem 1.5rem;
-        }
-
-        .terms-section li {
-            color: #c5d1de;
-            margin-bottom: 0.4rem;
-            line-height: 1.5;
-        }
-
-        .highlight-box {
-            background: #12151a;  /* Dark background */
-            border-left: 4px solid #42f8f5;
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1.2rem 0;
+        .footer-links li a {
             color: #ffffff;
-            font-size: 0.95rem;
-        }
-
-        .highlight-box i {
-            color: #42f8f5;
-            margin-right: 8px;
-        }
-
-        .home-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: #42f8f5;
             text-decoration: none;
-            font-weight: 600;
-            padding: 8px 22px;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            font-weight: 500;
         }
 
-        .home-link:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        .footer-links li a:hover,
+        .footer-links li a.active {
+            color: #42f8f5;
         }
 
         .footer-email {
-            margin-top: 1.5rem;
-            color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-email span {
+            color: #ffffff;
+            font-size: 1.2rem;
         }
 
         .footer-email a {
-            color: #42f8f5;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 500;
             text-decoration: none;
         }
 
         .footer-email a:hover {
-            text-decoration: underline;
+            color: #42f8f5;
         }
 
-        @media (max-width: 500px) {
-            .terms-container {
-                padding: 1.5rem;
+        .copyright {
+            color: #ffffff;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 700px) {
+            .navbar {
+                height: auto;
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .terms-header h1 {
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .content-card {
+                padding: 25px;
+            }
+            
+            .page-header {
+                flex-wrap: wrap;
+            }
+            
+            .page-header h1 {
                 font-size: 1.5rem;
+            }
+            
+            .page-badge {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .content-container {
+                margin: 20px auto;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .page-icon {
+                font-size: 2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="terms-container">
-        <!-- Header -->
-        <div class="terms-header">
-            <span class="terms-icon">📜</span>
-            <h1>Terms and Conditions</h1>
-            <span class="terms-badge">LEGAL</span>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <div class="logo-sg">SG</div>
+            <div class="logo-text">SG <span>Multi Tools</span></div>
         </div>
-
-        <div class="last-updated">Last updated: February 15, 2026</div>
-
-        <!-- Section 1 -->
-        <div class="terms-section">
-            <h2>1. Acceptance of Terms</h2>
-            <p>By accessing or using SG Multi Tools, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not access our services.</p>
-        </div>
-
-        <div class="highlight-box">
-            <i class="fas fa-gavel"></i>
-            <strong>Free to use.</strong> By using our tools, you agree to these terms.
-        </div>
-
-        <!-- Section 2 -->
-        <div class="terms-section">
-            <h2>2. Free Usage</h2>
-            <p>All tools on SG Multi Tools are completely free to use. No payment, registration, or personal information is required to access any of our utilities.</p>
-        </div>
-
-        <!-- Section 3 -->
-        <div class="terms-section">
-            <h2>3. Affiliate Disclosure</h2>
-            <p>The Advanced Calculator contains affiliate links to Digistore24. If you make a purchase through these links, we may earn a commission at no additional cost to you. These links are clearly marked and you will be redirected to their site.</p>
-        </div>
-
-        <!-- Section 4 -->
-        <div class="terms-section">
-            <h2>4. No Warranty</h2>
-            <p>Our tools are provided "as is" without any warranties, express or implied. While we strive for accuracy, we do not guarantee that the results from our calculators and tools will be error-free or reliable.</p>
-        </div>
-
-        <!-- Section 5 -->
-        <div class="terms-section">
-            <h2>5. Limitation of Liability</h2>
-            <p>In no event shall SG Multi Tools be liable for any damages arising out of the use or inability to use our tools, even if advised of the possibility of such damages.</p>
-        </div>
-
-        <!-- Section 6 -->
-        <div class="terms-section">
-            <h2>6. User Responsibilities</h2>
-            <p>You are responsible for how you use the information provided by our tools. Financial calculators should not be considered professional financial advice. Always consult with a qualified professional for important decisions.</p>
-        </div>
-
-        <!-- Section 7 -->
-        <div class="terms-section">
-            <h2>7. Intellectual Property</h2>
-            <p>All content, design, and code on SG Multi Tools are our property or used with permission. You may not reproduce, distribute, or modify any part of our website without explicit permission.</p>
-        </div>
-
-        <!-- Section 8 -->
-        <div class="terms-section">
-            <h2>8. Changes to Terms</h2>
-            <p>We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting. Your continued use of the website after changes constitutes acceptance of the new terms.</p>
-        </div>
-
-        <!-- Section 9 -->
-        <div class="terms-section">
-            <h2>9. Governing Law</h2>
-            <p>These terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions.</p>
-        </div>
-
-        <!-- Navigation -->
-        <div style="text-align: center;">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-        </div>
-
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">Tools</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
         </div>
     </div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="content-card">
+            <div class="page-header">
+                <span class="page-icon">📜</span>
+                <h1>Terms and Conditions</h1>
+                <span class="page-badge">LEGAL</span>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                <p>Welcome to SG Multi Tools. By accessing our website at sgtools.in, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, please do not use our website.</p>
+                <p>These Terms and Conditions apply to all visitors, users, and others who access or use our website. By accessing or using the website, you agree to be bound by these Terms.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-tools"></i> Use of Our Tools</h2>
+                <p>SG Multi Tools provides various online calculators and tools for personal and professional use. By using our tools, you agree to:</p>
+                <ul>
+                    <li>Use the tools for lawful purposes only</li>
+                    <li>Not attempt to manipulate, abuse, or overload our services</li>
+                    <li>Not use the tools to calculate or process illegal activities</li>
+                    <li>Understand that results are provided "as is" without warranties</li>
+                </ul>
+                
+                <div class="terms-box">
+                    <h3>Tool Accuracy Disclaimer</h3>
+                    <p>While we strive for accuracy, all calculators and tools are provided for informational purposes only. We are not responsible for any decisions made based on the results from our tools. Always verify calculations independently for critical applications.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-copyright"></i> Intellectual Property</h2>
+                <p>The website, its original content, features, and functionality are owned by SG Multi Tools and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
+                <p>You may not:</p>
+                <ul>
+                    <li>Modify or copy the materials</li>
+                    <li>Use the materials for any commercial purpose without our consent</li>
+                    <li>Attempt to decompile or reverse engineer any software contained on the website</li>
+                    <li>Remove any copyright or other proprietary notations from the materials</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-external-link-alt"></i> Links to Other Websites</h2>
+                <p>Our website may contain links to third-party websites or services that are not owned or controlled by SG Multi Tools. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites.</p>
+                <p>You acknowledge and agree that SG Multi Tools shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods, or services available on or through any such websites.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-ad"></i> Advertising and Affiliates</h2>
+                <p>SG Multi Tools uses Adsterra to display advertisements. These ads may use cookies to serve content based on your browsing history. We also participate in affiliate marketing programs, which means we may earn commissions on purchases made through our affiliate links at no additional cost to you.</p>
+                <p>By using our website, you consent to the use of such cookies and agree that we are not responsible for the content of any third-party advertisements or affiliate offers.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-ban"></i> Prohibited Uses</h2>
+                <p>You may use our website only for lawful purposes and in accordance with these Terms. You agree not to use the website:</p>
+                <ul>
+                    <li>In any way that violates any applicable law or regulation</li>
+                    <li>To engage in any conduct that restricts or inhibits anyone's use of the website</li>
+                    <li>To attempt to gain unauthorized access to any part of the website</li>
+                    <li>To introduce any viruses, trojan horses, or other malicious code</li>
+                    <li>To use any robot, spider, or other automatic device to monitor the website</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-times-circle"></i> Termination</h2>
+                <p>We may terminate or suspend access to our website immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-shield-alt"></i> Limitation of Liability</h2>
+                <p>In no event shall SG Multi Tools, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+                <ul>
+                    <li>Your use or inability to use the website</li>
+                    <li>Any conduct or content of any third party on the website</li>
+                    <li>Any content obtained from the website</li>
+                    <li>Unauthorized access, use, or alteration of your transmissions or content</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-gavel"></i> Governing Law</h2>
+                <p>These Terms shall be governed and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-sync-alt"></i> Changes to Terms</h2>
+                <p>We reserve the right to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. By continuing to access or use our website after those revisions become effective, you agree to be bound by the revised terms.</p>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+                <p>If you have any questions about these Terms, please contact us at:</p>
+                <div class="terms-box">
+                    <p><i class="fas fa-envelope"></i> Email: contact@sgtools.in</p>
+                    <p><i class="fas fa-globe"></i> Website: sgtools.in</p>
+                </div>
+            </div>
+
+            <div class="last-updated">
+                <i class="fas fa-clock"></i> Last Updated: March 2, 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="terms-and-conditions.html" class="active">Terms and Conditions</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="footer-email">
+                <span>📧</span>
+                <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+            
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
+        </div>
+    </footer>
 </body>
 </html>
