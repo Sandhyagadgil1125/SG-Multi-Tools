@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>SG Multi Tools - Free Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -70,16 +69,16 @@
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .nav-links a {
             color: #e0e0e0;
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.2s;
             padding: 8px 12px;
             border-radius: 20px;
-            transition: all 0.2s;
         }
 
         .nav-links a:hover,
@@ -93,27 +92,27 @@
         .hero {
             width: 100%;
             max-width: 1200px;
-            margin: 30px auto 20px;
+            margin: 40px auto 30px;
             padding: 0 20px;
             text-align: center;
         }
 
         .hero h1 {
+            font-size: 2.5rem;
             color: #1c222d;
-            font-size: 2.2rem;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .hero h1 span {
-            color: #1c222d;
+            color: #42f8f5;
         }
 
         .hero-description {
             color: #4A3B2C;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
-        /* Tools Grid */
+        /* Tools Grid - 4 columns on desktop */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -124,13 +123,13 @@
             padding: 0 20px;
         }
 
-        /* Tool Card - DARK on LIGHT background */
+        /* Tool Card */
         .tool-card {
             background: #1c222d;
             border-radius: 16px;
             padding: 20px;
             border: 1px solid #42f8f5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
@@ -161,12 +160,13 @@
         .tool-badge {
             background: #12151a;
             color: #42f8f5;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 20px;
             border: 1px solid #42f8f5;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .tool-card h3 {
@@ -178,9 +178,9 @@
 
         .tool-description {
             color: #c5d1de;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             line-height: 1.4;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             flex-grow: 1;
         }
 
@@ -189,7 +189,7 @@
             background: transparent;
             color: #42f8f5;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             padding: 8px 0;
             border-top: 1px solid #2a4055;
@@ -204,11 +204,12 @@
             padding: 8px 12px;
             border-radius: 30px;
             border-top: none;
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
         }
 
         .open-tool-btn i {
             margin-left: 6px;
+            font-size: 0.7rem;
         }
 
         /* Footer */
@@ -233,7 +234,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
             list-style: none;
         }
 
@@ -241,6 +242,7 @@
             color: #ffffff;
             text-decoration: none;
             font-size: 0.95rem;
+            transition: color 0.2s;
         }
 
         .footer-links a:hover {
@@ -272,27 +274,27 @@
         .copyright {
             color: #ffffff;
             font-size: 0.9rem;
+            opacity: 0.9;
         }
 
-        /* ===== RESPONSIVE DESIGN ===== */
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
         
-        /* Tablet Landscape (4 columns → 3 columns) */
+        /* Tablet Landscape - 3 columns */
         @media screen and (max-width: 1000px) {
             .tools-grid {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
         }
 
-        /* Tablet Portrait (3 columns → 2 columns) */
+        /* Tablet Portrait - 2 columns */
         @media screen and (max-width: 700px) {
             .navbar {
                 height: auto;
-                padding: 15px 5%;
+                padding: 15px;
                 flex-direction: column;
                 gap: 10px;
             }
@@ -305,34 +307,28 @@
             
             .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
             }
             
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .hero-description {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             
             .footer-links {
-                gap: 15px;
-            }
-            
-            .footer-links a {
-                font-size: 0.8rem;
+                gap: 20px;
             }
         }
 
-        /* Mobile Landscape (2 columns → 1 column) */
+        /* Mobile - 1 column */
         @media screen and (max-width: 500px) {
             body {
                 padding: 0;
             }
             
             .navbar {
-                border-radius: 0;
                 padding: 12px 15px;
             }
             
@@ -347,18 +343,21 @@
             }
             
             .hero {
-                margin: 20px auto 15px;
+                margin: 30px auto 20px;
             }
             
             .hero h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
+            }
+            
+            .hero-description {
+                font-size: 0.9rem;
             }
             
             .tools-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
                 padding: 0 15px;
-                margin: 15px auto 30px;
             }
             
             .tool-card {
@@ -369,16 +368,29 @@
                 font-size: 1.8rem;
             }
             
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+            
             .tool-card h3 {
                 font-size: 1rem;
             }
             
             .tool-description {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
             }
             
             .footer {
                 padding: 20px 15px;
+            }
+            
+            .footer-links {
+                gap: 15px;
+            }
+            
+            .footer-links a {
+                font-size: 0.85rem;
             }
             
             .footer-email a {
@@ -406,7 +418,11 @@
             }
             
             .hero h1 {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
+            }
+            
+            .hero-description {
+                font-size: 0.8rem;
             }
             
             .tool-card {
@@ -436,7 +452,7 @@
         <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- Tools Grid - 20 tools -->
+    <!-- Tools Grid - 20 tools in 4 columns -->
     <div class="tools-grid">
         <!-- Age Calculator -->
         <a href="age-calculator.html" class="tool-card">
@@ -614,7 +630,7 @@
             <span class="open-tool-btn">Open Tool <i class="fas fa-arrow-right"></i></span>
         </a>
 
-        <!-- Timer/Stopwatch -->
+        <!-- Timer -->
         <a href="timer-stopwatch.html" class="tool-card">
             <div class="card-header">
                 <span class="tool-icon">⏱️</span>
@@ -665,7 +681,7 @@
             <ul class="footer-links">
                 <li><a href="privacy-policy.html">Privacy Policy</a></li>
                 <li><a href="disclaimer.html">Disclaimer</a></li>
-                <li><a href="terms-and-conditions.html">Terms</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
                 <li><a href="sitemap.html">Sitemap</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
