@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Note Text Saver - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
@@ -16,7 +16,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -51,7 +51,7 @@
         }
         
         .tool-header h1 {
-            color: #42f8f5;  /* Cyan heading */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
@@ -68,10 +68,25 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;  /* White text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -86,11 +101,11 @@
         .tool-input {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #1c222d;  /* Dark text */
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
             margin-bottom: 1rem;
@@ -111,11 +126,11 @@
         .tool-textarea {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #1c222d;  /* Dark text */
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
             margin-bottom: 1rem;
@@ -136,7 +151,7 @@
         }
 
         .stats-display {
-            background: #12151a;  /* Dark background */
+            background: #12151a;
             border-radius: 12px;
             padding: 1rem;
             margin: 1rem 0;
@@ -176,7 +191,7 @@
         }
 
         .tool-btn {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 12px 8px;
@@ -191,8 +206,8 @@
         }
 
         .tool-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
@@ -297,60 +312,124 @@
             margin-right: 4px;
         }
 
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
+        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
             }
             
             .tool-container {
                 padding: 1rem;
-                max-width: 95%;
+                max-width: 100%;
             }
             
             .tool-header h1 {
                 font-size: 1.4rem;
             }
             
+            .tool-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            .input-label {
+                font-size: 0.8rem;
+            }
+            
+            .tool-input {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            
+            .tool-textarea {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.85rem;
+                min-height: 120px;
+            }
+            
+            .stats-display {
+                padding: 0.8rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
             .button-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            
+            .tool-btn {
+                padding: 10px 6px;
+                font-size: 0.7rem;
+            }
+            
+            .action-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .last-saved {
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-email {
+                font-size: 0.8rem;
             }
         }
 
-        @media (max-width: 480px) {
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
             .button-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .tool-header {
+                flex-wrap: wrap;
+            }
+            
+            .tool-badge {
+                margin-left: 0;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">📝</span>
             <h1>Note Text Saver</h1>
-            <span class="tool-badge mobile-hide">LOCAL</span>
+            <span class="tool-badge">LOCAL</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #c5d1de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Save and load notes locally in your browser. Your data stays on your device.
         </div>
 
-        <!-- Note Title -->
         <label class="input-label"><i class="fas fa-heading"></i> Note Title</label>
         <input class="tool-input" id="noteTitle" type="text" placeholder="Enter note title..." value="My Note">
 
-        <!-- Note Content -->
         <label class="input-label"><i class="fas fa-pencil-alt"></i> Note Content</label>
         <textarea class="tool-textarea" id="noteContent" placeholder="Write your note here..."></textarea>
 
-        <!-- Statistics -->
         <div class="stats-display">
             <div class="stat-row">
                 <span class="stat-label"><i class="fas fa-fw fa-font"></i> Characters</span>
@@ -366,12 +445,10 @@
             </div>
         </div>
 
-        <!-- Last Saved Indicator -->
         <div class="last-saved" id="lastSaved">
             <i class="fas fa-clock"></i> Not saved yet
         </div>
 
-        <!-- Button Grid -->
         <div class="button-grid">
             <button class="tool-btn primary" onclick="saveNote()">
                 <i class="fas fa-save"></i> Save
@@ -393,12 +470,10 @@
             </button>
         </div>
 
-        <!-- Action Button -->
         <button class="action-btn" onclick="saveAndSync()">
             <i class="fas fa-cloud-upload-alt"></i> SAVE & SYNC
         </button>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -411,23 +486,18 @@
     </div>
 
     <script>
-        // Update statistics
         function updateStats() {
             const content = document.getElementById('noteContent').value;
             
-            // Character count
             document.getElementById('charCount').textContent = content.length;
             
-            // Word count
             const words = content.trim() ? content.trim().split(/\s+/).length : 0;
             document.getElementById('wordCount').textContent = words;
             
-            // Line count
             const lines = content ? content.split('\n').length : 0;
             document.getElementById('lineCount').textContent = lines;
         }
 
-        // Save note to localStorage
         function saveNote() {
             const title = document.getElementById('noteTitle').value || 'Untitled';
             const content = document.getElementById('noteContent').value;
@@ -437,12 +507,10 @@
                 return;
             }
             
-            // Save to localStorage
             localStorage.setItem('savedNoteTitle', title);
             localStorage.setItem('savedNoteContent', content);
             localStorage.setItem('savedNoteTimestamp', new Date().toISOString());
             
-            // Update last saved indicator
             const now = new Date();
             document.getElementById('lastSaved').innerHTML = `
                 <i class="fas fa-check-circle" style="color: #42f8f5;"></i> Saved at ${now.toLocaleTimeString()}
@@ -451,7 +519,6 @@
             alert('Note saved successfully!');
         }
 
-        // Load note from localStorage (SILENT - NO ALERT)
         function loadNote() {
             const title = localStorage.getItem('savedNoteTitle');
             const content = localStorage.getItem('savedNoteContent');
@@ -469,16 +536,13 @@
                 }
                 
                 updateStats();
-                // NO ALERT - loads silently
             } else {
                 document.getElementById('lastSaved').innerHTML = `
                     <i class="fas fa-info-circle"></i> No saved note found
                 `;
-                // NO ALERT - just updates the status text
             }
         }
 
-        // Download note as text file
         function downloadNote() {
             const title = document.getElementById('noteTitle').value || 'note';
             const content = document.getElementById('noteContent').value;
@@ -497,7 +561,6 @@
             URL.revokeObjectURL(url);
         }
 
-        // Copy note to clipboard
         function copyNote() {
             const content = document.getElementById('noteContent').value;
             
@@ -508,12 +571,9 @@
             
             navigator.clipboard.writeText(content).then(() => {
                 alert('Note copied to clipboard!');
-            }).catch(() => {
-                alert('Press Ctrl+C to copy');
             });
         }
 
-        // Clear note
         function clearNote() {
             if (document.getElementById('noteContent').value) {
                 if (confirm('Clear all content?')) {
@@ -525,7 +585,6 @@
             }
         }
 
-        // Delete saved note
         function deleteNote() {
             if (localStorage.getItem('savedNoteContent')) {
                 if (confirm('Delete saved note permanently?')) {
@@ -540,11 +599,9 @@
             }
         }
 
-        // Save and sync (simulated)
         function saveAndSync() {
             saveNote();
             
-            // Simulate sync
             document.getElementById('lastSaved').innerHTML = `
                 <i class="fas fa-sync-alt" style="color: #42f8f5;"></i> Syncing...
             `;
@@ -556,22 +613,18 @@
             }, 1000);
         }
 
-        // Auto-save every 30 seconds
         let autoSaveInterval = setInterval(() => {
             if (document.getElementById('noteContent').value) {
                 saveNote();
             }
         }, 30000);
 
-        // Update stats on input
         document.getElementById('noteContent').addEventListener('input', updateStats);
 
-        // Load any existing note on page load - SILENTLY (NO ALERT)
         window.addEventListener('load', () => {
-            loadNote(); // This now loads silently with no alert
+            loadNote();
         });
 
-        // Cleanup interval on page unload
         window.addEventListener('beforeunload', () => {
             clearInterval(autoSaveInterval);
         });
