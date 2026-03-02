@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Changer - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +15,7 @@
         }
 
         body {
-            background: #0d0f14;  /* Dark theme background */
+            background: #E8DE99;  /* Light gold background */
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -29,7 +28,7 @@
             max-width: 520px;
             width: 100%;
             margin: 0 auto;
-            padding: 1.3rem;
+            padding: 1.5rem;
             background: #1c222d;  /* Dark card background */
             border-radius: 18px;
             border: 2px solid #42f8f5;
@@ -51,7 +50,7 @@
         }
         
         .tool-header h1 {
-            color: #42f8f5;  /* Cyan heading */
+            color: #42f8f5;
             font-size: 1.6rem;
             font-weight: 600;
         }
@@ -68,10 +67,25 @@
             text-transform: uppercase;
         }
 
+        /* Description - Hidden on mobile */
+        .mobile-hide {
+            display: block;
+            color: #c5d1de;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hide {
+                display: none;
+            }
+        }
+
         /* Form Elements */
         .input-label {
             display: block;
-            color: #ffffff;  /* White text */
+            color: #ffffff;
             font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.4rem;
@@ -86,11 +100,11 @@
         .tool-textarea {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #1c222d;  /* Dark text */
+            color: #1c222d;
             font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
             margin-bottom: 1rem;
@@ -118,7 +132,7 @@
         .tool-select {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: #eef5fa;  /* Light input background */
+            background: #eef5fa;
             border: 2px solid #3d5a73;
             border-radius: 12px;
             font-size: 0.9rem;
@@ -148,7 +162,7 @@
         }
 
         .tool-btn {
-            background: #12151a;  /* Dark button */
+            background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 30px;
             padding: 10px;
@@ -163,8 +177,8 @@
         }
 
         .tool-btn:hover {
-            background: #42f8f5;  /* Cyan on hover */
-            color: #12151a;  /* Dark text on hover */
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
         }
@@ -243,16 +257,7 @@
             text-decoration: underline;
         }
 
-        /* Hide description on mobile */
-        .mobile-hide {
-            display: block;
-        }
-
         @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-            
             .tool-container {
                 padding: 1rem;
                 max-width: 95%;
@@ -276,39 +281,32 @@
 </head>
 <body>
     <div class="tool-container">
-        <!-- Header with icon and badge -->
         <div class="tool-header">
             <span class="tool-icon">🔤</span>
             <h1>Case Changer</h1>
-            <span class="tool-badge mobile-hide">TEXT</span>
+            <span class="tool-badge">TEXT</span>
         </div>
 
-        <!-- Description - Hidden on mobile -->
-        <div class="mobile-hide" style="color: #c5d1de; font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.4;">
+        <div class="mobile-hide">
             Convert text to uppercase, lowercase, or title case instantly.
         </div>
 
-        <!-- Input Textarea -->
         <label class="input-label"><i class="fas fa-pencil-alt"></i> Input Text</label>
         <textarea class="tool-textarea" id="case-input" placeholder="Enter your text here...">The quick brown fox jumps over the lazy dog.</textarea>
 
-        <!-- Case Selection Buttons -->
         <div class="button-grid">
             <button class="tool-btn" onclick="applyCase('upper')">UPPER</button>
             <button class="tool-btn" onclick="applyCase('lower')">lower</button>
-            <button class="tool-btn" onclick="applyCase('title')">Title Case</button>
+            <button class="tool-btn" onclick="applyCase('title')">Title</button>
         </div>
 
-        <!-- Output Textarea -->
         <label class="input-label"><i class="fas fa-copy"></i> Output Result</label>
         <textarea class="tool-textarea" id="case-output" placeholder="Result will appear here..." readonly>THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.</textarea>
 
-        <!-- Action Button -->
-        <button class="action-btn" onclick="applyCase(document.querySelector('.tool-btn:focus')?.innerText.toLowerCase() || 'upper')">
+        <button class="action-btn" onclick="applyCase('upper')">
             <i class="fas fa-sync-alt"></i> APPLY CASE
         </button>
 
-        <!-- Navigation -->
         <div style="text-align: center;">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
@@ -326,21 +324,16 @@
             const output = document.getElementById('case-output');
             let result = input;
             
-            if (type === 'upper' || type === 'UPPER') {
+            if (type === 'upper') {
                 result = input.toUpperCase();
-            } else if (type === 'lower' || type === 'lower') {
+            } else if (type === 'lower') {
                 result = input.toLowerCase();
-            } else if (type === 'title' || type === 'Title Case') {
+            } else if (type === 'title') {
                 result = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
             }
             
             output.value = result;
         }
-
-        // Apply initial case on page load
-        window.addEventListener('load', function() {
-            applyCase('upper');
-        });
     </script>
 </body>
 </html>
