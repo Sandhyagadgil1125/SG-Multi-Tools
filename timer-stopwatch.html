@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Timer-Stopwatch - SG Multi Tools</title>
+    <title>Timer & Stopwatch - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,213 +15,361 @@
         }
 
         body {
-            background: #E8DE99;  /* Light gold background */
+            background: #E8DE99;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .tool-container {
-            max-width: 520px;
+        .timer-card {
+            background: #1c222d;
+            border-radius: 25px;
+            padding: 20px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #1c222d;  /* Dark card background */
-            border-radius: 18px;
+            max-width: 550px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
+            gap: 8px;
             color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #42f8f5;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
-        .tool-badge {
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.6rem;
+        }
+
+        .card-badge {
             background: #12151a;
             color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 25px;
+            border: 1px solid #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
             text-transform: uppercase;
         }
 
-        /* Description - Hidden on mobile */
-        .mobile-hide {
-            display: block;
-            color: #c5d1de;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.4;
+        /* Mode Tabs */
+        .mode-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
+        .mode-tab {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 30px;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-tab:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
+        }
+
+        .mode-tab.active {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+        }
+
+        .mode-tab i {
+            margin-right: 5px;
         }
 
         /* Timer Display */
-        .timer-display {
+        .time-display {
             background: #12151a;
             border-radius: 20px;
-            padding: 2rem 1rem;
-            margin: 1.5rem 0;
+            padding: 20px;
+            margin: 15px 0;
             border: 2px solid #42f8f5;
-            box-shadow: inset 0 0 20px rgba(66, 248, 245, 0.2);
             text-align: center;
         }
 
-        #timer {
+        .time-value {
+            color: #42f8f5;
             font-size: 3.5rem;
             font-weight: 700;
             font-family: monospace;
-            color: #42f8f5;
-            letter-spacing: 5px;
-            text-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
+            line-height: 1.2;
         }
 
-        .timer-controls {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 1.5rem 0;
+        .time-label {
+            color: #b0c4de;
+            font-size: 0.85rem;
+            margin-top: 5px;
         }
 
-        .btn {
+        /* Timer Input Section */
+        .timer-input-section {
             background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 15px 0;
             border: 2px solid #42f8f5;
-            border-radius: 40px;
-            padding: 14px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .time-input-group {
+            flex: 1;
+            text-align: center;
+        }
+
+        .time-input-label {
+            color: #b0c4de;
+            font-size: 0.7rem;
+            margin-bottom: 5px;
+        }
+
+        .time-input {
+            width: 100%;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 8px;
+            padding: 8px;
+            color: white;
             font-size: 1rem;
-            font-weight: 600;
+            font-family: monospace;
+            text-align: center;
+            outline: none;
+        }
+
+        .time-input:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 8px rgba(66, 248, 245, 0.3);
+        }
+
+        /* Preset Buttons */
+        .presets-section {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #42f8f5;
+        }
+
+        .presets-title {
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .presets-title i {
+            color: #42f8f5;
+        }
+
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .preset-btn {
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 8px;
+            padding: 8px 3px;
+            text-align: center;
+            color: white;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+        }
+
+        /* Control Buttons */
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .control-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 30px;
+            padding: 12px 5px;
+            font-size: 0.9rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .btn:hover {
+        .control-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
-        .btn.primary {
+        .control-btn.primary {
             background: #42f8f5;
             color: #12151a;
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .btn.primary:hover {
+        .control-btn.primary:hover {
             background: transparent;
             color: #42f8f5;
         }
 
-        .btn.warning {
-            background: #5f3e3e;
-            border-color: #ff6b6b;
-            color: #ffb3b3;
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
-        .btn.warning:hover {
-            background: #ff6b6b;
-            color: #12151a;
-            border-color: #ff6b6b;
+        .control-btn i {
+            margin-right: 5px;
         }
 
-        .lap-times {
-            margin: 1.5rem 0;
+        /* Lap Times */
+        .laps-section {
             background: #12151a;
             border-radius: 12px;
-            padding: 1rem;
+            padding: 12px;
+            margin: 15px 0;
             border: 1px solid #42f8f5;
-            max-height: 200px;
+            max-height: 120px;
             overflow-y: auto;
         }
 
-        .lap-title {
-            color: #42f8f5;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .laps-title {
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-
-        .lap-title button {
-            background: transparent;
-            border: 1px solid #42f8f5;
-            color: #42f8f5;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lap-title button:hover {
-            background: #42f8f5;
-            color: #12151a;
-        }
-
-        .lap-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
             gap: 5px;
+        }
+
+        .laps-title i {
+            color: #42f8f5;
         }
 
         .lap-item {
             display: flex;
             justify-content: space-between;
-            padding: 6px 10px;
-            background: #1c222d;
-            border-radius: 6px;
-            font-family: monospace;
-            color: #c5d1de;
-            border-left: 3px solid #42f8f5;
+            padding: 5px 10px;
+            border-bottom: 1px solid #42f8f5;
+            color: #b0c4de;
+            font-size: 0.8rem;
         }
 
-        .lap-item span:first-child {
+        .lap-item:last-child {
+            border-bottom: none;
+        }
+
+        .lap-number {
             color: #42f8f5;
             font-weight: 600;
+        }
+
+        .lap-time {
+            font-family: monospace;
+        }
+
+        /* Action Buttons */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .action-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 8px 5px;
+            font-size: 0.7rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
+        }
+
+        .action-btn i {
+            margin-right: 3px;
+        }
+
+        /* Adsterra Ad Container */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            text-align: center;
         }
 
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 8px 20px;
             border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -230,14 +377,13 @@
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
         .footer-email {
-            margin-top: 1.5rem;
+            margin: 12px 0 8px;
             color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
+            font-size: 0.75rem;
         }
 
         .footer-email a {
@@ -249,244 +395,504 @@
             text-decoration: underline;
         }
 
-        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES ===== */
+        .copyright {
+            color: #6d8ba0;
+            font-size: 0.7rem;
+        }
+
+        /* Responsive */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 100%;
+            .timer-card {
+                padding: 15px;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.1rem;
             }
             
-            .tool-icon {
-                font-size: 1.8rem;
+            .card-icon {
+                font-size: 1.3rem;
             }
             
-            .tool-badge {
-                font-size: 0.65rem;
-                padding: 3px 10px;
-            }
-            
-            .timer-display {
-                padding: 1.5rem 0.5rem;
-                margin: 1rem 0;
-            }
-            
-            #timer {
+            .time-value {
                 font-size: 2.5rem;
-                letter-spacing: 3px;
             }
             
-            .timer-controls {
-                gap: 8px;
-                margin: 1rem 0;
+            .input-row {
+                flex-direction: column;
+                gap: 5px;
             }
             
-            .btn {
-                padding: 12px;
-                font-size: 0.9rem;
+            .presets-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
             
-            .lap-times {
-                margin: 1rem 0;
-                padding: 0.8rem;
-                max-height: 150px;
-            }
-            
-            .lap-title {
-                font-size: 0.9rem;
-            }
-            
-            .lap-title button {
-                padding: 3px 10px;
-                font-size: 0.65rem;
-            }
-            
-            .lap-item {
-                padding: 5px 8px;
-                font-size: 0.85rem;
-            }
-            
-            .home-link {
-                padding: 6px 18px;
-                font-size: 0.8rem;
-            }
-            
-            .footer-email {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media screen and (max-width: 350px) {
-            .timer-controls {
+            .control-grid {
                 grid-template-columns: 1fr;
             }
             
-            .tool-header {
-                flex-wrap: wrap;
+            .action-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .tool-badge {
-                margin-left: 0;
-            }
-            
-            #timer {
-                font-size: 2rem;
-                letter-spacing: 2px;
-            }
-            
-            .footer-email {
-                font-size: 0.7rem;
+            .laps-section {
+                max-height: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <div class="tool-header">
-            <span class="tool-icon">⏱️</span>
-            <h1>Timer</h1>
-            <span class="tool-badge">TIMER</span>
-        </div>
-
-        <div class="mobile-hide">
-            Simple timer and stopwatch with lap functionality.
-        </div>
-
-        <div class="timer-display">
-            <div id="timer">00:00:00</div>
-        </div>
-
-        <div class="timer-controls">
-            <button class="btn primary" id="startBtn"><i class="fas fa-play"></i> Start</button>
-            <button class="btn" id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
-            <button class="btn warning" id="resetBtn"><i class="fas fa-stop"></i> Reset</button>
-            <button class="btn" id="lapBtn"><i class="fas fa-flag"></i> Lap</button>
-        </div>
-
-        <div class="lap-times">
-            <div class="lap-title">
-                <span><i class="fas fa-history" style="color: #42f8f5;"></i> Lap Times</span>
-                <button id="clearLapsBtn" onclick="clearLaps()">Clear</button>
+    <div class="timer-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">⏱️</span> Timer & Stopwatch
             </div>
-            <ul class="lap-list" id="lapList">
-                <li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">
-                    Click "Lap" to record times
-                </li>
-            </ul>
+            <div class="card-badge">TIMER</div>
         </div>
 
-        <div style="text-align: center;">
+        <!-- Mode Tabs -->
+        <div class="mode-tabs">
+            <div class="mode-tab active" id="stopwatchTab" onclick="switchMode('stopwatch')">
+                <i class="fas fa-stopwatch"></i> Stopwatch
+            </div>
+            <div class="mode-tab" id="timerTab" onclick="switchMode('timer')">
+                <i class="fas fa-hourglass-half"></i> Timer
+            </div>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="time-display">
+            <div class="time-value" id="timeDisplay">00:00.00</div>
+            <div class="time-label" id="timeLabel">Stopwatch</div>
+        </div>
+
+        <!-- Timer Input Section (hidden by default) -->
+        <div class="timer-input-section" id="timerInputSection" style="display: none;">
+            <div class="input-row">
+                <div class="time-input-group">
+                    <div class="time-input-label">Hours</div>
+                    <input type="number" class="time-input" id="hoursInput" min="0" max="23" value="0">
+                </div>
+                <div class="time-input-group">
+                    <div class="time-input-label">Minutes</div>
+                    <input type="number" class="time-input" id="minutesInput" min="0" max="59" value="1">
+                </div>
+                <div class="time-input-group">
+                    <div class="time-input-label">Seconds</div>
+                    <input type="number" class="time-input" id="secondsInput" min="0" max="59" value="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Preset Buttons (for Timer mode) -->
+        <div class="presets-section" id="presetsSection" style="display: none;">
+            <div class="presets-title">
+                <i class="fas fa-clock"></i> Quick Presets
+            </div>
+            <div class="presets-grid">
+                <div class="preset-btn" onclick="setTimerPreset(0, 1, 0)">1 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 5, 0)">5 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 10, 0)">10 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 15, 0)">15 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 30, 0)">30 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(1, 0, 0)">1 hour</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 45, 0)">45 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 20, 0)">20 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 3, 0)">3 min</div>
+                <div class="preset-btn" onclick="setTimerPreset(0, 0, 30)">30 sec</div>
+            </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="control-grid">
+            <button class="control-btn primary" id="startBtn" onclick="startTimer()">
+                <i class="fas fa-play"></i> Start
+            </button>
+            <button class="control-btn" id="pauseBtn" onclick="pauseTimer()" disabled>
+                <i class="fas fa-pause"></i> Pause
+            </button>
+            <button class="control-btn" id="resetBtn" onclick="resetTimer()">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+        </div>
+
+        <!-- Lap Times (for Stopwatch mode) -->
+        <div class="laps-section" id="lapsSection">
+            <div class="laps-title">
+                <i class="fas fa-list"></i> Lap Times
+                <span style="flex:1;"></span>
+                <span class="action-btn" style="padding: 2px 8px;" onclick="clearLaps()">Clear</span>
+            </div>
+            <div id="lapsContainer">
+                <!-- Lap items will be added here -->
+                <div class="lap-item">
+                    <span class="lap-number">Lap 1</span>
+                    <span class="lap-time">00:00.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn" id="lapBtn" onclick="recordLap()">
+                <i class="fas fa-flag"></i> Lap
+            </button>
+            <button class="action-btn" onclick="copyTime()">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+            <button class="action-btn" onclick="shareTime()">
+                <i class="fas fa-share-alt"></i> Share
+            </button>
+            <button class="action-btn" onclick="fullscreenTimer()">
+                <i class="fas fa-expand"></i> Fullscreen
+            </button>
+        </div>
+
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
             </a>
-        </div>
 
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            <div class="footer-email">
+                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 SG Multi Tools. All rights reserved.
+            </div>
         </div>
     </div>
 
     <script>
-        let timer;
+        // Timer variables
+        let mode = 'stopwatch'; // 'stopwatch' or 'timer'
+        let interval = null;
+        let startTime = 0;
+        let elapsedTime = 0;
+        let timerDuration = 0;
         let isRunning = false;
-        let seconds = 0;
-        let minutes = 0;
-        let hours = 0;
-        let lapCount = 1;
+        let laps = [];
+        let lapCount = 0;
 
-        const timerDisplay = document.getElementById('timer');
+        // DOM Elements
+        const timeDisplay = document.getElementById('timeDisplay');
+        const timeLabel = document.getElementById('timeLabel');
+        const stopwatchTab = document.getElementById('stopwatchTab');
+        const timerTab = document.getElementById('timerTab');
+        const timerInputSection = document.getElementById('timerInputSection');
+        const presetsSection = document.getElementById('presetsSection');
+        const lapsSection = document.getElementById('lapsSection');
+        const lapsContainer = document.getElementById('lapsContainer');
         const startBtn = document.getElementById('startBtn');
         const pauseBtn = document.getElementById('pauseBtn');
         const resetBtn = document.getElementById('resetBtn');
         const lapBtn = document.getElementById('lapBtn');
-        const lapList = document.getElementById('lapList');
+        const hoursInput = document.getElementById('hoursInput');
+        const minutesInput = document.getElementById('minutesInput');
+        const secondsInput = document.getElementById('secondsInput');
 
-        function updateDisplay() {
-            let displayHours = hours < 10 ? '0' + hours : hours;
-            let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
-            let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+        // Switch mode
+        function switchMode(newMode) {
+            mode = newMode;
             
-            timerDisplay.textContent = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+            // Update tabs
+            stopwatchTab.classList.toggle('active', mode === 'stopwatch');
+            timerTab.classList.toggle('active', mode === 'timer');
+            
+            // Show/hide sections
+            timerInputSection.style.display = mode === 'timer' ? 'block' : 'none';
+            presetsSection.style.display = mode === 'timer' ? 'block' : 'none';
+            
+            // Update lap button and label
+            if (mode === 'stopwatch') {
+                timeLabel.textContent = 'Stopwatch';
+                lapBtn.style.display = 'block';
+                lapsSection.style.display = 'block';
+            } else {
+                timeLabel.textContent = 'Timer';
+                lapBtn.style.display = 'none';
+                lapsSection.style.display = 'none';
+            }
+            
+            // Reset timer
+            resetTimer();
         }
 
-        function startTimer() {
-            if (!isRunning) {
-                isRunning = true;
-                timer = setInterval(() => {
-                    seconds++;
-                    if (seconds === 60) {
-                        seconds = 0;
-                        minutes++;
-                        if (minutes === 60) {
-                            minutes = 0;
-                            hours++;
-                        }
-                    }
-                    updateDisplay();
-                }, 1000);
+        // Format time
+        function formatTime(ms) {
+            const totalSeconds = Math.floor(ms / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            const milliseconds = Math.floor((ms % 1000) / 10);
+            
+            if (hours > 0) {
+                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+            } else {
+                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
             }
         }
 
-        function pauseTimer() {
-            clearInterval(timer);
-            isRunning = false;
+        // Update display
+        function updateDisplay() {
+            if (mode === 'stopwatch') {
+                timeDisplay.textContent = formatTime(elapsedTime);
+            } else {
+                const remaining = Math.max(0, timerDuration - elapsedTime);
+                timeDisplay.textContent = formatTime(remaining);
+                
+                if (remaining <= 0 && isRunning) {
+                    timerComplete();
+                }
+            }
         }
 
-        function resetTimer() {
-            clearInterval(timer);
-            isRunning = false;
-            seconds = 0;
-            minutes = 0;
-            hours = 0;
+        // Timer tick
+        function tick() {
+            const now = Date.now();
+            elapsedTime = now - startTime;
             updateDisplay();
-            
-            lapList.innerHTML = '<li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">Click "Lap" to record times</li>';
-            lapCount = 1;
         }
 
-        function recordLap() {
-            if (isRunning) {
-                let displayHours = hours < 10 ? '0' + hours : hours;
-                let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
-                let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+        // Start timer
+        function startTimer() {
+            if (isRunning) return;
+            
+            if (mode === 'timer') {
+                // Get timer duration from inputs
+                const hours = parseInt(hoursInput.value) || 0;
+                const minutes = parseInt(minutesInput.value) || 0;
+                const seconds = parseInt(secondsInput.value) || 0;
                 
-                const lapTime = `${displayHours}:${displayMinutes}:${displaySeconds}`;
+                timerDuration = (hours * 3600 + minutes * 60 + seconds) * 1000;
                 
-                if (lapList.children[0] && lapList.children[0].textContent.includes('Click "Lap"')) {
-                    lapList.innerHTML = '';
+                if (timerDuration <= 0) {
+                    alert('Please set a valid timer duration');
+                    return;
                 }
                 
-                const lapItem = document.createElement('li');
-                lapItem.className = 'lap-item';
-                lapItem.innerHTML = `<span>Lap ${lapCount}</span> <span>${lapTime}</span>`;
-                lapList.appendChild(lapItem);
-                
-                lapCount++;
-                lapList.scrollTop = lapList.scrollHeight;
-            } else {
-                alert('Start the timer first to record laps');
+                // Reset elapsed time if starting fresh
+                if (elapsedTime >= timerDuration || elapsedTime === 0) {
+                    elapsedTime = 0;
+                }
+            }
+            
+            isRunning = true;
+            startTime = Date.now() - elapsedTime;
+            interval = setInterval(tick, 10);
+            
+            // Update buttons
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            resetBtn.disabled = false;
+            lapBtn.disabled = mode === 'stopwatch' ? false : true;
+            
+            // Disable inputs in timer mode
+            if (mode === 'timer') {
+                hoursInput.disabled = true;
+                minutesInput.disabled = true;
+                secondsInput.disabled = true;
             }
         }
 
-        function clearLaps() {
-            lapList.innerHTML = '<li class="lap-item" style="justify-content: center; color: #6d8ba0; border-left: none;">Click "Lap" to record times</li>';
-            lapCount = 1;
+        // Pause timer
+        function pauseTimer() {
+            if (!isRunning) return;
+            
+            clearInterval(interval);
+            isRunning = false;
+            
+            // Update buttons
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            
+            // Enable inputs in timer mode
+            if (mode === 'timer') {
+                hoursInput.disabled = false;
+                minutesInput.disabled = false;
+                secondsInput.disabled = false;
+            }
         }
 
-        startBtn.addEventListener('click', startTimer);
-        pauseBtn.addEventListener('click', pauseTimer);
-        resetBtn.addEventListener('click', resetTimer);
-        lapBtn.addEventListener('click', recordLap);
+        // Reset timer
+        function resetTimer() {
+            clearInterval(interval);
+            isRunning = false;
+            elapsedTime = 0;
+            
+            if (mode === 'stopwatch') {
+                laps = [];
+                lapCount = 0;
+                renderLaps();
+            } else {
+                timerDuration = 0;
+            }
+            
+            updateDisplay();
+            
+            // Update buttons
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            lapBtn.disabled = mode === 'stopwatch' ? false : true;
+            
+            // Enable inputs in timer mode
+            if (mode === 'timer') {
+                hoursInput.disabled = false;
+                minutesInput.disabled = false;
+                secondsInput.disabled = false;
+                hoursInput.value = 0;
+                minutesInput.value = 1;
+                secondsInput.value = 0;
+            }
+        }
 
-        updateDisplay();
+        // Timer complete
+        function timerComplete() {
+            clearInterval(interval);
+            isRunning = false;
+            
+            // Play sound
+            playAlert();
+            
+            // Update buttons
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            
+            // Enable inputs
+            hoursInput.disabled = false;
+            minutesInput.disabled = false;
+            secondsInput.disabled = false;
+            
+            // Flash display
+            timeDisplay.style.color = '#ff6b6b';
+            setTimeout(() => {
+                timeDisplay.style.color = '#42f8f5';
+            }, 2000);
+        }
+
+        // Play alert sound
+        function playAlert() {
+            // Simple beep using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            gainNode.gain.value = 0.5;
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // Record lap
+        function recordLap() {
+            if (mode !== 'stopwatch' || !isRunning) return;
+            
+            lapCount++;
+            laps.push({
+                number: lapCount,
+                time: elapsedTime
+            });
+            
+            renderLaps();
+        }
+
+        // Render laps
+        function renderLaps() {
+            if (laps.length === 0) {
+                lapsContainer.innerHTML = '<div class="lap-item"><span class="lap-number">Lap 1</span><span class="lap-time">00:00.00</span></div>';
+                return;
+            }
+            
+            lapsContainer.innerHTML = laps.map(lap => `
+                <div class="lap-item">
+                    <span class="lap-number">Lap ${lap.number}</span>
+                    <span class="lap-time">${formatTime(lap.time)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Clear laps
+        function clearLaps() {
+            if (confirm('Clear all lap times?')) {
+                laps = [];
+                lapCount = 0;
+                renderLaps();
+            }
+        }
+
+        // Set timer preset
+        function setTimerPreset(hours, minutes, seconds) {
+            hoursInput.value = hours;
+            minutesInput.value = minutes;
+            secondsInput.value = seconds;
+            
+            if (!isRunning) {
+                timerDuration = (hours * 3600 + minutes * 60 + seconds) * 1000;
+                elapsedTime = 0;
+                updateDisplay();
+            }
+        }
+
+        // Copy current time
+        function copyTime() {
+            const time = timeDisplay.textContent;
+            navigator.clipboard.writeText(time).then(() => {
+                showNotification('Time copied to clipboard!');
+            }).catch(() => {
+                alert('Press Ctrl+C to copy');
+            });
+        }
+
+        // Share time
+        function shareTime() {
+            const time = timeDisplay.textContent;
+            const text = `My ${mode} time: ${time}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Timer/Stopwatch',
+                    text: text
+                }).catch(() => {
+                    alert(text);
+                });
+            } else {
+                alert(text);
+            }
+        }
+
+        // Fullscreen mode
+        function fullscreenTimer() {
+            const elem = document.querySelector('.timer-card');
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            switchMode('stopwatch');
+            resetTimer();
+        });
     </script>
 </body>
 </html>
