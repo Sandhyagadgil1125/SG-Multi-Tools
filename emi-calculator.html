@@ -3,27 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>EMI Calculator - SG Multi Tools</title>
+    <title>Percentage Calculator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #E8DE99;
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
-
+        /* ===== PERCENTAGE CALCULATOR SPECIFIC STYLES ===== */
         .calculator-card {
             background: #1c222d;
             border-radius: 25px;
@@ -32,50 +18,34 @@
             max-width: 550px;
             border: 2px solid #42f8f5;
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            margin: 20px auto;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .mode-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
             margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #42f8f5;
         }
-
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #42f8f5;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .card-icon {
-            color: #42f8f5;
-            font-size: 1.6rem;
-        }
-
-        .card-badge {
+        .mode-tab {
             background: #12151a;
-            color: #42f8f5;
-            padding: 4px 12px;
-            border-radius: 25px;
             border: 1px solid #42f8f5;
+            border-radius: 25px;
+            padding: 8px 5px;
+            text-align: center;
+            color: white;
             font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .mode-tab:hover, .mode-tab.active {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
             font-weight: 600;
-            text-transform: uppercase;
         }
-
-        /* Input Section */
-        .input-section {
-            background: #12151a;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 2px solid #42f8f5;
-        }
+        .mode-tab i { margin-right: 4px; }
 
         .input-row {
             display: flex;
@@ -83,7 +53,6 @@
             gap: 10px;
             margin-bottom: 15px;
         }
-
         .input-icon {
             width: 40px;
             height: 40px;
@@ -95,26 +64,8 @@
             justify-content: center;
             color: #42f8f5;
             font-size: 1.1rem;
+            flex-shrink: 0;
         }
-
-        .input-group {
-            flex: 1;
-        }
-
-        .input-label {
-            color: #b0c4de;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .input-label i {
-            color: #42f8f5;
-            font-size: 0.6rem;
-        }
-
         .input-field {
             width: 100%;
             background: #1e2b37;
@@ -123,168 +74,123 @@
             padding: 10px;
             color: white;
             font-size: 0.9rem;
-            font-family: 'Poppins', sans-serif;
             outline: none;
         }
+        .input-field:focus { border-color: #42f8f5; box-shadow: 0 0 10px rgba(66, 248, 245, 0.3); }
 
-        .input-field:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
-        }
-
-        /* Slider */
-        .slider-container {
-            margin-top: 5px;
-        }
-
-        .slider {
-            width: 100%;
-            height: 5px;
-            border-radius: 3px;
-            background: #1e2b37;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #42f8f5;
-            border: 2px solid white;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(66, 248, 245, 0.4);
-        }
-
-        /* Results Grid */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin: 15px 0;
-        }
-
-        .result-card {
+        .result-display {
             background: #12151a;
             border-radius: 16px;
-            padding: 15px 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #42f8f5;
             text-align: center;
-            border: 1px solid #42f8f5;
         }
-
-        .result-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.2);
-        }
-
-        .result-label {
-            color: #b0c4de;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
-
         .result-value {
             color: #42f8f5;
-            font-size: 1.6rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            line-height: 1.2;
             font-family: monospace;
         }
-
-        .result-sub {
+        .result-label { color: #b0c4de; font-size: 0.8rem; margin-top: 5px; }
+        .result-formula {
             color: #6d8ba0;
-            font-size: 0.65rem;
-            margin-top: 3px;
+            font-size: 0.7rem;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #42f8f5;
         }
 
-        /* Loan Summary */
-        .summary-section {
+        .examples-section {
             background: #12151a;
-            border-radius: 16px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 12px;
             margin: 15px 0;
             border: 1px solid #42f8f5;
         }
-
-        .summary-title {
+        .examples-title {
             color: white;
             font-size: 0.8rem;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-
-        .summary-title i {
-            color: #42f8f5;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #2a4055;
-        }
-
-        .summary-row:last-child {
-            border-bottom: none;
-        }
-
-        .summary-label {
-            color: #b0c4de;
-            font-size: 0.8rem;
-        }
-
-        .summary-value {
-            color: #42f8f5;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* Action Buttons */
-        .action-grid {
+        .examples-title i { color: #42f8f5; }
+        .examples-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 15px 0;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
         }
-
-        .action-btn {
-            background: #12151a;
+        .example-btn {
+            background: #1e2b37;
             border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 10px 5px;
-            font-size: 0.75rem;
+            border-radius: 8px;
+            padding: 8px 3px;
+            text-align: center;
             color: white;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-align: center;
         }
-
-        .action-btn:hover {
+        .example-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
-        .action-btn i {
-            margin-right: 3px;
+        /* Affiliate Section - Identical to EMI Calculator */
+        .affiliate-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #12151a;
+            border-radius: 16px;
+            border: 1px solid #42f8f5;
+            text-align: center;
         }
-
-        .action-btn.primary {
+        .affiliate-link {
+            display: block;
+            background: #1e2b37;
+            border: 2px solid #42f8f5;
+            border-radius: 16px;
+            padding: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .affiliate-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
+        }
+        .affiliate-link h3 {
+            color: #42f8f5;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .affiliate-link p {
+            color: #c5d1de;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        .affiliate-badge {
+            display: inline-block;
             background: #42f8f5;
             color: #12151a;
             font-weight: 600;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.2s;
         }
-
-        .action-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
+        .affiliate-link:hover .affiliate-badge { background: white; }
+        .disclaimer-note {
+            color: #6d8ba0;
+            font-size: 0.6rem;
+            margin-top: 8px;
+            font-style: italic;
         }
 
         /* Footer */
@@ -292,7 +198,6 @@
             margin-top: 15px;
             text-align: center;
         }
-
         .home-link {
             display: inline-block;
             color: #42f8f5;
@@ -304,324 +209,204 @@
             font-size: 0.8rem;
             transition: all 0.3s ease;
         }
-
         .home-link:hover {
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
-
         .footer-email {
             margin: 12px 0 8px;
             color: #6d8ba0;
             font-size: 0.75rem;
         }
-
         .footer-email a {
             color: #42f8f5;
             text-decoration: none;
         }
-
-        .footer-email a:hover {
-            text-decoration: underline;
-        }
-
+        .footer-email a:hover { text-decoration: underline; }
         .copyright {
             color: #6d8ba0;
             font-size: 0.7rem;
         }
 
-        /* Responsive */
         @media screen and (max-width: 500px) {
-            body {
-                padding: 10px;
-            }
-            
-            .calculator-card {
-                padding: 15px;
-            }
-            
-            .card-title {
-                font-size: 1.1rem;
-            }
-            
-            .card-icon {
-                font-size: 1.3rem;
-            }
-            
-            .input-row {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .input-icon {
-                width: 100%;
-                height: 35px;
-            }
-            
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .result-value {
-                font-size: 1.3rem;
-            }
+            .calculator-card { padding: 15px; }
+            .mode-tabs { grid-template-columns: 1fr; }
+            .input-row { flex-direction: column; }
+            .input-icon { width: 100%; }
+            .examples-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-value { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
     <div class="calculator-card">
         <div class="card-header">
-            <div class="card-title">
-                <span class="card-icon">🏦</span> EMI Calculator
-            </div>
-            <div class="card-badge">LOAN</div>
+            <div class="card-title"><span class="card-icon">%</span> Percentage Calculator</div>
+            <div class="card-badge">PERCENT</div>
         </div>
 
-        <!-- Input Section -->
-        <div class="input-section">
-            <!-- Loan Amount -->
-            <div class="input-row">
-                <div class="input-icon">₹</div>
-                <div class="input-group">
-                    <div class="input-label">
-                        <i class="fas fa-circle"></i> Loan Amount
-                    </div>
-                    <input type="number" class="input-field" id="loanAmount" value="100000" min="0" step="1000">
-                </div>
-            </div>
-            
-            <!-- Slider for Loan Amount -->
-            <div class="slider-container">
-                <input type="range" class="slider" id="loanSlider" min="10000" max="10000000" value="100000" step="1000">
-            </div>
-
-            <!-- Interest Rate -->
-            <div class="input-row">
-                <div class="input-icon">%</div>
-                <div class="input-group">
-                    <div class="input-label">
-                        <i class="fas fa-circle"></i> Interest Rate (%)
-                    </div>
-                    <input type="number" class="input-field" id="interestRate" value="9" min="0" max="30" step="0.1">
-                </div>
-            </div>
-            
-            <!-- Slider for Interest Rate -->
-            <div class="slider-container">
-                <input type="range" class="slider" id="interestSlider" min="1" max="20" value="9" step="0.1">
-            </div>
-
-            <!-- Loan Tenure -->
-            <div class="input-row">
-                <div class="input-icon">📅</div>
-                <div class="input-group">
-                    <div class="input-label">
-                        <i class="fas fa-circle"></i> Loan Tenure (Years)
-                    </div>
-                    <input type="number" class="input-field" id="loanYears" value="5" min="1" max="30" step="1">
-                </div>
-            </div>
-            
-            <!-- Slider for Loan Tenure -->
-            <div class="slider-container">
-                <input type="range" class="slider" id="yearSlider" min="1" max="30" value="5" step="1">
-            </div>
+        <!-- Mode Tabs -->
+        <div class="mode-tabs">
+            <div class="mode-tab active" id="mode1Tab" onclick="switchMode(1)"><i class="fas fa-percent"></i> X% of Y</div>
+            <div class="mode-tab" id="mode2Tab" onclick="switchMode(2)"><i class="fas fa-arrow-up"></i> X is ?% of Y</div>
+            <div class="mode-tab" id="mode3Tab" onclick="switchMode(3)"><i class="fas fa-arrows-alt-h"></i> % Change</div>
         </div>
 
-        <!-- Results Grid -->
-        <div class="results-grid">
-            <div class="result-card">
-                <div class="result-label">Monthly EMI</div>
-                <div class="result-value" id="emiAmount">₹ 2,076</div>
-                <div class="result-sub">per month</div>
-            </div>
-            <div class="result-card">
-                <div class="result-label">Total Interest</div>
-                <div class="result-value" id="totalInterest">₹ 24,550</div>
-                <div class="result-sub">over 5 years</div>
-            </div>
+        <!-- Mode 1 Inputs -->
+        <div class="input-section" id="mode1Input">
+            <div class="input-row"><div class="input-icon">%</div><div class="input-group"><div class="input-label"><i class="fas fa-circle"></i> Percentage</div><input type="number" class="input-field" id="mode1Percent" value="20"></div></div>
+            <div class="input-row"><div class="input-icon">=</div><div class="input-group"><div class="input-label"><i class="fas fa-circle"></i> of Value</div><input type="number" class="input-field" id="mode1Value" value="1000"></div></div>
+        </div>
+        <!-- Mode 2 Inputs (hidden initially) -->
+        <div class="input-section" id="mode2Input" style="display: none;">
+            <div class="input-row"><div class="input-icon">X</div><div class="input-group"><div class="input-label"><i class="fas fa-circle"></i> Value X</div><input type="number" class="input-field" id="mode2X" value="50"></div></div>
+            <div class="input-row"><div class="input-icon">Y</div><div class="input-group"><div class="input-label"><i class="fas fa-circle"></i> of Value Y</div><input type="number" class="input-field" id="mode2Y" value="200"></div></div>
+        </div>
+        <!-- Mode 3 Inputs (hidden initially) -->
+        <div class="input-section" id="mode3Input" style="display: none;">
+            <div class="input-row"><div class="input-icon">←</div><div class="input-group"><div class="input-label"><i class="fas fa-circle"></i> From Value</div><input type="number" class="input-field" id="mode3From" value="100"></div></div>
+            <div class="input-row"><div class="input-icon">→</div><div class="input-group"><div class="input-label"><i class="fas fa-circle"></i> To Value</div><input type="number" class="input-field" id="mode3To" value="150"></div></div>
         </div>
 
-        <!-- Loan Summary -->
-        <div class="summary-section">
-            <div class="summary-title">
-                <i class="fas fa-chart-pie"></i> Loan Summary
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Principal Amount</span>
-                <span class="summary-value" id="principalAmount">₹ 1,00,000</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Total Payment</span>
-                <span class="summary-value" id="totalPayment">₹ 1,24,550</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Interest Amount</span>
-                <span class="summary-value" id="interestAmount">₹ 24,550</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Tenure (Months)</span>
-                <span class="summary-value" id="tenureMonths">60</span>
+        <!-- Result Display -->
+        <div class="result-display">
+            <div class="result-value" id="resultValue">200</div>
+            <div class="result-label" id="resultLabel">20% of 1000 = 200</div>
+            <div class="result-formula" id="resultFormula">(20 × 1000) ÷ 100 = 200</div>
+        </div>
+
+        <!-- Quick Examples -->
+        <div class="examples-section">
+            <div class="examples-title"><i class="fas fa-star"></i> Quick Examples</div>
+            <div class="examples-grid" id="examplesGrid">
+                <div class="example-btn" onclick="loadExample('10percent')">10% of 500</div>
+                <div class="example-btn" onclick="loadExample('25percent')">25% of 200</div>
+                <div class="example-btn" onclick="loadExample('whatPercent')">50 is ?% of 250</div>
+                <div class="example-btn" onclick="loadExample('change')">80 → 100</div>
+                <div class="example-btn" onclick="loadExample('discount')">20% off ₹2000</div>
+                <div class="example-btn" onclick="loadExample('tax')">Add 18% tax</div>
+                <div class="example-btn" onclick="loadExample('profit')">Profit 25%</div>
+                <div class="example-btn" onclick="loadExample('loss')">Loss 10%</div>
             </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="action-grid">
-            <button class="action-btn primary" onclick="calculateEMI()">
-                <i class="fas fa-calculator"></i> Calculate
-            </button>
-            <button class="action-btn" onclick="resetValues()">
-                <i class="fas fa-undo"></i> Reset
-            </button>
-            <button class="action-btn" onclick="copySummary()">
-                <i class="fas fa-copy"></i> Copy
-            </button>
+            <button class="action-btn primary" onclick="calculate()"><i class="fas fa-calculator"></i> Calculate</button>
+            <button class="action-btn" onclick="resetCalculator()"><i class="fas fa-undo"></i> Reset</button>
+            <button class="action-btn" onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+
+        <!-- ===== AFFILIATE LINK SECTION ===== -->
+        <div class="affiliate-section">
+            <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer" class="affiliate-link">
+                <h3><i class="fas fa-file-excel"></i> 📊 Personal Budget Planner</h3>
+                <p>Google Sheets - Take full control of your finances</p>
+                <span class="affiliate-badge">Get the Planner →</span>
+            </a>
+            <div class="disclaimer-note">
+                <i class="fas fa-info-circle"></i> Affiliate link. Helps support our free tools.
+            </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-
-            <div class="footer-email">
-                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-            </div>
-
-            <div class="copyright">
-                © 2026 SG Multi Tools. All rights reserved.
-            </div>
+            <a href="index.html" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
+            <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
         </div>
     </div>
 
     <script>
-        // Get DOM elements
-        const loanAmount = document.getElementById('loanAmount');
-        const loanSlider = document.getElementById('loanSlider');
-        const interestRate = document.getElementById('interestRate');
-        const interestSlider = document.getElementById('interestSlider');
-        const loanYears = document.getElementById('loanYears');
-        const yearSlider = document.getElementById('yearSlider');
-        
-        const emiAmount = document.getElementById('emiAmount');
-        const totalInterest = document.getElementById('totalInterest');
-        const principalAmount = document.getElementById('principalAmount');
-        const totalPayment = document.getElementById('totalPayment');
-        const interestAmount = document.getElementById('interestAmount');
-        const tenureMonths = document.getElementById('tenureMonths');
+        // ===== PERCENTAGE CALCULATOR FUNCTIONALITY (Unchanged) =====
+        let currentMode = 1;
+        const mode1Input = document.getElementById('mode1Input');
+        const mode2Input = document.getElementById('mode2Input');
+        const mode3Input = document.getElementById('mode3Input');
+        const mode1Tab = document.getElementById('mode1Tab');
+        const mode2Tab = document.getElementById('mode2Tab');
+        const mode3Tab = document.getElementById('mode3Tab');
+        const mode1Percent = document.getElementById('mode1Percent');
+        const mode1Value = document.getElementById('mode1Value');
+        const mode2X = document.getElementById('mode2X');
+        const mode2Y = document.getElementById('mode2Y');
+        const mode3From = document.getElementById('mode3From');
+        const mode3To = document.getElementById('mode3To');
+        const resultValue = document.getElementById('resultValue');
+        const resultLabel = document.getElementById('resultLabel');
+        const resultFormula = document.getElementById('resultFormula');
 
-        // Format currency
-        function formatCurrency(amount) {
-            return '₹ ' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        function switchMode(mode) {
+            currentMode = mode;
+            [mode1Tab, mode2Tab, mode3Tab].forEach((tab, index) => tab.classList.toggle('active', index + 1 === mode));
+            mode1Input.style.display = mode === 1 ? 'block' : 'none';
+            mode2Input.style.display = mode === 2 ? 'block' : 'none';
+            mode3Input.style.display = mode === 3 ? 'block' : 'none';
+            calculate();
         }
 
-        // Calculate EMI
-        function calculateEMI() {
-            const P = parseFloat(loanAmount.value) || 0;
-            const annualRate = parseFloat(interestRate.value) || 0;
-            const years = parseFloat(loanYears.value) || 0;
-            
-            if (P <= 0 || annualRate <= 0 || years <= 0) {
-                emiAmount.textContent = '₹ 0';
-                totalInterest.textContent = '₹ 0';
-                principalAmount.textContent = '₹ 0';
-                totalPayment.textContent = '₹ 0';
-                interestAmount.textContent = '₹ 0';
-                tenureMonths.textContent = '0';
-                return;
-            }
-
-            const monthlyRate = annualRate / (12 * 100);
-            const months = years * 12;
-            
-            // EMI formula: P * r * (1 + r)^n / ((1 + r)^n - 1)
-            const emi = P * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
-            const totalPayable = emi * months;
-            const totalInterestPayable = totalPayable - P;
-
-            // Update displays
-            emiAmount.textContent = formatCurrency(emi);
-            totalInterest.textContent = formatCurrency(totalInterestPayable);
-            principalAmount.textContent = formatCurrency(P);
-            totalPayment.textContent = formatCurrency(totalPayable);
-            interestAmount.textContent = formatCurrency(totalInterestPayable);
-            tenureMonths.textContent = months;
-
-            // Update sliders
-            loanSlider.value = P;
-            interestSlider.value = annualRate;
-            yearSlider.value = years;
+        function calculate() {
+            try {
+                if (currentMode === 1) calculateMode1();
+                else if (currentMode === 2) calculateMode2();
+                else calculateMode3();
+            } catch { resultValue.textContent = 'Error'; resultLabel.textContent = 'Invalid input'; resultFormula.textContent = 'Please check your numbers'; }
         }
 
-        // Reset to default values
-        function resetValues() {
-            loanAmount.value = 100000;
-            interestRate.value = 9;
-            loanYears.value = 5;
-            
-            loanSlider.value = 100000;
-            interestSlider.value = 9;
-            yearSlider.value = 5;
-            
-            calculateEMI();
+        function calculateMode1() {
+            const percent = parseFloat(mode1Percent.value) || 0;
+            const value = parseFloat(mode1Value.value) || 0;
+            const result = (percent / 100) * value;
+            resultValue.textContent = formatNumber(result);
+            resultLabel.textContent = `${percent}% of ${formatNumber(value)} = ${formatNumber(result)}`;
+            resultFormula.textContent = `(${percent} × ${formatNumber(value)}) ÷ 100 = ${formatNumber(result)}`;
+        }
+        function calculateMode2() {
+            const x = parseFloat(mode2X.value) || 0; const y = parseFloat(mode2Y.value) || 0;
+            if (y === 0) { resultValue.textContent = '∞'; resultLabel.textContent = 'Y cannot be zero'; resultFormula.textContent = ''; return; }
+            const result = (x / y) * 100;
+            resultValue.textContent = result.toFixed(2) + '%';
+            resultLabel.textContent = `${formatNumber(x)} is ${result.toFixed(2)}% of ${formatNumber(y)}`;
+            resultFormula.textContent = `(${formatNumber(x)} ÷ ${formatNumber(y)}) × 100 = ${result.toFixed(2)}%`;
+        }
+        function calculateMode3() {
+            const from = parseFloat(mode3From.value) || 0; const to = parseFloat(mode3To.value) || 0;
+            if (from === 0) { resultValue.textContent = '∞'; resultLabel.textContent = 'From value cannot be zero'; resultFormula.textContent = ''; return; }
+            const change = ((to - from) / from) * 100;
+            resultValue.textContent = change.toFixed(2) + '%';
+            resultLabel.textContent = `${formatNumber(from)} → ${formatNumber(to)} = ${change.toFixed(2)}% ${change >= 0 ? 'increase' : 'decrease'}`;
+            resultFormula.textContent = `((${formatNumber(to)} - ${formatNumber(from)}) ÷ ${formatNumber(from)}) × 100 = ${change.toFixed(2)}%`;
+        }
+        function formatNumber(num) { return Number.isInteger(num) ? num.toString() : num.toFixed(2).replace(/\.00$/, ''); }
+
+        function resetCalculator() {
+            mode1Percent.value = 20; mode1Value.value = 1000;
+            mode2X.value = 50; mode2Y.value = 200;
+            mode3From.value = 100; mode3To.value = 150;
+            calculate();
+        }
+        function copyResult() {
+            const text = `${resultLabel.textContent} | ${resultFormula.textContent}`;
+            navigator.clipboard.writeText(text).then(() => alert('Result copied!')).catch(() => alert('Press Ctrl+C to copy'));
+        }
+        function loadExample(type) {
+            const actions = {
+                '10percent': () => { switchMode(1); mode1Percent.value = 10; mode1Value.value = 500; },
+                '25percent': () => { switchMode(1); mode1Percent.value = 25; mode1Value.value = 200; },
+                'whatPercent': () => { switchMode(2); mode2X.value = 50; mode2Y.value = 250; },
+                'change': () => { switchMode(3); mode3From.value = 80; mode3To.value = 100; },
+                'discount': () => { switchMode(1); mode1Percent.value = 20; mode1Value.value = 2000; },
+                'tax': () => { switchMode(1); mode1Percent.value = 18; mode1Value.value = 1000; },
+                'profit': () => { switchMode(3); mode3From.value = 100; mode3To.value = 125; },
+                'loss': () => { switchMode(3); mode3From.value = 100; mode3To.value = 90; }
+            };
+            if (actions[type]) { actions[type](); calculate(); }
         }
 
-        // Copy summary
-        function copySummary() {
-            const text = `EMI Calculator Results:
-Loan Amount: ${principalAmount.textContent}
-Interest Rate: ${interestRate.value}%
-Tenure: ${loanYears.value} years (${tenureMonths.textContent} months)
-Monthly EMI: ${emiAmount.textContent}
-Total Interest: ${totalInterest.textContent}
-Total Payment: ${totalPayment.textContent}`;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Summary copied to clipboard!');
-            }).catch(() => {
-                alert('Press Ctrl+C to copy');
-            });
-        }
-
-        // Sync inputs with sliders
-        loanSlider.addEventListener('input', () => {
-            loanAmount.value = loanSlider.value;
-            calculateEMI();
-        });
-
-        interestSlider.addEventListener('input', () => {
-            interestRate.value = interestSlider.value;
-            calculateEMI();
-        });
-
-        yearSlider.addEventListener('input', () => {
-            loanYears.value = yearSlider.value;
-            calculateEMI();
-        });
-
-        loanAmount.addEventListener('input', () => {
-            loanSlider.value = loanAmount.value;
-            calculateEMI();
-        });
-
-        interestRate.addEventListener('input', () => {
-            interestSlider.value = interestRate.value;
-            calculateEMI();
-        });
-
-        loanYears.addEventListener('input', () => {
-            yearSlider.value = loanYears.value;
-            calculateEMI();
-        });
-
-        // Initialize
-        window.addEventListener('load', calculateEMI);
+        [mode1Percent, mode1Value, mode2X, mode2Y, mode3From, mode3To].forEach(el => el.addEventListener('input', calculate));
+        window.addEventListener('load', () => switchMode(1));
     </script>
 </body>
 </html>
