@@ -68,6 +68,34 @@
             text-transform: uppercase;
         }
 
+        /* Browser Support Warning */
+        .browser-warning {
+            background: #5f3e3e;
+            border: 1px solid #ff6b6b;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #ffb3b3;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .browser-warning i {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+        }
+
+        .browser-warning a {
+            color: #42f8f5;
+            text-decoration: none;
+        }
+
+        .browser-warning a:hover {
+            text-decoration: underline;
+        }
+
         /* Status Bar */
         .status-bar {
             background: #12151a;
@@ -78,6 +106,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .status-info {
@@ -98,6 +128,10 @@
             background: #4caf50;
             box-shadow: 0 0 10px #4caf50;
             animation: pulse 1.5s infinite;
+        }
+
+        .status-dot.unsupported {
+            background: #ff6b6b;
         }
 
         @keyframes pulse {
@@ -122,6 +156,11 @@
             cursor: pointer;
         }
 
+        .language-select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* Main Control Button */
         .control-section {
             display: flex;
@@ -144,7 +183,7 @@
             justify-content: center;
         }
 
-        .mic-button:hover {
+        .mic-button:hover:not(:disabled) {
             transform: scale(1.1);
             box-shadow: 0 0 20px rgba(66, 248, 245, 0.5);
         }
@@ -155,10 +194,16 @@
             animation: pulse 1.5s infinite;
         }
 
+        .mic-button.unsupported {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
         .mic-button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            pointer-events: none;
         }
 
         /* Text Display */
@@ -205,9 +250,14 @@
             transition: all 0.2s ease;
         }
 
-        .text-action:hover {
+        .text-action:hover:not(:disabled) {
             background: #42f8f5;
             color: #12151a;
+        }
+
+        .text-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .transcript-box {
@@ -276,7 +326,7 @@
             text-align: center;
         }
 
-        .action-btn:hover {
+        .action-btn:hover:not(:disabled) {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
@@ -294,20 +344,14 @@
             font-weight: 600;
         }
 
-        .action-btn.primary:hover {
+        .action-btn.primary:hover:not(:disabled) {
             background: transparent;
             color: #42f8f5;
         }
 
-        /* Adsterra Ad Container */
-        .ad-container {
-            width: 100%;
-            margin: 15px 0 10px;
-            text-align: center;
-            background: #12151a;
-            border-radius: 16px;
-            padding: 12px;
-            border: 1px solid #42f8f5;
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         /* Footer */
@@ -369,17 +413,12 @@
                 font-size: 1.1rem;
             }
             
-            .card-icon {
-                font-size: 1.3rem;
-            }
-            
             .action-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
             .status-bar {
                 flex-direction: column;
-                gap: 10px;
                 align-items: flex-start;
             }
             
@@ -387,11 +426,6 @@
                 width: 60px;
                 height: 60px;
                 font-size: 2rem;
-            }
-            
-            .transcript-box {
-                min-height: 80px;
-                max-height: 120px;
             }
         }
     </style>
@@ -405,31 +439,34 @@
             <div class="card-badge">VOICE</div>
         </div>
 
+        <!-- Browser Support Warning (shown only if needed) -->
+        <div class="browser-warning" id="browserWarning" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <strong>Your browser does not support speech recognition.</strong><br>
+                For best results, please use <a href="https://www.google.com/chrome/" target="_blank">Chrome</a>, <a href="https://www.microsoft.com/edge" target="_blank">Edge</a>, or <a href="https://www.apple.com/safari/" target="_blank">Safari</a>.
+            </div>
+        </div>
+
         <!-- Status Bar -->
         <div class="status-bar">
             <div class="status-info">
                 <div class="status-dot" id="statusDot"></div>
-                <span class="status-text" id="statusText">Ready to listen</span>
+                <span class="status-text" id="statusText">Checking browser support...</span>
             </div>
-            <select class="language-select" id="languageSelect">
+            <select class="language-select" id="languageSelect" disabled>
                 <option value="en-US">English (US)</option>
                 <option value="en-GB">English (UK)</option>
                 <option value="es-ES">Spanish</option>
                 <option value="fr-FR">French</option>
                 <option value="de-DE">German</option>
-                <option value="it-IT">Italian</option>
-                <option value="pt-PT">Portuguese</option>
-                <option value="ru-RU">Russian</option>
-                <option value="ja-JP">Japanese</option>
-                <option value="ko-KR">Korean</option>
-                <option value="zh-CN">Chinese (Simplified)</option>
                 <option value="hi-IN">Hindi</option>
             </select>
         </div>
 
         <!-- Main Control Button -->
         <div class="control-section">
-            <button class="mic-button" id="micButton" onclick="toggleListening()">
+            <button class="mic-button" id="micButton" onclick="toggleListening()" disabled>
                 <i class="fas fa-microphone"></i>
             </button>
         </div>
@@ -441,10 +478,10 @@
                     <i class="fas fa-comment"></i> Transcript
                 </div>
                 <div class="text-actions">
-                    <span class="text-action" onclick="copyTranscript()">
+                    <span class="text-action" onclick="copyTranscript()" id="copyBtn" disabled>
                         <i class="fas fa-copy"></i>
                     </span>
-                    <span class="text-action" onclick="clearTranscript()">
+                    <span class="text-action" onclick="clearTranscript()" id="clearBtn" disabled>
                         <i class="fas fa-eraser"></i>
                     </span>
                 </div>
@@ -462,24 +499,18 @@
 
         <!-- Action Buttons -->
         <div class="action-grid">
-            <button class="action-btn primary" onclick="startListening()" id="startBtn">
+            <button class="action-btn primary" onclick="startListening()" id="startBtn" disabled>
                 <i class="fas fa-play"></i> Start
             </button>
             <button class="action-btn" onclick="stopListening()" id="stopBtn" disabled>
                 <i class="fas fa-stop"></i> Stop
             </button>
-            <button class="action-btn" onclick="saveTranscript()">
+            <button class="action-btn" onclick="saveTranscript()" id="saveBtn" disabled>
                 <i class="fas fa-save"></i> Save
             </button>
-            <button class="action-btn" onclick="downloadTranscript()">
+            <button class="action-btn" onclick="downloadTranscript()" id="downloadBtn" disabled>
                 <i class="fas fa-download"></i> Download
             </button>
-        </div>
-
-        <!-- Adsterra Native Banner Ad -->
-        <div class="ad-container">
-            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
-            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
         </div>
 
         <!-- Footer -->
@@ -499,7 +530,7 @@
     </div>
 
     <script>
-        // Speech Recognition Setup
+        // Speech Recognition Setup with proper browser detection
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
@@ -508,6 +539,7 @@
         let finalTranscript = '';
         let startTime = null;
         let timerInterval = null;
+        let isSupported = !!recognition;
 
         // DOM Elements
         const micButton = document.getElementById('micButton');
@@ -517,19 +549,47 @@
         const interimBox = document.getElementById('interim');
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearBtn = document.getElementById('clearBtn');
         const languageSelect = document.getElementById('languageSelect');
         const wordCountSpan = document.getElementById('wordCount');
         const charCountSpan = document.getElementById('charCount');
         const durationSpan = document.getElementById('duration');
+        const browserWarning = document.getElementById('browserWarning');
 
         // Initialize
         function init() {
-            if (!recognition) {
+            if (!isSupported) {
+                // Browser doesn't support speech recognition
+                browserWarning.style.display = 'flex';
+                statusDot.classList.add('unsupported');
                 statusText.textContent = 'Speech recognition not supported';
-                micButton.style.display = 'none';
-                alert('Your browser does not support speech recognition. Try Chrome or Edge.');
+                micButton.classList.add('unsupported');
+                micButton.disabled = true;
+                languageSelect.disabled = true;
+                
+                // Disable all buttons
+                [startBtn, stopBtn, saveBtn, downloadBtn, copyBtn, clearBtn].forEach(btn => {
+                    if (btn) btn.disabled = true;
+                });
+                
+                console.log('Speech recognition not supported in this browser');
                 return;
             }
+
+            // Browser supports speech recognition
+            browserWarning.style.display = 'none';
+            statusDot.classList.remove('unsupported');
+            statusText.textContent = 'Ready to listen';
+            micButton.disabled = false;
+            languageSelect.disabled = false;
+            
+            // Enable buttons
+            [saveBtn, downloadBtn, copyBtn, clearBtn].forEach(btn => {
+                if (btn) btn.disabled = false;
+            });
 
             // Configure recognition
             recognition.continuous = true;
@@ -578,7 +638,15 @@
         // Handle error event
         function handleError(event) {
             console.error('Speech recognition error:', event.error);
-            statusText.textContent = 'Error: ' + event.error;
+            
+            if (event.error === 'not-allowed') {
+                statusText.textContent = 'Microphone access denied';
+            } else if (event.error === 'no-speech') {
+                statusText.textContent = 'No speech detected';
+            } else {
+                statusText.textContent = 'Error: ' + event.error;
+            }
+            
             stopListening();
         }
 
@@ -598,7 +666,7 @@
 
             // Update displays
             transcriptBox.textContent = finalTranscript;
-            interimBox.textContent = interimTranscript || '🎤 Listening...';
+            interimBox.textContent = interimTranscript || (isListening ? '🎤 Listening...' : '');
             
             // Auto-scroll to bottom
             transcriptBox.scrollTop = transcriptBox.scrollHeight;
@@ -609,19 +677,20 @@
 
         // Start listening
         function startListening() {
-            if (!recognition) return;
+            if (!isSupported || !recognition) return;
             
             try {
                 recognition.lang = languageSelect.value;
                 recognition.start();
             } catch (error) {
                 console.error('Failed to start:', error);
+                statusText.textContent = 'Failed to start. Try again.';
             }
         }
 
         // Stop listening
         function stopListening() {
-            if (!recognition) return;
+            if (!isSupported || !recognition) return;
             
             try {
                 recognition.stop();
@@ -632,6 +701,8 @@
 
         // Toggle listening
         function toggleListening() {
+            if (!isSupported) return;
+            
             if (isListening) {
                 stopListening();
             } else {
@@ -712,7 +783,7 @@
             if (timerInterval) clearInterval(timerInterval);
             
             timerInterval = setInterval(() => {
-                if (startTime) {
+                if (startTime && isListening) {
                     const elapsed = Math.floor((Date.now() - startTime) / 1000);
                     const minutes = Math.floor(elapsed / 60);
                     const seconds = elapsed % 60;
@@ -723,19 +794,15 @@
 
         // Show notification
         function showNotification(message) {
-            // Simple alert for now
             alert(message);
         }
 
         // Language change handler
         languageSelect.addEventListener('change', () => {
-            if (recognition) {
+            if (isSupported && recognition) {
                 recognition.lang = languageSelect.value;
             }
         });
-
-        // Initialize on load
-        window.addEventListener('load', init);
 
         // Load last saved transcript
         const saved = localStorage.getItem('sg_last_transcript');
@@ -744,6 +811,9 @@
             transcriptBox.textContent = saved;
             updateStats();
         }
+
+        // Initialize on load
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
