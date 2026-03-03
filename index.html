@@ -6,461 +6,7 @@
     <title>SG Multi Tools - Free Professional Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #E8DE99;  /* Light gold background */
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: #1c222d;
-            width: 100%;
-            padding: 0 5%;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 3px solid #42f8f5;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-sg {
-            background: #42f8f5;
-            color: #1c222d;
-            font-weight: 800;
-            font-size: 1.8rem;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.4);
-        }
-
-        .logo-text {
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .logo-text span {
-            color: #42f8f5;
-            font-weight: 700;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: #e0e0e0;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 30px;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: #42f8f5;
-            color: #1c222d;
-            border-color: #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.5);
-        }
-
-        /* Hero Section - REDUCED HEIGHT */
-        .hero {
-            width: 100%;
-            max-width: 1200px;
-            margin: 15px auto 10px;  /* Reduced from 40px 30px to 15px 10px */
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;  /* Kept same size */
-            font-weight: 700;
-            color: #1c222d;  /* Changed to dark color like "SG" in logo */
-            margin-bottom: 5px;  /* Reduced from 10px to 5px */
-        }
-
-        .hero h1 span {
-            color: #1c222d;  /* Changed from cyan to dark color */
-            font-weight: 700;
-        }
-
-        .hero-description {
-            font-size: 1.1rem;  /* Kept same size */
-            color: #4A3B2C;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Tools Grid - MOVED UP */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-            margin: 10px auto 50px;  /* Reduced top margin from 20px to 10px */
-            padding: 0 20px;
-        }
-
-        /* Tool Card */
-        .tool-card {
-            background: #1c222d;
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid #42f8f5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(66, 248, 245, 0.3);
-            border-color: #42f8f5;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .tool-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-
-        .tool-badge {
-            background: #12151a;
-            color: #42f8f5;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid #42f8f5;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .tool-card h3 {
-            color: #ffffff;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .tool-description {
-            color: #c5d1de;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 16px;
-            flex-grow: 1;
-        }
-
-        .open-tool-btn {
-            display: inline-block;
-            background: transparent;
-            color: #42f8f5;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 8px 0;
-            border-top: 1px solid #2a4055;
-            width: 100%;
-            text-align: left;
-            transition: all 0.2s;
-        }
-
-        .tool-card:hover .open-tool-btn {
-            color: #1c222d;
-            background: #42f8f5;
-            padding: 8px 12px;
-            border-radius: 30px;
-            border-top: none;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
-        }
-
-        .open-tool-btn i {
-            margin-left: 6px;
-            font-size: 0.7rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: #1c222d;
-            width: 100%;
-            padding: 40px 20px 30px;
-            border-top: 3px solid #42f8f5;
-            margin-top: 30px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links li a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-            font-weight: 500;
-        }
-
-        .footer-links li a:hover {
-            color: #42f8f5;
-        }
-
-        .footer-email {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .footer-email span {
-            color: #ffffff;
-            font-size: 1.2rem;
-        }
-
-        .footer-email a {
-            color: #ffffff !important;
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .footer-email a:hover {
-            color: #42f8f5 !important;
-        }
-
-        /* Adsterra Link */
-        .ad-link {
-            text-align: center;
-            margin: 5px 0 10px 0;
-        }
-
-        .ad-link a {
-            color: #42f8f5;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border: 1px solid #42f8f5;
-            padding: 8px 25px;
-            border-radius: 30px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            background: transparent;
-            font-weight: 500;
-        }
-
-        .ad-link a:hover {
-            background: #42f8f5;
-            color: #1c222d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .ad-link i {
-            margin-right: 8px;
-        }
-
-        .copyright {
-            color: #ffffff;
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-
-        /* Responsive Media Queries */
-        @media screen and (max-width: 1000px) {
-            .tools-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media screen and (max-width: 700px) {
-            .navbar {
-                height: auto;
-                padding: 15px 5%;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-links {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                margin-top: 5px;  /* Even smaller on mobile */
-            }
-            
-            .hero {
-                margin: 10px auto 5px;  /* Smaller on mobile */
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-description {
-                font-size: 1rem;
-            }
-            
-            .footer-links {
-                gap: 15px;
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            body {
-                padding: 0;
-            }
-            
-            .navbar {
-                padding: 12px 15px;
-            }
-            
-            .logo-sg {
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
-            }
-            
-            .logo-text {
-                font-size: 1.2rem;
-            }
-            
-            .hero {
-                margin: 8px auto 3px;  /* Minimal on small mobile */
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-description {
-                font-size: 0.95rem;
-            }
-            
-            .tools-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                margin-top: 5px;
-            }
-            
-            .tool-card {
-                padding: 15px;
-            }
-            
-            .footer {
-                padding: 30px 15px 20px;
-            }
-            
-            .footer-links {
-                gap: 12px;
-            }
-            
-            .footer-links li a {
-                font-size: 0.85rem;
-            }
-            
-            .footer-email a {
-                font-size: 1rem;
-            }
-            
-            .footer-email span {
-                font-size: 1rem;
-            }
-            
-            .ad-link a {
-                padding: 6px 20px;
-                font-size: 0.8rem;
-            }
-            
-            .copyright {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media screen and (max-width: 350px) {
-            .nav-links {
-                gap: 8px;
-            }
-            
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 5px 10px;
-            }
-            
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-            
-            .footer-links {
-                gap: 8px;
-            }
-            
-            .footer-links li a {
-                font-size: 0.75rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -477,13 +23,13 @@
         </div>
     </div>
 
-    <!-- Hero Section - WITH DARKER TEXT AND REDUCED HEIGHT -->
+    <!-- Hero Section -->
     <div class="hero">
-        <h1>SG Multi Tools For Daily Use</h1>  <!-- Removed span, now all dark -->
+        <h1>SG Multi Tools For Daily Use</h1>
         <div class="hero-description">Reliable free online tools · No installation · No sign-ups</div>
     </div>
 
-    <!-- Tools Grid - 20 tools in 4 columns (MOVED UP) -->
+    <!-- Tools Grid - 20 tools in 4 columns -->
     <div class="tools-grid">
         <!-- Age Calculator -->
         <a href="age-calculator.html" class="tool-card">
@@ -707,31 +253,47 @@
     </div>
 
     <!-- Footer -->
-    <!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <ul class="footer-links">
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="disclaimer.html">Disclaimer</a></li>
-            <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
-            <li><a href="sitemap.html">Sitemap</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        
-        <div class="footer-email">
-            <span>📧</span>
-            <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-        </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+                <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <!-- Social Media & Email Row -->
+            <div class="social-row">
+                <!-- Email -->
+                <div class="social-item">
+                    <span class="social-icon">📧</span>
+                    <a href="mailto:contact@sgtools.in" class="social-link">contact@sgtools.in</a>
+                </div>
+                
+                <!-- Instagram -->
+                <div class="social-item">
+                    <span class="social-icon">📷</span>
+                    <a href="https://www.instagram.com/sandhya112552?igsh=MWZiZm9ucGRpbHZy" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
+                </div>
+                
+                <!-- Facebook -->
+                <div class="social-item">
+                    <span class="social-icon">👍</span>
+                    <a href="https://www.facebook.com/share/1YYEaCt3e4/" target="_blank" rel="noopener noreferrer" class="social-link">Facebook</a>
+                </div>
+            </div>
 
-        <!-- Adsterra Native Banner Ad -->
-        <div style="width: 100%; margin: 20px 0; text-align: center;">
-            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
-            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
+            <!-- Adsterra Link -->
+            <div class="ad-link">
+                <a href="https://progressmagnify.com/de4yhwv04?key=ee04cfe3e08eba4b6d01a34aad9dd3e5" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-ad"></i> Advertisement
+                </a>
+            </div>
+            
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
         </div>
-        
-        <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>
