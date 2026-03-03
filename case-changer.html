@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Case Changer - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,222 +15,239 @@
         }
 
         body {
-            background: #E8DE99;  /* Light gold background */
+            background: #E8DE99;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .tool-container {
-            max-width: 520px;
+        .changer-card {
+            background: #1c222d;
+            border-radius: 25px;
+            padding: 20px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.5rem;
-            background: #1c222d;  /* Dark card background */
-            border-radius: 18px;
+            max-width: 650px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
+            gap: 8px;
             color: #42f8f5;
+            font-size: 1.3rem;
+            font-weight: 600;
         }
-        
-        .tool-header h1 {
+
+        .card-icon {
             color: #42f8f5;
             font-size: 1.6rem;
-            font-weight: 600;
         }
 
-        .tool-badge {
+        .card-badge {
             background: #12151a;
             color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 25px;
+            border: 1px solid #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
             text-transform: uppercase;
         }
-        
-        /* Description - Hidden on mobile */
-        .mobile-hide {
-            display: block;
-            color: #c5d1de;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.4;
+
+        /* Sample buttons - smaller */
+        .samples {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
+        .sample-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 25px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 60px;
+            text-align: center;
         }
 
-        /* Form Elements */
+        .sample-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
+        }
+
+        /* Input Section - compact */
+        .input-section {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 2px solid #42f8f5;
+        }
+
         .input-label {
+            color: #b0c4de;
+            font-size: 0.75rem;
+            margin-bottom: 5px;
             display: block;
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
         }
 
         .input-label i {
             color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
+            margin-right: 5px;
         }
 
         .tool-textarea {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 0.85rem;
             font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
+            outline: none;
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
+            max-height: 150px;
         }
 
         .tool-textarea:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
         .tool-textarea::placeholder {
             color: #6d8ba0;
-            opacity: 0.6;
         }
 
-        .tool-textarea[readonly] {
-            background: #f5faff;
-            cursor: default;
+        /* Stats Row - compact */
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            color: #b0c4de;
+            font-size: 0.7rem;
+            padding: 0 3px;
+            margin-top: 5px;
         }
 
-        .tool-select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-        }
-
-        .tool-select:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
-
-        /* Button Grid */
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 1rem 0;
-        }
-
-        .tool-btn {
-            background: #12151a;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            padding: 10px;
-            font-size: 0.85rem;
+        .stats-row span {
+            color: #42f8f5;
             font-weight: 600;
+        }
+
+        /* Case Buttons Grid - compact */
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin: 12px 0;
+        }
+
+        .case-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 8px 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .tool-btn:hover {
+        .case-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
-        .tool-btn.primary {
-            background: #42f8f5;
-            color: #12151a;
-            font-weight: 700;
+        .case-btn i {
+            margin-right: 3px;
+            font-size: 0.7rem;
         }
 
-        .tool-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
+        /* Action Buttons - compact */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin: 12px 0;
         }
 
         .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #12151a;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 8px 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
         .action-btn:hover {
-            background: transparent;
-            color: #42f8f5;
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
         .action-btn i {
-            margin-right: 8px;
+            margin-right: 3px;
+        }
+
+        /* Adsterra Ad Container */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        /* Footer - compact */
+        .footer {
+            margin-top: 15px;
+            text-align: center;
         }
 
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 8px 20px;
             border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -239,14 +255,13 @@
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
         .footer-email {
-            margin-top: 1.5rem;
+            margin: 12px 0 8px;
             color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
+            font-size: 0.75rem;
         }
 
         .footer-email a {
@@ -258,139 +273,314 @@
             text-decoration: underline;
         }
 
-        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        .copyright {
+            color: #6d8ba0;
+            font-size: 0.7rem;
+        }
+
+        /* Responsive */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 100%;
+            .changer-card {
+                padding: 15px;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.1rem;
             }
             
-            .tool-icon {
-                font-size: 1.8rem;
+            .card-icon {
+                font-size: 1.3rem;
             }
             
-            .tool-badge {
-                font-size: 0.65rem;
-                padding: 3px 10px;
-            }
-            
-            .input-label {
-                font-size: 0.8rem;
-            }
-            
-            .tool-textarea {
-                padding: 0.7rem 0.9rem;
-                font-size: 0.85rem;
-                min-height: 80px;
-            }
-            
-            .button-grid {
-                gap: 5px;
-            }
-            
-            .tool-btn {
-                padding: 8px;
-                font-size: 0.75rem;
-            }
-            
-            .action-btn {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            
-            .home-link {
-                padding: 6px 18px;
-                font-size: 0.8rem;
-            }
-            
-            .footer-email {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media screen and (max-width: 350px) {
-            .button-grid {
+            .case-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .tool-header {
+            .action-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .samples {
                 flex-wrap: wrap;
             }
             
-            .tool-badge {
-                margin-left: 0;
+            .tool-textarea {
+                min-height: 70px;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            .changer-card {
+                padding: 10px;
             }
             
-            .footer-email {
-                font-size: 0.75rem;
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <div class="tool-header">
-            <span class="tool-icon">🔤</span>
-            <h1>Case Changer</h1>
-            <span class="tool-badge">TEXT</span>
+    <div class="changer-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">🔤</span> Case Changer
+            </div>
+            <div class="card-badge">TEXT</div>
         </div>
 
-        <div class="mobile-hide">
-            Convert text to uppercase, lowercase, or title case instantly.
+        <!-- Sample buttons - compact -->
+        <div class="samples">
+            <button class="sample-btn" onclick="setSample('hello')">Hello World</button>
+            <button class="sample-btn" onclick="setSample('lorem')">Lorem Ipsum</button>
+            <button class="sample-btn" onclick="setSample('title')">Sample Title</button>
+            <button class="sample-btn" onclick="clearText()">Clear</button>
         </div>
 
-        <label class="input-label"><i class="fas fa-pencil-alt"></i> Input Text</label>
-        <textarea class="tool-textarea" id="case-input" placeholder="Enter your text here...">The quick brown fox jumps over the lazy dog.</textarea>
-
-        <div class="button-grid">
-            <button class="tool-btn" onclick="applyCase('upper')">UPPER</button>
-            <button class="tool-btn" onclick="applyCase('lower')">lower</button>
-            <button class="tool-btn" onclick="applyCase('title')">Title</button>
+        <!-- Input Section - compact -->
+        <div class="input-section">
+            <label class="input-label"><i class="fas fa-pencil-alt"></i> Enter Your Text</label>
+            <textarea class="tool-textarea" id="inputText" placeholder="Type or paste your text here...">The quick brown fox jumps over the lazy dog.</textarea>
+            
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div>Words: <span id="wordCount">9</span></div>
+                <div>Characters: <span id="charCount">41</span></div>
+                <div>Lines: <span id="lineCount">1</span></div>
+            </div>
         </div>
 
-        <label class="input-label"><i class="fas fa-copy"></i> Output Result</label>
-        <textarea class="tool-textarea" id="case-output" placeholder="Result will appear here..." readonly>THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.</textarea>
+        <!-- Case Buttons Grid -->
+        <div class="case-grid">
+            <button class="case-btn" onclick="toUpperCase()">
+                <i class="fas fa-arrow-up"></i> UPPER
+            </button>
+            <button class="case-btn" onclick="toLowerCase()">
+                <i class="fas fa-arrow-down"></i> lower
+            </button>
+            <button class="case-btn" onclick="toTitleCase()">
+                <i class="fas fa-font"></i> Title
+            </button>
+            <button class="case-btn" onclick="toSentenceCase()">
+                <i class="fas fa-paragraph"></i> Sentence
+            </button>
+            <button class="case-btn" onclick="toCamelCase()">
+                <i class="fas fa-code"></i> camelCase
+            </button>
+            <button class="case-btn" onclick="toPascalCase()">
+                <i class="fas fa-code-branch"></i> PascalCase
+            </button>
+            <button class="case-btn" onclick="toSnakeCase()">
+                <i class="fas fa-link"></i> snake_case
+            </button>
+            <button class="case-btn" onclick="toKebabCase()">
+                <i class="fas fa-minus"></i> kebab-case
+            </button>
+        </div>
 
-        <button class="action-btn" onclick="applyCase('upper')">
-            <i class="fas fa-sync-alt"></i> APPLY CASE
-        </button>
+        <!-- Output Section -->
+        <div class="input-section" style="margin-top: 10px;">
+            <label class="input-label"><i class="fas fa-file-alt"></i> Converted Text</label>
+            <textarea class="tool-textarea" id="outputText" placeholder="Converted text will appear here..." readonly></textarea>
+            
+            <!-- Copy Button -->
+            <div style="text-align: right; margin-top: 5px;">
+                <button class="action-btn" style="display: inline-block; width: auto; padding: 5px 15px;" onclick="copyResult()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+        </div>
 
-        <div style="text-align: center;">
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn" onclick="toUpperCase()">
+                <i class="fas fa-arrow-up"></i> UPPER
+            </button>
+            <button class="action-btn" onclick="toLowerCase()">
+                <i class="fas fa-arrow-down"></i> lower
+            </button>
+            <button class="action-btn" onclick="swapCase()">
+                <i class="fas fa-exchange-alt"></i> Swap
+            </button>
+            <button class="action-btn" onclick="clearText()">
+                <i class="fas fa-eraser"></i> Clear
+            </button>
+        </div>
+
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
             </a>
-        </div>
 
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            <div class="footer-email">
+                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 SG Multi Tools. All rights reserved.
+            </div>
         </div>
     </div>
 
     <script>
-        function applyCase(type) {
-            const input = document.getElementById('case-input').value;
-            const output = document.getElementById('case-output');
-            let result = input;
+        // Update stats
+        function updateStats() {
+            const text = document.getElementById('inputText').value;
             
-            if (type === 'upper') {
-                result = input.toUpperCase();
-            } else if (type === 'lower') {
-                result = input.toLowerCase();
-            } else if (type === 'title') {
-                result = input.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+            // Word count
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('wordCount').textContent = words;
+            
+            // Character count
+            document.getElementById('charCount').textContent = text.length;
+            
+            // Line count
+            const lines = text ? text.split('\n').length : 0;
+            document.getElementById('lineCount').textContent = lines;
+        }
+
+        // Convert to Uppercase
+        function toUpperCase() {
+            const input = document.getElementById('inputText').value;
+            document.getElementById('outputText').value = input.toUpperCase();
+            updateStats();
+        }
+
+        // Convert to Lowercase
+        function toLowerCase() {
+            const input = document.getElementById('inputText').value;
+            document.getElementById('outputText').value = input.toLowerCase();
+            updateStats();
+        }
+
+        // Convert to Title Case
+        function toTitleCase() {
+            const input = document.getElementById('inputText').value;
+            const result = input.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Convert to Sentence Case
+        function toSentenceCase() {
+            const input = document.getElementById('inputText').value;
+            const result = input.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, char => char.toUpperCase());
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Convert to Camel Case
+        function toCamelCase() {
+            const input = document.getElementById('inputText').value;
+            const words = input.toLowerCase().match(/[a-z0-9]+/g) || [];
+            const result = words.map((word, index) => {
+                if (index === 0) return word;
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join('');
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Convert to Pascal Case
+        function toPascalCase() {
+            const input = document.getElementById('inputText').value;
+            const words = input.toLowerCase().match(/[a-z0-9]+/g) || [];
+            const result = words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Convert to Snake Case
+        function toSnakeCase() {
+            const input = document.getElementById('inputText').value;
+            const words = input.toLowerCase().match(/[a-z0-9]+/g) || [];
+            const result = words.join('_');
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Convert to Kebab Case
+        function toKebabCase() {
+            const input = document.getElementById('inputText').value;
+            const words = input.toLowerCase().match(/[a-z0-9]+/g) || [];
+            const result = words.join('-');
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Swap Case
+        function swapCase() {
+            const input = document.getElementById('inputText').value;
+            const result = input.split('').map(char => {
+                if (char === char.toUpperCase()) {
+                    return char.toLowerCase();
+                } else {
+                    return char.toUpperCase();
+                }
+            }).join('');
+            document.getElementById('outputText').value = result;
+            updateStats();
+        }
+
+        // Copy result
+        function copyResult() {
+            const output = document.getElementById('outputText').value;
+            if (!output) {
+                alert('No text to copy');
+                return;
             }
             
-            output.value = result;
+            navigator.clipboard.writeText(output).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(() => {
+                alert('Press Ctrl+C to copy');
+            });
         }
+
+        // Clear all text
+        function clearText() {
+            if (document.getElementById('inputText').value || document.getElementById('outputText').value) {
+                if (confirm('Clear all text?')) {
+                    document.getElementById('inputText').value = '';
+                    document.getElementById('outputText').value = '';
+                    updateStats();
+                }
+            }
+        }
+
+        // Set sample text
+        function setSample(type) {
+            const samples = {
+                hello: 'The quick brown fox jumps over the lazy dog.',
+                lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.',
+                title: 'this is a sample title that needs proper capitalization'
+            };
+            
+            document.getElementById('inputText').value = samples[type];
+            document.getElementById('outputText').value = '';
+            updateStats();
+        }
+
+        // Auto-update stats on input
+        document.getElementById('inputText').addEventListener('input', updateStats);
+
+        // Initialize
+        window.addEventListener('load', updateStats);
     </script>
 </body>
 </html>
