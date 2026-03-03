@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>QR Code Generator - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,322 +15,313 @@
         }
 
         body {
-            background: #E8DE99;  /* Light gold background */
+            background: #E8DE99;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .tool-container {
-            max-width: 520px;
+        .qrcode-card {
+            background: #1c222d;
+            border-radius: 25px;
+            padding: 20px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #1c222d;  /* Dark card background */
-            border-radius: 18px;
+            max-width: 550px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
+            gap: 8px;
             color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #42f8f5;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
-        .tool-badge {
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.6rem;
+        }
+
+        .card-badge {
             background: #12151a;
             color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 25px;
+            border: 1px solid #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
             text-transform: uppercase;
         }
 
-        /* Description - Hidden on mobile */
-        .mobile-hide {
-            display: block;
-            color: #c5d1de;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.4;
+        /* Input Section */
+        .input-section {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #42f8f5;
         }
 
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-        }
-
-        /* Form Elements */
         .input-label {
+            color: #b0c4de;
+            font-size: 0.75rem;
+            margin-bottom: 5px;
             display: block;
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
         }
 
         .input-label i {
             color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
+            margin-right: 5px;
         }
 
-        .tool-input {
+        .text-input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 10px;
+            padding: 12px;
+            color: white;
             font-size: 0.9rem;
-            color: #1c222d;
             font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
-        }
-
-        .tool-input:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
             outline: none;
-            background: #ffffff;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 10px;
         }
 
-        .tool-input::placeholder {
+        .text-input:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
+        }
+
+        .text-input::placeholder {
             color: #6d8ba0;
-            opacity: 0.6;
-        }
-
-        .tool-select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            margin-bottom: 1rem;
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-        }
-
-        .tool-select:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
         }
 
         /* QR Code Display */
-        .qr-container {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
+        .qrcode-display {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #42f8f5;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid #42f8f5;
             min-height: 200px;
         }
 
-        .qr-placeholder {
-            text-align: center;
-            color: #6d8ba0;
+        #qrcode {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
         }
 
-        .qr-placeholder i {
-            font-size: 3rem;
-            color: #42f8f5;
-            margin-bottom: 0.5rem;
+        #qrcode img {
+            margin: 0 auto;
+            display: block;
         }
 
-        #qrImage {
-            max-width: 100%;
-            height: auto;
-            display: none;
+        /* Options Row */
+        .options-row {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
         }
 
-        /* Size Control */
-        .size-control {
-            margin: 1rem 0;
+        .option-select {
+            flex: 1;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .option-select:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 8px rgba(66, 248, 245, 0.3);
+        }
+
+        /* Size Slider */
+        .size-section {
+            margin: 15px 0;
         }
 
         .size-header {
             display: flex;
             justify-content: space-between;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
         }
 
-        .size-value {
+        .size-header span {
             color: #42f8f5;
             font-weight: 600;
         }
 
-        .slider {
+        .size-slider {
             width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: #2a4055;
+            height: 6px;
+            border-radius: 3px;
+            background: #1e2b37;
             outline: none;
             -webkit-appearance: none;
-            margin-bottom: 1rem;
         }
 
-        .slider::-webkit-slider-thumb {
+        .size-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: #42f8f5;
+            border: 2px solid white;
             cursor: pointer;
-            border: 2px solid #1c222d;
-            box-shadow: 0 0 10px rgba(66, 248, 245, 0.4);
-            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(66, 248, 245, 0.4);
         }
 
-        .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.6);
-        }
-
-        /* Error Correction Level */
-        .error-correction {
-            display: flex;
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        .ec-btn {
-            flex: 1;
-            background: #12151a;
-            border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 8px;
-            font-size: 0.7rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-
-        .ec-btn:hover {
-            background: #42f8f5;
-            color: #12151a;
-            border-color: #42f8f5;
-        }
-
-        .ec-btn.active {
-            background: #42f8f5;
-            color: #12151a;
-            border-color: #42f8f5;
-            font-weight: 600;
-        }
-
-        /* Button Grid */
-        .button-grid {
+        /* Action Buttons */
+        .action-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        .tool-btn {
-            background: #12151a;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            padding: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .tool-btn:hover {
-            background: #42f8f5;
-            color: #12151a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .tool-btn.primary {
-            background: #42f8f5;
-            color: #12151a;
-            font-weight: 700;
-        }
-
-        .tool-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 15px 0;
         }
 
         .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #12151a;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 10px 5px;
+            font-size: 0.75rem;
+            color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
         .action-btn:hover {
-            background: transparent;
-            color: #42f8f5;
+            background: #42f8f5;
+            color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
         .action-btn i {
-            margin-right: 8px;
+            margin-right: 3px;
+            font-size: 0.8rem;
+        }
+
+        .action-btn.primary {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+        }
+
+        .action-btn.primary:hover {
+            background: transparent;
+            color: #42f8f5;
+        }
+
+        /* Quick Examples */
+        .examples-section {
+            background: #12151a;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #42f8f5;
+        }
+
+        .examples-title {
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .examples-title i {
+            color: #42f8f5;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .example-item {
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 8px;
+            padding: 8px 3px;
+            text-align: center;
+            color: white;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .example-item:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+        }
+
+        .example-item i {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        /* Adsterra Ad Container */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            text-align: center;
         }
 
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 8px 20px;
             border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -339,14 +329,13 @@
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
         .footer-email {
-            margin-top: 1.5rem;
+            margin: 12px 0 8px;
             color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
+            font-size: 0.75rem;
         }
 
         .footer-email a {
@@ -358,347 +347,308 @@
             text-decoration: underline;
         }
 
-        /* Sample buttons */
-        .samples {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .sample-btn {
-            background: #12151a;
-            border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 6px 12px;
+        .copyright {
+            color: #6d8ba0;
             font-size: 0.7rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex: 1;
-            min-width: 70px;
-            text-align: center;
         }
 
-        .sample-btn:hover {
-            background: #42f8f5;
-            color: #12151a;
-            border-color: #42f8f5;
-        }
-
-        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        /* Responsive */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 100%;
+            .qrcode-card {
+                padding: 15px;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.1rem;
             }
             
-            .tool-icon {
-                font-size: 1.8rem;
+            .card-icon {
+                font-size: 1.3rem;
             }
             
-            .tool-badge {
-                font-size: 0.65rem;
-                padding: 3px 10px;
+            .action-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .input-label {
-                font-size: 0.8rem;
+            .examples-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .tool-input {
-                padding: 0.7rem 0.9rem;
-                font-size: 0.85rem;
+            .options-row {
+                flex-direction: column;
             }
             
-            .tool-select {
-                padding: 0.7rem 0.9rem;
-                font-size: 0.85rem;
-            }
-            
-            .qr-container {
-                padding: 1rem;
+            .qrcode-display {
                 min-height: 180px;
-            }
-            
-            .qr-placeholder i {
-                font-size: 2.5rem;
-            }
-            
-            .size-header {
-                font-size: 0.85rem;
-            }
-            
-            .slider::-webkit-slider-thumb {
-                width: 20px;
-                height: 20px;
-            }
-            
-            .error-correction {
-                flex-wrap: wrap;
-                gap: 5px;
-            }
-            
-            .ec-btn {
-                flex: 1 1 calc(50% - 5px);
-                padding: 6px;
-                font-size: 0.65rem;
-            }
-            
-            .button-grid {
-                gap: 8px;
-            }
-            
-            .tool-btn {
-                padding: 10px;
-                font-size: 0.75rem;
-            }
-            
-            .samples {
-                gap: 5px;
-            }
-            
-            .sample-btn {
-                padding: 5px 8px;
-                font-size: 0.65rem;
-                min-width: 60px;
-            }
-            
-            .action-btn {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            
-            .home-link {
-                padding: 6px 18px;
-                font-size: 0.8rem;
-            }
-            
-            .footer-email {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media screen and (max-width: 350px) {
-            .error-correction {
-                flex-direction: column;
-            }
-            
-            .ec-btn {
-                width: 100%;
-            }
-            
-            .button-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .samples {
-                flex-direction: column;
-            }
-            
-            .sample-btn {
-                width: 100%;
-            }
-            
-            .tool-header {
-                flex-wrap: wrap;
-            }
-            
-            .tool-badge {
-                margin-left: 0;
-            }
-            
-            .footer-email {
-                font-size: 0.7rem;
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <div class="tool-header">
-            <span class="tool-icon">📱</span>
-            <h1>QR Code Generator</h1>
-            <span class="tool-badge">QR</span>
-        </div>
-
-        <div class="mobile-hide">
-            Generate QR codes for text, URLs, contact info, and more.
-        </div>
-
-        <div class="samples">
-            <button class="sample-btn" onclick="setSample('url')">URL</button>
-            <button class="sample-btn" onclick="setSample('text')">Text</button>
-            <button class="sample-btn" onclick="setSample('email')">Email</button>
-            <button class="sample-btn" onclick="setSample('phone')">Phone</button>
-            <button class="sample-btn" onclick="setSample('wifi')">WiFi</button>
-        </div>
-
-        <label class="input-label"><i class="fas fa-pencil-alt"></i> Content</label>
-        <input class="tool-input" id="qrInput" type="text" value="https://sgtools.in" placeholder="Enter text or URL...">
-
-        <div class="qr-container" id="qrContainer">
-            <div class="qr-placeholder" id="qrPlaceholder">
-                <i class="fas fa-qrcode"></i>
-                <p>Enter content and click Generate</p>
+    <div class="qrcode-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">📱</span> QR Code Generator
             </div>
-            <img id="qrImage" src="" alt="QR Code">
+            <div class="card-badge">QR</div>
         </div>
 
-        <div class="size-control">
+        <!-- Input Section -->
+        <div class="input-section">
+            <label class="input-label"><i class="fas fa-pencil-alt"></i> Text or URL</label>
+            <textarea class="text-input" id="qrText" placeholder="Enter text, URL, or any data...">https://sgtools.in</textarea>
+            
+            <!-- Options Row -->
+            <div class="options-row">
+                <select class="option-select" id="errorCorrection">
+                    <option value="L">Low (7%)</option>
+                    <option value="M" selected>Medium (15%)</option>
+                    <option value="Q">Quartile (25%)</option>
+                    <option value="H">High (30%)</option>
+                </select>
+                
+                <select class="option-select" id="qrFormat">
+                    <option value="png">PNG</option>
+                    <option value="svg">SVG</option>
+                    <option value="jpeg">JPEG</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- QR Code Display -->
+        <div class="qrcode-display">
+            <div id="qrcode"></div>
+        </div>
+
+        <!-- Size Slider -->
+        <div class="size-section">
             <div class="size-header">
-                <span><i class="fas fa-expand" style="color: #42f8f5;"></i> QR Code Size</span>
-                <span class="size-value" id="sizeValue">200x200</span>
+                <span>QR Code Size</span>
+                <span id="sizeValue">200 x 200</span>
             </div>
-            <input type="range" class="slider" id="sizeSlider" min="100" max="400" step="10" value="200" oninput="updateSize(this.value)">
+            <input type="range" class="size-slider" id="sizeSlider" min="100" max="400" value="200" step="10" oninput="updateSize()">
         </div>
 
-        <label class="input-label"><i class="fas fa-shield"></i> Error Correction</label>
-        <div class="error-correction">
-            <div class="ec-btn active" onclick="setErrorCorrection('L')">L (7%)</div>
-            <div class="ec-btn" onclick="setErrorCorrection('M')">M (15%)</div>
-            <div class="ec-btn" onclick="setErrorCorrection('Q')">Q (25%)</div>
-            <div class="ec-btn" onclick="setErrorCorrection('H')">H (30%)</div>
-        </div>
-
-        <label class="input-label"><i class="fas fa-format"></i> Format</label>
-        <select class="tool-select" id="formatSelect">
-            <option value="png">PNG</option>
-            <option value="jpeg">JPEG</option>
-            <option value="svg">SVG</option>
-        </select>
-
-        <div class="button-grid">
-            <button class="tool-btn primary" onclick="generateQR()">
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn primary" onclick="generateQR()">
                 <i class="fas fa-qrcode"></i> Generate
             </button>
-            <button class="tool-btn" onclick="downloadQR()">
+            <button class="action-btn" onclick="downloadQR()">
                 <i class="fas fa-download"></i> Download
             </button>
-            <button class="tool-btn" onclick="copyQR()">
+            <button class="action-btn" onclick="copyQR()">
                 <i class="fas fa-copy"></i> Copy
             </button>
-            <button class="tool-btn" onclick="clearQR()">
+            <button class="action-btn" onclick="clearQR()">
                 <i class="fas fa-eraser"></i> Clear
             </button>
         </div>
 
-        <button class="action-btn" onclick="scanQR()">
-            <i class="fas fa-camera"></i> SCAN QR CODE
-        </button>
+        <!-- Quick Examples -->
+        <div class="examples-section">
+            <div class="examples-title">
+                <i class="fas fa-star"></i> Quick Examples
+            </div>
+            <div class="examples-grid" id="examplesGrid">
+                <div class="example-item" onclick="setExample('url')">
+                    <i class="fas fa-link"></i> URL
+                </div>
+                <div class="example-item" onclick="setExample('text')">
+                    <i class="fas fa-font"></i> Text
+                </div>
+                <div class="example-item" onclick="setExample('email')">
+                    <i class="fas fa-envelope"></i> Email
+                </div>
+                <div class="example-item" onclick="setExample('phone')">
+                    <i class="fas fa-phone"></i> Phone
+                </div>
+                <div class="example-item" onclick="setExample('wifi')">
+                    <i class="fas fa-wifi"></i> WiFi
+                </div>
+                <div class="example-item" onclick="setExample('vcard')">
+                    <i class="fas fa-address-card"></i> vCard
+                </div>
+                <div class="example-item" onclick="setExample('sms')">
+                    <i class="fas fa-comment"></i> SMS
+                </div>
+                <div class="example-item" onclick="setExample('location')">
+                    <i class="fas fa-map-marker-alt"></i> Location
+                </div>
+            </div>
+        </div>
 
-        <div style="text-align: center;">
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
             </a>
-        </div>
 
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            <div class="footer-email">
+                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 SG Multi Tools. All rights reserved.
+            </div>
         </div>
     </div>
 
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        let currentEC = 'L';
+        // Global variables
+        let qrcode = null;
         let currentSize = 200;
 
-        function updateSize(value) {
-            currentSize = value;
-            document.getElementById('sizeValue').textContent = value + 'x' + value;
+        // Initialize
+        function init() {
+            generateQR();
         }
 
-        function setErrorCorrection(level) {
-            currentEC = level;
-            document.querySelectorAll('.ec-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-
+        // Generate QR Code
         function generateQR() {
-            const input = document.getElementById('qrInput').value.trim();
-            if (!input) {
-                alert('Please enter content for the QR code');
+            const text = document.getElementById('qrText').value.trim();
+            if (!text) {
+                alert('Please enter some text or URL');
                 return;
             }
 
-            const format = document.getElementById('formatSelect').value;
+            const errorCorrection = document.getElementById('errorCorrection').value;
             
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${currentSize}x${currentSize}&data=${encodeURIComponent(input)}&ecc=${currentEC}&format=${format}`;
-            
-            const qrImage = document.getElementById('qrImage');
-            const qrPlaceholder = document.getElementById('qrPlaceholder');
-            
-            qrImage.src = qrUrl;
-            qrImage.style.display = 'block';
-            qrPlaceholder.style.display = 'none';
+            // Clear previous QR code
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+
+            // Create new QR code
+            qrcode = new QRCode(qrContainer, {
+                text: text,
+                width: currentSize,
+                height: currentSize,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: getErrorCorrectionLevel(errorCorrection)
+            });
         }
 
+        // Get error correction level
+        function getErrorCorrectionLevel(level) {
+            switch(level) {
+                case 'L': return QRCode.CorrectLevel.L;
+                case 'M': return QRCode.CorrectLevel.M;
+                case 'Q': return QRCode.CorrectLevel.Q;
+                case 'H': return QRCode.CorrectLevel.H;
+                default: return QRCode.CorrectLevel.M;
+            }
+        }
+
+        // Update size
+        function updateSize() {
+            currentSize = parseInt(document.getElementById('sizeSlider').value);
+            document.getElementById('sizeValue').textContent = currentSize + ' x ' + currentSize;
+            generateQR();
+        }
+
+        // Download QR Code
         function downloadQR() {
-            const qrImage = document.getElementById('qrImage');
-            if (!qrImage.src || qrImage.style.display === 'none') {
-                alert('Please generate a QR code first');
+            const qrImage = document.querySelector('#qrcode img');
+            if (!qrImage) {
+                alert('Generate a QR code first');
                 return;
             }
 
+            const format = document.getElementById('qrFormat').value;
             const link = document.createElement('a');
-            link.href = qrImage.src;
-            link.download = `qrcode-${Date.now()}.png`;
+            
+            if (format === 'svg') {
+                // For SVG, we need to get the canvas data differently
+                const canvas = document.querySelector('#qrcode canvas');
+                if (canvas) {
+                    link.download = 'qrcode.svg';
+                    link.href = canvas.toDataURL('image/svg+xml');
+                }
+            } else {
+                link.download = 'qrcode.' + format;
+                link.href = qrImage.src;
+            }
+            
             link.click();
         }
 
+        // Copy QR Code to clipboard
         function copyQR() {
-            const qrImage = document.getElementById('qrImage');
-            if (!qrImage.src || qrImage.style.display === 'none') {
-                alert('Please generate a QR code first');
+            const qrImage = document.querySelector('#qrcode img');
+            if (!qrImage) {
+                alert('Generate a QR code first');
                 return;
             }
 
-            alert('QR code copied to clipboard (simulated)');
+            // Create a canvas to copy
+            const canvas = document.createElement('canvas');
+            canvas.width = currentSize;
+            canvas.height = currentSize;
+            const ctx = canvas.getContext('2d');
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, currentSize, currentSize);
+                canvas.toBlob(function(blob) {
+                    navigator.clipboard.write([
+                        new ClipboardItem({
+                            'image/png': blob
+                        })
+                    ]).then(() => {
+                        alert('QR code copied to clipboard!');
+                    }).catch(() => {
+                        alert('Could not copy image. You can download it instead.');
+                    });
+                });
+            };
+            img.src = qrImage.src;
         }
 
+        // Clear QR Code
         function clearQR() {
-            document.getElementById('qrInput').value = '';
-            document.getElementById('qrImage').style.display = 'none';
-            document.getElementById('qrPlaceholder').style.display = 'block';
-            document.getElementById('qrImage').src = '';
+            if (confirm('Clear QR code?')) {
+                document.getElementById('qrText').value = '';
+                document.getElementById('qrcode').innerHTML = '';
+            }
         }
 
-        function setSample(type) {
-            const samples = {
+        // Set example
+        function setExample(type) {
+            const examples = {
                 url: 'https://sgtools.in',
                 text: 'Hello, this is a QR code!',
-                email: 'mailto:contact@sgtools.in?subject=Hello&body=This is a test',
+                email: 'mailto:contact@sgtools.in?subject=Hello&body=Message',
                 phone: 'tel:+1234567890',
-                wifi: 'WIFI:S:MyNetwork;T:WPA;P:mypassword;;'
+                wifi: 'WIFI:S:MyNetwork;T:WPA;P:password123;;',
+                vcard: 'BEGIN:VCARD\nVERSION:3.0\nN:Last;First\nFN:First Last\nTEL:+1234567890\nEMAIL:contact@sgtools.in\nEND:VCARD',
+                sms: 'smsto:+1234567890:Hello',
+                location: 'geo:40.7128,-74.0060'
             };
             
-            document.getElementById('qrInput').value = samples[type];
+            document.getElementById('qrText').value = examples[type];
             generateQR();
         }
 
-        function scanQR() {
-            alert('Demo: QR code scanner would open here.\nIn a real implementation, this would use your device camera.');
-        }
+        // Event listeners
+        document.getElementById('qrText').addEventListener('input', generateQR);
+        document.getElementById('errorCorrection').addEventListener('change', generateQR);
 
-        document.getElementById('qrInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                generateQR();
-            }
-        });
-
-        window.addEventListener('load', () => {
-            generateQR();
-        });
+        // Initialize on load
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
