@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Date Difference - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,240 +15,296 @@
         }
 
         body {
-            background: #E8DE99;  /* Light gold background */
+            background: #E8DE99;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .tool-container {
-            max-width: 480px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 1.2rem;
+        .date-card {
             background: #1c222d;
-            border-radius: 18px;
+            border-radius: 25px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 8px;
-        }
-        
-        .tool-icon {
-            font-size: 1.8rem;
-            color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #42f8f5;
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .tool-badge {
-            background: #12151a;
-            color: #42f8f5;
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
-            text-transform: uppercase;
-        }
-
-        /* Description - Hidden on mobile */
-        .mobile-hide {
-            display: block;
-            color: #c5d1de;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-        }
-
-        .input-label {
-            display: block;
-            color: #ffffff;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-        }
-
-        .input-label i {
-            color: #42f8f5;
-            margin-right: 5px;
-            width: 16px;
-        }
-
-        .tool-input {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 0.8rem;
-        }
-
-        .tool-input:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
-
-        .display-field {
-            background: #12151a;
-            border-radius: 10px;
-            padding: 1rem;
             color: #42f8f5;
             font-size: 1.3rem;
             font-weight: 600;
-            text-align: center;
-            border: 1px solid #42f8f5;
-            font-family: monospace;
-            margin: 0.8rem 0;
         }
 
-        .display-field small {
-            display: block;
-            color: #b0c4de;
-            font-size: 0.75rem;
-            margin-top: 5px;
-        }
-
-        .result-detail {
-            display: flex;
-            justify-content: space-around;
-            margin: 0.8rem 0;
-            padding: 0.5rem;
-            background: #12151a;
-            border-radius: 10px;
-            border: 1px solid #42f8f5;
-        }
-
-        .detail-item {
-            text-align: center;
-        }
-
-        .detail-value {
+        .card-icon {
             color: #42f8f5;
-            font-size: 1.5rem;
-            font-weight: 700;
-            line-height: 1.2;
+            font-size: 1.6rem;
         }
 
-        .detail-label {
-            color: #b0c4de;
-            font-size: 0.65rem;
+        .card-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 25px;
+            border: 1px solid #42f8f5;
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
         }
 
-        .quick-select {
+        /* Input Section */
+        .input-section {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #42f8f5;
+        }
+
+        .date-row {
             display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .date-field {
+            flex: 1;
+        }
+
+        .date-label {
+            color: #b0c4de;
+            font-size: 0.75rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .date-label i {
+            color: #42f8f5;
+            margin-right: 5px;
+        }
+
+        .date-input {
+            width: 100%;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 0.85rem;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+        }
+
+        .date-input:focus {
+            border-color: #42f8f5;
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
+        }
+
+        .date-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        /* Quick Select Buttons */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 6px;
-            margin-bottom: 0.8rem;
-            flex-wrap: wrap;
+            margin: 10px 0;
         }
 
         .quick-btn {
-            background: #12151a;
+            background: #1e2b37;
             border: 1px solid #42f8f5;
             border-radius: 20px;
-            padding: 5px 10px;
-            font-size: 0.7rem;
+            padding: 6px 3px;
             color: white;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            flex: 1;
-            min-width: 60px;
             text-align: center;
         }
 
         .quick-btn:hover {
             background: #42f8f5;
             color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
-        .button-grid {
+        /* Result Display */
+        .result-display {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #42f8f5;
+        }
+
+        .main-result {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .main-number {
+            color: #42f8f5;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .main-label {
+            color: #b0c4de;
+            font-size: 0.9rem;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #42f8f5;
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-number {
+            color: #42f8f5;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .detail-label {
+            color: #b0c4de;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        /* Additional Info */
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin: 0.8rem 0;
+            gap: 10px;
+            margin: 15px 0;
         }
 
-        .tool-btn {
+        .info-card {
             background: #12151a;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            padding: 10px;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        .info-title {
+            color: #b0c4de;
+            font-size: 0.7rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-title i {
+            color: #42f8f5;
+        }
+
+        .info-value {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .info-value span {
+            color: #42f8f5;
             font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .action-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 10px 5px;
+            font-size: 0.8rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            text-transform: uppercase;
-        }
-
-        .tool-btn:hover {
-            background: #42f8f5;
-            color: #12151a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
-        }
-
-        .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #12151a;
-            border: none;
-            padding: 10px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            margin-top: 0.3rem;
         }
 
         .action-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
+        }
+
+        .action-btn i {
+            margin-right: 5px;
+        }
+
+        .action-btn.primary {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+        }
+
+        .action-btn.primary:hover {
             background: transparent;
             color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
+        }
+
+        /* Adsterra Ad Container */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            text-align: center;
         }
 
         .home-link {
             display: inline-block;
-            margin-top: 1rem;
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 6px 20px;
+            padding: 8px 20px;
             border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -257,13 +312,13 @@
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
         .footer-email {
-            margin-top: 1rem;
+            margin: 12px 0 8px;
             color: #6d8ba0;
-            font-size: 0.8rem;
-            text-align: center;
+            font-size: 0.75rem;
         }
 
         .footer-email a {
@@ -271,297 +326,394 @@
             text-decoration: none;
         }
 
-        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES - NOTHING ELSE CHANGED ===== */
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #6d8ba0;
+            font-size: 0.7rem;
+        }
+
+        /* Responsive */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 100%;
+            .date-card {
+                padding: 15px;
             }
             
-            .tool-header h1 {
-                font-size: 1.2rem;
-            }
-            
-            .tool-icon {
-                font-size: 1.6rem;
-            }
-            
-            .tool-badge {
-                font-size: 0.6rem;
-                padding: 2px 8px;
-            }
-            
-            .input-label {
-                font-size: 0.75rem;
-            }
-            
-            .tool-input {
-                padding: 0.6rem 0.9rem;
-                font-size: 0.8rem;
-            }
-            
-            .quick-select {
-                gap: 4px;
-            }
-            
-            .quick-btn {
-                padding: 4px 6px;
-                font-size: 0.65rem;
-                min-width: 50px;
-            }
-            
-            .display-field {
-                padding: 0.8rem;
+            .card-title {
                 font-size: 1.1rem;
             }
             
-            .display-field small {
-                font-size: 0.65rem;
+            .card-icon {
+                font-size: 1.3rem;
             }
             
-            .result-detail {
-                margin: 0.5rem 0;
-                padding: 0.4rem;
-            }
-            
-            .detail-value {
-                font-size: 1.2rem;
-            }
-            
-            .detail-label {
-                font-size: 0.55rem;
-            }
-            
-            .button-grid {
-                gap: 5px;
-            }
-            
-            .tool-btn {
-                padding: 8px;
-                font-size: 0.7rem;
-            }
-            
-            .action-btn {
-                padding: 8px;
-                font-size: 0.8rem;
-            }
-            
-            .home-link {
-                padding: 5px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .footer-email {
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media screen and (max-width: 350px) {
-            .result-detail {
+            .date-row {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
             }
             
-            .quick-select {
-                flex-direction: column;
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .button-grid {
+            .detail-grid {
                 grid-template-columns: 1fr;
             }
             
-            .tool-header {
-                flex-wrap: wrap;
+            .info-grid {
+                grid-template-columns: 1fr;
             }
             
-            .tool-badge {
-                margin-left: 0;
+            .action-grid {
+                grid-template-columns: 1fr;
             }
             
-            .footer-email {
-                font-size: 0.7rem;
+            .main-number {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <div class="tool-header">
-            <span class="tool-icon">📆</span>
-            <h1>Date Difference</h1>
-            <span class="tool-badge">DAYS</span>
-        </div>
-
-        <div class="mobile-hide">
-            Calculate the exact difference between two dates.
-        </div>
-
-        <div class="quick-select">
-            <button class="quick-btn" onclick="setToday('start')">📅 Start</button>
-            <button class="quick-btn" onclick="setToday('end')">📅 End</button>
-            <button class="quick-btn" onclick="setNextWeek()">Week</button>
-            <button class="quick-btn" onclick="setNextMonth()">Month</button>
-            <button class="quick-btn" onclick="setNextYear()">Year</button>
-        </div>
-
-        <label class="input-label"><i class="fas fa-calendar-alt"></i> Start Date</label>
-        <input class="tool-input" id="startDate" type="text" value="15-03-2023" placeholder="DD-MM-YYYY">
-
-        <label class="input-label"><i class="fas fa-calendar-check"></i> End Date</label>
-        <input class="tool-input" id="endDate" type="text" value="16-02-2026" placeholder="DD-MM-YYYY">
-
-        <div class="display-field" id="mainResult">
-            1070 days
-            <small>Total days</small>
-        </div>
-
-        <div class="result-detail" id="detailResult">
-            <div class="detail-item">
-                <div class="detail-value" id="years">2</div>
-                <div class="detail-label">YRS</div>
+    <div class="date-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">📆</span> Date Difference
             </div>
-            <div class="detail-item">
-                <div class="detail-value" id="months">11</div>
-                <div class="detail-label">MON</div>
+            <div class="card-badge">DAYS</div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="date-row">
+                <div class="date-field">
+                    <label class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</label>
+                    <input class="date-input" type="date" id="startDate">
+                </div>
+                <div class="date-field">
+                    <label class="date-label"><i class="fas fa-calendar-check"></i> End Date</label>
+                    <input class="date-input" type="date" id="endDate">
+                </div>
             </div>
-            <div class="detail-item">
-                <div class="detail-value" id="days">1</div>
-                <div class="detail-label">DAY</div>
+
+            <!-- Quick Select Buttons -->
+            <div class="quick-grid">
+                <button class="quick-btn" onclick="setToday()">Today</button>
+                <button class="quick-btn" onclick="setTomorrow()">Tomorrow</button>
+                <button class="quick-btn" onclick="setNextWeek()">Next Week</button>
+                <button class="quick-btn" onclick="setNextMonth()">Next Month</button>
+                <button class="quick-btn" onclick="setNextYear()">Next Year</button>
+                <button class="quick-btn" onclick="setLastWeek()">Last Week</button>
+                <button class="quick-btn" onclick="setLastMonth()">Last Month</button>
+                <button class="quick-btn" onclick="setLastYear()">Last Year</button>
             </div>
         </div>
 
-        <div class="button-grid">
-            <button class="tool-btn" onclick="swapDates()"><i class="fas fa-exchange-alt"></i> Swap</button>
-            <button class="tool-btn" onclick="resetToDefault()"><i class="fas fa-undo"></i> Reset</button>
+        <!-- Main Result -->
+        <div class="result-display">
+            <div class="main-result">
+                <div class="main-number" id="totalDays">0</div>
+                <div class="main-label">Total Days Difference</div>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <div class="detail-number" id="years">0</div>
+                    <div class="detail-label">Years</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-number" id="months">0</div>
+                    <div class="detail-label">Months</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-number" id="days">0</div>
+                    <div class="detail-label">Days</div>
+                </div>
+            </div>
         </div>
 
-        <button class="action-btn" onclick="calculateDifference()">
-            <i class="fas fa-calculator"></i> CALCULATE
-        </button>
+        <!-- Additional Info -->
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-title"><i class="fas fa-clock"></i> In Hours</div>
+                <div class="info-value"><span id="hours">0</span> hours</div>
+            </div>
+            <div class="info-card">
+                <div class="info-title"><i class="fas fa-clock"></i> In Minutes</div>
+                <div class="info-value"><span id="minutes">0</span> minutes</div>
+            </div>
+            <div class="info-card">
+                <div class="info-title"><i class="fas fa-calendar-week"></i> In Weeks</div>
+                <div class="info-value"><span id="weeks">0</span> weeks</div>
+            </div>
+            <div class="info-card">
+                <div class="info-title"><i class="fas fa-calendar-day"></i> Weekdays</div>
+                <div class="info-value"><span id="weekdays">0</span> days</div>
+            </div>
+            <div class="info-card">
+                <div class="info-title"><i class="fas fa-umbrella-beach"></i> Weekends</div>
+                <div class="info-value"><span id="weekends">0</span> days</div>
+            </div>
+            <div class="info-card">
+                <div class="info-title"><i class="fas fa-hourglass-half"></i> % of Year</div>
+                <div class="info-value"><span id="percentOfYear">0</span>%</div>
+            </div>
+        </div>
 
-        <div style="text-align: center;">
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn primary" onclick="calculateDifference()">
+                <i class="fas fa-calculator"></i> Calculate
+            </button>
+            <button class="action-btn" onclick="swapDates()">
+                <i class="fas fa-exchange-alt"></i> Swap
+            </button>
+            <button class="action-btn" onclick="copyResult()">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
             <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back
+                <i class="fas fa-home"></i> Back to Home
             </a>
-        </div>
 
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            <div class="footer-email">
+                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 SG Multi Tools. All rights reserved.
+            </div>
         </div>
     </div>
 
     <script>
-        function parseDate(dateStr) {
-            const parts = dateStr.split('-');
-            if (parts.length === 3) {
-                const day = parseInt(parts[0], 10);
-                const month = parseInt(parts[1], 10) - 1;
-                const year = parseInt(parts[2], 10);
-                return new Date(year, month, day);
-            }
-            return new Date();
-        }
-
-        function formatDate(date) {
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}-${month}-${year}`;
-        }
-
-        function calculateDifference() {
-            const startStr = document.getElementById('startDate').value;
-            const endStr = document.getElementById('endDate').value;
-            
-            const startDate = parseDate(startStr);
-            const endDate = parseDate(endStr);
-            
-            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                alert('Invalid date format');
-                return;
-            }
-            
-            const diffTime = Math.abs(endDate - startDate);
-            const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            let years = endDate.getFullYear() - startDate.getFullYear();
-            let months = endDate.getMonth() - startDate.getMonth();
-            let days = endDate.getDate() - startDate.getDate();
-            
-            if (days < 0) {
-                months--;
-                days += new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
-            }
-            
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            document.getElementById('mainResult').innerHTML = `
-                ${totalDays.toLocaleString()} days
-                <small>Total days</small>
-            `;
-            
-            document.getElementById('years').textContent = years;
-            document.getElementById('months').textContent = months;
-            document.getElementById('days').textContent = days;
-        }
-
-        function swapDates() {
-            const start = document.getElementById('startDate');
-            const end = document.getElementById('endDate');
-            [start.value, end.value] = [end.value, start.value];
-            calculateDifference();
-        }
-
-        function resetToDefault() {
-            document.getElementById('startDate').value = '15-03-2023';
-            document.getElementById('endDate').value = '16-02-2026';
-            calculateDifference();
-        }
-
-        function setToday(target) {
+        // Set default dates
+        function setDefaultDates() {
             const today = new Date();
-            const formatted = formatDate(today);
-            if (target === 'start') {
-                document.getElementById('startDate').value = formatted;
-            } else {
-                document.getElementById('endDate').value = formatted;
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            
+            // Format today as YYYY-MM-DD
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            
+            // Set start date to today
+            startDate.value = `${year}-${month}-${day}`;
+            
+            // Set end date to today + 7 days
+            const nextWeek = new Date(today);
+            nextWeek.setDate(today.getDate() + 7);
+            const endYear = nextWeek.getFullYear();
+            const endMonth = String(nextWeek.getMonth() + 1).padStart(2, '0');
+            const endDay = String(nextWeek.getDate()).padStart(2, '0');
+            endDate.value = `${endYear}-${endMonth}-${endDay}`;
+        }
+
+        // Set to today
+        function setToday() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            
+            if (event.target.closest('.quick-btn')) {
+                // If called from a button, we need to know which date to set
+                const btnText = event.target.textContent;
+                if (btnText === 'Today') {
+                    document.getElementById('startDate').value = `${year}-${month}-${day}`;
+                }
             }
+            calculateDifference();
+        }
+
+        function setTomorrow() {
+            const date = new Date();
+            date.setDate(date.getDate() + 1);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('endDate').value = `${year}-${month}-${day}`;
             calculateDifference();
         }
 
         function setNextWeek() {
-            const today = new Date();
-            today.setDate(today.getDate() + 7);
-            document.getElementById('endDate').value = formatDate(today);
+            const date = new Date();
+            date.setDate(date.getDate() + 7);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('endDate').value = `${year}-${month}-${day}`;
             calculateDifference();
         }
 
         function setNextMonth() {
-            const today = new Date();
-            today.setMonth(today.getMonth() + 1);
-            document.getElementById('endDate').value = formatDate(today);
+            const date = new Date();
+            date.setMonth(date.getMonth() + 1);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('endDate').value = `${year}-${month}-${day}`;
             calculateDifference();
         }
 
         function setNextYear() {
-            const today = new Date();
-            today.setFullYear(today.getFullYear() + 1);
-            document.getElementById('endDate').value = formatDate(today);
+            const date = new Date();
+            date.setFullYear(date.getFullYear() + 1);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('endDate').value = `${year}-${month}-${day}`;
             calculateDifference();
         }
 
-        document.getElementById('startDate').addEventListener('input', calculateDifference);
-        document.getElementById('endDate').addEventListener('input', calculateDifference);
+        function setLastWeek() {
+            const date = new Date();
+            date.setDate(date.getDate() - 7);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('startDate').value = `${year}-${month}-${day}`;
+            calculateDifference();
+        }
 
-        window.addEventListener('load', calculateDifference);
+        function setLastMonth() {
+            const date = new Date();
+            date.setMonth(date.getMonth() - 1);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('startDate').value = `${year}-${month}-${day}`;
+            calculateDifference();
+        }
+
+        function setLastYear() {
+            const date = new Date();
+            date.setFullYear(date.getFullYear() - 1);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            document.getElementById('startDate').value = `${year}-${month}-${day}`;
+            calculateDifference();
+        }
+
+        // Calculate date difference
+        function calculateDifference() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            
+            if (!startDate || !endDate) {
+                alert('Please select both dates');
+                return;
+            }
+
+            // Calculate total days
+            const diffTime = Math.abs(endDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Calculate years, months, days
+            let years = endDate.getFullYear() - startDate.getFullYear();
+            let months = endDate.getMonth() - startDate.getMonth();
+            let days = endDate.getDate() - startDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Calculate additional info
+            const hours = diffDays * 24;
+            const minutes = hours * 60;
+            const weeks = (diffDays / 7).toFixed(1);
+            
+            // Calculate weekdays and weekends
+            let weekdays = 0;
+            let weekends = 0;
+            let currentDate = new Date(startDate);
+            
+            while (currentDate <= endDate) {
+                const dayOfWeek = currentDate.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    weekends++;
+                } else {
+                    weekdays++;
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            // Calculate percentage of year
+            const daysInYear = (endDate.getFullYear() % 4 === 0) ? 366 : 365;
+            const percentOfYear = ((diffDays / daysInYear) * 100).toFixed(1);
+
+            // Update displays
+            document.getElementById('totalDays').textContent = diffDays;
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toLocaleString();
+            document.getElementById('minutes').textContent = minutes.toLocaleString();
+            document.getElementById('weeks').textContent = weeks;
+            document.getElementById('weekdays').textContent = weekdays;
+            document.getElementById('weekends').textContent = weekends;
+            document.getElementById('percentOfYear').textContent = percentOfYear;
+        }
+
+        // Swap dates
+        function swapDates() {
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            
+            const temp = startDate.value;
+            startDate.value = endDate.value;
+            endDate.value = temp;
+            
+            calculateDifference();
+        }
+
+        // Copy result
+        function copyResult() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const totalDays = document.getElementById('totalDays').textContent;
+            const years = document.getElementById('years').textContent;
+            const months = document.getElementById('months').textContent;
+            const days = document.getElementById('days').textContent;
+            
+            const text = `From ${startDate} to ${endDate}: ${totalDays} total days (${years} years, ${months} months, ${days} days)`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Result copied to clipboard!');
+            }).catch(() => {
+                alert('Press Ctrl+C to copy');
+            });
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            setDefaultDates();
+            calculateDifference();
+        });
     </script>
 </body>
 </html>
