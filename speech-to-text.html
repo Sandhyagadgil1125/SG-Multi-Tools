@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Speech to Text - SG Multi Tools</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,146 +15,78 @@
         }
 
         body {
-            background: #E8DE99;  /* Light gold background */
+            background: #E8DE99;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .tool-container {
-            max-width: 520px;
+        .stt-card {
+            background: #1c222d;
+            border-radius: 25px;
+            padding: 20px;
             width: 100%;
-            margin: 0 auto;
-            padding: 1.3rem;
-            background: #1c222d;  /* Dark card background */
-            border-radius: 18px;
+            max-width: 600px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 0 20px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        
-        .tool-header {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid #42f8f5;
-            padding-bottom: 10px;
-        }
-        
-        .tool-icon {
-            font-size: 2rem;
+            gap: 8px;
             color: #42f8f5;
-        }
-        
-        .tool-header h1 {
-            color: #42f8f5;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
-        .tool-badge {
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.6rem;
+        }
+
+        .card-badge {
             background: #12151a;
             color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 25px;
+            border: 1px solid #42f8f5;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 30px;
-            border: 1px solid #42f8f5;
-            margin-left: auto;
             text-transform: uppercase;
         }
 
-        /* Description - Hidden on mobile */
-        .mobile-hide {
-            display: block;
-            color: #c5d1de;
-            font-size: 0.85rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.4;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-hide {
-                display: none;
-            }
-        }
-
-        /* Form Elements */
-        .input-label {
-            display: block;
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-        }
-
-        .input-label i {
-            color: #42f8f5;
-            margin-right: 6px;
-            width: 18px;
-        }
-
-        .tool-textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
+        /* Status Bar */
+        .status-bar {
+            background: #12151a;
             border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .tool-textarea:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
-            outline: none;
-            background: #ffffff;
-        }
-
-        .tool-textarea::placeholder {
-            color: #6d8ba0;
-            opacity: 0.6;
-        }
-
-        .tool-textarea[readonly] {
-            background: #f5faff;
-            cursor: default;
-        }
-
-        .display-field {
-            background: #1c222d;
-            border-radius: 12px;
-            padding: 1rem;
-            color: #42f8f5;
-            font-size: 1rem;
-            font-weight: 500;
-            text-align: center;
+            padding: 10px 15px;
+            margin-bottom: 15px;
             border: 1px solid #42f8f5;
-            box-shadow: inset 0 0 10px rgba(66, 248, 245, 0.1);
-            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        /* Status Indicator */
-        .status-indicator {
+        .status-info {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 0.8rem;
-            background: #12151a;
-            border-radius: 30px;
-            margin: 1rem 0;
-            border: 1px solid #42f8f5;
         }
 
-        .status-light {
+        .status-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -163,16 +94,10 @@
             transition: all 0.3s ease;
         }
 
-        .status-light.active {
-            background: #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.6);
+        .status-dot.listening {
+            background: #4caf50;
+            box-shadow: 0 0 10px #4caf50;
             animation: pulse 1.5s infinite;
-        }
-
-        .status-light.listening {
-            background: #00C851;
-            box-shadow: 0 0 15px rgba(0, 200, 81, 0.6);
-            animation: pulse 1s infinite;
         }
 
         @keyframes pulse {
@@ -182,145 +107,224 @@
         }
 
         .status-text {
-            color: #b0c4de;
-            font-size: 0.9rem;
-            flex: 1;
+            color: white;
+            font-size: 0.85rem;
         }
 
-        /* Language Selector */
-        .language-selector {
-            margin: 1rem 0;
-        }
-
-        .tool-select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: #eef5fa;
-            border: 2px solid #3d5a73;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1c222d;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231c222d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-        }
-
-        .tool-select:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 0 3px rgba(66, 248, 245, 0.2);
+        .language-select {
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: white;
+            font-size: 0.75rem;
             outline: none;
-            background: #ffffff;
-        }
-
-        /* Button Grid */
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 1rem 0;
-        }
-
-        .tool-btn {
-            background: #12151a;
-            border: 2px solid #42f8f5;
-            border-radius: 30px;
-            padding: 12px 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: white;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .tool-btn:hover {
-            background: #42f8f5;
-            color: #12151a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+        /* Main Control Button */
+        .control-section {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
         }
 
-        .tool-btn.primary {
-            background: #42f8f5;
-            color: #12151a;
-            font-weight: 700;
-        }
-
-        .tool-btn.primary:hover {
-            background: transparent;
+        .mic-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #12151a;
+            border: 3px solid #42f8f5;
             color: #42f8f5;
-        }
-
-        .tool-btn.success {
-            background: #00C851;
-            border-color: #00C851;
-            color: #1c222d;
-        }
-
-        .tool-btn.success:hover {
-            background: transparent;
-            color: #00C851;
-        }
-
-        .tool-btn.warning {
-            background: #ff4444;
-            border-color: #ff4444;
-            color: white;
-        }
-
-        .tool-btn.warning:hover {
-            background: transparent;
-            color: #ff4444;
-        }
-
-        .action-btn {
-            width: 100%;
-            background: #42f8f5;
-            color: #12151a;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 2.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 2px solid #42f8f5;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .action-btn:hover {
-            background: transparent;
-            color: #42f8f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(66, 248, 245, 0.4);
+        .mic-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(66, 248, 245, 0.5);
         }
 
-        .action-btn i {
-            margin-right: 8px;
+        .mic-button.listening {
+            background: #42f8f5;
+            color: #12151a;
+            animation: pulse 1.5s infinite;
         }
 
-        .action-btn:disabled {
+        .mic-button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             pointer-events: none;
         }
 
+        /* Text Display */
+        .text-section {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #42f8f5;
+        }
+
+        .text-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .text-title {
+            color: white;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .text-title i {
+            color: #42f8f5;
+        }
+
+        .text-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .text-action {
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 6px;
+            padding: 4px 8px;
+            color: #42f8f5;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .text-action:hover {
+            background: #42f8f5;
+            color: #12151a;
+        }
+
+        .transcript-box {
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 100px;
+            max-height: 150px;
+            overflow-y: auto;
+            color: white;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .transcript-box:empty::before {
+            content: 'Click the microphone and start speaking...';
+            color: #6d8ba0;
+            font-style: italic;
+        }
+
+        .interim-box {
+            background: #1e2b37;
+            border: 1px dashed #42f8f5;
+            border-radius: 8px;
+            padding: 10px;
+            color: #b0c4de;
+            font-size: 0.85rem;
+            font-style: italic;
+            min-height: 40px;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            color: #b0c4de;
+            font-size: 0.7rem;
+            margin: 8px 0;
+            padding: 0 5px;
+        }
+
+        .stats-row span {
+            color: #42f8f5;
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .action-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 10px 5px;
+            font-size: 0.75rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
+        }
+
+        .action-btn i {
+            margin-right: 3px;
+            font-size: 0.8rem;
+        }
+
+        .action-btn.primary {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+        }
+
+        .action-btn.primary:hover {
+            background: transparent;
+            color: #42f8f5;
+        }
+
+        /* Adsterra Ad Container */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            text-align: center;
+        }
+
         .home-link {
             display: inline-block;
-            margin-top: 1.2rem;
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 8px 22px;
+            padding: 8px 20px;
             border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -328,14 +332,13 @@
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
         .footer-email {
-            margin-top: 1.5rem;
+            margin: 12px 0 8px;
             color: #6d8ba0;
-            font-size: 0.85rem;
-            text-align: center;
+            font-size: 0.75rem;
         }
 
         .footer-email a {
@@ -347,434 +350,400 @@
             text-decoration: underline;
         }
 
-        /* Word count */
-        .word-count {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 0.3rem;
-            color: #ffffff;
-            font-size: 0.75rem;
+        .copyright {
+            color: #6d8ba0;
+            font-size: 0.7rem;
         }
 
-        .word-count span {
-            color: #42f8f5;
-            font-weight: 600;
-        }
-
-        /* ===== ONLY ADDED RESPONSIVE MEDIA QUERIES ===== */
+        /* Responsive */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
             }
             
-            .tool-container {
-                padding: 1rem;
-                max-width: 100%;
+            .stt-card {
+                padding: 15px;
             }
             
-            .tool-header h1 {
-                font-size: 1.4rem;
+            .card-title {
+                font-size: 1.1rem;
             }
             
-            .tool-icon {
-                font-size: 1.8rem;
+            .card-icon {
+                font-size: 1.3rem;
             }
             
-            .tool-badge {
-                font-size: 0.65rem;
-                padding: 3px 10px;
-            }
-            
-            .input-label {
-                font-size: 0.8rem;
-            }
-            
-            .tool-textarea {
-                padding: 0.7rem 0.9rem;
-                font-size: 0.85rem;
-                min-height: 120px;
-            }
-            
-            .status-indicator {
-                padding: 0.6rem;
-            }
-            
-            .status-text {
-                font-size: 0.8rem;
-            }
-            
-            .button-grid {
+            .action-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
             }
             
-            .tool-btn {
-                padding: 10px 6px;
-                font-size: 0.7rem;
-            }
-            
-            .action-btn {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            
-            .word-count {
-                font-size: 0.7rem;
-                gap: 10px;
-            }
-            
-            .home-link {
-                padding: 6px 18px;
-                font-size: 0.8rem;
-            }
-            
-            .footer-email {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media screen and (max-width: 350px) {
-            .button-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tool-header {
-                flex-wrap: wrap;
-            }
-            
-            .tool-badge {
-                margin-left: 0;
-            }
-            
-            .status-indicator {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .word-count {
+            .status-bar {
                 flex-direction: column;
-                align-items: flex-end;
-                gap: 5px;
+                gap: 10px;
+                align-items: flex-start;
             }
             
-            .footer-email {
-                font-size: 0.7rem;
+            .mic-button {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+            
+            .transcript-box {
+                min-height: 80px;
+                max-height: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="tool-container">
-        <div class="tool-header">
-            <span class="tool-icon">🎤</span>
-            <h1>Speech to Text</h1>
-            <span class="tool-badge">VOICE</span>
+    <div class="stt-card">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">🎤</span> Speech to Text
+            </div>
+            <div class="card-badge">VOICE</div>
         </div>
 
-        <div class="mobile-hide">
-            Convert your speech to text in real-time. Click Start and begin speaking.
-        </div>
-
-        <div class="status-indicator">
-            <div class="status-light" id="statusLight"></div>
-            <div class="status-text" id="statusText">Ready to start</div>
-            <div id="timerDisplay" style="color: #42f8f5; font-family: monospace;">00:00</div>
-        </div>
-
-        <div class="language-selector">
-            <label class="input-label"><i class="fas fa-language"></i> Language</label>
-            <select class="tool-select" id="languageSelect">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-info">
+                <div class="status-dot" id="statusDot"></div>
+                <span class="status-text" id="statusText">Ready to listen</span>
+            </div>
+            <select class="language-select" id="languageSelect">
                 <option value="en-US">English (US)</option>
                 <option value="en-GB">English (UK)</option>
-                <option value="hi-IN">हिन्दी (Hindi)</option>
-                <option value="es-ES">Español (Spanish)</option>
-                <option value="fr-FR">Français (French)</option>
-                <option value="de-DE">Deutsch (German)</option>
-                <option value="it-IT">Italiano (Italian)</option>
-                <option value="ja-JP">日本語 (Japanese)</option>
-                <option value="ko-KR">한국어 (Korean)</option>
-                <option value="zh-CN">中文 (Chinese)</option>
-                <option value="ar-SA">العربية (Arabic)</option>
-                <option value="ru-RU">Русский (Russian)</option>
+                <option value="es-ES">Spanish</option>
+                <option value="fr-FR">French</option>
+                <option value="de-DE">German</option>
+                <option value="it-IT">Italian</option>
+                <option value="pt-PT">Portuguese</option>
+                <option value="ru-RU">Russian</option>
+                <option value="ja-JP">Japanese</option>
+                <option value="ko-KR">Korean</option>
+                <option value="zh-CN">Chinese (Simplified)</option>
+                <option value="hi-IN">Hindi</option>
             </select>
         </div>
 
-        <label class="input-label"><i class="fas fa-file-alt"></i> Recognized Text</label>
-        <textarea class="tool-textarea" id="speechOutput" placeholder="Your speech will appear here..." readonly></textarea>
-
-        <div class="word-count">
-            <div>Words: <span id="wordCount">0</span></div>
-            <div>Chars: <span id="charCount">0</span></div>
+        <!-- Main Control Button -->
+        <div class="control-section">
+            <button class="mic-button" id="micButton" onclick="toggleListening()">
+                <i class="fas fa-microphone"></i>
+            </button>
         </div>
 
-        <div class="button-grid">
-            <button class="tool-btn success" id="startBtn" onclick="startSpeechRecognition()">
+        <!-- Text Display -->
+        <div class="text-section">
+            <div class="text-header">
+                <div class="text-title">
+                    <i class="fas fa-comment"></i> Transcript
+                </div>
+                <div class="text-actions">
+                    <span class="text-action" onclick="copyTranscript()">
+                        <i class="fas fa-copy"></i>
+                    </span>
+                    <span class="text-action" onclick="clearTranscript()">
+                        <i class="fas fa-eraser"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="transcript-box" id="transcript"></div>
+            <div class="interim-box" id="interim"></div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div>Words: <span id="wordCount">0</span></div>
+            <div>Characters: <span id="charCount">0</span></div>
+            <div>Duration: <span id="duration">0:00</span></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn primary" onclick="startListening()" id="startBtn">
                 <i class="fas fa-play"></i> Start
             </button>
-            <button class="tool-btn warning" id="stopBtn" onclick="stopSpeechRecognition()" disabled>
+            <button class="action-btn" onclick="stopListening()" id="stopBtn" disabled>
                 <i class="fas fa-stop"></i> Stop
             </button>
-            <button class="tool-btn" id="pauseBtn" onclick="pauseSpeechRecognition()" disabled>
-                <i class="fas fa-pause"></i> Pause
+            <button class="action-btn" onclick="saveTranscript()">
+                <i class="fas fa-save"></i> Save
             </button>
-            <button class="tool-btn" onclick="copyText()">
-                <i class="fas fa-copy"></i> Copy
-            </button>
-            <button class="tool-btn" onclick="downloadText()">
+            <button class="action-btn" onclick="downloadTranscript()">
                 <i class="fas fa-download"></i> Download
-            </button>
-            <button class="tool-btn" onclick="clearText()">
-                <i class="fas fa-eraser"></i> Clear
             </button>
         </div>
 
-        <button class="action-btn" onclick="saveText()">
-            <i class="fas fa-save"></i> SAVE TO FILE
-        </button>
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
+        </div>
 
-        <div style="text-align: center;">
+        <!-- Footer -->
+        <div class="footer">
             <a href="index.html" class="home-link">
                 <i class="fas fa-home"></i> Back to Home
             </a>
-        </div>
 
-        <div class="footer-email">
-            📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            <div class="footer-email">
+                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
+            </div>
+
+            <div class="copyright">
+                © 2026 SG Multi Tools. All rights reserved.
+            </div>
         </div>
     </div>
 
     <script>
-        let recognition = null;
-        let isListening = false;
-        let isPaused = false;
-        let finalTranscript = '';
-        let timerInterval = null;
-        let seconds = 0;
-        let currentLanguage = 'en-US';
+        // Speech Recognition Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
-        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            document.getElementById('statusText').innerHTML = '⚠️ Speech recognition not supported in this browser. Try Chrome or Edge.';
-            document.getElementById('startBtn').disabled = true;
-        } else {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognition = new SpeechRecognition();
+        // Global variables
+        let isListening = false;
+        let finalTranscript = '';
+        let startTime = null;
+        let timerInterval = null;
+
+        // DOM Elements
+        const micButton = document.getElementById('micButton');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const transcriptBox = document.getElementById('transcript');
+        const interimBox = document.getElementById('interim');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const wordCountSpan = document.getElementById('wordCount');
+        const charCountSpan = document.getElementById('charCount');
+        const durationSpan = document.getElementById('duration');
+
+        // Initialize
+        function init() {
+            if (!recognition) {
+                statusText.textContent = 'Speech recognition not supported';
+                micButton.style.display = 'none';
+                alert('Your browser does not support speech recognition. Try Chrome or Edge.');
+                return;
+            }
+
+            // Configure recognition
             recognition.continuous = true;
             recognition.interimResults = true;
-            recognition.lang = currentLanguage;
+            recognition.lang = languageSelect.value;
 
-            recognition.onresult = (event) => {
-                let interimTranscript = '';
-                
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript + ' ';
-                    } else {
-                        interimTranscript += transcript;
-                    }
-                }
-                
-                document.getElementById('speechOutput').value = finalTranscript + interimTranscript;
-                updateWordCount();
-            };
-
-            recognition.onend = () => {
-                if (isListening && !isPaused) {
-                    recognition.start();
-                } else {
-                    stopTimer();
-                    updateStatus('idle');
-                }
-            };
-
-            recognition.onerror = (event) => {
-                console.error('Speech recognition error:', event.error);
-                updateStatus('error', event.error);
-                stopTimer();
-                isListening = false;
-                document.getElementById('startBtn').disabled = false;
-                document.getElementById('stopBtn').disabled = true;
-                document.getElementById('pauseBtn').disabled = true;
-            };
+            // Set up event handlers
+            recognition.onstart = handleStart;
+            recognition.onend = handleEnd;
+            recognition.onerror = handleError;
+            recognition.onresult = handleResult;
         }
 
-        function startSpeechRecognition() {
-            if (!recognition) return;
+        // Handle start event
+        function handleStart() {
+            isListening = true;
+            statusDot.classList.add('listening');
+            statusText.textContent = 'Listening...';
+            micButton.classList.add('listening');
+            micButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
             
-            try {
-                recognition.lang = document.getElementById('languageSelect').value;
-                recognition.start();
-                isListening = true;
-                isPaused = false;
-                
-                updateStatus('listening');
-                document.getElementById('startBtn').disabled = true;
-                document.getElementById('stopBtn').disabled = false;
-                document.getElementById('pauseBtn').disabled = false;
-                
+            if (!startTime) {
+                startTime = Date.now();
                 startTimer();
-            } catch (error) {
-                console.error('Failed to start:', error);
             }
         }
 
-        function stopSpeechRecognition() {
-            if (!recognition) return;
-            
-            recognition.stop();
+        // Handle end event
+        function handleEnd() {
             isListening = false;
-            isPaused = false;
+            statusDot.classList.remove('listening');
+            statusText.textContent = 'Ready to listen';
+            micButton.classList.remove('listening');
+            micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
             
-            updateStatus('stopped');
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('stopBtn').disabled = true;
-            document.getElementById('pauseBtn').disabled = true;
-            
-            stopTimer();
-        }
-
-        function pauseSpeechRecognition() {
-            if (!recognition) return;
-            
-            recognition.stop();
-            isPaused = true;
-            
-            updateStatus('paused');
-            document.getElementById('pauseBtn').disabled = true;
-            document.getElementById('startBtn').disabled = false;
-            
-            stopTimer();
-        }
-
-        function updateStatus(status, error = '') {
-            const light = document.getElementById('statusLight');
-            const text = document.getElementById('statusText');
-            
-            light.className = 'status-light';
-            
-            switch(status) {
-                case 'listening':
-                    light.classList.add('listening');
-                    text.textContent = 'Listening... Speak now';
-                    break;
-                case 'paused':
-                    light.classList.add('active');
-                    text.textContent = 'Paused';
-                    break;
-                case 'stopped':
-                    light.classList.remove('active', 'listening');
-                    text.textContent = 'Stopped';
-                    break;
-                case 'error':
-                    light.classList.remove('active', 'listening');
-                    text.textContent = `Error: ${error}`;
-                    break;
-                default:
-                    light.classList.remove('active', 'listening');
-                    text.textContent = 'Ready to start';
-            }
-        }
-
-        function startTimer() {
-            seconds = 0;
-            updateTimer();
-            timerInterval = setInterval(() => {
-                seconds++;
-                updateTimer();
-            }, 1000);
-        }
-
-        function stopTimer() {
             if (timerInterval) {
                 clearInterval(timerInterval);
                 timerInterval = null;
             }
         }
 
-        function updateTimer() {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            document.getElementById('timerDisplay').textContent = 
-                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        // Handle error event
+        function handleError(event) {
+            console.error('Speech recognition error:', event.error);
+            statusText.textContent = 'Error: ' + event.error;
+            stopListening();
         }
 
-        function updateWordCount() {
-            const text = document.getElementById('speechOutput').value;
-            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-            const chars = text.length;
+        // Handle result event
+        function handleResult(event) {
+            let interimTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript + ' ';
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+
+            // Update displays
+            transcriptBox.textContent = finalTranscript;
+            interimBox.textContent = interimTranscript || '🎤 Listening...';
             
-            document.getElementById('wordCount').textContent = words;
-            document.getElementById('charCount').textContent = chars;
+            // Auto-scroll to bottom
+            transcriptBox.scrollTop = transcriptBox.scrollHeight;
+            
+            // Update stats
+            updateStats();
         }
 
-        function copyText() {
-            const text = document.getElementById('speechOutput').value;
+        // Start listening
+        function startListening() {
+            if (!recognition) return;
+            
+            try {
+                recognition.lang = languageSelect.value;
+                recognition.start();
+            } catch (error) {
+                console.error('Failed to start:', error);
+            }
+        }
+
+        // Stop listening
+        function stopListening() {
+            if (!recognition) return;
+            
+            try {
+                recognition.stop();
+            } catch (error) {
+                console.error('Failed to stop:', error);
+            }
+        }
+
+        // Toggle listening
+        function toggleListening() {
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        }
+
+        // Copy transcript
+        function copyTranscript() {
+            const text = finalTranscript || transcriptBox.textContent;
             if (!text) {
-                alert('No text to copy');
+                alert('Nothing to copy');
                 return;
             }
-            
+
             navigator.clipboard.writeText(text).then(() => {
-                alert('Text copied to clipboard!');
+                showNotification('Transcript copied to clipboard!');
             }).catch(() => {
                 alert('Press Ctrl+C to copy');
             });
         }
 
-        function downloadText() {
-            const text = document.getElementById('speechOutput').value;
+        // Clear transcript
+        function clearTranscript() {
+            if (finalTranscript && confirm('Clear all transcript?')) {
+                finalTranscript = '';
+                transcriptBox.textContent = '';
+                interimBox.textContent = '';
+                startTime = null;
+                durationSpan.textContent = '0:00';
+                updateStats();
+            }
+        }
+
+        // Save transcript
+        function saveTranscript() {
+            const text = finalTranscript || transcriptBox.textContent;
             if (!text) {
-                alert('No text to download');
+                alert('Nothing to save');
                 return;
             }
-            
+
+            localStorage.setItem('sg_last_transcript', text);
+            showNotification('Transcript saved locally!');
+        }
+
+        // Download transcript
+        function downloadTranscript() {
+            const text = finalTranscript || transcriptBox.textContent;
+            if (!text) {
+                alert('Nothing to download');
+                return;
+            }
+
             const blob = new Blob([text], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `speech-${new Date().toISOString().slice(0,10)}.txt`;
+            a.download = `transcript_${new Date().toISOString().slice(0,10)}.txt`;
             a.click();
             URL.revokeObjectURL(url);
         }
 
-        function clearText() {
-            if (document.getElementById('speechOutput').value) {
-                if (confirm('Clear all text?')) {
-                    document.getElementById('speechOutput').value = '';
-                    finalTranscript = '';
-                    updateWordCount();
-                }
-            }
-        }
-
-        function saveText() {
-            const text = document.getElementById('speechOutput').value;
-            if (!text) {
-                alert('No text to save');
-                return;
-            }
+        // Update statistics
+        function updateStats() {
+            const text = finalTranscript || transcriptBox.textContent;
             
-            alert('Text saved to local storage');
-            localStorage.setItem('savedSpeech', text);
+            // Word count
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            wordCountSpan.textContent = words;
+            
+            // Character count
+            charCountSpan.textContent = text.length;
         }
 
-        window.addEventListener('load', () => {
-            const saved = localStorage.getItem('savedSpeech');
-            if (saved) {
-                document.getElementById('speechOutput').value = saved;
-                finalTranscript = saved;
-                updateWordCount();
+        // Start timer
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                if (startTime) {
+                    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                    const minutes = Math.floor(elapsed / 60);
+                    const seconds = elapsed % 60;
+                    durationSpan.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Simple alert for now
+            alert(message);
+        }
+
+        // Language change handler
+        languageSelect.addEventListener('change', () => {
+            if (recognition) {
+                recognition.lang = languageSelect.value;
             }
         });
 
-        window.addEventListener('beforeunload', () => {
-            if (recognition && isListening) {
-                recognition.stop();
-            }
-            stopTimer();
-        });
+        // Initialize on load
+        window.addEventListener('load', init);
+
+        // Load last saved transcript
+        const saved = localStorage.getItem('sg_last_transcript');
+        if (saved) {
+            finalTranscript = saved;
+            transcriptBox.textContent = saved;
+            updateStats();
+        }
     </script>
 </body>
 </html>
