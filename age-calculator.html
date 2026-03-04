@@ -8,12 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #E8DE99;
             font-family: 'Poppins', sans-serif;
@@ -23,7 +18,6 @@
             align-items: center;
             padding: 15px;
         }
-
         .calculator-card {
             background: #1c222d;
             border-radius: 25px;
@@ -33,7 +27,6 @@
             border: 2px solid #42f8f5;
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -42,7 +35,6 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #42f8f5;
         }
-
         .card-title {
             display: flex;
             align-items: center;
@@ -51,12 +43,11 @@
             font-size: 1.3rem;
             font-weight: 600;
         }
-
         .card-icon {
             color: #42f8f5;
             font-size: 1.6rem;
+            display: inline-block !important;
         }
-
         .card-badge {
             background: #12151a;
             color: #42f8f5;
@@ -67,7 +58,6 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -75,13 +65,11 @@
             margin-bottom: 15px;
             border: 2px solid #42f8f5;
         }
-
         .input-row {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .input-icon {
             width: 40px;
             height: 40px;
@@ -95,11 +83,7 @@
             font-size: 1.1rem;
             flex-shrink: 0;
         }
-
-        .input-group {
-            flex: 1;
-        }
-
+        .input-group { flex: 1; }
         .input-label {
             color: #b0c4de;
             font-size: 0.7rem;
@@ -108,23 +92,19 @@
             align-items: center;
             gap: 4px;
         }
-
         .input-label i {
             color: #42f8f5;
             font-size: 0.6rem;
         }
-
         .date-input-group {
             display: flex;
             gap: 8px;
             width: 100%;
         }
-
         .date-field {
             flex: 1;
             text-align: center;
         }
-
         .date-field input {
             width: 100%;
             background: #1e2b37;
@@ -136,22 +116,11 @@
             font-family: 'Poppins', sans-serif;
             outline: none;
             text-align: center;
-            autocomplete: off;
-            autocorrect: off;
-            spellcheck: false;
-            -webkit-autofill: none;
         }
-
         .date-field input:focus {
             border-color: #42f8f5;
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
-
-        .date-field input::placeholder {
-            color: #6d8ba0;
-            font-size: 0.8rem;
-        }
-
         .date-separator {
             color: #42f8f5;
             font-size: 1.5rem;
@@ -159,7 +128,6 @@
             display: flex;
             align-items: center;
         }
-
         .result-display {
             background: #12151a;
             border-radius: 16px;
@@ -168,7 +136,6 @@
             border: 2px solid #42f8f5;
             text-align: center;
         }
-
         .age-main {
             color: #42f8f5;
             font-size: 2.5rem;
@@ -176,13 +143,11 @@
             line-height: 1.2;
             font-family: monospace;
         }
-
         .age-detail {
             color: #b0c4de;
             font-size: 0.9rem;
             margin-top: 5px;
         }
-
         .age-breakdown {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -191,30 +156,23 @@
             padding-top: 15px;
             border-top: 1px solid #42f8f5;
         }
-
-        .age-item {
-            text-align: center;
-        }
-
+        .age-item { text-align: center; }
         .age-item-value {
             color: #42f8f5;
             font-size: 1.3rem;
             font-weight: 600;
         }
-
         .age-item-label {
             color: #b0c4de;
             font-size: 0.7rem;
             text-transform: uppercase;
         }
-
         .action-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 8px;
             margin: 15px 0;
         }
-
         .action-btn {
             background: #12151a;
             border: 1px solid #42f8f5;
@@ -226,24 +184,18 @@
             transition: all 0.2s ease;
             text-align: center;
         }
-
         .action-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
-
-        .action-btn i {
-            margin-right: 5px;
-        }
-
+        .action-btn i { margin-right: 5px; }
         .action-btn.primary {
             background: #42f8f5;
             color: #12151a;
             font-weight: 600;
         }
-
         .ad-container {
             width: 100%;
             margin: 15px 0 10px;
@@ -253,12 +205,10 @@
             padding: 12px;
             border: 1px solid #42f8f5;
         }
-
         .footer {
             margin-top: 15px;
             text-align: center;
         }
-
         .home-link {
             display: inline-block;
             color: #42f8f5;
@@ -270,34 +220,30 @@
             font-size: 0.8rem;
             transition: all 0.3s ease;
         }
-
         .home-link:hover {
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
-
         .footer-email {
             margin: 12px 0 8px;
             color: #6d8ba0;
             font-size: 0.75rem;
         }
-
         .footer-email a {
             color: #42f8f5;
             text-decoration: none;
         }
-
         .copyright {
             color: #6d8ba0;
             font-size: 0.7rem;
         }
-
         @media screen and (max-width: 500px) {
             body { padding: 10px; }
             .calculator-card { padding: 15px; }
             .card-title { font-size: 1.1rem; }
+            .card-icon { font-size: 1.3rem; display: inline-block !important; }
             .input-row { flex-direction: column; gap: 8px; }
             .input-icon { width: 100%; height: 40px; }
             .date-input-group { gap: 5px; }
@@ -305,7 +251,6 @@
             .date-separator { font-size: 1.2rem; }
             .age-main { font-size: 2rem; }
         }
-
         @media screen and (max-width: 350px) {
             .date-input-group { flex-direction: column; gap: 8px; }
             .date-separator { display: none; }
@@ -328,15 +273,15 @@
                     <div class="input-label"><i class="fas fa-circle"></i> Birth Date</div>
                     <div class="date-input-group">
                         <div class="date-field">
-                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15">
+                            <input type="tel" id="birthDay" placeholder="DD" maxlength="2" value="15">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01">
+                            <input type="tel" id="birthMonth" placeholder="MM" maxlength="2" value="01">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990">
+                            <input type="tel" id="birthYear" placeholder="YYYY" maxlength="4" value="1990">
                         </div>
                     </div>
                 </div>
@@ -381,50 +326,17 @@
     </div>
 
     <script>
-        // SUPER STRONG JULY 17 BLOCKER
+        // KILL JULY 17 FOREVER
         (function() {
-            // Run immediately and on load
-            function blockAutofill() {
-                const inputs = document.querySelectorAll('.date-field input');
-                inputs.forEach(input => {
-                    // Set all possible autocomplete-blocking attributes
-                    input.setAttribute('autocomplete', 'off');
-                    input.setAttribute('autocorrect', 'off');
-                    input.setAttribute('spellcheck', 'false');
-                    input.setAttribute('data-lpignore', 'true');
-                    input.setAttribute('data-form-type', 'other');
-                    
-                    // Random name to confuse browser
-                    const randomId = 'input_' + Math.random().toString(36).substring(7);
-                    input.setAttribute('name', randomId);
-                    
-                    // For mobile: set type to text and pattern numeric
-                    input.setAttribute('type', 'text');
-                    input.setAttribute('inputmode', 'numeric');
-                    input.setAttribute('pattern', '[0-9]*');
-                    
-                    // Clear any existing values that might trigger autofill
-                    if (!input.value) {
-                        input.value = '';
-                    }
-                    
-                    // Prevent paste of non-numeric
-                    input.addEventListener('paste', (e) => {
-                        const pasted = (e.clipboardData || window.clipboardData).getData('text');
-                        if (!/^\d+$/.test(pasted)) {
-                            e.preventDefault();
-                        }
-                    });
-                });
-            }
-
-            // Run on load and dynamically
-            window.addEventListener('load', blockAutofill);
-            document.addEventListener('DOMContentLoaded', blockAutofill);
-            
-            // Also run after a short delay (for stubborn browsers)
-            setTimeout(blockAutofill, 100);
-            setTimeout(blockAutofill, 500);
+            // Change all inputs to type="tel" (browsers don't autofill tel)
+            document.querySelectorAll('.date-field input').forEach(input => {
+                input.type = 'tel';
+                input.setAttribute('autocomplete', 'off');
+                input.setAttribute('autocorrect', 'off');
+                input.setAttribute('spellcheck', 'false');
+                input.setAttribute('data-lpignore', 'true');
+                input.setAttribute('data-form-type', 'other');
+            });
         })();
 
         function calculateAge() {
@@ -467,12 +379,6 @@
         }
 
         document.querySelectorAll('.date-field input').forEach(input => {
-            input.addEventListener('keypress', (e) => {
-                if (!/[0-9]/.test(e.key)) {
-                    e.preventDefault();
-                }
-            });
-            
             input.addEventListener('input', function() {
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
