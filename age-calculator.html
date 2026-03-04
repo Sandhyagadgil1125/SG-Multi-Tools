@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ===== MASTER STYLES - MATCHING INDEX.HTML THEME ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,110 +22,157 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .calculator-card {
             background: #1c222d;
-            border-radius: 30px;
-            padding: 25px;
+            border-radius: 25px;
+            padding: 20px;
             width: 100%;
             max-width: 550px;
             border: 2px solid #42f8f5;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 2px solid #42f8f5;
         }
 
         .card-title {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: #42f8f5;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
         .card-icon {
             color: #42f8f5;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
 
         .card-badge {
             background: #12151a;
             color: #42f8f5;
-            padding: 5px 15px;
-            border-radius: 30px;
+            padding: 4px 12px;
+            border-radius: 25px;
             border: 1px solid #42f8f5;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
         }
 
-        /* Input Section */
+        /* ===== INPUT SECTION ===== */
         .input-section {
             background: #12151a;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
             border: 2px solid #42f8f5;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-icon {
+            width: 40px;
+            height: 40px;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #42f8f5;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .input-group {
+            flex: 1;
         }
 
         .input-label {
             color: #b0c4de;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            display: block;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .input-label i {
             color: #42f8f5;
-            margin-right: 8px;
+            font-size: 0.6rem;
         }
 
-        .date-input {
+        /* ===== CUSTOM DATE INPUT FIELDS (DD-MM-YYYY) ===== */
+        .date-input-group {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .date-field {
+            flex: 1;
+            text-align: center;
+        }
+
+        .date-field input {
             width: 100%;
             background: #1e2b37;
             border: 1px solid #42f8f5;
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 12px 5px;
             color: white;
             font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             outline: none;
-            margin-bottom: 15px;
+            text-align: center;
         }
 
-        .date-input:focus {
+        .date-field input:focus {
             border-color: #42f8f5;
-            box-shadow: 0 0 15px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
-        .date-input::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
+        .date-field input::placeholder {
+            color: #6d8ba0;
+            font-size: 0.8rem;
         }
 
-        /* Result Display */
+        .date-separator {
+            color: #42f8f5;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ===== RESULT DISPLAY ===== */
         .result-display {
             background: #12151a;
-            border-radius: 20px;
-            padding: 25px;
-            margin: 20px 0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
             border: 2px solid #42f8f5;
             text-align: center;
         }
 
         .age-main {
             color: #42f8f5;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.2;
             font-family: monospace;
@@ -132,16 +180,16 @@
 
         .age-detail {
             color: #b0c4de;
-            font-size: 1.1rem;
-            margin-top: 10px;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
 
         .age-breakdown {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 1px solid #42f8f5;
         }
 
@@ -151,17 +199,17 @@
 
         .age-item-value {
             color: #42f8f5;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
         .age-item-label {
             color: #b0c4de;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
         }
 
-        /* Next Birthday */
+        /* ===== NEXT BIRTHDAY CARD ===== */
         .birthday-card {
             background: #12151a;
             border-radius: 16px;
@@ -184,67 +232,77 @@
 
         .birthday-label {
             color: #b0c4de;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
 
         .birthday-date {
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
         }
 
         .birthday-days {
             color: #42f8f5;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
-        /* Button Grid */
-        .button-grid {
+        /* ===== ACTION BUTTONS ===== */
+        .action-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 20px 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 15px 0;
         }
 
-        .tool-btn {
+        .action-btn {
             background: #12151a;
             border: 1px solid #42f8f5;
-            border-radius: 30px;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 500;
+            border-radius: 20px;
+            padding: 10px 5px;
+            font-size: 0.75rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
         }
 
-        .tool-btn:hover {
+        .action-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.3);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
-        .tool-btn.primary {
+        .action-btn i {
+            margin-right: 3px;
+        }
+
+        .action-btn.primary {
             background: #42f8f5;
             color: #12151a;
             font-weight: 600;
         }
 
-        .tool-btn.primary:hover {
+        .action-btn.primary:hover {
             background: transparent;
             color: #42f8f5;
         }
 
-        .tool-btn i {
-            margin-right: 8px;
+        /* ===== ADSTERRA AD ===== */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         .footer {
-            margin-top: 30px;
+            margin-top: 15px;
             text-align: center;
         }
 
@@ -253,10 +311,10 @@
             color: #42f8f5;
             text-decoration: none;
             font-weight: 600;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border: 2px solid #42f8f5;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
         }
 
@@ -264,13 +322,13 @@
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 248, 245, 0.4);
+            box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
 
         .footer-email {
-            margin: 20px 0 15px;
+            margin: 12px 0 8px;
             color: #6d8ba0;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
         }
 
         .footer-email a {
@@ -284,46 +342,56 @@
 
         .copyright {
             color: #6d8ba0;
-            font-size: 0.8rem;
-            margin-top: 15px;
+            font-size: 0.7rem;
         }
 
-        /* Adsterra Ad Container */
-        .ad-container {
-            width: 100%;
-            margin: 25px 0 15px;
-            text-align: center;
-            background: #12151a;
-            border-radius: 16px;
-            padding: 15px;
-            border: 1px solid #42f8f5;
-        }
-
-        /* Responsive */
+        /* ===== RESPONSIVE DESIGN ===== */
+        /* Desktop & Tablet - Default styles above work fine */
+        
+        /* Mobile Specific Styles (max-width: 500px) */
         @media screen and (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            
             .calculator-card {
                 padding: 15px;
             }
             
             .card-title {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
             .card-icon {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
-            .card-badge {
-                padding: 4px 10px;
-                font-size: 0.65rem;
+            /* Make date input more touch-friendly on mobile */
+            .input-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .input-icon {
+                width: 100%;
+                height: 40px;
+            }
+            
+            .date-input-group {
+                gap: 5px;
+            }
+            
+            .date-field input {
+                padding: 12px 2px;
+                font-size: 0.9rem;
+            }
+            
+            .date-separator {
+                font-size: 1.2rem;
             }
             
             .age-main {
-                font-size: 2.2rem;
-            }
-            
-            .age-detail {
-                font-size: 1rem;
+                font-size: 2rem;
             }
             
             .age-breakdown {
@@ -331,19 +399,32 @@
             }
             
             .age-item-value {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
             .birthday-card {
                 flex-direction: column;
                 text-align: center;
+                gap: 8px;
             }
             
-            .button-grid {
+            .action-grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        /* Small Mobile (max-width: 350px) */
+        @media screen and (max-width: 350px) {
+            .date-input-group {
+                flex-direction: column;
+                gap: 8px;
+            }
             
-            .ad-container {
+            .date-separator {
+                display: none;
+            }
+            
+            .date-field input {
                 padding: 10px;
             }
         }
@@ -358,13 +439,49 @@
             <div class="card-badge">AGE</div>
         </div>
 
-        <!-- Input Section -->
+        <!-- Input Section with DD-MM-YYYY Format -->
         <div class="input-section">
-            <label class="input-label"><i class="fas fa-calendar-alt"></i> Date of Birth</label>
-            <input class="date-input" type="date" id="birthDate" value="1990-01-01">
+            <!-- Birth Date -->
+            <div class="input-row">
+                <div class="input-icon">🎂</div>
+                <div class="input-group">
+                    <div class="input-label"><i class="fas fa-circle"></i> Birth Date</div>
+                    <div class="date-input-group">
+                        <div class="date-field">
+                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-field">
+                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-field">
+                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <label class="input-label"><i class="fas fa-calendar-check"></i> As of Date</label>
-            <input class="date-input" type="date" id="asOfDate" value="">
+            <!-- Current Date -->
+            <div class="input-row">
+                <div class="input-icon">📅</div>
+                <div class="input-group">
+                    <div class="input-label"><i class="fas fa-circle"></i> Current Date</div>
+                    <div class="date-input-group">
+                        <div class="date-field">
+                            <input type="text" id="currentDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-field">
+                            <input type="text" id="currentMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-field">
+                            <input type="text" id="currentYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Result Display -->
@@ -398,23 +515,20 @@
             <div class="birthday-days" id="daysUntilBirthday">305 days</div>
         </div>
 
-        <!-- Button Grid -->
-        <div class="button-grid">
-            <button class="tool-btn primary" onclick="calculateAge()">
+        <!-- Action Buttons -->
+        <div class="action-grid">
+            <button class="action-btn primary" onclick="calculateAge()">
                 <i class="fas fa-calculator"></i> Calculate
             </button>
-            <button class="tool-btn" onclick="setToday()">
+            <button class="action-btn" onclick="setToday()">
                 <i class="fas fa-calendar-day"></i> Today
             </button>
-            <button class="tool-btn" onclick="resetToDefault()">
+            <button class="action-btn" onclick="resetToDefault()">
                 <i class="fas fa-undo"></i> Reset
-            </button>
-            <button class="tool-btn" onclick="shareAge()">
-                <i class="fas fa-share-alt"></i> Share
             </button>
         </div>
 
-        <!-- Adsterra Native Banner Ad - OPTION 1 (in footer) -->
+        <!-- Adsterra Native Banner Ad -->
         <div class="ad-container">
             <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
             <div id="container-ea58333732a8a42313578cba2aad5256"></div>
@@ -437,47 +551,72 @@
     </div>
 
     <script>
-        // Set default dates
-        function setDefaultDates() {
-            const today = new Date();
-            const asOfDate = document.getElementById('asOfDate');
-            
-            // Format today as YYYY-MM-DD
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            asOfDate.value = `${year}-${month}-${day}`;
-        }
-
-        // Set as of date to today
+        // Set today's date on load
         function setToday() {
             const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            document.getElementById('asOfDate').value = `${year}-${month}-${day}`;
+            document.getElementById('currentDay').value = String(today.getDate()).padStart(2, '0');
+            document.getElementById('currentMonth').value = String(today.getMonth() + 1).padStart(2, '0');
+            document.getElementById('currentYear').value = today.getFullYear();
             calculateAge();
+        }
+
+        // Set default dates
+        function setDefaultDates() {
+            // Birth date: January 15, 1990
+            document.getElementById('birthDay').value = '15';
+            document.getElementById('birthMonth').value = '01';
+            document.getElementById('birthYear').value = '1990';
+            
+            setToday();
+        }
+
+        // Validate date inputs
+        function validateDateInputs() {
+            const inputs = ['birthDay', 'birthMonth', 'birthYear', 'currentDay', 'currentMonth', 'currentYear'];
+            
+            for (let id of inputs) {
+                const input = document.getElementById(id);
+                let value = input.value.trim();
+                
+                // Remove non-numeric characters
+                value = value.replace(/[^0-9]/g, '');
+                input.value = value;
+            }
         }
 
         // Calculate age
         function calculateAge() {
-            const birthDate = new Date(document.getElementById('birthDate').value);
-            const asOfDate = new Date(document.getElementById('asOfDate').value);
+            validateDateInputs();
+
+            // Get birth date
+            const birthDay = parseInt(document.getElementById('birthDay').value) || 1;
+            const birthMonth = parseInt(document.getElementById('birthMonth').value) || 1;
+            const birthYear = parseInt(document.getElementById('birthYear').value) || 2000;
             
-            if (!birthDate || !asOfDate || birthDate > asOfDate) {
-                alert('Please enter valid dates (Birth date must be before As of date)');
+            // Get current date
+            const currentDay = parseInt(document.getElementById('currentDay').value) || 1;
+            const currentMonth = parseInt(document.getElementById('currentMonth').value) || 1;
+            const currentYear = parseInt(document.getElementById('currentYear').value) || 2000;
+
+            // Create date objects
+            const birthDate = new Date(birthYear, birthMonth - 1, birthDay);
+            const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
+
+            // Validate dates
+            if (birthDate > currentDate) {
+                alert('Birth date cannot be after current date');
                 return;
             }
 
             // Calculate years, months, days
-            let years = asOfDate.getFullYear() - birthDate.getFullYear();
-            let months = asOfDate.getMonth() - birthDate.getMonth();
-            let days = asOfDate.getDate() - birthDate.getDate();
+            let years = currentYear - birthYear;
+            let months = currentMonth - birthMonth;
+            let days = currentDay - birthDay;
 
             // Adjust if days negative
             if (days < 0) {
                 months--;
-                const lastMonth = new Date(asOfDate.getFullYear(), asOfDate.getMonth(), 0);
+                const lastMonth = new Date(currentYear, currentMonth - 1, 0);
                 days += lastMonth.getDate();
             }
 
@@ -495,12 +634,12 @@
             document.getElementById('ageDays').textContent = days;
 
             // Calculate next birthday
-            const nextBirthday = new Date(asOfDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-            if (nextBirthday < asOfDate) {
+            const nextBirthday = new Date(currentYear, birthMonth - 1, birthDay);
+            if (nextBirthday < currentDate) {
                 nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
             }
             
-            const daysUntil = Math.ceil((nextBirthday - asOfDate) / (1000 * 60 * 60 * 24));
+            const daysUntil = Math.ceil((nextBirthday - currentDate) / (1000 * 60 * 60 * 24));
             
             // Format next birthday
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -508,31 +647,23 @@
             document.getElementById('daysUntilBirthday').textContent = `${daysUntil} days`;
         }
 
-        // Reset to default
-        function resetToDefault() {
-            document.getElementById('birthDate').value = '1990-01-01';
-            setToday();
-        }
+        // Restrict input to numbers only
+        document.querySelectorAll('.date-field input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
 
-        // Share age
-        function shareAge() {
-            const years = document.getElementById('ageYears').textContent;
-            const months = document.getElementById('ageMonths').textContent;
-            const days = document.getElementById('ageDays').textContent;
-            
-            const text = `I am ${years} years, ${months} months, and ${days} days old! 🎂`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My Age',
-                    text: text
-                }).catch(() => {
-                    alert(text);
-                });
-            } else {
-                alert(text);
-            }
-        }
+            input.addEventListener('blur', () => {
+                // Auto-pad day and month
+                if (input.id.includes('Day') || input.id.includes('Month')) {
+                    if (input.value.length === 1) {
+                        input.value = '0' + input.value;
+                    }
+                }
+            });
+        });
 
         // Initialize
         window.addEventListener('load', () => {
