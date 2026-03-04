@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ========== MASTER STYLES - MATCHING UNIFORM THEME ========== */
+        /* ===== MASTER STYLES - MATCHING INDEX.HTML THEME ===== */
         * {
             margin: 0;
             padding: 0;
@@ -69,7 +69,7 @@
             text-transform: uppercase;
         }
 
-        /* Mode Tabs */
+        /* ===== MODE TABS - MOBILE FRIENDLY ===== */
         .mode-tabs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -81,12 +81,15 @@
             background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 25px;
-            padding: 8px 5px;
+            padding: 10px 5px;
             text-align: center;
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
         .mode-tab:hover {
@@ -104,9 +107,10 @@
 
         .mode-tab i {
             margin-right: 4px;
+            font-size: 0.8rem;
         }
 
-        /* Input Section */
+        /* ===== INPUT SECTION ===== */
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -122,6 +126,10 @@
             margin-bottom: 15px;
         }
 
+        .input-row:last-child {
+            margin-bottom: 0;
+        }
+
         .input-icon {
             width: 40px;
             height: 40px;
@@ -133,6 +141,7 @@
             justify-content: center;
             color: #42f8f5;
             font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
         .input-group {
@@ -158,9 +167,9 @@
             background: #1e2b37;
             border: 1px solid #42f8f5;
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             color: white;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             outline: none;
         }
@@ -170,7 +179,12 @@
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
-        /* Result Display */
+        .input-field::placeholder {
+            color: #6d8ba0;
+            font-size: 0.85rem;
+        }
+
+        /* ===== RESULT DISPLAY ===== */
         .result-display {
             background: #12151a;
             border-radius: 16px;
@@ -186,23 +200,26 @@
             font-weight: 700;
             line-height: 1.2;
             font-family: monospace;
+            word-break: break-word;
         }
 
         .result-label {
             color: #b0c4de;
-            font-size: 0.8rem;
-            margin-top: 5px;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            word-break: break-word;
         }
 
         .result-formula {
             color: #6d8ba0;
             font-size: 0.7rem;
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1px solid #42f8f5;
+            word-break: break-word;
         }
 
-        /* Quick Examples */
+        /* ===== QUICK EXAMPLES ===== */
         .examples-section {
             background: #12151a;
             border-radius: 12px;
@@ -214,7 +231,7 @@
         .examples-title {
             color: white;
             font-size: 0.8rem;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -233,13 +250,15 @@
         .example-btn {
             background: #1e2b37;
             border: 1px solid #42f8f5;
-            border-radius: 8px;
+            border-radius: 20px;
             padding: 8px 3px;
             text-align: center;
             color: white;
             font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
         .example-btn:hover {
@@ -248,7 +267,7 @@
             transform: translateY(-2px);
         }
 
-        /* Action Buttons */
+        /* ===== ACTION BUTTONS ===== */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -259,13 +278,14 @@
         .action-btn {
             background: #12151a;
             border: 1px solid #42f8f5;
-            border-radius: 20px;
-            padding: 10px 5px;
-            font-size: 0.75rem;
+            border-radius: 25px;
+            padding: 12px 5px;
+            font-size: 0.8rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
+            font-weight: 500;
         }
 
         .action-btn:hover {
@@ -276,7 +296,8 @@
         }
 
         .action-btn i {
-            margin-right: 3px;
+            margin-right: 5px;
+            font-size: 0.8rem;
         }
 
         .action-btn.primary {
@@ -290,71 +311,18 @@
             color: #42f8f5;
         }
 
-        /* ========== AFFILIATE LINK SECTION (Styled like EMI Calculator) ========== */
-        .affiliate-section {
-            margin: 20px 0 10px 0;
-            padding: 15px;
+        /* ===== ADSTERRA AD ===== */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
             background: #12151a;
             border-radius: 16px;
+            padding: 12px;
             border: 1px solid #42f8f5;
-            text-align: center;
         }
 
-        .affiliate-link {
-            display: block;
-            background: #1e2b37;
-            border: 2px solid #42f8f5;
-            border-radius: 16px;
-            padding: 15px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .affiliate-link:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(66, 248, 245, 0.3);
-            background: #1e2b37;
-        }
-
-        .affiliate-link h3 {
-            color: #42f8f5;
-            font-size: 1rem;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .affiliate-link p {
-            color: #c5d1de;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-        }
-
-        .affiliate-badge {
-            display: inline-block;
-            background: #42f8f5;
-            color: #12151a;
-            font-weight: 600;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            transition: 0.2s;
-        }
-
-        .affiliate-link:hover .affiliate-badge {
-            background: white;
-        }
-
-        .disclaimer-note {
-            color: #6d8ba0;
-            font-size: 0.6rem;
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        /* Footer */
+        /* ===== FOOTER ===== */
         .footer {
             margin-top: 15px;
             text-align: center;
@@ -399,36 +367,95 @@
             font-size: 0.7rem;
         }
 
-        /* Responsive */
+        /* ===== MOBILE OPTIMIZATIONS ===== */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
             }
+            
             .calculator-card {
                 padding: 15px;
             }
+            
             .card-title {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
+            
+            .card-icon {
+                font-size: 1.4rem;
+            }
+            
+            /* Stack tabs vertically on very small screens */
             .mode-tabs {
                 grid-template-columns: 1fr;
+                gap: 8px;
             }
+            
+            .mode-tab {
+                padding: 12px 5px;
+                font-size: 0.85rem;
+            }
+            
+            /* Stack input rows */
             .input-row {
                 flex-direction: column;
-                gap: 5px;
+                gap: 8px;
             }
+            
             .input-icon {
                 width: 100%;
-                height: 35px;
+                height: 45px;
             }
-            .examples-grid {
-                grid-template-columns: repeat(2, 1fr);
+            
+            .input-field {
+                padding: 14px;
+                font-size: 1rem;
             }
-            .action-grid {
-                grid-template-columns: 1fr;
-            }
+            
+            /* Make result more readable */
             .result-value {
                 font-size: 2rem;
+            }
+            
+            .result-label {
+                font-size: 0.8rem;
+            }
+            
+            /* Example buttons 2x2 on mobile */
+            .examples-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .example-btn {
+                padding: 10px 5px;
+                font-size: 0.75rem;
+            }
+            
+            /* Stack action buttons */
+            .action-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .action-btn {
+                padding: 14px 5px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-value {
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -445,10 +472,10 @@
         <!-- Mode Tabs -->
         <div class="mode-tabs">
             <div class="mode-tab active" id="mode1Tab" onclick="switchMode(1)">
-                <i class="fas fa-percent"></i> What is X% of Y?
+                <i class="fas fa-percent"></i> X% of Y
             </div>
             <div class="mode-tab" id="mode2Tab" onclick="switchMode(2)">
-                <i class="fas fa-arrow-up"></i> X is what % of Y?
+                <i class="fas fa-arrow-up"></i> X is ?% of Y
             </div>
             <div class="mode-tab" id="mode3Tab" onclick="switchMode(3)">
                 <i class="fas fa-arrows-alt-h"></i> % Change
@@ -461,14 +488,14 @@
                 <div class="input-icon">%</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Percentage</div>
-                    <input type="number" class="input-field" id="mode1Percent" value="20" min="0" max="100" step="1">
+                    <input type="number" class="input-field" id="mode1Percent" value="20" min="0" max="100" step="1" placeholder="Enter percentage">
                 </div>
             </div>
             <div class="input-row">
                 <div class="input-icon">=</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> of Value</div>
-                    <input type="number" class="input-field" id="mode1Value" value="1000" min="0" step="any">
+                    <input type="number" class="input-field" id="mode1Value" value="1000" min="0" step="any" placeholder="Enter value">
                 </div>
             </div>
         </div>
@@ -479,14 +506,14 @@
                 <div class="input-icon">X</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Value X</div>
-                    <input type="number" class="input-field" id="mode2X" value="50" min="0" step="any">
+                    <input type="number" class="input-field" id="mode2X" value="50" min="0" step="any" placeholder="Enter X">
                 </div>
             </div>
             <div class="input-row">
                 <div class="input-icon">Y</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> of Value Y</div>
-                    <input type="number" class="input-field" id="mode2Y" value="200" min="0" step="any">
+                    <input type="number" class="input-field" id="mode2Y" value="200" min="0" step="any" placeholder="Enter Y">
                 </div>
             </div>
         </div>
@@ -497,14 +524,14 @@
                 <div class="input-icon">←</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> From Value</div>
-                    <input type="number" class="input-field" id="mode3From" value="100" min="0" step="any">
+                    <input type="number" class="input-field" id="mode3From" value="100" min="0" step="any" placeholder="From">
                 </div>
             </div>
             <div class="input-row">
                 <div class="input-icon">→</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> To Value</div>
-                    <input type="number" class="input-field" id="mode3To" value="150" min="0" step="any">
+                    <input type="number" class="input-field" id="mode3To" value="150" min="0" step="any" placeholder="To">
                 </div>
             </div>
         </div>
@@ -538,16 +565,10 @@
             <button class="action-btn" onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
         </div>
 
-        <!-- ========== AFFILIATE LINK SECTION (Personal Budget Planner) ========== -->
-        <div class="affiliate-section">
-            <a href="https://www.checkout-ds24.com/redir/604596/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer" class="affiliate-link">
-                <h3><i class="fas fa-file-excel"></i> 📊 Personal Budget Planner</h3>
-                <p>Google Sheets - Take full control of your finances with a smart budgeting tool</p>
-                <span class="affiliate-badge">Get the Planner →</span>
-            </a>
-            <div class="disclaimer-note">
-                <i class="fas fa-info-circle"></i> Affiliate link. Helps support our free tools.
-            </div>
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
         </div>
 
         <!-- Footer -->
@@ -559,9 +580,10 @@
     </div>
 
     <script>
-        // ========== PRESERVED ORIGINAL CALCULATOR FUNCTIONALITY ==========
+        // ===== PERCENTAGE CALCULATOR FUNCTIONALITY =====
         let currentMode = 1;
 
+        // DOM Elements
         const mode1Input = document.getElementById('mode1Input');
         const mode2Input = document.getElementById('mode2Input');
         const mode3Input = document.getElementById('mode3Input');
@@ -580,75 +602,95 @@
         const resultLabel = document.getElementById('resultLabel');
         const resultFormula = document.getElementById('resultFormula');
 
+        // Switch mode
         function switchMode(mode) {
             currentMode = mode;
+            
+            // Update tabs
             mode1Tab.classList.toggle('active', mode === 1);
             mode2Tab.classList.toggle('active', mode === 2);
             mode3Tab.classList.toggle('active', mode === 3);
+            
+            // Show/hide inputs
             mode1Input.style.display = mode === 1 ? 'block' : 'none';
             mode2Input.style.display = mode === 2 ? 'block' : 'none';
             mode3Input.style.display = mode === 3 ? 'block' : 'none';
+            
             calculate();
         }
 
+        // Calculate based on mode
         function calculate() {
             try {
                 if (currentMode === 1) calculateMode1();
                 else if (currentMode === 2) calculateMode2();
                 else calculateMode3();
-            } catch {
+            } catch (error) {
                 resultValue.textContent = 'Error';
                 resultLabel.textContent = 'Invalid input';
                 resultFormula.textContent = 'Please check your numbers';
             }
         }
 
+        // Mode 1: X% of Y
         function calculateMode1() {
             const percent = parseFloat(mode1Percent.value) || 0;
             const value = parseFloat(mode1Value.value) || 0;
+            
             const result = (percent / 100) * value;
+            
             resultValue.textContent = formatNumber(result);
             resultLabel.textContent = `${percent}% of ${formatNumber(value)} = ${formatNumber(result)}`;
             resultFormula.textContent = `(${percent} × ${formatNumber(value)}) ÷ 100 = ${formatNumber(result)}`;
         }
 
+        // Mode 2: X is what % of Y
         function calculateMode2() {
             const x = parseFloat(mode2X.value) || 0;
             const y = parseFloat(mode2Y.value) || 0;
+            
             if (y === 0) {
                 resultValue.textContent = '∞';
                 resultLabel.textContent = 'Division by zero';
                 resultFormula.textContent = 'Y cannot be zero';
                 return;
             }
+            
             const result = (x / y) * 100;
+            
             resultValue.textContent = result.toFixed(2) + '%';
             resultLabel.textContent = `${formatNumber(x)} is ${result.toFixed(2)}% of ${formatNumber(y)}`;
             resultFormula.textContent = `(${formatNumber(x)} ÷ ${formatNumber(y)}) × 100 = ${result.toFixed(2)}%`;
         }
 
+        // Mode 3: % Change
         function calculateMode3() {
             const from = parseFloat(mode3From.value) || 0;
             const to = parseFloat(mode3To.value) || 0;
+            
             if (from === 0) {
                 resultValue.textContent = '∞';
                 resultLabel.textContent = 'From value cannot be zero';
                 resultFormula.textContent = 'Please enter a non-zero from value';
                 return;
             }
+            
             const change = to - from;
             const percentChange = (change / from) * 100;
             const direction = percentChange >= 0 ? 'increase' : 'decrease';
+            
             resultValue.textContent = percentChange.toFixed(2) + '%';
             resultLabel.textContent = `${formatNumber(from)} → ${formatNumber(to)} = ${percentChange.toFixed(2)}% ${direction}`;
             resultFormula.textContent = `((${formatNumber(to)} - ${formatNumber(from)}) ÷ ${formatNumber(from)}) × 100 = ${percentChange.toFixed(2)}%`;
         }
 
+        // Format number
         function formatNumber(num) {
             if (Number.isInteger(num)) return num.toString();
             return num.toFixed(2).replace(/\.00$/, '');
         }
 
+        // Reset calculator
         function resetCalculator() {
             mode1Percent.value = 20;
             mode1Value.value = 1000;
@@ -659,25 +701,64 @@
             calculate();
         }
 
+        // Copy result
         function copyResult() {
             const text = `${resultLabel.textContent} | ${resultFormula.textContent}`;
-            navigator.clipboard.writeText(text).then(() => alert('Result copied!')).catch(() => alert('Press Ctrl+C to copy'));
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Result copied to clipboard!');
+            }).catch(() => {
+                alert('Press Ctrl+C to copy');
+            });
         }
 
+        // Load example
         function loadExample(type) {
-            const examples = {
-                '10percent': () => { switchMode(1); mode1Percent.value = 10; mode1Value.value = 500; },
-                '25percent': () => { switchMode(1); mode1Percent.value = 25; mode1Value.value = 200; },
-                'whatPercent': () => { switchMode(2); mode2X.value = 50; mode2Y.value = 250; },
-                'change': () => { switchMode(3); mode3From.value = 80; mode3To.value = 100; },
-                'discount': () => { switchMode(1); mode1Percent.value = 20; mode1Value.value = 2000; },
-                'tax': () => { switchMode(1); mode1Percent.value = 18; mode1Value.value = 1000; },
-                'profit': () => { switchMode(3); mode3From.value = 100; mode3To.value = 125; },
-                'loss': () => { switchMode(3); mode3From.value = 100; mode3To.value = 90; }
-            };
-            if (examples[type]) { examples[type](); calculate(); }
+            switch(type) {
+                case '10percent':
+                    switchMode(1);
+                    mode1Percent.value = 10;
+                    mode1Value.value = 500;
+                    break;
+                case '25percent':
+                    switchMode(1);
+                    mode1Percent.value = 25;
+                    mode1Value.value = 200;
+                    break;
+                case 'whatPercent':
+                    switchMode(2);
+                    mode2X.value = 50;
+                    mode2Y.value = 250;
+                    break;
+                case 'change':
+                    switchMode(3);
+                    mode3From.value = 80;
+                    mode3To.value = 100;
+                    break;
+                case 'discount':
+                    switchMode(1);
+                    mode1Percent.value = 20;
+                    mode1Value.value = 2000;
+                    break;
+                case 'tax':
+                    switchMode(1);
+                    mode1Percent.value = 18;
+                    mode1Value.value = 1000;
+                    break;
+                case 'profit':
+                    switchMode(3);
+                    mode3From.value = 100;
+                    mode3To.value = 125;
+                    break;
+                case 'loss':
+                    switchMode(3);
+                    mode3From.value = 100;
+                    mode3To.value = 90;
+                    break;
+            }
+            calculate();
         }
 
+        // Event listeners
         mode1Percent.addEventListener('input', calculate);
         mode1Value.addEventListener('input', calculate);
         mode2X.addEventListener('input', calculate);
@@ -685,7 +766,10 @@
         mode3From.addEventListener('input', calculate);
         mode3To.addEventListener('input', calculate);
 
-        window.addEventListener('load', () => switchMode(1));
+        // Initialize
+        window.addEventListener('load', () => {
+            switchMode(1);
+        });
     </script>
 </body>
 </html>
