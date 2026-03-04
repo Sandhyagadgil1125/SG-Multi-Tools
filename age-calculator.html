@@ -139,6 +139,8 @@
             font-family: 'Poppins', sans-serif;
             outline: none;
             text-align: center;
+            autocomplete: off;
+            -webkit-autofill: none;
         }
 
         .date-field input:focus {
@@ -373,7 +375,7 @@
             <div class="card-badge">AGE</div>
         </div>
 
-        <!-- Input Section - Only Birth Date -->
+        <!-- Input Section - Only Birth Date with autocomplete off -->
         <div class="input-section">
             <div class="input-row">
                 <div class="input-icon">🎂</div>
@@ -381,22 +383,22 @@
                     <div class="input-label"><i class="fas fa-circle"></i> Birth Date</div>
                     <div class="date-input-group">
                         <div class="date-field">
-                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15">
+                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15" autocomplete="off">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01">
+                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990">
+                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990" autocomplete="off">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Result Display - Clean Age Breakdown (NO July 17) -->
+        <!-- Result Display - Clean Age Breakdown -->
         <div class="result-display">
             <div class="age-main" id="ageYears">34</div>
             <div class="age-detail">Years Old</div>
@@ -485,7 +487,7 @@
                 months += 12;
             }
 
-            // Update display - NO July 17, just clean numbers
+            // Update display - clean numbers only
             document.getElementById('ageYears').textContent = years;
             document.getElementById('ageYearsDetail').textContent = years;
             document.getElementById('ageMonths').textContent = months;
