@@ -69,34 +69,29 @@
             text-transform: uppercase;
         }
 
-        /* ===== MODE TABS - MOBILE FRIENDLY ===== */
+        /* ===== MODE TABS - SIMPLE LIKE SCREENSHOT ===== */
         .mode-tabs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-bottom: 15px;
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .mode-tab {
             background: #12151a;
             border: 1px solid #42f8f5;
-            border-radius: 25px;
-            padding: 10px 5px;
-            text-align: center;
+            border-radius: 30px;
+            padding: 8px 16px;
             color: white;
-            font-size: 0.75rem;
-            font-weight: 500;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            word-break: break-word;
-            line-height: 1.3;
+            white-space: nowrap;
         }
 
         .mode-tab:hover {
             background: #42f8f5;
             color: #12151a;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
         .mode-tab.active {
@@ -105,12 +100,7 @@
             font-weight: 600;
         }
 
-        .mode-tab i {
-            margin-right: 4px;
-            font-size: 0.8rem;
-        }
-
-        /* ===== INPUT SECTION ===== */
+        /* ===== INPUT SECTION - CLEAN LAYOUT ===== */
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -123,47 +113,16 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .input-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .input-icon {
-            width: 40px;
-            height: 40px;
-            background: #1e2b37;
-            border: 1px solid #42f8f5;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #42f8f5;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .input-group {
-            flex: 1;
         }
 
         .input-label {
             color: #b0c4de;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .input-label i {
-            color: #42f8f5;
-            font-size: 0.6rem;
+            font-size: 0.85rem;
+            min-width: 100px;
         }
 
         .input-field {
-            width: 100%;
+            flex: 1;
             background: #1e2b37;
             border: 1px solid #42f8f5;
             border-radius: 10px;
@@ -172,6 +131,7 @@
             font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             outline: none;
+            text-align: right;
         }
 
         .input-field:focus {
@@ -179,9 +139,12 @@
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
-        .input-field::placeholder {
-            color: #6d8ba0;
-            font-size: 0.85rem;
+        .input-symbol {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
         }
 
         /* ===== RESULT DISPLAY ===== */
@@ -200,71 +163,54 @@
             font-weight: 700;
             line-height: 1.2;
             font-family: monospace;
-            word-break: break-word;
         }
 
         .result-label {
             color: #b0c4de;
-            font-size: 0.85rem;
-            margin-top: 8px;
-            word-break: break-word;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
 
         .result-formula {
             color: #6d8ba0;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             margin-top: 10px;
             padding-top: 10px;
             border-top: 1px solid #42f8f5;
-            word-break: break-word;
         }
 
         /* ===== QUICK EXAMPLES ===== */
         .examples-section {
-            background: #12151a;
-            border-radius: 12px;
-            padding: 12px;
             margin: 15px 0;
-            border: 1px solid #42f8f5;
         }
 
         .examples-title {
             color: white;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .examples-title i {
-            color: #42f8f5;
         }
 
         .examples-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
+            gap: 8px;
         }
 
         .example-btn {
-            background: #1e2b37;
+            background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 20px;
-            padding: 8px 3px;
+            padding: 8px 5px;
             text-align: center;
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            word-break: break-word;
-            line-height: 1.3;
         }
 
         .example-btn:hover {
             background: #42f8f5;
             color: #12151a;
-            transform: translateY(-2px);
         }
 
         /* ===== ACTION BUTTONS ===== */
@@ -280,24 +226,17 @@
             border: 1px solid #42f8f5;
             border-radius: 25px;
             padding: 12px 5px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            font-weight: 500;
         }
 
         .action-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
-        }
-
-        .action-btn i {
-            margin-right: 5px;
-            font-size: 0.8rem;
         }
 
         .action-btn.primary {
@@ -306,9 +245,8 @@
             font-weight: 600;
         }
 
-        .action-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
+        .action-btn i {
+            margin-right: 5px;
         }
 
         /* ===== ADSTERRA AD ===== */
@@ -377,85 +315,44 @@
                 padding: 15px;
             }
             
-            .card-title {
-                font-size: 1.2rem;
-            }
-            
-            .card-icon {
-                font-size: 1.4rem;
-            }
-            
-            /* Stack tabs vertically on very small screens */
+            /* Tabs scroll horizontally on mobile */
             .mode-tabs {
-                grid-template-columns: 1fr;
-                gap: 8px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
             }
             
             .mode-tab {
-                padding: 12px 5px;
-                font-size: 0.85rem;
+                flex: 0 0 auto;
             }
             
-            /* Stack input rows */
+            /* Clean input layout - NO extra box */
             .input-row {
-                flex-direction: column;
-                gap: 8px;
+                flex-direction: row;
+                align-items: center;
             }
             
-            .input-icon {
-                width: 100%;
-                height: 45px;
+            .input-label {
+                min-width: 80px;
+                font-size: 0.8rem;
             }
             
             .input-field {
-                padding: 14px;
-                font-size: 1rem;
+                padding: 10px;
+                font-size: 0.9rem;
             }
             
-            /* Make result more readable */
             .result-value {
                 font-size: 2rem;
             }
             
-            .result-label {
-                font-size: 0.8rem;
-            }
-            
-            /* Example buttons 2x2 on mobile */
             .examples-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
             }
             
-            .example-btn {
-                padding: 10px 5px;
-                font-size: 0.75rem;
-            }
-            
-            /* Stack action buttons */
             .action-grid {
                 grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            .action-btn {
-                padding: 14px 5px;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media screen and (max-width: 350px) {
-            .examples-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .result-value {
-                font-size: 1.8rem;
-            }
-            
-            .card-title {
-                font-size: 1.1rem;
             }
         }
     </style>
@@ -471,68 +368,50 @@
 
         <!-- Mode Tabs -->
         <div class="mode-tabs">
-            <div class="mode-tab active" id="mode1Tab" onclick="switchMode(1)">
-                <i class="fas fa-percent"></i> X% of Y
-            </div>
-            <div class="mode-tab" id="mode2Tab" onclick="switchMode(2)">
-                <i class="fas fa-arrow-up"></i> X is ?% of Y
-            </div>
-            <div class="mode-tab" id="mode3Tab" onclick="switchMode(3)">
-                <i class="fas fa-arrows-alt-h"></i> % Change
-            </div>
+            <div class="mode-tab active" id="mode1Tab" onclick="switchMode(1)">X% of Y</div>
+            <div class="mode-tab" id="mode2Tab" onclick="switchMode(2)">X is ?% of Y</div>
+            <div class="mode-tab" id="mode3Tab" onclick="switchMode(3)">% Change</div>
         </div>
 
         <!-- Mode 1: X% of Y -->
         <div class="input-section" id="mode1Input">
             <div class="input-row">
-                <div class="input-icon">%</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> Percentage</div>
-                    <input type="number" class="input-field" id="mode1Percent" value="20" min="0" max="100" step="1" placeholder="Enter percentage">
-                </div>
+                <span class="input-label">Percentage</span>
+                <span class="input-symbol">%</span>
+                <input type="number" class="input-field" id="mode1Percent" value="20">
             </div>
-            <div class="input-row">
-                <div class="input-icon">=</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> of Value</div>
-                    <input type="number" class="input-field" id="mode1Value" value="1000" min="0" step="any" placeholder="Enter value">
-                </div>
+            <div class="input-row" style="margin-top: 10px;">
+                <span class="input-label">of Value</span>
+                <span class="input-symbol">=</span>
+                <input type="number" class="input-field" id="mode1Value" value="1000">
             </div>
         </div>
 
         <!-- Mode 2: X is what % of Y -->
         <div class="input-section" id="mode2Input" style="display: none;">
             <div class="input-row">
-                <div class="input-icon">X</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> Value X</div>
-                    <input type="number" class="input-field" id="mode2X" value="50" min="0" step="any" placeholder="Enter X">
-                </div>
+                <span class="input-label">Value X</span>
+                <span class="input-symbol">X</span>
+                <input type="number" class="input-field" id="mode2X" value="50">
             </div>
-            <div class="input-row">
-                <div class="input-icon">Y</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> of Value Y</div>
-                    <input type="number" class="input-field" id="mode2Y" value="200" min="0" step="any" placeholder="Enter Y">
-                </div>
+            <div class="input-row" style="margin-top: 10px;">
+                <span class="input-label">of Value Y</span>
+                <span class="input-symbol">Y</span>
+                <input type="number" class="input-field" id="mode2Y" value="200">
             </div>
         </div>
 
         <!-- Mode 3: % Change -->
         <div class="input-section" id="mode3Input" style="display: none;">
             <div class="input-row">
-                <div class="input-icon">←</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> From Value</div>
-                    <input type="number" class="input-field" id="mode3From" value="100" min="0" step="any" placeholder="From">
-                </div>
+                <span class="input-label">From Value</span>
+                <span class="input-symbol">←</span>
+                <input type="number" class="input-field" id="mode3From" value="100">
             </div>
-            <div class="input-row">
-                <div class="input-icon">→</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> To Value</div>
-                    <input type="number" class="input-field" id="mode3To" value="150" min="0" step="any" placeholder="To">
-                </div>
+            <div class="input-row" style="margin-top: 10px;">
+                <span class="input-label">To Value</span>
+                <span class="input-symbol">→</span>
+                <input type="number" class="input-field" id="mode3To" value="150">
             </div>
         </div>
 
@@ -545,16 +424,12 @@
 
         <!-- Quick Examples -->
         <div class="examples-section">
-            <div class="examples-title"><i class="fas fa-star"></i> Quick Examples</div>
+            <div class="examples-title">Quick Examples</div>
             <div class="examples-grid">
                 <div class="example-btn" onclick="loadExample('10percent')">10% of 500</div>
                 <div class="example-btn" onclick="loadExample('25percent')">25% of 200</div>
                 <div class="example-btn" onclick="loadExample('whatPercent')">50 is ?% of 250</div>
                 <div class="example-btn" onclick="loadExample('change')">80 → 100</div>
-                <div class="example-btn" onclick="loadExample('discount')">20% off ₹2000</div>
-                <div class="example-btn" onclick="loadExample('tax')">Add 18% tax</div>
-                <div class="example-btn" onclick="loadExample('profit')">Profit 25%</div>
-                <div class="example-btn" onclick="loadExample('loss')">Loss 10%</div>
             </div>
         </div>
 
@@ -606,12 +481,10 @@
         function switchMode(mode) {
             currentMode = mode;
             
-            // Update tabs
             mode1Tab.classList.toggle('active', mode === 1);
             mode2Tab.classList.toggle('active', mode === 2);
             mode3Tab.classList.toggle('active', mode === 3);
             
-            // Show/hide inputs
             mode1Input.style.display = mode === 1 ? 'block' : 'none';
             mode2Input.style.display = mode === 2 ? 'block' : 'none';
             mode3Input.style.display = mode === 3 ? 'block' : 'none';
@@ -619,7 +492,6 @@
             calculate();
         }
 
-        // Calculate based on mode
         function calculate() {
             try {
                 if (currentMode === 1) calculateMode1();
@@ -632,11 +504,9 @@
             }
         }
 
-        // Mode 1: X% of Y
         function calculateMode1() {
             const percent = parseFloat(mode1Percent.value) || 0;
             const value = parseFloat(mode1Value.value) || 0;
-            
             const result = (percent / 100) * value;
             
             resultValue.textContent = formatNumber(result);
@@ -644,7 +514,6 @@
             resultFormula.textContent = `(${percent} × ${formatNumber(value)}) ÷ 100 = ${formatNumber(result)}`;
         }
 
-        // Mode 2: X is what % of Y
         function calculateMode2() {
             const x = parseFloat(mode2X.value) || 0;
             const y = parseFloat(mode2Y.value) || 0;
@@ -657,13 +526,11 @@
             }
             
             const result = (x / y) * 100;
-            
             resultValue.textContent = result.toFixed(2) + '%';
             resultLabel.textContent = `${formatNumber(x)} is ${result.toFixed(2)}% of ${formatNumber(y)}`;
             resultFormula.textContent = `(${formatNumber(x)} ÷ ${formatNumber(y)}) × 100 = ${result.toFixed(2)}%`;
         }
 
-        // Mode 3: % Change
         function calculateMode3() {
             const from = parseFloat(mode3From.value) || 0;
             const to = parseFloat(mode3To.value) || 0;
@@ -675,22 +542,17 @@
                 return;
             }
             
-            const change = to - from;
-            const percentChange = (change / from) * 100;
-            const direction = percentChange >= 0 ? 'increase' : 'decrease';
-            
-            resultValue.textContent = percentChange.toFixed(2) + '%';
-            resultLabel.textContent = `${formatNumber(from)} → ${formatNumber(to)} = ${percentChange.toFixed(2)}% ${direction}`;
-            resultFormula.textContent = `((${formatNumber(to)} - ${formatNumber(from)}) ÷ ${formatNumber(from)}) × 100 = ${percentChange.toFixed(2)}%`;
+            const change = ((to - from) / from) * 100;
+            resultValue.textContent = change.toFixed(2) + '%';
+            resultLabel.textContent = `${formatNumber(from)} → ${formatNumber(to)} = ${change.toFixed(2)}% ${change >= 0 ? 'increase' : 'decrease'}`;
+            resultFormula.textContent = `((${formatNumber(to)} - ${formatNumber(from)}) ÷ ${formatNumber(from)}) × 100 = ${change.toFixed(2)}%`;
         }
 
-        // Format number
         function formatNumber(num) {
             if (Number.isInteger(num)) return num.toString();
             return num.toFixed(2).replace(/\.00$/, '');
         }
 
-        // Reset calculator
         function resetCalculator() {
             mode1Percent.value = 20;
             mode1Value.value = 1000;
@@ -701,75 +563,26 @@
             calculate();
         }
 
-        // Copy result
         function copyResult() {
             const text = `${resultLabel.textContent} | ${resultFormula.textContent}`;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Result copied to clipboard!');
-            }).catch(() => {
-                alert('Press Ctrl+C to copy');
-            });
+            navigator.clipboard.writeText(text).then(() => alert('Result copied!')).catch(() => alert('Press Ctrl+C to copy'));
         }
 
-        // Load example
         function loadExample(type) {
-            switch(type) {
-                case '10percent':
-                    switchMode(1);
-                    mode1Percent.value = 10;
-                    mode1Value.value = 500;
-                    break;
-                case '25percent':
-                    switchMode(1);
-                    mode1Percent.value = 25;
-                    mode1Value.value = 200;
-                    break;
-                case 'whatPercent':
-                    switchMode(2);
-                    mode2X.value = 50;
-                    mode2Y.value = 250;
-                    break;
-                case 'change':
-                    switchMode(3);
-                    mode3From.value = 80;
-                    mode3To.value = 100;
-                    break;
-                case 'discount':
-                    switchMode(1);
-                    mode1Percent.value = 20;
-                    mode1Value.value = 2000;
-                    break;
-                case 'tax':
-                    switchMode(1);
-                    mode1Percent.value = 18;
-                    mode1Value.value = 1000;
-                    break;
-                case 'profit':
-                    switchMode(3);
-                    mode3From.value = 100;
-                    mode3To.value = 125;
-                    break;
-                case 'loss':
-                    switchMode(3);
-                    mode3From.value = 100;
-                    mode3To.value = 90;
-                    break;
-            }
-            calculate();
+            const examples = {
+                '10percent': () => { switchMode(1); mode1Percent.value = 10; mode1Value.value = 500; },
+                '25percent': () => { switchMode(1); mode1Percent.value = 25; mode1Value.value = 200; },
+                'whatPercent': () => { switchMode(2); mode2X.value = 50; mode2Y.value = 250; },
+                'change': () => { switchMode(3); mode3From.value = 80; mode3To.value = 100; }
+            };
+            if (examples[type]) { examples[type](); calculate(); }
         }
 
         // Event listeners
-        mode1Percent.addEventListener('input', calculate);
-        mode1Value.addEventListener('input', calculate);
-        mode2X.addEventListener('input', calculate);
-        mode2Y.addEventListener('input', calculate);
-        mode3From.addEventListener('input', calculate);
-        mode3To.addEventListener('input', calculate);
+        [mode1Percent, mode1Value, mode2X, mode2Y, mode3From, mode3To].forEach(el => el.addEventListener('input', calculate));
 
         // Initialize
-        window.addEventListener('load', () => {
-            switchMode(1);
-        });
+        window.addEventListener('load', () => switchMode(1));
     </script>
 </body>
 </html>
