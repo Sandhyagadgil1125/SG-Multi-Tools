@@ -278,6 +278,10 @@ body {
     transition: color 0.2s ease;
 }
 
+.social-item:hover .social-icon {
+    color: #42f8f5;
+}
+
 .social-link {
     color: #ffffff !important;
     font-size: 1.2rem;
@@ -399,7 +403,7 @@ body {
     }
 }
 
-/* Mobile - 1 column */
+/* ===== MOBILE - 1 column (with requested changes) ===== */
 @media screen and (max-width: 500px) {
     body {
         padding: 0;
@@ -419,16 +423,75 @@ body {
         font-size: 1.2rem;
     }
     
+    /* ===== REVISED NAV LINKS - Home, About, Contact in one line ===== */
+    .nav-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: nowrap;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        white-space: nowrap;
+    }
+    
+    /* Hide Tools tab on mobile */
+    .nav-links a[href="tools.html"] {
+        display: none;
+    }
+    
+    /* ===== REVISED HERO SECTION ===== */
     .hero {
         margin: 8px auto 3px;
+        position: relative;
     }
     
+    /* Hide original hero h1 content */
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 0;
+        margin: 0;
+        position: relative;
+        height: 40px;
     }
     
+    /* Show new title "SG Multi Tools" */
+    .hero h1::before {
+        content: "SG Multi Tools";
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1c222d;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        visibility: visible;
+    }
+    
+    /* Hide original description */
     .hero-description {
+        font-size: 0;
+        margin: 5px 0 0;
+        position: relative;
+        height: 25px;
+    }
+    
+    /* Show new description */
+    .hero-description::after {
+        content: "Reliable free online tools.";
         font-size: 0.95rem;
+        color: #4A3B2C;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        visibility: visible;
     }
     
     .tools-grid {
@@ -474,15 +537,15 @@ body {
 /* Small Mobile */
 @media screen and (max-width: 350px) {
     .nav-links {
-        gap: 8px;
+        gap: 5px;
     }
     
     .nav-links a {
         font-size: 0.8rem;
-        padding: 5px 10px;
+        padding: 5px 8px;
     }
     
-    .hero h1 {
+    .hero h1::before {
         font-size: 1.5rem;
     }
     
