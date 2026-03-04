@@ -122,8 +122,6 @@
             font-family: 'Poppins', sans-serif;
             outline: none;
             text-align: center;
-            autocomplete: off;
-            -webkit-autofill: none;
         }
 
         .date-part input:focus {
@@ -385,15 +383,15 @@
                     <div class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</div>
                     <div class="date-input-group">
                         <div class="date-part">
-                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off">
+                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off">
+                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off">
+                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                     </div>
                 </div>
@@ -405,15 +403,15 @@
                     <div class="date-label"><i class="fas fa-calendar-check"></i> End Date</div>
                     <div class="date-input-group">
                         <div class="date-part">
-                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08" autocomplete="off">
+                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03" autocomplete="off">
+                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off">
+                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                     </div>
                 </div>
@@ -511,25 +509,20 @@
 
         // Calculate date difference
         function calculateDifference() {
-            // Get start date
             const startDay = parseInt(document.getElementById('startDay').value) || 1;
             const startMonth = parseInt(document.getElementById('startMonth').value) || 1;
             const startYear = parseInt(document.getElementById('startYear').value) || 2000;
             
-            // Get end date
             const endDay = parseInt(document.getElementById('endDay').value) || 1;
             const endMonth = parseInt(document.getElementById('endMonth').value) || 1;
             const endYear = parseInt(document.getElementById('endYear').value) || 2000;
 
-            // Create date objects
             const startDate = new Date(startYear, startMonth - 1, startDay);
             const endDate = new Date(endYear, endMonth - 1, endDay);
 
-            // Calculate total days
             const diffTime = Math.abs(endDate - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             
-            // Calculate years, months, days
             let years = endYear - startYear;
             let months = endMonth - startMonth;
             let days = endDay - startDay;
@@ -545,7 +538,6 @@
                 months += 12;
             }
 
-            // Update displays
             document.getElementById('totalDays').textContent = diffDays;
             document.getElementById('years').textContent = years;
             document.getElementById('months').textContent = months;
@@ -594,23 +586,12 @@
                     e.preventDefault();
                 }
             });
-
-            input.addEventListener('blur', () => {
-                if (input.placeholder === 'DD' || input.placeholder === 'MM') {
-                    if (input.value.length === 1) {
-                        input.value = '0' + input.value;
-                    }
-                }
-                if (input.placeholder === 'YYYY' && input.value.length > 4) {
-                    input.value = input.value.slice(0, 4);
-                }
-            });
         });
 
         // Initialize
         window.addEventListener('load', () => {
             setToday();
-            setTomorrow(); // Sets end date to tomorrow
+            setTomorrow();
         });
     </script>
 </body>
