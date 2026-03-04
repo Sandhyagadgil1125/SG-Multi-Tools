@@ -109,8 +109,25 @@
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
-        .text-input::placeholder {
-            color: #6d8ba0;
+        /* Options Row */
+        .options-row {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .option-select {
+            flex: 1;
+            background: #1e2b37;
+            border: 1px solid #42f8f5;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+            min-width: 100px;
         }
 
         /* QR Code Display */
@@ -135,32 +152,6 @@
         #qrcode img {
             margin: 0 auto;
             display: block;
-        }
-
-        /* Options Row */
-        .options-row {
-            display: flex;
-            gap: 10px;
-            margin: 10px 0;
-            flex-wrap: wrap;
-        }
-
-        .option-select {
-            flex: 1;
-            background: #1e2b37;
-            border: 1px solid #42f8f5;
-            border-radius: 10px;
-            padding: 10px;
-            color: white;
-            font-size: 0.8rem;
-            outline: none;
-            cursor: pointer;
-            min-width: 100px;
-        }
-
-        .option-select:focus {
-            border-color: #42f8f5;
-            box-shadow: 0 0 8px rgba(66, 248, 245, 0.3);
         }
 
         /* Size Slider */
@@ -230,7 +221,6 @@
 
         .action-btn i {
             margin-right: 3px;
-            font-size: 0.8rem;
         }
 
         .action-btn.primary {
@@ -239,12 +229,7 @@
             font-weight: 600;
         }
 
-        .action-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
-        }
-
-        /* Quick Examples */
+        /* Quick Examples - SIMPLIFIED FOR MOBILE */
         .examples-section {
             background: #12151a;
             border-radius: 12px;
@@ -256,7 +241,7 @@
         .examples-title {
             color: white;
             font-size: 0.8rem;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -268,18 +253,18 @@
 
         .examples-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
         }
 
         .example-item {
             background: #1e2b37;
             border: 1px solid #42f8f5;
             border-radius: 8px;
-            padding: 8px 3px;
+            padding: 10px 5px;
             text-align: center;
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -352,7 +337,7 @@
             font-size: 0.7rem;
         }
 
-        /* Responsive */
+        /* ===== MOBILE OPTIMIZATIONS ===== */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
@@ -366,15 +351,7 @@
                 font-size: 1.1rem;
             }
             
-            .card-icon {
-                font-size: 1.3rem;
-            }
-            
             .action-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .examples-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -386,6 +363,8 @@
                 min-height: 180px;
                 padding: 15px;
             }
+            
+            /* Examples already 2x2 on all screens */
         }
     </style>
 </head>
@@ -436,50 +415,20 @@
 
         <!-- Action Buttons -->
         <div class="action-grid">
-            <button class="action-btn primary" onclick="generateQR()">
-                <i class="fas fa-qrcode"></i> Generate
-            </button>
-            <button class="action-btn" onclick="downloadQR()">
-                <i class="fas fa-download"></i> Download
-            </button>
-            <button class="action-btn" onclick="copyQR()">
-                <i class="fas fa-copy"></i> Copy
-            </button>
-            <button class="action-btn" onclick="clearQR()">
-                <i class="fas fa-eraser"></i> Clear
-            </button>
+            <button class="action-btn primary" onclick="generateQR()"><i class="fas fa-qrcode"></i> Generate</button>
+            <button class="action-btn" onclick="downloadQR()"><i class="fas fa-download"></i> Download</button>
+            <button class="action-btn" onclick="copyQR()"><i class="fas fa-copy"></i> Copy</button>
+            <button class="action-btn" onclick="clearQR()"><i class="fas fa-eraser"></i> Clear</button>
         </div>
 
-        <!-- Quick Examples -->
+        <!-- Quick Examples - ONLY 4 ESSENTIAL ONES -->
         <div class="examples-section">
-            <div class="examples-title">
-                <i class="fas fa-star"></i> Quick Examples
-            </div>
-            <div class="examples-grid" id="examplesGrid">
-                <div class="example-item" onclick="setExample('url')">
-                    <i class="fas fa-link"></i> URL
-                </div>
-                <div class="example-item" onclick="setExample('text')">
-                    <i class="fas fa-font"></i> Text
-                </div>
-                <div class="example-item" onclick="setExample('email')">
-                    <i class="fas fa-envelope"></i> Email
-                </div>
-                <div class="example-item" onclick="setExample('phone')">
-                    <i class="fas fa-phone"></i> Phone
-                </div>
-                <div class="example-item" onclick="setExample('wifi')">
-                    <i class="fas fa-wifi"></i> WiFi
-                </div>
-                <div class="example-item" onclick="setExample('vcard')">
-                    <i class="fas fa-address-card"></i> vCard
-                </div>
-                <div class="example-item" onclick="setExample('sms')">
-                    <i class="fas fa-comment"></i> SMS
-                </div>
-                <div class="example-item" onclick="setExample('location')">
-                    <i class="fas fa-map-marker-alt"></i> Location
-                </div>
+            <div class="examples-title"><i class="fas fa-star"></i> Quick Examples</div>
+            <div class="examples-grid">
+                <div class="example-item" onclick="setExample('url')"><i class="fas fa-link"></i> URL</div>
+                <div class="example-item" onclick="setExample('text')"><i class="fas fa-font"></i> Text</div>
+                <div class="example-item" onclick="setExample('wifi')"><i class="fas fa-wifi"></i> WiFi</div>
+                <div class="example-item" onclick="setExample('vcard')"><i class="fas fa-address-card"></i> vCard</div>
             </div>
         </div>
 
@@ -491,17 +440,9 @@
 
         <!-- Footer -->
         <div class="footer">
-            <a href="index.html" class="home-link">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-
-            <div class="footer-email">
-                📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a>
-            </div>
-
-            <div class="copyright">
-                © 2026 SG Multi Tools. All rights reserved.
-            </div>
+            <a href="index.html" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
+            <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
+            <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
         </div>
     </div>
 
@@ -527,11 +468,9 @@
 
             const errorCorrection = document.getElementById('errorCorrection').value;
             
-            // Clear previous QR code
             const qrContainer = document.getElementById('qrcode');
             qrContainer.innerHTML = '';
 
-            // Create new QR code
             qrcode = new QRCode(qrContainer, {
                 text: text,
                 width: currentSize,
@@ -542,7 +481,6 @@
             });
         }
 
-        // Get error correction level
         function getErrorCorrectionLevel(level) {
             switch(level) {
                 case 'L': return QRCode.CorrectLevel.L;
@@ -553,14 +491,12 @@
             }
         }
 
-        // Update size
         function updateSize() {
             currentSize = parseInt(document.getElementById('sizeSlider').value);
             document.getElementById('sizeValue').textContent = currentSize + ' x ' + currentSize;
             generateQR();
         }
 
-        // Download QR Code
         function downloadQR() {
             const qrImage = document.querySelector('#qrcode img');
             if (!qrImage) {
@@ -572,7 +508,6 @@
             const link = document.createElement('a');
             
             if (format === 'svg') {
-                // For SVG, we need to get the canvas data differently
                 const canvas = document.querySelector('#qrcode canvas');
                 if (canvas) {
                     link.download = 'qrcode.svg';
@@ -586,7 +521,6 @@
             link.click();
         }
 
-        // Copy QR Code to clipboard
         function copyQR() {
             const qrImage = document.querySelector('#qrcode img');
             if (!qrImage) {
@@ -594,7 +528,6 @@
                 return;
             }
 
-            // Create a canvas to copy
             const canvas = document.createElement('canvas');
             canvas.width = currentSize;
             canvas.height = currentSize;
@@ -618,7 +551,6 @@
             img.src = qrImage.src;
         }
 
-        // Clear QR Code
         function clearQR() {
             if (confirm('Clear QR code?')) {
                 document.getElementById('qrText').value = '';
@@ -626,28 +558,21 @@
             }
         }
 
-        // Set example
         function setExample(type) {
             const examples = {
                 url: 'https://sgtools.in',
                 text: 'Hello, this is a QR code!',
-                email: 'mailto:contact@sgtools.in?subject=Hello&body=Message',
-                phone: 'tel:+1234567890',
                 wifi: 'WIFI:S:MyNetwork;T:WPA;P:password123;;',
-                vcard: 'BEGIN:VCARD\nVERSION:3.0\nN:Last;First\nFN:First Last\nTEL:+1234567890\nEMAIL:contact@sgtools.in\nEND:VCARD',
-                sms: 'smsto:+1234567890:Hello',
-                location: 'geo:40.7128,-74.0060'
+                vcard: 'BEGIN:VCARD\nVERSION:3.0\nN:Last;First\nFN:First Last\nTEL:+1234567890\nEMAIL:contact@sgtools.in\nEND:VCARD'
             };
             
             document.getElementById('qrText').value = examples[type];
             generateQR();
         }
 
-        // Event listeners
         document.getElementById('qrText').addEventListener('input', generateQR);
         document.getElementById('errorCorrection').addEventListener('change', generateQR);
 
-        // Initialize on load
         window.addEventListener('load', init);
     </script>
 </body>
