@@ -120,6 +120,10 @@
             font-family: 'Poppins', sans-serif;
             outline: none;
             text-align: center;
+            autocomplete: off;
+            autocorrect: off;
+            spellcheck: false;
+            -webkit-autofill: none;
         }
 
         .date-part input:focus {
@@ -324,7 +328,6 @@
         </div>
 
         <div class="input-section">
-            <!-- Start Date -->
             <div class="date-row">
                 <div class="date-field">
                     <div class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</div>
@@ -344,7 +347,6 @@
                 </div>
             </div>
 
-            <!-- End Date -->
             <div class="date-row">
                 <div class="date-field">
                     <div class="date-label"><i class="fas fa-calendar-check"></i> End Date</div>
@@ -412,24 +414,38 @@
     </div>
 
     <script>
-        // COMPLETELY BLOCK JULY 17 - Force all inputs to have no autocomplete
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all date inputs
-            const dateInputs = document.querySelectorAll('.date-part input');
-            dateInputs.forEach(input => {
-                input.setAttribute('autocomplete', 'off');
-                input.setAttribute('autocorrect', 'off');
-                input.setAttribute('spellcheck', 'false');
-                
-                // Additional trick to block autofill
-                input.addEventListener('focus', function(e) {
-                    this.style.webkitTextSecurity = 'disc';
-                    setTimeout(() => {
-                        this.style.webkitTextSecurity = 'none';
-                    }, 10);
+        // SUPER STRONG JULY 17 BLOCKER
+        (function() {
+            function blockAutofill() {
+                const inputs = document.querySelectorAll('.date-part input');
+                inputs.forEach(input => {
+                    input.setAttribute('autocomplete', 'off');
+                    input.setAttribute('autocorrect', 'off');
+                    input.setAttribute('spellcheck', 'false');
+                    input.setAttribute('data-lpignore', 'true');
+                    input.setAttribute('data-form-type', 'other');
+                    
+                    const randomId = 'input_' + Math.random().toString(36).substring(7);
+                    input.setAttribute('name', randomId);
+                    
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('inputmode', 'numeric');
+                    input.setAttribute('pattern', '[0-9]*');
+                    
+                    input.addEventListener('paste', (e) => {
+                        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+                        if (!/^\d+$/.test(pasted)) {
+                            e.preventDefault();
+                        }
+                    });
                 });
-            });
-        });
+            }
+
+            window.addEventListener('load', blockAutofill);
+            document.addEventListener('DOMContentLoaded', blockAutofill);
+            setTimeout(blockAutofill, 100);
+            setTimeout(blockAutofill, 500);
+        })();
 
         function setToday() {
             const today = new Date();
@@ -540,6 +556,9 @@
                 if (!/[0-9]/.test(e.key)) {
                     e.preventDefault();
                 }
+            });
+            input.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
             });
         });
 
