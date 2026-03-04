@@ -142,7 +142,7 @@
             color: #6d8ba0;
         }
 
-        /* Stats Grid */
+        /* Stats Grid - 3 columns on desktop AND mobile */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -156,6 +156,7 @@
             padding: 12px 5px;
             text-align: center;
             border: 1px solid #42f8f5;
+            transition: all 0.2s ease;
         }
 
         .stat-card:hover {
@@ -178,7 +179,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Detailed Stats */
+        /* Detailed Stats - 2 columns on desktop AND mobile */
         .details-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -194,6 +195,7 @@
             background: #12151a;
             border-radius: 10px;
             border: 1px solid #42f8f5;
+            transition: all 0.2s ease;
         }
 
         .detail-item:hover {
@@ -221,7 +223,7 @@
             font-family: monospace;
         }
 
-        /* Reading Time */
+        /* Reading Time - 3 columns on desktop AND mobile */
         .reading-time {
             background: #12151a;
             border-radius: 12px;
@@ -249,7 +251,7 @@
             text-transform: uppercase;
         }
 
-        /* Button Grid */
+        /* Button Grid - 2 columns on desktop AND mobile */
         .button-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -373,7 +375,7 @@
             font-size: 0.7rem;
         }
 
-        /* Responsive */
+        /* ===== MOBILE OPTIMIZATIONS ===== */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
@@ -392,30 +394,105 @@
             }
             
             .samples {
-                flex-direction: column;
-                gap: 5px;
+                flex-direction: row; /* Keep horizontal scrolling if needed */
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
             }
             
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-            }
-            
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .reading-time {
-                grid-template-columns: 1fr;
-                gap: 5px;
-            }
-            
-            .button-grid {
-                grid-template-columns: 1fr;
+            .sample-btn {
+                flex: 0 0 auto;
+                padding: 8px 12px;
             }
             
             .tool-textarea {
                 min-height: 70px;
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+            
+            /* ALL GRIDS MAINTAIN DESKTOP COLUMN COUNTS */
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on mobile */
+                gap: 6px;
+            }
+            
+            .details-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+                gap: 6px;
+            }
+            
+            .reading-time {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns on mobile */
+                gap: 5px;
+            }
+            
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+                gap: 8px;
+            }
+            
+            /* Adjust font sizes for mobile */
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.6rem;
+            }
+            
+            .detail-label {
+                font-size: 0.65rem;
+            }
+            
+            .detail-value {
+                font-size: 0.7rem;
+            }
+            
+            .time-value {
+                font-size: 0.9rem;
+            }
+            
+            .time-label {
+                font-size: 0.55rem;
+            }
+            
+            .tool-btn {
+                font-size: 0.7rem;
+                padding: 8px 3px;
+            }
+            
+            .action-btn {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+        }
+
+        /* Extra small devices */
+        @media screen and (max-width: 350px) {
+            .stats-grid {
+                gap: 4px;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.55rem;
+            }
+            
+            .details-grid {
+                gap: 4px;
+            }
+            
+            .detail-label {
+                font-size: 0.6rem;
+            }
+            
+            .detail-value {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -443,7 +520,7 @@
             <textarea class="tool-textarea" id="textInput" placeholder="Type or paste your text here...">The quick brown fox jumps over the lazy dog.</textarea>
         </div>
 
-        <!-- Main Stats Grid -->
+        <!-- Main Stats Grid - 3 columns on all devices -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value" id="wordCount">9</div>
@@ -459,7 +536,7 @@
             </div>
         </div>
 
-        <!-- Detailed Stats -->
+        <!-- Detailed Stats - 2 columns on all devices -->
         <div class="details-grid">
             <div class="detail-item">
                 <span class="detail-label"><i class="fas fa-fw fa-paragraph"></i> Sentences</span>
@@ -487,7 +564,7 @@
             </div>
         </div>
 
-        <!-- Reading Time -->
+        <!-- Reading Time - 3 columns on all devices -->
         <div class="reading-time">
             <div class="time-item">
                 <div class="time-value" id="readingTimeSlow">2s</div>
@@ -503,7 +580,7 @@
             </div>
         </div>
 
-        <!-- Button Grid -->
+        <!-- Button Grid - 2 columns on all devices -->
         <div class="button-grid">
             <button class="tool-btn primary" onclick="countWords()">
                 <i class="fas fa-sync-alt"></i> Count
