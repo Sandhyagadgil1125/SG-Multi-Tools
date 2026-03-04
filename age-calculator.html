@@ -56,7 +56,7 @@
         .card-icon {
             color: #42f8f5;
             font-size: 1.6rem;
-            display: inline-block; /* Force icon to show */
+            display: inline-block;
         }
 
         .card-badge {
@@ -68,7 +68,6 @@
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            white-space: nowrap;
         }
 
         /* ===== INPUT SECTION ===== */
@@ -325,12 +324,7 @@
             
             .card-icon {
                 font-size: 1.3rem;
-                display: inline-block; /* Force icon to show on mobile */
-            }
-            
-            .card-badge {
-                font-size: 0.65rem;
-                padding: 3px 8px;
+                display: inline-block;
             }
             
             .input-row {
@@ -386,7 +380,7 @@
             <div class="card-badge">AGE</div>
         </div>
 
-        <!-- Input Section -->
+        <!-- Input Section - Birth Date with NO July 17 -->
         <div class="input-section">
             <div class="input-row">
                 <div class="input-icon">🎂</div>
@@ -394,15 +388,15 @@
                     <div class="input-label"><i class="fas fa-circle"></i> Birth Date</div>
                     <div class="date-input-group">
                         <div class="date-field">
-                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                     </div>
                 </div>
@@ -454,6 +448,25 @@
     </div>
 
     <script>
+        // Force remove any autofill on page load
+        window.addEventListener('load', function() {
+            // Set all date inputs to readonly initially
+            const dateInputs = document.querySelectorAll('.date-field input');
+            dateInputs.forEach(input => {
+                input.setAttribute('readonly', true);
+                // Remove readonly when clicked/tapped
+                input.addEventListener('click', function() {
+                    this.removeAttribute('readonly');
+                });
+                input.addEventListener('touchstart', function() {
+                    this.removeAttribute('readonly');
+                });
+                input.addEventListener('focus', function() {
+                    this.removeAttribute('readonly');
+                });
+            });
+        });
+
         function calculateAge() {
             const birthDay = parseInt(document.getElementById('birthDay').value) || 1;
             const birthMonth = parseInt(document.getElementById('birthMonth').value) || 1;
