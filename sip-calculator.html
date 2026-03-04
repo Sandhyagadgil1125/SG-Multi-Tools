@@ -160,7 +160,7 @@
             box-shadow: 0 2px 8px rgba(66, 248, 245, 0.4);
         }
 
-        /* ===== RESULTS GRID ===== */
+        /* ===== RESULTS GRID - ALWAYS 2 COLUMNS ===== */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -196,7 +196,7 @@
             font-family: monospace;
         }
 
-        /* ===== RETURNS VISUALIZATION ===== */
+        /* ===== RETURNS VISUALIZATION - ALWAYS HORIZONTAL ===== */
         .returns-section {
             background: #12151a;
             border-radius: 12px;
@@ -292,7 +292,7 @@
             font-weight: 600;
         }
 
-        /* ===== ACTION BUTTONS ===== */
+        /* ===== ACTION BUTTONS - ALWAYS 3 COLUMNS ===== */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -454,7 +454,8 @@
             font-size: 0.7rem;
         }
 
-        /* ===== MOBILE OPTIMIZATIONS ===== */
+        /* ===== RESPONSIVE DESIGN - MOBILE ===== */
+        /* ONLY font sizes and spacing change - LAYOUT STAYS THE SAME */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
@@ -465,39 +466,157 @@
             }
             
             .card-title {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
+            .card-icon {
+                font-size: 1.4rem;
+            }
+            
+            .card-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
+            }
+            
+            /* Input row stays horizontal on mobile */
             .input-row {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 8px;
             }
             
             .input-icon {
-                width: 100%;
-                height: 45px;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
             
+            .input-label {
+                font-size: 0.65rem;
+            }
+            
+            .input-field {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            /* Results grid stays 2 columns */
             .results-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
             }
             
-            .action-grid {
-                grid-template-columns: 1fr;
+            .result-card {
+                padding: 12px 5px;
+            }
+            
+            .result-label {
+                font-size: 0.65rem;
             }
             
             .result-value {
                 font-size: 1.3rem;
             }
             
+            /* Returns bar stays horizontal */
             .returns-bar {
-                height: 40px;
-                flex-direction: column;
+                height: 30px;
+                flex-direction: row;
             }
             
             .invested-bar, .returns-gain-bar {
-                width: 100% !important;
-                height: 20px;
+                height: 100%;
+                font-size: 0.65rem;
+                line-height: 30px;
+            }
+            
+            /* Summary section */
+            .summary-label {
+                font-size: 0.75rem;
+            }
+            
+            .summary-value {
+                font-size: 0.85rem;
+            }
+            
+            /* Action buttons stay 3 columns */
+            .action-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+            }
+            
+            .action-btn {
+                padding: 8px 3px;
+                font-size: 0.7rem;
+            }
+            
+            /* Affiliate links */
+            .landing-link {
+                padding: 12px;
+            }
+            
+            .landing-link h3 {
+                font-size: 0.9rem;
+            }
+            
+            .landing-link p {
+                font-size: 0.75rem;
+            }
+            
+            .landing-badge {
+                padding: 4px 15px;
+                font-size: 0.7rem;
+            }
+            
+            .footer-email {
+                font-size: 0.7rem;
+            }
+            
+            .home-link {
+                padding: 6px 18px;
+                font-size: 0.75rem;
+            }
+            
+            .copyright {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* Extra small devices - still maintain layouts */
+        @media screen and (max-width: 350px) {
+            .input-row {
+                gap: 5px;
+            }
+            
+            .input-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .input-field {
+                padding: 8px;
+                font-size: 0.85rem;
+            }
+            
+            .results-grid {
+                gap: 5px;
+            }
+            
+            .result-value {
+                font-size: 1.1rem;
+            }
+            
+            .action-grid {
+                gap: 3px;
+            }
+            
+            .action-btn {
+                font-size: 0.65rem;
+                padding: 6px 2px;
+            }
+            
+            .invested-bar, .returns-gain-bar {
+                font-size: 0.6rem;
             }
         }
     </style>
@@ -511,14 +630,14 @@
             <div class="card-badge">MF</div>
         </div>
 
-        <!-- Input Section - with autocomplete="off" to remove July 17 -->
+        <!-- Input Section -->
         <div class="input-section">
             <!-- Monthly Investment -->
             <div class="input-row">
                 <div class="input-icon">₹</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Monthly Investment</div>
-                    <input type="number" class="input-field" id="monthlyInvestment" value="5000" min="100" step="500" autocomplete="off">
+                    <input type="number" class="input-field" id="monthlyInvestment" value="5000" min="100" step="500">
                 </div>
             </div>
             <div class="slider-container">
@@ -530,7 +649,7 @@
                 <div class="input-icon">%</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Expected Return (% p.a.)</div>
-                    <input type="number" class="input-field" id="returnRate" value="12" min="1" max="30" step="0.5" autocomplete="off">
+                    <input type="number" class="input-field" id="returnRate" value="12" min="1" max="30" step="0.5">
                 </div>
             </div>
             <div class="slider-container">
@@ -542,7 +661,7 @@
                 <div class="input-icon">📅</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Time Period (Years)</div>
-                    <input type="number" class="input-field" id="timePeriod" value="10" min="1" max="40" step="1" autocomplete="off">
+                    <input type="number" class="input-field" id="timePeriod" value="10" min="1" max="40" step="1">
                 </div>
             </div>
             <div class="slider-container">
@@ -550,7 +669,7 @@
             </div>
         </div>
 
-        <!-- Results Grid -->
+        <!-- Results Grid - 2 columns on all devices -->
         <div class="results-grid">
             <div class="result-card">
                 <div class="result-label">Invested Amount</div>
@@ -562,7 +681,7 @@
             </div>
         </div>
 
-        <!-- Returns Visualization -->
+        <!-- Returns Visualization - horizontal on all devices -->
         <div class="returns-section">
             <div class="returns-title"><i class="fas fa-chart-line"></i> Returns Breakdown</div>
             <div class="returns-bar">
@@ -592,7 +711,7 @@
             </div>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Action Buttons - 3 columns on all devices -->
         <div class="action-grid">
             <button class="action-btn primary" onclick="calculateSIP()"><i class="fas fa-calculator"></i> Calculate</button>
             <button class="action-btn" onclick="resetValues()"><i class="fas fa-undo"></i> Reset</button>
