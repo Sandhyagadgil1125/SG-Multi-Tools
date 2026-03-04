@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ===== MASTER STYLES - MATCHING INDEX.HTML THEME ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background: #E8DE99;
             font-family: 'Poppins', sans-serif;
@@ -18,6 +24,7 @@
             align-items: center;
             padding: 15px;
         }
+
         .calculator-card {
             background: #1c222d;
             border-radius: 25px;
@@ -27,6 +34,7 @@
             border: 2px solid #42f8f5;
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -35,6 +43,7 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #42f8f5;
         }
+
         .card-title {
             display: flex;
             align-items: center;
@@ -43,11 +52,12 @@
             font-size: 1.3rem;
             font-weight: 600;
         }
+
         .card-icon {
             color: #42f8f5;
             font-size: 1.6rem;
-            display: inline-block !important;
         }
+
         .card-badge {
             background: #12151a;
             color: #42f8f5;
@@ -58,6 +68,8 @@
             font-weight: 600;
             text-transform: uppercase;
         }
+
+        /* ===== INPUT SECTION ===== */
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -65,11 +77,13 @@
             margin-bottom: 15px;
             border: 2px solid #42f8f5;
         }
+
         .input-row {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .input-icon {
             width: 40px;
             height: 40px;
@@ -83,7 +97,11 @@
             font-size: 1.1rem;
             flex-shrink: 0;
         }
-        .input-group { flex: 1; }
+
+        .input-group {
+            flex: 1;
+        }
+
         .input-label {
             color: #b0c4de;
             font-size: 0.7rem;
@@ -92,19 +110,24 @@
             align-items: center;
             gap: 4px;
         }
+
         .input-label i {
             color: #42f8f5;
             font-size: 0.6rem;
         }
+
+        /* ===== CUSTOM DATE INPUT FIELDS (DD-MM-YYYY) ===== */
         .date-input-group {
             display: flex;
             gap: 8px;
             width: 100%;
         }
+
         .date-field {
             flex: 1;
             text-align: center;
         }
+
         .date-field input {
             width: 100%;
             background: #1e2b37;
@@ -117,10 +140,17 @@
             outline: none;
             text-align: center;
         }
+
         .date-field input:focus {
             border-color: #42f8f5;
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
+
+        .date-field input::placeholder {
+            color: #6d8ba0;
+            font-size: 0.8rem;
+        }
+
         .date-separator {
             color: #42f8f5;
             font-size: 1.5rem;
@@ -128,6 +158,8 @@
             display: flex;
             align-items: center;
         }
+
+        /* ===== RESULT DISPLAY ===== */
         .result-display {
             background: #12151a;
             border-radius: 16px;
@@ -136,6 +168,7 @@
             border: 2px solid #42f8f5;
             text-align: center;
         }
+
         .age-main {
             color: #42f8f5;
             font-size: 2.5rem;
@@ -143,11 +176,13 @@
             line-height: 1.2;
             font-family: monospace;
         }
+
         .age-detail {
             color: #b0c4de;
             font-size: 0.9rem;
             margin-top: 5px;
         }
+
         .age-breakdown {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -156,23 +191,31 @@
             padding-top: 15px;
             border-top: 1px solid #42f8f5;
         }
-        .age-item { text-align: center; }
+
+        .age-item {
+            text-align: center;
+        }
+
         .age-item-value {
             color: #42f8f5;
             font-size: 1.3rem;
             font-weight: 600;
         }
+
         .age-item-label {
             color: #b0c4de;
             font-size: 0.7rem;
             text-transform: uppercase;
         }
+
+        /* ===== ACTION BUTTONS ===== */
         .action-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 8px;
             margin: 15px 0;
         }
+
         .action-btn {
             background: #12151a;
             border: 1px solid #42f8f5;
@@ -184,18 +227,30 @@
             transition: all 0.2s ease;
             text-align: center;
         }
+
         .action-btn:hover {
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
             box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
-        .action-btn i { margin-right: 5px; }
+
+        .action-btn i {
+            margin-right: 5px;
+        }
+
         .action-btn.primary {
             background: #42f8f5;
             color: #12151a;
             font-weight: 600;
         }
+
+        .action-btn.primary:hover {
+            background: transparent;
+            color: #42f8f5;
+        }
+
+        /* ===== ADSTERRA AD ===== */
         .ad-container {
             width: 100%;
             margin: 15px 0 10px;
@@ -205,10 +260,13 @@
             padding: 12px;
             border: 1px solid #42f8f5;
         }
+
+        /* ===== FOOTER ===== */
         .footer {
             margin-top: 15px;
             text-align: center;
         }
+
         .home-link {
             display: inline-block;
             color: #42f8f5;
@@ -220,40 +278,93 @@
             font-size: 0.8rem;
             transition: all 0.3s ease;
         }
+
         .home-link:hover {
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
+
         .footer-email {
             margin: 12px 0 8px;
             color: #6d8ba0;
             font-size: 0.75rem;
         }
+
         .footer-email a {
             color: #42f8f5;
             text-decoration: none;
         }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
         .copyright {
             color: #6d8ba0;
             font-size: 0.7rem;
         }
+
+        /* ===== RESPONSIVE DESIGN ===== */
         @media screen and (max-width: 500px) {
-            body { padding: 10px; }
-            .calculator-card { padding: 15px; }
-            .card-title { font-size: 1.1rem; }
-            .card-icon { font-size: 1.3rem; display: inline-block !important; }
-            .input-row { flex-direction: column; gap: 8px; }
-            .input-icon { width: 100%; height: 40px; }
-            .date-input-group { gap: 5px; }
-            .date-field input { padding: 12px 2px; font-size: 0.9rem; }
-            .date-separator { font-size: 1.2rem; }
-            .age-main { font-size: 2rem; }
+            body {
+                padding: 10px;
+            }
+            
+            .calculator-card {
+                padding: 15px;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-icon {
+                font-size: 1.3rem;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .input-icon {
+                width: 100%;
+                height: 40px;
+            }
+            
+            .date-input-group {
+                gap: 5px;
+            }
+            
+            .date-field input {
+                padding: 12px 2px;
+                font-size: 0.9rem;
+            }
+            
+            .date-separator {
+                font-size: 1.2rem;
+            }
+            
+            .age-main {
+                font-size: 2rem;
+            }
+            
+            .age-item-value {
+                font-size: 1.1rem;
+            }
         }
+
         @media screen and (max-width: 350px) {
-            .date-input-group { flex-direction: column; gap: 8px; }
-            .date-separator { display: none; }
+            .date-input-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .date-separator {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -266,6 +377,7 @@
             <div class="card-badge">AGE</div>
         </div>
 
+        <!-- Input Section - Birth Date with autocomplete="off" -->
         <div class="input-section">
             <div class="input-row">
                 <div class="input-icon">🎂</div>
@@ -273,24 +385,26 @@
                     <div class="input-label"><i class="fas fa-circle"></i> Birth Date</div>
                     <div class="date-input-group">
                         <div class="date-field">
-                            <input type="tel" id="birthDay" placeholder="DD" maxlength="2" value="15">
+                            <input type="text" id="birthDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="15" autocomplete="off">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="tel" id="birthMonth" placeholder="MM" maxlength="2" value="01">
+                            <input type="text" id="birthMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-field">
-                            <input type="tel" id="birthYear" placeholder="YYYY" maxlength="4" value="1990">
+                            <input type="text" id="birthYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="1990" autocomplete="off">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Result Display -->
         <div class="result-display">
             <div class="age-main" id="ageYears">34</div>
             <div class="age-detail">Years Old</div>
+            
             <div class="age-breakdown">
                 <div class="age-item">
                     <div class="age-item-value" id="ageYearsDetail">34</div>
@@ -307,38 +421,30 @@
             </div>
         </div>
 
+        <!-- Calculate Button -->
         <div class="action-grid">
             <button class="action-btn primary" onclick="calculateAge()">
                 <i class="fas fa-calculator"></i> Calculate Age
             </button>
         </div>
 
+        <!-- Adsterra Ad -->
         <div class="ad-container">
             <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
             <div id="container-ea58333732a8a42313578cba2aad5256"></div>
         </div>
 
+        <!-- Footer -->
         <div class="footer">
-            <a href="index.html" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
             <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
             <div class="copyright">© 2026 SG Multi Tools. All rights reserved.</div>
         </div>
     </div>
 
     <script>
-        // KILL JULY 17 FOREVER
-        (function() {
-            // Change all inputs to type="tel" (browsers don't autofill tel)
-            document.querySelectorAll('.date-field input').forEach(input => {
-                input.type = 'tel';
-                input.setAttribute('autocomplete', 'off');
-                input.setAttribute('autocorrect', 'off');
-                input.setAttribute('spellcheck', 'false');
-                input.setAttribute('data-lpignore', 'true');
-                input.setAttribute('data-form-type', 'other');
-            });
-        })();
-
         function calculateAge() {
             const birthDay = parseInt(document.getElementById('birthDay').value) || 1;
             const birthMonth = parseInt(document.getElementById('birthMonth').value) || 1;
@@ -378,9 +484,23 @@
             document.getElementById('ageDays').textContent = days;
         }
 
+        // Restrict to numbers only
         document.querySelectorAll('.date-field input').forEach(input => {
-            input.addEventListener('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
+            input.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                if (input.id.includes('Day') || input.id.includes('Month')) {
+                    if (input.value.length === 1) {
+                        input.value = '0' + input.value;
+                    }
+                }
+                if (input.id.includes('Year') && input.value.length > 4) {
+                    input.value = input.value.slice(0, 4);
+                }
             });
         });
 
