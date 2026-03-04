@@ -69,7 +69,7 @@
             text-transform: uppercase;
         }
 
-        /* ===== MODE TABS - SIMPLE LIKE SCREENSHOT ===== */
+        /* ===== MODE TABS ===== */
         .mode-tabs {
             display: flex;
             gap: 8px;
@@ -100,7 +100,7 @@
             font-weight: 600;
         }
 
-        /* ===== INPUT SECTION - CLEAN LAYOUT ===== */
+        /* ===== INPUT SECTION ===== */
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -113,6 +113,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-row:last-child {
+            margin-bottom: 0;
         }
 
         .input-label {
@@ -131,7 +136,7 @@
             font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             outline: none;
-            text-align: right;
+            text-align: left;
         }
 
         .input-field:focus {
@@ -147,7 +152,7 @@
             text-align: center;
         }
 
-        /* ===== RESULT DISPLAY ===== */
+        /* ===== RESULT DISPLAY - SIMPLE ===== */
         .result-display {
             background: #12151a;
             border-radius: 16px;
@@ -159,24 +164,10 @@
 
         .result-value {
             color: #42f8f5;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             line-height: 1.2;
             font-family: monospace;
-        }
-
-        .result-label {
-            color: #b0c4de;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .result-formula {
-            color: #6d8ba0;
-            font-size: 0.8rem;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #42f8f5;
         }
 
         /* ===== QUICK EXAMPLES ===== */
@@ -315,7 +306,6 @@
                 padding: 15px;
             }
             
-            /* Tabs scroll horizontally on mobile */
             .mode-tabs {
                 flex-wrap: nowrap;
                 overflow-x: auto;
@@ -327,24 +317,23 @@
                 flex: 0 0 auto;
             }
             
-            /* Clean input layout - NO extra box */
             .input-row {
                 flex-direction: row;
-                align-items: center;
+                flex-wrap: wrap;
             }
             
             .input-label {
-                min-width: 80px;
-                font-size: 0.8rem;
+                min-width: 100%;
+                margin-bottom: 5px;
+            }
+            
+            .input-symbol {
+                min-width: 30px;
             }
             
             .input-field {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            
-            .result-value {
-                font-size: 2rem;
+                flex: 1;
+                min-width: 0;
             }
             
             .examples-grid {
@@ -353,6 +342,10 @@
             
             .action-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .result-value {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -380,7 +373,7 @@
                 <span class="input-symbol">%</span>
                 <input type="number" class="input-field" id="mode1Percent" value="20">
             </div>
-            <div class="input-row" style="margin-top: 10px;">
+            <div class="input-row">
                 <span class="input-label">of Value</span>
                 <span class="input-symbol">=</span>
                 <input type="number" class="input-field" id="mode1Value" value="1000">
@@ -394,7 +387,7 @@
                 <span class="input-symbol">X</span>
                 <input type="number" class="input-field" id="mode2X" value="50">
             </div>
-            <div class="input-row" style="margin-top: 10px;">
+            <div class="input-row">
                 <span class="input-label">of Value Y</span>
                 <span class="input-symbol">Y</span>
                 <input type="number" class="input-field" id="mode2Y" value="200">
@@ -408,18 +401,16 @@
                 <span class="input-symbol">←</span>
                 <input type="number" class="input-field" id="mode3From" value="100">
             </div>
-            <div class="input-row" style="margin-top: 10px;">
+            <div class="input-row">
                 <span class="input-label">To Value</span>
                 <span class="input-symbol">→</span>
                 <input type="number" class="input-field" id="mode3To" value="150">
             </div>
         </div>
 
-        <!-- Result Display -->
+        <!-- Result Display - JUST THE NUMBER -->
         <div class="result-display">
             <div class="result-value" id="resultValue">200</div>
-            <div class="result-label" id="resultLabel">20% of 1000 = 200</div>
-            <div class="result-formula" id="resultFormula">(20 × 1000) ÷ 100 = 200</div>
         </div>
 
         <!-- Quick Examples -->
@@ -474,8 +465,6 @@
         const mode3To = document.getElementById('mode3To');
         
         const resultValue = document.getElementById('resultValue');
-        const resultLabel = document.getElementById('resultLabel');
-        const resultFormula = document.getElementById('resultFormula');
 
         // Switch mode
         function switchMode(mode) {
@@ -499,8 +488,6 @@
                 else calculateMode3();
             } catch (error) {
                 resultValue.textContent = 'Error';
-                resultLabel.textContent = 'Invalid input';
-                resultFormula.textContent = 'Please check your numbers';
             }
         }
 
@@ -508,10 +495,7 @@
             const percent = parseFloat(mode1Percent.value) || 0;
             const value = parseFloat(mode1Value.value) || 0;
             const result = (percent / 100) * value;
-            
             resultValue.textContent = formatNumber(result);
-            resultLabel.textContent = `${percent}% of ${formatNumber(value)} = ${formatNumber(result)}`;
-            resultFormula.textContent = `(${percent} × ${formatNumber(value)}) ÷ 100 = ${formatNumber(result)}`;
         }
 
         function calculateMode2() {
@@ -520,15 +504,11 @@
             
             if (y === 0) {
                 resultValue.textContent = '∞';
-                resultLabel.textContent = 'Division by zero';
-                resultFormula.textContent = 'Y cannot be zero';
                 return;
             }
             
             const result = (x / y) * 100;
             resultValue.textContent = result.toFixed(2) + '%';
-            resultLabel.textContent = `${formatNumber(x)} is ${result.toFixed(2)}% of ${formatNumber(y)}`;
-            resultFormula.textContent = `(${formatNumber(x)} ÷ ${formatNumber(y)}) × 100 = ${result.toFixed(2)}%`;
         }
 
         function calculateMode3() {
@@ -537,15 +517,11 @@
             
             if (from === 0) {
                 resultValue.textContent = '∞';
-                resultLabel.textContent = 'From value cannot be zero';
-                resultFormula.textContent = 'Please enter a non-zero from value';
                 return;
             }
             
             const change = ((to - from) / from) * 100;
             resultValue.textContent = change.toFixed(2) + '%';
-            resultLabel.textContent = `${formatNumber(from)} → ${formatNumber(to)} = ${change.toFixed(2)}% ${change >= 0 ? 'increase' : 'decrease'}`;
-            resultFormula.textContent = `((${formatNumber(to)} - ${formatNumber(from)}) ÷ ${formatNumber(from)}) × 100 = ${change.toFixed(2)}%`;
         }
 
         function formatNumber(num) {
@@ -564,7 +540,7 @@
         }
 
         function copyResult() {
-            const text = `${resultLabel.textContent} | ${resultFormula.textContent}`;
+            const text = resultValue.textContent;
             navigator.clipboard.writeText(text).then(() => alert('Result copied!')).catch(() => alert('Press Ctrl+C to copy'));
         }
 
