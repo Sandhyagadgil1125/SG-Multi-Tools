@@ -55,7 +55,6 @@
         .card-icon {
             color: #42f8f5;
             font-size: 1.6rem;
-            display: inline-block;
         }
 
         .card-badge {
@@ -307,7 +306,6 @@
             body { padding: 10px; }
             .date-card { padding: 15px; }
             .card-title { font-size: 1.1rem; }
-            .card-icon { font-size: 1.3rem; display: inline-block; }
             .date-row { flex-direction: column; gap: 10px; }
             .quick-grid { grid-template-columns: repeat(2, 1fr); }
             .detail-grid { grid-template-columns: 1fr; }
@@ -332,15 +330,15 @@
                     <div class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</div>
                     <div class="date-input-group">
                         <div class="date-part">
-                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026">
                         </div>
                     </div>
                 </div>
@@ -352,15 +350,15 @@
                     <div class="date-label"><i class="fas fa-calendar-check"></i> End Date</div>
                     <div class="date-input-group">
                         <div class="date-part">
-                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026">
                         </div>
                     </div>
                 </div>
@@ -414,21 +412,21 @@
     </div>
 
     <script>
-        // Force remove any autofill on page load
-        window.addEventListener('load', function() {
-            // Set all date inputs to readonly initially
+        // COMPLETELY BLOCK JULY 17 - Force all inputs to have no autocomplete
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all date inputs
             const dateInputs = document.querySelectorAll('.date-part input');
             dateInputs.forEach(input => {
-                input.setAttribute('readonly', true);
-                // Remove readonly when clicked/tapped
-                input.addEventListener('click', function() {
-                    this.removeAttribute('readonly');
-                });
-                input.addEventListener('touchstart', function() {
-                    this.removeAttribute('readonly');
-                });
-                input.addEventListener('focus', function() {
-                    this.removeAttribute('readonly');
+                input.setAttribute('autocomplete', 'off');
+                input.setAttribute('autocorrect', 'off');
+                input.setAttribute('spellcheck', 'false');
+                
+                // Additional trick to block autofill
+                input.addEventListener('focus', function(e) {
+                    this.style.webkitTextSecurity = 'disc';
+                    setTimeout(() => {
+                        this.style.webkitTextSecurity = 'none';
+                    }, 10);
                 });
             });
         });
