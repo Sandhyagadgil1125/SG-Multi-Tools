@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== MASTER STYLES - MATCHING INDEX.HTML THEME ===== */
         * {
             margin: 0;
             padding: 0;
@@ -68,10 +67,8 @@
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            white-space: nowrap;
         }
 
-        /* ===== INPUT SECTION ===== */
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -102,7 +99,6 @@
             margin-right: 5px;
         }
 
-        /* Custom Date Input Fields (DD-MM-YYYY) */
         .date-input-group {
             display: flex;
             gap: 5px;
@@ -125,7 +121,6 @@
             font-family: 'Poppins', sans-serif;
             outline: none;
             text-align: center;
-            autocomplete: off;
         }
 
         .date-part input:focus {
@@ -146,7 +141,6 @@
             align-items: center;
         }
 
-        /* Quick Select Buttons */
         .quick-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -172,7 +166,6 @@
             transform: translateY(-2px);
         }
 
-        /* ===== RESULT DISPLAY ===== */
         .result-display {
             background: #12151a;
             border-radius: 16px;
@@ -224,7 +217,6 @@
             text-transform: uppercase;
         }
 
-        /* ===== ACTION BUTTONS ===== */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -261,12 +253,6 @@
             font-weight: 600;
         }
 
-        .action-btn.primary:hover {
-            background: transparent;
-            color: #42f8f5;
-        }
-
-        /* ===== ADSTERRA AD ===== */
         .ad-container {
             width: 100%;
             margin: 15px 0 10px;
@@ -277,7 +263,6 @@
             border: 1px solid #42f8f5;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             margin-top: 15px;
             text-align: center;
@@ -313,71 +298,21 @@
             text-decoration: none;
         }
 
-        .footer-email a:hover {
-            text-decoration: underline;
-        }
-
         .copyright {
             color: #6d8ba0;
             font-size: 0.7rem;
         }
 
-        /* ===== RESPONSIVE DESIGN ===== */
         @media screen and (max-width: 500px) {
-            body {
-                padding: 10px;
-            }
-            
-            .date-card {
-                padding: 15px;
-            }
-            
-            .card-title {
-                font-size: 1.1rem;
-                flex-wrap: wrap;
-            }
-            
-            .card-icon {
-                font-size: 1.3rem;
-                display: inline-block;
-            }
-            
-            .card-badge {
-                font-size: 0.65rem;
-                padding: 3px 8px;
-            }
-            
-            .date-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .quick-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .detail-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .main-number {
-                font-size: 2rem;
-            }
-        }
-
-        @media screen and (max-width: 350px) {
-            .date-input-group {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .date-separator {
-                display: none;
-            }
+            body { padding: 10px; }
+            .date-card { padding: 15px; }
+            .card-title { font-size: 1.1rem; }
+            .card-icon { font-size: 1.3rem; display: inline-block; }
+            .date-row { flex-direction: column; gap: 10px; }
+            .quick-grid { grid-template-columns: repeat(2, 1fr); }
+            .detail-grid { grid-template-columns: 1fr; }
+            .action-grid { grid-template-columns: 1fr; }
+            .main-number { font-size: 2rem; }
         }
     </style>
 </head>
@@ -390,7 +325,6 @@
             <div class="card-badge">DAYS</div>
         </div>
 
-        <!-- Input Section -->
         <div class="input-section">
             <!-- Start Date -->
             <div class="date-row">
@@ -398,15 +332,15 @@
                     <div class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</div>
                     <div class="date-input-group">
                         <div class="date-part">
-                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                     </div>
                 </div>
@@ -418,21 +352,20 @@
                     <div class="date-label"><i class="fas fa-calendar-check"></i> End Date</div>
                     <div class="date-input-group">
                         <div class="date-part">
-                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                         <div class="date-separator">-</div>
                         <div class="date-part">
-                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')">
+                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" readonly onfocus="this.removeAttribute('readonly')">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Select Buttons -->
             <div class="quick-grid">
                 <button class="quick-btn" onclick="setToday()">Today</button>
                 <button class="quick-btn" onclick="setTomorrow()">Tomorrow</button>
@@ -441,13 +374,11 @@
             </div>
         </div>
 
-        <!-- Main Result -->
         <div class="result-display">
             <div class="main-result">
                 <div class="main-number" id="totalDays">7</div>
                 <div class="main-label">Total Days Difference</div>
             </div>
-
             <div class="detail-grid">
                 <div class="detail-item">
                     <div class="detail-number" id="years">0</div>
@@ -464,20 +395,17 @@
             </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="action-grid">
             <button class="action-btn primary" onclick="calculateDifference()"><i class="fas fa-calculator"></i> Calculate</button>
             <button class="action-btn" onclick="swapDates()"><i class="fas fa-exchange-alt"></i> Swap</button>
             <button class="action-btn" onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
         </div>
 
-        <!-- Adsterra Native Banner Ad -->
         <div class="ad-container">
             <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
             <div id="container-ea58333732a8a42313578cba2aad5256"></div>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <a href="index.html" class="home-link"><i class="fas fa-home"></i> Back to Home</a>
             <div class="footer-email">📧 <a href="mailto:contact@sgtools.in">contact@sgtools.in</a></div>
@@ -486,7 +414,25 @@
     </div>
 
     <script>
-        // Set today's date
+        // Force remove any autofill on page load
+        window.addEventListener('load', function() {
+            // Set all date inputs to readonly initially
+            const dateInputs = document.querySelectorAll('.date-part input');
+            dateInputs.forEach(input => {
+                input.setAttribute('readonly', true);
+                // Remove readonly when clicked/tapped
+                input.addEventListener('click', function() {
+                    this.removeAttribute('readonly');
+                });
+                input.addEventListener('touchstart', function() {
+                    this.removeAttribute('readonly');
+                });
+                input.addEventListener('focus', function() {
+                    this.removeAttribute('readonly');
+                });
+            });
+        });
+
         function setToday() {
             const today = new Date();
             document.getElementById('startDay').value = String(today.getDate()).padStart(2, '0');
@@ -522,7 +468,6 @@
             calculateDifference();
         }
 
-        // Calculate date difference
         function calculateDifference() {
             const startDay = parseInt(document.getElementById('startDay').value) || 1;
             const startMonth = parseInt(document.getElementById('startMonth').value) || 1;
@@ -559,7 +504,6 @@
             document.getElementById('days').textContent = days;
         }
 
-        // Swap dates
         function swapDates() {
             const startDay = document.getElementById('startDay').value;
             const startMonth = document.getElementById('startMonth').value;
@@ -578,7 +522,6 @@
             calculateDifference();
         }
 
-        // Copy result
         function copyResult() {
             const totalDays = document.getElementById('totalDays').textContent;
             const years = document.getElementById('years').textContent;
@@ -594,7 +537,6 @@
             });
         }
 
-        // Restrict to numbers only
         document.querySelectorAll('.date-part input').forEach(input => {
             input.addEventListener('keypress', (e) => {
                 if (!/[0-9]/.test(e.key)) {
@@ -603,7 +545,6 @@
             });
         });
 
-        // Initialize
         window.addEventListener('load', () => {
             setToday();
             setTomorrow();
