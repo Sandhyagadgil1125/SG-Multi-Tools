@@ -209,48 +209,10 @@
             text-transform: uppercase;
         }
 
-        /* ===== NEXT BIRTHDAY CARD ===== */
-        .birthday-card {
-            background: #12151a;
-            border-radius: 16px;
-            padding: 15px;
-            margin: 15px 0;
-            border: 1px solid #42f8f5;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .birthday-icon {
-            font-size: 2rem;
-            color: #42f8f5;
-        }
-
-        .birthday-info {
-            flex: 1;
-        }
-
-        .birthday-label {
-            color: #b0c4de;
-            font-size: 0.7rem;
-        }
-
-        .birthday-date {
-            color: white;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .birthday-days {
-            color: #42f8f5;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
         /* ===== ACTION BUTTONS ===== */
         .action-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
             gap: 8px;
             margin: 15px 0;
         }
@@ -259,8 +221,8 @@
             background: #12151a;
             border: 1px solid #42f8f5;
             border-radius: 20px;
-            padding: 10px 5px;
-            font-size: 0.75rem;
+            padding: 12px 5px;
+            font-size: 0.9rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -275,7 +237,7 @@
         }
 
         .action-btn i {
-            margin-right: 3px;
+            margin-right: 5px;
         }
 
         .action-btn.primary {
@@ -346,9 +308,6 @@
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
-        /* Desktop & Tablet - Default styles above work fine */
-        
-        /* Mobile Specific Styles (max-width: 500px) */
         @media screen and (max-width: 500px) {
             body {
                 padding: 10px;
@@ -366,7 +325,6 @@
                 font-size: 1.3rem;
             }
             
-            /* Make date input more touch-friendly on mobile */
             .input-row {
                 flex-direction: column;
                 gap: 8px;
@@ -394,26 +352,11 @@
                 font-size: 2rem;
             }
             
-            .age-breakdown {
-                gap: 5px;
-            }
-            
             .age-item-value {
                 font-size: 1.1rem;
             }
-            
-            .birthday-card {
-                flex-direction: column;
-                text-align: center;
-                gap: 8px;
-            }
-            
-            .action-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
-        /* Small Mobile (max-width: 350px) */
         @media screen and (max-width: 350px) {
             .date-input-group {
                 flex-direction: column;
@@ -422,10 +365,6 @@
             
             .date-separator {
                 display: none;
-            }
-            
-            .date-field input {
-                padding: 10px;
             }
         }
     </style>
@@ -439,9 +378,8 @@
             <div class="card-badge">AGE</div>
         </div>
 
-        <!-- Input Section with DD-MM-YYYY Format -->
+        <!-- Input Section - Only Birth Date -->
         <div class="input-section">
-            <!-- Birth Date -->
             <div class="input-row">
                 <div class="input-icon">🎂</div>
                 <div class="input-group">
@@ -461,33 +399,12 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Current Date -->
-            <div class="input-row">
-                <div class="input-icon">📅</div>
-                <div class="input-group">
-                    <div class="input-label"><i class="fas fa-circle"></i> Current Date</div>
-                    <div class="date-input-group">
-                        <div class="date-field">
-                            <input type="text" id="currentDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*">
-                        </div>
-                        <div class="date-separator">-</div>
-                        <div class="date-field">
-                            <input type="text" id="currentMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*">
-                        </div>
-                        <div class="date-separator">-</div>
-                        <div class="date-field">
-                            <input type="text" id="currentYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- Result Display -->
+        <!-- Result Display - Clean Age Breakdown -->
         <div class="result-display">
             <div class="age-main" id="ageYears">34</div>
-            <div class="age-detail" id="ageText">34 Years Old</div>
+            <div class="age-detail" id="ageText">Years Old</div>
             
             <div class="age-breakdown">
                 <div class="age-item">
@@ -505,30 +422,14 @@
             </div>
         </div>
 
-        <!-- Next Birthday -->
-        <div class="birthday-card">
-            <div class="birthday-icon">🎂</div>
-            <div class="birthday-info">
-                <div class="birthday-label">Next Birthday</div>
-                <div class="birthday-date" id="nextBirthday">January 1, 2026</div>
-            </div>
-            <div class="birthday-days" id="daysUntilBirthday">305 days</div>
-        </div>
-
-        <!-- Action Buttons -->
+        <!-- Single Button - Calculate Age -->
         <div class="action-grid">
             <button class="action-btn primary" onclick="calculateAge()">
-                <i class="fas fa-calculator"></i> Calculate
-            </button>
-            <button class="action-btn" onclick="setToday()">
-                <i class="fas fa-calendar-day"></i> Today
-            </button>
-            <button class="action-btn" onclick="resetToDefault()">
-                <i class="fas fa-undo"></i> Reset
+                <i class="fas fa-calculator"></i> Calculate Age
             </button>
         </div>
 
-        <!-- Adsterra Native Banner Ad -->
+        <!-- Adsterra Native Banner Ad - KEPT -->
         <div class="ad-container">
             <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
             <div id="container-ea58333732a8a42313578cba2aad5256"></div>
@@ -551,76 +452,39 @@
     </div>
 
     <script>
-        // Set today's date on load
-        function setToday() {
-            const today = new Date();
-            document.getElementById('currentDay').value = String(today.getDate()).padStart(2, '0');
-            document.getElementById('currentMonth').value = String(today.getMonth() + 1).padStart(2, '0');
-            document.getElementById('currentYear').value = today.getFullYear();
-            calculateAge();
-        }
-
-        // Set default dates
-        function setDefaultDates() {
-            // Birth date: January 15, 1990
-            document.getElementById('birthDay').value = '15';
-            document.getElementById('birthMonth').value = '01';
-            document.getElementById('birthYear').value = '1990';
-            
-            setToday();
-        }
-
-        // Validate date inputs
-        function validateDateInputs() {
-            const inputs = ['birthDay', 'birthMonth', 'birthYear', 'currentDay', 'currentMonth', 'currentYear'];
-            
-            for (let id of inputs) {
-                const input = document.getElementById(id);
-                let value = input.value.trim();
-                
-                // Remove non-numeric characters
-                value = value.replace(/[^0-9]/g, '');
-                input.value = value;
-            }
-        }
-
-        // Calculate age
+        // Calculate age based on birth date only
         function calculateAge() {
-            validateDateInputs();
-
             // Get birth date
             const birthDay = parseInt(document.getElementById('birthDay').value) || 1;
             const birthMonth = parseInt(document.getElementById('birthMonth').value) || 1;
             const birthYear = parseInt(document.getElementById('birthYear').value) || 2000;
-            
-            // Get current date
-            const currentDay = parseInt(document.getElementById('currentDay').value) || 1;
-            const currentMonth = parseInt(document.getElementById('currentMonth').value) || 1;
-            const currentYear = parseInt(document.getElementById('currentYear').value) || 2000;
 
-            // Create date objects
+            // Get current date
+            const today = new Date();
+            const currentDay = today.getDate();
+            const currentMonth = today.getMonth() + 1;
+            const currentYear = today.getFullYear();
+
+            // Validate
             const birthDate = new Date(birthYear, birthMonth - 1, birthDay);
             const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
 
-            // Validate dates
             if (birthDate > currentDate) {
-                alert('Birth date cannot be after current date');
+                alert('Birth date cannot be in the future');
                 return;
             }
 
-            // Calculate years, months, days
+            // Calculate
             let years = currentYear - birthYear;
             let months = currentMonth - birthMonth;
             let days = currentDay - birthDay;
 
-            // Adjust if days negative
             if (days < 0) {
                 months--;
                 const lastMonth = new Date(currentYear, currentMonth - 1, 0);
                 days += lastMonth.getDate();
             }
 
-            // Adjust if months negative
             if (months < 0) {
                 years--;
                 months += 12;
@@ -628,26 +492,13 @@
 
             // Update display
             document.getElementById('ageYears').textContent = years;
-            document.getElementById('ageText').textContent = `${years} Years Old`;
+            document.getElementById('ageText').textContent = 'Years Old';
             document.getElementById('ageYearsDetail').textContent = years;
             document.getElementById('ageMonths').textContent = months;
             document.getElementById('ageDays').textContent = days;
-
-            // Calculate next birthday
-            const nextBirthday = new Date(currentYear, birthMonth - 1, birthDay);
-            if (nextBirthday < currentDate) {
-                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-            }
-            
-            const daysUntil = Math.ceil((nextBirthday - currentDate) / (1000 * 60 * 60 * 24));
-            
-            // Format next birthday
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('nextBirthday').textContent = nextBirthday.toLocaleDateString('en-US', options);
-            document.getElementById('daysUntilBirthday').textContent = `${daysUntil} days`;
         }
 
-        // Restrict input to numbers only
+        // Restrict to numbers only
         document.querySelectorAll('.date-field input').forEach(input => {
             input.addEventListener('keypress', (e) => {
                 if (!/[0-9]/.test(e.key)) {
@@ -656,20 +507,19 @@
             });
 
             input.addEventListener('blur', () => {
-                // Auto-pad day and month
                 if (input.id.includes('Day') || input.id.includes('Month')) {
                     if (input.value.length === 1) {
                         input.value = '0' + input.value;
                     }
                 }
+                if (input.id.includes('Year') && input.value.length > 4) {
+                    input.value = input.value.slice(0, 4);
+                }
             });
         });
 
-        // Initialize
-        window.addEventListener('load', () => {
-            setDefaultDates();
-            calculateAge();
-        });
+        // Auto-calculate on load
+        window.addEventListener('load', calculateAge);
     </script>
 </body>
 </html>
