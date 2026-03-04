@@ -29,7 +29,7 @@
             border-radius: 25px;
             padding: 20px;
             width: 100%;
-            max-width: 600px;
+            max-width: 550px;
             border: 2px solid #42f8f5;
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
@@ -68,7 +68,7 @@
             text-transform: uppercase;
         }
 
-        /* Input Section */
+        /* Date Input Section */
         .input-section {
             background: #12151a;
             border-radius: 16px;
@@ -89,7 +89,7 @@
 
         .date-label {
             color: #b0c4de;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             margin-bottom: 5px;
             display: block;
         }
@@ -99,26 +99,49 @@
             margin-right: 5px;
         }
 
-        .date-input {
+        /* Custom Date Input Fields (DD-MM-YYYY) */
+        .date-input-group {
+            display: flex;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .date-part {
+            flex: 1;
+            text-align: center;
+        }
+
+        .date-part input {
             width: 100%;
             background: #1e2b37;
             border: 1px solid #42f8f5;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 10px 2px;
             color: white;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-family: 'Poppins', sans-serif;
             outline: none;
+            text-align: center;
+            autocomplete: off;
+            -webkit-autofill: none;
         }
 
-        .date-input:focus {
+        .date-part input:focus {
             border-color: #42f8f5;
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
-        .date-input::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
+        .date-part input::placeholder {
+            color: #6d8ba0;
+            font-size: 0.7rem;
+        }
+
+        .date-separator {
+            color: #42f8f5;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
         }
 
         /* Quick Select Buttons */
@@ -133,7 +156,7 @@
             background: #1e2b37;
             border: 1px solid #42f8f5;
             border-radius: 20px;
-            padding: 6px 3px;
+            padding: 8px 3px;
             color: white;
             font-size: 0.7rem;
             cursor: pointer;
@@ -145,14 +168,13 @@
             background: #42f8f5;
             color: #12151a;
             transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
         }
 
         /* Result Display */
         .result-display {
             background: #12151a;
             border-radius: 16px;
-            padding: 15px;
+            padding: 20px;
             margin: 15px 0;
             border: 2px solid #42f8f5;
         }
@@ -167,6 +189,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.2;
+            font-family: monospace;
         }
 
         .main-label {
@@ -177,7 +200,7 @@
         .detail-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 10px;
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid #42f8f5;
@@ -199,44 +222,6 @@
             text-transform: uppercase;
         }
 
-        /* Additional Info */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .info-card {
-            background: #12151a;
-            border-radius: 12px;
-            padding: 12px;
-            border: 1px solid #42f8f5;
-        }
-
-        .info-title {
-            color: #b0c4de;
-            font-size: 0.7rem;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .info-title i {
-            color: #42f8f5;
-        }
-
-        .info-value {
-            color: white;
-            font-size: 0.9rem;
-        }
-
-        .info-value span {
-            color: #42f8f5;
-            font-weight: 600;
-        }
-
         /* Action Buttons */
         .action-grid {
             display: grid;
@@ -250,7 +235,7 @@
             border: 1px solid #42f8f5;
             border-radius: 20px;
             padding: 10px 5px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -265,7 +250,7 @@
         }
 
         .action-btn i {
-            margin-right: 5px;
+            margin-right: 3px;
         }
 
         .action-btn.primary {
@@ -349,10 +334,6 @@
                 font-size: 1.1rem;
             }
             
-            .card-icon {
-                font-size: 1.3rem;
-            }
-            
             .date-row {
                 flex-direction: column;
                 gap: 10px;
@@ -366,16 +347,23 @@
                 grid-template-columns: 1fr;
             }
             
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .action-grid {
                 grid-template-columns: 1fr;
             }
             
             .main-number {
                 font-size: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            .date-input-group {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .date-separator {
+                display: none;
             }
         }
     </style>
@@ -391,14 +379,43 @@
 
         <!-- Input Section -->
         <div class="input-section">
+            <!-- Start Date -->
             <div class="date-row">
                 <div class="date-field">
-                    <label class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</label>
-                    <input class="date-input" type="date" id="startDate">
+                    <div class="date-label"><i class="fas fa-calendar-alt"></i> Start Date</div>
+                    <div class="date-input-group">
+                        <div class="date-part">
+                            <input type="text" id="startDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-part">
+                            <input type="text" id="startMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="01" autocomplete="off">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-part">
+                            <input type="text" id="startYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off">
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- End Date -->
+            <div class="date-row">
                 <div class="date-field">
-                    <label class="date-label"><i class="fas fa-calendar-check"></i> End Date</label>
-                    <input class="date-input" type="date" id="endDate">
+                    <div class="date-label"><i class="fas fa-calendar-check"></i> End Date</div>
+                    <div class="date-input-group">
+                        <div class="date-part">
+                            <input type="text" id="endDay" placeholder="DD" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="08" autocomplete="off">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-part">
+                            <input type="text" id="endMonth" placeholder="MM" maxlength="2" inputmode="numeric" pattern="[0-9]*" value="03" autocomplete="off">
+                        </div>
+                        <div class="date-separator">-</div>
+                        <div class="date-part">
+                            <input type="text" id="endYear" placeholder="YYYY" maxlength="4" inputmode="numeric" pattern="[0-9]*" value="2026" autocomplete="off">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -406,19 +423,15 @@
             <div class="quick-grid">
                 <button class="quick-btn" onclick="setToday()">Today</button>
                 <button class="quick-btn" onclick="setTomorrow()">Tomorrow</button>
-                <button class="quick-btn" onclick="setNextWeek()">Next Week</button>
-                <button class="quick-btn" onclick="setNextMonth()">Next Month</button>
-                <button class="quick-btn" onclick="setNextYear()">Next Year</button>
-                <button class="quick-btn" onclick="setLastWeek()">Last Week</button>
-                <button class="quick-btn" onclick="setLastMonth()">Last Month</button>
-                <button class="quick-btn" onclick="setLastYear()">Last Year</button>
+                <button class="quick-btn" onclick="setNextWeek()">+7 days</button>
+                <button class="quick-btn" onclick="setNextMonth()">+1 month</button>
             </div>
         </div>
 
         <!-- Main Result -->
         <div class="result-display">
             <div class="main-result">
-                <div class="main-number" id="totalDays">0</div>
+                <div class="main-number" id="totalDays">7</div>
                 <div class="main-label">Total Days Difference</div>
             </div>
 
@@ -432,37 +445,9 @@
                     <div class="detail-label">Months</div>
                 </div>
                 <div class="detail-item">
-                    <div class="detail-number" id="days">0</div>
+                    <div class="detail-number" id="days">7</div>
                     <div class="detail-label">Days</div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Additional Info -->
-        <div class="info-grid">
-            <div class="info-card">
-                <div class="info-title"><i class="fas fa-clock"></i> In Hours</div>
-                <div class="info-value"><span id="hours">0</span> hours</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title"><i class="fas fa-clock"></i> In Minutes</div>
-                <div class="info-value"><span id="minutes">0</span> minutes</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title"><i class="fas fa-calendar-week"></i> In Weeks</div>
-                <div class="info-value"><span id="weeks">0</span> weeks</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title"><i class="fas fa-calendar-day"></i> Weekdays</div>
-                <div class="info-value"><span id="weekdays">0</span> days</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title"><i class="fas fa-umbrella-beach"></i> Weekends</div>
-                <div class="info-value"><span id="weekends">0</span> days</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title"><i class="fas fa-hourglass-half"></i> % of Year</div>
-                <div class="info-value"><span id="percentOfYear">0</span>%</div>
             </div>
         </div>
 
@@ -502,138 +487,70 @@
     </div>
 
     <script>
-        // Set default dates
-        function setDefaultDates() {
-            const today = new Date();
-            const startDate = document.getElementById('startDate');
-            const endDate = document.getElementById('endDate');
-            
-            // Format today as YYYY-MM-DD
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            
-            // Set start date to today
-            startDate.value = `${year}-${month}-${day}`;
-            
-            // Set end date to today + 7 days
-            const nextWeek = new Date(today);
-            nextWeek.setDate(today.getDate() + 7);
-            const endYear = nextWeek.getFullYear();
-            const endMonth = String(nextWeek.getMonth() + 1).padStart(2, '0');
-            const endDay = String(nextWeek.getDate()).padStart(2, '0');
-            endDate.value = `${endYear}-${endMonth}-${endDay}`;
-        }
-
-        // Set to today
+        // Set today's date
         function setToday() {
             const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            
-            if (event.target.closest('.quick-btn')) {
-                // If called from a button, we need to know which date to set
-                const btnText = event.target.textContent;
-                if (btnText === 'Today') {
-                    document.getElementById('startDate').value = `${year}-${month}-${day}`;
-                }
-            }
+            document.getElementById('startDay').value = String(today.getDate()).padStart(2, '0');
+            document.getElementById('startMonth').value = String(today.getMonth() + 1).padStart(2, '0');
+            document.getElementById('startYear').value = today.getFullYear();
             calculateDifference();
         }
 
         function setTomorrow() {
-            const date = new Date();
-            date.setDate(date.getDate() + 1);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('endDate').value = `${year}-${month}-${day}`;
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('endDay').value = String(tomorrow.getDate()).padStart(2, '0');
+            document.getElementById('endMonth').value = String(tomorrow.getMonth() + 1).padStart(2, '0');
+            document.getElementById('endYear').value = tomorrow.getFullYear();
             calculateDifference();
         }
 
         function setNextWeek() {
-            const date = new Date();
-            date.setDate(date.getDate() + 7);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('endDate').value = `${year}-${month}-${day}`;
+            const nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            document.getElementById('endDay').value = String(nextWeek.getDate()).padStart(2, '0');
+            document.getElementById('endMonth').value = String(nextWeek.getMonth() + 1).padStart(2, '0');
+            document.getElementById('endYear').value = nextWeek.getFullYear();
             calculateDifference();
         }
 
         function setNextMonth() {
-            const date = new Date();
-            date.setMonth(date.getMonth() + 1);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('endDate').value = `${year}-${month}-${day}`;
-            calculateDifference();
-        }
-
-        function setNextYear() {
-            const date = new Date();
-            date.setFullYear(date.getFullYear() + 1);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('endDate').value = `${year}-${month}-${day}`;
-            calculateDifference();
-        }
-
-        function setLastWeek() {
-            const date = new Date();
-            date.setDate(date.getDate() - 7);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('startDate').value = `${year}-${month}-${day}`;
-            calculateDifference();
-        }
-
-        function setLastMonth() {
-            const date = new Date();
-            date.setMonth(date.getMonth() - 1);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('startDate').value = `${year}-${month}-${day}`;
-            calculateDifference();
-        }
-
-        function setLastYear() {
-            const date = new Date();
-            date.setFullYear(date.getFullYear() - 1);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            document.getElementById('startDate').value = `${year}-${month}-${day}`;
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            document.getElementById('endDay').value = String(nextMonth.getDate()).padStart(2, '0');
+            document.getElementById('endMonth').value = String(nextMonth.getMonth() + 1).padStart(2, '0');
+            document.getElementById('endYear').value = nextMonth.getFullYear();
             calculateDifference();
         }
 
         // Calculate date difference
         function calculateDifference() {
-            const startDate = new Date(document.getElementById('startDate').value);
-            const endDate = new Date(document.getElementById('endDate').value);
+            // Get start date
+            const startDay = parseInt(document.getElementById('startDay').value) || 1;
+            const startMonth = parseInt(document.getElementById('startMonth').value) || 1;
+            const startYear = parseInt(document.getElementById('startYear').value) || 2000;
             
-            if (!startDate || !endDate) {
-                alert('Please select both dates');
-                return;
-            }
+            // Get end date
+            const endDay = parseInt(document.getElementById('endDay').value) || 1;
+            const endMonth = parseInt(document.getElementById('endMonth').value) || 1;
+            const endYear = parseInt(document.getElementById('endYear').value) || 2000;
+
+            // Create date objects
+            const startDate = new Date(startYear, startMonth - 1, startDay);
+            const endDate = new Date(endYear, endMonth - 1, endDay);
 
             // Calculate total days
             const diffTime = Math.abs(endDate - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             
             // Calculate years, months, days
-            let years = endDate.getFullYear() - startDate.getFullYear();
-            let months = endDate.getMonth() - startDate.getMonth();
-            let days = endDate.getDate() - startDate.getDate();
+            let years = endYear - startYear;
+            let months = endMonth - startMonth;
+            let days = endDay - startDay;
 
             if (days < 0) {
                 months--;
-                const lastMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                const lastMonth = new Date(endYear, endMonth - 1, 0);
                 days += lastMonth.getDate();
             }
 
@@ -642,65 +559,40 @@
                 months += 12;
             }
 
-            // Calculate additional info
-            const hours = diffDays * 24;
-            const minutes = hours * 60;
-            const weeks = (diffDays / 7).toFixed(1);
-            
-            // Calculate weekdays and weekends
-            let weekdays = 0;
-            let weekends = 0;
-            let currentDate = new Date(startDate);
-            
-            while (currentDate <= endDate) {
-                const dayOfWeek = currentDate.getDay();
-                if (dayOfWeek === 0 || dayOfWeek === 6) {
-                    weekends++;
-                } else {
-                    weekdays++;
-                }
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
-
-            // Calculate percentage of year
-            const daysInYear = (endDate.getFullYear() % 4 === 0) ? 366 : 365;
-            const percentOfYear = ((diffDays / daysInYear) * 100).toFixed(1);
-
             // Update displays
             document.getElementById('totalDays').textContent = diffDays;
             document.getElementById('years').textContent = years;
             document.getElementById('months').textContent = months;
             document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours.toLocaleString();
-            document.getElementById('minutes').textContent = minutes.toLocaleString();
-            document.getElementById('weeks').textContent = weeks;
-            document.getElementById('weekdays').textContent = weekdays;
-            document.getElementById('weekends').textContent = weekends;
-            document.getElementById('percentOfYear').textContent = percentOfYear;
         }
 
         // Swap dates
         function swapDates() {
-            const startDate = document.getElementById('startDate');
-            const endDate = document.getElementById('endDate');
+            const startDay = document.getElementById('startDay').value;
+            const startMonth = document.getElementById('startMonth').value;
+            const startYear = document.getElementById('startYear').value;
+            const endDay = document.getElementById('endDay').value;
+            const endMonth = document.getElementById('endMonth').value;
+            const endYear = document.getElementById('endYear').value;
             
-            const temp = startDate.value;
-            startDate.value = endDate.value;
-            endDate.value = temp;
+            document.getElementById('startDay').value = endDay;
+            document.getElementById('startMonth').value = endMonth;
+            document.getElementById('startYear').value = endYear;
+            document.getElementById('endDay').value = startDay;
+            document.getElementById('endMonth').value = startMonth;
+            document.getElementById('endYear').value = startYear;
             
             calculateDifference();
         }
 
         // Copy result
         function copyResult() {
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
             const totalDays = document.getElementById('totalDays').textContent;
             const years = document.getElementById('years').textContent;
             const months = document.getElementById('months').textContent;
             const days = document.getElementById('days').textContent;
             
-            const text = `From ${startDate} to ${endDate}: ${totalDays} total days (${years} years, ${months} months, ${days} days)`;
+            const text = `Date Difference: ${totalDays} total days (${years} years, ${months} months, ${days} days)`;
             
             navigator.clipboard.writeText(text).then(() => {
                 alert('Result copied to clipboard!');
@@ -709,10 +601,30 @@
             });
         }
 
+        // Restrict to numbers only
+        document.querySelectorAll('.date-part input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                if (input.placeholder === 'DD' || input.placeholder === 'MM') {
+                    if (input.value.length === 1) {
+                        input.value = '0' + input.value;
+                    }
+                }
+                if (input.placeholder === 'YYYY' && input.value.length > 4) {
+                    input.value = input.value.slice(0, 4);
+                }
+            });
+        });
+
         // Initialize
         window.addEventListener('load', () => {
-            setDefaultDates();
-            calculateDifference();
+            setToday();
+            setTomorrow(); // Sets end date to tomorrow
         });
     </script>
 </body>
