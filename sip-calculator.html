@@ -7,10 +7,23 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <!-- Link to your master stylesheet -->
     <style>
-        /* ===== SIP CALCULATOR SPECIFIC STYLES ===== */
-        /* Matching the uniform theme of other tools */
+        /* ===== MASTER STYLES - MATCHING INDEX.HTML THEME ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #E8DE99;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
 
         .calculator-card {
             background: #1c222d;
@@ -20,7 +33,49 @@
             max-width: 550px;
             border: 2px solid #42f8f5;
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            margin: 20px auto;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #42f8f5;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #42f8f5;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .card-icon {
+            color: #42f8f5;
+            font-size: 1.6rem;
+        }
+
+        .card-badge {
+            background: #12151a;
+            color: #42f8f5;
+            padding: 4px 12px;
+            border-radius: 25px;
+            border: 1px solid #42f8f5;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* ===== INPUT SECTION ===== */
+        .input-section {
+            background: #12151a;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #42f8f5;
         }
 
         .input-row {
@@ -56,6 +111,7 @@
             align-items: center;
             gap: 4px;
         }
+
         .input-label i {
             color: #42f8f5;
             font-size: 0.6rem;
@@ -66,11 +122,13 @@
             background: #1e2b37;
             border: 1px solid #42f8f5;
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             color: white;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-family: 'Poppins', sans-serif;
             outline: none;
+            autocomplete: off;
+            -webkit-autofill: none;
         }
 
         .input-field:focus {
@@ -78,6 +136,7 @@
             box-shadow: 0 0 10px rgba(66, 248, 245, 0.3);
         }
 
+        /* Slider */
         .slider-container {
             margin-top: 5px;
             margin-bottom: 15px;
@@ -103,6 +162,7 @@
             box-shadow: 0 2px 8px rgba(66, 248, 245, 0.4);
         }
 
+        /* ===== RESULTS GRID ===== */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -118,6 +178,7 @@
             border: 1px solid #42f8f5;
             transition: all 0.2s ease;
         }
+
         .result-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(66, 248, 245, 0.2);
@@ -137,6 +198,7 @@
             font-family: monospace;
         }
 
+        /* ===== RETURNS VISUALIZATION ===== */
         .returns-section {
             background: #12151a;
             border-radius: 12px;
@@ -153,7 +215,10 @@
             align-items: center;
             gap: 5px;
         }
-        .returns-title i { color: #42f8f5; }
+
+        .returns-title i {
+            color: #42f8f5;
+        }
 
         .returns-bar {
             height: 30px;
@@ -162,6 +227,7 @@
             overflow: hidden;
             margin-bottom: 8px;
         }
+
         .invested-bar {
             background: #1e2b37;
             height: 100%;
@@ -172,6 +238,7 @@
             font-size: 0.7rem;
             border-right: 1px solid #42f8f5;
         }
+
         .returns-gain-bar {
             background: #42f8f5;
             height: 100%;
@@ -183,6 +250,7 @@
             font-weight: 600;
         }
 
+        /* ===== SUMMARY SECTION ===== */
         .summary-section {
             background: #12151a;
             border-radius: 16px;
@@ -199,7 +267,10 @@
             align-items: center;
             gap: 5px;
         }
-        .summary-title i { color: #42f8f5; }
+
+        .summary-title i {
+            color: #42f8f5;
+        }
 
         .summary-row {
             display: flex;
@@ -207,12 +278,65 @@
             padding: 8px 0;
             border-bottom: 1px solid #2a4055;
         }
-        .summary-row:last-child { border-bottom: none; }
-        .summary-label { color: #b0c4de; font-size: 0.8rem; }
-        .summary-value { color: #42f8f5; font-size: 0.9rem; font-weight: 600; }
 
-        /* ========== AFFILIATE LINKS SECTION ========== */
-        /* Styled exactly like Advanced Calculator */
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #b0c4de;
+            font-size: 0.8rem;
+        }
+
+        .summary-value {
+            color: #42f8f5;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ===== ACTION BUTTONS ===== */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .action-btn {
+            background: #12151a;
+            border: 1px solid #42f8f5;
+            border-radius: 20px;
+            padding: 10px 5px;
+            font-size: 0.75rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: #42f8f5;
+            color: #12151a;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 248, 245, 0.3);
+        }
+
+        .action-btn i {
+            margin-right: 3px;
+        }
+
+        .action-btn.primary {
+            background: #42f8f5;
+            color: #12151a;
+            font-weight: 600;
+        }
+
+        .action-btn.primary:hover {
+            background: transparent;
+            color: #42f8f5;
+        }
+
+        /* ===== AFFILIATE LINKS ===== */
         .landing-links {
             margin-top: 20px;
             display: flex;
@@ -225,7 +349,7 @@
             background: #12151a;
             border: 2px solid #42f8f5;
             border-radius: 16px;
-            padding: 18px;
+            padding: 15px;
             text-align: center;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -239,8 +363,8 @@
 
         .landing-link h3 {
             color: #42f8f5;
-            font-size: 1.1rem;
-            margin-bottom: 6px;
+            font-size: 1rem;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -249,8 +373,8 @@
 
         .landing-link p {
             color: #c5d1de;
-            font-size: 0.85rem;
-            margin-bottom: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
         }
 
         .landing-badge {
@@ -258,7 +382,7 @@
             background: #42f8f5;
             color: #12151a;
             font-weight: 600;
-            padding: 6px 20px;
+            padding: 6px 18px;
             border-radius: 30px;
             font-size: 0.8rem;
             transition: 0.2s;
@@ -268,7 +392,6 @@
             background: white;
         }
 
-        /* Disclaimer Note (optional, for transparency) */
         .affiliate-disclaimer {
             color: #6d8ba0;
             font-size: 0.6rem;
@@ -277,11 +400,23 @@
             font-style: italic;
         }
 
-        /* Footer */
+        /* ===== ADSTERRA AD ===== */
+        .ad-container {
+            width: 100%;
+            margin: 15px 0 10px;
+            text-align: center;
+            background: #12151a;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #42f8f5;
+        }
+
+        /* ===== FOOTER ===== */
         .footer {
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: center;
         }
+
         .home-link {
             display: inline-block;
             color: #42f8f5;
@@ -293,53 +428,99 @@
             font-size: 0.8rem;
             transition: all 0.3s ease;
         }
+
         .home-link:hover {
             background: #42f8f5;
             color: #1c222d;
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(66, 248, 245, 0.4);
         }
+
         .footer-email {
             margin: 12px 0 8px;
             color: #6d8ba0;
             font-size: 0.75rem;
         }
+
         .footer-email a {
             color: #42f8f5;
             text-decoration: none;
         }
-        .footer-email a:hover { text-decoration: underline; }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
         .copyright {
             color: #6d8ba0;
             font-size: 0.7rem;
         }
 
+        /* ===== MOBILE OPTIMIZATIONS ===== */
         @media screen and (max-width: 500px) {
-            .calculator-card { padding: 15px; }
-            .input-row { flex-direction: column; }
-            .input-icon { width: 100%; }
-            .results-grid { grid-template-columns: 1fr; }
-            .result-value { font-size: 1.3rem; }
-            .returns-bar { height: 40px; flex-direction: column; }
-            .invested-bar, .returns-gain-bar { width: 100% !important; height: 20px; }
+            body {
+                padding: 10px;
+            }
+            
+            .calculator-card {
+                padding: 15px;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .input-icon {
+                width: 100%;
+                height: 45px;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-value {
+                font-size: 1.3rem;
+            }
+            
+            .returns-bar {
+                height: 40px;
+                flex-direction: column;
+            }
+            
+            .invested-bar, .returns-gain-bar {
+                width: 100% !important;
+                height: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="calculator-card">
-        <div class="card-header"> <!-- Assumes .card-header is in style.css -->
-            <div class="card-title"><span class="card-icon">📈</span> SIP Calculator</div>
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">📈</span> SIP Calculator
+            </div>
             <div class="card-badge">MF</div>
         </div>
 
         <!-- Input Section -->
-        <div class="input-section"> <!-- Assumes .input-section is in style.css -->
+        <div class="input-section">
             <!-- Monthly Investment -->
             <div class="input-row">
                 <div class="input-icon">₹</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Monthly Investment</div>
-                    <input type="number" class="input-field" id="monthlyInvestment" value="5000" min="100" step="500">
+                    <input type="number" class="input-field" id="monthlyInvestment" value="5000" min="100" step="500" autocomplete="off">
                 </div>
             </div>
             <div class="slider-container">
@@ -351,7 +532,7 @@
                 <div class="input-icon">%</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Expected Return (% p.a.)</div>
-                    <input type="number" class="input-field" id="returnRate" value="12" min="1" max="30" step="0.5">
+                    <input type="number" class="input-field" id="returnRate" value="12" min="1" max="30" step="0.5" autocomplete="off">
                 </div>
             </div>
             <div class="slider-container">
@@ -363,7 +544,7 @@
                 <div class="input-icon">📅</div>
                 <div class="input-group">
                     <div class="input-label"><i class="fas fa-circle"></i> Time Period (Years)</div>
-                    <input type="number" class="input-field" id="timePeriod" value="10" min="1" max="40" step="1">
+                    <input type="number" class="input-field" id="timePeriod" value="10" min="1" max="40" step="1" autocomplete="off">
                 </div>
             </div>
             <div class="slider-container">
@@ -395,28 +576,38 @@
         <!-- Investment Summary -->
         <div class="summary-section">
             <div class="summary-title"><i class="fas fa-calculator"></i> Investment Summary</div>
-            <div class="summary-row"><span class="summary-label">Monthly SIP</span><span class="summary-value" id="monthlySIP">₹ 5,000</span></div>
-            <div class="summary-row"><span class="summary-label">Total Investment</span><span class="summary-value" id="totalInvestment">₹ 6,00,000</span></div>
-            <div class="summary-row"><span class="summary-label">Wealth Gain</span><span class="summary-value" id="wealthGain">₹ 5,60,000</span></div>
-            <div class="summary-row"><span class="summary-label">XIRR Returns</span><span class="summary-value" id="xirrReturns">12.0%</span></div>
+            <div class="summary-row">
+                <span class="summary-label">Monthly SIP</span>
+                <span class="summary-value" id="monthlySIP">₹ 5,000</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Total Investment</span>
+                <span class="summary-value" id="totalInvestment">₹ 6,00,000</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Wealth Gain</span>
+                <span class="summary-value" id="wealthGain">₹ 5,60,000</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">XIRR Returns</span>
+                <span class="summary-value" id="xirrReturns">12.0%</span>
+            </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="action-grid"> <!-- Assumes .action-grid is in style.css -->
+        <div class="action-grid">
             <button class="action-btn primary" onclick="calculateSIP()"><i class="fas fa-calculator"></i> Calculate</button>
             <button class="action-btn" onclick="resetValues()"><i class="fas fa-undo"></i> Reset</button>
             <button class="action-btn" onclick="copySummary()"><i class="fas fa-copy"></i> Copy</button>
         </div>
 
-        <!-- ========== AFFILIATE LINKS SECTION (Styled like Advanced Calculator) ========== -->
+        <!-- Affiliate Links -->
         <div class="landing-links">
-            <!-- Primary Affiliate Link: Road to Successful Investing -->
             <a href="https://www.digistore24.com/redir/475469/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer" class="landing-link">
                 <h3><i class="fas fa-book"></i> 📚 Road to Successful Investing</h3>
                 <p>Stock Investing Guide Book - Master the stock market with proven strategies</p>
                 <span class="landing-badge">Learn More →</span>
             </a>
-            <!-- Secondary Affiliate Link: Cashflow Secrets -->
             <a href="https://www.digistore24.com/redir/489118/Top100PercentSandhya/" target="_blank" rel="noopener noreferrer" class="landing-link">
                 <h3><i class="fas fa-bolt"></i> ⚡ Cashflow Secrets</h3>
                 <p>Member Area & Video Courses - Exclusive access to complete video training library</p>
@@ -425,6 +616,12 @@
             <div class="affiliate-disclaimer">
                 <i class="fas fa-info-circle"></i> Affiliate links. They help support our free tools.
             </div>
+        </div>
+
+        <!-- Adsterra Native Banner Ad -->
+        <div class="ad-container">
+            <script async="async" data-cfasync="false" src="https://progressmagnify.com/ea58333732a8a42313578cba2aad5256/invoke.js"></script>
+            <div id="container-ea58333732a8a42313578cba2aad5256"></div>
         </div>
 
         <!-- Footer -->
@@ -436,7 +633,7 @@
     </div>
 
     <script>
-        // ===== SIP CALCULATOR FUNCTIONALITY (Completely Unchanged) =====
+        // ===== SIP CALCULATOR FUNCTIONALITY =====
         const monthlyInvestment = document.getElementById('monthlyInvestment');
         const investmentSlider = document.getElementById('investmentSlider');
         const returnRate = document.getElementById('returnRate');
@@ -463,11 +660,16 @@
             const years = parseFloat(timePeriod.value) || 0;
 
             if (P <= 0 || annualRate <= 0 || years <= 0) {
-                investedAmount.textContent = '₹ 0'; totalValue.textContent = '₹ 0';
-                monthlySIP.textContent = '₹ 0'; totalInvestment.textContent = '₹ 0';
-                wealthGain.textContent = '₹ 0'; xirrReturns.textContent = '0%';
-                investedBar.style.width = '100%'; gainsBar.style.width = '0%';
-                investedBar.textContent = '₹ 0'; gainsBar.textContent = '₹ 0';
+                investedAmount.textContent = '₹ 0';
+                totalValue.textContent = '₹ 0';
+                monthlySIP.textContent = '₹ 0';
+                totalInvestment.textContent = '₹ 0';
+                wealthGain.textContent = '₹ 0';
+                xirrReturns.textContent = '0%';
+                investedBar.style.width = '100%';
+                gainsBar.style.width = '0%';
+                investedBar.textContent = '₹ 0';
+                gainsBar.textContent = '₹ 0';
                 return;
             }
 
@@ -497,8 +699,14 @@
         }
 
         function resetValues() {
-            monthlyInvestment.value = 5000; returnRate.value = 12; timePeriod.value = 10;
-            investmentSlider.value = 5000; returnSlider.value = 12; yearSlider.value = 10;
+            monthlyInvestment.value = 5000;
+            returnRate.value = 12;
+            timePeriod.value = 10;
+            
+            investmentSlider.value = 5000;
+            returnSlider.value = 12;
+            yearSlider.value = 10;
+            
             calculateSIP();
         }
 
@@ -511,16 +719,46 @@ Total Invested: ${totalInvestment.textContent}
 Wealth Gain: ${wealthGain.textContent}
 Total Value: ${totalValue.textContent}
 XIRR Returns: ${xirrReturns.textContent}`;
-            navigator.clipboard.writeText(text).then(() => alert('Summary copied to clipboard!')).catch(() => alert('Press Ctrl+C to copy'));
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Summary copied to clipboard!');
+            }).catch(() => {
+                alert('Press Ctrl+C to copy');
+            });
         }
 
-        investmentSlider.addEventListener('input', () => { monthlyInvestment.value = investmentSlider.value; calculateSIP(); });
-        returnSlider.addEventListener('input', () => { returnRate.value = returnSlider.value; calculateSIP(); });
-        yearSlider.addEventListener('input', () => { timePeriod.value = yearSlider.value; calculateSIP(); });
-        monthlyInvestment.addEventListener('input', () => { investmentSlider.value = monthlyInvestment.value; calculateSIP(); });
-        returnRate.addEventListener('input', () => { returnSlider.value = returnRate.value; calculateSIP(); });
-        timePeriod.addEventListener('input', () => { yearSlider.value = timePeriod.value; calculateSIP(); });
+        // Event listeners
+        investmentSlider.addEventListener('input', () => {
+            monthlyInvestment.value = investmentSlider.value;
+            calculateSIP();
+        });
 
+        returnSlider.addEventListener('input', () => {
+            returnRate.value = returnSlider.value;
+            calculateSIP();
+        });
+
+        yearSlider.addEventListener('input', () => {
+            timePeriod.value = yearSlider.value;
+            calculateSIP();
+        });
+
+        monthlyInvestment.addEventListener('input', () => {
+            investmentSlider.value = monthlyInvestment.value;
+            calculateSIP();
+        });
+
+        returnRate.addEventListener('input', () => {
+            returnSlider.value = returnRate.value;
+            calculateSIP();
+        });
+
+        timePeriod.addEventListener('input', () => {
+            yearSlider.value = timePeriod.value;
+            calculateSIP();
+        });
+
+        // Initialize
         window.addEventListener('load', calculateSIP);
     </script>
 </body>
